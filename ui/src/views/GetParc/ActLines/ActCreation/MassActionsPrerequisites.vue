@@ -9,7 +9,8 @@
         [
           'getparc.actCreation.carouselItem.ACTIVATE_PREACTIVATE',
           'getparc.actCreation.carouselItem.esim.FREE_RESERVATION',
-        ].find(a => a === act.title) && !userIsMVNO
+          'getparc.actCreation.carouselItem.esim.CHANGE_STATUS_PROFIL_ESIM',
+        ].find((a) => a === act.title) && !userIsMVNO
       "
       @set:preprequisites="setPrerequisites"
       :user-partner="userPartner"
@@ -21,13 +22,13 @@
           'getparc.actCreation.carouselItem.CHANGE_SERVICES',
           'getparc.actCreation.carouselItem.CHANGE_OFFER',
           'getparc.actCreation.carouselItem.CHANGE_CF',
-        ].find(a => a === act.title)
+        ].find((a) => a === act.title)
       "
       @set:preprequisites="setPrerequisites"
       :partner="userPartner"
       :can-select-billing-account="
         act.title === 'getparc.actCreation.carouselItem.CHANGE_OFFER' ||
-          act.title === 'getparc.actCreation.carouselItem.CHANGE_CF'
+        act.title === 'getparc.actCreation.carouselItem.CHANGE_CF'
       "
     />
   </div>
@@ -100,7 +101,7 @@ export default {
         'getparc.actCreation.carouselItem.TRANSFERT_LINES',
         'getparc.actCreation.carouselItem.CHANGE_MSISDN',
         'getparc.actCreation.carouselItem.CHANGE_SIMCARD',
-      ].find(a => a === actTitle);
+      ].find((a) => a === actTitle);
     },
 
     initPrerequisites() {

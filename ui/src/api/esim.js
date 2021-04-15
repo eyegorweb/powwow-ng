@@ -249,3 +249,44 @@ export async function esimLiberationProfil(
   const response = await query(queryStr, { partnerId, simCardInstanceIds, tempDataUuid, dueDate });
   return response.data.esimLiberationProfil;
 }
+
+export async function esimStatusChangeProfil({
+  filters,
+  simCardInstanceIds,
+  tempDataUuid,
+  dueDate,
+  notification,
+  targetStateEnum,
+  partnerId,
+}) {
+  const queryStr = `
+  mutation EsimStatusChangeProfil($partnerId: Long!, $simCardInstanceIds: [ID!], $tempDataUuid: String, $dueDate: DateTime!, $targetStateEnum: TargetStateEnum!, $notification: Boolean!) {
+    esimStatusChangeProfil(input: {
+      filter: {${formatFilters(filters)}}
+      partyId: $partnerId
+      simCardInstanceIds: $simCardInstanceIds
+      tempDataUuid: $tempDataUuid
+      dueDate: $dueDate
+      notification: $notification
+      targetStateEnum: $targetStateEnum
+    }) {
+      tempDataUuid
+      validated
+      errors {
+        key
+        number
+        message
+      }
+    }
+  }`;
+
+  const response = await query(queryStr, {
+    partnerId,
+    simCardInstanceIds,
+    tempDataUuid,
+    dueDate,
+    notification,
+    targetStateEnum,
+  });
+  return response.data.esimStatusChangeProfil;
+}

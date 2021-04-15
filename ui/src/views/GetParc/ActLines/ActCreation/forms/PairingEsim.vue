@@ -17,15 +17,11 @@ export default {
   },
   methods: {
     async onValidate(contextValues) {
-      console.log(
-        '🚀 ~ file: PairingEsim.vue ~ line 14 ~ onValidate ~ contextValues',
-        contextValues
-      );
       const partnerId = this.$loGet(this.actCreationPrerequisites, 'partner.id');
       const simCardTypeId = this.$loGet(this.actCreationPrerequisites, 'simcardType.id');
       let simCardInstanceIds = [];
       if (this.selectedLinesForActCreation) {
-        simCardInstanceIds = this.selectedLinesForActCreation.map(a => a.id);
+        simCardInstanceIds = this.selectedLinesForActCreation.map((a) => a.id);
       }
 
       return await pairingByStockedEid(
