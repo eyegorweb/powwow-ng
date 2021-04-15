@@ -1,11 +1,11 @@
 import { formatFilters } from '@/api/linesActions.js';
-import { query, getFilterValue, getFilterValues, getValuesIdsWithoutQuotes } from './utils';
+import { query, getFilterValues, getValuesIdsWithoutQuotes } from './utils';
 
 export async function exportEsimReservations(columns, orderBy, exportFormat, filters = []) {
   const orderingInfo = orderBy ? `, sorting: {${orderBy.key}: ${orderBy.direction}}` : '';
   const queryStr = `
   query {
-    esimReservationsExport(filter: {${formatFilters(
+    esimReservationsExport(filter: {${formatFiltersReservation(
       filters
     )}},  exportFormat: ${exportFormat} ${orderingInfo},
       full: true
@@ -31,7 +31,7 @@ export async function exportEsimReservations(columns, orderBy, exportFormat, fil
 
   return response.data.esimReservationsExport;
 }
-export function formatFilters(selectedFilters) {
+export function formatFiltersReservation(selectedFilters) {
   const gqlFilters = [];
 
   addNewFilter(gqlFilters, selectedFilters, 'filters.partners', 'partyId');
@@ -40,7 +40,7 @@ export function formatFilters(selectedFilters) {
   addNewFilter(gqlFilters, selectedFilters, 'filters.offers', 'workflowCode');
   addNewFilter(gqlFilters, selectedFilters, 'filters.quantity', 'quantity');
   addNewFilter(gqlFilters, selectedFilters, 'getsim.reservations.filters.creator', 'creatorId');
-  addActionsFilter(gqlFilters, selectedFilters, 'getsim.reservations.filters.creator', 'creatorId');
+  addActionsFilter(gqlFilters, selectedFilters);
   return gqlFilters.join(',');
 }
 
