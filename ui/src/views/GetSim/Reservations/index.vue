@@ -28,11 +28,19 @@
         :is-table-loading="isLoading"
         :show-reset="!!searchByIdValue"
         @applyFilters="applyFilters"
+        @columnOrdered="orderedColumns = $event"
         @currentFiltersChange="currentFilters = $event"
       >
         <div slot="title">
           {{ $t('getsim.reservations.tableTitle', { total: formattedTotal }) }}
         </div>
+
+        <div slot="topRight">
+          <ExportButton :export-fn="getExportFn()" :columns="orderedColumns" :order-by="orderBy" exportAll>
+            <span slot="title">{{ $t('getsim.reservations.export', { total: total }) }}</span>
+          </ExportButton>
+        </div>
+
         <div slot="before-filters">
           <Indicators v-if="indicators" :meta="indicators" disable-click precalculated />
           <br />
@@ -59,12 +67,13 @@ import DateRangeFilter from '@/components/Filters/filterbar/DateRangeFilter.vue'
 import SearchByLinesId from '@/components/SearchById';
 import Indicators from '@/components/Indicators';
 import UiButton from '@/components/ui/Button';
+import ExportButton from '@/components/ExportButton';
 
 import UsersFilter from '@/components/Filters/filterbar/UsersFilter.vue';
 import StatusCell from './StatusCell.vue';
 import ActionFilter from './ActionFilter.vue';
 
-import { fetchEsimReservations } from '@/api/esim.js';
+import { fetchEsimReservations, exportEsimReservations } from '@/api/esim.js';
 import { formatDateForGql, prepareEndDateForBackend } from '@/api/utils.js';
 import { mapGetters } from 'vuex';
 import { fetchCustomFields } from '@/api/customFields';
@@ -74,6 +83,7 @@ import { mapMutations } from 'vuex';
 export default {
   components: {
     TableWithFilter,
+    ExportButton,
     SearchByLinesId,
     Indicators,
     UiButton,
@@ -94,6 +104,7 @@ export default {
       currentFilters: undefined,
       indicators: undefined,
       lastPayload: undefined,
+      orderedColumns: undefined,
     };
   },
 
@@ -135,7 +146,6 @@ export default {
 
   methods: {
     ...mapMutations(['openPanel']),
-
     searchById(params) {
       this.searchByIdValue = params.value;
       this.applyFilters({
@@ -262,6 +272,12 @@ export default {
 
         return formatted;
       }, {});
+    },
+
+    getExportFn() {
+      return async (columnsParam, orderBy, exportFormat) => {
+        return await exportEsimReservations(columnsParam, this.orderBy, exportFormat, this.currentAppliedFilters);
+      };
     },
     async applyFilters(payload) {
       console.log('🚀 ~ file: index.vue ~ line 267 ~ applyFilters ~ payload', payload);

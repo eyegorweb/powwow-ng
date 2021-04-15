@@ -34,8 +34,16 @@
       @currentFiltersChange="onCurrentFilterChange"
       :default-values="defaultFilterValues"
       @resetSearch="resetFilters"
+        @columnOrdered="orderedColumns = $event"
       :init-page-limit="lastPagination ? lastPagination.limit : 10"
     >
+<!-- WIP -->
+<!--
+        <div slot="topRight" class="tar" v-if="total">
+          <ExportButton :export-fn="getExportFn()" :columns="orderedColumns" :order-by="orderBy" exportAll>
+            <span slot="title">{{ $t('getsim.stocks.export', { total: total }) }}</span>
+          </ExportButton>
+        </div> -->
       <div slot="title" class="mt-2 table-total">
         {{ $t('getsim.stocks.table.total', { total: formattedTotal }) }}
       </div>
@@ -56,6 +64,7 @@ import TypeSimCardCell from './TypeSimCardCell';
 import InfoStockNoPreactCell from './InfoStockNoPreactCell';
 import InfoStockPreactCell from './InfoStockPreactCell';
 import InfoStockActiveCell from './InfoStockActiveCell';
+import ExportButton from '@/components/ExportButton';
 
 export default {
   name: 'GetEsimStocks',
@@ -81,6 +90,7 @@ export default {
       rows: [],
       isLoading: false,
       filters: undefined,
+      orderedColumns: undefined,
       columns: [
         {
           id: 2,
@@ -176,6 +186,12 @@ export default {
 
   methods: {
     ...mapMutations(['openPanel']),
+    // WIP
+    // getExportFn() {
+    //   return async (columnsParam, orderBy, exportFormat) => {
+    //     return await exportEsimReservations(columnsParam, this.orderBy, exportFormat, this.currentAppliedFilters);
+    //   };
+    },
     prepareFilterBar() {
       const filters = [];
       if (!this.userIsPartner) {
@@ -266,4 +282,8 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.tar {
+  text-align: right;
+}
+</style>
