@@ -2,6 +2,19 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.277+20210415134517
+2021-04-15
+
+### Features
+
+- [2561] Changer le statut des profils eSIM (6a016beddbdc536ce9c471336c89c37131a09814)
+- [2551] Ajout export des reservations dans getsim (0d3b873be4675412520085ee0b49b5500a688531)
+
+### Fixes
+
+- [2564] Désactivation des boutons actions dans le detail alarm desactivé (9f31d63d4b07f0b70a88ea11d80c617da9a270fc)
+- [000] correction d'un problème de merge (080f07332337cca5472b30a2f4f3362171752ded)
+
 ## 1.17.0-master.276+20210415120959
 2021-04-15
 
