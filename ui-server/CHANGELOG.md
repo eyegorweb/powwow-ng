@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.282+20210416133311
+2021-04-16
+
+### Features
+
+- [2560] gestion des permissions des filtres (35c0e294b399128458f197b31c2fc73accbd2cc3)
+
 ## 1.17.0-master.281+20210416125747
 2021-04-16
 
