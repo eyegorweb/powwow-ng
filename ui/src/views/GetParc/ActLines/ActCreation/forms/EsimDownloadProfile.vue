@@ -17,7 +17,7 @@
         {{ $t('required') }}
       </div>
     </div>
-    <template v-if="partner">
+    <template v-if="canSeeActivationForm">
       <div class="toggles-container">
         <UiToggle label="Préactivation" v-model="preActivation" :editable="false" />
         <UiToggle label="Activation" v-model="activation" :editable="false" />
@@ -117,6 +117,7 @@ export default {
     ...mapGetters(['userName']),
 
     canSeeActivationForm() {
+      console.log('this.actCreationPrerequisites > ', this.actCreationPrerequisites);
       return this.actCreationPrerequisites.selectedStatus.id !== 'ACTIVATED';
     },
 
