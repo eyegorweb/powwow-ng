@@ -15,6 +15,15 @@
       @set:preprequisites="setPrerequisites"
       :user-partner="userPartner"
     />
+    <PartnerCFEsimStatus
+      v-if="
+        ['getparc.actCreation.carouselItem.esim.DOWNLOAD_ESIM_PROFILE'].find(
+          (a) => a === act.title
+        ) && !userIsMVNO
+      "
+      @set:preprequisites="setPrerequisites"
+      :user-partner="userPartner"
+    />
     <OfferPrerequisite
       :all-offers="act.title === 'getparc.actCreation.carouselItem.CHANGE_SERVICES'"
       v-if="
@@ -39,6 +48,7 @@
 import NoPrerequisitesPre from './prerequisites/NoPrerequisitesPre';
 import OfferPrerequisite from './prerequisites/OfferPrerequisite';
 import PartnerAndCF from './prerequisites/PartnerAndCF';
+import PartnerCFEsimStatus from './prerequisites/PartnerCFEsimStatus';
 import { mapState, mapActions, mapMutations, mapGetters } from 'vuex';
 
 export default {
@@ -46,6 +56,7 @@ export default {
     NoPrerequisitesPre,
     OfferPrerequisite,
     PartnerAndCF,
+    PartnerCFEsimStatus,
   },
   props: {
     act: Object,
@@ -85,6 +96,7 @@ export default {
       'resetForm',
       'setPageLimit',
       'setActToCreate',
+      'setSimStatusesFilter',
       'setBillingAccountsFilter',
     ]),
 
@@ -145,6 +157,10 @@ export default {
 
       if (allPrereq.offer) {
         this.setOffersFilter([allPrereq.offer]);
+      }
+
+      if (allPrereq.selectedStatus) {
+        this.setSimStatusesFilter([allPrereq.selectedStatus]);
       }
 
       if (allPrereq) {

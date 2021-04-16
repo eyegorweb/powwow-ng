@@ -3,7 +3,6 @@
     <div>
       <div v-if="profileStatuses" class="form-group">
         <label>{{ $t('status') }}</label>
-        {{ selectedStatus }}
         <UiSelect class="text-gray" block v-model="selectedStatus" :options="profileStatuses" />
       </div>
     </div>

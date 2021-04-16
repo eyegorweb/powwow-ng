@@ -58,6 +58,11 @@
           !isLoading
         "
       />
+      <EsimDownloadProfile
+        v-if="
+          act.title === 'getparc.actCreation.carouselItem.esim.DOWNLOAD_ESIM_PROFILE' && !isLoading
+        "
+      />
     </div>
   </div>
 </template>
@@ -81,6 +86,7 @@ import ChangeOffer from './forms/ChangeOffer';
 import PairingEsim from './forms/PairingEsim';
 import EsimFreeReservations from './forms/EsimFreeReservations';
 import EsimChangeProfile from './forms/EsimChangeProfile';
+import EsimDownloadProfile from './forms/EsimDownloadProfile';
 
 import { mapGetters } from 'vuex';
 
@@ -104,6 +110,7 @@ export default {
     PairingEsim,
     EsimFreeReservations,
     EsimChangeProfile,
+    EsimDownloadProfile,
   },
   props: {
     act: Object,
