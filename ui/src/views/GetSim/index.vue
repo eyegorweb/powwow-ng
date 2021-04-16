@@ -33,6 +33,7 @@
 import Tooltip from '@/components/ui/Tooltip';
 import UiTabs from '@/components/ui/Tabs';
 import UiTab from '@/components/ui/Tab';
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'GetSim',
@@ -50,6 +51,7 @@ export default {
   },
 
   computed: {
+    ...mapGetters(['userHaveEsimEnabled']),
     currentTabToShow() {
       if (this.$route.name.includes('reservations')) return 1;
       return 0;
@@ -78,7 +80,7 @@ export default {
   },
 
   mounted() {
-    if (this.$shouldShowMocks) {
+    if (this.userHaveEsimEnabled) {
       this.initTabs();
     }
   },

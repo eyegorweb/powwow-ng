@@ -1,56 +1,59 @@
 <template>
   <div>
-    <template v-if="$shouldShowMocks">
-      <div class="row mb-0">
-        <div class="col-md-9"></div>
-        <div class="col-md-3">
-          <permission domain="getSim" action="create">
-            <UiButton
-              variant="accent"
-              block
-              class="float-right"
-              @click="openCreateReservationPanel()"
-            >
-              {{ $t('getsim.reservations.createReservation') }}
-            </UiButton>
-          </permission>
-        </div>
+    <div class="row mb-0">
+      <div class="col-md-9"></div>
+      <div class="col-md-3">
+        <permission domain="getSim" action="create">
+          <UiButton
+            variant="accent"
+            block
+            class="float-right"
+            @click="openCreateReservationPanel()"
+          >
+            {{ $t('getsim.reservations.createReservation') }}
+          </UiButton>
+        </permission>
       </div>
-      <TableWithFilter
-        :storage-version="'001'"
-        :storage-id="'getSim.reservations'"
-        v-if="columns"
-        :filters="filters"
-        :columns="columns"
-        :rows="rows"
-        :total="total"
-        :order-by.sync="orderBy"
-        :is-table-loading="isLoading"
-        :show-reset="!!searchByIdValue"
-        @applyFilters="applyFilters"
-        @columnOrdered="orderedColumns = $event"
-        @currentFiltersChange="currentFilters = $event"
-      >
-        <div slot="title">
-          {{ $t('getsim.reservations.tableTitle', { total: formattedTotal }) }}
-        </div>
+    </div>
+    <TableWithFilter
+      :storage-version="'001'"
+      :storage-id="'getSim.reservations'"
+      v-if="columns"
+      :filters="filters"
+      :columns="columns"
+      :rows="rows"
+      :total="total"
+      :order-by.sync="orderBy"
+      :is-table-loading="isLoading"
+      :show-reset="!!searchByIdValue"
+      @applyFilters="applyFilters"
+      @columnOrdered="orderedColumns = $event"
+      @currentFiltersChange="currentFilters = $event"
+    >
+      <div slot="title">
+        {{ $t('getsim.reservations.tableTitle', { total: formattedTotal }) }}
+      </div>
 
-        <div slot="topRight">
-          <ExportButton :export-fn="getExportFn()" :columns="orderedColumns" :order-by="orderBy" exportAll>
-            <span slot="title">{{ $t('getsim.reservations.export', { total: total }) }}</span>
-          </ExportButton>
-        </div>
+      <div slot="topRight">
+        <ExportButton
+          :export-fn="getExportFn()"
+          :columns="orderedColumns"
+          :order-by="orderBy"
+          exportAll
+        >
+          <span slot="title">{{ $t('getsim.reservations.export', { total: total }) }}</span>
+        </ExportButton>
+      </div>
 
-        <div slot="before-filters">
-          <Indicators v-if="indicators" :meta="indicators" disable-click precalculated />
-          <br />
-        </div>
+      <div slot="before-filters">
+        <Indicators v-if="indicators" :meta="indicators" disable-click precalculated />
+        <br />
+      </div>
 
-        <div slot="topLeft">
-          <SearchByLinesId @searchById="searchById" :init-value="searchByIdValue" />
-        </div>
-      </TableWithFilter>
-    </template>
+      <div slot="topLeft">
+        <SearchByLinesId @searchById="searchById" :init-value="searchByIdValue" />
+      </div>
+    </TableWithFilter>
   </div>
 </template>
 
@@ -130,12 +133,12 @@ export default {
       return formatLargeNumber(this.total);
     },
     selectedPartnerIds() {
-      return this.currentPartners.map(p => p.id);
+      return this.currentPartners.map((p) => p.id);
     },
     currentPartners() {
       if (!this.currentFilters) return [];
 
-      const foundFilter = this.currentFilters.find(f => f.id === 'filters.partners');
+      const foundFilter = this.currentFilters.find((f) => f.id === 'filters.partners');
       if (foundFilter && foundFilter.values && foundFilter.values.length) {
         return foundFilter.values;
       }
@@ -177,12 +180,12 @@ export default {
         }
         if (filter.id === 'filters.partners') {
           formatted.partyId = {
-            in: filter.values.map(v => v.id),
+            in: filter.values.map((v) => v.id),
           };
         }
         if (filter.id === 'common.billingAccount') {
           formatted.customerAccountId = {
-            in: filter.values.map(v => v.id),
+            in: filter.values.map((v) => v.id),
           };
         }
         if (filter.id === 'getsim.reservations.filters.reservationDate') {
@@ -204,12 +207,12 @@ export default {
         }
         if (filter.id === 'filters.lines.typeSIMCard') {
           formatted.simCardTypeId = {
-            in: filter.values.map(v => v.data.simCard.id),
+            in: filter.values.map((v) => v.data.simCard.id),
           };
         }
         if (filter.id === 'filters.offers') {
           formatted.workflowCode = {
-            in: filter.values.map(v => v.productCode),
+            in: filter.values.map((v) => v.productCode),
           };
         }
         if (filter.id === 'filters.quantity') {
@@ -236,10 +239,10 @@ export default {
           };
         }
         if (filter.id === 'filters.lines.customFileds') {
-          filter.values.forEach(v => {
+          filter.values.forEach((v) => {
             if (
               ['custom1', 'custom2', 'custom3', 'custom4', 'custom5', 'custom6'].find(
-                customField => v.id === customField
+                (customField) => v.id === customField
               )
             ) {
               formatted[v.id] = {
@@ -251,10 +254,10 @@ export default {
 
         if (filter.id === 'filters.action') {
           const preactivationAsked = !!filter.values.find(
-            v => v.id === 'filters.actionValues.PREACTIVATED'
+            (v) => v.id === 'filters.actionValues.PREACTIVATED'
           );
           const activationAsked = !!filter.values.find(
-            v => v.id === 'filters.actionValues.ACTIVATED'
+            (v) => v.id === 'filters.actionValues.ACTIVATED'
           );
 
           if (preactivationAsked) {
@@ -276,7 +279,12 @@ export default {
 
     getExportFn() {
       return async (columnsParam, orderBy, exportFormat) => {
-        return await exportEsimReservations(columnsParam, this.orderBy, exportFormat, this.currentAppliedFilters);
+        return await exportEsimReservations(
+          columnsParam,
+          this.orderBy,
+          exportFormat,
+          this.currentAppliedFilters
+        );
       };
     },
     async applyFilters(payload) {
@@ -586,7 +594,7 @@ export default {
           visible: false,
           format: {
             type: 'Getter',
-            getter: row => {
+            getter: (row) => {
               return this.$loGet(row, 'simCardType.description');
             },
           },
@@ -599,7 +607,7 @@ export default {
           visible: false,
           format: {
             type: 'Getter',
-            getter: row => {
+            getter: (row) => {
               return this.$loGet(row, 'esimReservedMarketingOffer.description');
             },
           },
@@ -612,7 +620,7 @@ export default {
           visible: false,
           format: {
             type: 'Getter',
-            getter: row => {
+            getter: (row) => {
               return `${this.$loGet(row, 'auditable.creator.name.firstName')} ${this.$loGet(
                 row,
                 'auditable.creator.name.lastName'
@@ -628,7 +636,7 @@ export default {
           visible: false,
           format: {
             type: 'Getter',
-            getter: row => {
+            getter: (row) => {
               return this.$loGet(row, 'party.name');
             },
           },
@@ -641,7 +649,7 @@ export default {
           visible: false,
           format: {
             type: 'Getter',
-            getter: row => {
+            getter: (row) => {
               return this.$loGet(row, 'customerAccount.code');
             },
           },
@@ -661,7 +669,7 @@ export default {
       if (this.userIsPartner) {
         const partnerId = this.$loGet(this.singlePartner, 'id');
         const customFields = await fetchCustomFields(partnerId);
-        const partnerCustomFieldsColumns = customFields.customFields.map(c => {
+        const partnerCustomFieldsColumns = customFields.customFields.map((c) => {
           return {
             id: c.id,
             label: c.label,

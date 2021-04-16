@@ -89,9 +89,9 @@
             num="1"
             v-if="
               creationMode &&
-                actCreationPrerequisites &&
-                !actToCreate.containFile &&
-                !useFileImportAsInput
+              actCreationPrerequisites &&
+              !actToCreate.containFile &&
+              !useFileImportAsInput
             "
             title="getparc.actLines.step1Title"
             :color="actToCreate.color"
@@ -246,15 +246,16 @@ export default {
       'userIsMVNO',
       'havePermission',
       'userIsMultiCustomer',
+      'userHaveEsimEnabled',
     ]),
 
     ...mapState({
-      actToCreate: state => state.actLines.actToCreate,
+      actToCreate: (state) => state.actLines.actToCreate,
     }),
 
     withCustomFormBehavior() {
       if (this.actCreationPrerequisites && this.actToCreate) {
-        const isPairing = !!['PAIRING'].find(i => i === this.actToCreate.id);
+        const isPairing = !!['PAIRING'].find((i) => i === this.actToCreate.id);
         return isPairing && this.$loGet(this.actCreationPrerequisites, 'filePairing');
       }
       return false;
@@ -282,43 +283,51 @@ export default {
     },
 
     carouselItems() {
+      // esimAct: true,
+      let itemsToReturn;
       if (this.userIsPartner || this.userInfos.type === 'PARTNER_GROUP') {
-        return carouselItems
-          .filter(i => {
+        itemsToReturn = carouselItems
+          .filter((i) => {
             return !i.boOnly;
           })
-          .filter(i => {
+          .filter((i) => {
             if (i.hideForMVNO) {
               return !this.userIsMVNO;
             }
             return true;
           })
-          .filter(i => {
+          .filter((i) => {
             if (i.hideForMultiCustomer) {
               return !this.userIsMultiCustomer;
             }
             return true;
           })
-          .filter(i => {
+          .filter((i) => {
             if (i.permission) {
               return this.havePermission(i.permission.domain, i.permission.action);
             }
             return true;
           })
-          .filter(i => {
+          .filter((i) => {
             if (i.title === 'getparc.actCreation.carouselItem.CHANGE_OFFER') {
               return this.optionsPartner.offerChange;
             }
             return true;
           });
       } else {
-        return carouselItems.filter(i => {
+        itemsToReturn = carouselItems.filter((i) => {
           if (i.permission) {
             return this.havePermission(i.permission.domain, i.permission.action);
           }
           return true;
         });
       }
+
+      if (!this.userHaveEsimEnabled) {
+        return itemsToReturn.filter((i) => !i.esimAct);
+      }
+
+      return itemsToReturn;
     },
     canShowForm() {
       const actWithFileUpload = this.creationMode && this.creationMode.containFile;
@@ -357,14 +366,14 @@ export default {
     },
     partnersForIndicators() {
       if (this.defaultAppliedFilters && this.defaultAppliedFilters.length) {
-        return this.defaultAppliedFilters.find(f => f.id === 'filters.partners');
+        return this.defaultAppliedFilters.find((f) => f.id === 'filters.partners');
       }
 
       return null;
     },
   },
   beforeRouteEnter(to, from, next) {
-    next(vm => {
+    next((vm) => {
       vm.prevRoute = from.name;
       vm.initAfterRouteIsSet();
     });
@@ -665,7 +674,7 @@ export default {
       });
     },
     currentFilters(currentFilters) {
-      const haveValues = !!currentFilters.find(filter => {
+      const haveValues = !!currentFilters.find((filter) => {
         return (
           (filter.values && filter.values.length) ||
           filter.value ||

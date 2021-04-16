@@ -417,6 +417,7 @@ export default excludeMocked([
     id: 'DOWNLOAD_ESIM_PROFILE',
     stepTitle: 'getparc.actCreation.step2Titles.configure',
     selected: false,
+    esimAct: true,
     permission: { domain: 'getSim', action: 'order_esim' },
     filters: [
       {
@@ -443,6 +444,7 @@ export default excludeMocked([
     stepTitle: 'getparc.actCreation.step2Titles.configure',
     selected: false,
     permission: { domain: 'getSim', action: 'order_esim' },
+    esimAct: true,
     filters: [
       { id: 'filters.lines.SIMCardStatus', values: [{ id: 'ACTIVATED', label: 'Activée' }] },
       {
@@ -468,6 +470,7 @@ export default excludeMocked([
     id: 'FREE_RESERVATION',
     stepTitle: 'getparc.actCreation.step2Titles.configure',
     selected: false,
+    esimAct: true,
     permission: { domain: 'getSim', action: 'order_esim' },
     filters: [
       {
@@ -492,6 +495,7 @@ export default excludeMocked([
     id: 'PAIRING',
     stepTitle: 'getparc.actCreation.step2Titles.PAIRING',
     selected: false,
+    esimAct: true,
     permission: { domain: 'getSim', action: 'order_esim' },
     filters: [
       {

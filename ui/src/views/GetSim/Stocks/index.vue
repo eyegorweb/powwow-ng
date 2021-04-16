@@ -9,11 +9,9 @@
         </h4>
       </div>
       <div class="col-md-3">
-        <ff-wip>
-          <UiButton variant="accent" block class="float-right" @click="importFile()">
-            {{ $t('getsim.stocks.table.import-file') }}
-          </UiButton>
-        </ff-wip>
+        <UiButton variant="accent" block class="float-right" @click="importFile()">
+          {{ $t('getsim.stocks.table.import-file') }}
+        </UiButton>
       </div>
     </div>
 
