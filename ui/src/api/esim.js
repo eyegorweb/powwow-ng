@@ -178,42 +178,6 @@ export async function fetchEsimStockProfiles(filter, pagination) {
   }`;
 
   const response = await query(queryStr, { filter, pagination });
-  // const mockedResponse = {
-  //   "data": {
-  //     "esimStockProfiles": {
-  //       "total": 1,
-  //       "date": null,
-  //       "items": [
-  //         {
-  //           "id": 1,
-  //           "party": {
-  //             "id": 2,
-  //             "name": "LYRA NETWORK",
-  //           },
-  //           "simCardType": {
-  //             "id": 1229,
-  //             "category": "ESIM",
-  //             "label": "SIM M2M MFF2 ENDURCIE BTA3V2 STEP2 OTA GSMA31 SIMM2M129",
-  //           },
-  //           "stockPreactAppaire": 1,
-  //           "stockPreactNoAppaire": 3,
-  //           "stockNoPreactAppaire": 2,
-  //           "stockNoPreactNoAppaire": 4,
-  //           "stockActifAppaire": 6,
-  //           "stockActifNoAppaire": 5,
-  //           "eidStockAvailable": 7,
-  //           "updated": null
-  //         }
-  //       ]
-  //     }
-  //   }
-  // }
-  // if (response.errors) {
-  //   return {
-  //     errors: response.errors,
-  //   };
-  // }
-  // return mockedResponse.data.esimStockProfiles;
   return response.data.esimStockProfiles;
 }
 
@@ -356,7 +320,6 @@ export async function esimStatusChangeProfil({
 }
 
 export async function esimDownloadProfil(args) {
-  console.log('🚀 ~ file: esim.js ~ line 357 ~ esimDownloadProfil ~ args', args);
   const {
     filters,
     simCardInstanceIds,
@@ -383,7 +346,7 @@ export async function esimDownloadProfil(args) {
   mutation EsimDownloadProfil(
     $simCardInstanceIds: [ID!],
     $customerAccountID: Long!,
-    $workflowCode: String!,
+    $workflowCode: String,
     $tempDataUuid: String
     $partyId: Long!
     $dueDate: DateTime!
@@ -421,5 +384,9 @@ export async function esimDownloadProfil(args) {
     targetDownload,
     simStatus,
   });
-  return response.data.esimDownloadProfil;
+  if (response.data) {
+    return response.data.esimDownloadProfil;
+  } else {
+    return { errors: response.errors };
+  }
 }

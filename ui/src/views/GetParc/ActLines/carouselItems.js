@@ -3,31 +3,6 @@ import { excludeMocked } from '@/featureFlipping/plugin';
 export default excludeMocked([
   {
     icon: 'ic-Plug-Icon',
-    title: 'getparc.actCreation.carouselItem.esim.DOWNLOAD_ESIM_PROFILE',
-    id: 'DOWNLOAD_ESIM_PROFILE',
-    stepTitle: 'getparc.actCreation.step2Titles.configure',
-    selected: false,
-    permission: { domain: 'act', action: 'manage_main' },
-    filters: [
-      {
-        id: 'indicators.getparc.lines.esim.category',
-        value: 'eSim',
-        meta: { label: 'eSim', value: 'ESIM' },
-      },
-      {
-        id: 'indicators.getparc.lines.esim.type',
-        value: 'STEP2',
-        meta: { label: 'STEP2', value: 'STEP2' },
-      },
-      {
-        id: 'indicators.getparc.lines.esim.pairedLine',
-        value: 'Non',
-        meta: { label: 'Non', value: 'NO' },
-      },
-    ],
-  },
-  {
-    icon: 'ic-Plug-Icon',
     title: 'getparc.actCreation.carouselItem.ACTIVATE_PREACTIVATE',
     id: 'ACTIVATE_PREACTIVATE',
     stepTitle: 'getparc.actCreation.step2Titles.ACTIVATE_PREACTIVATE',
@@ -438,11 +413,36 @@ export default excludeMocked([
   },
   {
     icon: 'ic-Plug-Icon',
+    title: 'getparc.actCreation.carouselItem.esim.DOWNLOAD_ESIM_PROFILE',
+    id: 'DOWNLOAD_ESIM_PROFILE',
+    stepTitle: 'getparc.actCreation.step2Titles.configure',
+    selected: false,
+    permission: { domain: 'getSim', action: 'order_esim' },
+    filters: [
+      {
+        id: 'indicators.getparc.lines.esim.category',
+        value: 'eSim',
+        meta: { label: 'eSim', value: 'ESIM' },
+      },
+      {
+        id: 'indicators.getparc.lines.esim.type',
+        value: 'STEP2',
+        meta: { label: 'STEP2', value: 'STEP2' },
+      },
+      {
+        id: 'indicators.getparc.lines.esim.pairedLine',
+        value: 'Non',
+        meta: { label: 'Non', value: 'NO' },
+      },
+    ],
+  },
+  {
+    icon: 'ic-Plug-Icon',
     title: 'getparc.actCreation.carouselItem.esim.CHANGE_STATUS_PROFIL_ESIM',
     id: 'CHANGE_STATUS_PROFIL_ESIM',
     stepTitle: 'getparc.actCreation.step2Titles.configure',
     selected: false,
-    permission: { domain: 'act', action: 'manage_main' },
+    permission: { domain: 'getSim', action: 'order_esim' },
     filters: [
       { id: 'filters.lines.SIMCardStatus', values: [{ id: 'ACTIVATED', label: 'Activée' }] },
       {
@@ -468,7 +468,7 @@ export default excludeMocked([
     id: 'FREE_RESERVATION',
     stepTitle: 'getparc.actCreation.step2Titles.configure',
     selected: false,
-    permission: { domain: 'act', action: 'manage_main' },
+    permission: { domain: 'getSim', action: 'order_esim' },
     filters: [
       {
         id: 'indicators.getparc.lines.esim.category',
@@ -492,7 +492,7 @@ export default excludeMocked([
     id: 'PAIRING',
     stepTitle: 'getparc.actCreation.step2Titles.PAIRING',
     selected: false,
-    permission: { domain: 'act', action: 'manage_main' },
+    permission: { domain: 'getSim', action: 'order_esim' },
     filters: [
       {
         id: 'indicators.getparc.lines.esim.category',

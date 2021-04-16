@@ -117,7 +117,6 @@ export default {
     ...mapGetters(['userName']),
 
     canSeeActivationForm() {
-      console.log('this.actCreationPrerequisites > ', this.actCreationPrerequisites);
       return this.actCreationPrerequisites.selectedStatus.id !== 'ACTIVATED';
     },
 
@@ -245,7 +244,7 @@ export default {
     },
 
     async doRequest(contextValues) {
-      return await esimDownloadProfil({
+      const response = await esimDownloadProfil({
         filters: this.appliedFilters,
         simCardInstanceIds: this.selectedLinesForActCreation,
         customerAccountID: this.billingAccount
@@ -259,6 +258,7 @@ export default {
         services: this.servicesChoice,
         simStatus: this.actCreationPrerequisites.selectedStatus.id,
       });
+      return response;
     },
 
     async confirmValdation(containerValidationFn) {

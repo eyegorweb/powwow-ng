@@ -55,6 +55,9 @@ export const getters = {
   userIsOperator: state => {
     return state.userInfos && state.userInfos.type === 'OPERATOR';
   },
+  userHaveEsimEnabled: state => {
+    return state.userInfos && state.userInfos.esimEnabled;
+  },
   userIsMVNO: (state, getters) => {
     return getters.singlePartner && getters.singlePartner.partyType === 'MVNO';
   },
