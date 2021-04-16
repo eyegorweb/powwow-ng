@@ -7,6 +7,7 @@ export async function fetchCurrentUserInfos() {
       getCurrentUser {
         id
         preferredLocale
+        esimEnabled
         name {
           title
           firstName

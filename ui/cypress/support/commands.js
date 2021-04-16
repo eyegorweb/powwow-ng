@@ -13,6 +13,8 @@ Cypress.Commands.add('login', (username, password) => {
 Cypress.Commands.add('startAsBO', () => {
   cy.userIsMonoPartner = false;
   cy.visit(Cypress.env('APP_URL') + 'p/callback#access_token=' + Cypress.env('BO_TOKEN'));
+
+  cy.get('#app-loader').should('not.be.visible');
 });
 
 Cypress.Commands.add('startAsPartner', () => {
