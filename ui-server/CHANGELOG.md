@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.281+20210416125747
+2021-04-16
+
+### Fixes
+
+- [2551] Problème de gestion du filtre action dans lexport (42cc49242b4951b17d30b02055961b0e06645424)
+- [2570] Problème de permissions sur le detail de partner (706b2ed08f78d699aba1a3418aef199a042ddb28)
+
 ## 1.17.0-master.280+20210416114427
 2021-04-16
 
