@@ -52,15 +52,17 @@ function addNewFilter(gqlFilters, selectedFilters, filterName, filterApiName) {
 }
 
 function addActionsFilter(gqlFilters, selectedFilters) {
-  const partyIds = getFilterValues(selectedFilters, 'filters.action');
-  partyIds.forEach(e => {
-    if (e.id === 'filters.actionValues.ACTIVATED' && e.value) {
-      gqlFilters.push(`activationAsked: {eq: ${e.value}}`);
-    }
-    if (e.id === 'filters.actionValues.PREACTIVATED' && e.value) {
-      gqlFilters.push(`preactivationAsked: {eq: ${e.value}}`);
-    }
-  });
+  const actions = getFilterValues(selectedFilters, 'filters.action');
+  if (actions) {
+    actions.forEach(e => {
+      if (e.id === 'filters.actionValues.ACTIVATED' && e.value) {
+        gqlFilters.push(`activationAsked: {eq: ${e.value}}`);
+      }
+      if (e.id === 'filters.actionValues.PREACTIVATED' && e.value) {
+        gqlFilters.push(`preactivationAsked: {eq: ${e.value}}`);
+      }
+    });
+  }
 }
 
 export async function fetchEsimReservations(filter, pagination, sorting) {
