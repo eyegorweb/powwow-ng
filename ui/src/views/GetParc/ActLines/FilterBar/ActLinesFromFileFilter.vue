@@ -1,5 +1,5 @@
 <template>
-  <SearchLinesByFileImportFilter :file-meta="fileMeta" @clear="onClear" @setFilter="onSetFilter" />
+  <SearchLinesByFileImportFilter :file-meta="fileMeta" @clear="onClear" @setFilter="onSetFilter" :addOptions="otherOptions" />
 </template>
 
 <script>
@@ -7,6 +7,16 @@ import SearchLinesByFileImportFilter from '@/components/Filters/SearchLinesByFil
 import { mapMutations, mapGetters, mapActions } from 'vuex';
 
 export default {
+  data() {
+    return {
+      otherOptions:
+        {
+          code: 'c6',
+          label: 'EID',
+          value: 'EID',
+        },
+    }
+  },
   components: {
     SearchLinesByFileImportFilter,
   },

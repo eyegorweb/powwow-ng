@@ -26,6 +26,7 @@ export default {
   },
   props: {
     fileMeta: Object,
+    addOptions: Object,
   },
 
   watch: {
@@ -36,6 +37,11 @@ export default {
     },
   },
 
+  mounted () {
+    if(this.addOptions) {
+      this.options.push(this.addOptions);
+    };
+  },
   data() {
     return {
       selectedType: null,
