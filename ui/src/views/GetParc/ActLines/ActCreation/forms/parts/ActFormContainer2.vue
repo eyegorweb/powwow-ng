@@ -5,7 +5,7 @@
         <div class="col-7">
           <slot />
           <div v-if="!excludeDefaultFields">
-            <div class="row">
+            <div class="row" v-if="!disabledNotificationCheck">
               <div class="col d-flex">
                 <UiCheckbox v-model="notificationCheck" />
                 <span>{{ $t('getparc.actCreation.NOTIFICATION_CHECK') }}</span>
@@ -149,6 +149,7 @@ export default {
     noModal: Boolean,
     preventSend: Boolean,
     partnerType: String,
+    disabledNotificationCheck: Boolean,
     canChangeDate: {
       type: Boolean,
       default: true,

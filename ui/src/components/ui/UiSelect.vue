@@ -92,7 +92,7 @@ export default {
 }
 
 select {
-  padding: 0.55rem 0.8rem;
+  padding: 0.4rem 0.8rem;
   padding-right: 0 !important;
   border-radius: 0;
 }

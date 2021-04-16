@@ -1,5 +1,5 @@
 import { formatFilters } from '@/api/linesActions.js';
-import { query, getFilterValues, getValuesIdsWithoutQuotes } from './utils';
+import { query, getFilterValues, getValuesIdsWithoutQuotes, formatServicesForGQL } from './utils';
 
 export async function exportEsimReservations(columns, orderBy, exportFormat, filters = []) {
   const orderingInfo = orderBy ? `, sorting: {${orderBy.key}: ${orderBy.direction}}` : '';
@@ -351,4 +351,73 @@ export async function esimStatusChangeProfil({
     targetStateEnum,
   });
   return response.data.esimStatusChangeProfil;
+}
+
+export async function esimDownloadProfil(args) {
+  console.log('🚀 ~ file: esim.js ~ line 357 ~ esimDownloadProfil ~ args', args);
+  const {
+    filters,
+    simCardInstanceIds,
+    customerAccountID,
+    workflowCode,
+    tempDataUuid,
+    partyId,
+    dueDate,
+    services,
+    targetDownload,
+    simStatus,
+  } = args;
+
+  let changeServicesParamsGql = '';
+
+  if (services) {
+    changeServicesParamsGql = formatServicesForGQL({
+      data: services.dataService,
+      services: services.services,
+    });
+  }
+
+  const queryStr = `
+  mutation EsimDownloadProfil(
+    $simCardInstanceIds: [ID!],
+    $customerAccountID: Long!,
+    $workflowCode: String!,
+    $tempDataUuid: String
+    $partyId: Long!
+    $dueDate: DateTime!
+    $targetDownload: DownloadStateEnum!
+    $simStatus: SimCardActivationStatusEnum!) {
+    esimDownloadProfil(input: {
+      simCardInstanceIds: $simCardInstanceIds
+      customerAccountID: $customerAccountID
+      workflowCode: $workflowCode
+      tempDataUuid: $tempDataUuid
+      partyId: $partyId
+      dueDate: $dueDate
+      targetDownload: $targetDownload
+      simStatus: $simStatus
+      filter: {${formatFilters(filters)}}
+      ${changeServicesParamsGql}
+    }) {
+      tempDataUuid
+      validated
+      errors {
+        key
+        number
+        message
+      }
+    }
+  }`;
+
+  const response = await query(queryStr, {
+    simCardInstanceIds,
+    customerAccountID,
+    workflowCode,
+    tempDataUuid,
+    partyId,
+    dueDate,
+    targetDownload,
+    simStatus,
+  });
+  return response.data.esimDownloadProfil;
 }
