@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.278+20210416071950
+2021-04-16
+
+### Features
+
+- [2557] ajout du type EID dans le fitre import actline (4c37dadb87a9a1dfbbd0e00c70fa3af79145c79f)
+
 ## 1.17.0-master.277+20210415134517
 2021-04-15
 
