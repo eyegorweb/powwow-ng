@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.283+20210416134952
+2021-04-16
+
+### Features
+
+- [000] permissions ESIM (0739d017bf3ae1a2973a1b659ac54e563a928ba5)
+
 ## 1.17.0-master.282+20210416133311
 2021-04-16
 
