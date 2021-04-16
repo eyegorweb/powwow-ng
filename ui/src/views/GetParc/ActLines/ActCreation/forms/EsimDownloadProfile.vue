@@ -222,7 +222,8 @@ export default {
     haveFieldErrors() {
       const fieldErrors = {};
       let haveError = false;
-      if (this.activation) {
+
+      if (this.canSeeActivationForm) {
         if (!this.preselectBillingAccount || !this.preselectBillingAccount.id) {
           fieldErrors.billingAccount = true;
           haveError = true;
@@ -269,7 +270,7 @@ export default {
       }
       this.waitForReportConfirmation = false;
     },
-    checkErrors() { },
+    checkErrors() {},
 
     async loadCustomFields() {
       this.allCustomFields = await fetchCustomFields(this.partner.id);
