@@ -2,6 +2,17 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.280+20210416114427
+2021-04-16
+
+### Features
+
+- [2560] Télécharger un profil eSIM (cd448579d08edb342a2f53b3b6ae1ab76be169c9)
+
+### Fixes
+
+- [000] Correction du formulaire de téléchargement  de profile (0469529f6126fc72bb2aedac72b85ef245b3f7e6)
+
 ## 1.17.0-master.279+20210416094740
 2021-04-16
 
