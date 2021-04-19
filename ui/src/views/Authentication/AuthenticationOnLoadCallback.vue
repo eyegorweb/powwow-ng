@@ -15,17 +15,21 @@ export default {
       this.setAuthToken(hashParts[1].split('&')[0]);
       await this.fetchUserInfos();
       const nextRoute = this.$loGet(this.$route, 'query.prev');
-      if (nextRoute) {
-        this.$router.push(nextRoute).catch(() => {});
-      } else {
-        this.$router.push('/').catch(() => {});
-      }
+      this.redirectTo(nextRoute || '/');
       this.appIsReady();
     }
   },
   methods: {
     ...mapActions(['fetchUserInfos', 'setAuthToken']),
     ...mapMutations(['appIsReady']),
+
+    retirectTo(nextRoute) {
+      const next = this.$router.push(nextRoute);
+      if (next) {
+        next.catch(() => { });
+      }
+
+    }
   },
 };
 </script>
