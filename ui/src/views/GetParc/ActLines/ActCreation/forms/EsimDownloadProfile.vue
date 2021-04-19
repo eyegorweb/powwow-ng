@@ -244,9 +244,13 @@ export default {
     },
 
     async doRequest(contextValues) {
+      let simIds;
+      if (this.selectedLinesForActCreation && this.selectedLinesForActCreation.length) {
+        simIds = this.selectedLinesForActCreation.map((s) => s.id);
+      }
       const response = await esimDownloadProfil({
         filters: this.appliedFilters,
-        simCardInstanceIds: this.selectedLinesForActCreation,
+        simCardInstanceIds: simIds,
         customerAccountID: this.billingAccount
           ? this.billingAccount.id
           : this.preselectBillingAccount.id,
@@ -271,7 +275,7 @@ export default {
       }
       this.waitForReportConfirmation = false;
     },
-    checkErrors() {},
+    checkErrors() { },
 
     async loadCustomFields() {
       this.allCustomFields = await fetchCustomFields(this.partner.id);

@@ -2,11 +2,11 @@ export default {
   menu: {
     getSim: () => {
       cy.startObservationGql();
-      cy.waitGet('.flex-part > .tabs > .tabs-bar > .tab-label:nth-child(1) > a').click();
+      cy.waitGet('.menu_orders_search').click({ force: true });
     },
     dashboard() {
       cy.startObservationGql();
-      cy.waitGet(':nth-child(5) > .dropdown > div > a:nth-child(3)').click({ force: true });
+      cy.waitGet('.menu_reportsDashboard').click({ force: true });
     },
     report() {
       cy.startObservationGql();
@@ -15,9 +15,7 @@ export default {
     lines: () => {
       cy.startObservationGql();
 
-      cy.waitGet(
-        '.tabs-bar > .tab-label:nth-child(2) > .dropdown > .dropdown-menu > .dropdown-item:nth-child(1)'
-      ).click({ force: true });
+      cy.waitGet('.menu_actLines').click({ force: true });
     },
     massActions: () => {
       cy.startObservationGql();

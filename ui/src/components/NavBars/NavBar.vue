@@ -62,7 +62,7 @@
                     v-else
                     :key="item.label"
                     class="dropdown-item"
-                    :class="'menu_' + item.to.name"
+                    :class="'menu_' + item.to.name.replace('.', '_')"
                     :to="item.to"
                     >{{ $t(item.label) }}</router-link
                   >
