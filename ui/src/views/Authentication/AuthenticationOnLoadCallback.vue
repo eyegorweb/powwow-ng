@@ -23,7 +23,7 @@ export default {
     ...mapActions(['fetchUserInfos', 'setAuthToken']),
     ...mapMutations(['appIsReady']),
 
-    retirectTo(nextRoute) {
+    redirectTo(nextRoute) {
       const next = this.$router.push(nextRoute);
       if (next) {
         next.catch(() => { });
