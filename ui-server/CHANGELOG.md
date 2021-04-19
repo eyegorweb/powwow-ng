@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.284+20210419090225
+2021-04-19
+
+### Fixes
+
+- [000] Optimisation des tests pour les pc à faibles resources. (e64ad3ceb0ac0c4a02915894fadc6f2bae3d4e68)
+- [000] correction de typo (2448da0e32ea778f32d5358673ce447e294a86b4)
+
 ## 1.17.0-master.283+20210416134952
 2021-04-16
 
