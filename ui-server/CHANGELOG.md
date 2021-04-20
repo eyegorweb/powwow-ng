@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.288+20210420131417
+2021-04-20
+
+### Features
+
+- [2555] Ajout export des stocks (76d60dfe7e05d89fabbd71ec6ff814ba5558a976)
+- [000] optimisation des performances des tests (04e38dd3c16d37a79bdb7ce85d4afb2c3c15df52)
+
 ## 1.17.0-master.287+20210420115422
 2021-04-20
 
