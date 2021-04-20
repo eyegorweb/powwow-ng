@@ -90,6 +90,8 @@ export default {
         }
         return c;
       });
+      // pour afficher la Guyane française
+      formatedData.push(['fr_gui', 0]);
 
       this.chartOptions = {
         credits: {

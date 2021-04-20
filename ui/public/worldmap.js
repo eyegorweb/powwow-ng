@@ -707,9 +707,48 @@ window.WORLD_MAP_DATA = {
         ],
       },
     },
+
     {
       type: 'Feature',
-      id: 'FR',
+      id: 'FR_GUI',
+      properties: {
+        'hc-group': 'admin0',
+        'hc-middle-x': 0.91,
+        'hc-middle-y': 0.1,
+        'hc-key': 'fr_gui',
+        'hc-a2': 'FR_GUI',
+        name: 'French Guiana',
+        labelrank: '4',
+        'country-abbrev': 'FrG.',
+        subregion: 'South America',
+        'region-wb': 'Latin America & Caribbean',
+        'iso-a3': 'FRA',
+        'iso-a2': 'FR',
+        'woe-id': '-90',
+        continent: 'South America',
+      },
+      geometry: {
+        type: 'MultiPolygon',
+        coordinates: [
+          [
+            [
+              [2596, 6636],
+              [2603, 6648],
+              [2632, 6639],
+              [2670, 6598],
+              [2632, 6543],
+              [2583, 6547],
+              [2601, 6581],
+              [2587, 6623],
+              [2596, 6636],
+            ],
+          ],
+        ],
+      },
+    },
+    {
+      type: 'Feature',
+      id: 'FRI',
       properties: {
         'hc-group': 'admin0',
         'hc-middle-x': 0.28,
@@ -796,22 +835,10 @@ window.WORLD_MAP_DATA = {
               [4427, 7861],
             ],
           ],
-          [
-            [
-              [2596, 6636],
-              [2603, 6648],
-              [2632, 6639],
-              [2670, 6598],
-              [2632, 6543],
-              [2583, 6547],
-              [2601, 6581],
-              [2587, 6623],
-              [2596, 6636],
-            ],
-          ],
         ],
       },
     },
+
     {
       type: 'Feature',
       id: 'FM',
