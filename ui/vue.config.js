@@ -2,6 +2,10 @@ const webpack = require('webpack');
 const CompressionPlugin = require('compression-webpack-plugin');
 
 module.exports = {
+  chainWebpack(config) {
+    config.plugins.delete('prefetch');
+    config.plugin('CompressionPlugin').use(CompressionPlugin);
+  },
   css: {
     loaderOptions: {
       // pass options to sass-loader
@@ -29,7 +33,6 @@ module.exports = {
       new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /en-sg|fr/),
 
       // new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
-      new CompressionPlugin(),
     ],
   },
 };
