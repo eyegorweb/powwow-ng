@@ -1,9 +1,9 @@
 <template>
   <BaseDetailPanelContent>
     <div class="overview-container m-3 bg-white">
-      <div class="overview-item mr-5">
+      <div class="overview-item mr-5" v-if="!userIsPartner">
         <h6>{{ $t('getparc.actLines.step1Partner') }}</h6>
-        <PartnersPart @setpartner="setPartner" />
+        <PartnersPart @setpartner="setPartner" esim />
       </div>
 
       <div class="overview-item mr-5">
@@ -12,6 +12,7 @@
           :key="`simcards_${selectedPartner ? selectedPartner.label : ''}`"
           :partner="selectedPartner"
           @set:simcard="setTypeSimCard"
+          category="ESIM"
         />
       </div>
 
@@ -113,7 +114,7 @@ import FileSelect from '@/components/ui/FileSelect';
 import PartnersPart from '@/views/GetParc/ActLines/ActCreation/prerequisites/parts/PartnersPart';
 import SimCardsTypePart from '@/views/GetParc/ActLines/ActCreation/prerequisites/parts/SimCardsTypePart.vue';
 import { uploadFileEsimCards, importEsim } from '@/api/linesActions';
-import { mapMutations } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 import * as fileUtils from '@/utils/file.js';
 
 export default {
@@ -140,7 +141,14 @@ export default {
     };
   },
 
+  mounted() {
+    if (this.userIsPartner) {
+      this.selectedPartner = this.singlePartner;
+    }
+  },
+
   computed: {
+    ...mapGetters(['userIsPartner', 'singlePartner']),
     fileMeta: {
       get() {
         return this.localFileMeta;

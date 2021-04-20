@@ -35,6 +35,7 @@ export default {
       type: Boolean,
       default: true,
     },
+    esim: Boolean,
   },
   computed: {
     ...mapState('userContext', ['contextPartnersType', 'contextPartners']),
@@ -90,6 +91,7 @@ export default {
           page,
           limit: 10,
           partnerType: this.contextPartnersType,
+          esim: this.esim,
         });
         return data.map(p => ({
           id: p.id,
