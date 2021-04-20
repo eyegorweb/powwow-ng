@@ -31,6 +31,36 @@ export async function exportEsimReservations(columns, orderBy, exportFormat, fil
 
   return response.data.esimReservationsExport;
 }
+
+export async function exportEsimStocks(columns, orderBy, exportFormat, filters = []) {
+  // const orderingInfo = orderBy ? `, sorting: {${orderBy.key}: ${orderBy.direction}}` : '';
+  const queryStr = `
+  query {
+    esimStockProfilesExport(filters: {${formatFiltersReservation(
+      filters
+    )}},  exportFormat: ${exportFormat},
+    ) {
+      downloadUri
+      total
+      asyncRequired
+    }
+  }
+  `;
+
+  const response = await query(queryStr);
+  if (!response) {
+    return {
+      errors: ['unknown'],
+    };
+  }
+  if (response.errors) {
+    return {
+      errors: response.errors,
+    };
+  }
+
+  return response.data.esimStockProfilesExport;
+}
 export function formatFiltersReservation(selectedFilters) {
   const gqlFilters = [];
 
