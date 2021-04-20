@@ -50,7 +50,7 @@ export default {
         format: {
           type: 'Link',
           getUrl(id) {
-            return `/getamin/partner/${id}`;
+            return `/getamin/partner/${id}/users/admins`;
           },
         },
         visibleWhen: () => {
