@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.287+20210420115422
+2021-04-20
+
+### Features
+
+- [000] pouvoir séléctionner la france métropolitaine séparément de la Guyane française (4533cbd343cb96473e23ee1c4a8e1f412dc5998d)
+
 ## 1.17.0-master.286+20210419133938
 2021-04-20
 
