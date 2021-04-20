@@ -35,13 +35,11 @@
       @columnOrdered="orderedColumns = $event"
       :init-page-limit="lastPagination ? lastPagination.limit : 10"
     >
-      <!-- WIP -->
-      <!--
         <div slot="topRight" class="tar" v-if="total">
-          <ExportButton :export-fn="getExportFn()" :columns="orderedColumns" :order-by="orderBy" exportAll>
+          <ExportButton :export-fn="getExportFn()" :columns="orderedColumns" :order-by="orderBy">
             <span slot="title">{{ $t('getsim.stocks.export', { total: total }) }}</span>
           </ExportButton>
-        </div> -->
+        </div>
       <div slot="title" class="mt-2 table-total">
         {{ $t('getsim.stocks.table.total', { total: formattedTotal }) }}
       </div>
@@ -55,7 +53,7 @@ import TableWithFilter from '@/components/Filters/TableWithFilter';
 import UiButton from '@/components/ui/Button';
 import PartnerFilter from '@/components/Filters/filterbar/PartnerFilter';
 import SimcardTypeFilter from '@/components/Filters/filterbar/SimcardTypeFilter.vue';
-import { fetchEsimStockProfiles } from '@/api/esim.js';
+import { fetchEsimStockProfiles, exportEsimStocks } from '@/api/esim.js';
 import { mapGetters, mapMutations } from 'vuex';
 import { formatLargeNumber } from '@/utils/numbers';
 import TypeSimCardCell from './TypeSimCardCell';
@@ -70,6 +68,7 @@ export default {
   components: {
     Tooltip,
     TableWithFilter,
+    ExportButton,
     UiButton,
   },
 
@@ -184,12 +183,12 @@ export default {
 
   methods: {
     ...mapMutations(['openPanel']),
-    // WIP
-    // getExportFn() {
-    //   return async (columnsParam, orderBy, exportFormat) => {
-    //     return await exportEsimReservations(columnsParam, this.orderBy, exportFormat, this.currentAppliedFilters);
-    //   };
-    //},
+
+    getExportFn() {
+      return async (columnsParam, orderBy, exportFormat) => {
+        return await exportEsimStocks(columnsParam, this.orderBy, exportFormat, this.currentAppliedFilters);
+      };
+    },
     prepareFilterBar() {
       const filters = [];
       if (!this.userIsPartner) {
