@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.285+20210420082136
+2021-04-20
+
+### Fixes
+
+- [2593] correction de la route pour afficher la gestion des utilisateurs (6d653ffaf65f7ae435027d47d67f7cef7e94af5e)
+- [2554] configuration de l'appairage depuis la gestion de stock (fb622303296698067d2d2803f8e2e646ea511c24)
+
 ## 1.17.0-master.284+20210419090225
 2021-04-19
 
