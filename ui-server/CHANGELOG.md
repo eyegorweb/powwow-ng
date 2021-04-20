@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.286+20210419133938
+2021-04-20
+
+### Fixes
+
+- [2560] Corriger la requête de téléchargement de profile (6f05606f82c7a62fbac47064ae297363f78782e0)
+
 ## 1.17.0-master.285+20210420082136
 2021-04-20
 
