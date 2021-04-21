@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.292+20210421122600
+2021-04-21
+
+### Fixes
+
+- [000] remplacer node sass par dart sass (490c00629ba054ae80962f0714fccbbb782e8375)
+
 ## 1.17.0-master.291+20210421113211
 2021-04-21
 
