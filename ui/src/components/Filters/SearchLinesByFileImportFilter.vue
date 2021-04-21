@@ -39,7 +39,7 @@ export default {
 
   mounted () {
     if(this.addOptions) {
-      this.options.concat(this.addOptions);
+      this.options.push.apply(this.options, this.addOptions);
     };
   },
   data() {

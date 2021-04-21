@@ -307,6 +307,7 @@
             >
           </FoldableBlock>
           <FoldableBlock
+            v-if="((userIsPartner || userIsGroupPartner) && ipFixeEnabled) || userIsBO"
             :title="$t('filters.lines.ipFixe')"
             :key="'el29'"
             :disabled="filtersAreDisabled"
@@ -468,7 +469,7 @@ export default {
   },
   computed: {
     ...mapState('actLines', ['actToCreate']),
-    ...mapGetters(['userIsPartner', 'userInfos', 'userIsMVNO', 'userHaveEsimEnabled']),
+    ...mapGetters(['userIsPartner', 'userInfos', 'userIsMVNO', 'userIsBO', 'userIsGroupPartner', 'userHaveEsimEnabled']),
     ...mapGetters('actLines', [
       'currentFilters',
       'canShowSelectedFilter',
@@ -490,6 +491,10 @@ export default {
       // 'selectedIdTypeFromFileValue',
       // 'selectedFileValue',
     ]),
+    async ipFixeEnabled() {
+      const optionsPartner = await getPartyOptions(this.userInfos.id);
+      return optionsPartner.ipFixeEnable;
+    },
     isEsimCategoryInFilter() {
       return this.selectedEsimCategoryValue === 'eSim';
     },

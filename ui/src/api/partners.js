@@ -38,6 +38,7 @@ export async function getPartyOptions(partyId) {
     otaSensitive
     esimEnable
     smsAuthorized
+    ipFixeEnable
     shortCodes
     mailOrder
     orderNumberRequired
