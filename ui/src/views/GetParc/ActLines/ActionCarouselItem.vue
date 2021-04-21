@@ -133,7 +133,7 @@ export default {
     &.selected {
       background: $secondary;
       color: white;
-      & /deep/ div {
+      & ::v-deep div {
         color: white;
       }
     }

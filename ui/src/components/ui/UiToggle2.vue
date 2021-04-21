@@ -144,7 +144,7 @@ export default {
   }
 }
 
-.slim-toggles /deep/ button {
+.slim-toggles ::v-deep button {
   padding: 0px 20px;
 }
 

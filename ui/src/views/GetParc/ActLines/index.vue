@@ -714,7 +714,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-/deep/ .step-title .text {
+::v-deep .step-title .text {
   padding-left: 5px;
   font-size: 16px;
   font-weight: bold;

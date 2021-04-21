@@ -122,12 +122,12 @@ export default {
     margin-right: 16px;
   }
 
-  /deep/ label {
+  ::v-deep label {
     margin-bottom: 0;
   }
 }
 
-/deep/ .btn-primary {
+::v-deep .btn-primary {
   background-color: $orange;
   border: none;
 }

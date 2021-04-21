@@ -162,7 +162,7 @@ export default {
 
 @media screen and (max-height: 768px) {
   .wizard-synthesis-wrapper {
-    .footer /deep/ label {
+    .footer ::v-deep label {
       padding-top: 0;
       font-size: 0.9rem;
     }
@@ -171,7 +171,7 @@ export default {
 
 @media (max-height: 588px) {
   .wizard-synthesis-wrapper {
-    .footer /deep/ label {
+    .footer ::v-deep label {
       padding-top: 10px;
       font-size: 0.9rem;
     }

@@ -69,7 +69,7 @@ $height: 10rem;
   &.haveFile {
     border: 4px solid $success;
 
-    & /deep/ p {
+    & ::v-deep p {
       color: $success;
     }
   }

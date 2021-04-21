@@ -40,11 +40,11 @@ export default {
   pointer-events: none;
   opacity: 0.5;
 
-  /deep/ .table-blue thead {
+  ::v-deep .table-blue thead {
     background-color: $gray;
   }
 
-  /deep/ .pagination {
+  ::v-deep .pagination {
     .page-item:not(.disabled) {
       .page-link {
         color: $gray;
@@ -52,11 +52,11 @@ export default {
     }
   }
 
-  /deep/ a {
+  ::v-deep a {
     color: $gray;
   }
 
-  /deep/ button {
+  ::v-deep button {
     color: $gray;
   }
 }

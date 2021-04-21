@@ -76,14 +76,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-/deep/ .datepicker {
+::v-deep .datepicker {
   min-width: 255px;
 }
-/deep/ .checkbox-container label {
+::v-deep .checkbox-container label {
   margin-bottom: 0;
 }
 
-/deep/ .btn-primary {
+::v-deep .btn-primary {
   background-color: $orange;
   border: none;
 }

@@ -46,15 +46,15 @@ export default {
 
 <style lang="scss" scoped>
 .search-container {
-  & /deep/ label {
+  & ::v-deep label {
     margin-bottom: 0.5rem;
   }
-  & /deep/ input {
+  & ::v-deep input {
     border-radius: 0;
     font-size: 1.05rem;
   }
 
-  & /deep/ select {
+  & ::v-deep select {
     border-left: none;
     padding-right: 2rem;
     text-transform: uppercase;
