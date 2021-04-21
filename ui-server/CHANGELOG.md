@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.293+20210421125229
+2021-04-21
+
+### Fixes
+
+- [2603] Ajout d'une nouvelle plage d'IMSI (cc57432f4ab9a28d759dd4ab9016f70437194f67)
+- [2603] corriger typo (c0501e70814681c075afb0eee04e2c51e495ad93)
+
 ## 1.17.0-master.292+20210421122600
 2021-04-21
 
