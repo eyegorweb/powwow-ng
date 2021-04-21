@@ -13,8 +13,8 @@
               :default-selected-item.sync="selectedSimTypeValue"
               :is-active="
                 selectedSimTypeValue &&
-                  selectedSimTypeValue.simCard &&
-                  selectedSimTypeValue.simCard.id === item.simCard.id
+                selectedSimTypeValue.simCard &&
+                selectedSimTypeValue.simCard.id === item.simCard.id
               "
               last-action-key="getsim.sim-type-labels.orderDate"
               no-action-key="getsim.never-ordered"
@@ -97,7 +97,11 @@ export default {
     if (!get(this.synthesis, 'quantity.selection.quantity') && this.order) {
       this.preFill();
     }
-    this.simTypes = await fetchSim(get(this.synthesis, 'billingAccount.value.partnerId'));
+    this.simTypes = await fetchSim(
+      get(this.synthesis, 'billingAccount.value.partnerId'),
+      undefined,
+      { eq: 'STANDARD' }
+    );
     this.selectedNumberOfSims = get(this.synthesis, 'quantity.selection.quantity', 0);
     /**
      * si on est dans une duplication alors on cherche la carte sim à séléctionner depuis this.simTypes
@@ -106,7 +110,7 @@ export default {
     const selectedProductInSynthesis = get(this.synthesis, 'product.selection.product', {});
     if (!selectedProductInSynthesis.simCard && get(this.order, 'orderedSIMCard.code')) {
       this.selectedSimTypeValue = this.simTypes.find(
-        s => s.simCard.code === get(this.order, 'orderedSIMCard.code')
+        (s) => s.simCard.code === get(this.order, 'orderedSIMCard.code')
       );
     } else {
       this.selectedSimTypeValue = selectedProductInSynthesis;
@@ -226,7 +230,7 @@ export default {
   computed: {
     filteredSimTypes: {
       get() {
-        return this.simTypes.slice(0, this.limit).filter(s => !!s.simCard);
+        return this.simTypes.slice(0, this.limit).filter((s) => !!s.simCard);
       },
       set(newVal) {
         return newVal;
