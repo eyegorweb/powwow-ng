@@ -35,11 +35,11 @@
       @columnOrdered="orderedColumns = $event"
       :init-page-limit="lastPagination ? lastPagination.limit : 10"
     >
-        <div slot="topRight" class="tar" v-if="total">
-          <ExportButton :export-fn="getExportFn()" :columns="orderedColumns" :order-by="orderBy">
-            <span slot="title">{{ $t('getsim.stocks.export', { total: total }) }}</span>
-          </ExportButton>
-        </div>
+      <div slot="topRight" class="tar" v-if="total">
+        <ExportButton :export-fn="getExportFn()" :columns="orderedColumns" :order-by="orderBy">
+          <span slot="title">{{ $t('getsim.stocks.export', { total: total }) }}</span>
+        </ExportButton>
+      </div>
       <div slot="title" class="mt-2 table-total">
         {{ $t('getsim.stocks.table.total', { total: formattedTotal }) }}
       </div>
@@ -186,7 +186,12 @@ export default {
 
     getExportFn() {
       return async (columnsParam, orderBy, exportFormat) => {
-        return await exportEsimStocks(columnsParam, this.orderBy, exportFormat, this.currentAppliedFilters);
+        return await exportEsimStocks(
+          columnsParam,
+          this.orderBy,
+          exportFormat,
+          this.currentAppliedFilters
+        );
       };
     },
     prepareFilterBar() {

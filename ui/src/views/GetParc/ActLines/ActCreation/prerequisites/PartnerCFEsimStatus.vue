@@ -113,7 +113,7 @@ export default {
       this.chosenBillingAccount = undefined;
     },
     validatePrerequisites() {
-      const selectedStatus = this.statuses.find((s) => this.selectedStatus === s.value);
+      const selectedStatus = this.statuses.find(s => this.selectedStatus === s.value);
       this.$emit('set:preprequisites', {
         partner: this.selectedPartner,
         billingAccount: this.chosenBillingAccount,

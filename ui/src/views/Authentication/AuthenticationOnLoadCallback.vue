@@ -26,10 +26,9 @@ export default {
     redirectTo(nextRoute) {
       const next = this.$router.push(nextRoute);
       if (next) {
-        next.catch(() => { });
+        next.catch(() => {});
       }
-
-    }
+    },
   },
 };
 </script>

@@ -13,8 +13,8 @@
               :default-selected-item.sync="selectedSimTypeValue"
               :is-active="
                 selectedSimTypeValue &&
-                selectedSimTypeValue.simCard &&
-                selectedSimTypeValue.simCard.id === item.simCard.id
+                  selectedSimTypeValue.simCard &&
+                  selectedSimTypeValue.simCard.id === item.simCard.id
               "
               last-action-key="getsim.sim-type-labels.orderDate"
               no-action-key="getsim.never-ordered"
@@ -110,7 +110,7 @@ export default {
     const selectedProductInSynthesis = get(this.synthesis, 'product.selection.product', {});
     if (!selectedProductInSynthesis.simCard && get(this.order, 'orderedSIMCard.code')) {
       this.selectedSimTypeValue = this.simTypes.find(
-        (s) => s.simCard.code === get(this.order, 'orderedSIMCard.code')
+        s => s.simCard.code === get(this.order, 'orderedSIMCard.code')
       );
     } else {
       this.selectedSimTypeValue = selectedProductInSynthesis;
@@ -230,7 +230,7 @@ export default {
   computed: {
     filteredSimTypes: {
       get() {
-        return this.simTypes.slice(0, this.limit).filter((s) => !!s.simCard);
+        return this.simTypes.slice(0, this.limit).filter(s => !!s.simCard);
       },
       set(newVal) {
         return newVal;

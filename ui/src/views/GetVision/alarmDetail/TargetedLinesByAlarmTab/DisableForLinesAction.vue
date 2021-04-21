@@ -4,7 +4,11 @@
       <div class="row">
         <div class="col-7">
           <div>
-            <button class="btn btn-primary pl-4 pr-4 pt-2 pb-2" @click="disableLines" :disabled="alarm.disabled">
+            <button
+              class="btn btn-primary pl-4 pr-4 pt-2 pb-2"
+              @click="disableLines"
+              :disabled="alarm.disabled"
+            >
               <i class="ic-Minus-Icon" />
               {{ $t('getvsion.alarm.disable_alarm_lines') }}
             </button>

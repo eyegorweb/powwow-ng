@@ -1,5 +1,10 @@
 <template>
-  <SearchLinesByFileImportFilter :file-meta="fileMeta" @clear="onClear" @setFilter="onSetFilter" :addOptions="otherOptions" />
+  <SearchLinesByFileImportFilter
+    :file-meta="fileMeta"
+    @clear="onClear"
+    @setFilter="onSetFilter"
+    :add-options="otherOptions"
+  />
 </template>
 
 <script>
@@ -9,13 +14,12 @@ import { mapMutations, mapGetters, mapActions } from 'vuex';
 export default {
   data() {
     return {
-      otherOptions:
-        {
-          code: 'c6',
-          label: 'EID',
-          value: 'EID',
-        },
-    }
+      otherOptions: {
+        code: 'c6',
+        label: 'EID',
+        value: 'EID',
+      },
+    };
   },
   components: {
     SearchLinesByFileImportFilter,

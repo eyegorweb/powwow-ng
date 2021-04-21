@@ -48,7 +48,9 @@ export default {
       const data = await fetchOfferWithBilligAccount(this.partner ? [this.partner] : undefined);
       this.options = data.map(o => ({
         value: o.workflow.id + '_' + o.customerAccount.id,
-        label: `${o.workflow.workflowDescription} / ${o.customerAccount.code} - ${o.customerAccount.name}`,
+        label: `${o.workflow.workflowDescription} / ${o.customerAccount.code} - ${
+          o.customerAccount.name
+        }`,
         meta: o,
       }));
     },

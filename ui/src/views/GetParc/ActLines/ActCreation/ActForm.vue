@@ -55,7 +55,7 @@
       <EsimChangeProfile
         v-if="
           act.title === 'getparc.actCreation.carouselItem.esim.CHANGE_STATUS_PROFIL_ESIM' &&
-          !isLoading
+            !isLoading
         "
       />
       <EsimDownloadProfile

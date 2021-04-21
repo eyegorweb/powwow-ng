@@ -16,12 +16,12 @@ export default {
     ...mapGetters('actLines', ['appliedFilters', 'linesActionsResponse']),
   },
   methods: {
-    async onValidate(contextValues) {
+    async onValidate() {
       const partnerId = this.$loGet(this.actCreationPrerequisites, 'partner.id');
       const simCardTypeId = this.$loGet(this.actCreationPrerequisites, 'simcardType.id');
       let simCardInstanceIds = [];
       if (this.selectedLinesForActCreation) {
-        simCardInstanceIds = this.selectedLinesForActCreation.map((a) => a.id);
+        simCardInstanceIds = this.selectedLinesForActCreation.map(a => a.id);
       }
 
       return await pairingByStockedEid(

@@ -30,13 +30,13 @@ export default {
     },
 
     category() {
-      if (!this.getPageContext) return;
+      if (!this.getPageContext) return undefined;
       const pageContext = this.getPageContext();
       if (pageContext && pageContext.category) {
         return pageContext.category;
       }
 
-      return;
+      return undefined;
     },
   },
 

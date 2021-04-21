@@ -67,7 +67,7 @@ export default {
       } else {
         options = this.options;
       }
-      return options.map((o) => (typeof o === 'string' ? { value: o, label: o } : o));
+      return options.map(o => (typeof o === 'string' ? { value: o, label: o } : o));
     },
     model: {
       get: ({ value }) => {
