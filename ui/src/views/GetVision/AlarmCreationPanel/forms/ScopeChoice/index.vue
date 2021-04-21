@@ -7,7 +7,7 @@
     <div class="scope-container" :style="{ maxHeight: maxHeight }">
       <slot>
         <div class="scope-selection">
-          <UiSelect v-model="selectedType" :options="types" block />
+          <UiSelect :disabled="!partner" v-model="selectedType" :options="types" block />
         </div>
         <SearchLineByIdChoice
           v-if="selectedType === 'LINE'"
