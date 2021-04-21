@@ -214,7 +214,7 @@ export default {
         const shortCodesValues = get(this.actCreationPrerequisites, 'partner.shortCodes');
         return shortCodesValues;
       }
-      const partnerId = get(this.userInfos, 'party.id');
+      const partnerId = get(this.userInfos, 'partners[0].id');
       const shortCodes = await fetchShortCodes(partnerId);
       return shortCodes;
     },
