@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.289+20210421084034
+2021-04-21
+
+### Fixes
+
+- [2571] mise à jour de l'api pour récupérer les champs libres (62518aca5a2e81a41b65e701983b879d9538b5b1)
+- [2597] filter la recherche des cartes SIM par catégorie dans les commandes (44e7227c6bf449d2f4f1808b2ff5a02c3557385c)
+
 ## 1.17.0-master.288+20210420131417
 2021-04-20
 
