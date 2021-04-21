@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.294+20210421140105
+2021-04-21
+
+### Fixes
+
+- [000] opération de maintenance : lint du code (66b346a137f32699c585958c3693c1f4f7cb666d)
+
 ## 1.17.0-master.293+20210421125229
 2021-04-21
 
