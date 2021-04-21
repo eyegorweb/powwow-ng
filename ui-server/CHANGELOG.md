@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.290+20210421091630
+2021-04-21
+
+### Fixes
+
+- [000] utiliser la bonne version de vue-fragment (56a8f146ba6c0a5619a8fd033d688bcb2f36e849)
+
 ## 1.17.0-master.289+20210421084034
 2021-04-21
 
