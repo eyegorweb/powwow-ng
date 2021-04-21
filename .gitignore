@@ -59,3 +59,4 @@ ui/cypress/videos/
 ui/cypress/screenshots
 
 ui/debug.Log
+*.lnk
