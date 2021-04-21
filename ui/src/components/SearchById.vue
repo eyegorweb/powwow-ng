@@ -58,22 +58,24 @@ export default {
           code: 'c1',
           value: 'iccid',
           label: 'ICCID',
-          checkFn: value => !isNaN(value) && value.length === 19 && startsWith(value, '893320'),
+          checkFn: (value) => !isNaN(value) && value.length === 19 && startsWith(value, '893320'),
         },
         {
           code: 'c2',
           value: 'imsi',
           label: 'IMSI',
-          checkFn: value =>
+          checkFn: (value) =>
             !isNaN(value) &&
             value.length === 15 &&
-            (startsWith(value, '20820') || startsWith(value, '27007')) || startsWith(value, '90177')),
+            (startsWith(value, '20820') ||
+              startsWith(value, '27007') ||
+              startsWith(value, '90177')),
         },
         {
           code: 'c3',
           value: 'msisdn',
           label: 'MSISDN',
-          checkFn: value =>
+          checkFn: (value) =>
             !isNaN(value) &&
             (value.length === 15 || value.length === 11) &&
             startsWith(value, '33'),
@@ -87,7 +89,7 @@ export default {
           code: 'c5',
           value: 'imei',
           label: 'IMEI',
-          checkFn: value => !isNaN(value) && value.length === 15,
+          checkFn: (value) => !isNaN(value) && value.length === 15,
         },
       ],
     };
@@ -95,7 +97,7 @@ export default {
   methods: {
     findType(newValue) {
       const value = newValue.trim();
-      const matched = this.idsOptions.filter(o => {
+      const matched = this.idsOptions.filter((o) => {
         if (o.checkFn) {
           return o.checkFn(value);
         }
