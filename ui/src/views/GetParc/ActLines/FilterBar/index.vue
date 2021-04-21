@@ -306,6 +306,17 @@
               >{{ $t('filters.lines.trafficLabel') }}</UiCheckbox
             >
           </FoldableBlock>
+          <FoldableBlock
+            :title="$t('filters.lines.ipFixe')"
+            :key="'el29'"
+            :disabled="filtersAreDisabled"
+            draggable
+          >
+            <SimpleInputFilter
+              :selected-value="selectedIPValue"
+              @update:value="selectIPFilter($event)"
+            />
+          </FoldableBlock>
           <template v-if="userHaveEsimEnabled">
             <FoldableBlock
               :title="$t('indicators.getparc.lines.esim.id')"
@@ -466,6 +477,7 @@ export default {
       'selectedPostalCodeValue',
       'selectedSirensValue',
       'selectedActionIDValue',
+      'selectedIPValue',
       'selectedLigneTrafiquanteValue',
       'selectedICCIDValue',
       'selectedIMSIValue',
@@ -514,6 +526,7 @@ export default {
       'selectIMEIFilter',
       'setCurrentFilters',
       'selectEsimIdFilter',
+      'selectIPFilter',
       'selectEsimCategoryFilter',
       'selectSMSRidFilter',
       // 'selectEsimFamilyFilter'

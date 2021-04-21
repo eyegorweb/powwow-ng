@@ -14,11 +14,11 @@ import { mapMutations, mapGetters, mapActions } from 'vuex';
 export default {
   data() {
     return {
-      otherOptions: {
-        code: 'c6',
+      otherOptions: [{
+        code: 'c7',
         label: 'EID',
         value: 'EID',
-      },
+      }],
     };
   },
   components: {
@@ -26,6 +26,7 @@ export default {
   },
   computed: {
     ...mapGetters('actLines', ['selectedFileImportValues']),
+    ...mapGetters(['havePermission']),
     fileMeta() {
       if (this.selectedFileImportValues && this.selectedFileImportValues.length) {
         return this.selectedFileImportValues[0];
@@ -34,6 +35,11 @@ export default {
     },
   },
 
+  mounted () {
+    if (!this.havePermission.userIsPartner) {
+      console.log('relo')
+    };
+  },
   methods: {
     ...mapMutations('actLines', ['setFileImportFilter']),
     ...mapActions('actLines', ['clearFilter']),

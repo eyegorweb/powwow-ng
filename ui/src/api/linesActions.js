@@ -465,6 +465,7 @@ export function formatFilters(filters) {
   addRangeFilter(allFilters, filters, 'imei', 'filters.lines.rangeIMEI');
   addTerminationValidated(allFilters, filters);
   addIdsFilter(allFilters, filters);
+  addIPFilter(allFilters, filters);
 
   addEsimId(allFilters, filters);
   addEsimCategory(allFilters, filters);
@@ -493,6 +494,13 @@ function addSMSRIDStatus(gqlFilters, selectedFilters) {
   const id = getFilterValue(selectedFilters, 'indicators.getparc.lines.esim.rid');
   if (id) {
     gqlFilters.push(`esimSmsrId: {eq: "${id}"}`);
+  }
+}
+
+function addIPFilter(gqlFilters, selectedFilters) {
+  const ip = getFilterValue(selectedFilters, 'filters.lines.ipFixe');
+  if (ip) {
+    gqlFilters.push(`ipFixeAdress: {contains: "${ip}"}`);
   }
 }
 
