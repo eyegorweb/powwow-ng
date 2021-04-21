@@ -67,7 +67,7 @@ export default {
           checkFn: value =>
             !isNaN(value) &&
             value.length === 15 &&
-            (startsWith(value, '20820') || startsWith(value, '27007')),
+            (startsWith(value, '20820') || startsWith(value, '27007')) || startsWith(value, '90177')),
         },
         {
           code: 'c3',
