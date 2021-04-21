@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.291+20210421113211
+2021-04-21
+
+### Fixes
+
+- [00] cleanup (23e4983560ba210dc18d8a63d5d3b137da19b1b0)
+- [00] ignorer les racourcis (963942856e5937961fa6a8cca548a559b8edb4ea)
+
 ## 1.17.0-master.290+20210421091630
 2021-04-21
 
