@@ -192,7 +192,8 @@ export default {
 
   async mounted() {
     if (this.userIsPartner) {
-      const partnerId = get(this.userInfos, 'party.id');
+      const partnerId = get(this.userInfos, 'partners[0].id');
+
       const customFields = await fetchCustomFields(partnerId);
       const partnerCustomFieldsColumns = customFields.customFields.map(c => {
         return {
