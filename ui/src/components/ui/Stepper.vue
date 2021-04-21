@@ -47,11 +47,11 @@ export default {
 
 <style lang="scss" scoped>
 // https://vue-loader.vuejs.org/guide/scoped-css.html#deep-selectors
-.stepper /deep/ .tabs-bar {
+.stepper ::v-deep .tabs-bar {
   margin-bottom: 3px;
 }
 
-.stepper /deep/ .tabs-bar::after {
+.stepper ::v-deep .tabs-bar::after {
   content: '';
   background-color: #dddddd;
   height: 1px;

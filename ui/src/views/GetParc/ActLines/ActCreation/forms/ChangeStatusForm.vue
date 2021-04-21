@@ -190,12 +190,12 @@ export default {
   flex-flow: row wrap;
   align-items: center;
 
-  /deep/ .checkbox-container label {
+  ::v-deep .checkbox-container label {
     margin-bottom: 0;
     margin-left: 20px;
   }
 }
-/deep/ .btn-primary {
+::v-deep .btn-primary {
   background-color: $orange;
   border: none;
 }

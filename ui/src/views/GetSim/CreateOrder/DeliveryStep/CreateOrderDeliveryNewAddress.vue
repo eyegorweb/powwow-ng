@@ -388,7 +388,7 @@ export default {
   }
 }
 
-/deep/ fieldset.form-group {
+::v-deep fieldset.form-group {
   margin-bottom: 0;
 }
 </style>

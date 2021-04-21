@@ -257,7 +257,7 @@ export default {
       flex-basis: 45%;
     }
 
-    & /deep/ select {
+    & ::v-deep select {
       padding: 0.2rem 0.2rem;
       padding-right: 0 !important;
       position: relative;
@@ -267,7 +267,7 @@ export default {
 }
 
 .deleteButton {
-  & /deep/ button {
+  & ::v-deep button {
     padding: 0.2rem 0.5rem;
     margin-top: 0.3rem;
     margin-left: 0.4rem;

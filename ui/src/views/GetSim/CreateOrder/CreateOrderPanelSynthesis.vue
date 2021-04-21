@@ -74,7 +74,7 @@ export default {
 
 @media screen and (max-height: 768px) {
   .new-order-synthesis {
-    .footer /deep/ label {
+    .footer ::v-deep label {
       padding-top: 10px;
       font-size: 0.9rem;
     }
@@ -83,7 +83,7 @@ export default {
 
 @media (max-height: 588px) {
   .new-order-synthesis {
-    .footer /deep/ label {
+    .footer ::v-deep label {
       padding-top: 10px;
       font-size: 0.9rem;
     }

@@ -242,7 +242,7 @@ export default {
 
 .disabled {
   pointer-events: none;
-  /deep/ .datepicker {
+  ::v-deep .datepicker {
     background-color: $medium-gray;
   }
 }
