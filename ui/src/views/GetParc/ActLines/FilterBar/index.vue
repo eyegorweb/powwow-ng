@@ -306,6 +306,18 @@
               >{{ $t('filters.lines.trafficLabel') }}</UiCheckbox
             >
           </FoldableBlock>
+          <FoldableBlock
+            v-if="((userIsPartner || userIsGroupPartner) && ipFixeEnabled) || userIsBO"
+            :title="$t('filters.lines.ipFixe')"
+            :key="'el29'"
+            :disabled="filtersAreDisabled"
+            draggable
+          >
+            <SimpleInputFilter
+              :selected-value="selectedIPValue"
+              @update:value="selectIPFilter($event)"
+            />
+          </FoldableBlock>
           <template v-if="userHaveEsimEnabled">
             <FoldableBlock
               :title="$t('indicators.getparc.lines.esim.id')"
@@ -457,7 +469,7 @@ export default {
   },
   computed: {
     ...mapState('actLines', ['actToCreate']),
-    ...mapGetters(['userIsPartner', 'userInfos', 'userIsMVNO', 'userHaveEsimEnabled']),
+    ...mapGetters(['userIsPartner', 'userInfos', 'userIsMVNO', 'userIsBO', 'userIsGroupPartner', 'userHaveEsimEnabled']),
     ...mapGetters('actLines', [
       'currentFilters',
       'canShowSelectedFilter',
@@ -466,6 +478,7 @@ export default {
       'selectedPostalCodeValue',
       'selectedSirensValue',
       'selectedActionIDValue',
+      'selectedIPValue',
       'selectedLigneTrafiquanteValue',
       'selectedICCIDValue',
       'selectedIMSIValue',
@@ -478,6 +491,10 @@ export default {
       // 'selectedIdTypeFromFileValue',
       // 'selectedFileValue',
     ]),
+    async ipFixeEnabled() {
+      const optionsPartner = await getPartyOptions(this.userInfos.id);
+      return optionsPartner.ipFixeEnable;
+    },
     isEsimCategoryInFilter() {
       return this.selectedEsimCategoryValue === 'eSim';
     },
@@ -514,6 +531,7 @@ export default {
       'selectIMEIFilter',
       'setCurrentFilters',
       'selectEsimIdFilter',
+      'selectIPFilter',
       'selectEsimCategoryFilter',
       'selectSMSRidFilter',
       // 'selectEsimFamilyFilter'
