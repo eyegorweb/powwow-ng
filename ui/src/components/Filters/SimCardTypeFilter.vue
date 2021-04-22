@@ -11,6 +11,7 @@
 <script>
 import AutoCompleteByPartnerContext from '@/components/AutoCompleteByPartnerContext';
 import { fetchSimCards } from '@/api/linesActions';
+import { mapGetters } from 'vuex';
 
 export default {
   components: {
@@ -30,11 +31,13 @@ export default {
     },
   },
 
+  computed: {
+    ...mapGetters('actLines', ['currentFilters']),
+  },
+
   methods: {
     async fetchApi(q, partners, partnerType, { page, limit }) {
-      const filters = {
-        category: { eq: 'STANDARD' },
-      };
+      let filters = {};
       const pagination = { limit, page };
       const sorting = {
         description: 'DESC',
@@ -57,7 +60,15 @@ export default {
       if (this.category) {
         filters.category = { eq: this.category };
       }
-      const data = await fetchSimCards(filters, pagination, sorting, { eq: 'STANDARD' });
+      if (this.currentFilters && this.currentFilters.length && !this.category) {
+        const categoryFilter = this.currentFilters.filter(
+          f => ['indicators.getparc.lines.esim.category'].indexOf(f.id) > -1
+        ).length;
+        if (categoryFilter) {
+          filters.category = { eq: this.currentFilters[0].meta.value };
+        }
+      }
+      const data = await fetchSimCards(filters, pagination, sorting);
 
       if (data) {
         return data.map(c => {

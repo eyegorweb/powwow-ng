@@ -43,6 +43,7 @@ export async function fetchSimCards(filters, pagination, sorting) {
         simCard {
           label
           id
+          category
           name
           code
           type
