@@ -60,6 +60,7 @@ export const getters = {
   selectedOrderRefValue: findFilterValueById('filters.orderReference'),
   selectedPostalCodeValue: findFilterValueById('filters.postalCode'),
   selectedSirensValue: findFilterValueById('filters.lines.siren'),
+  selectedIPValue: findFilterValueById('filters.lines.ipFixe'),
   selectedActionIDValue: findFilterValueById('filters.lines.actionId'),
   selectedOffersValues: state => {
     return selectedFilterValuesById(state)('filters.lines.associatedOffer');
@@ -411,6 +412,12 @@ export const mutations = {
       id: 'filters.lines.rangeIMSI',
       from,
       to,
+    });
+  },
+  selectIPFilter(state, value) {
+    selectFilterValue(state, {
+      id: 'filters.lines.ipFixe',
+      value,
     });
   },
   selectMSISDNFilter(state, { from, to }) {

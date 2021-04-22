@@ -2001,6 +2001,7 @@
         "allocatedSIMCards": "Lignes pré-activées",
         "activatedSIMCards": "Lignes actives",
         "suspended": "Lignes suspendues",
+        "ipFixe": "IP Fixe",
         "traffic": "Lignes trafiquantes M",
         "validation": "Validation transfert",
         "inprogressTwoDays": "Actes en cours > 48 h",
@@ -2075,6 +2076,7 @@
         "id-type-placeholder": "Type d'identifiant",
         "import-file": "Choisir un fichier CSV ou XLS"
       },
+      "ipFixe": "IP Fixe",
       "typeSIMCard": "Type de carte SIM",
       "associatedOffer": "Offre associée",
       "orderID": "Id de la commande",
