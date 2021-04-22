@@ -37,6 +37,7 @@ export default {
   },
   async mounted() {
     this.options = await fetchEsimCategories();
+    this.options.unshift({ value: 'none', label: '' });
   },
 };
 </script>

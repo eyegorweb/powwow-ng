@@ -2008,7 +2008,7 @@
           "id": "Id de la réservation",
           "family": "Famille de SIM",
           "category": "Catégorie de SIM",
-          "type": "Type de eSIM",
+          "type": "Type de Step",
           "downloadStatus": "Statut de téléchargement",
           "pairedLine": "Ligne Appairée",
           "rid": "SMSRID"
