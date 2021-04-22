@@ -2,6 +2,18 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.295+20210422120512
+2021-04-22
+
+### Features
+
+- [2598] initialisation du filtre Type de carte SIM par catégorie dans la gestion de lignes (410f84d5ae393d67d61828d5e2455934ab60a4fc)
+- [2590] Ajout du filtre IP_FIXE + type d'import dans actLines (70ad51f079ef6f016148f7ceadc6b1fefd2d2fa8)
+
+### Fixes
+
+- [2558] correction de la sélection de l'offre dans la création d'alarme (bbfd40448df2a09e57098e595dc969fb24285cce)
+
 ## 1.17.0-master.294+20210421140105
 2021-04-21
 
