@@ -3,9 +3,7 @@ import get from 'lodash.get';
 
 export async function getAvailableOffer(partnerId, pagination) {
   const queryStr = `{
-  getAvailableOffer(partnerId: ${partnerId}, pagination: { page: ${pagination.page}, limit: ${
-    pagination.limit
-  }}) {
+  getAvailableOffer(partnerId: ${partnerId}, pagination: { page: ${pagination.page}, limit: ${pagination.limit}}) {
     total
     items {
       workflow {
@@ -136,7 +134,7 @@ export async function fetchOffers(
   }
 
   if (partners && partners.length > 0) {
-    partnersIds = partners.map(i => `"${i.id}"`).join(',');
+    partnersIds = partners.map((i) => `"${i.id}"`).join(',');
     partnerGqlParam = `, partyId:{in: [${partnersIds}]}`;
     rCardGqlParam = `rCard(partyId: ${partners[0].id})`;
   }
@@ -205,7 +203,7 @@ export async function fetchOffers(
 }
 
 export async function fetchOfferWithBilligAccount(partners, page = 0) {
-  const partnerIds = partners ? partners.map(p => `${p.id}`).join(',') : [];
+  const partnerIds = partners ? partners.map((p) => `${p.id}`).join(',') : [];
   const queryStr = `
   query {
     workFlowByCustomerAccount(partyId: [${partnerIds}], pagination: {page: ${page}, limit: 999}) {
@@ -265,9 +263,9 @@ export async function fetMaxValuesFromOfferPackage(offerCustoAccount) {
   // Si on a des valeurs (items), alors on est en mode Offre forfait et on lit les informations de consommation
   // sinon on est en mode Offre Compteur (pas de borne donc on met la notion d'infini '∞')
   if (items && items.length) {
-    const dataOffer = items.find(i => i.usageType === 'DATA');
-    const smsOffer = items.find(i => i.usageType === 'SMS');
-    const voiceOffer = items.find(i => i.usageType === 'VOICE');
+    const dataOffer = items.find((i) => i.usageType === 'DATA');
+    const smsOffer = items.find((i) => i.usageType === 'SMS');
+    const voiceOffer = items.find((i) => i.usageType === 'VOICE');
 
     if (dataOffer && dataOffer.envelopeValue > 0) {
       switch (dataOffer.unit) {
@@ -304,7 +302,7 @@ export async function fetMaxValuesFromOfferPackage(offerCustoAccount) {
 export async function changeOffer(filters, lines, params) {
   let lineIds = '';
   if (lines && lines.length > 0) {
-    lineIds = lines.map(l => l.id).join(',');
+    lineIds = lines.map((l) => l.id).join(',');
   }
 
   const {

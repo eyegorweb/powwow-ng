@@ -41,7 +41,7 @@ export default {
   },
   methods: {
     addOption() {
-      const alreadyInList = this.options.filter(o => o === this.newOptionValue).length;
+      const alreadyInList = this.options.filter((o) => o === this.newOptionValue).length;
       if (!alreadyInList && this.newOptionValue) {
         this.$emit('addValueToList', this.newOptionValue);
       }

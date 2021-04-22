@@ -117,7 +117,7 @@ export default {
   },
 
   computed: mapState({
-    orders: state => {
+    orders: (state) => {
       return get(state, 'filters.ordersResponse.items', []);
     },
   }),
@@ -145,8 +145,8 @@ export default {
       const offerServices = getMarketingOfferServices(this.order);
 
       const servicesChoice = {
-        services: offerServices.filter(f => f.code !== 'DATA'),
-        dataService: offerServices.find(f => f.code == 'DATA'),
+        services: offerServices.filter((f) => f.code !== 'DATA'),
+        dataService: offerServices.find((f) => f.code == 'DATA'),
       };
 
       this.synthesis = {
@@ -240,22 +240,22 @@ export default {
     },
     checkForErrors() {
       this.orderReferenceError = undefined;
-      const getValueForField = code => {
-        const found = this.customFieldsMeta.values.find(v => v.code === code);
+      const getValueForField = (code) => {
+        const found = this.customFieldsMeta.values.find((v) => v.code === code);
         if (found) {
           return found.enteredValue;
         }
       };
 
       this.customFieldsErrors = this.customFieldsMeta.all
-        .filter(c => !c.isOptional)
-        .filter(c => {
+        .filter((c) => !c.isOptional)
+        .filter((c) => {
           const value = getValueForField(c.code);
           if (!value || value.length === 0) {
             return true;
           }
         })
-        .map(c => c.code);
+        .map((c) => c.code);
 
       const isOrderNumberMandatory = get(
         this.synthesis,

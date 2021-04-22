@@ -37,7 +37,7 @@ export default {
           this.$emit('update:value', undefined);
           return;
         }
-        const selectedObj = this.options.find(o => o.value === value);
+        const selectedObj = this.options.find((o) => o.value === value);
         this.$emit('update:value', selectedObj);
       },
     },
@@ -46,11 +46,9 @@ export default {
   methods: {
     async refreshList() {
       const data = await fetchOfferWithBilligAccount(this.partner ? [this.partner] : undefined);
-      this.options = data.map(o => ({
+      this.options = data.map((o) => ({
         value: o.workflow.id + '_' + o.customerAccount.id,
-        label: `${o.workflow.workflowDescription} / ${o.customerAccount.code} - ${
-          o.customerAccount.name
-        }`,
+        label: `${o.workflow.workflowDescription} / ${o.customerAccount.code} - ${o.customerAccount.name}`,
         meta: o,
       }));
     },

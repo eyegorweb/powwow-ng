@@ -48,11 +48,11 @@ export default {
   },
   methods: {
     selectItem(item) {
-      this.items = this.items.map(i => {
+      this.items = this.items.map((i) => {
         if (i.id === item.id) {
           i.selected = true;
           if (i.groupParent) {
-            const childrens = this.items.filter(c => c.parent === item.id);
+            const childrens = this.items.filter((c) => c.parent === item.id);
             for (let j = 0; j < childrens.length; j++) {
               this.selectItem(childrens[j]);
             }
@@ -63,10 +63,10 @@ export default {
       });
     },
     setSelectedAll(value) {
-      this.items = this.items.map(i => {
+      this.items = this.items.map((i) => {
         i.selected = value;
         if (i.groupParent) {
-          const childrens = this.items.filter(c => c.parent === i.id);
+          const childrens = this.items.filter((c) => c.parent === i.id);
           for (let j = 0; j < childrens.length; j++) {
             childrens[j].selected = value;
           }
@@ -76,11 +76,11 @@ export default {
       });
     },
     removeItem(item) {
-      this.items = this.items.map(i => {
+      this.items = this.items.map((i) => {
         if (i.id === item.id) {
           i.selected = false;
           if (i.groupParent) {
-            const childrens = this.items.filter(c => c.parent === item.id);
+            const childrens = this.items.filter((c) => c.parent === item.id);
             for (let j = 0; j < childrens.length; j++) {
               this.removeItem(childrens[j]);
             }
@@ -93,7 +93,7 @@ export default {
   },
   computed: {
     selectedItems() {
-      return this.items.filter(i => i.selected);
+      return this.items.filter((i) => i.selected);
     },
     items: {
       get() {

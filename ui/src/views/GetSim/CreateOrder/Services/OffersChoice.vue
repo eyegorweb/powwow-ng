@@ -29,11 +29,14 @@ export default {
         return this.selectedOffer ? this.selectedOffer_.code : undefined;
       },
       set(value) {
-        this.$emit('update:selectedOffer', this.offers.find(o => o.code === value));
+        this.$emit(
+          'update:selectedOffer',
+          this.offers.find((o) => o.code === value)
+        );
       },
     },
     formattedOffers() {
-      return this.offers.map(i => {
+      return this.offers.map((i) => {
         let workflowIsNotCompatible = false;
         if (this.isRcard) {
           workflowIsNotCompatible = !i.rCard;

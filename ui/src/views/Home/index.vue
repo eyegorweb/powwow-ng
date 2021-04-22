@@ -43,14 +43,14 @@ export default {
     ...mapGetters(['userIsPartner', 'havePermission']),
 
     ...mapState({
-      homeWidgets: state => state.ui.homeWidgets,
+      homeWidgets: (state) => state.ui.homeWidgets,
     }),
 
     permittedHomeWidgets() {
       if (!this.homeWidgets) {
         return undefined;
       }
-      return this.homeWidgets.filter(w => {
+      return this.homeWidgets.filter((w) => {
         if (!w || !w.permission) return false;
         return this.havePermission(w.permission.domain, w.permission.action);
       });
@@ -59,7 +59,7 @@ export default {
     activeWidgets() {
       if (!this.permittedHomeWidgets) return [];
 
-      return this.permittedHomeWidgets.filter(w => w.checked);
+      return this.permittedHomeWidgets.filter((w) => w.checked);
     },
   },
   data() {

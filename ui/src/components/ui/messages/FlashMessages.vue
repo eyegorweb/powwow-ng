@@ -4,7 +4,7 @@
       v-for="msg in messages"
       :key="msg.id"
       :msg-info="msg"
-      @remove="id => removeMessageById(id)"
+      @remove="(id) => removeMessageById(id)"
     />
   </div>
 </template>
@@ -18,7 +18,7 @@ export default {
     MessageItem,
   },
   computed: mapState({
-    messages: state => state.ui.messages,
+    messages: (state) => state.ui.messages,
   }),
 
   methods: {

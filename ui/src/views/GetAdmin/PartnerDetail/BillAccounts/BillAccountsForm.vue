@@ -120,7 +120,7 @@ export default {
     ...mapMutations(['flashMessage']),
     async refreshCountries() {
       const countries = await fetchDeliveryCountries(this.$i18n.locale);
-      this.countries = countries.map(c => ({
+      this.countries = countries.map((c) => ({
         ...c,
         label: c.name,
         value: c.code,
@@ -144,9 +144,9 @@ export default {
       if (countryCode === 'null' || !countryCode) {
         return '';
       } else {
-        let foundCountry = this.countries.find(c => c.code === countryCode);
+        let foundCountry = this.countries.find((c) => c.code === countryCode);
         if (!foundCountry) {
-          foundCountry = this.countries.find(c => c.name === countryCode);
+          foundCountry = this.countries.find((c) => c.name === countryCode);
         }
 
         if (foundCountry) {
@@ -166,7 +166,7 @@ export default {
         zipCode: this.form.zipCode,
         city: this.form.city,
         state: this.form.state,
-        country: this.countries.find(c => c.name === this.form.country).code || '',
+        country: this.countries.find((c) => c.name === this.form.country).code || '',
       };
 
       let response;

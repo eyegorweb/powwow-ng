@@ -9,7 +9,7 @@ const findFilterValuesById = filterUtils.findFilterValuesById;
 const selectFilterValue = filterUtils.selectFilterValue;
 const findFilterValueById = filterUtils.findFilterValueById;
 
-const initFilterForContext = store => {
+const initFilterForContext = (store) => {
   filterUtils.initFilterForContext(store, setPartnersFilter);
 };
 
@@ -23,11 +23,11 @@ export const getters = {
   selectedBillingAccountsValues: findFilterValuesById('filters.billingAccounts'),
   selectedAlarmRange: findFilterValuesById('getvsion.filters.ALARMS_OFFER'),
   selectedAlarmType: findFilterValueById('getvsion.filters.ALARM_TYPE'),
-  selectedOffersValues: state => {
+  selectedOffersValues: (state) => {
     return selectedFilterValuesById(state)('filters.alarms.associatedOffer');
   },
-  selectedAlarmDateTrigger: state =>
-    state.currentFilters.find(f => f.id === 'getvsion.filters.DATE_TRIGGER'),
+  selectedAlarmDateTrigger: (state) =>
+    state.currentFilters.find((f) => f.id === 'getvsion.filters.DATE_TRIGGER'),
 };
 
 // Actions
@@ -48,15 +48,15 @@ async function setPartnersFilter({ commit, getters }, { partners, isHidden }) {
 }
 
 function removeSelectedBillingAccountWithNoSelectedPartners({ commit, getters }, partners) {
-  const baWithPartnersSelected = getters.selectedBillingAccountsValues.filter(a =>
-    partners.find(p => p.id === a.partnerId)
+  const baWithPartnersSelected = getters.selectedBillingAccountsValues.filter((a) =>
+    partners.find((p) => p.id === a.partnerId)
   );
   commit('setBillingAccountsFilter', baWithPartnersSelected);
 }
 
 function removeSelectedOffersWithNoSelectedPartners({ commit, getters }, partners) {
-  const withPartnersSelected = getters.selectedOffersValues.filter(a =>
-    partners.find(p => p.id === a.partnerId)
+  const withPartnersSelected = getters.selectedOffersValues.filter((a) =>
+    partners.find((p) => p.id === a.partnerId)
   );
   commit('setOffersFilter', withPartnersSelected);
 }
@@ -68,7 +68,7 @@ export const actions = {
     /**
      * Le cas partenaire est spécial, car à chaque modification on doit mettre à jour les valeurs qui en dépendent
      */
-    const filteredFilters = store.state.currentFilters.filter(f => f.id !== filterId);
+    const filteredFilters = store.state.currentFilters.filter((f) => f.id !== filterId);
     if (filterId === 'filters.partners') {
       setPartnersFilter(store, { partners: [] });
     } else {

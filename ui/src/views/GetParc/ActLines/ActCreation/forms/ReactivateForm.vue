@@ -70,7 +70,7 @@ export default {
         }
       );
       if (response.errors && response.errors.length) {
-        response.errors.forEach(r => {
+        response.errors.forEach((r) => {
           if (r.extensions && r.extensions.error && r.extensions.error === 'MassActionLimit') {
             const count = r.extensions.limit ? r.extensions.limit : '';
             const messageErrorMaxLine = this.$t(

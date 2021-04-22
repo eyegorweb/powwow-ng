@@ -71,7 +71,7 @@ export default {
     },
     async refreshIndicatorsForPeriod() {
       if (this.contextPartners) {
-        this.partners = this.contextPartners.map(p => p.id);
+        this.partners = this.contextPartners.map((p) => p.id);
       }
       const listIndicators = await fetchPrecalculatedIndicators(
         [
@@ -86,7 +86,7 @@ export default {
       );
 
       this.indicators = listIndicators
-        .map(i => {
+        .map((i) => {
           const labelKey = this.averageTimeAction(i.name);
           return {
             total: i.numberValue,

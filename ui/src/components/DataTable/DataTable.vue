@@ -200,7 +200,7 @@ export default {
     sortableColumns: {
       get() {
         if (this.visibleColumns) {
-          return this.visibleColumns.filter(c => {
+          return this.visibleColumns.filter((c) => {
             if (c.visibleWhen) {
               return c.visibleWhen();
             }
@@ -210,16 +210,16 @@ export default {
         return this.visibleColumns;
       },
       set(orderedCells) {
-        const notVisibleCells = this.usableColumns.filter(c => !c.visible);
+        const notVisibleCells = this.usableColumns.filter((c) => !c.visible);
         this.usableColumns = orderedCells.concat(notVisibleCells);
-        const columnsWithCondition = this.columns.filter(c => c.visibleWhen);
+        const columnsWithCondition = this.columns.filter((c) => c.visibleWhen);
         this.saveColumnsToLocalStorage([...columnsWithCondition, ...this.usableColumns]);
       },
     },
 
     visibleColumns: {
       get() {
-        return this.usableColumns.filter(c => {
+        return this.usableColumns.filter((c) => {
           if (c.visibleWhen) {
             return c.visible && c.visibleWhen();
           }
@@ -262,7 +262,7 @@ export default {
     usableColumns(usableColumns) {
       this.$emit(
         'columnOrdered',
-        usableColumns.filter(c => {
+        usableColumns.filter((c) => {
           if (c.visibleWhen) {
             return c.visibleWhen();
           }
@@ -299,7 +299,7 @@ export default {
     },
     setColumns(newColumns) {
       this.usableColumns = newColumns;
-      const columnsWithCondition = this.columns.filter(c => c.visibleWhen);
+      const columnsWithCondition = this.columns.filter((c) => c.visibleWhen);
       this.saveColumnsToLocalStorage([...columnsWithCondition, ...newColumns]);
       this.close();
     },
@@ -313,8 +313,8 @@ export default {
       if (!strColumns) return;
       const parsedColumns = JSON.parse(strColumns);
 
-      return parsedColumns.map(c => {
-        const correspondingColumn = this.columns.find(cf => {
+      return parsedColumns.map((c) => {
+        const correspondingColumn = this.columns.find((cf) => {
           return c.id === cf.id;
         });
         if (correspondingColumn) {
@@ -335,7 +335,7 @@ export default {
 
     saveColumnsToLocalStorage(columns) {
       if (!this.storageId) return;
-      const stripedFromComponents = columns.map(c => {
+      const stripedFromComponents = columns.map((c) => {
         if (c.format && c.format.component) {
           return {
             ...c,

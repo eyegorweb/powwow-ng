@@ -182,7 +182,7 @@ export default {
   computed: {
     canSave() {
       const missingFields = ['title', 'firstName', 'email', 'city', 'zipCode', 'country'].filter(
-        field => !this.form[field]
+        (field) => !this.form[field]
       );
 
       const isAdressValid = this.selectedAddress && this.selectedAddress.label;
@@ -235,7 +235,7 @@ export default {
 
   async mounted() {
     const countries = await fetchDeliveryCountries(this.$i18n.locale);
-    this.countries = countries.map(c => ({
+    this.countries = countries.map((c) => ({
       ...c,
       label: c.name,
       value: c.code,
@@ -245,7 +245,7 @@ export default {
     const fetchedLanguages = await fetchAllLanguages();
 
     if (fetchedLanguages) {
-      this.languages = fetchedLanguages.map(l => ({ label: l.label, value: l.language }));
+      this.languages = fetchedLanguages.map((l) => ({ label: l.label, value: l.language }));
     }
 
     if (this.content) {
@@ -265,7 +265,7 @@ export default {
       this.form.city = get(this.content, 'address.city');
 
       this.form.country = this.countries.find(
-        c =>
+        (c) =>
           c.name === get(this.content, 'address.country') ||
           c.code === get(this.content, 'address.country')
       );
@@ -280,7 +280,7 @@ export default {
         this.form.address = address.label;
         this.form.zipCode = address.postcode;
         this.form.city = address.city;
-        this.form.country = this.countries.find(c => c.code === 'fr');
+        this.form.country = this.countries.find((c) => c.code === 'fr');
       } else {
         if (address.label) {
           this.form.address = address.label;

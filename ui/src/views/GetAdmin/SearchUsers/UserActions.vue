@@ -43,10 +43,10 @@ export default {
     ...mapMutations(['flashMessage']),
 
     async onActionClicked(action) {
-      const showMessage = response => {
+      const showMessage = (response) => {
         if (response && response.errors && response.errors.length) {
           // this.flashMessage({ level: 'danger', message: this.$t('genericErrorMessage') });
-          response.errors.forEach(e => {
+          response.errors.forEach((e) => {
             this.flashMessage({ level: 'danger', message: e.message });
           });
         } else {

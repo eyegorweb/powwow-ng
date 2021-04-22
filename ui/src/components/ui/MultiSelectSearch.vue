@@ -48,11 +48,17 @@
       <div class="checkboxes" ref="checkboxes" @scroll="onScroll" slot-scope="{ results }">
         <UiCheckbox
           v-if="enableSelectAll"
-          :value="results.map(r => r.item)"
-          :checked="multiSelectValues(results.map(r => r.item))"
+          :value="results.map((r) => r.item)"
+          :checked="multiSelectValues(results.map((r) => r.item))"
           @change="
-            addAllToSelectedItems($event, results.map(r => r.item)),
-              updateTextLabel($event, results.map(r => r.item))
+            addAllToSelectedItems(
+              $event,
+              results.map((r) => r.item)
+            ),
+              updateTextLabel(
+                $event,
+                results.map((r) => r.item)
+              )
           "
           class="text-secondary"
           >{{ labelText }} ({{ results.length }})</UiCheckbox
@@ -63,7 +69,12 @@
           :value="result.item"
           :key="'ms_' + result.item.id"
           :disabled="isItemDisabled(result.item)"
-          @change="updateTextLabel($event, results.map(r => r.item))"
+          @change="
+            updateTextLabel(
+              $event,
+              results.map((r) => r.item)
+            )
+          "
         >
           <span v-html="result.highlighted.label" />
         </UiCheckbox>
@@ -134,7 +145,8 @@ export default {
   computed: {
     multiSelectValues() {
       const selectedItems = this.selectedItems;
-      return displayedValues => displayedValues.filter(v => selectedItems.find(s => isEqual(v, s)));
+      return (displayedValues) =>
+        displayedValues.filter((v) => selectedItems.find((s) => isEqual(v, s)));
     },
     cutSelectedItems() {
       // renvoit les N premiers partenaires sélectionnés
@@ -174,7 +186,7 @@ export default {
     isItemDisabled(item) {
       if (this.disabled) return true;
       if (!this.disabledItems) return false;
-      return this.disabledItems.find(i => item.id === i.id);
+      return this.disabledItems.find((i) => item.id === i.id);
     },
     addAllToSelectedItems(items, displayedItems) {
       if (!items.length)
@@ -185,7 +197,7 @@ export default {
     removeSelection(currentSelection) {
       const updatedSelections = !currentSelection
         ? []
-        : this.selectedItems.filter(selection => selection != currentSelection);
+        : this.selectedItems.filter((selection) => selection != currentSelection);
       this.selectedItems = updatedSelections;
       this.updateTextLabel(this.selectedItems);
     },
@@ -194,7 +206,7 @@ export default {
         const selectedItems = results;
         if (displayedValues) {
           return displayedValues.every(function(v) {
-            return !!selectedItems.filter(s => isEqual(s, v));
+            return !!selectedItems.filter((s) => isEqual(s, v));
           });
         }
       }

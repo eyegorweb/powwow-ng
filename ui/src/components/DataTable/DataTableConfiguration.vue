@@ -53,8 +53,8 @@ export default {
     if (this.columns && this.columns.length) {
       this.localColumns = cloneDeep(
         this.columns
-          .filter(c => !c.notConfigurable)
-          .filter(c => {
+          .filter((c) => !c.notConfigurable)
+          .filter((c) => {
             if (c.visibleWhen) {
               return c.visibleWhen();
             }
@@ -87,7 +87,7 @@ export default {
     // le nombre de colonnes visibles ne doit pas éxéder le maximum authorisé (maxColumnsNumber)
     canAddColumns() {
       return (
-        this.localColumns.filter(e => !e.notConfigurable && e.visible).length + 1 <=
+        this.localColumns.filter((e) => !e.notConfigurable && e.visible).length + 1 <=
         this.maxColumnsNumber
       );
     },

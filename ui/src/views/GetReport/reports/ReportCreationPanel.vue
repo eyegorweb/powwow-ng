@@ -62,7 +62,7 @@
           <h6>{{ $t(dateLabel) }}</h6>
           <UiDate
             time-picker
-            @change="newVal => (generationDate = newVal)"
+            @change="(newVal) => (generationDate = newVal)"
             :value="generationDate"
             :start-date="generationDate"
             :error="dateError ? 'errors.mandatory' : undefined"
@@ -159,7 +159,7 @@ import { formatBackErrors } from '@/utils/errors';
 
 function checkIfOneIsPresent(fieldsToCheck, modelFields) {
   for (let i = 0; i < fieldsToCheck.length; i++) {
-    if (modelFields.find(m => m === fieldsToCheck[i])) {
+    if (modelFields.find((m) => m === fieldsToCheck[i])) {
       return true;
     }
   }
@@ -284,7 +284,7 @@ export default {
       if (this.content) {
         this.reportFrequency = this.content.frequency;
         this.name = this.content.name;
-        this.reportFrequencyChoices = this.reportFrequencyChoices.map(t => {
+        this.reportFrequencyChoices = this.reportFrequencyChoices.map((t) => {
           if (t.id === this.content.frequency) {
             t.default = true;
           }
@@ -313,9 +313,9 @@ export default {
 
   watch: {
     reportModel(newValue) {
-      const report = this.reportModels.find(r => r.value === newValue);
+      const report = this.reportModels.find((r) => r.value === newValue);
       if (newValue !== 'NONE') {
-        this.selectedItems.forEach(checkbox => {
+        this.selectedItems.forEach((checkbox) => {
           checkbox.checked = false;
         });
         this.selectedItems = [];
@@ -342,22 +342,22 @@ export default {
     ...mapMutations(['flashMessage', 'closePanel']),
 
     filterVisible(checkboxes) {
-      return checkboxes.filter(checkbox => !checkbox.canShow || checkbox.canShow());
+      return checkboxes.filter((checkbox) => !checkbox.canShow || checkbox.canShow());
     },
 
     preloadCheckBoxes(fields) {
       this.groups
-        .map(g => g.checkboxes)
+        .map((g) => g.checkboxes)
         .flat()
-        .filter(c => {
+        .filter((c) => {
           if (!c.canShow) {
             return true;
           } else {
             return c.canShow();
           }
         })
-        .forEach(c => {
-          let shouldCheck = !!fields.find(f => f === c.code);
+        .forEach((c) => {
+          let shouldCheck = !!fields.find((f) => f === c.code);
 
           // pour cocher les cases représentant un groupe de colonnes
           if (!shouldCheck) {
@@ -472,7 +472,7 @@ export default {
 
         this.reportModels = [
           { label: 'Custom', value: 'NONE', data: { fields: [] } },
-          ...models.map(m => ({ label: m.modelType, value: m.modelType, data: m })),
+          ...models.map((m) => ({ label: m.modelType, value: m.modelType, data: m })),
         ];
         this.reportModel = 'NONE';
       }
@@ -480,14 +480,14 @@ export default {
 
     removeItem(checkbox) {
       checkbox.checked = false;
-      this.selectedItems = this.selectedItems.filter(i => i.label !== checkbox.label);
+      this.selectedItems = this.selectedItems.filter((i) => i.label !== checkbox.label);
       this.reportModel = 'NONE';
     },
     toggleCheckbox(checkbox) {
       if (checkbox.checked) {
         this.selectedItems.push(checkbox);
       } else {
-        this.selectedItems = this.selectedItems.filter(i => i.label !== checkbox.label);
+        this.selectedItems = this.selectedItems.filter((i) => i.label !== checkbox.label);
       }
     },
     selectOrRemove(checkbox) {
@@ -523,11 +523,11 @@ export default {
 
       if (response.errors && response.errors.length) {
         const formatted = formatBackErrors(response.errors)
-          .map(e => e.errors)
+          .map((e) => e.errors)
           .flat();
         let errorMessage = `${this.$t('queryError')} : `;
 
-        formatted.forEach(e => {
+        formatted.forEach((e) => {
           errorMessage += `\n ${e.key} : ${e.value}`;
         });
 
@@ -1130,7 +1130,7 @@ export default {
       if (!this.partnerForOptionCheck) return [];
       if (this.userIsOperator) return true;
       const mailingLists = get(this.partnerForOptionCheck, 'data.mailingLists', []);
-      return mailingLists.map(m => ({ label: m.name, value: m.id }));
+      return mailingLists.map((m) => ({ label: m.name, value: m.id }));
     },
   },
 };

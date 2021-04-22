@@ -28,9 +28,9 @@ export default {
   },
   methods: {
     getFetchDataFn() {
-      return async pageInfo => {
+      return async (pageInfo) => {
         const response = await dataUsage(this.simcard.id, pageInfo);
-        const rows = response.items.map(r => {
+        const rows = response.items.map((r) => {
           return { ...r, simcard: this.simcard };
         });
         const total = response.total;
@@ -103,7 +103,7 @@ export default {
           orderable: false,
           format: {
             type: 'Getter',
-            getter: row => {
+            getter: (row) => {
               return get(row, 'pdpConnectionDateInfo.connectionClosingReasonTranslated');
             },
           },
@@ -153,7 +153,7 @@ export default {
           orderable: false,
           format: {
             type: 'Getter',
-            getter: row => {
+            getter: (row) => {
               return get(row, 'ipAddressTypeTranslated');
             },
           },

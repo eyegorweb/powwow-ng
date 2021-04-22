@@ -175,7 +175,7 @@ export default {
   },
 
   watch: {
-    customFieldType: () => {
+    customFieldType() {
       if (!this) return;
       return this.canAddCustomField();
     },

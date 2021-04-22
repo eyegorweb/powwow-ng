@@ -109,11 +109,11 @@ export async function postFile(url, formData) {
 }
 
 export function delay(t) {
-  return new Promise(resolve => setTimeout(resolve, t));
+  return new Promise((resolve) => setTimeout(resolve, t));
 }
 
 export function addDateFilter(gqlFilters, selectedFilters, gqlParamName, filterKey) {
-  const dateFilter = selectedFilters.find(f => f.id === filterKey);
+  const dateFilter = selectedFilters.find((f) => f.id === filterKey);
   if (dateFilter && dateFilter.startDate) {
     const formattedStartDate = `${formatDateForGql(dateFilter.startDate)}`;
     if (dateFilter.endDate) {
@@ -185,14 +185,14 @@ export function boolStr(value) {
 export function getValuesIdsWithoutQuotes(filters, filterId) {
   const values = getFilterValues(filters, filterId);
   if (values) {
-    return values.map(i => `${i.id}`).join(',');
+    return values.map((i) => `${i.id}`).join(',');
   }
 }
 
 export function getFilterValues(filters, filterId) {
   if (!filters) return;
 
-  const foundFilter = filters.find(f => f.id === filterId);
+  const foundFilter = filters.find((f) => f.id === filterId);
   if (foundFilter) {
     return foundFilter.values;
   }
@@ -201,7 +201,7 @@ export function getFilterValues(filters, filterId) {
 export function getFilterValue(filters, filterId) {
   if (!filters) return;
 
-  const foundFilter = filters.find(f => f.id === filterId);
+  const foundFilter = filters.find((f) => f.id === filterId);
   if (foundFilter) {
     return foundFilter.value;
   }
@@ -210,7 +210,7 @@ export function getFilterValue(filters, filterId) {
 export function getValuesIds(filters, filterId) {
   const values = getFilterValues(filters, filterId);
   if (values) {
-    return values.map(i => `"${i.id}"`).join(',');
+    return values.map((i) => `"${i.id}"`).join(',');
   }
 }
 
@@ -223,14 +223,16 @@ export function formatServicesForGQL(servicesChoice) {
   if (dataServiceChoice) {
     if (dataServiceChoice.checked) {
       const paramsArr = dataServiceChoice.parameters
-        .filter(p => p.selected)
-        .map(p => `"${p.code}"`);
+        .filter((p) => p.selected)
+        .map((p) => `"${p.code}"`);
       serviceParamsArr.push(`{serviceCode: "DATA", serviceParameters: [${paramsArr.join(',')}]}`);
     }
   }
 
   if (services) {
-    const checkedServices = services.filter(s => s.checked).map(s => `{serviceCode: "${s.code}"}`);
+    const checkedServices = services
+      .filter((s) => s.checked)
+      .map((s) => `{serviceCode: "${s.code}"}`);
     serviceParamsArr = [...serviceParamsArr, ...checkedServices];
   }
 

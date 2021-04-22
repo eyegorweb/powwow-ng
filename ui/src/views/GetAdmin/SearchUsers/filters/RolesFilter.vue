@@ -27,7 +27,7 @@ export default {
     const response = await fetchUserRoles();
 
     if (response) {
-      this.items = response.map(r => {
+      this.items = response.map((r) => {
         return {
           id: r.name + r.Id,
           label: r.description,

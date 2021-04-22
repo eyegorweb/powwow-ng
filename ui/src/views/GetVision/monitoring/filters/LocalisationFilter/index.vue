@@ -46,7 +46,7 @@ export default {
       },
       set(value) {
         this.$emit('change', {
-          zone: this.zones.find(z => z.value === value),
+          zone: this.zones.find((z) => z.value === value),
           country: value === 'world' ? this.country : undefined,
           zipCode: value === 'france' ? this.zipCode : undefined,
         });
@@ -60,7 +60,7 @@ export default {
       },
       set(country) {
         this.$emit('change', {
-          zone: this.zones.find(z => z.value === this.zone),
+          zone: this.zones.find((z) => z.value === this.zone),
           country,
           zipCode: this.zipCode,
         });
@@ -74,7 +74,7 @@ export default {
       },
       set(zipCode) {
         this.$emit('change', {
-          zone: this.zones.find(z => z.value === this.zone),
+          zone: this.zones.find((z) => z.value === this.zone),
           country: this.country,
           zipCode,
         });

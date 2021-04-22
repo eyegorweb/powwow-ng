@@ -79,8 +79,8 @@ export default {
     async fetchBillingAccounts() {
       const data = await fetchBillibAccountForPartnerId(this.lineData.party.id);
       this.billingAccounts = data
-        .filter(ba => ba.id !== this.idCurrentBillingAccount)
-        .map(ba => ({
+        .filter((ba) => ba.id !== this.idCurrentBillingAccount)
+        .map((ba) => ({
           id: ba.id,
           label: `${ba.code} - ${ba.name}`,
           partnerId: ba.party.id,

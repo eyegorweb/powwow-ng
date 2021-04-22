@@ -11,7 +11,7 @@
     @modify="modifyList($event)"
     no-edit
   >
-    <template v-slot="{ item }">
+    <template #default="{ item }">
       <div v-if="item.company" class="cardBloc-infos-name">
         {{ item.company }}
       </div>
@@ -64,7 +64,7 @@ export default {
         filteredAdresses = [...items];
       } else {
         const query = q.toLowerCase();
-        filteredAdresses = items.filter(a => {
+        filteredAdresses = items.filter((a) => {
           if (a.address.address1) {
             if (a.address.address1.toLowerCase().includes(query)) {
               return true;

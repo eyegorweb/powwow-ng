@@ -147,7 +147,7 @@ export default {
           searchFilter
         );
 
-        this.rows = response.items.map(i => ({ ...i, ...i.unitAction }));
+        this.rows = response.items.map((i) => ({ ...i, ...i.unitAction }));
       } catch (e) {
         console.log('fetchUnitActs -> e', e);
         this.flashMessage({

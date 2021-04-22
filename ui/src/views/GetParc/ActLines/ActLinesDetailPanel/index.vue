@@ -68,7 +68,7 @@ export default {
 
   computed: {
     ...mapState({
-      panelPayload: state => state.ui.panelPayload,
+      panelPayload: (state) => state.ui.panelPayload,
     }),
     partnerTypeMVNO() {
       return get(this.content, 'party.partyType') === 'MVNO';

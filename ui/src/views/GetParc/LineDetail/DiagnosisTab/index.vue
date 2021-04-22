@@ -102,7 +102,7 @@ export default {
       },
     ];
 
-    this.menuItems = this.filterByPermission(unfilteredItems).filter(i => {
+    this.menuItems = this.filterByPermission(unfilteredItems).filter((i) => {
       if (i.section === 'line_analysis' || i.section === 'supervision') {
         return this.autoDiagnosticEnabled;
       }
@@ -138,8 +138,8 @@ export default {
       const typeForPartner = this.$loGet(this.content, 'party.partyType');
       const specificCustomerID = this.$loGet(this.content, 'party.id');
       if (!this.menuItems) return [];
-      let visibleItems = this.menuItems.filter(m =>
-        m.compatiblePartnerTypes.some(p => p === typeForPartner)
+      let visibleItems = this.menuItems.filter((m) =>
+        m.compatiblePartnerTypes.some((p) => p === typeForPartner)
       );
       const specificPermissionNetworkHistory = {
         section: 'network_history',
@@ -166,7 +166,7 @@ export default {
   },
   methods: {
     filterByPermission(arrayInput) {
-      return arrayInput.filter(a => {
+      return arrayInput.filter((a) => {
         if (!a.permission) return true;
         return this.havePermission(a.permission.domain, a.permission.action);
       });

@@ -78,28 +78,28 @@ const CONTINENTS_CONF = [
   { code: 'OC', label: 'Oceania', lat: -16.0, lng: 130.4, activeCount: 0, passiveCount: 0 },
 ];
 
-const adjustPositionForContinent = position => {
+const adjustPositionForContinent = (position) => {
   return {
     x: position.x - 30,
     y: position.y - 30,
   };
 };
 
-const adjustPositionForCoutries = position => {
+const adjustPositionForCoutries = (position) => {
   return {
     x: position.x - 20,
     y: position.y - 20,
   };
 };
 
-const adjustPositionForStates = position => {
+const adjustPositionForStates = (position) => {
   return {
     x: position.x - 20,
     y: position.y - 20,
   };
 };
 
-const defaultAdjustment = position => {
+const defaultAdjustment = (position) => {
   return {
     x: position.x - 20,
     y: position.y - 20,
@@ -148,13 +148,13 @@ export default {
   computed: {
     alarmMarkersWithValues() {
       if (this.markers) {
-        return this.markers.filter(m => m.data && m.data.nbAlarms > 0);
+        return this.markers.filter((m) => m.data && m.data.nbAlarms > 0);
       }
       return [];
     },
     zipCodeFilter() {
       if (this.appliedFilters) {
-        const zoneFilter = this.appliedFilters.find(f => f.id === 'filters.zone');
+        const zoneFilter = this.appliedFilters.find((f) => f.id === 'filters.zone');
         return this.$loGet(zoneFilter, 'data.zipCode');
       }
 
@@ -162,7 +162,7 @@ export default {
     },
     idFilter() {
       if (this.appliedFilters) {
-        const idFilter = this.appliedFilters.find(f => f.id === 'common.identifier');
+        const idFilter = this.appliedFilters.find((f) => f.id === 'common.identifier');
         const data = this.$loGet(idFilter, 'data');
         if (data.msisdn || data.imsi) {
           return data;
@@ -330,7 +330,7 @@ export default {
       if (this.isSameFilters) return;
       if (!this.appliedFilters) return;
 
-      const zoneFilter = this.appliedFilters.find(f => f.id === 'filters.zone');
+      const zoneFilter = this.appliedFilters.find((f) => f.id === 'filters.zone');
       if (zoneFilter) {
         const zoneName = zoneFilter.data.zone.value;
         if (zoneName === 'france') {
@@ -435,7 +435,7 @@ export default {
       // center to france
 
       const data = await fetchCockpitMarkers(this.formatFiltersForCockpit());
-      const markers = data.map(d => {
+      const markers = data.map((d) => {
         return {
           id: uuid(),
           alertNumber: d.alertNumber,
@@ -455,7 +455,7 @@ export default {
       this.isReady = false;
 
       const countryFilter = this.appliedFilters
-        ? this.appliedFilters.find(f => f.id === 'filters.country')
+        ? this.appliedFilters.find((f) => f.id === 'filters.country')
         : undefined;
 
       if (!this.markers || !this.markers.length) {
@@ -556,8 +556,8 @@ export default {
       this.adjustPosition = adjustPositionForContinent;
       const data = await fetchContinentData(this.usageForQuery, this.formatFilters());
       this.markers = data
-        .map(d => {
-          const defaultData = CONTINENTS_CONF.find(m => m.code === d.locationCode);
+        .map((d) => {
+          const defaultData = CONTINENTS_CONF.find((m) => m.code === d.locationCode);
           if (defaultData) {
             return {
               id: uuid(),
@@ -570,7 +570,7 @@ export default {
             };
           }
         })
-        .filter(c => !!c);
+        .filter((c) => !!c);
     },
 
     async loadDataForCountries() {
@@ -594,7 +594,7 @@ export default {
     },
 
     formatMarkers(data) {
-      return data.map(d => {
+      return data.map((d) => {
         return {
           id: uuid(),
           activeCount: d.activeCount,
@@ -611,27 +611,29 @@ export default {
     },
 
     async getCenteredCountry() {
-      return new Promise(async (resolve, reject) => {
-        await delay(200);
-        if (this.map.getBounds()) {
-          let latLng = this.map.getBounds().getCenter();
-          this.geocoder.geocode(
-            {
-              latLng,
-            },
-            (results, status) => {
-              let result;
-              if (status == this.google.maps.GeocoderStatus.OK) {
-                if (results[0]) {
-                  result = extractFromAdress(results[0].address_components, 'country');
+      return new Promise((resolve, reject) => {
+        // await delay(200);
+        setTimeout(() => {
+          if (this.map.getBounds()) {
+            let latLng = this.map.getBounds().getCenter();
+            this.geocoder.geocode(
+              {
+                latLng,
+              },
+              (results, status) => {
+                let result;
+                if (status == this.google.maps.GeocoderStatus.OK) {
+                  if (results[0]) {
+                    result = extractFromAdress(results[0].address_components, 'country');
+                  }
                 }
+                resolve(result);
               }
-              resolve(result);
-            }
-          );
-        } else {
-          reject('No bounds');
-        }
+            );
+          } else {
+            reject('No bounds');
+          }
+        }, 200);
       });
     },
   },

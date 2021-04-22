@@ -26,7 +26,7 @@ export default {
   },
   async mounted() {
     const data = await getActStatuses();
-    this.statuses = data.map(a => ({
+    this.statuses = data.map((a) => ({
       id: a,
       label: a,
     }));

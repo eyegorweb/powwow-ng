@@ -42,7 +42,7 @@ export default {
   methods: {
     initServices() {
       const offerServices = getMarketingOfferServices(this.offer.initialOffer);
-      const multiselectFormat = s => {
+      const multiselectFormat = (s) => {
         return {
           ...s,
           id: s.code,
@@ -50,13 +50,13 @@ export default {
         };
       };
       const filteredOfferServices = offerServices
-        .filter(s => s.code !== 'DATA')
+        .filter((s) => s.code !== 'DATA')
         .map(multiselectFormat);
-      const disabledServices = filteredOfferServices.filter(s => !s.editable);
+      const disabledServices = filteredOfferServices.filter((s) => !s.editable);
       const allDisabledServices = [...disabledServices, ...this.itemsToDisable];
 
       this.offerServices = filteredOfferServices.filter(
-        s => !allDisabledServices.find(d => d.code === s.code)
+        (s) => !allDisabledServices.find((d) => d.code === s.code)
       );
     },
   },

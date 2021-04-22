@@ -25,7 +25,7 @@
                   <label for="message">{{ $t('filters.actDateStart') }}</label>
                   <UiDate
                     time-picker
-                    @change="newVal => (dateFrom = newVal)"
+                    @change="(newVal) => (dateFrom = newVal)"
                     :value="dateFrom"
                     class="d-block"
                     :error="dateFromInError ? 'errors.mandatory' : undefined"
@@ -39,7 +39,7 @@
                   <label for="message">{{ $t('filters.actDateEnd') }}</label>
                   <UiDate
                     time-picker
-                    @change="newVal => (dateTo = newVal)"
+                    @change="(newVal) => (dateTo = newVal)"
                     :value="dateTo"
                     class="d-block"
                     :error="dateToInError ? 'errors.mandatory' : undefined"
@@ -112,8 +112,8 @@ export default {
     onCancelDone(payload) {
       if (payload.response.errors && payload.response.errors.length) {
         const errors = formatBackErrors(payload.response.errors);
-        errors.forEach(e => {
-          e.errorKeys.forEach(ekey => {
+        errors.forEach((e) => {
+          e.errorKeys.forEach((ekey) => {
             this.flashMessage({
               level: 'danger',
               message: this.$t('getparc.lineDetail.tab3.errors.' + ekey),
@@ -158,7 +158,7 @@ export default {
       this.tableVersion += 1;
     },
     getFetchDataFn() {
-      return async pageInfo => {
+      return async (pageInfo) => {
         const response = await consumptionOnDemand(this.content.id, pageInfo);
         return {
           rows: response.consumptionsOnDemands.items,

@@ -152,7 +152,7 @@ export default {
         this.selectedRows.push(payload.add);
       }
       if (payload.remove) {
-        this.selectedRows = this.selectedRows.filter(r => r.id !== payload.remove.id);
+        this.selectedRows = this.selectedRows.filter((r) => r.id !== payload.remove.id);
       }
 
       if (payload.action === 'openAlarmPanel') {

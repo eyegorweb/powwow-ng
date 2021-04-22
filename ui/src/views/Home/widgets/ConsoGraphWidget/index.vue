@@ -77,8 +77,8 @@ export default {
       if (!this.defaultAppliedFilters) return [];
 
       return this.defaultAppliedFilters
-        .filter(f => f.id === 'filters.partners')
-        .map(f => f.values)
+        .filter((f) => f.id === 'filters.partners')
+        .map((f) => f.values)
         .flat();
     },
 

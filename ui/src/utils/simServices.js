@@ -5,9 +5,9 @@ import flatten from 'lodash.flatten';
  */
 export function getServiceData(offer, dependencyCode) {
   const groupServices = offer.initialOffer.nonSystemServiceGroupList.map(
-    g => g.standardAndSemiGlobalCatalogServiceGroups
+    (g) => g.standardAndSemiGlobalCatalogServiceGroups
   );
-  return flatten(groupServices).find(s => s.catalogService.code === dependencyCode);
+  return flatten(groupServices).find((s) => s.catalogService.code === dependencyCode);
 }
 export function initDataService(offer, selectedDataService, servicesInitialized) {
   let dataServiceRet = undefined;
@@ -21,7 +21,7 @@ export function initDataService(offer, selectedDataService, servicesInitialized)
     }
 
     const containTestApn = serviceParameters.find(
-      s => s.defaultValue.indexOf('testrnis.fr') !== -1
+      (s) => s.defaultValue.indexOf('testrnis.fr') !== -1
     );
     const isEditable = data.partyAccess || false;
     const isChecked = data && data.activatedByDefault && !containTestApn;
@@ -33,7 +33,7 @@ export function initDataService(offer, selectedDataService, servicesInitialized)
       data: { ...data },
     };
 
-    const apns = serviceParameters.map(p => {
+    const apns = serviceParameters.map((p) => {
       return {
         label: p.defaultValue,
         selectable: p.partyAccess,

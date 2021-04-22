@@ -41,10 +41,10 @@ export default {
       if (selectedData) {
         if (this.selectedItem) {
           if (this.selectedItem.id !== selectedData.id) {
-            this.selectedItem = this.items.find(i => i.id === selectedData.id);
+            this.selectedItem = this.items.find((i) => i.id === selectedData.id);
           }
         } else {
-          this.selectedItem = this.items.find(i => i.id === selectedData.id);
+          this.selectedItem = this.items.find((i) => i.id === selectedData.id);
         }
       } else {
         this.selectedItem = undefined;
@@ -65,7 +65,7 @@ export default {
     );
 
     if (response.items) {
-      this.items = response.items.map(i => ({ id: i.id, label: i.name }));
+      this.items = response.items.map((i) => ({ id: i.id, label: i.name }));
     }
 
     this.selectItemFromProp(this.selectedData);

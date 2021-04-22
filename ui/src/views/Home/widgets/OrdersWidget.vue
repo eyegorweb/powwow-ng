@@ -34,7 +34,7 @@ export default {
 
     columns() {
       if (this.userIsPartner) {
-        return this.allColumns.filter(c => c.name !== 'party');
+        return this.allColumns.filter((c) => c.name !== 'party');
       }
       return this.allColumns;
     },
@@ -100,7 +100,7 @@ export default {
           exportId: 'ORDER_ID',
           format: {
             type: 'LinkBtn',
-            onClick: orderId => {
+            onClick: (orderId) => {
               this.$router.push({
                 name: 'orders.search',
                 params: {
@@ -126,7 +126,7 @@ export default {
           },
           format: {
             type: 'Getter',
-            getter: row => {
+            getter: (row) => {
               return truncateLabel(row.party.name);
             },
           },
@@ -145,7 +145,7 @@ export default {
           },
           format: {
             type: 'Getter',
-            getter: row => {
+            getter: (row) => {
               return truncateLabel(row.orderedSIMCard.description, 20);
             },
           },

@@ -44,7 +44,7 @@ export default {
   computed: {
     partnerGroup() {
       const partnerGroup = this.selectedFilters.find(
-        f => f.id === 'getadmin.users.filters.partnerGroup'
+        (f) => f.id === 'getadmin.users.filters.partnerGroup'
       );
       return partnerGroup && partnerGroup.data.value;
     },

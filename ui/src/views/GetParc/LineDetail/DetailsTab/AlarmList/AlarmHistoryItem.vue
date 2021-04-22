@@ -52,7 +52,7 @@ export default {
     observedStatus() {
       if (this.alarm.type !== 'STATUS_CHANGE') return;
 
-      const status = alarmStatuses.find(s => s.id === this.alarm.triggerCommercialStatus);
+      const status = alarmStatuses.find((s) => s.id === this.alarm.triggerCommercialStatus);
       return status.label;
     },
 

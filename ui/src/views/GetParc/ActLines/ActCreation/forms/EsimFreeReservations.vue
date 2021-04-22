@@ -20,7 +20,7 @@ export default {
       const partnerId = this.$loGet(this.actCreationPrerequisites, 'partner.id');
       let simIds;
       if (this.selectedLinesForActCreation && this.selectedLinesForActCreation.length) {
-        simIds = this.selectedLinesForActCreation.map(s => s.id);
+        simIds = this.selectedLinesForActCreation.map((s) => s.id);
       }
 
       return await esimLiberationProfil(

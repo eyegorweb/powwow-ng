@@ -80,12 +80,12 @@ export default {
       const conf = await fixture.conf();
 
       if (conf.default.sets) {
-        this.sets = conf.default.sets.map(s => ({ id: s.name, label: s.name, values: s.props }));
+        this.sets = conf.default.sets.map((s) => ({ id: s.name, label: s.name, values: s.props }));
       }
     },
   },
   mounted() {
-    this.fixtures = fixtures.map(f => {
+    this.fixtures = fixtures.map((f) => {
       return {
         id: f.name,
         label: f.name,

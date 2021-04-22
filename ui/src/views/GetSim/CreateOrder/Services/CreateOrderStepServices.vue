@@ -111,7 +111,7 @@ export default {
       customerAccountCode: billingAccountCode,
     });
     this.isLoadingOffers = false;
-    this.offers = data.map(o => {
+    this.offers = data.map((o) => {
       return {
         ...o,
         label: o.workflowDescription,
@@ -120,7 +120,7 @@ export default {
     });
 
     const selectedOffer = this.offers.find(
-      o => o.initialOffer.code === get(this.synthesis, 'services.value.offerCode')
+      (o) => o.initialOffer.code === get(this.synthesis, 'services.value.offerCode')
     );
 
     const previouslyChosenServices = get(this.synthesis, 'services.value.servicesChoice');
@@ -141,7 +141,7 @@ export default {
       const offerServices = getMarketingOfferServices(selectedOffer.initialOffer);
 
       if (this.chosenServices) {
-        return offerServices.map(os => this.chosenServices.find(s => s.code === os.code));
+        return offerServices.map((os) => this.chosenServices.find((s) => s.code === os.code));
       }
 
       return offerServices;
@@ -152,7 +152,7 @@ export default {
         this.servicesChoice.dataService &&
         this.servicesChoice.dataService.checked &&
         this.servicesChoice.dataService.parameters &&
-        this.servicesChoice.dataService.parameters.filter(p => p.selected).length === 0;
+        this.servicesChoice.dataService.parameters.filter((p) => p.selected).length === 0;
 
       if (this.activation) {
         if (!this.selectedOffer) {

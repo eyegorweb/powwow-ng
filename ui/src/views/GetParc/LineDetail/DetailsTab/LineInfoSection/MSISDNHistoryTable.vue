@@ -28,7 +28,7 @@ export default {
           visible: true,
           format: {
             type: 'Getter',
-            getter: row => {
+            getter: (row) => {
               return this.$loGet(row, 'msisdn', '-');
             },
           },
@@ -41,7 +41,7 @@ export default {
           visible: true,
           format: {
             type: 'Getter',
-            getter: row => {
+            getter: (row) => {
               return this.$loGet(row, 'msisdnA', '-');
             },
           },
@@ -54,7 +54,7 @@ export default {
           visible: true,
           format: {
             type: 'Getter',
-            getter: row => {
+            getter: (row) => {
               return this.$loGet(row, 'imsi', '-');
             },
           },
@@ -67,7 +67,7 @@ export default {
           visible: true,
           format: {
             type: 'Getter',
-            getter: row => {
+            getter: (row) => {
               return this.$loGet(row, 'status', '-');
             },
           },
@@ -82,12 +82,12 @@ export default {
   },
   methods: {
     changeCellsOrder(orderedCells) {
-      const notVisibleCells = this.columns.filter(c => !c.visible);
+      const notVisibleCells = this.columns.filter((c) => !c.visible);
       this.columns = orderedCells.concat(notVisibleCells);
     },
     refreshTable() {
       this.rows = this.lines
-        .map(l => ({
+        .map((l) => ({
           id: l.id,
           msisdn: l.msisdn,
           imsi: l.imsi,

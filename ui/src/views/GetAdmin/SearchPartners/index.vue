@@ -77,7 +77,7 @@ export default {
         name: 'partyType',
         format: {
           type: 'Getter',
-          getter: row => {
+          getter: (row) => {
             let typeForPartner;
             if (row && row.partyType) {
               switch (row.partyType) {
@@ -104,7 +104,7 @@ export default {
         name: 'disabled',
         format: {
           type: 'Getter',
-          getter: row => {
+          getter: (row) => {
             return row.disabled ? this.$t('col.notActive') : this.$t('col.active');
           },
         },
@@ -117,8 +117,8 @@ export default {
         name: 'partyGroups',
         format: {
           type: 'Getter',
-          getter: row => {
-            return row.partyGroups.map(p => p.name).join(',');
+          getter: (row) => {
+            return row.partyGroups.map((p) => p.name).join(',');
           },
         },
         orderable: true,

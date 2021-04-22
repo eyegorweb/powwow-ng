@@ -140,7 +140,7 @@ export default {
     this.$emit('coachData', this.coachData);
     let successRating = 0;
     if (this.coachData) {
-      this.standardsIndicators = this.standardsIndicators.map(i => {
+      this.standardsIndicators = this.standardsIndicators.map((i) => {
         switch (i.title) {
           case 'coach.indicators.lineStatus': {
             i.subTitle = this.coachData.simcardTrafficAllowedTest;
@@ -183,7 +183,7 @@ export default {
       this.successRating = successRating;
 
       if (this.advancedIndicators) {
-        this.advancedIndicators = this.advancedIndicators.map(i => {
+        this.advancedIndicators = this.advancedIndicators.map((i) => {
           switch (i.title) {
             case 'coach.indicators.localityTest': {
               i.subTitle = this.coachData.linesLocalityTest;

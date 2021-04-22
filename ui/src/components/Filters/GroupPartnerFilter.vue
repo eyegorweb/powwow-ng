@@ -35,7 +35,7 @@ export default {
   async mounted() {
     const response = await fetchPartnerGroups();
     if (response) {
-      this.items = response.map(p => {
+      this.items = response.map((p) => {
         return {
           id: p.id,
           label: p.name,

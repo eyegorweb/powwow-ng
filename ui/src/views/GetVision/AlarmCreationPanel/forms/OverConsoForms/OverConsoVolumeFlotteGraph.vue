@@ -97,7 +97,7 @@ export default {
       const limits = getLimits(this.initLimits, mockData);
 
       const getxAxisCategories = () => {
-        const formatted = mockData.map(d => {
+        const formatted = mockData.map((d) => {
           const parts = d.date.split('/');
           return parseInt(parts[0]);
         });
@@ -106,7 +106,7 @@ export default {
       };
 
       const getLastMonthConsoSerie = () => {
-        return mockData.map(d => d.value);
+        return mockData.map((d) => d.value);
       };
 
       const $emit = (name, params) => {
@@ -123,7 +123,10 @@ export default {
                 series = this.series[1];
               if (series.data.length < 3) {
                 series.addPoint([x, y]);
-                $emit('setLimits', series.data.map(s => [s.x, s.y]));
+                $emit(
+                  'setLimits',
+                  series.data.map((s) => [s.x, s.y])
+                );
               }
             },
           },

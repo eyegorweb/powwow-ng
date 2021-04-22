@@ -126,21 +126,28 @@ export default {
       import('@/views/GetSim/Reservations/CreateReservationPanel/index.vue'),
   },
   methods: {
-    ...mapMutations(['closePanel']),
+    ...mapMutations(['closePanel', 'updatePanelPayload']),
   },
   computed: {
     ...mapState({
-      isOpen: state => state.ui.isPanelOpen,
-      title: state => state.ui.panelTitle,
-      panelId: state => state.ui.panelId,
-      wide: state => state.ui.isPanelWide,
-      payload: state => state.ui.panelPayload,
-      backdrop: state => state.ui.backdrop,
-      titleConf: state => state.ui.panelTitleConf,
-      ignoreClickAway: state => state.ui.ignoreClickAway,
-      width: state => state.ui.width,
+      isOpen: (state) => state.ui.isPanelOpen,
+      title: (state) => state.ui.panelTitle,
+      panelId: (state) => state.ui.panelId,
+      wide: (state) => state.ui.isPanelWide,
+      panelPayload: (state) => state.ui.panelPayload,
+      backdrop: (state) => state.ui.backdrop,
+      titleConf: (state) => state.ui.panelTitleConf,
+      ignoreClickAway: (state) => state.ui.ignoreClickAway,
+      width: (state) => state.ui.width,
     }),
-
+    payload: {
+      get() {
+        return this.panelPayload;
+      },
+      set(newValue) {
+        this.updatePanelPayload(newValue);
+      },
+    },
     effectiveWidth() {
       if (this.overridenWidth) {
         return this.overridenWidth;

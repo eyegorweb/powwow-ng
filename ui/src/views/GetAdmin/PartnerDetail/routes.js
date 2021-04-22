@@ -115,19 +115,25 @@ export default {
               name: 'getAdminPartnerDetails.customerList.detail.commercialOffers',
               path: 'commercialOffers',
               component: () =>
-                import('@/views/GetAdmin/PartnerDetail/PartnerCustomers/BillingAccountDetail/CommercialOffers/index.vue'),
+                import(
+                  '@/views/GetAdmin/PartnerDetail/PartnerCustomers/BillingAccountDetail/CommercialOffers/index.vue'
+                ),
               children: [
                 {
                   name: 'getAdminPartnerDetails.customerList.detail.commercialOffers.list',
                   path: 'list',
                   component: () =>
-                    import('@/views/GetAdmin/PartnerDetail/PartnerCustomers/BillingAccountDetail/CommercialOffers/CommerialOffersTable.vue'),
+                    import(
+                      '@/views/GetAdmin/PartnerDetail/PartnerCustomers/BillingAccountDetail/CommercialOffers/CommerialOffersTable.vue'
+                    ),
                 },
                 {
                   name: 'getAdminPartnerDetails.customerList.detail.commercialOffers.form',
                   path: 'form/:comOfferId?',
                   component: () =>
-                    import('@/views/GetAdmin/PartnerDetail/PartnerCustomers/BillingAccountDetail/CommercialOffers/CommercialOfferForm.vue'),
+                    import(
+                      '@/views/GetAdmin/PartnerDetail/PartnerCustomers/BillingAccountDetail/CommercialOffers/CommercialOfferForm.vue'
+                    ),
                 },
               ],
             },
@@ -135,7 +141,9 @@ export default {
               name: 'getAdminPartnerDetails.customerList.detail.deliveryAdresses',
               path: 'deliveryAdresses',
               component: () =>
-                import('@/views/GetAdmin/PartnerDetail/PartnerCustomers/BillingAccountDetail/DeliveryAdresses.vue'),
+                import(
+                  '@/views/GetAdmin/PartnerDetail/PartnerCustomers/BillingAccountDetail/DeliveryAdresses.vue'
+                ),
             },
             {
               name: 'getAdminPartnerDetails.customerList.detail.simcards',

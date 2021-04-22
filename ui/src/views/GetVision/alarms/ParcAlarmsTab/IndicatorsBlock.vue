@@ -51,7 +51,7 @@ export default {
     async refreshIndicators() {
       let partnerIds = undefined;
       if (this.contextPartners) {
-        partnerIds = this.contextPartners.map(p => p.id);
+        partnerIds = this.contextPartners.map((p) => p.id);
       }
 
       const response = await fetchAlarmInstancesIndicators(

@@ -51,7 +51,7 @@ export default {
     // ...mapGetters({ storeSelectedCountries: 'getsim/selectedDeliveryCountries' }),
 
     countriesSelectItems: ({ countries }) =>
-      countries.map(country => ({
+      countries.map((country) => ({
         id: country.code,
         label: country.name,
         codeIso3: country.codeIso3,

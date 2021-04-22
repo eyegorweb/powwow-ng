@@ -3,7 +3,7 @@ import get from 'lodash.get';
 
 export async function alarmOnChangeISP(params) {
   const gqlParams = getFormGQLParams(params);
-  gqlParams.push(`plmnList:[${params.formData.map(p => `"${p.id}"`).join(',')}]`);
+  gqlParams.push(`plmnList:[${params.formData.map((p) => `"${p.id}"`).join(',')}]`);
 
   const queryStr = `mutation {
     createPLMNChangeAlarm(
@@ -30,7 +30,7 @@ export async function alarmOnChangeISP(params) {
 
 export async function alarmOnChangeCountry(params) {
   const gqlParams = getFormGQLParams(params);
-  gqlParams.push(`countryIsoCodes:[${params.formData.map(p => `"${p.id}"`).join(',')}]`);
+  gqlParams.push(`countryIsoCodes:[${params.formData.map((p) => `"${p.id}"`).join(',')}]`);
 
   const queryStr = `mutation {
     createCountryChangeAlarm(

@@ -78,7 +78,7 @@ export function formatFilters(selectedFilters) {
 }
 
 export function addReportModel(gqlFilters, selectedFilters) {
-  const filterdItem = selectedFilters.find(f => f.id === 'documents.model');
+  const filterdItem = selectedFilters.find((f) => f.id === 'documents.model');
   if (filterdItem) {
     gqlFilters.push(`reportId: {in: [${filterdItem.data.id}]}`);
   }

@@ -149,7 +149,7 @@ export default {
       }
       this.coachData = await startAnalysis(apId);
       if (this.coachData) {
-        this.standardsIndicators = this.standardsIndicators.map(i => {
+        this.standardsIndicators = this.standardsIndicators.map((i) => {
           switch (i.title) {
             case 'coach.indicators.lineStatus': {
               i.subTitle = this.coachData.simcardTrafficAllowedTest;
@@ -186,7 +186,7 @@ export default {
         });
 
         if (this.advancedIndicators) {
-          this.advancedIndicators = this.advancedIndicators.map(i => {
+          this.advancedIndicators = this.advancedIndicators.map((i) => {
             switch (i.title) {
               case 'coach.indicators.localityTest': {
                 i.subTitle = this.coachData.linesLocalityTest;

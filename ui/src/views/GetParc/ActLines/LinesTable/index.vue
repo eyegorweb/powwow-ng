@@ -132,10 +132,10 @@ export default {
     ...mapState('actLines', ['limitPerPage', 'apiError']),
     ...mapGetters(['userIsPartner', 'userInfos', 'userName', 'singlePartner']),
     ...mapState({
-      isOpen: state => state.ui.isPanelOpen,
+      isOpen: (state) => state.ui.isPanelOpen,
     }),
     ...mapState({
-      nextPage: state => state.ui.nextPage,
+      nextPage: (state) => state.ui.nextPage,
     }),
 
     pageLimit: {
@@ -237,11 +237,11 @@ export default {
     },
 
     getExportErrorCallback() {
-      return errors => {
+      return (errors) => {
         const formattedErrors = formatBackErrors(errors);
         if (formattedErrors) {
           const haveSimStatusError = formattedErrors[0].errorKeys.find(
-            e => e === 'simStatus.Required'
+            (e) => e === 'simStatus.Required'
           );
           if (haveSimStatusError) {
             return this.$t('needActiveLines');
@@ -258,7 +258,7 @@ export default {
         exportFormat,
         asyncExportRequest,
         exportAll,
-        undefined,
+        forceAsyncExport,
         exportChoice
       ) => {
         return await exportSimCardInstances(
@@ -300,7 +300,7 @@ export default {
     if (this.userIsPartner) {
       const partnerId = this.singlePartner.id;
       const customFields = await fetchCustomFields(partnerId);
-      const partnerCustomFieldsColumns = customFields.customFields.map(c => {
+      const partnerCustomFieldsColumns = customFields.customFields.map((c) => {
         return {
           id: c.id,
           label: c.label,
@@ -384,7 +384,7 @@ export default {
           name: 'accessPoint',
           format: {
             type: 'Getter',
-            getter: row => {
+            getter: (row) => {
               return getFromLatestLineFromAccessPoint(row.accessPoint, 'msisdn');
             },
           },
@@ -399,7 +399,7 @@ export default {
           exportId: 'LINE_IMSI',
           format: {
             type: 'Getter',
-            getter: row => {
+            getter: (row) => {
               return getFromLatestLineFromAccessPoint(row.accessPoint, 'imsi');
             },
           },
@@ -435,7 +435,7 @@ export default {
           exportId: 'LINE_OFFER',
           format: {
             type: 'Getter',
-            getter: row => {
+            getter: (row) => {
               if (get(row, 'party.partyType') === 'MULTI_CUSTOMER') {
                 return get(row, 'workflow.workflowDescription');
               }
@@ -458,7 +458,7 @@ export default {
           name: 'accessPoint',
           format: {
             type: 'Getter',
-            getter: row => {
+            getter: (row) => {
               return getFromLatestLineFromAccessPoint(row.accessPoint, 'msisdnA');
             },
           },
@@ -523,7 +523,7 @@ export default {
           exportId: 'BILLING_ACCOUNT',
           format: {
             type: 'Getter',
-            getter: row => {
+            getter: (row) => {
               return (
                 get(row, 'accessPoint.offerGroup.customerAccount.code', '') +
                 ' - ' +

@@ -39,7 +39,7 @@ export default {
       const isChild = !!item.parent;
       if (!isChild) return false;
 
-      return !!this.items.find(p => p.groupParent && p.id == item.parent);
+      return !!this.items.find((p) => p.groupParent && p.id == item.parent);
     },
   },
 };

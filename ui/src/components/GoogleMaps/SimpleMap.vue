@@ -48,7 +48,7 @@ export default {
     },
     formattedMarkers() {
       if (!this.markers) return;
-      return this.markers.map(m => {
+      return this.markers.map((m) => {
         return {
           id: uuid(),
           position: {

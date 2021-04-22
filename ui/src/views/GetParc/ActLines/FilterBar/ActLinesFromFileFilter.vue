@@ -15,11 +15,13 @@ import { getPartyOptions } from '@/api/partners.js';
 export default {
   data() {
     return {
-      otherOptions: [{
-        code: 'c7',
-        label: 'EID',
-        value: 'EID',
-      }],
+      otherOptions: [
+        {
+          code: 'c7',
+          label: 'EID',
+          value: 'EID',
+        },
+      ],
     };
   },
   components: {
@@ -36,16 +38,22 @@ export default {
     },
   },
 
-  async mounted () {
+  async mounted() {
     const optionsPartner = await getPartyOptions(this.userInfos.id);
-    console.log(this.userIsBO)
-    if (((this.userIsPartner || this.userIsGroupPartner) && optionsPartner.ipFixeEnable) || this.userIsBO) {
-      this.otherOptions = [...this.otherOptions, {
-        code: 'c8',
-        label: 'IP_FIXE',
-        value: 'IP_FIXE',
-      }]
-    };
+    console.log(this.userIsBO);
+    if (
+      ((this.userIsPartner || this.userIsGroupPartner) && optionsPartner.ipFixeEnable) ||
+      this.userIsBO
+    ) {
+      this.otherOptions = [
+        ...this.otherOptions,
+        {
+          code: 'c8',
+          label: 'IP_FIXE',
+          value: 'IP_FIXE',
+        },
+      ];
+    }
   },
   methods: {
     ...mapMutations('actLines', ['setFileImportFilter']),

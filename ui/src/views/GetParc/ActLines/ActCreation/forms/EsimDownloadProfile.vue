@@ -246,7 +246,7 @@ export default {
     async doRequest(contextValues) {
       let simIds;
       if (this.selectedLinesForActCreation && this.selectedLinesForActCreation.length) {
-        simIds = this.selectedLinesForActCreation.map(s => s.id);
+        simIds = this.selectedLinesForActCreation.map((s) => s.id);
       }
       const response = await esimDownloadProfil({
         filters: this.appliedFilters,
@@ -284,7 +284,7 @@ export default {
 
     decideOnMandatoryCustomFields() {
       if (this.allCustomFields && this.allCustomFields.customFields) {
-        this.allCustomFields = this.allCustomFields.customFields.map(c => {
+        this.allCustomFields = this.allCustomFields.customFields.map((c) => {
           c.isOptional = true;
           if (this.activation && c.mandatory === 'ACTIVATION') {
             c.isOptional = false;
@@ -295,16 +295,16 @@ export default {
     },
 
     getSelectedValue(code) {
-      const existingFieldValue = this.customFieldsValues.find(c => c.code === code);
+      const existingFieldValue = this.customFieldsValues.find((c) => c.code === code);
       if (existingFieldValue) {
         return existingFieldValue.enteredValue;
       }
     },
 
     onValueChanged(customField, enteredValue) {
-      const existingFieldValue = this.customFieldsValues.find(c => c.code === customField.code);
+      const existingFieldValue = this.customFieldsValues.find((c) => c.code === customField.code);
       if (existingFieldValue) {
-        this.customFieldsValues = this.customFieldsValues.map(c => {
+        this.customFieldsValues = this.customFieldsValues.map((c) => {
           if (c.code === customField.code) {
             return {
               ...c,

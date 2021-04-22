@@ -17,7 +17,7 @@
               :validation="validation"
               :allow-edit-tags="true"
               :add-on-key="[13, ';']"
-              @tags-changed="newTags => (tags = newTags)"
+              @tags-changed="(newTags) => (tags = newTags)"
               :placeholder="$t('getadmin.customize.addEmail')"
             />
           </div>
@@ -78,7 +78,7 @@ export default {
 
     async save() {
       this.emails = [];
-      this.emails = this.tags.map(e => e.text);
+      this.emails = this.tags.map((e) => e.text);
 
       const params = {
         partnerId: this.content.partnerId,
@@ -115,7 +115,7 @@ export default {
   async mounted() {
     if (this.content.duplicateFrom) {
       this.form.title = this.content.duplicateFrom.name;
-      this.tags = this.content.duplicateFrom.emails.split(';').map(e => ({ text: e }));
+      this.tags = this.content.duplicateFrom.emails.split(';').map((e) => ({ text: e }));
     }
   },
 };

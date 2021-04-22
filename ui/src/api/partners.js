@@ -356,7 +356,7 @@ export async function fetchAccountDetail(id) {
 }
 
 function addCFMultiSearchFilter(gqlFilters, selectedFilters) {
-  const code = selectedFilters.find(f => f.id === 'getadmin.partners.filters.multisearch');
+  const code = selectedFilters.find((f) => f.id === 'getadmin.partners.filters.multisearch');
   if (code) {
     gqlFilters.push(`multiSearch: {contains: "${code.value}"}`);
   }
@@ -894,7 +894,7 @@ export async function updateBroadcastLists(params) {
       updateMailingList(mailingInput:{
         id:"${params.id}",
         name:"${params.title}",
-        emails: [${params.emails.map(e => `"${e}"`).join(',')}],
+        emails: [${params.emails.map((e) => `"${e}"`).join(',')}],
       }) {
         id
       }
@@ -929,7 +929,7 @@ export async function createBroadcastLists(params) {
       createMailingList(mailingInput:{
         partyId:${params.partnerId},
         name:"${params.title}",
-        emails: [${params.emails.map(e => `"${e}"`).join(',')}],
+        emails: [${params.emails.map((e) => `"${e}"`).join(',')}],
 
       }) {
         id
@@ -1020,7 +1020,7 @@ export async function fetchPartyTypes() {
     }
   }`;
   const response = await query(queryStr);
-  return response.data.__type.enumValues.map(e => e.name);
+  return response.data.__type.enumValues.map((e) => e.name);
 }
 
 export async function fetchAllPartners(orderBy, pagination, filters = []) {
@@ -1069,7 +1069,7 @@ function addPartnerIdFilter(gqlFilters, selectedFilters) {
 }
 
 function addPartnerTypeFilter(gqlFilters, selectedFilters) {
-  const partnerType = selectedFilters.find(f => f.id === 'partnerType');
+  const partnerType = selectedFilters.find((f) => f.id === 'partnerType');
 
   if (partnerType) {
     gqlFilters.push(`partyType: {eq: ${partnerType.data.value}}`);
@@ -1079,7 +1079,7 @@ function addPartnerTypeFilter(gqlFilters, selectedFilters) {
 function addPartnerGroupFilter(gqlFilters, selectedFilters) {
   const values = getFilterValues(selectedFilters, 'getadmin.users.filters.partnerGroup');
   if (values && values.length) {
-    const partnerGroups = values.map(p => `${p.id}`).join(',');
+    const partnerGroups = values.map((p) => `${p.id}`).join(',');
     gqlFilters.push(`groupId: {in: [${partnerGroups}]}`);
   }
 }

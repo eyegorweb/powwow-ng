@@ -132,7 +132,7 @@ function addDeviceReferenceFilter(gqlFilters, selectedFilters) {
 }
 
 function addRangeFilter(gqlFilters, selectedFilters, gqlParamName, keyInCurrentFilter) {
-  const filterValue = selectedFilters.find(f => f.id === keyInCurrentFilter);
+  const filterValue = selectedFilters.find((f) => f.id === keyInCurrentFilter);
   if (filterValue && filterValue.from && filterValue.to) {
     gqlFilters.push(
       `${gqlParamName}: {startsWith: "${filterValue.from}", endsWith: "${filterValue.to}"}`
@@ -150,11 +150,11 @@ function addRangeFilter(gqlFilters, selectedFilters, gqlParamName, keyInCurrentF
 }
 
 function addIdsFilter(gqlFilters, selectedFilters) {
-  const iccid = selectedFilters.find(f => f.id === 'filters.iccid');
-  const imsi = selectedFilters.find(f => f.id === 'filters.imsi');
-  const msisdn = selectedFilters.find(f => f.id === 'filters.msisdn');
-  const imei = selectedFilters.find(f => f.id === 'filters.imei');
-  const msisdnA = selectedFilters.find(f => f.id === 'filters.msisdnA');
+  const iccid = selectedFilters.find((f) => f.id === 'filters.iccid');
+  const imsi = selectedFilters.find((f) => f.id === 'filters.imsi');
+  const msisdn = selectedFilters.find((f) => f.id === 'filters.msisdn');
+  const imei = selectedFilters.find((f) => f.id === 'filters.imei');
+  const msisdnA = selectedFilters.find((f) => f.id === 'filters.msisdnA');
 
   if (iccid) {
     gqlFilters.push(`iccid: {eq: "${iccid.value}"}`);

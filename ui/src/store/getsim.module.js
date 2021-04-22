@@ -7,10 +7,10 @@ import * as filterUtils from './filterUtils';
 const selectedFilterValuesById = filterUtils.selectedFilterValuesById;
 const findFilterValuesById = filterUtils.findFilterValuesById;
 const selectFilterValue = filterUtils.selectFilterValue;
-const initFilterForPartnerUser = store => {
+const initFilterForPartnerUser = (store) => {
   filterUtils.initFilterForPartnerUser(store, setPartnersFilter);
 };
-const initFilterForContext = store => {
+const initFilterForContext = (store) => {
   filterUtils.initFilterForContext(store, setPartnersFilter);
 };
 
@@ -28,42 +28,42 @@ export const state = {
 
 export const getters = {
   ...filterUtils.initGetters(),
-  orderPage: state => state.orderPage,
-  ordersResponse: state => state.ordersResponse,
-  filterCustomFieldsList: state => state.filterCustomFieldsList,
+  orderPage: (state) => state.orderPage,
+  ordersResponse: (state) => state.ordersResponse,
+  filterCustomFieldsList: (state) => state.filterCustomFieldsList,
   selectedPartnersValues: findFilterValuesById('filters.partners'),
   selectedBillingAccountsValues: findFilterValuesById('filters.billingAccounts'),
   // TODO: à faire pour les autres
-  selectedOffersValues: state => {
+  selectedOffersValues: (state) => {
     return selectedFilterValuesById(state)('filters.offers');
   },
-  selectedOrderCreatorValues: state => {
+  selectedOrderCreatorValues: (state) => {
     return selectedFilterValuesById(state)('filters.orderCreator');
   },
-  selectedCustomFieldsValues: state => {
+  selectedCustomFieldsValues: (state) => {
     return selectedFilterValuesById(state)('filters.customFields');
   },
   // TODO: values dans le nom mais retourne l'objet entier
-  selectedQuantityValues: state => {
-    return state.currentFilters.find(c => c.id === 'filters.quantity');
+  selectedQuantityValues: (state) => {
+    return state.currentFilters.find((c) => c.id === 'filters.quantity');
   },
-  selectedPostalCodeValue: state => {
-    const found = state.currentFilters.find(c => c.id === 'filters.postalCode');
+  selectedPostalCodeValue: (state) => {
+    const found = state.currentFilters.find((c) => c.id === 'filters.postalCode');
     return found ? found.value : '';
   },
-  selectedCityValue: state => {
-    const found = state.currentFilters.find(c => c.id === 'filters.city');
+  selectedCityValue: (state) => {
+    const found = state.currentFilters.find((c) => c.id === 'filters.city');
     return found ? found.value : '';
   },
-  selectedOrderStatus: state => {
+  selectedOrderStatus: (state) => {
     return selectedFilterValuesById(state)('filters.orderStatus');
   },
-  selectedAction: state => {
+  selectedAction: (state) => {
     return selectedFilterValuesById(state)('filters.action');
   },
-  selectedOrderDate: state => state.currentFilters.find(f => f.id === 'filters.orderDate'),
-  selectedDeliveryCountries: state => selectedFilterValuesById(state)('filters.countries'),
-  selectedTypeSimCardValues: state => {
+  selectedOrderDate: (state) => state.currentFilters.find((f) => f.id === 'filters.orderDate'),
+  selectedDeliveryCountries: (state) => selectedFilterValuesById(state)('filters.countries'),
+  selectedTypeSimCardValues: (state) => {
     return selectedFilterValuesById(state)('filters.lines.typeSIMCard');
   },
 };
@@ -88,22 +88,22 @@ async function setPartnersFilter({ commit, getters }, { partners, isHidden }) {
 }
 
 function removeSelectedBillingAccountWithNoSelectedPartners({ commit, getters }, partners) {
-  const baWithPartnersSelected = getters.selectedBillingAccountsValues.filter(a =>
-    partners.find(p => p.id === a.partnerId)
+  const baWithPartnersSelected = getters.selectedBillingAccountsValues.filter((a) =>
+    partners.find((p) => p.id === a.partnerId)
   );
   commit('setBillingAccountsFilter', baWithPartnersSelected);
 }
 
 function removeSelectedOffersWithNoSelectedPartners({ commit, getters }, partners) {
-  const withPartnersSelected = getters.selectedOffersValues.filter(a =>
-    partners.find(p => p.id === a.partnerId)
+  const withPartnersSelected = getters.selectedOffersValues.filter((a) =>
+    partners.find((p) => p.id === a.partnerId)
   );
   commit('setOffersFilter', withPartnersSelected);
 }
 
 function removeSelectedOrderCreatorPartners({ commit, getters }, partners) {
-  const creatorWithPartnerSelected = getters.selectedOrderCreatorValues.filter(a =>
-    partners.find(p => p.id === a.partnerId)
+  const creatorWithPartnerSelected = getters.selectedOrderCreatorValues.filter((a) =>
+    partners.find((p) => p.id === a.partnerId)
   );
   commit('setOrderCreatorFilter', creatorWithPartnerSelected);
 }
@@ -137,7 +137,7 @@ export const actions = {
     /**
      * Le cas partenaire est spécial, car à chaque modification on doit mettre à jour les valeurs qui en dépendent
      */
-    const filteredFilters = store.state.currentFilters.filter(f => f.id !== filterId);
+    const filteredFilters = store.state.currentFilters.filter((f) => f.id !== filterId);
     if (filterId === 'filters.partners') {
       setPartnersFilter(store, { partners: [] });
     } else {
@@ -285,7 +285,7 @@ export const mutations = {
 
     selectFilterValue(state, {
       id: 'filters.countries',
-      values: selectedFilterValuesById(state)('filters.countries').map(country => ({
+      values: selectedFilterValuesById(state)('filters.countries').map((country) => ({
         ...country,
         label: countryDict[country.id],
       })),
@@ -298,7 +298,7 @@ export const mutations = {
   updateOrderInTable(state, order) {
     state.ordersResponse = {
       total: state.ordersResponse.total,
-      items: state.ordersResponse.items.map(o => {
+      items: state.ordersResponse.items.map((o) => {
         if (o.id === order.id) {
           return { ...o, ...order };
         }

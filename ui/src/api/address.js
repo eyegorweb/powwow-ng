@@ -12,6 +12,6 @@ export function searchAddress(q) {
     address
       .get('/search', { params: { q } })
       // TODO faire une fonction qui mape vers une version qui ressemble à ce qu'on a en BDD
-      .then(res => res.data.features.map(f => f.properties))
+      .then((res) => res.data.features.map((f) => f.properties))
   );
 }

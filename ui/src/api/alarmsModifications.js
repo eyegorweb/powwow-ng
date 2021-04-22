@@ -3,7 +3,7 @@ import { query } from './utils';
 export async function updateCountryChangeAlarm(params) {
   const gqlParams = getGqlParams(params);
 
-  gqlParams.push(`countryIsoCodes:[${params.formData.map(p => `"${p.id}"`).join(',')}]`);
+  gqlParams.push(`countryIsoCodes:[${params.formData.map((p) => `"${p.id}"`).join(',')}]`);
 
   const queryStr = `
   mutation {
@@ -67,7 +67,7 @@ export async function updateStatusChangeAlarm(params) {
 export async function updateISPList(params) {
   const gqlParams = getGqlParams(params);
 
-  gqlParams.push(`plmnList:[${params.formData.map(p => `"${p.id}"`).join(',')}]`);
+  gqlParams.push(`plmnList:[${params.formData.map((p) => `"${p.id}"`).join(',')}]`);
 
   const queryStr = `
   mutation {

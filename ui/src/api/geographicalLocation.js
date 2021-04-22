@@ -89,12 +89,12 @@ export async function accessPointsByLocalisation(filters, pagination, localisati
 
 function formatFilters(filters) {
   const allFilters = [];
-  const simcardId = filters.find(f => f.id === 'filters.simcardId');
-  const iccid = filters.find(f => f.id === 'filters.iccid');
-  const imsi = filters.find(f => f.id === 'filters.imsi');
-  const msisdn = filters.find(f => f.id === 'filters.msisdn');
-  const msisdnA = filters.find(f => f.id === 'filters.msisdnA');
-  const imei = filters.find(f => f.id === 'filters.imei');
+  const simcardId = filters.find((f) => f.id === 'filters.simcardId');
+  const iccid = filters.find((f) => f.id === 'filters.iccid');
+  const imsi = filters.find((f) => f.id === 'filters.imsi');
+  const msisdn = filters.find((f) => f.id === 'filters.msisdn');
+  const msisdnA = filters.find((f) => f.id === 'filters.msisdnA');
+  const imei = filters.find((f) => f.id === 'filters.imei');
 
   if (simcardId) {
     allFilters.push(`simCardInstanceId: ${simcardId.value}`);

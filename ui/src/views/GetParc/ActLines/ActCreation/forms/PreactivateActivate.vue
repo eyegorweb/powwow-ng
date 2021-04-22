@@ -246,7 +246,7 @@ export default {
         );
       }
       if (response.errors && response.errors.length) {
-        response.errors.forEach(r => {
+        response.errors.forEach((r) => {
           if (r.extensions.error === 'MassActionLimit') {
             const count = r.extensions.limit ? r.extensions.limit : '';
             const messageErrorMaxLine = this.$t(
@@ -293,7 +293,7 @@ export default {
 
     decideOnMandatoryCustomFields() {
       if (this.allCustomFields && this.allCustomFields.customFields) {
-        this.allCustomFields = this.allCustomFields.customFields.map(c => {
+        this.allCustomFields = this.allCustomFields.customFields.map((c) => {
           c.isOptional = true;
           if (this.activation && c.mandatory === 'ACTIVATION') {
             c.isOptional = false;
@@ -304,16 +304,16 @@ export default {
     },
 
     getSelectedValue(code) {
-      const existingFieldValue = this.customFieldsValues.find(c => c.code === code);
+      const existingFieldValue = this.customFieldsValues.find((c) => c.code === code);
       if (existingFieldValue) {
         return existingFieldValue.enteredValue;
       }
     },
 
     onValueChanged(customField, enteredValue) {
-      const existingFieldValue = this.customFieldsValues.find(c => c.code === customField.code);
+      const existingFieldValue = this.customFieldsValues.find((c) => c.code === customField.code);
       if (existingFieldValue) {
-        this.customFieldsValues = this.customFieldsValues.map(c => {
+        this.customFieldsValues = this.customFieldsValues.map((c) => {
           if (c.code === customField.code) {
             return {
               ...c,

@@ -5,7 +5,7 @@ const selectedFilterValuesById = filterUtils.selectedFilterValuesById;
 const findFilterValuesById = filterUtils.findFilterValuesById;
 const selectFilterValue = filterUtils.selectFilterValue;
 
-const initFilterForContext = store => {
+const initFilterForContext = (store) => {
   filterUtils.initFilterForContext(store, setPartnersFilter);
 };
 
@@ -20,26 +20,27 @@ export const state = {
 
 export const getters = {
   ...filterUtils.initGetters(),
-  actHistoryPage: state => state.actHistoryPage,
-  massActionsResponse: state => state.massActionsResponse,
+  actHistoryPage: (state) => state.actHistoryPage,
+  massActionsResponse: (state) => state.massActionsResponse,
   selectedPartnersValues: findFilterValuesById('filters.partners'),
-  selectedOrderCreatorValues: state => {
+  selectedOrderCreatorValues: (state) => {
     return selectedFilterValuesById(state)('filters.orderCreator');
   },
-  selectedTypesValues: state => {
+  selectedTypesValues: (state) => {
     return selectedFilterValuesById(state)('filters.actTypes');
   },
-  selectedStatusValues: state => {
+  selectedStatusValues: (state) => {
     return selectedFilterValuesById(state)('filters.actStatus');
   },
-  selectedServicesValues: state => {
+  selectedServicesValues: (state) => {
     // on renvoit le premier élément du tableau car ce filtre n'accepte qu'une seule valeur
     return selectedFilterValuesById(state)('filters.services')[0];
   },
-  selectedActDateCreation: state =>
-    state.currentFilters.find(f => f.id === 'filters.actDateCreation'),
-  selectedActDateStart: state => state.currentFilters.find(f => f.id === 'filters.actDateStart'),
-  selectedActDateEnd: state => state.currentFilters.find(f => f.id === 'filters.actDateEnd'),
+  selectedActDateCreation: (state) =>
+    state.currentFilters.find((f) => f.id === 'filters.actDateCreation'),
+  selectedActDateStart: (state) =>
+    state.currentFilters.find((f) => f.id === 'filters.actDateStart'),
+  selectedActDateEnd: (state) => state.currentFilters.find((f) => f.id === 'filters.actDateEnd'),
 };
 
 // Actions
@@ -61,8 +62,8 @@ async function setPartnersFilter({ commit, getters }, { partners, isHidden }) {
 // Mutation
 
 function removeSelectedOrderCreatorPartners({ commit, getters }, partners) {
-  const creatorWithPartnerSelected = getters.selectedOrderCreatorValues.filter(a =>
-    partners.find(p => p.id === a.partnerId)
+  const creatorWithPartnerSelected = getters.selectedOrderCreatorValues.filter((a) =>
+    partners.find((p) => p.id === a.partnerId)
   );
   commit('setOrderCreatorFilter', creatorWithPartnerSelected);
 }
@@ -74,7 +75,7 @@ export const actions = {
     /**
      * Le cas partenaire est spécial, car à chaque modification on doit mettre à jour les valeurs qui en dépendent
      */
-    const filteredFilters = store.state.currentFilters.filter(f => f.id !== filterId);
+    const filteredFilters = store.state.currentFilters.filter((f) => f.id !== filterId);
     if (filterId === 'filters.partners') {
       setPartnersFilter(store, { partners: [] });
     } else {
@@ -112,20 +113,20 @@ export const mutations = {
           'filters.actDateCreation',
           'filters.actDateEnd',
         ];
-        return !!state.currentFilters.filter(f => dateFilters.indexOf(f.id) > -1).length;
+        return !!state.currentFilters.filter((f) => dateFilters.indexOf(f.id) > -1).length;
       }
       return false;
     };
 
     // garder les filtres date
     const dateFilters = values.filter(
-      f =>
+      (f) =>
         f.id === 'filters.actDateStart' ||
         f.id === 'filters.actDateEnd' ||
         f.id === 'filters.actDateCreation'
     );
     const idFilter = values.filter(
-      f =>
+      (f) =>
         f.id === 'filters.iccid' ||
         f.id === 'filters.imsi' ||
         f.id === 'filters.msisdn' ||
@@ -150,7 +151,7 @@ export const mutations = {
           'filters.actDateCreation',
           'filters.actDateEnd',
         ];
-        return !!state.currentFilters.filter(f => dateFilters.indexOf(f.id) > -1).length;
+        return !!state.currentFilters.filter((f) => dateFilters.indexOf(f.id) > -1).length;
       }
       return false;
     };

@@ -65,7 +65,7 @@ export default {
     async refreshIndicatorsForPeriod() {
       let partners;
       if (this.contextPartners) {
-        partners = this.contextPartners.map(p => p.id);
+        partners = this.contextPartners.map((p) => p.id);
       }
       const listTopIndicators = await fetchPrecalculatedTopIndicators(
         [`SIM_TOP_ACTIVATION_${this.period}`],

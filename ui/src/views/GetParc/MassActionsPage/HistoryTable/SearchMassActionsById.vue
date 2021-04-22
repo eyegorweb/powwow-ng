@@ -26,7 +26,7 @@ export default {
           code: 'c6',
           value: 'massActionID',
           label: this.$t('getparc.search.act-mass-id'),
-          checkFn: value => {
+          checkFn: (value) => {
             if (isNaN(value)) return true;
             return (
               value.length !== 0 &&
