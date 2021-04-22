@@ -23,7 +23,7 @@ export default {
   },
   async mounted() {
     const data = await getManagementActTypes();
-    this.items = data.map(a => ({ id: a.code, label: a.label }));
+    this.items = data.map((a) => ({ id: a.code, label: a.label }));
   },
   methods: {
     ...mapMutations('actHistory', ['setActTypesFilter']),

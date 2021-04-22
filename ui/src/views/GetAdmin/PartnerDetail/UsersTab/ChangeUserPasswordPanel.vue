@@ -67,7 +67,7 @@ export default {
     },
     canSave() {
       const passwordError = !!this.passwordConfirmationErrors.length;
-      const missingFields = ['password', 'passwordConfirm'].filter(field => !this[field]);
+      const missingFields = ['password', 'passwordConfirm'].filter((field) => !this[field]);
 
       return !missingFields.length && !passwordError;
     },

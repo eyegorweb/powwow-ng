@@ -25,14 +25,14 @@ export default {
   methods: {
     ...mapMutations('getsim', ['setActionFilter']),
     getValueByCode(code) {
-      const found = this.selectedAction && this.selectedAction.find(s => s.id === code);
+      const found = this.selectedAction && this.selectedAction.find((s) => s.id === code);
       if (found) {
         return found.value;
       }
     },
     setFilterValue(code, value, labelForSynthesis) {
       if (!value) {
-        this.setActionFilter([...this.selectedAction.filter(s => s.id !== code)]);
+        this.setActionFilter([...this.selectedAction.filter((s) => s.id !== code)]);
       } else {
         this.setActionFilter([
           ...this.selectedAction,

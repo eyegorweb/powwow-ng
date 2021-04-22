@@ -22,13 +22,13 @@ export default {
   computed: {
     partnerGroup() {
       const partnerGroup = this.selectedFilters.find(
-        f => f.id === 'getadmin.users.filters.partnerGroup'
+        (f) => f.id === 'getadmin.users.filters.partnerGroup'
       );
 
       return partnerGroup && partnerGroup.data.value;
     },
     partner() {
-      return this.selectedFilters.find(f => f.id === 'getadmin.users.filters.partners');
+      return this.selectedFilters.find((f) => f.id === 'getadmin.users.filters.partners');
     },
     selectedOffer: {
       get() {
@@ -43,7 +43,7 @@ export default {
     partnersForFilters() {
       if (!this.selectedFilters || !this.selectedFilters.length) return [];
 
-      const ret = this.selectedFilters.find(f => f.id === 'getadmin.users.filters.partners');
+      const ret = this.selectedFilters.find((f) => f.id === 'getadmin.users.filters.partners');
 
       if (ret) {
         return [ret.data];

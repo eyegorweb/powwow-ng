@@ -163,7 +163,7 @@ export default {
       }
 
       if (savedId) {
-        this.selectedAdress = this.adresses.find(f => f.id === savedId);
+        this.selectedAdress = this.adresses.find((f) => f.id === savedId);
       }
     },
 
@@ -225,7 +225,7 @@ export default {
         this.filteredAdresses = [...this.adresses];
       } else {
         const query = q.toLowerCase();
-        this.filteredAdresses = this.adresses.filter(a => {
+        this.filteredAdresses = this.adresses.filter((a) => {
           if (a.address.address1) {
             if (a.address.address1.toLowerCase().includes(query)) {
               return true;

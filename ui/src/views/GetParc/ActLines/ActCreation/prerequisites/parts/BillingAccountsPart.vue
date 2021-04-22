@@ -41,7 +41,7 @@ export default {
       if (partner) {
         if (partner.id) {
           const data = await fetchBillibAccountForPartnerId(partner.id);
-          this.billingAccounts = data.map(ba => ({
+          this.billingAccounts = data.map((ba) => ({
             id: ba.id,
             label: `${ba.code} - ${ba.name}`,
             partnerId: ba.party.id,
@@ -59,7 +59,7 @@ export default {
 
           if (this.preselectBillingAccount) {
             this.selectedBillingAccount = this.billingAccounts.find(
-              b => b.id === this.preselectBillingAccount.id
+              (b) => b.id === this.preselectBillingAccount.id
             );
           }
         } else if (partner.label.length) {

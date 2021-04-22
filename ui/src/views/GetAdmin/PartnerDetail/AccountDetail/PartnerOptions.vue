@@ -456,7 +456,7 @@ export default {
     mailingLists() {
       if (!this.partner) return [];
       const mailingLists = get(this.partner, 'mailingLists', []);
-      return mailingLists.map(m => ({ label: m.name, value: m.id }));
+      return mailingLists.map((m) => ({ label: m.name, value: m.id }));
     },
     canSave() {
       return false;
@@ -808,7 +808,7 @@ export default {
 
       this.preactivationFormat = this.partnerOptions.msisdnFormatPreactivation;
 
-      this.preactivationFormats = this.preactivationFormats.map(f => {
+      this.preactivationFormats = this.preactivationFormats.map((f) => {
         if (f.id === this.preactivationFormat) {
           f.default = true;
         }
@@ -816,7 +816,7 @@ export default {
       });
 
       this.notificationChoice = get(this.partnerOptions, 'wsNotificationParam.notificationOption');
-      this.notificationChoices = this.notificationChoices.map(f => {
+      this.notificationChoices = this.notificationChoices.map((f) => {
         if (f.id === this.notificationChoice) {
           f.default = true;
         }
@@ -842,7 +842,7 @@ export default {
         reportConsoValue = this.partnerOptions.dailyOutstandingReporting ? 'detailed' : 'simple';
       }
       this.reportConsoValue = reportConsoValue;
-      this.reportConsoValues = this.reportConsoValues.map(r => {
+      this.reportConsoValues = this.reportConsoValues.map((r) => {
         if (r.id === reportConsoValue) {
           r.default = true;
         }
@@ -937,13 +937,13 @@ export default {
       }, 200);
     },
     getToggle(toggles, code) {
-      const toggle = toggles.find(t => t.code === code);
+      const toggle = toggles.find((t) => t.code === code);
       if (!toggle) return false;
 
       return toggle.checked;
     },
     checkToggle(toggles, code, value) {
-      toggles.map(t => {
+      toggles.map((t) => {
         if (t.code === code) {
           t.checked = value;
         }

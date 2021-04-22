@@ -96,7 +96,7 @@ export default {
     },
 
     statusIn(statuses) {
-      return statuses.find(s => s === this.order.status);
+      return statuses.find((s) => s === this.order.status);
     },
     openOrderPanel() {
       this.closePanel();

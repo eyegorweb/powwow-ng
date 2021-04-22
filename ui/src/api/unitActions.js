@@ -96,17 +96,17 @@ function formatFilters(filters) {
 }
 
 function addIdsFilter(gqlFilters, selectedFilters) {
-  const iccid = selectedFilters.find(f => f.id === 'filters.iccid');
-  const imsi = selectedFilters.find(f => f.id === 'filters.imsi');
-  const msisdn = selectedFilters.find(f => f.id === 'filters.msisdn');
-  const msisdnA = selectedFilters.find(f => f.id === 'filters.msisdnA');
-  const imei = selectedFilters.find(f => f.id === 'filters.imei');
-  const unitActionId = selectedFilters.find(f => f.id === 'filters.unitActionId');
-  const actionType = selectedFilters.find(f => f.id === 'filters.actionType');
-  const massActionId = selectedFilters.find(f => f.id === 'filters.massActionId');
-  const groupedStatus = selectedFilters.find(f => f.id === 'filters.groupedStatus');
-  const statuses = selectedFilters.find(f => f.id === 'filters.statuses');
-  const accessPointId = selectedFilters.find(f => f.id === 'filters.accessPointId');
+  const iccid = selectedFilters.find((f) => f.id === 'filters.iccid');
+  const imsi = selectedFilters.find((f) => f.id === 'filters.imsi');
+  const msisdn = selectedFilters.find((f) => f.id === 'filters.msisdn');
+  const msisdnA = selectedFilters.find((f) => f.id === 'filters.msisdnA');
+  const imei = selectedFilters.find((f) => f.id === 'filters.imei');
+  const unitActionId = selectedFilters.find((f) => f.id === 'filters.unitActionId');
+  const actionType = selectedFilters.find((f) => f.id === 'filters.actionType');
+  const massActionId = selectedFilters.find((f) => f.id === 'filters.massActionId');
+  const groupedStatus = selectedFilters.find((f) => f.id === 'filters.groupedStatus');
+  const statuses = selectedFilters.find((f) => f.id === 'filters.statuses');
+  const accessPointId = selectedFilters.find((f) => f.id === 'filters.accessPointId');
 
   if (iccid) {
     gqlFilters.push(`accesPointFilter: {iccid: "${iccid.value}"}`);

@@ -47,13 +47,11 @@ export default {
       if (window.google && window.google.maps) {
         this.clearGoogleMapScript();
       }
-      return new Promise(resolve => {
+      return new Promise((resolve) => {
         const script = document.createElement('script');
         script.type = 'text/javascript';
         script.id = 'gmap-src';
-        script.src = `https://maps.googleapis.com/maps/api/js?client=${
-          process.env.VUE_APP_GMAP_CLIENT
-        }&channel=${process.env.VUE_APP_GMAP_CHANNEL}&language=${this.$i18n.locale}`;
+        script.src = `https://maps.googleapis.com/maps/api/js?client=${process.env.VUE_APP_GMAP_CLIENT}&channel=${process.env.VUE_APP_GMAP_CHANNEL}&language=${this.$i18n.locale}`;
         script.async = true;
         script.defer = true;
         script.onload = () => {

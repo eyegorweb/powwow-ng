@@ -47,13 +47,13 @@ export default {
 
     if (!isps || !isps.total) return;
 
-    const options = isps.items.map(i => {
+    const options = isps.items.map((i) => {
       i.label = i.operator;
       return i;
     });
 
     const formattedOptions = options.reduce((all, current) => {
-      const alreadyInOptions = all.find(o => o.label === current.label);
+      const alreadyInOptions = all.find((o) => o.label === current.label);
       if (!alreadyInOptions) {
         all.push(current);
       }
@@ -61,8 +61,8 @@ export default {
     }, []);
 
     if (this.editMode) {
-      this.options = formattedOptions.map(o => {
-        o.selected = !!this.duplicateFrom.plmnsList.find(p => p === '' + o.id);
+      this.options = formattedOptions.map((o) => {
+        o.selected = !!this.duplicateFrom.plmnsList.find((p) => p === '' + o.id);
         return o;
       });
     } else {
@@ -103,7 +103,7 @@ export default {
       if (
         response.errors &&
         response.errors.length &&
-        response.errors.find(err => err.key === key)
+        response.errors.find((err) => err.key === key)
       ) {
         setTimeout(() => {
           this.confirmAction({
@@ -116,7 +116,7 @@ export default {
       } else if (
         response.errors &&
         response.errors.length &&
-        !response.errors.find(err => err.key === key)
+        !response.errors.find((err) => err.key === key)
       ) {
         this.flashMessage({ level: 'danger', message: this.$t('genericErrorMessage') });
       } else {
@@ -134,7 +134,7 @@ export default {
   },
   computed: {
     selectedOptions() {
-      return this.options.filter(o => o.selected);
+      return this.options.filter((o) => o.selected);
     },
     editMode() {
       return this.duplicateFrom && this.duplicateFrom.toModify;

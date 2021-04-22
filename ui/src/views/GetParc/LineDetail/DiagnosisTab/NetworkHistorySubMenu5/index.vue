@@ -136,7 +136,7 @@ export default {
       };
     },
     fetchDataLastVisitedCountries() {
-      return async pageInfo => {
+      return async (pageInfo) => {
         const response = await fetchLastVisitedCountries(this.content.accessPoint.id, pageInfo);
         if (!response || !response.length) this.noResults.lastVisitedCountries = false;
         return {

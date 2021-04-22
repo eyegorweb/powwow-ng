@@ -197,7 +197,7 @@ export default {
         this.isDataParamsError =
           this.dataCheck &&
           this.lastDataParams &&
-          this.lastDataParams.filter(p => p.selected).length === 0;
+          this.lastDataParams.filter((p) => p.selected).length === 0;
 
         if (this.isDataParamsError) return;
 
@@ -224,7 +224,7 @@ export default {
 
         this.savingChanges = false;
         if (response && response.errors && response.errors.length) {
-          response.errors.forEach(e => {
+          response.errors.forEach((e) => {
             this.flashMessage({ level: 'danger', message: e.message });
           });
         } else {
@@ -263,7 +263,7 @@ export default {
       if (this.initialDataParams && this.lastDataParams) {
         for (let i = 0, max = this.initialDataParams.length; i < max; i++) {
           const current = this.initialDataParams[i];
-          const correspondingInChanges = this.lastDataParams.find(s => s.code === current.code);
+          const correspondingInChanges = this.lastDataParams.find((s) => s.code === current.code);
 
           if (correspondingInChanges && current.selected !== correspondingInChanges.selected) {
             arrayIsNotIdentical = true;
@@ -289,8 +289,8 @@ export default {
       return this.apnServices && this.apnServices[0] && this.apnServices[0].length;
     },
     changedServices() {
-      return this.services.filter(s => {
-        const originalService = this.initialServices.find(os => os.code === s.code);
+      return this.services.filter((s) => {
+        const originalService = this.initialServices.find((os) => os.code === s.code);
         return originalService.checked !== s.checked;
       });
     },
@@ -304,11 +304,11 @@ export default {
       }
 
       const servicesToEnable = this.changedServices
-        .filter(s => s.code !== 'DATA')
-        .filter(s => s.checked);
+        .filter((s) => s.code !== 'DATA')
+        .filter((s) => s.checked);
       const servicesToDisable = this.changedServices
-        .filter(s => s.code !== 'DATA')
-        .filter(s => !s.checked);
+        .filter((s) => s.code !== 'DATA')
+        .filter((s) => !s.checked);
 
       let dataParams = undefined;
 

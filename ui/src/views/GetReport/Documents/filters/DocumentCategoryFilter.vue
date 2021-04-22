@@ -21,7 +21,7 @@ export default {
   },
 
   async mounted() {
-    const getTranslatedLabel = name => {
+    const getTranslatedLabel = (name) => {
       const translateKey = 'documents.categories.' + name;
       const translated = this.$t(translateKey);
       if (translateKey !== translated) {
@@ -32,7 +32,7 @@ export default {
     };
     const response = await fetchAllDocumentsCategory();
     if (response) {
-      this.items = response.map(p => {
+      this.items = response.map((p) => {
         return {
           id: p.name,
           label: getTranslatedLabel(p.name),

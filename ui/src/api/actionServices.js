@@ -9,5 +9,5 @@ export async function getActionServices() {
     }
   }`;
   const response = await query(queryStr);
-  return response.data.__type.enumValues.map(e => e.name);
+  return response.data.__type.enumValues.map((e) => e.name);
 }

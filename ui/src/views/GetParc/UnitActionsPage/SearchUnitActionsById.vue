@@ -26,7 +26,7 @@ export default {
           code: 'c6',
           value: 'unitActionId',
           label: this.$t('getparc.search.act-unit-id'),
-          checkFn: value => {
+          checkFn: (value) => {
             if (isNaN(value)) return true;
             return (
               value.length !== 0 &&

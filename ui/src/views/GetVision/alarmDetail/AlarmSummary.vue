@@ -139,7 +139,7 @@ export default {
       } else {
         if (
           ['DAILY', 'WEEKLY', 'MONTHLY', 'CUSTOM', 'DAYS'].find(
-            o => o === this.content.observationCycle
+            (o) => o === this.content.observationCycle
           )
         ) {
           return this.$t('alarms.observationCycles.' + this.content.observationCycle);

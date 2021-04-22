@@ -95,7 +95,7 @@ export default {
         esim: this.category,
       });
       if (data) {
-        return data.map(p => ({
+        return data.map((p) => ({
           id: p.id,
           label: p.name,
           orderNumberIsMandatory: p.orderNumberRequired,

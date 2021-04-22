@@ -1,6 +1,6 @@
 <template>
   <div class="massactions-ids d-flex flex-wrap justify-content-start align-items-center truncate">
-    <TruncateList :limit="2" :content="actionIds" @click="id => openActHistoryDetailsPanel(id)">
+    <TruncateList :limit="2" :content="actionIds" @click="(id) => openActHistoryDetailsPanel(id)">
     </TruncateList>
   </div>
 </template>
@@ -24,7 +24,7 @@ export default {
       return this.row.massActionIds;
     },
     ...mapState({
-      isOpen: state => state.ui.isPanelOpen,
+      isOpen: (state) => state.ui.isPanelOpen,
     }),
   },
   methods: {

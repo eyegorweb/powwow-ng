@@ -97,16 +97,16 @@ export default {
   methods: {
     ...mapMutations(['flashMessage', 'closePanel']),
     getSelectedValue(code) {
-      const existingFieldValue = this.specificFieldsValues.find(c => c.code === code);
+      const existingFieldValue = this.specificFieldsValues.find((c) => c.code === code);
       if (existingFieldValue) {
         return existingFieldValue.enteredValue;
       }
     },
     onValueChanged(customField, enteredValue) {
-      const existingFieldValue = this.specificFieldsValues.find(c => c.code === customField.code);
+      const existingFieldValue = this.specificFieldsValues.find((c) => c.code === customField.code);
       if (enteredValue) this.canSend = true;
       if (existingFieldValue) {
-        this.specificFieldsValues = this.specificFieldsValues.map(c => {
+        this.specificFieldsValues = this.specificFieldsValues.map((c) => {
           if (c.code === customField.code) {
             return {
               ...c,
@@ -121,8 +121,8 @@ export default {
       }
     },
     async save(fieldData) {
-      const getCustomFieldValue = code => {
-        const found = this.specificFieldsValues.filter(c => c.code === code);
+      const getCustomFieldValue = (code) => {
+        const found = this.specificFieldsValues.filter((c) => c.code === code);
         if (found && found.length) {
           return found[0].enteredValue;
         }
@@ -159,7 +159,7 @@ export default {
 
       if (response && response.errors && response.errors.length) {
         // this.flashMessage({ level: 'danger', message: this.$t('genericErrorMessage') });
-        response.errors.forEach(e => {
+        response.errors.forEach((e) => {
           this.flashMessage({ level: 'danger', message: e.message });
         });
       } else {

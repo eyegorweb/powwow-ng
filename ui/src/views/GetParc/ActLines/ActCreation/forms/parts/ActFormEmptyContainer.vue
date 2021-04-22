@@ -50,7 +50,7 @@ export default {
       if (response) {
         if (response.needDoubleConfirmation) return;
         if (response.errors) {
-          response.errors.forEach(e => {
+          response.errors.forEach((e) => {
             this.flashMessage({ level: 'danger', message: e.message });
           });
         } else {

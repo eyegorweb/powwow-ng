@@ -48,11 +48,11 @@ export default {
   async mounted() {
     const countries = await fetchDeliveryCountries(this.$i18n.locale);
     this.countries = countries
-      .filter(c => {
-        const inIgnoredList = !!this.ignoreCountries.find(i => i === c.codeIso3);
+      .filter((c) => {
+        const inIgnoredList = !!this.ignoreCountries.find((i) => i === c.codeIso3);
         return !inIgnoredList;
       })
-      .map(c => ({
+      .map((c) => ({
         ...c,
         label: c.name,
         value: c.code,

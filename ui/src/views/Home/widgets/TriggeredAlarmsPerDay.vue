@@ -68,7 +68,7 @@ export default {
         partnerType: this.contextPartnersType,
       });
       if (data) {
-        return data.map(p => ({
+        return data.map((p) => ({
           id: p.id,
           name: p.name,
         }));
@@ -76,19 +76,19 @@ export default {
       return undefined;
     },
     fetchPartnerId(id) {
-      const found = this.partners.find(p => p.name === id);
+      const found = this.partners.find((p) => p.name === id);
       this.selectedParnerId = found ? found.id : '';
     },
     async initPartners() {
       if (this.contextPartners && this.contextPartners.length > 0) {
-        this.partners = this.contextPartners.map(p => ({
+        this.partners = this.contextPartners.map((p) => ({
           id: p.id,
           name: p.name,
         }));
       } else {
         this.partners = await this.fetchPartners('', { page: 0, limit: 999 });
       }
-      this.names = this.partners.map(p => p.name);
+      this.names = this.partners.map((p) => p.name);
     },
     onSeeMore() {
       this.$pushAnalytics({ event: 'm2m.seeMore', widget: 'TriggeredAlarmPerDay' });

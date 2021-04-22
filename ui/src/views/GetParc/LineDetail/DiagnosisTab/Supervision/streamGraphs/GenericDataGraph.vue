@@ -57,8 +57,8 @@ export default {
 
   methods: {
     sumAllData(dataOut, dataIn) {
-      let all = dataOut.map(n => {
-        const corresponding = dataIn.find(c => c[0] == n[0]);
+      let all = dataOut.map((n) => {
+        const corresponding = dataIn.find((c) => c[0] == n[0]);
         const sum = n[1] + corresponding[1];
         return [n[0], sum];
       });
@@ -126,9 +126,7 @@ export default {
           pointFormatter() {
             if (this.series.userOptions.name == nbCnxPdpLabel) {
               return `
-              <div style="width: 7px; height: 7px; border-radius: 15px; background-color: ${
-                this.series.userOptions.color
-              }; display: inline-block; margin-right: 0.5rem"></div>
+              <div style="width: 7px; height: 7px; border-radius: 15px; background-color: ${this.series.userOptions.color}; display: inline-block; margin-right: 0.5rem"></div>
               ${this.series.userOptions.name}
               :
               ${this.y} <br/>

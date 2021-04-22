@@ -35,16 +35,11 @@ export default {
   },
 
   computed: {
-    basePercent: {
-      get() {
-        if (this.duplicateFrom && this.duplicateFrom.levelDataMax) {
-          return this.duplicateFrom.levelDataMax;
-        }
-        return 100;
-      },
-      set(newValue) {
-        this.duplicateFrom.levelDataMax = newValue;
-      },
+    basePercent() {
+      if (this.duplicateFrom && this.duplicateFrom.levelDataMax) {
+        return this.duplicateFrom.levelDataMax;
+      }
+      return 100;
     },
   },
 

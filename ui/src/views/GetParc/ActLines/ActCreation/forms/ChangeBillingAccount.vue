@@ -80,7 +80,7 @@ export default {
     },
     isPartnerMVNO() {
       if (!this.userInfos || !this.userInfos.roles) return;
-      const found = this.userInfos.roles.find(r => {
+      const found = this.userInfos.roles.find((r) => {
         return r.description === 'MVNO';
       });
       return !!found;
@@ -136,7 +136,7 @@ export default {
         params
       );
       if (response.errors && response.errors.length) {
-        response.errors.forEach(r => {
+        response.errors.forEach((r) => {
           if (r.extensions.error === 'MassActionLimit') {
             const count = r.extensions.limit ? r.extensions.limit : '';
             const messageErrorMaxLine = this.$t(

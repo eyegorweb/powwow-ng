@@ -158,7 +158,7 @@ export default {
           fixed: true,
           format: {
             type: 'Getter',
-            getter: row => {
+            getter: (row) => {
               if (get(row, 'party.partyType') === 'MULTI_CUSTOMER') {
                 return get(row, 'accessPoint.offerGroup.description');
               }
@@ -176,7 +176,7 @@ export default {
           fixed: true,
           format: {
             type: 'Getter',
-            getter: row => {
+            getter: (row) => {
               const code = get(row, 'accessPoint.offerGroup.customerAccount.code');
               const name = get(row, 'accessPoint.offerGroup.customerAccount.name');
               return `${code} ${name}`;
@@ -225,7 +225,7 @@ export default {
         this.selectedRows.push(payload.add);
       }
       if (payload.remove) {
-        this.selectedRows = this.selectedRows.filter(r => r.id !== payload.remove.id);
+        this.selectedRows = this.selectedRows.filter((r) => r.id !== payload.remove.id);
       }
     },
 

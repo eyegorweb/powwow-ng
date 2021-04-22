@@ -42,7 +42,7 @@ export default {
     },
     limitedColumns() {
       return this.columns
-        ? this.columns.filter(c => {
+        ? this.columns.filter((c) => {
             if (c.visibleWhen) return c.visibleWhen();
             return c.visible;
           })

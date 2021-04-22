@@ -144,7 +144,7 @@ export default {
 
       const allCustomFields = await fetchCustomFields(partnerId);
       // this.refreshCustomFieldsInFilterBar(allCustomFields.customFields);
-      this.allCustomFields = allCustomFields.customFields.map(c => {
+      this.allCustomFields = allCustomFields.customFields.map((c) => {
         c.isOptional = true;
         if (c.mandatory === 'ORDER' || (isActivationAsked && c.mandatory === 'ACTIVATION')) {
           c.isOptional = false;
@@ -186,15 +186,15 @@ export default {
       this.fetchCustomFieldsForPartner();
     },
     getSelectedValue(code) {
-      const existingFieldValue = this.customFieldsValues.find(c => c.code === code);
+      const existingFieldValue = this.customFieldsValues.find((c) => c.code === code);
       if (existingFieldValue) {
         return existingFieldValue.enteredValue;
       }
     },
     onValueChanged(customField, enteredValue) {
-      const existingFieldValue = this.customFieldsValues.find(c => c.code === customField.code);
+      const existingFieldValue = this.customFieldsValues.find((c) => c.code === customField.code);
       if (existingFieldValue) {
-        this.customFieldsValues = this.customFieldsValues.map(c => {
+        this.customFieldsValues = this.customFieldsValues.map((c) => {
           if (c.code === customField.code) {
             return {
               ...c,
@@ -225,11 +225,11 @@ export default {
 
     assembleSynthesis() {
       const customFieldsSynthesis = this.customFieldsValues
-        .map(c => {
+        .map((c) => {
           if (!c.enteredValue && !c.enteredValue.length) return;
           return `${c.label} : ${c.enteredValue}`;
         })
-        .filter(c => c !== undefined);
+        .filter((c) => c !== undefined);
 
       const synthesis = {};
       if (this.referenceValue && this.referenceValue.length > 0) {
@@ -253,7 +253,7 @@ export default {
         customFieldsSynthesis.length
       ) {
         const selection = this.customFieldsValues
-          .map(c => {
+          .map((c) => {
             if (!c.enteredValue && !c.enteredValue.length) return;
             return {
               code: c.code,
@@ -261,7 +261,7 @@ export default {
               mandatory: c.mandatory,
             };
           })
-          .filter(c => c !== undefined);
+          .filter((c) => c !== undefined);
 
         synthesis.customFields = {
           label: 'common.customFields',

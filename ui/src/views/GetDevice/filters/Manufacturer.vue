@@ -54,7 +54,7 @@ export default {
     async fetchApi(q, partners, partnerType, pagination) {
       const data = await getManufacturers(q, this.orderBy, pagination);
       if (!data) return;
-      return data.map(p => ({
+      return data.map((p) => ({
         id: `${p}`,
         label: p,
         data: p,

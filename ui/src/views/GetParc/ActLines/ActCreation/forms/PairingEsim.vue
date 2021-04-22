@@ -21,7 +21,7 @@ export default {
       const simCardTypeId = this.$loGet(this.actCreationPrerequisites, 'simcardType.id');
       let simCardInstanceIds = [];
       if (this.selectedLinesForActCreation) {
-        simCardInstanceIds = this.selectedLinesForActCreation.map(a => a.id);
+        simCardInstanceIds = this.selectedLinesForActCreation.map((a) => a.id);
       }
 
       return await pairingByStockedEid(

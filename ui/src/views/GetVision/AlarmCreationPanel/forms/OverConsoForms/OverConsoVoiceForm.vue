@@ -52,16 +52,11 @@ export default {
   },
 
   computed: {
-    basePercent: {
-      get() {
-        if (this.duplicateFrom && this.duplicateFrom.levelVoiceMax) {
-          return this.duplicateFrom.levelVoiceMax;
-        }
-        return 100;
-      },
-      set(newValue) {
-        this.duplicateFrom.levelVoiceMax = newValue;
-      },
+    basePercent() {
+      if (this.duplicateFrom && this.duplicateFrom.levelVoiceMax) {
+        return this.duplicateFrom.levelVoiceMax;
+      }
+      return 100;
     },
   },
 

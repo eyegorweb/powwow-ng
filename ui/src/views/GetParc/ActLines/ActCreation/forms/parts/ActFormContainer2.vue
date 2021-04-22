@@ -185,7 +185,7 @@ export default {
     },
     requestErrors() {
       if (!this.validationErrors) return false;
-      return this.validationErrors.errors.find(f => f.key === 400 || f.key === 500);
+      return this.validationErrors.errors.find((f) => f.key === 400 || f.key === 500);
     },
   },
 

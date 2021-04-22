@@ -35,7 +35,7 @@ export default {
     },
   },
   computed: mapState({
-    isOpen: state => state.ui.isPanelOpen,
+    isOpen: (state) => state.ui.isPanelOpen,
     // en attendant l'api reportdefinitions me renvoie les infos du créateur, je suis obligé de tester si cela existe pour ne pas générer d'erreurs
     creator() {
       return this.row &&

@@ -107,7 +107,7 @@ export default {
         });
 
         // On récupère les 3 premiers éléments pour définir le Top 3
-        top3 = temp.slice(0, 3).map(i => {
+        top3 = temp.slice(0, 3).map((i) => {
           return {
             ...i,
             class: 'top',
@@ -116,7 +116,7 @@ export default {
         this.displayInfoMessage(temp);
         // Si on a en tout 4 éléments, alors on a un Top 3 et un Flop 1
         if (temp.length === 4) {
-          flop2 = temp.slice(-1).map(i => {
+          flop2 = temp.slice(-1).map((i) => {
             return {
               ...i,
               class: 'flop',
@@ -126,7 +126,7 @@ export default {
         }
         // Sinon si on a plus de 4 éléments on récupère un Top 3 et un Flop 2
         else if (temp.length > 4) {
-          flop2 = temp.slice(-2).map(i => {
+          flop2 = temp.slice(-2).map((i) => {
             return {
               ...i,
               class: 'flop',

@@ -126,7 +126,7 @@ export default {
       }, {});
     },
     fetchDataFn() {
-      return async pageInfo => {
+      return async (pageInfo) => {
         const sorting = { partnerName: 'DESC' };
 
         const data = await fetchSupervisionAlerts(this.getFormattedFilters(), pageInfo, sorting);

@@ -53,7 +53,7 @@ export default {
       }
 
       if (response && response.errors && response.errors.length) {
-        response.errors.forEach(e => {
+        response.errors.forEach((e) => {
           this.flashMessage({ level: 'danger', message: e.message });
         });
       } else {

@@ -66,7 +66,7 @@ export default {
   methods: {
     async fetchApi(q, page = 0) {
       let partnerParam = this.partner ? [this.partner] : this.contextPartners;
-      partnerParam = partnerParam.filter(p => p.id);
+      partnerParam = partnerParam.filter((p) => p.id);
 
       if (partnerParam && partnerParam.length) {
         /*
@@ -80,7 +80,7 @@ export default {
         const filters = {};
 
         filters.partyId = {
-          in: partnerParam.map(p => p.id),
+          in: partnerParam.map((p) => p.id),
         };
         if (this.contextPartnersType) {
           filters.partyType = {
@@ -102,7 +102,7 @@ export default {
         };
         const data = await fetchSimCards(filters, pagination, sorting);
         if (data) {
-          return data.map(c => {
+          return data.map((c) => {
             return {
               id: c.simCard.id,
               label: c.simCard.description,

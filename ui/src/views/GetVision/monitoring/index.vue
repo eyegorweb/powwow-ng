@@ -143,7 +143,7 @@ export default {
       if (this.currentUsage !== 'COCKPIT') return false;
 
       if (this.appliedFilters && this.appliedFilters.length > 0) {
-        return !!this.appliedFilters.find(a => a.id === 'getadmin.users.filters.partners');
+        return !!this.appliedFilters.find((a) => a.id === 'getadmin.users.filters.partners');
       }
 
       return false;
@@ -356,7 +356,7 @@ export default {
       let frozenValues = cloneDeep(this.currentFilters);
 
       if (countryFilter) {
-        frozenValues = frozenValues.filter(f => f.id !== 'filters.country');
+        frozenValues = frozenValues.filter((f) => f.id !== 'filters.country');
         frozenValues.push(countryFilter);
       }
 

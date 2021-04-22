@@ -80,14 +80,14 @@ export default {
       };
 
       if (this.partners && this.partners.length) {
-        filters.partyId = { in: this.partners.map(p => p.id) };
+        filters.partyId = { in: this.partners.map((p) => p.id) };
       }
       const pagination = { page, limit: 10 };
       const sorting = { description: 'DESC' };
 
       const data = await fetchOffers2(filters, pagination, sorting);
 
-      return data.map(p => ({
+      return data.map((p) => ({
         key: uuid(),
         id: p.code,
         label: p.workflowDescription,

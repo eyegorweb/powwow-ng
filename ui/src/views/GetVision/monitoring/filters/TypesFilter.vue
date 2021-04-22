@@ -25,7 +25,7 @@ export default {
   async mounted() {
     const alertFilters = await getSupervisionAlertFilters();
     if (alertFilters) {
-      this.options = alertFilters.types.map(s => {
+      this.options = alertFilters.types.map((s) => {
         return {
           label: s.value,
           value: s.key,
@@ -39,7 +39,10 @@ export default {
         return this.selectedData ? this.selectedData.data.value : '';
       },
       set(value) {
-        this.$emit('change', this.options.find(o => o.value === value));
+        this.$emit(
+          'change',
+          this.options.find((o) => o.value === value)
+        );
       },
     },
   },

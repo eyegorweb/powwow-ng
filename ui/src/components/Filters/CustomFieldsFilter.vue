@@ -32,7 +32,7 @@ export default {
   methods: {
     getSelectedValue(code) {
       if (this.values && this.values.length > 0) {
-        const selected = this.values.find(c => c.id === code);
+        const selected = this.values.find((c) => c.id === code);
         if (selected) {
           return selected.value;
         }
@@ -45,13 +45,13 @@ export default {
       if (this.values) {
         selectedCustomFieldsValues = this.values;
       }
-      const selected = selectedCustomFieldsValues.find(s => s.id === customField.code);
+      const selected = selectedCustomFieldsValues.find((s) => s.id === customField.code);
       if (selected) {
         selected.value = newVal;
         this.setCustomFieldsFilter(
           selectedCustomFieldsValues
-            .filter(s => s.value && s.value.length > 0)
-            .map(s => {
+            .filter((s) => s.value && s.value.length > 0)
+            .map((s) => {
               if (s.id === selected.id) {
                 selected.label = labelForSynthesis;
                 return selected;

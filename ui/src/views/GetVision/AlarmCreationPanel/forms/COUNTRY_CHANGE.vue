@@ -72,7 +72,7 @@ export default {
       if (
         response.errors &&
         response.errors.length &&
-        response.errors.find(err => err.key === key)
+        response.errors.find((err) => err.key === key)
       ) {
         setTimeout(() => {
           this.confirmAction({
@@ -85,7 +85,7 @@ export default {
       } else if (
         response.errors &&
         response.errors.length &&
-        !response.errors.find(err => err.key === key)
+        !response.errors.find((err) => err.key === key)
       ) {
         this.flashMessage({ level: 'danger', message: this.$t('genericErrorMessage') });
       } else {
@@ -96,7 +96,7 @@ export default {
   },
   computed: {
     selectedOptions() {
-      return this.options.filter(o => o.selected);
+      return this.options.filter((o) => o.selected);
     },
     editMode() {
       return this.duplicateFrom && this.duplicateFrom.toModify;
@@ -107,7 +107,7 @@ export default {
   },
   async mounted() {
     const countries = await fetchDeliveryCountries(this.$i18n.locale);
-    const formattedOptions = countries.map(c => ({
+    const formattedOptions = countries.map((c) => ({
       id: c.codeIso3,
       label: c.name,
       data: c,
@@ -115,8 +115,8 @@ export default {
     }));
 
     if (this.editMode) {
-      this.options = formattedOptions.map(o => {
-        o.selected = !!this.duplicateFrom.countriesList.find(p => p === '' + o.id);
+      this.options = formattedOptions.map((o) => {
+        o.selected = !!this.duplicateFrom.countriesList.find((p) => p === '' + o.id);
         return o;
       });
     } else {

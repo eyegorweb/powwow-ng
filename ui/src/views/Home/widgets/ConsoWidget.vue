@@ -63,7 +63,7 @@ export default {
         const data = await fetchOfferWithBilligAccount(this.partners);
         this.loadingOffers = false;
         if (data) {
-          this.offers = data.map(o => ({
+          this.offers = data.map((o) => ({
             value: o.workflow.id + '_' + o.customerAccount.id,
             label: `${o.workflow.workflowDescription} / ${o.customerAccount.name}`,
             meta: o,
@@ -102,8 +102,8 @@ export default {
       if (!this.defaultAppliedFilters) return [];
 
       return this.defaultAppliedFilters
-        .filter(f => f.id === 'filters.partners')
-        .map(f => f.values)
+        .filter((f) => f.id === 'filters.partners')
+        .map((f) => f.values)
         .flat();
     },
 
@@ -113,7 +113,7 @@ export default {
 
     offerForGauge() {
       if (this.selectedOffer) {
-        const selectedOffer = this.offers.find(o => this.selectedOffer === o.value);
+        const selectedOffer = this.offers.find((o) => this.selectedOffer === o.value);
         if (selectedOffer) {
           return {
             customerAccoutId: selectedOffer.meta.customerAccount.id,

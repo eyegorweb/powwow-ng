@@ -35,7 +35,7 @@ export default {
   },
 
   mounted() {
-    this.localDiscounts = this.dicounts.map(d => ({
+    this.localDiscounts = this.dicounts.map((d) => ({
       label: d.discount.code + ' (%)',
       code: d.discount.code,
       discountValue: d.discountValue,

@@ -13,7 +13,7 @@ export default {
   computed: {
     selectedValue: {
       get() {
-        const selectedFilter = this.selectedFilters.find(f => f.id === this.filter.title);
+        const selectedFilter = this.selectedFilters.find((f) => f.id === this.filter.title);
 
         if (selectedFilter) {
           return {
@@ -27,7 +27,7 @@ export default {
       },
 
       set(newValue) {
-        const selected = this.options.find(o => o.value === newValue);
+        const selected = this.options.find((o) => o.value === newValue);
         this.$emit('change', selected);
       },
     },

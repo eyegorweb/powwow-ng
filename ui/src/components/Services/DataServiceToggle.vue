@@ -76,7 +76,7 @@ export default {
     const data = {
       checked: this.service.checked,
       editable: this.service.editable,
-      apns: this.service.parameters.map(s => ({
+      apns: this.service.parameters.map((s) => ({
         ...s,
         code: s.code,
         label: s.label,
@@ -91,7 +91,7 @@ export default {
   },
   methods: {
     toggleApn(apn) {
-      this.apns = this.apns.map(a => {
+      this.apns = this.apns.map((a) => {
         if (a.selectable && a.label === apn.label) {
           a.selected = !a.selected;
         }

@@ -13,7 +13,7 @@
       @delete="deleteAddress($event)"
       :no-edit="!havePermission('party', 'update_delivery_address')"
     >
-      <template v-slot="{ item }">
+      <template #default="{ item }">
         <div v-if="item.company" class="cardBloc-infos-name">
           {{ item.company }}
         </div>
@@ -80,9 +80,9 @@ export default {
       const data = await fetchpartnerAddresses(this.partnerid);
       const countries = await fetchDeliveryCountries(this.$i18n.locale);
       if (data && data.all) {
-        data.all = data.all.map(a => {
+        data.all = data.all.map((a) => {
           if (!a.id) return;
-          const foundCountry = countries.find(c => c.code === a.address.country);
+          const foundCountry = countries.find((c) => c.code === a.address.country);
           if (foundCountry) {
             a.address.country = foundCountry.name;
           }
@@ -98,7 +98,7 @@ export default {
         filteredAdresses = [...items];
       } else {
         const query = q.toLowerCase();
-        filteredAdresses = items.filter(a => {
+        filteredAdresses = items.filter((a) => {
           if (a.address.address1) {
             if (a.address.address1.toLowerCase().includes(query)) {
               return true;

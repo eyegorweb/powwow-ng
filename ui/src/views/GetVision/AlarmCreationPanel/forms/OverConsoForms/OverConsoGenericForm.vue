@@ -143,8 +143,8 @@ export default {
   computed: {
     limits() {
       const limits = this.lines
-        .filter(line => line.limit && line.value)
-        .map(line => [line.limit, parseInt(line.value)]);
+        .filter((line) => line.limit && line.value)
+        .map((line) => [line.limit, parseInt(line.value)]);
 
       // 99 correspond à la fin du mois
       limits.push([99, parseInt(this.basePercent)]);
@@ -199,7 +199,7 @@ export default {
       });
     },
     deleteLine(line) {
-      this.lines = this.lines.filter(l => l.id !== line.id);
+      this.lines = this.lines.filter((l) => l.id !== line.id);
 
       this.onValueUpdate();
     },

@@ -93,7 +93,7 @@ export default {
         visible: true,
         format: {
           type: 'Getter',
-          getter: row => {
+          getter: (row) => {
             return get(row, 'customerAccount.code');
           },
         },
@@ -106,7 +106,7 @@ export default {
         visible: true,
         format: {
           type: 'Getter',
-          getter: row => {
+          getter: (row) => {
             return get(row, 'auditable.created');
           },
         },
@@ -119,7 +119,7 @@ export default {
         visible: true,
         format: {
           type: 'Getter',
-          getter: row => {
+          getter: (row) => {
             return get(row, 'auditable.updated');
           },
         },
@@ -141,7 +141,7 @@ export default {
       });
     },
     getFetchFn() {
-      return async pageInfo => {
+      return async (pageInfo) => {
         const partnerId = this.partner.id ? this.partner.id : '';
         const customerAccountId = this.$route.params.billingAccountId;
         const response = await fetchCommercialOffersForPartnerId(

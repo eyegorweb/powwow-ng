@@ -1,6 +1,6 @@
 <template>
   <WizardPanel :steps="steps">
-    <template v-slot:content="{ currentStep, stepisDone, previousStep, saveSynthesis, synthesis }">
+    <template #content="{ currentStep, stepisDone, previousStep, saveSynthesis, synthesis }">
       <ClientChoiceStep
         v-if="currentStep === 0"
         :synthesis="synthesis"
@@ -38,7 +38,7 @@
         @saveSynthesis="saveSynthesis"
       />
     </template>
-    <template v-slot:synthesis="{ currentStep, synthesis }">
+    <template #synthesis="{ currentStep, synthesis }">
       <WizardSynthesis
         title="getsim.reservations.synthesis"
         :synthesis="synthesis"
@@ -123,7 +123,7 @@ export default {
       if (this.$loGet(synthesis, 'settingsStep.customFields.selection')) {
         const customFieldsSelection = this.$loGet(synthesis, 'settingsStep.customFields.selection');
         esimReservationInput.customFieldsDTO = {};
-        customFieldsSelection.forEach(c => {
+        customFieldsSelection.forEach((c) => {
           esimReservationInput.customFieldsDTO[c.code] = c.value;
         });
       }
@@ -133,8 +133,8 @@ export default {
       if (this.$loGet(synthesis, 'serviceStep.servicesChoice.services')) {
         const services = this.$loGet(synthesis, 'serviceStep.servicesChoice.services');
         const checkedServices = services
-          .filter(s => s.checked)
-          .map(s => ({
+          .filter((s) => s.checked)
+          .map((s) => ({
             serviceCode: s.code,
           }));
 
@@ -143,7 +143,9 @@ export default {
         let serviceParamsArr = [];
         if (dataServiceChoice) {
           if (dataServiceChoice.checked) {
-            const paramsArr = dataServiceChoice.parameters.filter(p => p.selected).map(p => p.code);
+            const paramsArr = dataServiceChoice.parameters
+              .filter((p) => p.selected)
+              .map((p) => p.code);
             serviceParamsArr.push({ serviceCode: 'DATA', serviceParameters: paramsArr });
           }
         }

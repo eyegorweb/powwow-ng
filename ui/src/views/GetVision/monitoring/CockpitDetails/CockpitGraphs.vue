@@ -107,7 +107,7 @@ export default {
     partnerId() {
       if (this.appliedFilters) {
         const partnerFilter = this.appliedFilters.find(
-          f => f.id === 'getadmin.users.filters.partners'
+          (f) => f.id === 'getadmin.users.filters.partners'
         );
         if (partnerFilter) {
           return partnerFilter.data.id;
@@ -148,7 +148,7 @@ export default {
     },
     getExportFn() {
       return async (columnsParam, orderBy, exportFormat) => {
-        const countryFilter = this.appliedFilters.find(c => c.id === 'filters.country');
+        const countryFilter = this.appliedFilters.find((c) => c.id === 'filters.country');
         let locationCode;
 
         if (countryFilter && countryFilter.data) {

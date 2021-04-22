@@ -164,7 +164,7 @@ export default {
           noHandle: true,
           format: {
             type: 'Getter',
-            getter: row => {
+            getter: (row) => {
               return get(row, 'imei');
             },
           },
@@ -178,7 +178,7 @@ export default {
           visible: true,
           format: {
             type: 'Getter',
-            getter: row => {
+            getter: (row) => {
               return get(row, 'manufacturer');
             },
           },
@@ -192,7 +192,7 @@ export default {
           visible: true,
           format: {
             type: 'Getter',
-            getter: row => {
+            getter: (row) => {
               return get(row, 'deviceReference');
             },
           },
@@ -206,7 +206,7 @@ export default {
           visible: true,
           format: {
             type: 'Getter',
-            getter: row => {
+            getter: (row) => {
               return get(row, 'tac');
             },
           },
@@ -220,7 +220,7 @@ export default {
           visible: true,
           format: {
             type: 'Getter',
-            getter: row => {
+            getter: (row) => {
               return get(row, 'bands');
             },
           },
@@ -234,7 +234,7 @@ export default {
           visible: true,
           format: {
             type: 'Getter',
-            getter: row => {
+            getter: (row) => {
               return get(row, 'iccid');
             },
           },
@@ -248,7 +248,7 @@ export default {
           visible: false,
           format: {
             type: 'Getter',
-            getter: row => {
+            getter: (row) => {
               return get(row, 'party.name');
             },
           },
@@ -265,7 +265,7 @@ export default {
           visible: false,
           format: {
             type: 'Getter',
-            getter: row => {
+            getter: (row) => {
               return get(row, 'msisdn');
             },
           },
@@ -279,7 +279,7 @@ export default {
           visible: false,
           format: {
             type: 'Getter',
-            getter: row => {
+            getter: (row) => {
               return get(row, 'imsi');
             },
           },
@@ -293,7 +293,7 @@ export default {
           visible: false,
           format: {
             type: 'Getter',
-            getter: row => {
+            getter: (row) => {
               return get(row, 'status');
             },
           },
@@ -307,7 +307,7 @@ export default {
           visible: false,
           format: {
             type: 'Getter',
-            getter: row => {
+            getter: (row) => {
               return get(row, 'statusDate');
             },
           },
@@ -321,7 +321,7 @@ export default {
           visible: false,
           format: {
             type: 'Getter',
-            getter: row => {
+            getter: (row) => {
               return get(row, 'offer');
             },
           },
@@ -335,7 +335,7 @@ export default {
           visible: false,
           format: {
             type: 'Getter',
-            getter: row => {
+            getter: (row) => {
               return get(row, 'lastPLMN');
             },
           },
@@ -352,7 +352,7 @@ export default {
           visible: false,
           format: {
             type: 'Getter',
-            getter: row => {
+            getter: (row) => {
               return get(row, 'msisdnA');
             },
           },
@@ -438,9 +438,9 @@ export default {
         this.refreshDataTechnoRepartition();
         this.refreshDataTop5References();
       } else {
-        const partnerFilter = filters.find(f => f.id === 'getdevice.partners');
+        const partnerFilter = filters.find((f) => f.id === 'getdevice.partners');
         if (!partnerFilter) return;
-        const selectedPartnerIds = partnerFilter.values.map(p => p.id);
+        const selectedPartnerIds = partnerFilter.values.map((p) => p.id);
         this.refreshDataTop5Manufacturers(selectedPartnerIds);
         this.refreshDataTechnoRepartition(selectedPartnerIds);
         this.refreshDataTop5References(selectedPartnerIds);

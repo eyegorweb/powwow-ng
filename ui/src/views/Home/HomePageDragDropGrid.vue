@@ -42,8 +42,8 @@ export default {
           return $(this).attr('id');
         })
         .toArray()
-        .map(id => {
-          return this.widgets.find(w => w.title === id);
+        .map((id) => {
+          return this.widgets.find((w) => w.title === id);
         });
 
       this.$emit('change', newWidgets);

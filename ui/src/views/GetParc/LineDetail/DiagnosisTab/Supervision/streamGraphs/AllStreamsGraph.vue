@@ -30,7 +30,7 @@ export default {
 
   computed: {
     allSeriesFormatted() {
-      return this.allDataUsageStreams.map(usageData => {
+      return this.allDataUsageStreams.map((usageData) => {
         const formattedData = usageData.splitPDPConnectionHistories.reduce(
           (all, item) => {
             const dateFirstSplit = item.date.split(' ');
@@ -61,8 +61,8 @@ export default {
 
   methods: {
     sumAllData(dataOut, dataIn) {
-      let all = dataOut.map(n => {
-        const corresponding = dataIn.find(c => c[0] == n[0]);
+      let all = dataOut.map((n) => {
+        const corresponding = dataIn.find((c) => c[0] == n[0]);
         const sum = n[1] + corresponding[1];
         return [n[0], sum];
       });
@@ -70,7 +70,7 @@ export default {
     },
 
     getSeries() {
-      const series = this.allSeriesFormatted.map(d => ({
+      const series = this.allSeriesFormatted.map((d) => ({
         name: d.usageType,
         //  type: 'column',
         tooltip: {

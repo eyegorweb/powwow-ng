@@ -2,7 +2,7 @@
   <OffersFilter
     :selected-offers-values="selectedOffersValues"
     :selected-partners-values="selectedPartnersValues"
-    @setOffersFilter="values => setOffersFilter(values)"
+    @setOffersFilter="(values) => setOffersFilter(values)"
   />
 </template>
 

@@ -48,7 +48,7 @@ export default {
     CircleLoader,
   },
   computed: mapState({
-    actionToConfirm: state => state.ui.actionToConfirm,
+    actionToConfirm: (state) => state.ui.actionToConfirm,
   }),
 
   data() {

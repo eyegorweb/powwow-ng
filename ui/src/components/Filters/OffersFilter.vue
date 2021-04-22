@@ -3,7 +3,7 @@
     :values="selectedOffersValues"
     :selected-partners-values="selectedPartnersValues"
     :fetch-api="fetchApi"
-    @update:values="values => $emit('setOffersFilter', values)"
+    @update:values="(values) => $emit('setOffersFilter', values)"
   />
 </template>
 
@@ -26,14 +26,14 @@ export default {
       const data = await fetchOffers(q, partners, { page, limit, partnerType });
       if (data) {
         return data
-          .map(o => ({
+          .map((o) => ({
             id: o.code,
             label: o.workflowDescription,
             productCode: o.code,
             data: o,
           }))
           .reduce((all, offer) => {
-            const isFound = all.find(w => w.id === offer.id);
+            const isFound = all.find((w) => w.id === offer.id);
             if (!isFound) {
               all.push(offer);
             }

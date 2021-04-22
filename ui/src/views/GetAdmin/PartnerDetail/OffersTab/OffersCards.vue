@@ -100,7 +100,7 @@ export default {
       if (!newValue) {
         return (this.visibleOffers = [...this.offers]);
       }
-      this.visibleOffers = this.offers.filter(o => {
+      this.visibleOffers = this.offers.filter((o) => {
         const isNameValid = o.name && o.name.toLowerCase().indexOf(newValue.toLowerCase()) !== -1;
         const isCodeValid = o.code && o.code.toLowerCase().indexOf(newValue.toLowerCase()) !== -1;
 
@@ -120,15 +120,15 @@ export default {
       this.isLoading = true;
       this.searchValue = undefined;
       const items = await fetchOffers('', [this.partner], { page: 0, limit: 999 });
-      this.offers = items.map(i => {
+      this.offers = items.map((i) => {
         const services = get(i, 'initialOffer.marketingServices', []);
         return {
           id: i.id,
           name: i.name,
           code: i.code,
           checked: false,
-          editableServices: services.filter(s => s.editable).map(s => s.labelService),
-          defaultServices: services.filter(s => !s.optional).map(s => s.labelService),
+          editableServices: services.filter((s) => s.editable).map((s) => s.labelService),
+          defaultServices: services.filter((s) => !s.optional).map((s) => s.labelService),
         };
       });
       this.visibleOffers = [...this.offers];

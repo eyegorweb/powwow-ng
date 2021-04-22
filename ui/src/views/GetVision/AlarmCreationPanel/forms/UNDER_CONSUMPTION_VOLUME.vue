@@ -86,7 +86,7 @@ export default {
       if (
         response.errors &&
         response.errors.length &&
-        response.errors.find(err => err.key === key)
+        response.errors.find((err) => err.key === key)
       ) {
         setTimeout(() => {
           this.confirmAction({
@@ -99,7 +99,7 @@ export default {
       } else if (
         response.errors &&
         response.errors.length &&
-        !response.errors.find(err => err.key === key)
+        !response.errors.find((err) => err.key === key)
       ) {
         this.flashMessage({ level: 'danger', message: this.$t('genericErrorMessage') });
       } else {

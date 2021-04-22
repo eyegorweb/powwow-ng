@@ -55,7 +55,7 @@ export default {
         'PT03-LOC_DER10007',
         'PT03-LOC_DER10500',
       ];
-      if (!availableErrors.find(e => e === this.errorCode)) {
+      if (!availableErrors.find((e) => e === this.errorCode)) {
         return this.$t('getparc.lineDetail.tab3.localisation.errors.generic', {
           errorCode: this.errorCode,
         });
@@ -84,7 +84,7 @@ export default {
       return this.status === 'CANCELLED';
     },
     isWaiting() {
-      return !!['WAITING', 'SENT', 'IN_PROGRESS', 'REPLAYED'].find(i => i === this.status);
+      return !!['WAITING', 'SENT', 'IN_PROGRESS', 'REPLAYED'].find((i) => i === this.status);
     },
     label() {
       if (this.isOK) {

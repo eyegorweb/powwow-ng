@@ -41,8 +41,8 @@ export default {
       this.chartOptions = undefined;
       if (!graphData) return;
 
-      const upSerieData = graphData.map(d => [d.date, d.out]);
-      const downSerieData = graphData.map(d => [d.date, d.in]);
+      const upSerieData = graphData.map((d) => [d.date, d.out]);
+      const downSerieData = graphData.map((d) => [d.date, d.in]);
 
       this.chartOptions = {
         chart: {
@@ -112,11 +112,11 @@ export default {
     partners() {
       if (!this.userIsPartner) {
         if (this.contextPartners && this.contextPartners.length) {
-          return this.contextPartners.map(p => p.id);
+          return this.contextPartners.map((p) => p.id);
         }
       } else {
         const partners = get(this.userInfos, 'partners', []);
-        return partners.map(p => p.id);
+        return partners.map((p) => p.id);
       }
 
       return [];

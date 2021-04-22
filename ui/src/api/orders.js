@@ -244,7 +244,7 @@ function formatFilters(filters) {
   const customFields = getFilterValues(filters, 'filters.customFields');
   if (customFields && customFields.length > 0) {
     const customFeldsGQLparams = customFields
-      .map(c => `${c.id}: {startsWith: "${c.value}"}`)
+      .map((c) => `${c.id}: {startsWith: "${c.value}"}`)
       .join(',');
 
     allFilters.push(customFeldsGQLparams);
@@ -268,18 +268,18 @@ function formatFilters(filters) {
 function addCreatorFilter(gqlFilters, selectedFilters) {
   const values = getFilterValues(selectedFilters, 'filters.orderCreator');
   if (values && values.length) {
-    const orderCreators = values.map(i => `${i.id}`).join(',');
+    const orderCreators = values.map((i) => `${i.id}`).join(',');
     gqlFilters.push(`creator: {in: [${orderCreators}]}`);
   }
 }
 
 function addIdsFilter(gqlFilters, selectedFilters) {
-  const iccid = selectedFilters.find(f => f.id === 'filters.iccid');
-  const imsi = selectedFilters.find(f => f.id === 'filters.imsi');
-  const msisdn = selectedFilters.find(f => f.id === 'filters.msisdn');
-  const imei = selectedFilters.find(f => f.id === 'filters.imei');
-  const idOrder = selectedFilters.find(f => f.id === 'filters.idOrder');
-  const orderReference = selectedFilters.find(f => f.id === 'filters.orderReference');
+  const iccid = selectedFilters.find((f) => f.id === 'filters.iccid');
+  const imsi = selectedFilters.find((f) => f.id === 'filters.imsi');
+  const msisdn = selectedFilters.find((f) => f.id === 'filters.msisdn');
+  const imei = selectedFilters.find((f) => f.id === 'filters.imei');
+  const idOrder = selectedFilters.find((f) => f.id === 'filters.idOrder');
+  const orderReference = selectedFilters.find((f) => f.id === 'filters.orderReference');
 
   if (iccid) {
     gqlFilters.push(`iccid: {eq: "${iccid.value.trim()}"}`);
@@ -302,7 +302,7 @@ function addIdsFilter(gqlFilters, selectedFilters) {
 }
 
 function addQuantityFilter(gqlFilters, selectedFilters) {
-  const quantityFilter = selectedFilters.find(f => f.id === 'filters.quantity');
+  const quantityFilter = selectedFilters.find((f) => f.id === 'filters.quantity');
   if (quantityFilter) {
     if (quantityFilter.from && !quantityFilter.to) {
       gqlFilters.push(`quantity: {goe: ${quantityFilter.from}}`);
@@ -317,34 +317,34 @@ function addQuantityFilter(gqlFilters, selectedFilters) {
 }
 
 function addOfferFilterFilter(gqlFilters, selectedFilters) {
-  const offerFilter = selectedFilters.find(o => o.id === 'filters.offers');
+  const offerFilter = selectedFilters.find((o) => o.id === 'filters.offers');
   if (!offerFilter) return;
 
-  const offers = offerFilter.values.map(o => `"${o.productCode}"`).join(',');
+  const offers = offerFilter.values.map((o) => `"${o.productCode}"`).join(',');
   if (offers) {
     gqlFilters.push(`workflowCode: {in: [${offers}]}`);
   }
 }
 
 function addCityFilter(gqlFilters, selectedFilters) {
-  const city = selectedFilters.find(f => f.id === 'filters.city');
+  const city = selectedFilters.find((f) => f.id === 'filters.city');
   city && gqlFilters.push(`city: {startsWith: "${city.value.toUpperCase()}"}`);
 }
 
 function addZipCodeFilter(gqlFilters, selectedFilters) {
-  const zipCode = selectedFilters.find(f => f.id === 'filters.postalCode');
+  const zipCode = selectedFilters.find((f) => f.id === 'filters.postalCode');
   zipCode && gqlFilters.push(`zipCode: {startsWith: "${zipCode.value.toString()}"}`);
 }
 
 function orderStatus(gqlFilters, selectedFilters) {
-  const orderStatuses = selectedFilters.find(f => f.id === 'filters.orderStatus');
-  orderStatuses && gqlFilters.push(`status: {in: [${orderStatuses.values.map(o => o.id)}]}`);
+  const orderStatuses = selectedFilters.find((f) => f.id === 'filters.orderStatus');
+  orderStatuses && gqlFilters.push(`status: {in: [${orderStatuses.values.map((o) => o.id)}]}`);
 }
 
 function addaction(gqlFilters, selectedFilters) {
-  const action = selectedFilters.find(f => f.id === 'filters.action');
-  const activationAsked = action && action.values.find(f => f.id === 'action.active');
-  const preactivationAsked = action && action.values.find(f => f.id === 'action.PreActive');
+  const action = selectedFilters.find((f) => f.id === 'filters.action');
+  const activationAsked = action && action.values.find((f) => f.id === 'action.active');
+  const preactivationAsked = action && action.values.find((f) => f.id === 'action.PreActive');
   if (activationAsked) {
     gqlFilters.push(`activationAsked: {eq: ${activationAsked.value}}`);
   }
@@ -370,7 +370,7 @@ function addCountries(gqlFilters, selectedFilters) {
  * @returns {string?}
  */
 export function formatDateRangeFilter(filters, filterId) {
-  const filter = filters.find(f => f.id === filterId);
+  const filter = filters.find((f) => f.id === filterId);
   if (!filter) return null;
   // NOTE: could handle specific dates, before or after dates in the future
   return `{between: {startDate: ${JSON.stringify(
@@ -424,7 +424,7 @@ export async function createOrder(synthesis) {
     synthesis.customFields.selection &&
     synthesis.customFields.selection.length > 0
   ) {
-    const values = synthesis.customFields.selection.map(c => `${c.code}:"${c.value}"`).join(',');
+    const values = synthesis.customFields.selection.map((c) => `${c.code}:"${c.value}"`).join(',');
     customFieldsDTO = `{
       ${values}
     }`;
@@ -604,6 +604,6 @@ function valuesFromMutiselectFilter(
 function getValuesIdsWithoutQuotes(filters, filterId) {
   const values = getFilterValues(filters, filterId);
   if (values) {
-    return values.map(i => `${i.id}`).join(',');
+    return values.map((i) => `${i.id}`).join(',');
   }
 }

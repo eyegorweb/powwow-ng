@@ -109,7 +109,7 @@ export default {
           noHandle: true,
           format: {
             type: 'Getter',
-            getter: row => {
+            getter: (row) => {
               return get(row, 'created');
             },
           },

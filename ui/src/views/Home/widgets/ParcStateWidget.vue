@@ -221,7 +221,7 @@ export default {
         partnerType: this.contextPartnersType,
       });
       if (data) {
-        return data.map(p => ({
+        return data.map((p) => ({
           id: p.id,
           name: p.name,
         }));
@@ -229,19 +229,19 @@ export default {
       return undefined;
     },
     fetchPartnerId(id) {
-      const found = this.partners.find(p => p.name === id);
+      const found = this.partners.find((p) => p.name === id);
       this.selectedParnerId = found ? found.id : '';
     },
     async initPartners() {
       if (this.contextPartners && this.contextPartners.length > 0) {
-        this.partners = this.contextPartners.map(p => ({
+        this.partners = this.contextPartners.map((p) => ({
           id: p.id,
           name: p.name,
         }));
       } else {
         this.partners = await this.fetchPartners('', { page: 0, limit: 999 });
       }
-      this.names = this.partners.map(p => p.name);
+      this.names = this.partners.map((p) => p.name);
     },
     async refreshTable(id) {
       if (id) this.fetchPartnerId(id);
@@ -259,14 +259,14 @@ export default {
       );
       if (response) {
         this.histories.filter((h, index) => {
-          const data = response.filter(r => r.name === h.name).map(r => r.histories);
+          const data = response.filter((r) => r.name === h.name).map((r) => r.histories);
           this.histories[index].currentMonthValue = data[0]
-            .filter(h => h.applicationDate === currentMonth)
-            .map(v => v.numberValue)
+            .filter((h) => h.applicationDate === currentMonth)
+            .map((v) => v.numberValue)
             .join('');
           this.histories[index].previousMonthValue = data[0]
-            .filter(h => h.applicationDate === prevCurrentMonth)
-            .map(v => v.numberValue)
+            .filter((h) => h.applicationDate === prevCurrentMonth)
+            .map((v) => v.numberValue)
             .join('');
         });
       }

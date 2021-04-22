@@ -45,7 +45,7 @@ export default {
     ...mapMutations(['flashMessage', 'confirmAction']),
 
     async onActionClicked(action) {
-      const showMessage = ret => {
+      const showMessage = (ret) => {
         if (ret) {
           this.flashMessage({ level: 'success', message: this.$t('genericSuccessMessage') });
         } else {

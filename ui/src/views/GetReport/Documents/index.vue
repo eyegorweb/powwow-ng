@@ -63,7 +63,7 @@ export default {
         name: 'party',
         format: {
           type: 'Getter',
-          getter: row => {
+          getter: (row) => {
             return get(row, 'party.name', '-');
           },
         },
@@ -78,7 +78,7 @@ export default {
         visible: true,
         format: {
           type: 'Getter',
-          getter: row => {
+          getter: (row) => {
             const created = moment(row.created, 'DD/MM/YYYY HH:mm:ss').format('DD/MM/YYYY HH:mm');
             return created || '-';
           },
@@ -90,7 +90,7 @@ export default {
         name: 'category',
         format: {
           type: 'Getter',
-          getter: row => {
+          getter: (row) => {
             const translateKey = 'documents.categories.' + get(row, 'category.name');
             const translated = this.$t(translateKey);
             if (translateKey !== translated) {
@@ -109,7 +109,7 @@ export default {
         name: 'report.name',
         format: {
           type: 'Getter',
-          getter: row => {
+          getter: (row) => {
             return get(row, 'report.name', '-');
           },
         },
@@ -122,7 +122,7 @@ export default {
         name: 'report.auditable',
         format: {
           type: 'Getter',
-          getter: row => {
+          getter: (row) => {
             return (
               get(row, 'auditable.creator.name.firstName', '-') +
               ' ' +
@@ -197,7 +197,7 @@ export default {
         },
 
         // TODO: Refactor
-        initialize: async currentFilters => {
+        initialize: async (currentFilters) => {
           if (!reportId) return;
           const pagination = { page: 0, limit: 999 };
           const orderBy = {
@@ -212,7 +212,7 @@ export default {
           );
 
           if (response.items) {
-            const selectedItem = response.items.find(i => i.id === reportId);
+            const selectedItem = response.items.find((i) => i.id === reportId);
             currentFilters.push({
               id: 'documents.model',
               value: selectedItem.name,
@@ -260,7 +260,7 @@ export default {
     },
     async onDeleteDcument(document) {
       await deleteDocument(document.id);
-      const currentIndex = this.rows.findIndex(r => r.id === document.id);
+      const currentIndex = this.rows.findIndex((r) => r.id === document.id);
       this.refreshAllDocuments(currentIndex);
     },
   },

@@ -23,7 +23,7 @@ export default {
   },
   mounted() {
     if (this.selectedData && this.selectedData.id) {
-      const newToggleValues = this.toggleValues.map(t => {
+      const newToggleValues = this.toggleValues.map((t) => {
         if (t.id === this.selectedData.id) {
           t.default = true;
         }
@@ -40,7 +40,7 @@ export default {
   watch: {
     selectedData(selectedData) {
       if (!selectedData) {
-        const newToggleValues = this.toggleValues.map(t => {
+        const newToggleValues = this.toggleValues.map((t) => {
           t.default = false;
           return t;
         });

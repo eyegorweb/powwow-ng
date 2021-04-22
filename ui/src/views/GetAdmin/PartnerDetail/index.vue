@@ -82,9 +82,9 @@ export default {
     // Gestion des permissions sur les onglets
     filterByPermission(arrayInput) {
       let permit = false;
-      return arrayInput.filter(a => {
+      return arrayInput.filter((a) => {
         if (!a.permissions) return true;
-        a.permissions.forEach(e => {
+        a.permissions.forEach((e) => {
           if (this.havePermission(e.domain, e.action)) {
             permit = true;
           }
@@ -192,7 +192,7 @@ export default {
     },
 
     canShowTab(permissions) {
-      return permissions.some(p => {
+      return permissions.some((p) => {
         return p;
       });
     },

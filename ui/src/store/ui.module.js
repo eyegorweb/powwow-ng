@@ -31,7 +31,7 @@ export const state = {
 };
 
 export const getters = {
-  activeWidgets: state => state.homeWidgets.filter(w => w.checked),
+  activeWidgets: (state) => state.homeWidgets.filter((w) => w.checked),
 };
 
 function openPanel(state, conf) {
@@ -59,7 +59,7 @@ function openPanel(state, conf) {
 }
 
 function saveFormattedWidgets(widgets) {
-  const widgetsToSave = widgets.map(w => {
+  const widgetsToSave = widgets.map((w) => {
     const ret = { ...w };
     ret.component = undefined;
     return ret;
@@ -102,6 +102,9 @@ export const mutations = {
     state.homeWidgets = [...widgets];
     saveFormattedWidgets(widgets);
   },
+  updatePanelPayload(state, newPayload) {
+    state.panelPayload = { ...newPayload };
+  },
   openPanel,
   closePanel: (state, params) => {
     state.isPanelOpen = false;
@@ -135,11 +138,11 @@ export const mutations = {
       ...msgInfo,
     });
   },
-  clearMessages: state => {
+  clearMessages: (state) => {
     state.messages = [];
   },
   removeMessageById: (state, id) => {
-    state.messages = state.messages.filter(m => m.id !== id);
+    state.messages = state.messages.filter((m) => m.id !== id);
   },
   confirmAction: (state, action) => {
     state.actionToConfirm = action;
@@ -152,7 +155,7 @@ export const mutations = {
     };
   },
 
-  closeAction: state => {
+  closeAction: (state) => {
     state.actionToConfirm = undefined;
   },
 };

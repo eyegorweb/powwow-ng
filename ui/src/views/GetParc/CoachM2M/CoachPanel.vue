@@ -12,9 +12,7 @@
       </div>
       <div v-if="compareMode" class="col">
         <h5 v-if="compareMode">
-          <template v-if="line2"
-            >{{ $t('coach.compareLine', { lineId: line2.id }) }}
-          </template>
+          <template v-if="line2">{{ $t('coach.compareLine', { lineId: line2.id }) }} </template>
           <template v-else>
             {{ $t('coach.chooseLine') }}
           </template>
@@ -23,7 +21,7 @@
         <SearchLineWithResults
           v-if="!line2"
           @singleResult="startComparison($event)"
-          v-slot:default="{ selectedLine, foundSingleResult }"
+          v-slot="{ selectedLine, foundSingleResult }"
         >
           <UiButton
             v-if="!foundSingleResult"

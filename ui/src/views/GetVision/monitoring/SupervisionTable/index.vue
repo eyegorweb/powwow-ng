@@ -127,7 +127,7 @@ export default {
           sortingName: 'countryName',
           format: {
             type: 'Getter',
-            getter: row => {
+            getter: (row) => {
               return row.countryName || row.countryNameFr;
             },
           },

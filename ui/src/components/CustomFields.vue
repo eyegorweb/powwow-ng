@@ -8,7 +8,7 @@
         >
 
         <UiInput
-          @update:value="newVal => onValueChanged(item, newVal)"
+          @update:value="(newVal) => onValueChanged(item, newVal)"
           :value="getSelectedValue(item.code)"
           :error="inError(item.code) ? 'errors.mandatory' : undefined"
           class="d-block"
@@ -28,7 +28,7 @@
         <UiSelect
           placeholder="-"
           :value="getSelectedValue(item.code)"
-          @input="newVal => onValueChanged(item, newVal)"
+          @input="(newVal) => onValueChanged(item, newVal)"
           :options="item.value"
           class="select-filter"
           :error="inError(item.code) ? 'errors.mandatory' : undefined"
@@ -45,7 +45,7 @@
           v-if="canEditList"
           :options="item.value"
           @close="editingList = false"
-          @addValueToList="newItem => $emit('addValueToList', newItem, item)"
+          @addValueToList="(newItem) => $emit('addValueToList', newItem, item)"
         />
       </div>
       <div v-if="item.type === 'DATE'">
@@ -55,7 +55,7 @@
         >
         <UiDate
           :direction="direction"
-          @change="newVal => onValueChanged(item, newVal)"
+          @change="(newVal) => onValueChanged(item, newVal)"
           :value="getDateValue(item.code)"
           class="d-block"
           :error="inError(item.code) ? 'errors.mandatory' : undefined"
@@ -121,7 +121,7 @@ export default {
       this.$emit('change', item, newVal);
     },
     inError(code) {
-      const found = this.errors && this.errors.find(e => e === code);
+      const found = this.errors && this.errors.find((e) => e === code);
       return !!found;
     },
   },

@@ -79,8 +79,8 @@ export default {
   computed: {
     visibleMenuItems() {
       const typeForPartner = this.$loGet(this.content, 'party.partyType');
-      let visibleItems = this.menuItems.filter(m =>
-        m.compatiblePartnerTypes.some(p => p === typeForPartner)
+      let visibleItems = this.menuItems.filter((m) =>
+        m.compatiblePartnerTypes.some((p) => p === typeForPartner)
       );
       return visibleItems;
     },

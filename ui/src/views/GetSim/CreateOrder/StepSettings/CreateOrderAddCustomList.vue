@@ -64,7 +64,7 @@ export default {
   },
   methods: {
     deleteOption(optionToDelete) {
-      this.localOptions = this.options.filter(o => o !== optionToDelete);
+      this.localOptions = this.options.filter((o) => o !== optionToDelete);
     },
     startEditMode() {
       this.isAddingOption = true;

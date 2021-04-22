@@ -93,7 +93,7 @@ export default {
           partnerType: this.contextPartnersType,
           esim: this.esim,
         });
-        return data.map(p => ({
+        return data.map((p) => ({
           id: p.id,
           label: p.name,
           orderNumberIsMandatory: p.orderNumberRequired,

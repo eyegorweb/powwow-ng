@@ -54,7 +54,7 @@ export default {
   methods: {
     initServicesForOffer() {
       const initServices = () => {
-        this.basicServices = this.defaultBasicServices.map(s => {
+        this.basicServices = this.defaultBasicServices.map((s) => {
           const serviceData = this.getServiceData(s.code);
           if (serviceData) {
             const isEditable = serviceData.partyAccess || false;
@@ -92,7 +92,7 @@ export default {
         }
 
         const containTestApn = serviceParameters.find(
-          s => s.defaultValue.indexOf('testrnis.fr') !== -1
+          (s) => s.defaultValue.indexOf('testrnis.fr') !== -1
         );
         const isEditable = data.partyAccess || false;
         const isChecked = data && data.activatedByDefault && !containTestApn;
@@ -104,7 +104,7 @@ export default {
           data: { ...data },
         };
 
-        const apns = serviceParameters.map(p => {
+        const apns = serviceParameters.map((p) => {
           return {
             label: p.defaultValue,
             selectable: p.partyAccess,
@@ -133,7 +133,7 @@ export default {
     },
 
     toggleApn(apn) {
-      const apns = this.dataService.apns.map(a => {
+      const apns = this.dataService.apns.map((a) => {
         if (a.selectable && a.label === apn.label) {
           a.selected = !a.selected;
         }
@@ -148,9 +148,9 @@ export default {
      */
     getServiceData(dependencyCode) {
       const groupServices = this.offer.initialOffer.nonSystemServiceGroupList.map(
-        g => g.standardAndSemiGlobalCatalogServiceGroups
+        (g) => g.standardAndSemiGlobalCatalogServiceGroups
       );
-      const result = flatten(groupServices).find(s => s.catalogService.code === dependencyCode);
+      const result = flatten(groupServices).find((s) => s.catalogService.code === dependencyCode);
       return result;
     },
   },

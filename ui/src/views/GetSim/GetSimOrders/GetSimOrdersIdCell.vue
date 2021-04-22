@@ -39,7 +39,7 @@ export default {
     },
   },
   computed: mapState({
-    isOpen: state => state.ui.isPanelOpen,
+    isOpen: (state) => state.ui.isPanelOpen,
   }),
 };
 </script>

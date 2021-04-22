@@ -35,8 +35,8 @@ export default {
   async mounted() {
     const data = await fetchBillibAccountForPartnerId(this.partnerId);
     this.billingAccounts = data
-      .filter(ba => ba.id !== this.prerequisiteBillingAccount.id)
-      .map(ba => ({
+      .filter((ba) => ba.id !== this.prerequisiteBillingAccount.id)
+      .map((ba) => ({
         id: ba.id,
         label: `${ba.code} - ${ba.name}`,
         partnerId: ba.party.id,

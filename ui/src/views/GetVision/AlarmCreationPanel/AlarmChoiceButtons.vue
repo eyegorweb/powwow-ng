@@ -72,7 +72,7 @@ export default {
       },
     ];
     if (this.duplicateFrom) {
-      const alarmToChoose = this.alarms.find(a => a.id === this.duplicateFrom.type);
+      const alarmToChoose = this.alarms.find((a) => a.id === this.duplicateFrom.type);
       if (alarmToChoose) {
         this.chooseAlarm(alarmToChoose);
       }

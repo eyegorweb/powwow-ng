@@ -28,7 +28,7 @@ export default {
   },
   async mounted() {
     this.alarmTypes = await getAlarmTypes();
-    this.items = this.alarmTypes.getAlarmTypes.map(e => {
+    this.items = this.alarmTypes.getAlarmTypes.map((e) => {
       return {
         code: e.key,
         value: e.value,
@@ -43,7 +43,10 @@ export default {
         return this.selectedData;
       },
       set(value) {
-        this.$emit('change', this.items.find(o => o.value === value));
+        this.$emit(
+          'change',
+          this.items.find((o) => o.value === value)
+        );
       },
     },
   },

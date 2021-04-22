@@ -17,10 +17,10 @@ export default {
     async loadDataFn(partners) {
       if (partners && partners.length) {
         const response = await supervisionDataGraph(partners);
-        const formatData = v => Math.floor(v / Math.pow(1024, 3)); // octet => Go
+        const formatData = (v) => Math.floor(v / Math.pow(1024, 3)); // octet => Go
 
         if (response) {
-          return response.responses.map(d => ({
+          return response.responses.map((d) => ({
             date: formatDateToUTC(d.date),
             out: formatData(d.upload),
             in: formatData(d.download),

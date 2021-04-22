@@ -74,7 +74,7 @@ export default {
         // si value est un tableau, on retourne true si checked (qui est lui aussi un tableau)
         // contient tous les elements de value
         if (Array.isArray(value)) {
-          return value.every(v => checked.find(s => isEqual(v, s)));
+          return value.every((v) => checked.find((s) => isEqual(v, s)));
         }
         return checked;
       },
@@ -87,7 +87,7 @@ export default {
     },
     isIndeterminate({ value, checked }) {
       if (!Array.isArray(value)) return false;
-      const selectedCount = value.filter(v => checked.includes(v)).length;
+      const selectedCount = value.filter((v) => checked.includes(v)).length;
       return selectedCount > 0 && selectedCount < value.length;
     },
   },

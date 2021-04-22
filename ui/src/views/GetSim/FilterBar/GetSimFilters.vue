@@ -9,7 +9,7 @@
         :can-show-selected-filter="canShowSelectedFilter"
         @applyFilters="applyFilters"
         @chooseFilter="chooseFilter"
-        @clear="filterId => clearFilter(filterId)"
+        @clear="(filterId) => clearFilter(filterId)"
       />
 
       <draggable handle=".handle">

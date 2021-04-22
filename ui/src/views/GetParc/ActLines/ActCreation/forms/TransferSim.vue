@@ -81,11 +81,11 @@ export default {
     fetchTransferId() {
       this.transferIds = [];
       if (this.selectedRows.length > 0) {
-        this.selectedRows.forEach(e => {
+        this.selectedRows.forEach((e) => {
           this.transferIds.push(e.transferId);
         });
       } else {
-        this.data.transferSimRequests.forEach(e => {
+        this.data.transferSimRequests.forEach((e) => {
           this.transferIds.push(e.transferId);
         });
       }
@@ -97,7 +97,7 @@ export default {
       }
       if (payload.remove) {
         this.selectedRows = this.selectedRows.filter(
-          r => r.transferId !== payload.remove.transferId
+          (r) => r.transferId !== payload.remove.transferId
         );
       }
     },

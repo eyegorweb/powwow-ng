@@ -18,7 +18,7 @@ export default {
       if (partners && partners.length) {
         const data = await supervisionVoiceGraph(partners);
 
-        return data.responses.map(d => ({
+        return data.responses.map((d) => ({
           date: formatDateToUTC(d.date),
           out: d.volumeOut,
           in: d.volumeIn,

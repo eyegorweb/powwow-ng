@@ -128,9 +128,7 @@
       </ContentBlock>
 
       <ContentBlock v-if="form && form.discounts && form.discounts.length" no-handle>
-        <template slot="title"
-          >Remises</template
-        >
+        <template slot="title">Remises</template>
         <template slot="content">
           <DiscountFields
             :dicounts="form.discounts"
@@ -266,7 +264,7 @@ export default {
     setDiscountValues(values) {
       const isValid = () => {
         if (values && values.length) {
-          const validDiscounts = values.filter(d => {
+          const validDiscounts = values.filter((d) => {
             if (
               d.discountValue !== null &&
               d.discountValue !== undefined &&
@@ -290,7 +288,7 @@ export default {
     setPackagesValues(values) {
       const isValid = () => {
         if (values && values.length) {
-          const validPackages = values.filter(d => {
+          const validPackages = values.filter((d) => {
             if (
               d.discount !== null &&
               d.discount !== undefined &&
@@ -305,7 +303,7 @@ export default {
             return false;
           });
           const packagesWithBounds = values.filter(
-            p => p.lowerBound !== undefined && p.lowerBound !== null
+            (p) => p.lowerBound !== undefined && p.lowerBound !== null
           ).length;
           return validPackages.length === packagesWithBounds;
         }
@@ -317,7 +315,7 @@ export default {
     setRangesValues(values) {
       const isValid = () => {
         if (values && values.length) {
-          const validranges = values.filter(d => {
+          const validranges = values.filter((d) => {
             if (
               d.discountValue !== null &&
               d.discountValue !== undefined &&
@@ -332,7 +330,7 @@ export default {
             return false;
           });
           const rangesWithBounds = values.filter(
-            p => p.lowerBound !== undefined && p.lowerBound !== null
+            (p) => p.lowerBound !== undefined && p.lowerBound !== null
           ).length;
           return validranges.length === rangesWithBounds;
         }
@@ -412,7 +410,7 @@ export default {
       };
 
       const packagesWithBounds = this.form.packages.filter(
-        p => p.lowerBound !== undefined && p.lowerBound !== null
+        (p) => p.lowerBound !== undefined && p.lowerBound !== null
       ).length;
 
       let offerPackages = undefined;
@@ -420,8 +418,8 @@ export default {
       if (packagesWithBounds > 0) {
         if (this.form.packages && this.form.packages.length) {
           offerPackages = this.form.packages
-            .filter(d => d.discount)
-            .map(d => ({
+            .filter((d) => d.discount)
+            .map((d) => ({
               type: d.usageType,
               discountValue: parseFloat(d.discount),
             }));
@@ -429,7 +427,7 @@ export default {
       }
 
       const rangesWithBounds = this.form.ranges.filter(
-        p => p.lowerBound !== undefined && p.lowerBound !== null
+        (p) => p.lowerBound !== undefined && p.lowerBound !== null
       ).length;
 
       let levelDefinitions = undefined;
@@ -437,8 +435,8 @@ export default {
       if (rangesWithBounds > 0) {
         if (this.form.ranges && this.form.ranges.length) {
           levelDefinitions = this.form.ranges
-            .filter(d => d.discountValue)
-            .map(d => ({
+            .filter((d) => d.discountValue)
+            .map((d) => ({
               discountValue: parseFloat(d.discountValue),
             }));
         }
@@ -447,7 +445,7 @@ export default {
       let discountDefinitions = undefined;
 
       if (this.form.discounts && this.form.discounts.length) {
-        discountDefinitions = this.form.discounts.map(d => ({
+        discountDefinitions = this.form.discounts.map((d) => ({
           name: d.code,
           value: d.discountValue + '',
         }));
@@ -491,18 +489,18 @@ export default {
       let discountDefinitions = undefined;
 
       if (this.form.discounts && this.form.discounts.length) {
-        discountDefinitions = this.form.discounts.map(d => ({
+        discountDefinitions = this.form.discounts.map((d) => ({
           name: d.code,
           value: d.discountValue + '',
         }));
       }
 
       let offerPackages = undefined;
-      if (this.form.packages.filter(p => p.lowerBound !== undefined).length > 0) {
+      if (this.form.packages.filter((p) => p.lowerBound !== undefined).length > 0) {
         if (this.form.packages && this.form.packages.length) {
           offerPackages = this.form.packages
-            .filter(d => d.discount)
-            .map(d => ({
+            .filter((d) => d.discount)
+            .map((d) => ({
               type: d.usageType,
               discountValue: parseFloat(d.discount),
             }));
@@ -510,7 +508,7 @@ export default {
       }
 
       const rangesWithBounds = this.form.ranges.filter(
-        p => p.lowerBound !== undefined && p.lowerBound !== null
+        (p) => p.lowerBound !== undefined && p.lowerBound !== null
       ).length;
 
       let levelDefinitions = undefined;
@@ -518,8 +516,8 @@ export default {
       if (rangesWithBounds > 0) {
         if (this.form.ranges && this.form.ranges.length) {
           levelDefinitions = this.form.ranges
-            .filter(d => d.discountValue)
-            .map(d => ({
+            .filter((d) => d.discountValue)
+            .map((d) => ({
               discountValue: parseFloat(d.discountValue),
             }));
         }

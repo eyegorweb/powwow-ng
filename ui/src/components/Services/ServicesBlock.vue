@@ -35,7 +35,7 @@
                 :no-click="noClick"
                 v-model="service.checked"
                 :can-change-fn="
-                  value => {
+                  (value) => {
                     return canChangeValue(service, value);
                   }
                 "
@@ -66,7 +66,7 @@
             :no-click="noClick"
             v-model="service.checked"
             :can-change-fn="
-              value => {
+              (value) => {
                 return canChangeValue(service, value);
               }
             "
@@ -128,7 +128,7 @@ export default {
       ];
 
       if (this.otherServices && this.userIsMVNO) {
-        return this.otherServices.filter(s => !excludedServicesForMVNO.find(c => c === s.code));
+        return this.otherServices.filter((s) => !excludedServicesForMVNO.find((c) => c === s.code));
       }
 
       return this.otherServices;
@@ -138,15 +138,15 @@ export default {
     ...mapMutations(['popupMessage']),
 
     setup() {
-      const dataService = this.services.find(s => s.code === 'DATA');
+      const dataService = this.services.find((s) => s.code === 'DATA');
       if (dataService) {
         this.dataService = { ...dataService };
       }
-      this.otherServices = [...this.services.filter(s => s.code !== 'DATA')];
+      this.otherServices = [...this.services.filter((s) => s.code !== 'DATA')];
     },
     isChanged(service) {
       if (!this.initialServices || !this.initialServices.length) return false;
-      const initialService = this.initialServices.find(s => s.code === service.code);
+      const initialService = this.initialServices.find((s) => s.code === service.code);
       return initialService.checked !== service.checked;
     },
     canChangeValue(service) {
@@ -154,7 +154,7 @@ export default {
 
       if (service.preServiceCode) {
         // dependency chould be active to change value here
-        const serviceThatIDependOn = this.services.find(s => s.code === service.preServiceCode);
+        const serviceThatIDependOn = this.services.find((s) => s.code === service.preServiceCode);
         if (serviceThatIDependOn.checked) {
           canChange = true;
         } else {
@@ -167,9 +167,11 @@ export default {
           canChange = false;
         }
       } else {
-        const servicesThatDependOnMe = this.services.filter(s => s.preServiceCode === service.code);
+        const servicesThatDependOnMe = this.services.filter(
+          (s) => s.preServiceCode === service.code
+        );
         if (servicesThatDependOnMe && servicesThatDependOnMe.length) {
-          const checkedServices = servicesThatDependOnMe.filter(s => s.checked);
+          const checkedServices = servicesThatDependOnMe.filter((s) => s.checked);
           if (checkedServices.length === 0) {
             canChange = true;
           } else {
@@ -187,7 +189,7 @@ export default {
     },
 
     checkInServices(service, checked) {
-      const newServices = cloneDeep(this.services).map(s => {
+      const newServices = cloneDeep(this.services).map((s) => {
         if (s.code === service.code) {
           s.checked = checked;
         }

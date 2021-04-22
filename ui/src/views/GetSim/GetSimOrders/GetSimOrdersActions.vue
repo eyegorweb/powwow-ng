@@ -131,7 +131,7 @@ export default {
           'TO_BE_CONFIRMED_BY_BO',
         ];
 
-        if (statusesForConfirmation.find(s => s === this.order.status)) {
+        if (statusesForConfirmation.find((s) => s === this.order.status)) {
           actions.push('getsim.actions.CONFIRM');
         }
       }
