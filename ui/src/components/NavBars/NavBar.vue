@@ -225,7 +225,7 @@ export default {
       },
     ]);
 
-    if (this.userInfos.isEnabledPartySubscriptionOption) {
+    if (this.userInfos.isFreetEnabled) {
       navbarLinks.push({
         label: 'mainMenu.getVision',
         to: { name: 'getVisionMonitoring' },
