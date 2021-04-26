@@ -663,6 +663,74 @@ export async function changeService(filters, lines, params) {
   });
 }
 
+export async function createRechargeLVOffer(filters, lines, params) {
+  return await actCreationMutation(filters, lines, async (gqlFilter, gqlLines) => {
+    const { dueDate, partyId, workflowId, packageLabel, tempDataUuid } = params;
+
+    let gqlTempDataUuid = '';
+    if (tempDataUuid) {
+      gqlTempDataUuid = `tempDataUuid: "${tempDataUuid}"`;
+    }
+
+    const queryStr = `
+    mutation {
+      topUpLongLifeOffer(
+        input: {
+          filter: {${gqlFilter}},
+          partyId: ${partyId},
+          simCardInstanceIds: [${gqlLines}],
+          dueDate: "${dueDate}",
+          workflowId: ${workflowId},
+          packageLabel: "${packageLabel}",
+          ${gqlTempDataUuid}
+        })
+        {
+          tempDataUuid
+          validated
+          errors{
+            key
+            number
+            message
+          }
+        }
+    }
+    `;
+    /*
+    return {
+      tempDataUuid: 'tempDataUuid1',
+      validated: 3,
+      errors: [
+        {
+          key: 'key 1',
+          number: 32,
+          message: 'Error 21',
+        },
+      ],
+    };
+    //*/
+    //*
+    try {
+      const response = await query(queryStr);
+
+      if (!response || response.errors) {
+        return {
+          errors: response.errors,
+        };
+      }
+      return response.data.preactivateAndActivateSImcardInstanceV2;
+    } catch (e) {
+      return {
+        errors: [
+          {
+            message: 'Erreur technique',
+          },
+        ],
+      };
+    }
+    //* /
+  });
+}
+
 export async function preactivateAndActivateSImcardInstance(filters, lines, params) {
   return await actCreationMutation(filters, lines, async (gqlFilter, gqlLines) => {
     const {
@@ -711,7 +779,7 @@ export async function preactivateAndActivateSImcardInstance(filters, lines, para
             number
             message
           }
-         }
+        }
     }
     `;
 
@@ -993,7 +1061,7 @@ export async function changeSingleOffer(params) {
             key
             number
           }
-         }
+        }
     }
     `;
 

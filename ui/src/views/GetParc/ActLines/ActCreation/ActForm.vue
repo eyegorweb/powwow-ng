@@ -63,6 +63,9 @@
           act.title === 'getparc.actCreation.carouselItem.esim.DOWNLOAD_ESIM_PROFILE' && !isLoading
         "
       />
+      <ChargeLVOffers
+        v-if="act.title === 'getparc.actCreation.carouselItem.esim.CHARGE_LV_LINES' && !isLoading"
+      />
     </div>
   </div>
 </template>
@@ -88,6 +91,9 @@ import EsimFreeReservations from './forms/EsimFreeReservations';
 import EsimChangeProfile from './forms/EsimChangeProfile';
 import EsimDownloadProfile from './forms/EsimDownloadProfile';
 
+const ChargeLVOffers = () =>
+  import('@/views/GetParc/ActLines/ActCreation/forms/ChargeLVOffers.vue');
+
 import { mapGetters } from 'vuex';
 
 export default {
@@ -111,6 +117,7 @@ export default {
     EsimFreeReservations,
     EsimChangeProfile,
     EsimDownloadProfile,
+    ChargeLVOffers,
   },
   props: {
     act: Object,

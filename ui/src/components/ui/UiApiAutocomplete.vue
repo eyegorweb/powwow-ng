@@ -288,7 +288,7 @@ export default {
   watch: {
     // Pas possible d'utiliser une computed property à cause de la
     // nature async de debounce
-    $value: debounce(function () {
+    $value: debounce(function() {
       this.fetchResults();
     }, 200),
 

@@ -31,14 +31,17 @@
           'getparc.actCreation.carouselItem.CHANGE_SERVICES',
           'getparc.actCreation.carouselItem.CHANGE_OFFER',
           'getparc.actCreation.carouselItem.CHANGE_CF',
+          'getparc.actCreation.carouselItem.esim.CHARGE_LV_LINES',
         ].find((a) => a === act.title)
       "
       @set:preprequisites="setPrerequisites"
       :partner="userPartner"
       :can-select-billing-account="
         act.title === 'getparc.actCreation.carouselItem.CHANGE_OFFER' ||
-          act.title === 'getparc.actCreation.carouselItem.CHANGE_CF'
+          act.title === 'getparc.actCreation.carouselItem.CHANGE_CF' ||
+          act.title === 'getparc.actCreation.carouselItem.esim.CHARGE_LV_LINES'
       "
+      :have-lv-offers="act.title === 'getparc.actCreation.carouselItem.esim.CHARGE_LV_LINES'"
     />
   </div>
 </template>

@@ -412,6 +412,24 @@ export default excludeMocked([
     ],
   },
   {
+    icon: 'ic-Refresh-Icon',
+    title: 'getparc.actCreation.carouselItem.esim.CHARGE_LV_LINES',
+    id: 'CHARGE_LV_LINES',
+    stepTitle: 'getparc.actCreation.step2Titles.configure',
+    selected: false,
+    esimAct: true,
+    permission: { domain: 'getSim', action: 'order_esim' },
+    filters: [
+      {
+        id: 'filters.lines.SIMCardStatus',
+        values: [
+          { id: 'ACTIVATED', label: 'Activée' },
+          { id: 'SUSPENDED', label: 'Suspendue' },
+        ],
+      },
+    ],
+  },
+  {
     icon: 'ic-Plug-Icon',
     title: 'getparc.actCreation.carouselItem.esim.DOWNLOAD_ESIM_PROFILE',
     id: 'DOWNLOAD_ESIM_PROFILE',
