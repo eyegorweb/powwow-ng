@@ -153,7 +153,7 @@ export async function deleteSecondaryAdministrator(partyId) {
 // TO REFACTOR -----------------------
 export async function fetchpartners(
   q,
-  { page, limit, partnerType, partnerTypes, includeMailingLists, esim }
+  { page, limit, partnerType, partnerTypes, includeMailingLists, esim, haveLvOffers }
 ) {
   let partnerTypeGqlFilter = '';
   if (!partnerTypes && partnerType) {
@@ -168,6 +168,12 @@ export async function fetchpartners(
     esimGqlFilter = `, esimEnable: {eq: true}`;
   }
 
+  let lvOffers = '';
+
+  if (haveLvOffers) {
+    lvOffers = `, longLifeOfferEnable: true`;
+  }
+
   const extraFields = [];
   if (includeMailingLists) {
     extraFields.push(`mailingLists {
@@ -177,7 +183,7 @@ export async function fetchpartners(
   }
   const queryStr = `
   query{
-    partys(filter:{name: {startsWith: "${q}"}${partnerTypeGqlFilter}${esimGqlFilter}}, pagination: {limit: ${limit}, page: ${page}}, sorting: {name: ASC}) {
+    partys(filter:{name: {startsWith: "${q}"}${partnerTypeGqlFilter}${esimGqlFilter}${lvOffers}}, pagination: {limit: ${limit}, page: ${page}}, sorting: {name: ASC}) {
       total,
       items {
         id

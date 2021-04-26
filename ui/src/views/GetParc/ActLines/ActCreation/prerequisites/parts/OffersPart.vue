@@ -35,6 +35,7 @@ export default {
     },
     disabled: Boolean,
     allOffers: Boolean,
+    haveLvOffers: Boolean,
     keepSelectedValue: {
       type: Boolean,
       required: false,
@@ -69,6 +70,8 @@ export default {
           if (!this.allOffers) {
             queryParams.disabledOffer = true;
           }
+
+          queryParams.haveLvOffers = !!this.haveLvOffers;
 
           const data = await fetchOffers(q, [this.partner], queryParams);
           if (data) {

@@ -8,7 +8,13 @@
       display-results-while-empty
       scroll-for-next
     >
-      <img style="font-size: 24px" class="arrow" src="@/assets/search.svg" :style="{ left: 0 }" />
+      <img
+        style="font-size: 24px"
+        class="arrow"
+        src="@/assets/search.svg"
+        :style="{ left: 0 }"
+        alt=""
+      />
     </UiApiAutocomplete>
   </div>
 </template>
@@ -36,6 +42,7 @@ export default {
       default: true,
     },
     esim: Boolean,
+    haveLvOffers: Boolean,
   },
   computed: {
     ...mapState('userContext', ['contextPartnersType', 'contextPartners']),
@@ -92,6 +99,7 @@ export default {
           limit: 10,
           partnerType: this.contextPartnersType,
           esim: this.esim,
+          haveLvOffers: this.haveLvOffers,
         });
         return data.map((p) => ({
           id: p.id,

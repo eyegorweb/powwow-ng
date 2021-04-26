@@ -117,7 +117,7 @@ export async function fetchOffers2(filters, pagination, sorting) {
 export async function fetchOffers(
   q,
   partners,
-  { page, limit, partnerType, disabledOffer, customerAccountCode }
+  { page, limit, partnerType, disabledOffer, customerAccountCode, haveLvOffers }
 ) {
   let partnersIds,
     partnerGqlParam = '',
@@ -144,9 +144,15 @@ export async function fetchOffers(
     partnerTypeGqlFilter = `, partyType: {in: [${partnerType}]}`;
   }
 
+  let lvOffers = '';
+
+  if (haveLvOffers) {
+    lvOffers = `, longLifeOffer: true`;
+  }
+
   const queryStr = `
   query{
-    workflows(filter:{description: {startsWith: "${q}"} ${offersParam} ${partnerGqlParam} ${partnerTypeGqlFilter}${customerAccountCodeParam}}, sorting: { description: DESC }, pagination: {limit: ${limit}, page: ${page}}) {
+    workflows(filter:{description: {startsWith: "${q}"} ${offersParam} ${partnerGqlParam} ${partnerTypeGqlFilter}${customerAccountCodeParam}${lvOffers}}, sorting: { description: DESC }, pagination: {limit: ${limit}, page: ${page}}) {
       total,
       items {
         id
@@ -474,6 +480,38 @@ export async function updateCommercialOffer(input) {
 
   const response = await query(queryStr, { input });
   return response.data.updateCommercialOffer;
+}
+
+export async function fetchLVOffers(partyId, offerCode) {
+  const queryStr = `
+query LongLifeOffer($partyId: Long, $offerCode: String){
+  longLifeOffer(partyId: $partyId, offerCode: $offerCode){
+    id
+    code
+    description
+    defaultPackage
+    validityDuration
+    packages {
+      label
+      usage {
+        lowerBound
+        upperBound
+        envelopeValue
+        envelopeLabel
+        unit
+        usageType
+        price
+        flagActiveDiscount
+        modifyPackage
+        duration
+        envelopeValueOctets
+      }
+    }
+  }
+}`;
+
+  const response = await query(queryStr, { partyId, offerCode });
+  return response.data.longLifeOffer;
 }
 
 function formatDateForGql(inDate) {
