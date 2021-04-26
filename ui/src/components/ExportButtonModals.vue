@@ -106,6 +106,9 @@ export default {
       isExportFormatChoiceOpen: (state) => state.ui.isExportFormatChoiceOpen,
       exportPanelParams: (state) => state.ui.exportPanelParams,
     }),
+    isServicesEnabled() {
+      return !!this.appliedFilters.find((a) => a.id === 'filters.partners');
+    },
   },
   data() {
     return {
@@ -164,7 +167,7 @@ export default {
           },
         ];
       }
-      if (this.havePermission('getParc', 'export_service')) {
+      if (this.havePermission('getParc', 'export_service') && this.isServicesEnabled) {
         this.exportTypes = [
           ...this.exportTypes,
           {
