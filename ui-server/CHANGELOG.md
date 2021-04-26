@@ -2,6 +2,17 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.298+20210426132717
+2021-04-26
+
+### Features
+
+- [2605] Recharger des lignes L.V. depuis le carrousel (246ef3eb4b4f4b70773c257adc588569df225074)
+
+### Fixes
+
+- [2600] activer l'export des services avec un partenaire obligatoire (51fa70fe927b0f670d6ce332ad812580914cfa57)
+
 ## 1.17.0-master.297+20210423144424
 2021-04-23
 
