@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.299+20210427140828
+2021-04-27
+
+### Fixes
+
+- [2605] vérifier l'option LV (85afecf86dc8a9561ae0dedf7718b27c33d70c93)
+- [000] Correction des tests cypress (1fb1e5623687c839508c94c58c17ee439a397fb8)
+
 ## 1.17.0-master.298+20210426132717
 2021-04-26
 
