@@ -2,6 +2,7 @@ import layout from './layout';
 import * as filterBarSelectors from './selectors/filterbar';
 
 import { MultiSelectFilter } from './selectors/filters';
+
 function itemPosition(myIndex) {
   if (cy.userIsMonoPartner) {
     return myIndex - 1;
@@ -16,7 +17,9 @@ export default {
   },
   exportFile: layout.exportFile,
   openDetailPanel(id) {
-    cy.get('tbody tr td div button.id-cell').each($el => {
+    cy.get(
+      '#app > div.container > div.mt-4 > div.mt-4.mb-4 > div > div > div > div > div > div > div.col-md-9 > div:nth-child(3) > div:nth-child(2) > div > table > tbody > tr:nth-child(1) > td:nth-child(1) > div > button'
+    ).each(($el) => {
       if ($el.text().trim() === '' + id) {
         cy.wrap($el).click();
       }
@@ -24,7 +27,9 @@ export default {
   },
   detailPanel: {
     gotoDetail() {
-      cy.get('.goto-detail-button button').click();
+      cy.get(
+        '#main-sliding-panel > div > div > div > div > div.footer-panel-buttons > div > div.goto-detail-button > button'
+      ).click();
     },
   },
   filterBar: {
@@ -40,19 +45,23 @@ export default {
   },
   idSearch: {
     typeId(id) {
-      cy.waitGet('.d-block > input')
+      cy.waitGet(
+        '#app > div.container > div.mt-4 > div.mt-4.mb-4 > div > div > div > div > div > div > div.col-md-9 > div:nth-child(3) > div:nth-child(1) > div:nth-child(1) > div > form > div > div.form-group.mb-0.col-md-8 > label > input'
+      )
         .wait(500)
         .type(id);
     },
     applySearch() {
-      cy.waitGet('.col-md-3 > .btn').click();
+      cy.waitGet(
+        '#app > div.container > div.mt-4 > div.mt-4.mb-4 > div > div > div > div > div > div > div.col-md-9 > div:nth-child(3) > div:nth-child(1) > div:nth-child(1) > div > form > div > div.form-group.col-md-3.mb-0 > button'
+      ).click();
     },
   },
   getTotal() {
-    return new Cypress.Promise(resolve => {
+    return new Cypress.Promise((resolve) => {
       cy.waitGet(
         '#app > div.container > div.mt-4 > div.mt-4.mb-4 > div > div > div > div > div > div > div.col-md-9 > div.row.mb-3 > div:nth-child(1) > h2 > div'
-      ).then(e => {
+      ).then((e) => {
         console.log('getTotal -> parts', e.text());
         const parts = e
           .text()

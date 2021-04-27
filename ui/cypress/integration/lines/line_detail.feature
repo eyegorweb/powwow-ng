@@ -2,7 +2,6 @@ Feature: detail des lignes
 
   Je veux tester le detail des lignes
 
-  @ignore
   Scenario: je veux verifier l'en cours d'une ligne activée
     Given en tant que BO
     And je suis sur la page détail d'une ligne
@@ -11,7 +10,6 @@ Feature: detail des lignes
     When je clique sur voir l'en-cours
     Then la table de l'en-cours existe
 
-  @ignore
   Scenario: je veux verifier l'en cours d'une ligne non-activée
     Given en tant que BO
     And je suis sur la page détail d'une ligne

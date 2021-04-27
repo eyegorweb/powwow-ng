@@ -48,6 +48,7 @@ Feature: creation d'actes de gestion
     When je refuse les résiliations
     Then un act de refus de résiliation est bien créé
 
+  @focus
   Scenario: Les lignes rejetées ne doivent pas être validées lors d'une validation de résiliation
     Given en tant que BO
     And je suis sur la page de création d'actes de gestion
@@ -56,7 +57,7 @@ Feature: creation d'actes de gestion
     Then J'ai bien 2 KO quand j'essaie de résilier pour ces 2 lignes
 
 
-# Il nous manque je leux de données pour faire ce test
+# Il nous manque le jeu de données pour faire ce test
 # Scenario: je veux créer un acte de changement de services
 #   Given en tant que BO
 #   And je regarde le nombre d'actes de gestions
