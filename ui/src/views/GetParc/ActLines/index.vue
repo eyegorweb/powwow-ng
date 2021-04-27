@@ -89,9 +89,9 @@
             num="1"
             v-if="
               creationMode &&
-                actCreationPrerequisites &&
-                !actToCreate.containFile &&
-                !useFileImportAsInput
+              actCreationPrerequisites &&
+              !actToCreate.containFile &&
+              !useFileImportAsInput
             "
             title="getparc.actLines.step1Title"
             :color="actToCreate.color"
@@ -155,6 +155,7 @@ import carouselItems from './carouselItems';
 import PairingByFileFormContainer from '@/views/GetParc/ActLines/ActCreation/formContainers/PairingByFileFormContainer.vue';
 
 import { fetchSingleIndicator } from '@/api/linesActions';
+import { isPartyOptionEnabled } from '@/api/partners';
 
 export default {
   components: {
@@ -224,6 +225,7 @@ export default {
       ],
       // Pour recréer le composant ActForm à chaque changement des prérequis
       actToCreateFormVersionChange: 0,
+      lvFeature: false,
     };
   },
 
@@ -327,7 +329,12 @@ export default {
         return itemsToReturn.filter((i) => !i.esimAct);
       }
 
-      return itemsToReturn;
+      return itemsToReturn.filter((i) => {
+        if (i.partnerFeature === 'LV') {
+          return this.lvFeature;
+        }
+        return true;
+      });
     },
     canShowForm() {
       const actWithFileUpload = this.creationMode && this.creationMode.containFile;
@@ -381,7 +388,8 @@ export default {
   mounted() {
     this.setupIndicators();
     this.setActToCreate(null);
-    this.enableOfferChange();
+    this.fetchPartnerOptions();
+    this.fetchPartyFeatures();
 
     /**
      * la recherche n'est pas réinitialisée au retour de la page de détails, du coup on doit mettre la bonne valeur dans cette variable.
@@ -405,6 +413,9 @@ export default {
       'resetState',
     ]),
     ...mapMutations(['openPanel']),
+    async fetchPartyFeatures() {
+      this.lvFeature = await isPartyOptionEnabled('LV');
+    },
     onToggleChange(newToggleValue) {
       this.useFileImportAsInput = newToggleValue === 'byImport';
 
@@ -414,7 +425,7 @@ export default {
       }
     },
 
-    async enableOfferChange() {
+    async fetchPartnerOptions() {
       let response;
       if (this.userIsPartner || this.userInfos.type === 'PARTNER_GROUP') {
         response = await getPartyOptions(this.userInfos.partners[0].id);
