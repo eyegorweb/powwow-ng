@@ -21,7 +21,8 @@ export default {
     choosePartner(name) {
       const partnerInputPath =
         '#main-sliding-panel > div > div > div > div > div.orderStep > div.stepContent > div > div.orderStepContent > div > div:nth-child(1) > div > fieldset > input';
-      cy.waitGet(partnerInputPath).type(name, {delay: 100})
+      cy.waitGet(partnerInputPath)
+        .type(name, { delay: 100 })
         .wait(500)
         .waitGet(partnerInputPath)
         .wait(500)
@@ -33,7 +34,7 @@ export default {
       const BillingAccountInputPath =
         ':nth-child(2) > .position-relative > .form-group > .form-control';
 
-      cy.waitGet(BillingAccountInputPath).type(name, {delay: 100});
+      cy.waitGet(BillingAccountInputPath).type(name, { delay: 100 });
       cy.wait(200);
       cy.waitGet(BillingAccountInputPath)
         .wait(200)
@@ -80,7 +81,7 @@ export default {
     },
     statusIsUnvalid() {
       cy.waitGet(
-        '#app > div.container > div.mt-4 > div:nth-child(2) > div.col-md-9 > div > div > div:nth-child(2) > div:nth-child(2) > div > table > tbody > tr:nth-child(1) > td:nth-child(3) > div > div > div > div > i'
+        '#app > div.container > div.mt-4 > div.pt-4.pl-4 > div.mt-0 > div:nth-child(2) > div.col-md-9 > div > div > div:nth-child(2) > div:nth-child(2) > div > table > tbody > tr:nth-child(1) > td:nth-child(3) > div > div > div > div > i'
       ).should('have.class', 'ic-Alt-Icon');
     },
   },

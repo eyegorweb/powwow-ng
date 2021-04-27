@@ -2,6 +2,7 @@ Feature: tests des exports du dashboard
 
   je veux tester les exports du Dashboard
 
+  @focus
   Scenario: Export du graph (Historique de consommation)
     Given en tant que BO
     And je suis sur la page du dashboard getReport
