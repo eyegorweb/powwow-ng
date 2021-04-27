@@ -419,6 +419,7 @@ export default excludeMocked([
     selected: false,
     esimAct: true,
     permission: { domain: 'getSim', action: 'order_esim' },
+    partnerFeature: 'LV',
     filters: [
       {
         id: 'filters.lines.SIMCardStatus',
