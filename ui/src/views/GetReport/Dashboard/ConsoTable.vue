@@ -1,6 +1,6 @@
 <template>
   <div>
-    <table v-if="consumptionData" class="table table-blue mt-1 mb-3 partnerTypeM2M">
+    <table v-if="consumptionData" class="table table-blue mt-1 mb-3">
       <thead>
         <tr>
           <th>{{ $t('getparc.lineDetail.titled') }}</th>
