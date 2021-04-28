@@ -12,7 +12,10 @@ import axios from 'axios';
 export default {
   async mounted() {
     try {
-      this.appVersion = await axios.get('/getversion');
+      const response = await axios.get('/getversion');
+      if (response && response.data) {
+        this.appVersion = response.data;
+      }
     } catch {
       this.appVersion = 'local';
     }
@@ -31,5 +34,6 @@ export default {
   bottom: 0;
   left: 0;
   color: #f3f3f3;
+  font-size: 10px;
 }
 </style>
