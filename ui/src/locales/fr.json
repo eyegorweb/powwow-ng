@@ -1252,6 +1252,10 @@
     "lineDetail": {
       "title": "Détail de la ligne {msisdn}",
       "offer": "Offre",
+      "rest": "Restant:",
+      "consume": "Consommé:",
+      "limitDate": "Date limite de validité:",
+      "lastRecharge": "Dernier rechargement le {date} sur l'enveloppe {offer}.",
       "lineStatus": "Statut de la ligne",
       "triggeredAlarms": "Alarmes déclenchées",
       "manufacturer": "Fabriquant",
@@ -1265,6 +1269,7 @@
       "previsionalVoice": "Prévisionnel Voix",
       "consuming": "EN COURS DE CONSOMMATION",
       "consumingFromMonthBeginning": "En cours de la ligne depuis le début du mois",
+      "longLife": "En cours de mon offre longue vie",
       "analysingTool": "GETDIAG / OUTILS D'ANALYSE",
       "testData": "Test data",
       "networkTest": "Test du réseau",

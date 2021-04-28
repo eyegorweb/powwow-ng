@@ -22,6 +22,26 @@ export async function fetchTransferSim(orderBy) {
   const response = await query(queryStr);
   return response.data;
 }
+export async function fetchlvConsumption(id) {
+  const queryStr = `
+  query {
+    lvConsumption(simCardInstanceId: ${id}) {
+      lastRechargeDate
+      envelopeName
+      dataConsumed
+      dataAvailable
+      smsConsumed
+      smsAvailable
+      voiceConsumed
+      voiceAvailable
+      DLV
+    }
+  }
+  `;
+
+  const response = await query(queryStr);
+  return response.data.lvConsumption;
+}
 
 export async function updateTransferSim(ids, status) {
   const queryStr = `
