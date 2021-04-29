@@ -30,9 +30,6 @@ export default {
 
 <style lang="scss" scoped>
 .app-version-container {
-  position: fixed;
-  bottom: 0;
-  left: 0;
   color: #f3f3f3;
   font-size: 10px;
 }

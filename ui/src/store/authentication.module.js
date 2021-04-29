@@ -1,6 +1,5 @@
 import { fetchCurrentUserInfos } from '@/api/user';
 import { isPartyOptionEnabled } from '@/api/partners';
-import { log } from '@/utils';
 import { api } from '@/api/utils';
 import cloneDeep from 'lodash.clonedeep';
 // import moment from 'moment';
@@ -124,7 +123,6 @@ export const mutations = {
   setAuthToken(state, { token, tokenStr }) {
     state.accessToken = tokenStr;
     state.token = token;
-    log('New Token ', state.accessToken);
   },
   startRefreshingToken(state) {
     if (!state.refreshingToken) {

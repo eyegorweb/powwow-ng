@@ -166,7 +166,7 @@ export default {
         },
       ];
     } else {
-      getAdminExtra = [
+      getAdminExtra = excludeMocked([
         {
           label: 'menu.users',
           to: { name: 'getAdminUsers' },
@@ -182,7 +182,13 @@ export default {
           to: { name: 'getAdminCF' },
           permission: { domain: 'party', action: 'read' },
         },
-      ];
+        {
+          label: 'menu.rolesManagement',
+          to: { name: 'getAdminRoles' },
+          permission: { domain: 'party', action: 'read' },
+          mock: true,
+        },
+      ]);
     }
 
     let getSupportWindow = undefined;
