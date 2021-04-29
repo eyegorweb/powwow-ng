@@ -57,6 +57,7 @@ export const getters = {
   },
   selectedOrderIdValue: findFilterValueById('filters.lines.orderID'),
   selectedEsimIdValue: findFilterValueById('indicators.getparc.lines.esim.id'),
+  selectedTerminationValue: findFilterValueById('filters.lines.terminationValidated'),
   selectedOrderRefValue: findFilterValueById('filters.orderReference'),
   selectedPostalCodeValue: findFilterValueById('filters.postalCode'),
   selectedSirensValue: findFilterValueById('filters.lines.siren'),
@@ -286,6 +287,13 @@ export const mutations = {
     selectFilterValue(state, {
       id: 'indicators.getparc.lines.esim.id',
       value: id,
+    });
+  },
+  selectTerminationFilter(state, meta) {
+    selectFilterValue(state, {
+      id: 'filters.lines.terminationValidated',
+      value: meta.label,
+      meta,
     });
   },
   selectOrderRefFilter(state, value) {

@@ -2107,6 +2107,7 @@
       "trafficLabel": "Ayant trafiqué dans le mois",
       "actionId": "Id acte de gestion",
       "states": "État de profil eUICC",
+      "terminationValidated": "Résiliation validée",
       "profileStateFilter": {
         "ENABLED": "Activé",
         "DISABLED": "Désactivé",
