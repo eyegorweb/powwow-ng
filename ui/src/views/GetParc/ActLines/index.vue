@@ -155,7 +155,7 @@ import carouselItems from './carouselItems';
 import PairingByFileFormContainer from '@/views/GetParc/ActLines/ActCreation/formContainers/PairingByFileFormContainer.vue';
 
 import { fetchSingleIndicator } from '@/api/linesActions';
-import { isPartyOptionEnabled } from '@/api/partners';
+import { isFeatureAvailable } from '@/api/partners';
 
 export default {
   components: {
@@ -414,7 +414,7 @@ export default {
     ]),
     ...mapMutations(['openPanel']),
     async fetchPartyFeatures() {
-      this.lvFeature = await isPartyOptionEnabled('LV');
+      this.lvFeature = await isFeatureAvailable('LV');
     },
     onToggleChange(newToggleValue) {
       this.useFileImportAsInput = newToggleValue === 'byImport';

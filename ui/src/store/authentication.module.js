@@ -1,5 +1,5 @@
 import { fetchCurrentUserInfos } from '@/api/user';
-import { isPartyOptionEnabled } from '@/api/partners';
+import { isFeatureAvailable } from '@/api/partners';
 import { api } from '@/api/utils';
 import cloneDeep from 'lodash.clonedeep';
 // import moment from 'moment';
@@ -94,7 +94,7 @@ export const actions = {
   async fetchUserInfos({ commit }) {
     const currenUser = await fetchCurrentUserInfos();
     try {
-      currenUser.isFreetEnabled = await isPartyOptionEnabled('FLEET_ENABLED');
+      currenUser.isFreetEnabled = await isFeatureAvailable('FLEET_ENABLED');
     } catch {
       console.warn('erreur party subscription');
     }

@@ -63,7 +63,7 @@ export default {
       return this.$t('getparc.lineDetail.tab3.localisation.errors.' + this.errorCode);
     },
     status() {
-      return this.act.unitAction.status;
+      return this.act.unitAction.statusCode;
     },
     errorCode() {
       return this.act.unitAction.errorCode;
@@ -115,6 +115,7 @@ export default {
 <style lang="scss" scoped>
 .subTitle {
   color: $gray;
+  font-size: 0.8rem;
 }
 li {
   max-width: 18rem;
