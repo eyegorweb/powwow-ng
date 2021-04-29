@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.303+20210429085024
+2021-04-29
+
+### Features
+
+- [2622] création du filtre Résiliation validée pour effectuer une recherche de ligne (17311799187d2b30194023e0c36f11fd4e85f9ad)
+
 ## 1.17.0-master.302+20210429080003
 2021-04-29
 
