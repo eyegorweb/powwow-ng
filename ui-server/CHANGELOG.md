@@ -2,6 +2,18 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.301+20210429071655
+2021-04-29
+
+### Features
+
+- [2616] Ajout encours offre Longue Vie (0ba0d86f75fade1d411b0af2e03e6989afd972cc)
+- [2616] Ajout encours offre Longue Vie (22397ad87c288a5a240feb94fd5baebf5d7c3beb)
+
+### Fixes
+
+- [2620] confirmation de commande possible par l'action Confirmer (36012217d07c03681c3e81c8663152b2fb3b4794)
+
 ## 1.17.0-master.300+20210427150318
 2021-04-27
 
