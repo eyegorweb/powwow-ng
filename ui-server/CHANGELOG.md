@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.302+20210429080003
+2021-04-29
+
+### Features
+
+- [000] écran mocké de la configuration des roles (b6fdb9ae32ce4412b4adfa4e8cc0bf828d2dfaa5)
+
 ## 1.17.0-master.301+20210429071655
 2021-04-29
 
