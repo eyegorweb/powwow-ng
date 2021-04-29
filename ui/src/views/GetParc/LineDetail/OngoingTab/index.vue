@@ -388,21 +388,21 @@ export default {
     this.longLifeInfo = longLife[0];
 
     if (this.longLifeInfo) {
-      function goToPourcent(consumed, max) {
+      const getPercentValue = (consumed, max) => {
         return (100 * consumed) / max;
-      }
+      };
 
       this.dataBarUse =
         'width: ' +
-        goToPourcent(this.longLifeInfo.dataConsumed, this.longLifeInfo.dataAvailable) +
+        getPercentValue(this.longLifeInfo.dataConsumed, this.longLifeInfo.dataAvailable) +
         '%';
       this.smsBarUse =
         'width: ' +
-        goToPourcent(this.longLifeInfo.smsConsumed, this.longLifeInfo.smsAvailable) +
+        getPercentValue(this.longLifeInfo.smsConsumed, this.longLifeInfo.smsAvailable) +
         '%';
       this.voiceBarUse =
         'width: ' +
-        goToPourcent(this.longLifeInfo.dataConsumed, this.longLifeInfo.dataAvailable) +
+        getPercentValue(this.longLifeInfo.dataConsumed, this.longLifeInfo.dataAvailable) +
         '%';
     }
 

@@ -37,7 +37,11 @@ export default {
       urlToSave = urlToSave.replace(process.env.VUE_APP_BASE_URL, '');
 
       redirectTo(
-        `${this.authUrl}/oauth/authorize?response_type=token&client_id=${process.env.VUE_APP_CLIENT_ID}&redirect_uri=${window.location.origin}${process.env.VUE_APP_BASE_URL}/callback&prev=${urlToSave}`
+        `${this.authUrl}/oauth/authorize?response_type=token&client_id=${
+          process.env.VUE_APP_CLIENT_ID
+        }&redirect_uri=${window.location.origin}${
+          process.env.VUE_APP_BASE_URL
+        }/callback&prev=${urlToSave}`
       );
     },
 
@@ -79,7 +83,9 @@ export default {
       return getBaseURL();
     },
     refreshUrl() {
-      return `${this.authUrl}/oauth/authorize?response_type=token&client_id=${process.env.VUE_APP_CLIENT_ID}&redirect_uri=${window.location.origin}/refresh.html`;
+      return `${this.authUrl}/oauth/authorize?response_type=token&client_id=${
+        process.env.VUE_APP_CLIENT_ID
+      }&redirect_uri=${window.location.origin}/refresh.html`;
     },
   },
 };

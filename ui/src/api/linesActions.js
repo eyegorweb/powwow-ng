@@ -580,9 +580,7 @@ function addIdsFilter(gqlFilters, selectedFilters) {
 }
 
 function addTerminationValidated(gqlFilters, selectedFilters) {
-  const foundFilter = selectedFilters.find(
-    (f) => f.id === 'filters.lines.terminationValidated'
-  );
+  const foundFilter = selectedFilters.find((f) => f.id === 'filters.lines.terminationValidated');
   if (foundFilter) {
     gqlFilters.push(`terminationValidated: ${foundFilter.meta.value}`);
   }

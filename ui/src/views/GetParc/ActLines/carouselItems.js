@@ -428,10 +428,7 @@ export default excludeMocked([
     filters: [
       {
         id: 'filters.lines.SIMCardStatus',
-        values: [
-          { id: 'ACTIVATED', label: 'Activée' },
-          { id: 'SUSPENDED', label: 'Suspendue' },
-        ],
+        values: [{ id: 'ACTIVATED', label: 'Activée' }, { id: 'SUSPENDED', label: 'Suspendue' }],
       },
     ],
   },

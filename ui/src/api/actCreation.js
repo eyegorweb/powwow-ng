@@ -616,7 +616,9 @@ export async function changeService(filters, lines, params) {
 
         const catalogServiceParameters = `${[...apnToAddParams].join(',')}`;
 
-        dataCodeParams = `{serviceCode: "${dataService.code}", action: ADD, catalogServiceParameters: [${catalogServiceParameters}]}`;
+        dataCodeParams = `{serviceCode: "${
+          dataService.code
+        }", action: ADD, catalogServiceParameters: [${catalogServiceParameters}]}`;
       } else {
         dataCodeParams = `{serviceCode: "${dataService.code}", action: DELETE}`;
       }
@@ -695,20 +697,7 @@ export async function createRechargeLVOffer(filters, lines, params) {
         }
     }
     `;
-    /*
-    return {
-      tempDataUuid: 'tempDataUuid1',
-      validated: 3,
-      errors: [
-        {
-          key: 'key 1',
-          number: 32,
-          message: 'Error 21',
-        },
-      ],
-    };
-    //*/
-    //*
+
     try {
       const response = await query(queryStr);
 
@@ -727,7 +716,6 @@ export async function createRechargeLVOffer(filters, lines, params) {
         ],
       };
     }
-    //* /
   });
 }
 

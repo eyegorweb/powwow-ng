@@ -96,7 +96,9 @@
             <template v-if="simType === 'TAPE'">
               {{ $t('orders.detail.orderedCoilQuantity') }} :
             </template>
-            <template v-else> {{ $t('orders.detail.orderedSimQuantity') }} : </template>
+            <template v-else>
+              {{ $t('orders.detail.orderedSimQuantity') }} :
+            </template>
           </h6>
           <p>{{ getFromOrder('quantity') }}</p>
         </div>

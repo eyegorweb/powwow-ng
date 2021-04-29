@@ -4,7 +4,11 @@
       <div class="card-body p-1">
         <div class="row">
           <div class="col-3 pr-0">
-            <RolesChoice :roles="roles" :onRoleClick="onRoleClick" :selectedRole="selectedRole" />
+            <RolesChoice
+              :roles="roles"
+              :on-role-click="onRoleClick"
+              :selected-role="selectedRole"
+            />
           </div>
           <div class="col-9">
             <div class="d-flex justify-content-end mb-2">
@@ -18,7 +22,7 @@
                 :key="domain.id"
                 v-for="domain in domains"
                 :domain="domain"
-                :defaultOpen="openAll"
+                :default-open="openAll"
               />
             </div>
           </div>
