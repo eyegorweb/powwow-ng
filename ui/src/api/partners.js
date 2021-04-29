@@ -9,7 +9,11 @@ export async function isFeatureAvailable(optionType, lineId) {
   `;
   const response = await query(queryStr, { optionType, lineId });
 
-  return response.data.isFeatureAvailable;
+  if (response.errors) {
+    return { errors: response.errors };
+  }
+
+  return response.data.isPartyOptionEnabled;
 }
 
 export async function updatePartyOptions(params) {

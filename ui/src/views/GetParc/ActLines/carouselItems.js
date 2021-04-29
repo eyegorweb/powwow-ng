@@ -289,6 +289,11 @@ export default excludeMocked([
           },
         ],
       },
+      {
+        id: 'filters.lines.terminationValidated',
+        value: 'Non',
+        meta: { label: 'Non', value: false },
+      },
     ],
   },
   {
