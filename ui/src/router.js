@@ -21,6 +21,7 @@ const GetReportBill = () => import('@/views/GetReport/Bill/index.vue');
 const GetDevice = () => import('@/views/GetDevice/index.vue');
 const GetVisionMonitoring = () => import('@/views/GetVision/monitoring');
 const GetStocks = () => import('@/views/GetSim/Stocks/index.vue');
+const RolesManagement = () => import('@/views/GetAdmin/RolesManagement/index.vue');
 
 import lineDetailRoute from '@/views/GetParc/LineDetail/routes.js';
 import partnerDetailRoute from '@/views/GetAdmin/PartnerDetail/routes.js';
@@ -117,6 +118,11 @@ export default new Router({
       path: '/getamin/partners',
       name: 'getAdminPartners',
       component: SearchPartners,
+    },
+    {
+      path: '/getamin/manate-roles',
+      name: 'getAdminRoles',
+      component: RolesManagement,
     },
     {
       path: '/devices',
