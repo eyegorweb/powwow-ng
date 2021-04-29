@@ -30,21 +30,21 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import { isPartyOptionEnabled } from '@/api/partners';
+import { isFeatureAvailable } from '@/api/partners';
 
 export default {
   props: {
     content: Object,
   },
   async mounted() {
-    this.autoDiagnosticEnabled = await isPartyOptionEnabled(
+    this.autoDiagnosticEnabled = await isFeatureAvailable(
       'AUTODIAGNOSTIC_ENABLED',
       this.content.id
     );
 
-    const geolocEnabled = await isPartyOptionEnabled('GEOLOCATION_ENABLED', this.content.id);
+    const geolocEnabled = await isFeatureAvailable('GEOLOCATION_ENABLED', this.content.id);
 
-    const requestConsoActive = await isPartyOptionEnabled('REQUEST_CONSO_ENABLED', this.content.id);
+    const requestConsoActive = await isFeatureAvailable('REQUEST_CONSO_ENABLED', this.content.id);
 
     const unfilteredItems = [
       {

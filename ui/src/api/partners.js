@@ -1,15 +1,15 @@
 import { query, getFilterValues, getValuesIds } from './utils';
 import get from 'lodash.get';
 
-export async function isPartyOptionEnabled(optionType, lineId) {
+export async function isFeatureAvailable(optionType, lineId) {
   const queryStr = `
   query IsPartyOptionEnabled($optionType: SubscriptionOptionTypeEnum!, $simcardInstanceId: Long){
-    isPartyOptionEnabled(optionType: $optionType, simcardInstanceId: $simcardInstanceId)
+    isFeatureAvailable(optionType: $optionType, simcardInstanceId: $simcardInstanceId)
   }
   `;
   const response = await query(queryStr, { optionType, lineId });
 
-  return response.data.isPartyOptionEnabled;
+  return response.data.isFeatureAvailable;
 }
 
 export async function updatePartyOptions(params) {
