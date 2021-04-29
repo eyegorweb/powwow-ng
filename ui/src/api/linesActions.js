@@ -240,7 +240,7 @@ export async function searchLinesForTable(orderBy, pagination, filters = []) {
       preactivationDate
       activationDate
       commercialStatusDate
-
+      terminationValidated
     customFields {
       custom1
       custom2
@@ -349,6 +349,7 @@ export async function searchLines(orderBy, pagination, filters = []) {
         type
       }
       id
+      terminationValidated
       commercialStatus
       preactivationDate
       activationDate
@@ -579,11 +580,11 @@ function addIdsFilter(gqlFilters, selectedFilters) {
 }
 
 function addTerminationValidated(gqlFilters, selectedFilters) {
-  const terminationFilter = selectedFilters.find(
+  const foundFilter = selectedFilters.find(
     (f) => f.id === 'filters.lines.terminationValidated'
   );
-  if (terminationFilter && terminationFilter.value) {
-    gqlFilters.push(`terminationValidated: true`);
+  if (foundFilter) {
+    gqlFilters.push(`terminationValidated: ${foundFilter.meta.value}`);
   }
 }
 
