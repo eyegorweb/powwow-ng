@@ -13,8 +13,8 @@
               :default-selected-item.sync="selectedSimTypeValue"
               :is-active="
                 selectedSimTypeValue &&
-                  selectedSimTypeValue.simCard &&
-                  selectedSimTypeValue.simCard.id === item.simCard.id
+                selectedSimTypeValue.simCard &&
+                selectedSimTypeValue.simCard.id === item.simCard.id
               "
               last-action-key="getsim.sim-type-labels.orderDate"
               no-action-key="getsim.never-ordered"
@@ -100,7 +100,7 @@ export default {
     this.simTypes = await fetchSim(
       get(this.synthesis, 'billingAccount.value.partnerId'),
       undefined,
-      { eq: 'STANDARD' }
+      { ne: 'ESIM' }
     );
     this.selectedNumberOfSims = get(this.synthesis, 'quantity.selection.quantity', 0);
     /**

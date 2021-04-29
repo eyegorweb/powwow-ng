@@ -2,6 +2,7 @@
   <SimCardTypeFilter
     :selected-type-sim-card-values="selectedTypeSimCardValues"
     :selected-partners-values="selectedPartnersValues"
+    exclude-category="ESIM"
     @setTypeSimCardFilter="setTypeSimCardFilter"
   />
 </template>

@@ -367,7 +367,7 @@
   },
   "getsim": {
     "reservations": {
-      "tabTitle": "Réservations",
+      "tabTitle": "Mes réservations",
       "export": "Exporter {total} réservation(s)",
       "tableTitle": "{total} Réservation(s) trouvée(s)",
       "createReservation": "Réserver des eSIM",

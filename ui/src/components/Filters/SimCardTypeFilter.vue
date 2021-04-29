@@ -24,6 +24,10 @@ export default {
       type: String,
       required: false,
     },
+    excludeCategory: {
+      type: String,
+      required: false,
+    },
 
     formatFn: {
       type: Function,
@@ -60,6 +64,10 @@ export default {
       if (this.category) {
         filters.category = { eq: this.category };
       }
+      if (this.excludeCategory) {
+        filters.category = { ne: this.excludeCategory };
+      }
+
       if (this.currentFilters && this.currentFilters.length && !this.category) {
         const categoryFilter = this.currentFilters.filter(
           (f) => ['indicators.getparc.lines.esim.category'].indexOf(f.id) > -1
