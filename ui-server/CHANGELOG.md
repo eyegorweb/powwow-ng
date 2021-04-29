@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.306+20210429133004
+2021-04-29
+
+### Fixes
+
+- [000] Corriger le filtre de type de cartes SIM (ce933694445b15c420f99d02f4f85f653ec887d0)
+
 ## 1.17.0-master.305+20210429131544
 2021-04-29
 
