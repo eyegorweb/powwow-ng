@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.305+20210429131544
+2021-04-29
+
+### Features
+
+- [2623] ajout le filtre obligatoire « Resiliation validée » à l'acte gérer les résiliations (8dd1364570236770da7871c4e4ea9167fccbb37a)
+
 ## 1.17.0-master.304+20210429102945
 2021-04-29
 
