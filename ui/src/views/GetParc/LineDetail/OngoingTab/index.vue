@@ -386,9 +386,6 @@ export default {
 
     var longLife = await fetchlvConsumption(this.content.id);
     this.longLifeInfo = longLife[0];
-    this.longLifeInfo.dataConsumed = 14584555;
-    this.longLifeInfo.smsConsumed = 400;
-    this.longLifeInfo.voiceConsumed = 25;
 
     if (this.longLifeInfo) {
       function goToPourcent(consumed, max) {
