@@ -19,4 +19,43 @@ export default {
       );
     },
   },
+  openDetailLine() {
+    cy.waitGet('.footer-panel-buttons > div > div:nth-child(2) > button').click();
+  },
+  tab: {
+    details() {
+      cy.waitGet('.mt-4.mb-4 .tabs-bar > li:nth-child(1) > a').click();
+      cy.url().should('include', '/details');
+    },
+    detailsOptions: {
+      info() {
+        cy.waitGet('.menu_line_info > a').click();
+        cy.url().should('include', '/details/info');
+      },
+      billing() {
+        cy.waitGet('.menu_billing > a').click();
+        cy.url().should('include', '/details/billing');
+      },
+      services() {
+        cy.waitGet('.menu_line_services > a').click();
+        cy.url().should('include', '/details/services');
+      },
+      alarms() {
+        cy.waitGet('.menu_alarm_list > a').click();
+        cy.url().should('include', '/details/alarms');
+      },
+      acts() {
+        cy.waitGet('.menu_acts_history > a').click();
+        cy.url().should('include', '/details/acts');
+      },
+    },
+    ongoing() {
+      cy.waitGet('.mt-4.mb-4 .tabs-bar > li:nth-child(2) > a').click();
+      cy.url().should('include', '/ongoing');
+    },
+    analysis() {
+      cy.waitGet('.mt-4.mb-4 .tabs-bar > li:nth-child(3) > a').click();
+      cy.url().should('include', '/analysis');
+    },
+  },
 };

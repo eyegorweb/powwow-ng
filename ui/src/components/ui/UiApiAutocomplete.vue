@@ -4,7 +4,7 @@
     <!-- TODO permettre customiser l'input avec un scoped slot? Passer une computed property avec un setter -->
     <!-- dans le slot pour permettre la synchronisation de la valeur -->
     <Promised :promise="resultsPromise">
-      <fieldset class="form-group" slot="combined" slot-scope="{ data }">
+      <fieldset class="form-group cmp-ui-input" slot="combined" slot-scope="{ data }">
         <!-- TODO loading state sur input avec isPending -->
         <input
           :disabled="disabled"
