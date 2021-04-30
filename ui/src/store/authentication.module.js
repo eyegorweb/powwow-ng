@@ -94,7 +94,7 @@ export const actions = {
   async fetchUserInfos({ commit }) {
     const currenUser = await fetchCurrentUserInfos();
     try {
-      currenUser.isFreetEnabled = await isFeatureAvailable('FLEET_ENABLED');
+      currenUser.isFleetEnabled = await isFeatureAvailable('FLEET_ENABLED');
     } catch {
       console.warn('erreur party subscription');
     }

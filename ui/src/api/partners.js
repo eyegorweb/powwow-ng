@@ -3,7 +3,7 @@ import get from 'lodash.get';
 
 export async function isFeatureAvailable(optionType, lineId) {
   const queryStr = `
-  query IsPartyOptionEnabled($optionType: SubscriptionOptionTypeEnum!, $simcardInstanceId: Long){
+  query IsFeatureAvailable($optionType: SubscriptionOptionTypeEnum!, $simcardInstanceId: Long){
     isFeatureAvailable(optionType: $optionType, simcardInstanceId: $simcardInstanceId)
   }
   `;
@@ -13,7 +13,7 @@ export async function isFeatureAvailable(optionType, lineId) {
     return { errors: response.errors };
   }
 
-  return response.data.isPartyOptionEnabled;
+  return response.data.isFeatureAvailable;
 }
 
 export async function updatePartyOptions(params) {

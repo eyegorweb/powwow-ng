@@ -230,8 +230,7 @@ export default {
         ],
       },
     ]);
-
-    if (this.userInfos.isFreetEnabled) {
+    if (this.userInfos.isFleetEnabled) {
       navbarLinks.push({
         label: 'mainMenu.getVision',
         to: { name: 'getVisionMonitoring' },
