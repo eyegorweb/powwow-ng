@@ -8,6 +8,7 @@
         :tab="tab"
         :selected-index="$selectedIndex"
         :select-tab="selectTab"
+        :class="`menu_${tab.label}`"
       >
         <Tab
           :key="tab.label"
