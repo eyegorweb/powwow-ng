@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.308+20210430133723
+2021-04-30
+
+### Fixes
+
+- [000] Corriger les exports geoloc (1074b2b4c88c9e5876d01a7eba8b1b2947fa57d4)
+
 ## 1.17.0-master.307+20210429135510
 2021-04-29
 
