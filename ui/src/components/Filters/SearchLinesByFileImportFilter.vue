@@ -37,10 +37,11 @@ export default {
     },
   },
 
-  mounted() {
-    if (this.addOptions) {
+  mounted () {
+    if(this.addOptions) {
       this.options.push.apply(this.options, this.addOptions);
-    }
+    };
+
   },
   data() {
     return {
