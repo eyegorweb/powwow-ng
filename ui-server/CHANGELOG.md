@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.310+20210503123543
+2021-05-03
+
+### Features
+
+- [2635] Ajout des options partenaire "Résiliation DFE+1" et "Résiliation eSim avec delete actif " (feea64e9732aefc8cd97208ea9bbad96e3b85680)
+
 ## 1.17.0-master.309+20210430135345
 2021-04-30
 
