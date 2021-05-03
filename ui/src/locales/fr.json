@@ -791,6 +791,8 @@
             "SECU_RESIL": "Sécurisation des résiliations",
             "COMPAT_OTA": "Compatibilité OTA",
             "BROADCAST_SMS": "Broadcast SMS",
+            "TERMINATION_DFE": "Résiliation DFE+1",
+            "ESIM_TERMINATION": "Résiliation eSim avec delete actif",
             "MANDATORY_ACTIVATION": "Activation obligatoire",
             "MANDATORY_PREACTIVATION": "Préctivation obligatoire",
             "REF_CLIENT": "Référence client obligatoire",

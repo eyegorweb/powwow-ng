@@ -75,6 +75,8 @@ export async function getPartyOptions(partyId) {
     dailyOutstandingReporting
     msisdnFormatPreactivation
     consoReporting
+    terminationDfeEnabled
+    esimTerminationDeleteMandatory
     wsNotificationParam {
       notificationOption
       login

@@ -408,7 +408,7 @@
         <UiButton
           v-if="
             havePermission('party', 'update_main_options') ||
-              havePermission('party', 'update_secondary_options')
+            havePermission('party', 'update_secondary_options')
           "
           variant="primary"
           class="p-3"
@@ -453,6 +453,7 @@ export default {
   },
   computed: {
     ...mapGetters(['havePermission']),
+    ...mapGetters(['userIsBO']),
     mailingLists() {
       if (!this.partner) return [];
       const mailingLists = get(this.partner, 'mailingLists', []);
@@ -489,55 +490,13 @@ export default {
   props: {
     partner: Object,
   },
+  watch: {
+    userIsBO(newValue) {
+      console.log('🚀 ~ file: PartnerOptions.vue ~ line 495 ~ userIsBO ~ newValue', newValue);
+    },
+  },
 
   async mounted() {
-    this.services = [
-      {
-        code: 'AMSISDN',
-        visible: true,
-        checked: false,
-        editable: true,
-        optional: false,
-        activationDate: null,
-        labelService: 'A-MSISDN',
-      },
-      // {
-      //   code: 'NOTIF_EUICC',
-      //   checked: false,
-      //   editable: true,
-      //   optional: false,
-      //   activationDate: null,
-      //   labelService: 'Notification eUICC',
-      // },
-      {
-        code: 'SECU_RESIL',
-        visible: this.partyType === 'CUSTOMER' ? true : false,
-        checked: false,
-        editable: true,
-        optional: false,
-        activationDate: null,
-        labelService: this.$t('getadmin.partners.optionsDetails.services.labels.SECU_RESIL'),
-      },
-      {
-        code: 'COMPAT_OTA',
-        visible: true,
-        checked: false,
-        editable: true,
-        optional: false,
-        activationDate: null,
-        labelService: this.$t('getadmin.partners.optionsDetails.services.labels.COMPAT_OTA'),
-      },
-      {
-        code: 'BROADCAST_SMS',
-        visible: this.partyType === 'CUSTOMER' ? true : false,
-        checked: false,
-        editable: true,
-        optional: false,
-        activationDate: null,
-        labelService: this.$t('getadmin.partners.optionsDetails.services.labels.BROADCAST_SMS'),
-      },
-    ];
-
     this.orderToggles = [
       {
         code: 'MANDATORY_ACTIVATION',
@@ -704,6 +663,71 @@ export default {
       },
     ];
 
+    this.services = [
+      {
+        code: 'AMSISDN',
+        visible: true,
+        checked: false,
+        editable: true,
+        optional: false,
+        activationDate: null,
+        labelService: 'A-MSISDN',
+      },
+      // {
+      //   code: 'NOTIF_EUICC',
+      //   checked: false,
+      //   editable: true,
+      //   optional: false,
+      //   activationDate: null,
+      //   labelService: 'Notification eUICC',
+      // },
+      {
+        code: 'SECU_RESIL',
+        visible: this.partyType === 'CUSTOMER' ? true : false,
+        checked: false,
+        editable: true,
+        optional: false,
+        activationDate: null,
+        labelService: this.$t('getadmin.partners.optionsDetails.services.labels.SECU_RESIL'),
+      },
+      {
+        code: 'COMPAT_OTA',
+        visible: true,
+        checked: false,
+        editable: true,
+        optional: false,
+        activationDate: null,
+        labelService: this.$t('getadmin.partners.optionsDetails.services.labels.COMPAT_OTA'),
+      },
+      {
+        code: 'BROADCAST_SMS',
+        visible: this.partyType === 'CUSTOMER' ? true : false,
+        checked: false,
+        editable: true,
+        optional: false,
+        activationDate: null,
+        labelService: this.$t('getadmin.partners.optionsDetails.services.labels.BROADCAST_SMS'),
+      },
+      {
+        code: 'TERMINATION_DFE',
+        visible: !!this.userIsBO,
+        checked: false,
+        editable: true,
+        optional: false,
+        activationDate: null,
+        labelService: this.$t('getadmin.partners.optionsDetails.services.labels.TERMINATION_DFE'),
+      },
+      {
+        code: 'ESIM_TERMINATION',
+        visible: !!this.userIsBO,
+        checked: false,
+        editable: true,
+        optional: false,
+        activationDate: null,
+        labelService: this.$t('getadmin.partners.optionsDetails.services.labels.ESIM_TERMINATION'),
+      },
+    ];
+
     await this.resetOptions();
   },
 
@@ -714,6 +738,12 @@ export default {
       this.partnerOptions = await getPartyOptions(this.partner.id);
       this.checkToggle(this.services, 'AMSISDN', this.partnerOptions.flagMsisdnA);
       this.checkToggle(this.services, 'SECU_RESIL', this.partnerOptions.resilationSecurityEnabled);
+      this.checkToggle(this.services, 'TERMINATION_DFE', this.partnerOptions.terminationDfeEnabled);
+      this.checkToggle(
+        this.services,
+        'ESIM_TERMINATION',
+        this.partnerOptions.esimTerminationDeleteMandatory
+      );
       this.diffusionListEnabled = this.partnerOptions.diffusionListEnabled;
       this.resilationSecurityNotificationMails = this.partnerOptions.resilationSecurityNotificationMails;
       this.eSim = this.partnerOptions.esimEnable;
@@ -877,6 +907,8 @@ export default {
           esimEnable,
           resilationSecurityNotificationEnabled: this.resilationSecurityNotificationEnabled,
           resilationSecurityNotificationMails,
+          terminationDfeEnabled: this.getToggle(this.services, 'TERMINATION_DFE'),
+          esimTerminationDeleteMandatory: this.getToggle(this.services, 'ESIM_TERMINATION'),
           otaSensitive: this.getToggle(this.services, 'COMPAT_OTA'),
           smsAuthorized: this.getToggle(this.services, 'BROADCAST_SMS'),
           shortCodes: this.shortCodes,

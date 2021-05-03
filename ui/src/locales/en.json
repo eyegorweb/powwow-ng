@@ -695,6 +695,8 @@
             "SECU_RESIL": "Securing of terminations",
             "COMPAT_OTA": "OTA compatibility",
             "BROADCAST_SMS": "Broadcast SMS",
+            "TERMINATION_DFE": "Termination DFE+1",
+            "ESIM_TERMINATION": "eSim Termination with active delete",
             "MANDATORY_ACTIVATION": "Mandatory activation",
             "MANDATORY_PREACTIVATION": "Pre-activation compulsory",
             "REF_CLIENT": "Customer reference mandatory",
