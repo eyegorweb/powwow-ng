@@ -515,7 +515,10 @@ export default {
       // 'selectedIdTypeFromFileValue',
       // 'selectedFileValue',
     ]),
-
+    async ipFixeEnabled() {
+      const optionsPartner = await getPartyOptions(this.userInfos.id);
+      return optionsPartner.ipFixeEnable;
+    },
     isEsimCategoryInFilter() {
       return this.selectedEsimCategoryValue === 'eSim';
     },

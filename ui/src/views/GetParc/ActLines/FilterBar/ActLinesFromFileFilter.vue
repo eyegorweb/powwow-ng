@@ -30,6 +30,7 @@ export default {
   computed: {
     ...mapGetters('actLines', ['selectedFileImportValues']),
     ...mapGetters(['userInfos', 'userIsBO', 'userIsGroupPartner']),
+    ...mapGetters(['havePermission']),
     fileMeta() {
       if (this.selectedFileImportValues && this.selectedFileImportValues.length) {
         return this.selectedFileImportValues[0];
@@ -38,22 +39,17 @@ export default {
     },
   },
 
-  async mounted() {
+  async mounted () {
     const optionsPartner = await getPartyOptions(this.userInfos.id);
-    console.log(this.userIsBO);
-    if (
-      ((this.userIsPartner || this.userIsGroupPartner) && optionsPartner.ipFixeEnable) ||
-      this.userIsBO
-    ) {
-      this.otherOptions = [
-        ...this.otherOptions,
-        {
-          code: 'c8',
-          label: 'IP_FIXE',
-          value: 'IP_FIXE',
-        },
-      ];
-    }
+    console.log(this.userIsBO)
+    if (((this.userIsPartner || this.userIsGroupPartner) && optionsPartner.ipFixeEnable) || this.userIsBO) {
+      this.otherOptions = [...this.otherOptions, {
+        code: 'c8',
+        label: 'IP_FIXE',
+        value: 'IP_FIXE',
+      }]
+    };
+
   },
   methods: {
     ...mapMutations('actLines', ['setFileImportFilter']),
