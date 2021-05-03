@@ -37,24 +37,11 @@ export default {
     },
   },
 
-<<<<<<< Updated upstream
   mounted () {
     if(this.addOptions) {
       this.options.push.apply(this.options, this.addOptions);
     };
-=======
-<<<<<<< HEAD
-  mounted() {
-    if (this.addOptions) {
-      this.options.push.apply(this.options, this.addOptions);
-    }
-=======
-  mounted () {
-    if(this.addOptions) {
-      this.options.concat(this.addOptions);
-    };
->>>>>>> feat: [2590] Ajout du filtre IP_FIXE + type d'import dans actLines
->>>>>>> Stashed changes
+
   },
   data() {
     return {

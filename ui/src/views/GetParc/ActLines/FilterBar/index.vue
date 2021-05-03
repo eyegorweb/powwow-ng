@@ -307,10 +307,7 @@
             >
           </FoldableBlock>
           <FoldableBlock
-<<<<<<< HEAD
             v-if="((userIsPartner || userIsGroupPartner) && ipFixeEnabled) || userIsBO"
-=======
->>>>>>> feat: [2590] Ajout du filtre IP_FIXE + type d'import dans actLines
             :title="$t('filters.lines.ipFixe')"
             :key="'el29'"
             :disabled="filtersAreDisabled"
