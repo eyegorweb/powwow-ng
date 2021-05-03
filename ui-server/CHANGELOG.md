@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.311+20210503142214
+2021-05-03
+
+### Fixes
+
+- [2590] Ajout du filtre IP_FIXE + type d'import dans actLines (04f6ff5bb72e3e80ad39f5323828cff114da533f)
+
 ## 1.17.0-master.310+20210503123543
 2021-05-03
 
