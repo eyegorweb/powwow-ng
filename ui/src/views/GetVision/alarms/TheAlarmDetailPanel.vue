@@ -194,24 +194,18 @@ export default {
           this.content.offerGroup.offerInstance &&
           this.content.offerGroup.offerInstance.marketingOffer &&
           this.content.offerGroup.offerInstance.marketingOffer
-          ? `${this.content.offerGroup.offerInstance.marketingOffer.code} - ${
-              this.content.offerGroup.offerInstance.marketingOffer.description
-            }`
+          ? `${this.content.offerGroup.offerInstance.marketingOffer.code} - ${this.content.offerGroup.offerInstance.marketingOffer.description}`
           : '';
       }
       return this.content && this.content.autoPositionCustAccount
-        ? `${this.content.autoPositionCustAccount.id} - ${
-            this.content.autoPositionCustAccount.name
-          }`
+        ? `${this.content.autoPositionCustAccount.id} - ${this.content.autoPositionCustAccount.name}`
         : '';
     },
 
     offer() {
       if (this.alarmType === 'OVER_CONSUMPTION_VOLUME_FLOTTE') {
         return this.content && this.content.offerGroup && this.content.offerGroup.customerAccount
-          ? `${this.content.offerGroup.customerAccount.code} - ${
-              this.content.offerGroup.customerAccount.name
-            }`
+          ? `${this.content.offerGroup.customerAccount.code} - ${this.content.offerGroup.customerAccount.name}`
           : '';
       }
       return this.content &&

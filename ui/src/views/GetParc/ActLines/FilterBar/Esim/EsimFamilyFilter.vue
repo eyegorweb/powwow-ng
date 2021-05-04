@@ -25,7 +25,10 @@ export default {
         return undefined;
       },
       set(value) {
-        this.$emit('update:value', this.options.find((o) => o.value === value));
+        this.$emit(
+          'update:value',
+          this.options.find((o) => o.value === value)
+        );
       },
     },
   },

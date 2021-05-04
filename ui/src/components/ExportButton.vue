@@ -25,11 +25,12 @@ export default {
     exportAll: Boolean,
     forceAsyncExport: Boolean,
     buttonStyle: Boolean,
-    multiExport: Boolean,
     btnClassName: {
       type: String,
       required: false,
     },
+    otherExportChoices: Array,
+    exportChoices: Array,
   },
   methods: {
     ...mapMutations(['openExportChoice']),
@@ -42,7 +43,8 @@ export default {
         onErrorFn: this.onErrorFn,
         exportAll: this.exportAll,
         forceAsyncExport: this.forceAsyncExport,
-        multiExport: this.multiExport,
+        otherExportChoices: this.otherExportChoices,
+        exportChoices: this.exportChoices,
       });
     },
   },

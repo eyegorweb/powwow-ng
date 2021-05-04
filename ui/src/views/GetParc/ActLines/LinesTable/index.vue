@@ -32,7 +32,8 @@
               :on-error-fn="getExportErrorCallback()"
               :columns="orderedColumns"
               :order-by="orderBy"
-              :multi-export="true"
+              :export-choices="exportChoices"
+              :other-export-choices="otherExportChoices"
             >
               <span slot="title">
                 {{ $t('getparc.history.details.EXPORT_LINES', { total: formattedTotal }) }}
@@ -130,7 +131,7 @@ export default {
   computed: {
     ...mapGetters('actLines', ['linesActionsResponse', 'appliedFilters', 'linePage', 'isLoading']),
     ...mapState('actLines', ['limitPerPage', 'apiError']),
-    ...mapGetters(['userIsPartner', 'userInfos', 'userName', 'singlePartner']),
+    ...mapGetters(['userIsPartner', 'userInfos', 'userName', 'singlePartner', 'havePermission']),
     ...mapState({
       isOpen: (state) => state.ui.isPanelOpen,
     }),
@@ -174,6 +175,75 @@ export default {
     //*/
     hasResults() {
       return !!(this.rows && this.rows.length);
+    },
+
+    isServicesEnabled() {
+      return !!this.appliedFilters.find((a) => a.id === 'filters.partners');
+    },
+
+    exportChoices() {
+      const exportChoices = [
+        {
+          id: 'CLASSIC',
+          label: 'exportTable.classic',
+        },
+        {
+          id: 'FULL',
+          label: 'exportTable.complete',
+        },
+      ];
+
+      if (this.havePermission('getParc', 'export_last_usage')) {
+        exportChoices.push({
+          id: 'LAST_USAGE',
+          label: 'exportTable.lastUsage',
+        });
+      }
+
+      return exportChoices;
+    },
+
+    otherExportChoices() {
+      const partnerFilter = this.appliedFilters.find((a) => a.id === 'filters.partners');
+
+      const otherExportChoices = [];
+      if (this.havePermission('getParc', 'export_service') && this.isServicesEnabled) {
+        otherExportChoices.push({
+          id: 'SERVICES',
+          label: 'exportTable.services',
+        });
+      }
+
+      let canExportConso = false;
+
+      if (this.userIsGroupPartner) {
+        canExportConso = true;
+      }
+
+      if (this.userIsPartner && !this.userIsMVNO) {
+        canExportConso = true;
+      }
+
+      if (this.userIsOperator && partnerFilter && partnerFilter.values.length === 1) {
+        const partnerInFilter = partnerFilter.values[0];
+        canExportConso = partnerInFilter.partyType !== 'MVNO';
+      }
+
+      if (canExportConso) {
+        otherExportChoices.push({
+          id: 'CONSUMPTION',
+          label: 'exportTable.inProgress',
+        });
+      }
+
+      if (this.havePermission('getParc', 'export_bo')) {
+        otherExportChoices.push({
+          id: 'BACKOFFICE',
+          label: 'exportTable.BO',
+        });
+      }
+
+      return otherExportChoices;
     },
   },
   methods: {

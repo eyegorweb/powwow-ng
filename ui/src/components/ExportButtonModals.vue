@@ -48,13 +48,32 @@
       </div>
       <div slot="footer" class="footer">
         <div class="exportAll" v-if="!showLoader">
-          <div class="exportTypes" v-if="exportPanelParams.multiExport">
-            <Toggle :values="exportTypes" @update="exportChoice = $event.id" />
+          <div class="exportTypes" v-if="exportPanelParams.exportChoices">
+            <Toggle
+              :values="exportPanelParams.exportChoices"
+              @update="chooseExportChoice"
+              no-default
+              :key="'expo_togg_' + toggleVersion"
+            />
+            <UiDropDownChoicesButton
+              v-if="
+                exportPanelParams.otherExportChoices && exportPanelParams.otherExportChoices.length
+              "
+              :options="otherExportChoicesLabels"
+              @click="onOtherExportChoice"
+              :button-style="{
+                padding: '.2rem 0.8rem',
+                marginLeft: '.2rem',
+              }"
+              :is-active="otherExportChoiceLabel !== 'common.others'"
+            >
+              <span>{{ $t(otherExportChoiceLabel) }}</span>
+            </UiDropDownChoicesButton>
           </div>
 
           <Checkbox
             v-model="exportAll"
-            v-if="exportPanelParams.exportAll && !exportPanelParams.multiExport"
+            v-if="exportPanelParams.exportAll && !exportPanelParams.exportChoices"
           >
             {{ $t('exportAll') }}
           </Checkbox>
@@ -75,28 +94,16 @@ import sortBy from 'lodash.sortby';
 import Checkbox from '@/components/ui/Checkbox.vue';
 import Toggle from '@/components/ui/UiToggle2';
 import { mapGetters } from 'vuex';
+import UiDropDownChoicesButton from '@/components/ui/UiDropDownChoicesButton';
 
 export default {
   components: {
     Modal,
     Checkbox,
     Toggle,
+    UiDropDownChoicesButton,
   },
 
-  mounted() {
-    if (this.havePermission('getVision', 'read')) {
-      this.exportTypes.push({
-        id: 'LAST_USAGE',
-        label: 'exportTable.lastUsage',
-      });
-    }
-    if (this.havePermission('getParc', 'export_service')) {
-      this.exportTypes.push({
-        id: 'SERVICES',
-        label: 'exportTable.services',
-      });
-    }
-  },
   computed: {
     ...mapGetters(['havePermission']),
     ...mapGetters('actLines', ['appliedFilters']),
@@ -106,8 +113,11 @@ export default {
       isExportFormatChoiceOpen: (state) => state.ui.isExportFormatChoiceOpen,
       exportPanelParams: (state) => state.ui.exportPanelParams,
     }),
-    isServicesEnabled() {
-      return !!this.appliedFilters.find((a) => a.id === 'filters.partners');
+
+    otherExportChoicesLabels() {
+      return this.exportPanelParams
+        ? this.exportPanelParams.otherExportChoices.map((e) => e.label)
+        : [];
     },
   },
   data() {
@@ -118,21 +128,12 @@ export default {
       exportFormat: undefined,
       exportAll: false,
       exportChoice: undefined,
+      otherExportChoiceLabel: 'common.others',
       showLoader: false,
       haveError: false,
       messageError: undefined,
       forceAsyncExport: false,
-      exportTypes: [
-        {
-          id: 'CLASSIC',
-          label: 'exportTable.classic',
-          default: true,
-        },
-        {
-          id: 'FULL',
-          label: 'exportTable.complete',
-        },
-      ],
+      toggleVersion: 0,
     };
   },
   watch: {
@@ -143,65 +144,13 @@ export default {
         this.isLoading = false;
         this.exportFormat = undefined;
         this.showLoader = false;
+        this.otherExportChoiceLabel = 'common.others';
       }
     },
-    appliedFilters(newFilters) {
-      const partnerFilter = newFilters.find((a) => a.id === 'filters.partners');
-      this.exportTypes = [
-        {
-          id: 'CLASSIC',
-          label: 'exportTable.classic',
-          default: true,
-        },
-        {
-          id: 'FULL',
-          label: 'exportTable.complete',
-        },
-      ];
-      if (this.havePermission('getParc', 'export_last_usage')) {
-        this.exportTypes = [
-          ...this.exportTypes,
-          {
-            id: 'LAST_USAGE',
-            label: 'exportTable.lastUsage',
-          },
-        ];
+    otherExportChoiceLabel(value, oldValue) {
+      if (value !== oldValue && oldValue === 'common.others') {
+        this.toggleVersion += 1;
       }
-      if (this.havePermission('getParc', 'export_service') && this.isServicesEnabled) {
-        this.exportTypes = [
-          ...this.exportTypes,
-          {
-            id: 'SERVICES',
-            label: 'exportTable.services',
-          },
-        ];
-      }
-
-      let canExportConso = false;
-
-      if (this.userIsGroupPartner) {
-        canExportConso = true;
-      }
-
-      if (this.userIsPartner && !this.userIsMVNO) {
-        canExportConso = true;
-      }
-
-      if (this.userIsOperator && partnerFilter && partnerFilter.values.length === 1) {
-        const partnerInFilter = partnerFilter.values[0];
-        canExportConso = partnerInFilter.partyType !== 'MVNO';
-      }
-
-      if (canExportConso) {
-        this.exportTypes = [
-          ...this.exportTypes,
-          {
-            id: 'CONSUMPTION',
-            label: 'exportTable.inProgress',
-          },
-        ];
-      }
-      return this.exportTypes;
     },
   },
   methods: {
@@ -243,6 +192,21 @@ export default {
       this.isLoading = false;
       if (downloadResponse.errors) throw downloadResponse.errors;
       return downloadResponse;
+    },
+
+    chooseExportChoice(choice) {
+      this.exportChoice = choice.id;
+      this.otherExportChoiceLabel = 'common.others';
+    },
+
+    onOtherExportChoice(label) {
+      if (this.exportPanelParams && this.exportPanelParams.otherExportChoices) {
+        const choice = this.exportPanelParams.otherExportChoices.find((e) => e.label === label);
+        if (choice) {
+          this.exportChoice = choice.id;
+        }
+        this.otherExportChoiceLabel = label;
+      }
     },
 
     async exportFile(exportFormat) {
@@ -323,5 +287,9 @@ export default {
   .exportAll {
     margin-right: 20px;
   }
+}
+
+.exportTypes {
+  display: flex;
 }
 </style>

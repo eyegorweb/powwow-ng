@@ -2231,6 +2231,7 @@
     "complete": "Complet",
     "lastUsage": "Dernier usage",
     "inProgress": "Encours",
-    "services": "Services"
+    "services": "Services",
+    "BO": "Backoffice"
   }
 }
