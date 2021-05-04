@@ -222,8 +222,8 @@ export default {
       if (this.accountDetail.address.country === 'null' || !this.accountDetail.address.country) {
         return '';
       } else {
-        const code = this.countries.find(c => c.code === this.accountDetail.address.country);
-        const name = this.countries.find(c => c.name === this.accountDetail.address.country);
+        const code = this.countries.find((c) => c.code === this.accountDetail.address.country);
+        const name = this.countries.find((c) => c.name === this.accountDetail.address.country);
         if (code) {
           return code.name;
         } else if (name) {
@@ -242,7 +242,7 @@ export default {
     this.partnerDetail = await fetchPartyDetail(this.partner.id);
     const countries = await fetchDeliveryCountries(this.$i18n.locale);
 
-    this.countries = countries.map(c => ({
+    this.countries = countries.map((c) => ({
       ...c,
       label: c.name,
       value: c.code,
@@ -306,7 +306,7 @@ export default {
         city: this.form.city || '',
         zipCode: this.form.zipCode || '',
         state: this.form.state || '',
-        country: this.countries.find(c => c.name === this.form.country).code || '',
+        country: this.countries.find((c) => c.name === this.form.country).code || '',
         bscsRootAccount: this.form.bscs || '',
         contractReference: this.form.contractReference || '',
         defaultPreactivationOfferCode: this.form.preActOffer || '',
@@ -325,7 +325,7 @@ export default {
       response = await updatePartyDetail(params);
       if (response && response.errors && response.errors.length) {
         // this.flashMessage({ level: 'danger', message: this.$t('genericErrorMessage') });
-        response.errors.forEach(e => {
+        response.errors.forEach((e) => {
           this.flashMessage({ level: 'danger', message: e.message });
         });
       } else {

@@ -2,7 +2,12 @@
   <div class="row">
     <div v-if="menuItems" class="col-md-3">
       <ul class="list-group">
-        <li v-for="item in visibleMenuItems" :key="item.title" class="list-group-item">
+        <li
+          v-for="item in visibleMenuItems"
+          :key="item.title"
+          :class="`menu_${item.section}`"
+          class="list-group-item"
+        >
           <router-link :to="item.to" :class="{ active: $route.name == item.to.name }">
             {{ $t(item.title) }} <i class="ic-Arrow-Next-Icon float-right"></i>
           </router-link>
@@ -79,8 +84,8 @@ export default {
   computed: {
     visibleMenuItems() {
       const typeForPartner = this.$loGet(this.content, 'party.partyType');
-      let visibleItems = this.menuItems.filter(m =>
-        m.compatiblePartnerTypes.some(p => p === typeForPartner)
+      let visibleItems = this.menuItems.filter((m) =>
+        m.compatiblePartnerTypes.some((p) => p === typeForPartner)
       );
       return visibleItems;
     },

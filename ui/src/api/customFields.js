@@ -185,7 +185,7 @@ function formatCustomFieldsResponse(response) {
 }
 
 export async function createCustomField({ partyId, label, type, values, mandatoryVal, isSpec }) {
-  const valuesStr = values.map(v => `"${v}"`).join(',');
+  const valuesStr = values.map((v) => `"${v}"`).join(',');
   const queryStr = `
   mutation {
     createCustomField(customFieldInput: {

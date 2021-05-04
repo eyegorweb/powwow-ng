@@ -63,7 +63,7 @@ export default {
       }
 
       const data = await fetchBillibAccountForPartnerId(id);
-      this.billingAccounts = data.map(ba => ({
+      this.billingAccounts = data.map((ba) => ({
         id: ba.id,
         label: `${ba.code} - ${ba.name}`,
         partnerId: ba.party.id,

@@ -46,7 +46,7 @@ export default {
     },
     isChanged(service) {
       if (!this.initialServices || !this.initialServices.length) return false;
-      const initialService = this.initialServices.find(s => s.code === service.code);
+      const initialService = this.initialServices.find((s) => s.code === service.code);
       return initialService.checked !== service.checked;
     },
   },

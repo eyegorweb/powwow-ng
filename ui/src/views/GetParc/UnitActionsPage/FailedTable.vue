@@ -238,7 +238,7 @@ export default {
   },
   methods: {
     changeCellsOrder(orderedCells) {
-      const notVisibleCells = this.columns.filter(c => !c.visible);
+      const notVisibleCells = this.columns.filter((c) => !c.visible);
       this.columns = orderedCells.concat(notVisibleCells);
     },
     closeAcknowledgement() {

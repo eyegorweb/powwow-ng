@@ -9,7 +9,7 @@
         :can-refresh="canRefresh"
         :on-click="onClick"
         :precalculated="precalculated"
-        @removeme="i => removeIndicator(i)"
+        @removeme="(i) => removeIndicator(i)"
       />
     </ul>
     <div v-if="lastUpdateDate" class="update-date">
@@ -65,18 +65,18 @@ export default {
     ...mapState('userContext', ['contextPartnersType', 'contextPartners']),
 
     visibleIndicators() {
-      return this.indicators.filter(i => {
+      return this.indicators.filter((i) => {
         if (i.isVisibleFn) {
           return i.isVisibleFn();
         }
         if (!i.roles) return true;
 
         if (this.userIsBO) {
-          return !!i.roles.find(r => r === 'BO');
+          return !!i.roles.find((r) => r === 'BO');
         }
 
         if (this.userIsPartner) {
-          return !!i.roles.find(r => r === 'PARTNER');
+          return !!i.roles.find((r) => r === 'PARTNER');
         }
         return true;
       });
@@ -91,28 +91,31 @@ export default {
   },
   methods: {
     removeIndicator(indicatorToRemove) {
-      this.indicators = this.indicators.filter(i => i !== indicatorToRemove);
+      this.indicators = this.indicators.filter((i) => i !== indicatorToRemove);
     },
     async loadPrecalculated() {
       const keys = this.meta
-        .filter(i => i.fetchKey !== '')
-        .filter(i => i.fetchKey)
-        .map(i => i.fetchKey);
+        .filter((i) => i.fetchKey !== '')
+        .filter((i) => i.fetchKey)
+        .map((i) => i.fetchKey);
 
-      const unknownKeys = this.meta.filter(i => i.fetchKey === '');
+      const unknownKeys = this.meta.filter((i) => i.fetchKey === '');
       if (unknownKeys && unknownKeys.length) {
-        console.warn('Indicateurs inconnus : ', unknownKeys.map(i => this.$t(i.labelKey)));
+        console.warn(
+          'Indicateurs inconnus : ',
+          unknownKeys.map((i) => this.$t(i.labelKey))
+        );
       }
 
       let partners;
       if (this.contextPartners) {
-        partners = this.contextPartners.map(p => p.id);
+        partners = this.contextPartners.map((p) => p.id);
       }
 
       const responseIndicators =
         (await fetchPrecalculatedIndicators(keys, partners, this.contextPartnersType)) || [];
-      this.indicators = this.meta.map(i => {
-        const response = responseIndicators.find(r => r.name === i.fetchKey);
+      this.indicators = this.meta.map((i) => {
+        const response = responseIndicators.find((r) => r.name === i.fetchKey);
         if (response) {
           i.precalculatedValue = response;
         }
@@ -120,7 +123,7 @@ export default {
       });
 
       const ordered = this.indicators
-        .filter(i => !!i.precalculatedValue)
+        .filter((i) => !!i.precalculatedValue)
         .sort((a, b) =>
           isBefore(a.precalculatedValue.updateDate, b.precalculatedValue.updateDate) ? -1 : 1
         );

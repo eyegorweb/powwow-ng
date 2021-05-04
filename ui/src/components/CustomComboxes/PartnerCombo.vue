@@ -45,7 +45,7 @@ export default {
     value(newValue) {
       if (this.offline) {
         if (newValue && newValue.id && this.localItems && this.localItems.length) {
-          this.selectedLocalValue = this.localItems.find(i => i.id === newValue.id);
+          this.selectedLocalValue = this.localItems.find((i) => i.id === newValue.id);
         }
         if (!newValue) {
           this.selectedLocalValue = undefined;
@@ -84,14 +84,14 @@ export default {
         this.offlineItems = data;
       }
 
-      this.offlineItems = this.offlineItems.map(p => ({
+      this.offlineItems = this.offlineItems.map((p) => ({
         id: p.id,
         label: p.name,
         data: p,
       }));
 
       if (this.value && this.value.id && this.localItems && this.localItems.length) {
-        this.selectedLocalValue = this.localItems.find(i => i.id === this.value.id);
+        this.selectedLocalValue = this.localItems.find((i) => i.id === this.value.id);
       }
     } else if (this.value) {
       this.selectedLocalValue = this.value;
@@ -136,7 +136,7 @@ export default {
         includeMailingLists: this.includeMailingLists,
         esim: this.esim,
       });
-      return data.map(p => ({
+      return data.map((p) => ({
         id: p.id,
         label: p.name,
         data: p,

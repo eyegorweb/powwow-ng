@@ -266,7 +266,7 @@ export default {
       );
 
       if (response.errors && response.errors.length && !response.tempDataUuid) {
-        response.errors.forEach(r => {
+        response.errors.forEach((r) => {
           if (r.error === 'FILE_MAX_LINE_NUMBER_INVALID') {
             const count =
               r.data && r.data.maxNumbersPerFileUpload ? r.data.maxNumbersPerFileUpload : '';
@@ -334,7 +334,7 @@ export default {
         }
 
         if (response.errors && response.errors) {
-          const errorMessages = response.errors.map(e => {
+          const errorMessages = response.errors.map((e) => {
             return { level: 'danger', message: e.message };
           });
           messages.push(...errorMessages);

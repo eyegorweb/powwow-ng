@@ -94,7 +94,7 @@ export default {
   methods: {
     getCustomFieldLabel(num) {
       if (this.partnerCustomFields && this.partnerCustomFields.customFields) {
-        const field = this.partnerCustomFields.customFields.find(f => f.code === 'custom' + num);
+        const field = this.partnerCustomFields.customFields.find((f) => f.code === 'custom' + num);
         if (field) {
           return field.label;
         }

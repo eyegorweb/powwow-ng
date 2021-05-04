@@ -66,7 +66,7 @@ export default {
       }
     },
     createDatePicker() {
-      const onDateSelected = value => {
+      const onDateSelected = (value) => {
         this.$emit('change', value.format(this.dateFormat));
       };
 

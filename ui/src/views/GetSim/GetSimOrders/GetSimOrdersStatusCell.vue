@@ -87,7 +87,7 @@ export default {
           return 'ic-user-check';
 
         case 'CONFIRMATION_IN_PROGRESS':
-          return 'ic-spinner3';
+          return 'ic-Chronometer-Icon';
 
         case 'NOT_VALIDATED':
           return 'ic-Alt-Icon';

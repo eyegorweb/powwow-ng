@@ -14,7 +14,7 @@
     :check-errors-fn="isFormValid"
     :shared-alarm="true"
   >
-    <template v-slot:default="{ scopeIndex }">
+    <template #default="{ scopeIndex }">
       <SectionTitle :num="scopeIndex + 1">{{
         $t('getvsion.alarm-creation.setLimits')
       }}</SectionTitle>
@@ -54,11 +54,11 @@
         />
       </keep-alive>
     </template>
-    <template v-slot:scopechoice="{ partner }">
+    <template #scopechoice="{ chosenPartner }">
       <SectionTitle :num="2">{{ $t('getvsion.alarm-creation.chooseOffer') }}</SectionTitle>
       <OfferBillingAccountChoice
-        :key="'offercf_' + (partner ? partner.id : '')"
-        :partner="partner"
+        :key="'offercf_' + (chosenPartner ? chosenPartner.id : '')"
+        :partner="chosenPartner"
         @change="onBillingAccountChange"
       />
     </template>
@@ -190,7 +190,7 @@ export default {
         this.includeVoiceLimits = true;
       }
 
-      this.toggleValues = this.toggleValues.map(t => {
+      this.toggleValues = this.toggleValues.map((t) => {
         t.default = t.id === this.duplicateFrom.observationCycle;
         return t;
       });
@@ -261,9 +261,9 @@ export default {
       );
 
       if (offerLimits && offerLimits.length) {
-        this.dataOfferPackage = offerLimits.find(f => f.usageType === 'DATA');
-        this.voiceOfferPackage = offerLimits.find(f => f.usageType === 'VOICE');
-        this.smsOfferPackage = offerLimits.find(f => f.usageType === 'SMS');
+        this.dataOfferPackage = offerLimits.find((f) => f.usageType === 'DATA');
+        this.voiceOfferPackage = offerLimits.find((f) => f.usageType === 'VOICE');
+        this.smsOfferPackage = offerLimits.find((f) => f.usageType === 'SMS');
       } else {
         this.dataOfferPackage = undefined;
       }
@@ -434,7 +434,7 @@ export default {
       if (
         response.errors &&
         response.errors.length &&
-        response.errors.find(err => err.key === key)
+        response.errors.find((err) => err.key === key)
       ) {
         setTimeout(() => {
           this.confirmAction({
@@ -447,7 +447,7 @@ export default {
       } else if (
         response.errors &&
         response.errors.length &&
-        !response.errors.find(err => err.key === key)
+        !response.errors.find((err) => err.key === key)
       ) {
         this.flashMessage({ level: 'danger', message: this.$t('genericErrorMessage') });
       } else {

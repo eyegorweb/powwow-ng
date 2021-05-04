@@ -40,7 +40,7 @@ export default {
           visible: true,
           format: {
             type: 'LinkBtn',
-            onClick: async code => {
+            onClick: async (code) => {
               this.$router.push({
                 name: 'getAdminPartnerDetails.billingAccounts.form',
                 params: { id: this.$route.params.id, customerAccountCode: code },

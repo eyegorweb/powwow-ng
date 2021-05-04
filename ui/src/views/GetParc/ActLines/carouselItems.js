@@ -289,6 +289,11 @@ export default excludeMocked([
           },
         ],
       },
+      {
+        id: 'filters.lines.terminationValidated',
+        value: 'Non',
+        meta: { label: 'Non', value: false },
+      },
     ],
   },
   {
@@ -407,6 +412,25 @@ export default excludeMocked([
             id: 'SUSPENDED',
             label: 'Suspendue',
           },
+        ],
+      },
+    ],
+  },
+  {
+    icon: 'ic-Refresh-Icon',
+    title: 'getparc.actCreation.carouselItem.esim.CHARGE_LV_LINES',
+    id: 'CHARGE_LV_LINES',
+    stepTitle: 'getparc.actCreation.step2Titles.configure',
+    selected: false,
+    esimAct: true,
+    permission: { domain: 'getSim', action: 'order_esim' },
+    partnerFeature: 'LV',
+    filters: [
+      {
+        id: 'filters.lines.SIMCardStatus',
+        values: [
+          { id: 'ACTIVATED', label: 'Activée' },
+          { id: 'SUSPENDED', label: 'Suspendue' },
         ],
       },
     ],

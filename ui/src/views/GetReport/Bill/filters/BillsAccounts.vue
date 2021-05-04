@@ -55,7 +55,7 @@ export default {
       },
     },
     partner() {
-      return this.selectedFilters.find(f => f.id === 'getadmin.users.filters.partners');
+      return this.selectedFilters.find((f) => f.id === 'getadmin.users.filters.partners');
     },
   },
 };

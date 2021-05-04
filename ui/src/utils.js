@@ -70,8 +70,8 @@ export function isEquivalent(a, b) {
 
 export function containsWithHighlight(search, items) {
   return items
-    .filter(e => e.label.toLowerCase().includes(search.toLowerCase()))
-    .map(found => ({
+    .filter((e) => e.label.toLowerCase().includes(search.toLowerCase()))
+    .map((found) => ({
       highlighted: { label: highlightTxt(found.label, search) },
       item: found,
     }));
@@ -79,13 +79,13 @@ export function containsWithHighlight(search, items) {
 
 export function startsWithHighlight(search, items) {
   return items
-    .filter(e => {
+    .filter((e) => {
       return e.label
         .toLowerCase()
         .trim()
         .startsWith(search.toLowerCase());
     })
-    .map(found => ({
+    .map((found) => ({
       highlighted: { label: highlightTxt(found.label, search) },
       item: found,
     }));

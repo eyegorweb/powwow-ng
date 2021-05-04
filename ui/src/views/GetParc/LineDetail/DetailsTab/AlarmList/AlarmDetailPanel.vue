@@ -68,7 +68,7 @@ export default {
     this.isLoading = false;
 
     if (triggerHistory) {
-      const items = triggerHistory.items.map(element => {
+      const items = triggerHistory.items.map((element) => {
         element.monthName =
           getMonthString(element.emissionDate)
             .charAt(0)
@@ -77,7 +77,7 @@ export default {
       });
 
       const grouped = items.reduce((all, item) => {
-        const found = all.find(o => o.monthName === item.monthName);
+        const found = all.find((o) => o.monthName === item.monthName);
         if (!found) {
           all.push({
             monthName: item.monthName,

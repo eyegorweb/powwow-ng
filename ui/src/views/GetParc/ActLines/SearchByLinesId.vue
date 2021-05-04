@@ -35,7 +35,7 @@ export default {
           code: 'c6',
           value: 'accessPointId',
           label: 'AP_ID',
-          checkFn: value => {
+          checkFn: (value) => {
             if (isNaN(value)) return true;
             return (
               value.length !== 0 &&

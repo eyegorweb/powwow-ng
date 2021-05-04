@@ -25,7 +25,7 @@ Feature: Recherche d'alarmes
     When je lance la recherche
     Then la table contient plus de 0 resultat
 
-  @ignore
+  @focus
   Scenario: En tant que partenaire, charger les alarmes du partenaire
     Given en tant que partenaire lyra
     And je suis sur la page recherche d'alarmes

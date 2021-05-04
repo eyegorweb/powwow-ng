@@ -1,5 +1,5 @@
 export default {
-  install: Vue => {
+  install: (Vue) => {
     let isReady = false;
 
     Vue.prototype.$startAnalytics = function() {

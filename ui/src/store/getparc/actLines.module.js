@@ -10,11 +10,11 @@ const findFilterValueById = filterUtils.findFilterValueById;
 
 const removeFromCurrentById = (s, id) => {
   if (s.currentFilters && s.currentFilters.length) {
-    s.currentFilters = s.currentFilters.filter(c => c.id !== id);
+    s.currentFilters = s.currentFilters.filter((c) => c.id !== id);
   }
 };
 
-const initFilterForContext = store => {
+const initFilterForContext = (store) => {
   filterUtils.initFilterForContext(store, setPartnersFilter);
 };
 
@@ -40,8 +40,8 @@ export const state = {
 
 export const getters = {
   ...filterUtils.initGetters(),
-  linePage: state => state.linePage,
-  linesActionsResponse: state => state.linesActionsResponse,
+  linePage: (state) => state.linePage,
+  linesActionsResponse: (state) => state.linesActionsResponse,
   selectedPartnersValues: findFilterValuesById('filters.partners'),
   selectedFileImportValues: findFilterValuesById('filters.lines.fromFile.title'),
   selectedSimStatusesValues: findFilterValuesById('filters.lines.SIMCardStatus'), // deprecated
@@ -49,33 +49,34 @@ export const getters = {
   selectedBillingAccountsValues: findFilterValuesById('filters.billingAccounts'),
   selectedNetworkStatusesValues: findFilterValuesById('filters.lines.networkStatus'),
   selectedBilligStatusesValues: findFilterValuesById('filters.lines.billingStatus'),
-  selectedTypeSimCardValues: state => {
+  selectedTypeSimCardValues: (state) => {
     return selectedFilterValuesById(state)('filters.lines.typeSIMCard');
   },
-  selectedCommercialStatusesValues: state => {
+  selectedCommercialStatusesValues: (state) => {
     return selectedFilterValuesById(state)('filters.lines.commercialStatus');
   },
   selectedOrderIdValue: findFilterValueById('filters.lines.orderID'),
   selectedEsimIdValue: findFilterValueById('indicators.getparc.lines.esim.id'),
+  selectedTerminationValue: findFilterValueById('filters.lines.terminationValidated'),
   selectedOrderRefValue: findFilterValueById('filters.orderReference'),
   selectedPostalCodeValue: findFilterValueById('filters.postalCode'),
   selectedSirensValue: findFilterValueById('filters.lines.siren'),
   selectedIPValue: findFilterValueById('filters.lines.ipFixe'),
   selectedActionIDValue: findFilterValueById('filters.lines.actionId'),
-  selectedOffersValues: state => {
+  selectedOffersValues: (state) => {
     return selectedFilterValuesById(state)('filters.lines.associatedOffer');
   },
-  selectedProfileStatesValues: state => {
+  selectedProfileStatesValues: (state) => {
     return selectedFilterValuesById(state)('filters.lines.states');
   },
-  selectedLigneTrafiquanteValue: state => {
+  selectedLigneTrafiquanteValue: (state) => {
     return selectedFilterValuesById(state)('filters.lines.traffic');
   },
 
-  selectedDate: state => filterKey => state.currentFilters.find(f => f.id === filterKey),
-  selectedDeliveryCountries: state => selectedFilterValuesById(state)('filters.countries'),
-  filterCustomFieldsList: state => state.filterCustomFieldsList,
-  selectedCustomFieldsValues: state => selectedFilterValuesById(state)('filters.customFields'),
+  selectedDate: (state) => (filterKey) => state.currentFilters.find((f) => f.id === filterKey),
+  selectedDeliveryCountries: (state) => selectedFilterValuesById(state)('filters.countries'),
+  filterCustomFieldsList: (state) => state.filterCustomFieldsList,
+  selectedCustomFieldsValues: (state) => selectedFilterValuesById(state)('filters.customFields'),
   selectedICCIDValue: findFilterById('filters.lines.rangeICCID'),
   selectedIMSIValue: findFilterById('filters.lines.rangeIMSI'),
   selectedMSISDNValue: findFilterById('filters.lines.rangeMSISDN'),
@@ -83,7 +84,7 @@ export const getters = {
   selectedEsimFamilyValue: findFilterValueById('indicators.getparc.lines.esim.family'),
   selectedEsimCategoryValue: findFilterValueById('indicators.getparc.lines.esim.category'),
 
-  genericGetter: state => filterKey => state.currentFilters.find(f => f.id === filterKey),
+  genericGetter: (state) => (filterKey) => state.currentFilters.find((f) => f.id === filterKey),
   selectedSmsRid: findFilterValueById('indicators.getparc.lines.esim.rid'),
 };
 
@@ -105,15 +106,15 @@ async function setPartnersFilter({ commit, getters }, { partners, isHidden }) {
 }
 
 function removeSelectedBillingAccountWithNoSelectedPartners({ commit, getters }, partners) {
-  const baWithPartnersSelected = getters.selectedBillingAccountsValues.filter(a =>
-    partners.find(p => p.id === a.partnerId)
+  const baWithPartnersSelected = getters.selectedBillingAccountsValues.filter((a) =>
+    partners.find((p) => p.id === a.partnerId)
   );
   commit('setBillingAccountsFilter', baWithPartnersSelected);
 }
 
 function removeSelectedOffersWithNoSelectedPartners({ commit, getters }, partners) {
-  const withPartnersSelected = getters.selectedOffersValues.filter(a =>
-    partners.find(p => p.id === a.partnerId)
+  const withPartnersSelected = getters.selectedOffersValues.filter((a) =>
+    partners.find((p) => p.id === a.partnerId)
   );
   commit('setOffersFilter', withPartnersSelected);
 }
@@ -156,7 +157,7 @@ export const actions = {
 
   addLineForActCreation(store, line) {
     // check if line is already there
-    const isLinePresent = store.state.selectedLinesForActCreation.find(l => l.id === line.id);
+    const isLinePresent = store.state.selectedLinesForActCreation.find((l) => l.id === line.id);
 
     if (!isLinePresent) {
       store.commit('setSelectedLinesForActCreation', [
@@ -166,10 +167,10 @@ export const actions = {
     }
   },
   removeLineFromActCreation(store, line) {
-    const isLinePresent = store.state.selectedLinesForActCreation.find(l => l.id === line.id);
+    const isLinePresent = store.state.selectedLinesForActCreation.find((l) => l.id === line.id);
     if (isLinePresent) {
       store.commit('setSelectedLinesForActCreation', [
-        ...store.state.selectedLinesForActCreation.filter(l => l.id !== line.id),
+        ...store.state.selectedLinesForActCreation.filter((l) => l.id !== line.id),
       ]);
     }
   },
@@ -177,7 +178,7 @@ export const actions = {
     /**
      * Le cas partenaire est spécial, car à chaque modification on doit mettre à jour les valeurs qui en dépendent
      */
-    const filteredFilters = store.state.currentFilters.filter(f => f.id !== filterId);
+    const filteredFilters = store.state.currentFilters.filter((f) => f.id !== filterId);
     if (filterId === 'filters.partners') {
       setPartnersFilter(store, { partners: [] });
     } else {
@@ -286,6 +287,13 @@ export const mutations = {
     selectFilterValue(state, {
       id: 'indicators.getparc.lines.esim.id',
       value: id,
+    });
+  },
+  selectTerminationFilter(state, meta) {
+    selectFilterValue(state, {
+      id: 'filters.lines.terminationValidated',
+      value: meta.label,
+      meta,
     });
   },
   selectOrderRefFilter(state, value) {
@@ -446,7 +454,7 @@ export const mutations = {
 
     selectFilterValue(state, {
       id: 'filters.countries',
-      values: selectedFilterValuesById(state)('filters.countries').map(country => ({
+      values: selectedFilterValuesById(state)('filters.countries').map((country) => ({
         ...country,
         label: countryDict[country.id],
       })),

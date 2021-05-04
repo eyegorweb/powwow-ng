@@ -33,7 +33,7 @@
         :skip-scope-check="skipScopeCheck"
         @scope="onScopeChange"
       >
-        <slot name="scopechoice" :partner="selectedPartner"></slot>
+        <slot name="scopechoice" :chosenPartner="selectedPartner"></slot>
       </ScopeChoice>
     </template>
 
@@ -105,9 +105,7 @@ export default {
         data: get(this.duplicateFrom, 'party'),
       };
       if (this.sharedAlarm) {
-        this.chosenOffer = `${
-          this.duplicateFrom.offerGroup.offerInstance.marketingOffer.description
-        } /
+        this.chosenOffer = `${this.duplicateFrom.offerGroup.offerInstance.marketingOffer.description} /
           ${this.duplicateFrom.offerGroup.customerAccount.code} -
         ${this.duplicateFrom.offerGroup.customerAccount.name}`;
       }

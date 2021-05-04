@@ -67,7 +67,7 @@ export default {
     async refreshIndicatorsForPeriod() {
       let partners;
       if (this.contextPartners) {
-        partners = this.contextPartners.map(p => p.id);
+        partners = this.contextPartners.map((p) => p.id);
       }
       const listTopIndicators = await fetchEntitiesIndicators(
         [`LINE_CONSUMPTION_${this.period}`],

@@ -306,8 +306,8 @@ export function loadWidgets() {
 
   if (savedWidgets) {
     const ret = excludeMocked(
-      savedWidgets.map(d => {
-        const widget = defaultWidgets.find(f => f.title === d.title);
+      savedWidgets.map((d) => {
+        const widget = defaultWidgets.find((f) => f.title === d.title);
         const conf = {
           ...widget,
           ...d,

@@ -127,14 +127,14 @@ export default {
     async fetchUnitActs(searchFilter = [{ id: 'filters.iccid', value: this.content.iccid }]) {
       this.isLoading = true;
       const response = await fetchUnitActions2(searchFilter, this.getPageInfo, this.orderBy);
-      this.unitActions = response.items.map(i => ({ ...i, ...i.unitAction }));
+      this.unitActions = response.items.map((i) => ({ ...i, ...i.unitAction }));
 
       this.total = response.total;
 
       this.isLoading = false;
     },
     changeCellsOrder(orderedCells) {
-      const notVisibleCells = this.columns.filter(c => !c.visible);
+      const notVisibleCells = this.columns.filter((c) => !c.visible);
       this.columns = orderedCells.concat(notVisibleCells);
     },
   },

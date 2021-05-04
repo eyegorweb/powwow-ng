@@ -695,6 +695,8 @@
             "SECU_RESIL": "Securing of terminations",
             "COMPAT_OTA": "OTA compatibility",
             "BROADCAST_SMS": "Broadcast SMS",
+            "TERMINATION_DFE": "Termination DFE+1",
+            "ESIM_TERMINATION": "eSim Termination with active delete",
             "MANDATORY_ACTIVATION": "Mandatory activation",
             "MANDATORY_PREACTIVATION": "Pre-activation compulsory",
             "REF_CLIENT": "Customer reference mandatory",
@@ -1816,7 +1818,16 @@
         "suspended": "Suspended lines",
         "traffic": "Trafficking lines M",
         "validation": "Transfer validation",
-        "inprogressTwoDays": "Actions in progress> 48 h"
+        "inprogressTwoDays": "Actions in progress> 48 h",
+        "esim": {
+          "id": "Reservation Id",
+          "family": "SIM family",
+          "category": "SIM category",
+          "type": "Step type",
+          "downloadStatus": "Download Status",
+          "pairedLine": "Paired line",
+          "rid": "SMSRID"
+        }
       }
     }
   },
@@ -1897,6 +1908,7 @@
       "trafficLabel": "Having trafficked in the month",
       "actionId": "Id of management act",
       "states": "EUICC profile state",
+      "terminationValidated": "Termination validated",
       "profileStateFilter": {
         "ENABLED": "Activated",
         "DISABLED": "Deactivated",

@@ -4,6 +4,10 @@ export default {
       cy.startObservationGql();
       cy.waitGet('.menu_orders_search').click({ force: true });
     },
+    stocks: () => {
+      cy.startObservationGql();
+      cy.waitGet('.menu_stocks').click({ force: true });
+    },
     dashboard() {
       cy.startObservationGql();
       cy.waitGet('.menu_reportsDashboard').click({ force: true });

@@ -45,7 +45,7 @@ export default {
 
     columns() {
       if (this.userIsPartner) {
-        return this.allColumns.filter(c => c.name !== 'party');
+        return this.allColumns.filter((c) => c.name !== 'party');
       }
       return this.allColumns;
     },
@@ -88,7 +88,7 @@ export default {
           },
           format: {
             type: 'Getter',
-            getter: row => {
+            getter: (row) => {
               return truncateLabel(row.partyName);
             },
           },
@@ -110,7 +110,7 @@ export default {
                 },
               });
             },
-            getLabel: actType => {
+            getLabel: (actType) => {
               return this.$t('getparc.actTypes.' + actType);
             },
           },
@@ -139,7 +139,7 @@ export default {
           },
           format: {
             type: 'Getter',
-            getter: row => {
+            getter: (row) => {
               if (!row.created) return '';
               const parts = row.created.split(' ');
               return parts[0];
@@ -158,7 +158,7 @@ export default {
           },
           format: {
             type: 'Getter',
-            getter: row => {
+            getter: (row) => {
               if (!row.dueDate) return '';
               const parts = row.dueDate.split(' ');
               return parts[0];
@@ -206,7 +206,7 @@ export default {
     },
     formatResponse(response) {
       if (response) {
-        return response.map(i => ({ ...i, ...i.massAction }));
+        return response.map((i) => ({ ...i, ...i.massAction }));
       }
     },
   },

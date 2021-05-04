@@ -62,9 +62,9 @@ export default {
     // Gestion des permissions sur sous menus
     filterByPermission(arrayInput) {
       let permit = false;
-      return arrayInput.filter(a => {
+      return arrayInput.filter((a) => {
         if (!a.permissions) return true;
-        a.permissions.forEach(e => {
+        a.permissions.forEach((e) => {
           if (this.havePermission(e.domain, e.action)) {
             permit = true;
           }

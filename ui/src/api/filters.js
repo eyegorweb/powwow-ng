@@ -39,8 +39,8 @@ export async function fetchDeliveryCountries(locale, filters = {}) {
     }
   }`,
     { sorting, filters }
-  ).then(res =>
-    res.data.countries.countries.map(country => ({
+  ).then((res) =>
+    res.data.countries.countries.map((country) => ({
       name: country[key],
       code: country.code,
       codeIso3: country.codeIso3,

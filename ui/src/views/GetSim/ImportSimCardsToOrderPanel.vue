@@ -142,7 +142,7 @@ export default {
     },
     requestErrors() {
       if (!this.fileResponse) return false;
-      return this.fileResponse.errors.find(f => f.key === 400 || f.key === 500);
+      return this.fileResponse.errors.find((f) => f.key === 400 || f.key === 500);
     },
     fileMeta: {
       get() {

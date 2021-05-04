@@ -9,10 +9,10 @@
     :filter-fn="filterFn"
     no-edit
   >
-    <template v-slot:title>
+    <template #title>
       <h4 class="text-primary text-uppercase">{{ $t('getadmin.partnerDetail.simcards.title') }}</h4>
     </template>
-    <template v-slot="{ item }">
+    <template #default="{ item }">
       <ul>
         <li>
           <strong>{{ $t('card') }} {{ getFromObject(item, 'simCard.name') }}</strong>
@@ -87,7 +87,7 @@ export default {
         filteredItems = [...items];
       } else {
         const query = q.toLowerCase();
-        filteredItems = items.filter(item => {
+        filteredItems = items.filter((item) => {
           const name = this.getFromObject(item, 'simCard.name');
           if (name && name.toLowerCase().includes(query)) {
             return true;

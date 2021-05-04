@@ -233,12 +233,8 @@ export async function searchMassActions(orderBy, pagination, filters = []) {
   }
   `;
 
-  try {
-    const response = await query(queryStr);
-    return response.data.massActionsV2;
-  } catch (e) {
-    throw e;
-  }
+  const response = await query(queryStr);
+  return response.data.massActionsV2;
 }
 
 export async function countTotalForMassAction(filters) {
@@ -376,7 +372,7 @@ function formatFilters(filters) {
   const customFields = getFilterValues(filters, 'filters.customFields');
   if (customFields && customFields.length > 0) {
     const customFeldsGQLparams = customFields
-      .map(c => `${c.id}: {startsWith: "${c.value}"}`)
+      .map((c) => `${c.id}: {startsWith: "${c.value}"}`)
       .join(',');
 
     allFilters.push(customFeldsGQLparams);
@@ -398,13 +394,13 @@ function formatFilters(filters) {
 }
 
 function addIdsFilter(gqlFilters, selectedFilters) {
-  const iccid = selectedFilters.find(f => f.id === 'filters.iccid');
-  const imsi = selectedFilters.find(f => f.id === 'filters.imsi');
-  const msisdn = selectedFilters.find(f => f.id === 'filters.msisdn');
-  const msisdnA = selectedFilters.find(f => f.id === 'filters.msisdnA');
-  const imei = selectedFilters.find(f => f.id === 'filters.imei');
-  const massActionID = selectedFilters.find(f => f.id === 'filters.massActionID');
-  const unitActionId = selectedFilters.find(f => f.id === 'filters.unitActionId');
+  const iccid = selectedFilters.find((f) => f.id === 'filters.iccid');
+  const imsi = selectedFilters.find((f) => f.id === 'filters.imsi');
+  const msisdn = selectedFilters.find((f) => f.id === 'filters.msisdn');
+  const msisdnA = selectedFilters.find((f) => f.id === 'filters.msisdnA');
+  const imei = selectedFilters.find((f) => f.id === 'filters.imei');
+  const massActionID = selectedFilters.find((f) => f.id === 'filters.massActionID');
+  const unitActionId = selectedFilters.find((f) => f.id === 'filters.unitActionId');
 
   if (iccid) {
     gqlFilters.push(`identifierFilter: {iccid: "${iccid.value}"}`);
@@ -432,7 +428,7 @@ function addIdsFilter(gqlFilters, selectedFilters) {
 // transitionName
 
 function addTransitionName(gqlFilters, selectedFilters) {
-  const transitionNameFilter = selectedFilters.find(f => f.id === 'filters.transitionName');
+  const transitionNameFilter = selectedFilters.find((f) => f.id === 'filters.transitionName');
   if (transitionNameFilter) {
     gqlFilters.push(`transitionName: "${transitionNameFilter.value}"`);
   }
@@ -446,16 +442,16 @@ function addCreatorFilter(gqlFilters, selectedFilters) {
 }
 
 function addMassActionId(gqlFilters, selectedFilters) {
-  const massActionIdFilter = selectedFilters.find(f => f.id === 'filters.massActionId');
+  const massActionIdFilter = selectedFilters.find((f) => f.id === 'filters.massActionId');
   if (massActionIdFilter) {
     gqlFilters.push(`massActionId: ${massActionIdFilter.value}`);
   }
 }
 
 function addActionTypeFilter(gqlFilters, selectedFilters) {
-  const actionTypes = selectedFilters.find(f => f.id === 'filters.actTypes');
+  const actionTypes = selectedFilters.find((f) => f.id === 'filters.actTypes');
   if (actionTypes) {
-    const actionTypesValues = actionTypes.values.map(a => a.id);
+    const actionTypesValues = actionTypes.values.map((a) => a.id);
     gqlFilters.push(`actionTypes: [ ${[...actionTypesValues]} ]`);
   }
 }
@@ -490,21 +486,21 @@ function addServices(gqlFilters, selectedFilters) {
 function getValuesIds(filters, filterId) {
   const values = getFilterValues(filters, filterId);
   if (values) {
-    return values.map(i => `"${i.id}"`).join(',');
+    return values.map((i) => `"${i.id}"`).join(',');
   }
 }
 
 function getValuesIdsForInt(filters, filterId) {
   const values = getFilterValues(filters, filterId);
   if (values) {
-    return values.map(i => `${i.id}`).join(',');
+    return values.map((i) => `${i.id}`).join(',');
   }
 }
 
 function getFilterValues(filters, filterId) {
   if (!filters) return;
 
-  const foundFilter = filters.find(f => f.id === filterId);
+  const foundFilter = filters.find((f) => f.id === filterId);
   if (foundFilter) {
     return foundFilter.values;
   }
@@ -516,15 +512,15 @@ function getFilterValues(filters, filterId) {
 //   actStatuses && gqlFilters.push(`status: {${actStatuses.values.map(o => o.id)}}`);
 // }
 function actStatus(gqlFilters, selectedFilters) {
-  const actStatuses = selectedFilters.find(f => f.id === 'filters.actStatus');
+  const actStatuses = selectedFilters.find((f) => f.id === 'filters.actStatus');
   if (actStatuses && actStatuses.values && actStatuses.values.length) {
-    const actStatusesValues = actStatuses.values.map(a => a.id);
+    const actStatusesValues = actStatuses.values.map((a) => a.id);
     gqlFilters.push(`status: [ ${[...actStatusesValues]} ]`);
   }
 }
 
 function addDateFilter2(filterKey, dateFromKey, dateEndKey, gqlFilters, selectedFilters) {
-  const dateFilter = selectedFilters.find(f => f.id === filterKey);
+  const dateFilter = selectedFilters.find((f) => f.id === filterKey);
   if (dateFilter) {
     let gqlStartDate = '';
     let gqlEndDate = '';

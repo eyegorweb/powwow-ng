@@ -67,7 +67,7 @@ export async function createUser(params) {
       confirmPassword: "${params.confirmPassword}",
       ${partyParam}
       ${partyGroupParam}
-      roles: [${params.roles.map(r => r.code).join(',')}]
+      roles: [${params.roles.map((r) => r.code).join(',')}]
     }){
       id
     }
@@ -93,7 +93,7 @@ export async function updateUser(params) {
       username: params.username,
       password: params.password,
       confirmPassword: params.confirmPassword,
-      roles: params.roles.map(r => r.code),
+      roles: params.roles.map((r) => r.code),
     },
   };
 
@@ -313,7 +313,7 @@ function addLoginFilter(gqlFilters, selectedFilters) {
 function addPartnerGroupFilter(gqlFilters, selectedFilters) {
   const values = getFilterValues(selectedFilters, 'getadmin.users.filters.partnerGroup');
   if (values && values.length) {
-    const partnerGroups = values.map(p => `${p.id}`).join(',');
+    const partnerGroups = values.map((p) => `${p.id}`).join(',');
     gqlFilters.push(`groupId: {in: [${partnerGroups}]}`);
   }
 }
@@ -328,7 +328,7 @@ function addPartnerFilter(gqlFilters, selectedFilters) {
 function addRolesFilter(gqlFilters, selectedFilters) {
   const values = getFilterValues(selectedFilters, 'getadmin.users.filters.roles');
   if (values && values.length) {
-    gqlFilters.push(`roleName: {in: [${values.map(i => `"${i.name}"`).join(',')}]}`);
+    gqlFilters.push(`roleName: {in: [${values.map((i) => `"${i.name}"`).join(',')}]}`);
   }
 }
 
@@ -340,7 +340,7 @@ function addRestrictToPartyFilter(gqlFilters, selectedFilters) {
 }
 
 function addStatusFilter(gqlFilters, selectedFilters) {
-  const foundFilter = selectedFilters.find(f => f.id === 'getadmin.users.filters.status');
+  const foundFilter = selectedFilters.find((f) => f.id === 'getadmin.users.filters.status');
   if (foundFilter) {
     gqlFilters.push(`disabled: {eq: ${foundFilter.data.value}}`);
   }
@@ -352,7 +352,7 @@ export async function fetchUsers(q, partners, { page, limit, partnerType }) {
     partnerGqlParam = '';
 
   if (partners && partners.length > 0) {
-    partnersIds = partners.map(i => `"${i.id}"`).join(',');
+    partnersIds = partners.map((i) => `"${i.id}"`).join(',');
     partnerGqlParam = `, partyId:{in: [${partnersIds}]}`;
   }
 

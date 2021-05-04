@@ -1,7 +1,7 @@
 <template>
   <ul class="list-unstyled act-creation-report">
     <li>
-      <i class="ic-Check-Icon mr-2 text-success" />
+      <em class="ic-Check-Icon mr-2 text-success" />
       {{ data.validated }}
       {{
         data.validated > 1

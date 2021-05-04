@@ -56,9 +56,7 @@
             <template v-if="simType === 'TAPE'">
               {{ $t('orders.detail.orderedCoilQuantity') }} :
             </template>
-            <template v-else>
-              {{ $t('orders.detail.orderedSimQuantity') }} :
-            </template>
+            <template v-else> {{ $t('orders.detail.orderedSimQuantity') }} : </template>
           </h6>
           <p>{{ getFromOrder('quantity') }}</p>
         </div>
@@ -198,10 +196,6 @@ export default {
       const value = get(this.order, path, defaultValue);
       return value !== null ? value : '';
     },
-
-    close() {
-      if (this.order.isNew) this.order.isNew = false;
-    },
   },
 
   computed: {
@@ -213,7 +207,7 @@ export default {
     },
     currentStep() {
       if (!this.steps || !this.steps.data || !this.order.status) return;
-      const res = this.steps.data.find(c => c.code === this.order.status);
+      const res = this.steps.data.find((c) => c.code === this.order.status);
 
       if (res) return res.index;
       return null;

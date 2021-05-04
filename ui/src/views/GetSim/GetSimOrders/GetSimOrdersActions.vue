@@ -55,6 +55,11 @@ export default {
             const orderData = await updateOrderStatus(this.order.id, 'CONFIRMED');
             this.order.status = orderData.status;
           }
+
+          if (this.order.status === 'VALIDATED') {
+            const orderData = await updateOrderStatus(this.order.id, 'CONFIRMED');
+            this.order.status = orderData.status;
+          }
           break;
         }
         case 'getsim.actions.EXPORT': {
@@ -131,7 +136,7 @@ export default {
           'TO_BE_CONFIRMED_BY_BO',
         ];
 
-        if (statusesForConfirmation.find(s => s === this.order.status)) {
+        if (statusesForConfirmation.find((s) => s === this.order.status)) {
           actions.push('getsim.actions.CONFIRM');
         }
       }

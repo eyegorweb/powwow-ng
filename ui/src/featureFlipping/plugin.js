@@ -27,17 +27,17 @@ export function isOnDebugMode() {
 
 export function excludeMocked(inArray) {
   if (shouldFilterMocked()) {
-    return inArray.filter(e => !e.mock);
+    return inArray.filter((e) => !e.mock);
   }
   return inArray;
 }
 
 export default {
-  install: Vue => {
+  install: (Vue) => {
     Vue.prototype.$excludeMocked = excludeMocked;
     Vue.prototype.$shouldShowMocks = !shouldFilterMocked();
-    Vue.component('ff-toggle', FeatureFlippingToggle);
-    Vue.component('ff-wip', WIP);
-    Vue.component('permission', Permission);
+    Vue.component('FfToggle', FeatureFlippingToggle);
+    Vue.component('FfWip', WIP);
+    Vue.component('Permission', Permission);
   },
 };

@@ -59,7 +59,7 @@ export default {
         'deviceInstance.manufacturer',
         'deviceInstance.mac',
         'deviceInstance.imeiChangeDate',
-      ].filter(key => get(this.content, key)).length;
+      ].filter((key) => get(this.content, key)).length;
 
       if (haveRow1) {
         rows.push({
@@ -82,7 +82,7 @@ export default {
           'deviceInstance.manufacturerPrevious',
           'deviceInstance.macPrevious',
           'deviceInstance.imeiChangeDate',
-        ].filter(key => get(this.content, key)).length;
+        ].filter((key) => get(this.content, key)).length;
         if (haveRow2) {
           rows.push({
             imei: get(this.content, 'deviceInstance.imeiPrevious', ''),
@@ -168,7 +168,7 @@ export default {
       }
     },
     changeCellsOrder(orderedCells) {
-      const notVisibleCells = this.columns.filter(c => !c.visible);
+      const notVisibleCells = this.columns.filter((c) => !c.visible);
       this.columns = orderedCells.concat(notVisibleCells);
     },
   },

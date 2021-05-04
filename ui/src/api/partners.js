@@ -1,16 +1,19 @@
 import { query, getFilterValues, getValuesIds } from './utils';
 import get from 'lodash.get';
 
-export async function isEnabledPartySubscriptionOption(optionType, partners) {
+export async function isFeatureAvailable(optionType, lineId) {
   const queryStr = `
-  query IsEnabledPartySubscriptionOption($optionType: SubscriptionOptionTypeEnum!, $partners: [Long]!) {
-    isEnabledPartySubscriptionOption(optionType: $optionType, partyIds: $partners)
+  query IsFeatureAvailable($optionType: SubscriptionOptionTypeEnum!, $simcardInstanceId: Long){
+    isFeatureAvailable(optionType: $optionType, simcardInstanceId: $simcardInstanceId)
   }
   `;
+  const response = await query(queryStr, { optionType, lineId });
 
-  const response = await query(queryStr, { optionType, partners });
+  if (response.errors) {
+    return { errors: response.errors };
+  }
 
-  return response.data.isEnabledPartySubscriptionOption;
+  return response.data.isFeatureAvailable;
 }
 
 export async function updatePartyOptions(params) {
@@ -72,6 +75,8 @@ export async function getPartyOptions(partyId) {
     dailyOutstandingReporting
     msisdnFormatPreactivation
     consoReporting
+    terminationDfeEnabled
+    esimTerminationDeleteMandatory
     wsNotificationParam {
       notificationOption
       login
@@ -154,7 +159,7 @@ export async function deleteSecondaryAdministrator(partyId) {
 // TO REFACTOR -----------------------
 export async function fetchpartners(
   q,
-  { page, limit, partnerType, partnerTypes, includeMailingLists, esim }
+  { page, limit, partnerType, partnerTypes, includeMailingLists, esim, haveLvOffers }
 ) {
   let partnerTypeGqlFilter = '';
   if (!partnerTypes && partnerType) {
@@ -169,6 +174,12 @@ export async function fetchpartners(
     esimGqlFilter = `, esimEnable: {eq: true}`;
   }
 
+  let lvOffers = '';
+
+  if (haveLvOffers) {
+    lvOffers = `, longLifeOfferEnable: true`;
+  }
+
   const extraFields = [];
   if (includeMailingLists) {
     extraFields.push(`mailingLists {
@@ -178,7 +189,7 @@ export async function fetchpartners(
   }
   const queryStr = `
   query{
-    partys(filter:{name: {startsWith: "${q}"}${partnerTypeGqlFilter}${esimGqlFilter}}, pagination: {limit: ${limit}, page: ${page}}, sorting: {name: ASC}) {
+    partys(filter:{name: {startsWith: "${q}"}${partnerTypeGqlFilter}${esimGqlFilter}${lvOffers}}, pagination: {limit: ${limit}, page: ${page}}, sorting: {name: ASC}) {
       total,
       items {
         id
@@ -356,7 +367,7 @@ export async function fetchAccountDetail(id) {
 }
 
 function addCFMultiSearchFilter(gqlFilters, selectedFilters) {
-  const code = selectedFilters.find(f => f.id === 'getadmin.partners.filters.multisearch');
+  const code = selectedFilters.find((f) => f.id === 'getadmin.partners.filters.multisearch');
   if (code) {
     gqlFilters.push(`multiSearch: {contains: "${code.value}"}`);
   }
@@ -894,7 +905,7 @@ export async function updateBroadcastLists(params) {
       updateMailingList(mailingInput:{
         id:"${params.id}",
         name:"${params.title}",
-        emails: [${params.emails.map(e => `"${e}"`).join(',')}],
+        emails: [${params.emails.map((e) => `"${e}"`).join(',')}],
       }) {
         id
       }
@@ -929,7 +940,7 @@ export async function createBroadcastLists(params) {
       createMailingList(mailingInput:{
         partyId:${params.partnerId},
         name:"${params.title}",
-        emails: [${params.emails.map(e => `"${e}"`).join(',')}],
+        emails: [${params.emails.map((e) => `"${e}"`).join(',')}],
 
       }) {
         id
@@ -1020,7 +1031,7 @@ export async function fetchPartyTypes() {
     }
   }`;
   const response = await query(queryStr);
-  return response.data.__type.enumValues.map(e => e.name);
+  return response.data.__type.enumValues.map((e) => e.name);
 }
 
 export async function fetchAllPartners(orderBy, pagination, filters = []) {
@@ -1069,7 +1080,7 @@ function addPartnerIdFilter(gqlFilters, selectedFilters) {
 }
 
 function addPartnerTypeFilter(gqlFilters, selectedFilters) {
-  const partnerType = selectedFilters.find(f => f.id === 'partnerType');
+  const partnerType = selectedFilters.find((f) => f.id === 'partnerType');
 
   if (partnerType) {
     gqlFilters.push(`partyType: {eq: ${partnerType.data.value}}`);
@@ -1079,7 +1090,7 @@ function addPartnerTypeFilter(gqlFilters, selectedFilters) {
 function addPartnerGroupFilter(gqlFilters, selectedFilters) {
   const values = getFilterValues(selectedFilters, 'getadmin.users.filters.partnerGroup');
   if (values && values.length) {
-    const partnerGroups = values.map(p => `${p.id}`).join(',');
+    const partnerGroups = values.map((p) => `${p.id}`).join(',');
     gqlFilters.push(`groupId: {in: [${partnerGroups}]}`);
   }
 }

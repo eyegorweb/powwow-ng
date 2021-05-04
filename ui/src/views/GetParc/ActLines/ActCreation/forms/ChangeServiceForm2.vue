@@ -103,7 +103,7 @@ export default {
   },
   mounted() {
     this.dataService = getMarketingOfferServices(this.selectedOffer.initialOffer).find(
-      s => s.code === 'DATA'
+      (s) => s.code === 'DATA'
     );
   },
   methods: {
@@ -114,7 +114,7 @@ export default {
         this.isDataParamsError =
           this.dataService &&
           this.dataService.parameters &&
-          this.dataService.parameters.filter(p => p.selected).length === 0;
+          this.dataService.parameters.filter((p) => p.selected).length === 0;
         isError = this.isDataParamsError;
       }
       return isError;
@@ -131,7 +131,7 @@ export default {
         offerCode: this.actCreationPrerequisites.offer.productCode,
       });
       if (response.errors && response.errors.length) {
-        response.errors.forEach(r => {
+        response.errors.forEach((r) => {
           if (r.extensions.error === 'MassActionLimit') {
             const count = r.extensions.limit ? r.extensions.limit : '';
             const messageErrorMaxLine = this.$t(

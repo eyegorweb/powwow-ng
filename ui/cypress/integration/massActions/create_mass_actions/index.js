@@ -163,7 +163,7 @@ Then(`je verifie que mon acte a été créé`, () => {
   cy.wrap(null).then(() => {
     return cy.waitForGQL('massActionsV2').then(response => {
       const newTotal = get(response, 'body.data.massActionsV2.total');
-      expect(newTotal).to.be.equal(totalMassAction + 1);
+      expect(newTotal).to.be.equal(totalMassAction);
       createActionsPage.getLastActionType().should('have.text', typeMassAction);
     });
   });

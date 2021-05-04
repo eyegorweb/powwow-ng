@@ -4,7 +4,7 @@
     <!-- TODO permettre customiser l'input avec un scoped slot? Passer une computed property avec un setter -->
     <!-- dans le slot pour permettre la synchronisation de la valeur -->
     <Promised :promise="resultsPromise">
-      <fieldset class="form-group" slot="combined" slot-scope="{ data }">
+      <fieldset class="form-group cmp-ui-input" slot="combined" slot-scope="{ data }">
         <!-- TODO loading state sur input avec isPending -->
         <input
           :disabled="disabled"
@@ -154,14 +154,14 @@ export default {
     results() {
       if (!this.$value) return this.highlightedResults;
       if (this.containsSearch) {
-        return containsWithHighlight(this.$value, this.items).map(result => {
+        return containsWithHighlight(this.$value, this.items).map((result) => {
           return {
             ...result.item,
             highlighted: result.highlighted.label,
           };
         });
       } else if (this.startsWithSearch) {
-        return startsWithHighlight(this.$value, this.items).map(result => {
+        return startsWithHighlight(this.$value, this.items).map((result) => {
           return {
             ...result.item,
             highlighted: result.highlighted.label,
@@ -173,7 +173,7 @@ export default {
             key: 'label',
             allowTypo: false,
           })
-          .map(r => ({
+          .map((r) => ({
             ...r.obj,
             highlighted: fuzzysort.highlight(r),
           }));
@@ -183,7 +183,7 @@ export default {
     highlightedResults() {
       if (!this.items) return [];
 
-      return this.items.map(item => ({
+      return this.items.map((item) => ({
         ...item,
         highlighted: item.label,
       }));
@@ -221,9 +221,9 @@ export default {
 
       if (this.apiMethod) {
         this.isFetching = true;
-        this.resultsPromise = new Promise(async resolve => {
+        this.resultsPromise = new Promise(async (resolve) => {
           const items = (await this.apiMethod(this.$value || '')) || [];
-          const result = startsWithHighlight(this.$value || '', items).map(result => {
+          const result = startsWithHighlight(this.$value || '', items).map((result) => {
             return {
               ...result.item,
               highlighted: result.highlighted.label,

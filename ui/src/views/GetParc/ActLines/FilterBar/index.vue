@@ -7,7 +7,7 @@
         :current-filters="currentFilters"
         :fixed-filters="fixedFilters"
         :can-show-selected-filter="canShowSelectedFilter"
-        @clear="filterId => clearFilter(filterId)"
+        @clear="(filterId) => clearFilter(filterId)"
         @applyFilters="applyFilters"
         @chooseFilter="chooseFilter"
       />
@@ -318,6 +318,18 @@
               @update:value="selectIPFilter($event)"
             />
           </FoldableBlock>
+          <FoldableBlock
+            v-if="userIsBO"
+            :title="$t('filters.lines.terminationValidated')"
+            :key="'el30'"
+            :disabled="filtersAreDisabled"
+            draggable
+          >
+            <ActLinesTerminationFilter
+              :selected-value="selectedTerminationValue"
+              @update:value="selectTerminationFilter($event)"
+            />
+          </FoldableBlock>
           <template v-if="userHaveEsimEnabled">
             <FoldableBlock
               :title="$t('indicators.getparc.lines.esim.id')"
@@ -426,6 +438,7 @@ import ActLinesCommercialStatusFilter from './ActLinesCommercialStatusFilter';
 import ActLinesFromFileFilter from './ActLinesFromFileFilter';
 import DateFilter from '@/components/Filters/DateFilter';
 import ActLinesRangeFilter from './ActLinesRangeFilter';
+import ActLinesTerminationFilter from './ActLinesTerminationFilter';
 import TypeEsimFilter from '@/views/GetParc/ActLines/FilterBar/Esim/TypeEsimFilter.vue';
 import EsimDownloadStatusFilter from '@/views/GetParc/ActLines/FilterBar/Esim/EsimDownloadStatusFilter.vue';
 import EsimPairedLine from '@/views/GetParc/ActLines/FilterBar/Esim/EsimPairedLine.vue';
@@ -434,6 +447,7 @@ import EsimPairedLine from '@/views/GetParc/ActLines/FilterBar/Esim/EsimPairedLi
 import EsimCategoryFilter from '@/views/GetParc/ActLines/FilterBar/Esim/EsimCategoryFilter.vue';
 
 import SelectedFiltersManagement from '@/components/Filters/SelectedFiltersManagement.vue';
+import { getPartyOptions } from '@/api/partners.js';
 
 export default {
   components: {
@@ -460,16 +474,25 @@ export default {
     TypeEsimFilter,
     EsimDownloadStatusFilter,
     EsimPairedLine,
+    ActLinesTerminationFilter,
     // EsimFamilyFilter
   },
   data() {
     return {
       allFiltersVisible: false,
+      ipFixeEnabled: false,
     };
   },
   computed: {
     ...mapState('actLines', ['actToCreate']),
-    ...mapGetters(['userIsPartner', 'userInfos', 'userIsMVNO', 'userIsBO', 'userIsGroupPartner', 'userHaveEsimEnabled']),
+    ...mapGetters([
+      'userIsPartner',
+      'userInfos',
+      'userIsMVNO',
+      'userIsBO',
+      'userIsGroupPartner',
+      'userHaveEsimEnabled',
+    ]),
     ...mapGetters('actLines', [
       'currentFilters',
       'canShowSelectedFilter',
@@ -485,13 +508,17 @@ export default {
       'selectedMSISDNValue',
       'selectedIMEIValue',
       'selectedEsimIdValue',
+      'selectedTerminationValue',
       'selectedEsimCategoryValue',
       'selectedSmsRid',
       // 'selectedEsimFamilyValue'
       // 'selectedIdTypeFromFileValue',
       // 'selectedFileValue',
     ]),
-
+    async ipFixeEnabled() {
+      const optionsPartner = await getPartyOptions(this.userInfos.id);
+      return optionsPartner.ipFixeEnable;
+    },
     isEsimCategoryInFilter() {
       return this.selectedEsimCategoryValue === 'eSim';
     },
@@ -513,6 +540,9 @@ export default {
       },
     },
   },
+  mounted() {
+    this.fetchPartnerOptions();
+  },
   methods: {
     ...mapMutations('actLines', [
       'applyFilters',
@@ -528,12 +558,18 @@ export default {
       'selectIMEIFilter',
       'setCurrentFilters',
       'selectEsimIdFilter',
+      'selectTerminationFilter',
       'selectIPFilter',
       'selectEsimCategoryFilter',
       'selectSMSRidFilter',
       // 'selectEsimFamilyFilter'
     ]),
     ...mapActions('actLines', ['clearFilter']),
+
+    async fetchPartnerOptions() {
+      const optionsPartner = await getPartyOptions(this.userInfos.id);
+      this.ipFixeEnabled = optionsPartner.ipFixeEnable;
+    },
 
     showAllFilters() {
       this.allFiltersVisible = !this.allFiltersVisible;

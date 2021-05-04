@@ -9,9 +9,9 @@
       <SelectedFilters
         :current-filters="currentFilters"
         @applyFilters="applyFilters"
-        @clear="filterId => clearFilter(filterId)"
+        @clear="(filterId) => clearFilter(filterId)"
       >
-        <template v-slot:actions="{ hasAnyValue }">
+        <template #actions>
           <div class="actions d-flex flex-column flex-md-row mb-2">
             <UiButton
               :disabled="!canShowSelectedFilter"
@@ -138,7 +138,7 @@ export default {
           'filters.actDateCreation',
           'filters.actDateEnd',
         ];
-        return !this.currentFilters.filter(f => dateFilters.indexOf(f.id) > -1).length;
+        return !this.currentFilters.filter((f) => dateFilters.indexOf(f.id) > -1).length;
       }
       return true;
     },

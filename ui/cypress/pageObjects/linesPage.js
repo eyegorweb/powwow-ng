@@ -26,8 +26,8 @@ export default {
 
   showAllLines() {
     cy.waitGet('.show-all-lines')
-      .click({ force: true })
-      .wait(200);
+      .click()
+      .wait(500);
   },
 
   getRows(callback) {

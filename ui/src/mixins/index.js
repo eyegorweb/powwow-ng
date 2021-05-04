@@ -15,7 +15,7 @@ export function propWithSync(name, event, options, computedName) {
 
     computed: {
       [computedName]: {
-        get: vm => vm[name],
+        get: (vm) => vm[name],
         set(value) {
           this.$emit(event, value);
         },

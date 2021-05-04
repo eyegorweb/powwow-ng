@@ -192,7 +192,7 @@ export default {
         'country',
       ];
 
-      return requiredFields.filter(f => {
+      return requiredFields.filter((f) => {
         // cas spécial pour l'autocomplete, il renvoi un objet {label: ''} si l'input est vide
         if (f === 'address') {
           if (typeof this.form.address === 'object') {
@@ -240,7 +240,7 @@ export default {
 
   async created() {
     const countries = await fetchDeliveryCountries(this.$i18n.locale);
-    this.countries = countries.map(c => ({
+    this.countries = countries.map((c) => ({
       ...c,
       label: c.name,
       value: c.code,
@@ -260,7 +260,7 @@ export default {
       this.form.zipCode = this.addressEdit.address.zipCode;
       this.form.city = this.addressEdit.address.city;
       this.form.country = this.countries.find(
-        c =>
+        (c) =>
           c.name === this.addressEdit.address.country || c.code === this.addressEdit.address.country
       );
       this.form.extraInfos = this.addressEdit.address.address2
@@ -286,7 +286,7 @@ export default {
         this.form.address = address.label;
         this.form.zipCode = address.postcode;
         this.form.city = address.city;
-        this.form.country = this.countries.find(c => c.code === 'fr');
+        this.form.country = this.countries.find((c) => c.code === 'fr');
       } else {
         if (address.label) {
           this.form.address = address.label;

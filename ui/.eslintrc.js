@@ -26,20 +26,23 @@ module.exports = {
 
     // prettier autoformat mieux le html dans vue
     'vue/max-attributes-per-line': 0,
-    'vue/script-ident': {
-      'script-indent': [
-        'error',
-        2,
-        {
-          baseIndent: 0,
-          switchCase: 0,
-          ignores: ['src/dep'],
-        },
-      ],
-    },
+    /*
+    'vue/script-indent': [
+      'error',
+      2,
+      {
+        baseIndent: 0,
+        switchCase: 0,
+        ignores: ['src/dep'],
+      },
+    ],
+    //*/
 
     // jest
     'import/newline-after-import': ['error', { count: 1 }],
+
+    'vue/no-mutating-props': 'off',
+    'no-async-promise-executor': 'off',
   },
 
   parserOptions: {

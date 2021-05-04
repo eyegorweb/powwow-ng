@@ -156,7 +156,7 @@ export default {
       this.VoiceOut = this.duplicateFrom.level3Up / 60;
       this.voiceIn = this.duplicateFrom.level3Down / 60;
       this.currentPeriod = this.duplicateFrom.observationCycle;
-      this.toggleValues = this.toggleValues.map(t => {
+      this.toggleValues = this.toggleValues.map((t) => {
         t.default = t.id === this.duplicateFrom.observationCycle;
         return t;
       });

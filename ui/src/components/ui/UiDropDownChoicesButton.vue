@@ -4,8 +4,9 @@
       slot="trigger"
       slot-scope="{ staticClass, toggle }"
       variant="outline-primary"
-      :class="staticClass"
+      :class="`${staticClass} ${isActive ? 'active' : ''}`"
       @click.prevent="toggle"
+      :style="buttonStyle"
     >
       <slot />
     </UiButton>
@@ -41,6 +42,8 @@ export default {
     menuStyle: {
       type: Object,
     },
+    buttonStyle: Object,
+    isActive: Boolean,
   },
 };
 </script>

@@ -2,6 +2,131 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.312+20210504094135
+2021-05-04
+
+### Features
+
+- [2634] pouvoir faire un nouvel export pour l'utilisateur backOffice (ab1fe719e8edfcb1a9fcbce2ad22bf5b9a99755c)
+
+## 1.17.0-master.311+20210503142214
+2021-05-03
+
+### Fixes
+
+- [2590] Ajout du filtre IP_FIXE + type d'import dans actLines (04f6ff5bb72e3e80ad39f5323828cff114da533f)
+
+## 1.17.0-master.310+20210503123543
+2021-05-03
+
+### Features
+
+- [2635] Ajout des options partenaire "Résiliation DFE+1" et "Résiliation eSim avec delete actif " (feea64e9732aefc8cd97208ea9bbad96e3b85680)
+
+## 1.17.0-master.309+20210430135345
+2021-04-30
+
+### Fixes
+
+- [000] Corriger les exports geoloc (1074b2b4c88c9e5876d01a7eba8b1b2947fa57d4)
+
+## 1.17.0-master.307+20210429135510
+2021-04-29
+
+### Fixes
+
+- [000] lint (f87d4172df43368e2bd07ad7920a00c2276ca22a)
+
+## 1.17.0-master.306+20210429133004
+2021-04-29
+
+### Fixes
+
+- [000] Corriger le filtre de type de cartes SIM (ce933694445b15c420f99d02f4f85f653ec887d0)
+
+## 1.17.0-master.305+20210429131544
+2021-04-29
+
+### Features
+
+- [2623] ajout le filtre obligatoire « Resiliation validée » à l'acte gérer les résiliations (8dd1364570236770da7871c4e4ea9167fccbb37a)
+
+## 1.17.0-master.304+20210429102945
+2021-04-29
+
+## 1.17.0-master.303+20210429085024
+2021-04-29
+
+### Features
+
+- [2622] création du filtre Résiliation validée pour effectuer une recherche de ligne (17311799187d2b30194023e0c36f11fd4e85f9ad)
+
+## 1.17.0-master.302+20210429080003
+2021-04-29
+
+### Features
+
+- [000] écran mocké de la configuration des roles (b6fdb9ae32ce4412b4adfa4e8cc0bf828d2dfaa5)
+
+## 1.17.0-master.301+20210429071655
+2021-04-29
+
+### Features
+
+- [2616] Ajout encours offre Longue Vie (0ba0d86f75fade1d411b0af2e03e6989afd972cc)
+- [2616] Ajout encours offre Longue Vie (22397ad87c288a5a240feb94fd5baebf5d7c3beb)
+
+### Fixes
+
+- [2620] confirmation de commande possible par l'action Confirmer (36012217d07c03681c3e81c8663152b2fb3b4794)
+
+## 1.17.0-master.300+20210427150318
+2021-04-27
+
+## 1.17.0-master.299+20210427140828
+2021-04-27
+
+### Fixes
+
+- [2605] vérifier l'option LV (85afecf86dc8a9561ae0dedf7718b27c33d70c93)
+- [000] Correction des tests cypress (1fb1e5623687c839508c94c58c17ee439a397fb8)
+
+## 1.17.0-master.298+20210426132717
+2021-04-26
+
+### Features
+
+- [2605] Recharger des lignes L.V. depuis le carrousel (246ef3eb4b4f4b70773c257adc588569df225074)
+
+### Fixes
+
+- [2600] activer l'export des services avec un partenaire obligatoire (51fa70fe927b0f670d6ce332ad812580914cfa57)
+
+## 1.17.0-master.297+20210423144424
+2021-04-23
+
+## 1.17.0-master.296+20210422133851
+2021-04-22
+
+## 1.17.0-master.295+20210422120512
+2021-04-22
+
+### Features
+
+- [2598] initialisation du filtre Type de carte SIM par catégorie dans la gestion de lignes (410f84d5ae393d67d61828d5e2455934ab60a4fc)
+- [2590] Ajout du filtre IP_FIXE + type d'import dans actLines (70ad51f079ef6f016148f7ceadc6b1fefd2d2fa8)
+
+### Fixes
+
+- [2558] correction de la sélection de l'offre dans la création d'alarme (bbfd40448df2a09e57098e595dc969fb24285cce)
+
+## 1.17.0-master.294+20210421140105
+2021-04-21
+
+### Fixes
+
+- [000] opération de maintenance : lint du code (66b346a137f32699c585958c3693c1f4f7cb666d)
+
 ## 1.17.0-master.293+20210421125229
 2021-04-21
 

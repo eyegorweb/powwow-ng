@@ -6,7 +6,7 @@ async function actCreationMutation(filters, lines, creationActFn) {
   let gqlFilter = '';
   let lineIds = '';
   if (lines && lines.length > 0) {
-    lineIds = lines.map(l => l.id).join(',');
+    lineIds = lines.map((l) => l.id).join(',');
   } else {
     gqlFilter = formatFilters(filters);
   }
@@ -599,11 +599,11 @@ export async function changeService(filters, lines, params) {
     let dataCodeParams = '';
 
     if (servicesToEnable && servicesToEnable.length) {
-      codesToEnable = servicesToEnable.map(s => `{serviceCode: "${s.code}", action: ADD}`);
+      codesToEnable = servicesToEnable.map((s) => `{serviceCode: "${s.code}", action: ADD}`);
     }
 
     if (servicesToDisable && servicesToDisable.length) {
-      codesToDisable = servicesToDisable.map(s => `{serviceCode: "${s.code}", action: DELETE}`);
+      codesToDisable = servicesToDisable.map((s) => `{serviceCode: "${s.code}", action: DELETE}`);
     }
 
     let codesToaddToGqlQuery = [...codesToEnable, ...codesToDisable];
@@ -611,14 +611,12 @@ export async function changeService(filters, lines, params) {
     if (dataService) {
       if (dataService.checked) {
         const apnToAddParams = dataService.parameters
-          .filter(a => a.selected)
-          .map(a => `{parameterCode: "${a.code}"}`);
+          .filter((a) => a.selected)
+          .map((a) => `{parameterCode: "${a.code}"}`);
 
         const catalogServiceParameters = `${[...apnToAddParams].join(',')}`;
 
-        dataCodeParams = `{serviceCode: "${
-          dataService.code
-        }", action: ADD, catalogServiceParameters: [${catalogServiceParameters}]}`;
+        dataCodeParams = `{serviceCode: "${dataService.code}", action: ADD, catalogServiceParameters: [${catalogServiceParameters}]}`;
       } else {
         dataCodeParams = `{serviceCode: "${dataService.code}", action: DELETE}`;
       }
@@ -662,6 +660,60 @@ export async function changeService(filters, lines, params) {
       };
     }
     return response.data.changeServices;
+  });
+}
+
+export async function createRechargeLVOffer(filters, lines, params) {
+  return await actCreationMutation(filters, lines, async (gqlFilter, gqlLines) => {
+    const { dueDate, partyId, workflowId, packageLabel, tempDataUuid } = params;
+
+    let gqlTempDataUuid = '';
+    if (tempDataUuid) {
+      gqlTempDataUuid = `tempDataUuid: "${tempDataUuid}"`;
+    }
+
+    const queryStr = `
+    mutation {
+      topUpLongLifeOffer(
+        input: {
+          filter: {${gqlFilter}},
+          partyId: ${partyId},
+          simCardInstanceIds: [${gqlLines}],
+          dueDate: "${dueDate}",
+          workflowId: ${workflowId},
+          packageLabel: "${packageLabel}",
+          ${gqlTempDataUuid}
+        })
+        {
+          tempDataUuid
+          validated
+          errors{
+            key
+            number
+            message
+          }
+        }
+    }
+    `;
+
+    try {
+      const response = await query(queryStr);
+
+      if (!response || response.errors) {
+        return {
+          errors: response.errors,
+        };
+      }
+      return response.data.preactivateAndActivateSImcardInstanceV2;
+    } catch (e) {
+      return {
+        errors: [
+          {
+            message: 'Erreur technique',
+          },
+        ],
+      };
+    }
   });
 }
 
@@ -713,7 +765,7 @@ export async function preactivateAndActivateSImcardInstance(filters, lines, para
             number
             message
           }
-         }
+        }
     }
     `;
 
@@ -995,7 +1047,7 @@ export async function changeSingleOffer(params) {
             key
             number
           }
-         }
+        }
     }
     `;
 

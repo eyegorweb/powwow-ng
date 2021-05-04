@@ -27,7 +27,7 @@ export default {
   },
   async mounted() {
     const data = await getActionServices();
-    this.services = data.map(a => ({ id: a, label: a }));
+    this.services = data.map((a) => ({ id: a, label: a }));
   },
   methods: {
     ...mapMutations('actHistory', ['setServicesFilter']),

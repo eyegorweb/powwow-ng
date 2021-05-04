@@ -43,7 +43,7 @@ export default {
       if (!this.fixedFilters) {
         return false;
       }
-      return !!this.fixedFilters.find(c => c.id === item.id);
+      return !!this.fixedFilters.find((c) => c.id === item.id);
     },
     onClear(filterId) {
       this.$emit('clear', filterId);
@@ -51,12 +51,12 @@ export default {
   },
   computed: {
     visibleCurrentFilters() {
-      return this.currentFilters.filter(f => !f.hidden);
+      return this.currentFilters.filter((f) => !f.hidden);
     },
     hasAnyValue() {
       return (
         this.currentFilters &&
-        !!this.currentFilters.find(f => {
+        !!this.currentFilters.find((f) => {
           return (
             (f.values && f.values.length > 0) ||
             (f.value && f.value !== '') ||

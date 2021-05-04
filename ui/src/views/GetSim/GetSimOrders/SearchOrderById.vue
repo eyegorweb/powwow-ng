@@ -26,7 +26,7 @@ export default {
           code: 'c5',
           value: 'idOrder',
           label: this.$t('orders.search.order-id'),
-          checkFn: value =>
+          checkFn: (value) =>
             !isNaN(value) &&
             value.length !== 0 &&
             (value.length !== 19 || value.length !== 15 || value.length !== 11),
@@ -35,7 +35,7 @@ export default {
           code: 'c6',
           value: 'orderReference',
           label: this.$t('orders.search.client-reference'),
-          checkFn: value => isNaN(value),
+          checkFn: (value) => isNaN(value),
         },
       ],
     };

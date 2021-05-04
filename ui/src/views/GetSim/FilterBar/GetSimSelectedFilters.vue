@@ -84,7 +84,7 @@ export default {
   },
   computed: {
     visibleCurrentFilters() {
-      return this.currentFilters.filter(f => !f.hidden);
+      return this.currentFilters.filter((f) => !f.hidden);
     },
   },
 };

@@ -30,7 +30,7 @@ export default {
     async fetchApi(q, partners, partnerType, { page, limit }) {
       const data = await fetchBillingAccounts(q, partners, { page, limit, partnerType });
       if (data) {
-        return data.map(p => ({
+        return data.map((p) => ({
           id: p.id,
           label: `${p.code} - ${p.name}`,
           partnerId: p.party.id,

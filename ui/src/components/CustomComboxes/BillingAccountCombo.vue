@@ -37,7 +37,7 @@ export default {
           this.$emit('update:value', undefined);
           return;
         }
-        const selectedObj = this.options.find(o => o.value === value);
+        const selectedObj = this.options.find((o) => o.value === value);
         this.$emit('update:value', selectedObj);
       },
     },
@@ -51,7 +51,7 @@ export default {
         partnerType: this.contextPartnersType,
       });
       this.options = [
-        ...data.map(o => ({
+        ...data.map((o) => ({
           value: o.id,
           label: `${o.code} - ${o.name}`,
           meta: o,

@@ -11,7 +11,7 @@
           @noMoreFilters="onAllFiltersCleared"
           @currentFiltersChange="$emit('currentFiltersChange', $event)"
         >
-          <template v-slot:actions="{ hasAnyValue, onSearch }">
+          <template #actions="{ hasAnyValue, onSearch }">
             <div v-if="hasAnyValue" class="actions d-flex flex-column flex-md-row mb-2">
               <UiButton
                 variant="primary"
@@ -47,7 +47,7 @@
             :storage-id="storageId"
             :rows="rows"
             :total="total"
-            :page.sync="noPagination ? undefined : page"
+            :page.sync="pageParam"
             :page-limit.sync="pageLimit"
             :order-by.sync="currentOrderBy"
             :size="size"
@@ -142,6 +142,14 @@ export default {
   },
 
   computed: {
+    pageParam: {
+      get() {
+        return this.noPagination ? undefined : this.page;
+      },
+      set(value) {
+        this.page = value;
+      },
+    },
     currentOrderBy: {
       get() {
         return this.orderBy;

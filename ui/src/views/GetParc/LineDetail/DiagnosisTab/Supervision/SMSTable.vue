@@ -24,9 +24,9 @@ export default {
   },
   methods: {
     getFetchDataFn() {
-      return async pageInfo => {
+      return async (pageInfo) => {
         const response = await smsUsage(this.simcard.id, pageInfo);
-        const rows = response.items.map(r => {
+        const rows = response.items.map((r) => {
           return { ...r, simcard: this.simcard };
         });
         const total = response.total;
@@ -69,7 +69,7 @@ export default {
           orderable: false,
           format: {
             type: 'Getter',
-            getter: row => {
+            getter: (row) => {
               return row.smsHistoryData && row.smsHistoryData.incomming ? 'Entrant' : 'Sortant';
             },
           },
@@ -82,7 +82,7 @@ export default {
           orderable: false,
           format: {
             type: 'Getter',
-            getter: row => {
+            getter: (row) => {
               return row.smsHistoryData && row.smsHistoryData.incomming
                 ? row.smsHistoryData.callingNumber
                 : row.smsHistoryData.calledNumber;

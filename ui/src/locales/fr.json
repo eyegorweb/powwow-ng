@@ -247,6 +247,7 @@
     "reportsDashboard": "Tableau de bord",
     "reportsBill": "Factures",
     "monitoring": "Supervision",
+    "rolesManagement": "Configuration des rôles",
     "getSupport": {
       "homepage": "Accueil / Déclaration d''un incident",
       "all_incidents": "Incidents en cours",
@@ -366,7 +367,7 @@
   },
   "getsim": {
     "reservations": {
-      "tabTitle": "Réservations",
+      "tabTitle": "Mes réservations",
       "export": "Exporter {total} réservation(s)",
       "tableTitle": "{total} Réservation(s) trouvée(s)",
       "createReservation": "Réserver des eSIM",
@@ -790,6 +791,8 @@
             "SECU_RESIL": "Sécurisation des résiliations",
             "COMPAT_OTA": "Compatibilité OTA",
             "BROADCAST_SMS": "Broadcast SMS",
+            "TERMINATION_DFE": "Résiliation DFE+1",
+            "ESIM_TERMINATION": "Résiliation eSim avec delete actif",
             "MANDATORY_ACTIVATION": "Activation obligatoire",
             "MANDATORY_PREACTIVATION": "Préctivation obligatoire",
             "REF_CLIENT": "Référence client obligatoire",
@@ -1252,6 +1255,10 @@
     "lineDetail": {
       "title": "Détail de la ligne {msisdn}",
       "offer": "Offre",
+      "rest": "Restant:",
+      "consume": "Consommé:",
+      "limitDate": "Date limite de validité:",
+      "lastRecharge": "Dernier rechargement le {date} sur l'enveloppe {offer}.",
       "lineStatus": "Statut de la ligne",
       "triggeredAlarms": "Alarmes déclenchées",
       "manufacturer": "Fabriquant",
@@ -1265,6 +1272,7 @@
       "previsionalVoice": "Prévisionnel Voix",
       "consuming": "EN COURS DE CONSOMMATION",
       "consumingFromMonthBeginning": "En cours de la ligne depuis le début du mois",
+      "longLife": "En cours de mon offre longue vie",
       "analysingTool": "GETDIAG / OUTILS D'ANALYSE",
       "testData": "Test data",
       "networkTest": "Test du réseau",
@@ -1597,9 +1605,10 @@
         "ACTIVATE_PREACTIVATE": "Préactiver / Activer des lignes",
         "esim": {
           "PAIRING": "Appairer des eSIM",
-          "FREE_RESERVATION": "Libérer des réservation",
+          "FREE_RESERVATION": "Libérer des réservations",
           "CHANGE_STATUS_PROFIL_ESIM": "Changer le statut des profils eSIM",
-          "DOWNLOAD_ESIM_PROFILE": "Télécharger un profil eSIM"
+          "DOWNLOAD_ESIM_PROFILE": "Télécharger un profil eSIM",
+          "CHARGE_LV_LINES": "Recharger les lignes L.V."
         }
       },
 
@@ -2009,7 +2018,7 @@
           "id": "Id de la réservation",
           "family": "Famille de SIM",
           "category": "Catégorie de SIM",
-          "type": "Type de eSIM",
+          "type": "Type de Step",
           "downloadStatus": "Statut de téléchargement",
           "pairedLine": "Ligne Appairée",
           "rid": "SMSRID"
@@ -2100,6 +2109,7 @@
       "trafficLabel": "Ayant trafiqué dans le mois",
       "actionId": "Id acte de gestion",
       "states": "État de profil eUICC",
+      "terminationValidated": "Résiliation validée",
       "profileStateFilter": {
         "ENABLED": "Activé",
         "DISABLED": "Désactivé",
@@ -2221,6 +2231,7 @@
     "complete": "Complet",
     "lastUsage": "Dernier usage",
     "inProgress": "Encours",
-    "services": "Services"
+    "services": "Services",
+    "BO": "Backoffice"
   }
 }

@@ -35,6 +35,7 @@ export default {
     },
     disabled: Boolean,
     allOffers: Boolean,
+    haveLvOffers: Boolean,
     keepSelectedValue: {
       type: Boolean,
       required: false,
@@ -70,13 +71,15 @@ export default {
             queryParams.disabledOffer = true;
           }
 
+          queryParams.haveLvOffers = !!this.haveLvOffers;
+
           const data = await fetchOffers(q, [this.partner], queryParams);
           if (data) {
             let dataToUse = data;
             if (!this.keepSelectedValue) {
-              dataToUse = data.filter(o => o.code !== this.prerequisiteOffer.code);
+              dataToUse = data.filter((o) => o.code !== this.prerequisiteOffer.code);
             }
-            return dataToUse.map(o => ({
+            return dataToUse.map((o) => ({
               id: o.code,
               label: o.workflowDescription,
               data: o,

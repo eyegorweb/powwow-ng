@@ -69,7 +69,7 @@ export default {
           visible: true,
           format: {
             type: 'OpenPanel',
-            getConfig: row => this.getPanelConfig(row),
+            getConfig: (row) => this.getPanelConfig(row),
           },
         },
         {
@@ -94,7 +94,7 @@ export default {
           visible: true,
           format: {
             type: 'Getter',
-            getter: row => {
+            getter: (row) => {
               return `${formatCurrency(row.amountExclTaxes)} €`;
             },
           },
@@ -107,7 +107,7 @@ export default {
           visible: true,
           format: {
             type: 'Getter',
-            getter: row => {
+            getter: (row) => {
               return `${formatCurrency(row.amount)} €`;
             },
           },
@@ -124,7 +124,9 @@ export default {
     ...mapMutations(['openPanel']),
 
     isTableVisible(appliedFilters) {
-      return appliedFilters && appliedFilters.find(f => f.id === 'getadmin.users.filters.partners');
+      return (
+        appliedFilters && appliedFilters.find((f) => f.id === 'getadmin.users.filters.partners')
+      );
     },
 
     resetFilters() {
@@ -192,7 +194,7 @@ export default {
     ...mapGetters(['userIsPartner', 'singlePartner']),
     selectedPartnerId() {
       if (!this.lastFilters) return;
-      return this.lastFilters.find(f => f.id == 'getadmin.users.filters.partners').data.id;
+      return this.lastFilters.find((f) => f.id == 'getadmin.users.filters.partners').data.id;
     },
   },
   mounted() {

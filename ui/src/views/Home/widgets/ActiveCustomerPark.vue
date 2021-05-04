@@ -92,7 +92,7 @@ export default {
         partnerType: this.contextPartnersType,
       });
       if (data) {
-        return data.map(p => ({
+        return data.map((p) => ({
           id: p.id,
           name: p.name,
         }));
@@ -100,19 +100,19 @@ export default {
       return undefined;
     },
     fetchPartnerId(id) {
-      const found = this.partners.find(p => p.name === id);
+      const found = this.partners.find((p) => p.name === id);
       return found ? found.id : '';
     },
     async initPartners() {
       if (this.contextPartners && this.contextPartners.length > 0) {
-        this.partners = this.contextPartners.map(p => ({
+        this.partners = this.contextPartners.map((p) => ({
           id: p.id,
           name: p.name,
         }));
       } else {
         this.partners = await this.fetchPartners('', { page: 0, limit: 999 });
       }
-      this.names = this.partners.map(p => p.name);
+      this.names = this.partners.map((p) => p.name);
     },
 
     async refreshIndicators(partner) {
@@ -127,7 +127,7 @@ export default {
           if (r.name === 'SIM_ACTIVATED') {
             // on met au même niveau les données et on inverse le tableau pour faciliter la comparaison de la donnée M-1 avec la donnée M (mois courant)
             let arraySimActivated = r.histories.flat().reverse();
-            arraySimActivated.map(a => {
+            arraySimActivated.map((a) => {
               // on stocke la valeur pour gérer le null et restituer le '-' le cas échéant
               tempValue = a.numberValue === null ? '-' : a.numberValue;
               // traduction du label
@@ -169,7 +169,7 @@ export default {
           // Indicateurs des factures (même algo que pour les indicateurs d'activation)
           if (r.name === 'SIM_BILLED') {
             let arraySimBilled = r.histories.flat().reverse();
-            arraySimBilled.map(a => {
+            arraySimBilled.map((a) => {
               tempValue = a.numberValue === null ? '-' : a.numberValue;
               if (a.applicationDate === prevCurrentMonth) {
                 translatedIndicator = this.$t(

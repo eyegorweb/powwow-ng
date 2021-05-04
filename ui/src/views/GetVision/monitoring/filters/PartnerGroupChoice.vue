@@ -22,7 +22,7 @@ export default {
   },
   computed: {
     partner() {
-      const partner = this.selectedFilters.find(f => f.id === 'getadmin.users.filters.partners');
+      const partner = this.selectedFilters.find((f) => f.id === 'getadmin.users.filters.partners');
       return partner;
     },
     selectedOption: {
@@ -30,7 +30,10 @@ export default {
         return this.selectedData ? this.selectedData.data.value : '';
       },
       set(value) {
-        this.$emit('change', this.options.find(o => o.value === value));
+        this.$emit(
+          'change',
+          this.options.find((o) => o.value === value)
+        );
       },
     },
   },

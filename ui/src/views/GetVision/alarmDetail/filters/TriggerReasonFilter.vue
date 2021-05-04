@@ -24,7 +24,7 @@ export default {
       },
 
       set(newValue) {
-        const selected = this.options.find(o => o.value === newValue);
+        const selected = this.options.find((o) => o.value === newValue);
         this.$emit('change', selected);
       },
     },

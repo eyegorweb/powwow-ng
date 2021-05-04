@@ -22,6 +22,26 @@ export async function fetchTransferSim(orderBy) {
   const response = await query(queryStr);
   return response.data;
 }
+export async function fetchlvConsumption(id) {
+  const queryStr = `
+  query {
+    lvConsumption(simCardInstanceId: ${id}) {
+      lastRechargeDate
+      envelopeName
+      dataConsumed
+      dataAvailable
+      smsConsumed
+      smsAvailable
+      voiceConsumed
+      voiceAvailable
+      DLV
+    }
+  }
+  `;
+
+  const response = await query(queryStr);
+  return response.data.lvConsumption;
+}
 
 export async function updateTransferSim(ids, status) {
   const queryStr = `
@@ -43,6 +63,7 @@ export async function fetchSimCards(filters, pagination, sorting) {
         simCard {
           label
           id
+          category
           name
           code
           type
@@ -61,7 +82,7 @@ export async function fetchCardTypes(q, partners, { page = 0, limit = 999, partn
     partnerGqlParam = '';
 
   if (partners && partners.length > 0) {
-    partnersIds = partners.map(i => `"${i.id}"`).join(',');
+    partnersIds = partners.map((i) => `"${i.id}"`).join(',');
     partnerGqlParam = `, partyId:{in: [${partnersIds}]}`;
   }
 
@@ -100,7 +121,7 @@ export async function fetchCommercialStatuses(partners) {
   let ids, params;
 
   if (partners) {
-    ids = partners.map(p => p.id);
+    ids = partners.map((p) => p.id);
   }
 
   if (ids && ids.length) {
@@ -175,12 +196,8 @@ async function searchLinesQuery(orderBy, pagination, filters, fields) {
     }
   }`;
 
-  try {
-    const response = await query(queryStr);
-    return response.data.simCardInstances;
-  } catch (e) {
-    throw e;
-  }
+  const response = await query(queryStr);
+  return response.data.simCardInstances;
 }
 
 export async function searchLinesForTable(orderBy, pagination, filters = []) {
@@ -223,7 +240,7 @@ export async function searchLinesForTable(orderBy, pagination, filters = []) {
       preactivationDate
       activationDate
       commercialStatusDate
-
+      terminationValidated
     customFields {
       custom1
       custom2
@@ -332,6 +349,7 @@ export async function searchLines(orderBy, pagination, filters = []) {
         type
       }
       id
+      terminationValidated
       commercialStatus
       preactivationDate
       activationDate
@@ -419,7 +437,7 @@ export function formatFilters(filters) {
   const customFields = getFilterValues(filters, 'filters.customFields');
   if (customFields && customFields.length > 0) {
     const customFeldsGQLparams = customFields
-      .map(c => `${c.id}: {startsWith: "${c.value}"}`)
+      .map((c) => `${c.id}: {startsWith: "${c.value}"}`)
       .join(',');
 
     allFilters.push(customFeldsGQLparams);
@@ -483,7 +501,7 @@ function trim(value) {
 
 function addEsimPairingStatus(gqlFilters, selectedFilters) {
   const foundFilter = selectedFilters.find(
-    f => f.id === 'indicators.getparc.lines.esim.pairedLine'
+    (f) => f.id === 'indicators.getparc.lines.esim.pairedLine'
   );
   if (foundFilter) {
     gqlFilters.push(`isEidAllocated: ${foundFilter.meta.value === 'YES' ? 'true' : 'false'}`);
@@ -505,7 +523,7 @@ function addIPFilter(gqlFilters, selectedFilters) {
 }
 
 function addEsimType(gqlFilters, selectedFilters) {
-  const foundFilter = selectedFilters.find(f => f.id === 'indicators.getparc.lines.esim.type');
+  const foundFilter = selectedFilters.find((f) => f.id === 'indicators.getparc.lines.esim.type');
   if (foundFilter) {
     gqlFilters.push(`esimStepType: {eq: ${foundFilter.meta.value}}`);
   }
@@ -513,7 +531,7 @@ function addEsimType(gqlFilters, selectedFilters) {
 
 function addDownloadStatus(gqlFilters, selectedFilters) {
   const foundFilter = selectedFilters.find(
-    f => f.id === 'indicators.getparc.lines.esim.downloadStatus'
+    (f) => f.id === 'indicators.getparc.lines.esim.downloadStatus'
   );
   if (foundFilter) {
     gqlFilters.push(`esimDownloadState: {eq: ${foundFilter.meta.value}}`);
@@ -521,20 +539,22 @@ function addDownloadStatus(gqlFilters, selectedFilters) {
 }
 
 function addEsimCategory(gqlFilters, selectedFilters) {
-  const foundFilter = selectedFilters.find(f => f.id === 'indicators.getparc.lines.esim.category');
+  const foundFilter = selectedFilters.find(
+    (f) => f.id === 'indicators.getparc.lines.esim.category'
+  );
   if (foundFilter) {
     gqlFilters.push(`simcardCategory: {eq: ${foundFilter.meta.value}}`);
   }
 }
 
 function addIdsFilter(gqlFilters, selectedFilters) {
-  const _id = selectedFilters.find(f => f.id === 'filters.id');
-  const accessPointId = selectedFilters.find(f => f.id === 'filters.accessPointId');
-  const iccid = selectedFilters.find(f => f.id === 'filters.iccid');
-  const imsi = selectedFilters.find(f => f.id === 'filters.imsi');
-  const msisdn = selectedFilters.find(f => f.id === 'filters.msisdn');
-  const imei = selectedFilters.find(f => f.id === 'filters.imei');
-  const msisdnA = selectedFilters.find(f => f.id === 'filters.msisdnA');
+  const _id = selectedFilters.find((f) => f.id === 'filters.id');
+  const accessPointId = selectedFilters.find((f) => f.id === 'filters.accessPointId');
+  const iccid = selectedFilters.find((f) => f.id === 'filters.iccid');
+  const imsi = selectedFilters.find((f) => f.id === 'filters.imsi');
+  const msisdn = selectedFilters.find((f) => f.id === 'filters.msisdn');
+  const imei = selectedFilters.find((f) => f.id === 'filters.imei');
+  const msisdnA = selectedFilters.find((f) => f.id === 'filters.msisdnA');
 
   if (_id && _id.value) {
     gqlFilters.push(`id: {eq: "${trim(_id.value)}"}`);
@@ -560,16 +580,14 @@ function addIdsFilter(gqlFilters, selectedFilters) {
 }
 
 function addTerminationValidated(gqlFilters, selectedFilters) {
-  const terminationFilter = selectedFilters.find(
-    f => f.id === 'filters.lines.terminationValidated'
-  );
-  if (terminationFilter && terminationFilter.value) {
-    gqlFilters.push(`terminationValidated: true`);
+  const foundFilter = selectedFilters.find((f) => f.id === 'filters.lines.terminationValidated');
+  if (foundFilter) {
+    gqlFilters.push(`terminationValidated: ${foundFilter.meta.value}`);
   }
 }
 
 function addRangeFilter(gqlFilters, selectedFilters, gqlParamName, keyInCurrentFilter) {
-  const filterValue = selectedFilters.find(f => f.id === keyInCurrentFilter);
+  const filterValue = selectedFilters.find((f) => f.id === keyInCurrentFilter);
   if (filterValue && filterValue.from && filterValue.to) {
     gqlFilters.push(
       `${gqlParamName}: {startsWith: "${filterValue.from}", endsWith: "${filterValue.to}"}`
@@ -587,12 +605,12 @@ function addRangeFilter(gqlFilters, selectedFilters, gqlParamName, keyInCurrentF
 }
 
 function addZipCodeFilter(gqlFilters, selectedFilters) {
-  const zipCode = selectedFilters.find(f => f.id === 'filters.postalCode');
+  const zipCode = selectedFilters.find((f) => f.id === 'filters.postalCode');
   zipCode && gqlFilters.push(`zipCode: {startsWith: "${zipCode.value.toString()}"}`);
 }
 
 function addFileImportId(gqlFilters, selectedFilters) {
-  const filter = selectedFilters.find(f => f.id === 'filters.lines.fromFile.title');
+  const filter = selectedFilters.find((f) => f.id === 'filters.lines.fromFile.title');
   if (filter && filter.values && filter.values.length) {
     gqlFilters.push(`tempDataUuid: "${filter.values[0].tempDataUuid}"`);
   }
@@ -643,19 +661,19 @@ function addOrderRef(gqlFilters, selectedFilters) {
 }
 
 function addOfferFilterFilter(gqlFilters, selectedFilters) {
-  const offerFilter = selectedFilters.find(o => o.id === 'filters.lines.associatedOffer');
+  const offerFilter = selectedFilters.find((o) => o.id === 'filters.lines.associatedOffer');
   if (!offerFilter) return;
 
-  const offers = offerFilter.values.map(o => `"${o.productCode}"`).join(',');
+  const offers = offerFilter.values.map((o) => `"${o.productCode}"`).join(',');
   if (offers) {
     gqlFilters.push(`productCode: {in: [${offers}]}`);
   }
 }
 
 function addActionTypeFilter(gqlFilters, selectedFilters) {
-  const actionTypes = selectedFilters.find(f => f.id === 'filters.actTypes');
+  const actionTypes = selectedFilters.find((f) => f.id === 'filters.actTypes');
   if (actionTypes) {
-    const actionTypesValues = actionTypes.values.map(a => a.id);
+    const actionTypesValues = actionTypes.values.map((a) => a.id);
     gqlFilters.push(`actionTypes: [ ${[...actionTypesValues]} ]`);
   }
 }
@@ -663,41 +681,41 @@ function addActionTypeFilter(gqlFilters, selectedFilters) {
 function getValuesIds(filters, filterId) {
   const values = getFilterValues(filters, filterId);
   if (values) {
-    return values.map(i => `"${i.id}"`).join(',');
+    return values.map((i) => `"${i.id}"`).join(',');
   }
 }
 
 function getValuesAttr(filters, filterId, attr) {
   const values = getFilterValues(filters, filterId);
   if (values) {
-    return values.map(i => `"${i[attr]}"`).join(',');
+    return values.map((i) => `"${i[attr]}"`).join(',');
   }
 }
 
 function getValuesIdsWithoutQuotes(filters, filterId) {
   const values = getFilterValues(filters, filterId);
   if (values) {
-    return values.map(i => `${i.id}`).join(',');
+    return values.map((i) => `${i.id}`).join(',');
   }
 }
 
 function addTrafficFilter(gqlFilters, selectedFilters) {
-  const isTraffic = selectedFilters.find(f => f.id === 'filters.lines.traffic');
+  const isTraffic = selectedFilters.find((f) => f.id === 'filters.lines.traffic');
   if (isTraffic) {
     gqlFilters.push(`isLignesTrafiquantes: true`);
   }
 }
 
 function addEUICCProfileFilter(gqlFilters, selectedFilters) {
-  const currentStates = selectedFilters.find(f => f.id === 'filters.lines.states');
+  const currentStates = selectedFilters.find((f) => f.id === 'filters.lines.states');
   if (currentStates) {
-    const currentStatesValues = currentStates.values.map(i => i.id);
+    const currentStatesValues = currentStates.values.map((i) => i.id);
     gqlFilters.push(`profileEUICC: {in: [${currentStatesValues}]}`);
   }
 }
 
 function addSirenFilter(gqlFilters, selectedFilters) {
-  const siren = selectedFilters.find(f => f.id === 'filters.lines.siren');
+  const siren = selectedFilters.find((f) => f.id === 'filters.lines.siren');
   if (siren) {
     gqlFilters.push(`siren: {eq: "${siren.value}"}`);
   }
@@ -939,7 +957,7 @@ export async function fetchCurrentConsumption(filters) {
   const filtersGQL = [];
 
   for (const [key, value] of Object.entries(filters)) {
-    if (['simCardInstanceId', 'partyId', 'workflowId', 'customerAccoutId'].find(k => k === key)) {
+    if (['simCardInstanceId', 'partyId', 'workflowId', 'customerAccoutId'].find((k) => k === key)) {
       filtersGQL.push(`${key}:${value}`);
     }
   }

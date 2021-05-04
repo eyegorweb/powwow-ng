@@ -1,7 +1,7 @@
 import get from 'lodash.get';
 
 export default {
-  install: Vue => {
+  install: (Vue) => {
     /**
      * Lodash get
      * @param {*} object

@@ -30,7 +30,7 @@ export default {
     val: {
       get() {
         if (this.selectedValue) {
-          const found = this.options.find(o => o.label === this.selectedValue.value);
+          const found = this.options.find((o) => o.label === this.selectedValue.value);
           if (found) {
             return found.value;
           }
@@ -39,7 +39,7 @@ export default {
         return undefined;
       },
       set(value) {
-        const selectedOpt = this.options.find(o => o.value === value);
+        const selectedOpt = this.options.find((o) => o.value === value);
         this.$store.commit(`${this.ns}/${this.setter}`, {
           value: selectedOpt.label, // value est affichée dans la synthèse
           meta: selectedOpt,

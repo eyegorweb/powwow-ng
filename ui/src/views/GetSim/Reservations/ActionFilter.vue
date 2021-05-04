@@ -34,7 +34,7 @@ export default {
         if (!this.selectedData) {
           return false;
         }
-        return this.selectedData.values.find(v => v.id === 'filters.actionValues.PREACTIVATED');
+        return this.selectedData.values.find((v) => v.id === 'filters.actionValues.PREACTIVATED');
       },
       set(newValue) {
         const values = [];
@@ -56,7 +56,7 @@ export default {
         if (!this.selectedData) {
           return false;
         }
-        return this.selectedData.values.find(v => v.id === 'filters.actionValues.ACTIVATED');
+        return this.selectedData.values.find((v) => v.id === 'filters.actionValues.ACTIVATED');
       },
       set(newValue) {
         const values = [];

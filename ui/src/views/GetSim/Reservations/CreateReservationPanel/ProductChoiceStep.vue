@@ -96,7 +96,7 @@ export default {
     },
     filteredSimTypes: {
       get() {
-        return this.simTypes.slice(0, this.limit).filter(s => !!s.simCard);
+        return this.simTypes.slice(0, this.limit).filter((s) => !!s.simCard);
       },
       set(newVal) {
         return newVal;

@@ -81,8 +81,8 @@ export default {
         this.customerAccountId
       );
       this.isLoading = false;
-      const formatedData = DEFAULT_VALUES_BY_COUNTRIES.map(c => {
-        const correspondingItemInCountriesData = countriesData.find(d => {
+      const formatedData = DEFAULT_VALUES_BY_COUNTRIES.map((c) => {
+        const correspondingItemInCountriesData = countriesData.find((d) => {
           return d.countryIsoCode2.toLowerCase() === c[0];
         });
         if (correspondingItemInCountriesData) {

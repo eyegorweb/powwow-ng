@@ -55,7 +55,7 @@ export default {
     },
     formatResponse(items) {
       if (items) {
-        return items.map(i => ({ ...i, ...i.massAction }));
+        return items.map((i) => ({ ...i, ...i.massAction }));
       }
     },
   },
@@ -95,7 +95,7 @@ export default {
           fixed: true,
           format: {
             type: 'LinkBtn',
-            onClick: massActionId => {
+            onClick: (massActionId) => {
               this.$router.push({
                 name: 'actDetail',
                 params: {
@@ -122,7 +122,7 @@ export default {
           name: 'info',
           orderable: false,
           visible: true,
-          tootltipText: item => {
+          tootltipText: (item) => {
             return item;
           },
           format: {

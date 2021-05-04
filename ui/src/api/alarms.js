@@ -256,12 +256,8 @@ export async function searchAlarms(orderBy, pagination, filters = []) {
     }
   }`;
 
-  try {
-    const response = await query(queryStr);
-    return response.data.alarms;
-  } catch (e) {
-    throw e;
-  }
+  const response = await query(queryStr);
+  return response.data.alarms;
 }
 
 export async function fetchTriggerHistory(alarmId, simIds = []) {
@@ -338,22 +334,22 @@ export async function createAlarmInstance2(alarmInput) {
 
   if (alarmInput.filters && alarmInput.filters.length) {
     input.alarmFilterInput = {};
-    const billingAccountFilter = alarmInput.filters.find(f => f.id === 'common.billingAccount');
+    const billingAccountFilter = alarmInput.filters.find((f) => f.id === 'common.billingAccount');
     if (billingAccountFilter) {
       input.alarmFilterInput.customerAccount = {
-        in: billingAccountFilter.values.map(b => b.id),
+        in: billingAccountFilter.values.map((b) => b.id),
       };
     }
 
-    const offerIdFilter = alarmInput.filters.find(f => f.id === 'filters.offers');
+    const offerIdFilter = alarmInput.filters.find((f) => f.id === 'filters.offers');
     if (offerIdFilter) {
       input.alarmFilterInput.offerId = {
-        in: offerIdFilter.map(b => b.data.id),
+        in: offerIdFilter.map((b) => b.data.id),
       };
     }
 
     const tempDataUuidFilter = alarmInput.filters.find(
-      f => f.id === 'filters.lines.fromFile.title'
+      (f) => f.id === 'filters.lines.fromFile.title'
     );
 
     if (tempDataUuidFilter && tempDataUuidFilter.values && tempDataUuidFilter.values.length) {
@@ -418,7 +414,7 @@ export async function deleteAlarmInstance2(alarmInput) {
   if (alarmInput.filters && alarmInput.filters.length) {
     input.alarmFilterInput = {};
     const lastTriggerDateFilter = alarmInput.filters.find(
-      f => f.id === 'getvsion.alarm.trigger_date'
+      (f) => f.id === 'getvsion.alarm.trigger_date'
     );
     if (lastTriggerDateFilter) {
       input.alarmFilterInput.lastTriggerDate = {
@@ -429,12 +425,14 @@ export async function deleteAlarmInstance2(alarmInput) {
       };
     }
 
-    const thresholdFilter = alarmInput.filters.find(f => f.id === 'getvsion.alarm.trigger_reason');
+    const thresholdFilter = alarmInput.filters.find(
+      (f) => f.id === 'getvsion.alarm.trigger_reason'
+    );
     if (thresholdFilter) {
       input.alarmFilterInput.threshold = thresholdFilter.data.value;
     }
 
-    const fileFilter = alarmInput.filters.find(f => f.id === 'filters.lines.fromFile.title');
+    const fileFilter = alarmInput.filters.find((f) => f.id === 'filters.lines.fromFile.title');
     console.log('🚀 ~ file: alarms.js ~ line 415 ~ deleteAlarmInstance2 ~ fileFilter', fileFilter);
     if (fileFilter && fileFilter.values && fileFilter.values.length) {
       input.alarmFilterInput.tempDataUuid = fileFilter.values[0].tempDataUuid;
@@ -551,14 +549,14 @@ function addScope(gqlFilters, selectedFilters) {
 }
 
 function addAlarmType(gqlFilters, selectedFilters) {
-  const foundFilter = selectedFilters.find(f => f.id === 'getvsion.filters.ALARM_TYPE');
+  const foundFilter = selectedFilters.find((f) => f.id === 'getvsion.filters.ALARM_TYPE');
   if (foundFilter) {
     gqlFilters.push(`alarmType: {in: [${foundFilter.data}]}`);
   }
 }
 
 function addDateTriggerAlarm(gqlFilters, selectedFilters) {
-  const dateFilter = selectedFilters.find(f => f.id === 'getvsion.filters.DATE_TRIGGER');
+  const dateFilter = selectedFilters.find((f) => f.id === 'getvsion.filters.DATE_TRIGGER');
   if (dateFilter && dateFilter.startDate && dateFilter.endDate) {
     const formattedStartDate = `${formatDateForGql(dateFilter.startDate)}`;
 

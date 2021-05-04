@@ -81,7 +81,7 @@ export default {
       if (!newValue) {
         return (this.visibleUsers = [...this.users]);
       }
-      this.visibleUsers = this.users.filter(u => {
+      this.visibleUsers = this.users.filter((u) => {
         const isUsernameValid =
           u.username && u.username.toLowerCase().indexOf(newValue.toLowerCase()) !== -1;
 
@@ -101,7 +101,7 @@ export default {
     ...mapMutations(['openPanel', 'confirmAction']),
 
     usersFilter(searchValue) {
-      return this.users.filter(value => {
+      return this.users.filter((value) => {
         return value.name == searchValue;
       });
     },

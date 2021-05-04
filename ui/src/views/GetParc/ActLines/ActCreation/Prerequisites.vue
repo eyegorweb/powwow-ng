@@ -77,7 +77,7 @@ export default {
         'getparc.actCreation.carouselItem.CHANGE_SIMCARD',
         'getparc.actCreation.carouselItem.CHANGE_OFFER',
       ];
-      return !ignoredActs.find(a => a === this.act.title);
+      return !ignoredActs.find((a) => a === this.act.title);
     },
   },
 

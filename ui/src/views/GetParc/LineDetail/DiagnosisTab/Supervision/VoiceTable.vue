@@ -25,9 +25,9 @@ export default {
   },
   methods: {
     getFetchDataFn() {
-      return async pageInfo => {
+      return async (pageInfo) => {
         const response = await voiceUsage(this.simcard.id, pageInfo);
-        const rows = response.items.map(r => {
+        const rows = response.items.map((r) => {
           return { ...r, simcard: this.simcard };
         });
         const total = response.total;
@@ -70,7 +70,7 @@ export default {
           orderable: false,
           format: {
             type: 'Getter',
-            getter: row => {
+            getter: (row) => {
               return row.voiceHistoryData && row.voiceHistoryData.duration
                 ? formattedValueFromSeconds(row.voiceHistoryData.duration)
                 : '-';
@@ -96,7 +96,7 @@ export default {
           orderable: false,
           format: {
             type: 'Getter',
-            getter: row => {
+            getter: (row) => {
               return row.voiceHistoryData && row.voiceHistoryData.incomming ? 'Entrant' : 'Sortant';
             },
           },
@@ -129,7 +129,7 @@ export default {
           orderable: false,
           format: {
             type: 'Getter',
-            getter: row => {
+            getter: (row) => {
               return row.voiceHistoryData && row.voiceHistoryData.incomming
                 ? row.voiceHistoryData.callingNumber
                 : row.voiceHistoryData.calledNumber;

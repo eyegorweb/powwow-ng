@@ -18,7 +18,7 @@ export default {
   computed: {
     val: {
       get() {
-        const found = this.options.find(o => o.label === this.selectedValue);
+        const found = this.options.find((o) => o.label === this.selectedValue);
         if (found) {
           return found.value;
         }
@@ -26,7 +26,10 @@ export default {
         return undefined;
       },
       set(value) {
-        this.$emit('update:value', this.options.find(o => o.value === value));
+        this.$emit(
+          'update:value',
+          this.options.find((o) => o.value === value)
+        );
       },
     },
   },
@@ -37,6 +40,7 @@ export default {
   },
   async mounted() {
     this.options = await fetchEsimCategories();
+    this.options.unshift({ value: 'none', label: '' });
   },
 };
 </script>

@@ -149,16 +149,16 @@ function formatFilters(selectedFilters) {
 }
 
 function addFileFilter(gqlFilters, selectedFilters) {
-  const foundFilter = selectedFilters.find(f => f.id === 'filters.lines.fromFile.title');
+  const foundFilter = selectedFilters.find((f) => f.id === 'filters.lines.fromFile.title');
   if (foundFilter && foundFilter.values && foundFilter.values.length) {
     gqlFilters.push(`tempDataUuid: "${foundFilter.values[0].tempDataUuid}"`);
   }
 }
 
 function addOffer(gqlFilters, selectedFilters) {
-  const foundFilter = selectedFilters.find(f => f.id === 'filters.offers');
+  const foundFilter = selectedFilters.find((f) => f.id === 'filters.offers');
   if (foundFilter) {
-    const ids = foundFilter.values.map(v => v.data.initialOffer.id).join(',');
+    const ids = foundFilter.values.map((v) => v.data.initialOffer.id).join(',');
 
     gqlFilters.push(`offerId: {in: [${ids}]}`);
   }
@@ -174,7 +174,7 @@ function addBillingAccount(gqlFilters, selectedFilters) {
 function addAlarmId(gqlFilters, selectedFilters) {
   let alarmId;
   let condition = 'eq';
-  const foundFilter = selectedFilters.find(f => f.id === 'filters.alarmId');
+  const foundFilter = selectedFilters.find((f) => f.id === 'filters.alarmId');
   if (foundFilter) {
     alarmId = foundFilter.value;
     if (foundFilter.notEqual) {
@@ -195,7 +195,7 @@ function addPartyId(gqlFilters, selectedFilters) {
 }
 
 function addThreshold(gqlFilters, selectedFilters) {
-  const foundFilter = selectedFilters.find(f => f.id === 'getvsion.alarm.trigger_reason');
+  const foundFilter = selectedFilters.find((f) => f.id === 'getvsion.alarm.trigger_reason');
 
   if (foundFilter) {
     gqlFilters.push(`threshold: ${foundFilter.data.value}`);
@@ -205,13 +205,13 @@ function addThreshold(gqlFilters, selectedFilters) {
 function addLineId(gqlFilters, selectedFilters) {
   const idsFilters = [];
 
-  const _id = selectedFilters.find(f => f.id === 'filters.id');
-  const accessPointId = selectedFilters.find(f => f.id === 'filters.accessPointId');
-  const iccid = selectedFilters.find(f => f.id === 'filters.iccid');
-  const imsi = selectedFilters.find(f => f.id === 'filters.imsi');
-  const msisdn = selectedFilters.find(f => f.id === 'filters.msisdn');
-  const imei = selectedFilters.find(f => f.id === 'filters.imei');
-  const msisdnA = selectedFilters.find(f => f.id === 'filters.msisdnA');
+  const _id = selectedFilters.find((f) => f.id === 'filters.id');
+  const accessPointId = selectedFilters.find((f) => f.id === 'filters.accessPointId');
+  const iccid = selectedFilters.find((f) => f.id === 'filters.iccid');
+  const imsi = selectedFilters.find((f) => f.id === 'filters.imsi');
+  const msisdn = selectedFilters.find((f) => f.id === 'filters.msisdn');
+  const imei = selectedFilters.find((f) => f.id === 'filters.imei');
+  const msisdnA = selectedFilters.find((f) => f.id === 'filters.msisdnA');
 
   if (_id) {
     idsFilters.push(`id: "${_id.value}"`);

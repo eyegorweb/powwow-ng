@@ -71,7 +71,7 @@ export default {
             keys: this.fields,
             allowTypo: false,
           })
-          .map(r => ({
+          .map((r) => ({
             item: r.obj,
             highlighted: this.fields.reduce((highlighted, field, i) => {
               highlighted[field] = fuzzysort.highlight(r[i]) || r.obj[field];
@@ -85,7 +85,7 @@ export default {
     highlightedResults() {
       if (!this.items) return [];
 
-      return this.items.map(item => ({
+      return this.items.map((item) => ({
         item,
         highlighted: this.fields.reduce((highlighted, field) => {
           highlighted[field] = item[field];

@@ -117,7 +117,7 @@ export default {
     mailingLists() {
       if (!this.partner) return [];
       const mailingLists = get(this.partner, 'data.mailingLists', []);
-      return mailingLists.map(m => ({ label: m.name, value: m.id }));
+      return mailingLists.map((m) => ({ label: m.name, value: m.id }));
     },
     canSaveAlarm() {
       let notifCondition = true;

@@ -55,7 +55,7 @@ export default {
       ]
     );
     if (response) {
-      this.massActions = response.items.map(i => ({ ...i, ...i.massAction }));
+      this.massActions = response.items.map((i) => ({ ...i, ...i.massAction }));
     }
   },
 };

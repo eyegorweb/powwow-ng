@@ -10,7 +10,7 @@
           'getparc.actCreation.carouselItem.ACTIVATE_PREACTIVATE',
           'getparc.actCreation.carouselItem.esim.FREE_RESERVATION',
           'getparc.actCreation.carouselItem.esim.CHANGE_STATUS_PROFIL_ESIM',
-        ].find(a => a === act.title) && !userIsMVNO
+        ].find((a) => a === act.title) && !userIsMVNO
       "
       @set:preprequisites="setPrerequisites"
       :user-partner="userPartner"
@@ -18,7 +18,7 @@
     <PartnerCFEsimStatus
       v-if="
         ['getparc.actCreation.carouselItem.esim.DOWNLOAD_ESIM_PROFILE'].find(
-          a => a === act.title
+          (a) => a === act.title
         ) && !userIsMVNO
       "
       @set:preprequisites="setPrerequisites"
@@ -31,14 +31,17 @@
           'getparc.actCreation.carouselItem.CHANGE_SERVICES',
           'getparc.actCreation.carouselItem.CHANGE_OFFER',
           'getparc.actCreation.carouselItem.CHANGE_CF',
-        ].find(a => a === act.title)
+          'getparc.actCreation.carouselItem.esim.CHARGE_LV_LINES',
+        ].find((a) => a === act.title)
       "
       @set:preprequisites="setPrerequisites"
       :partner="userPartner"
       :can-select-billing-account="
         act.title === 'getparc.actCreation.carouselItem.CHANGE_OFFER' ||
-          act.title === 'getparc.actCreation.carouselItem.CHANGE_CF'
+          act.title === 'getparc.actCreation.carouselItem.CHANGE_CF' ||
+          act.title === 'getparc.actCreation.carouselItem.esim.CHARGE_LV_LINES'
       "
+      :have-lv-offers="act.title === 'getparc.actCreation.carouselItem.esim.CHARGE_LV_LINES'"
     />
   </div>
 </template>
@@ -113,7 +116,7 @@ export default {
         'getparc.actCreation.carouselItem.TRANSFERT_LINES',
         'getparc.actCreation.carouselItem.CHANGE_MSISDN',
         'getparc.actCreation.carouselItem.CHANGE_SIMCARD',
-      ].find(a => a === actTitle);
+      ].find((a) => a === actTitle);
     },
 
     initPrerequisites() {

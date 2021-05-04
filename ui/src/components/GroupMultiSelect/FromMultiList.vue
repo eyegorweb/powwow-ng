@@ -35,7 +35,7 @@ export default {
   },
   methods: {
     getVisibleItems(results) {
-      return results.filter(r => !r.item.selected);
+      return results.filter((r) => !r.item.selected);
     },
   },
 

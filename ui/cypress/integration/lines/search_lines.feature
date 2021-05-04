@@ -88,6 +88,7 @@ Feature: Recherche de lignes
     When je lance un Export "Dernier usage"
     Then le fichier est bien téléchargé
 
+  @focus
   Scenario: Export des lignes (Services)
     Given en tant que BO
     And je suis sur la page recherche de lignes

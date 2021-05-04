@@ -1,6 +1,5 @@
 import { fetchCurrentUserInfos } from '@/api/user';
-import { isEnabledPartySubscriptionOption } from '@/api/partners';
-import { log } from '@/utils';
+import { isFeatureAvailable } from '@/api/partners';
 import { api } from '@/api/utils';
 import cloneDeep from 'lodash.clonedeep';
 // import moment from 'moment';
@@ -17,45 +16,45 @@ export const state = {
 };
 
 export const getters = {
-  token: state => state.token,
-  appIsReady: state => state.appIsReady,
-  accessToken: state => state.accessToken,
-  refreshingToken: state => state.refreshingToken,
-  userName: state => (state.token ? state.token.user_name : ''),
-  userInfos: state => state.userInfos,
-  haveRole: state => role => {
+  token: (state) => state.token,
+  appIsReady: (state) => state.appIsReady,
+  accessToken: (state) => state.accessToken,
+  refreshingToken: (state) => state.refreshingToken,
+  userName: (state) => (state.token ? state.token.user_name : ''),
+  userInfos: (state) => state.userInfos,
+  haveRole: (state) => (role) => {
     if (state.userInfos) {
-      return !!state.userInfos.roles.find(r => r.name === role);
+      return !!state.userInfos.roles.find((r) => r.name === role);
     }
     return false;
   },
-  havePermission: state => (domain, action) => {
+  havePermission: (state) => (domain, action) => {
     if (state.userInfos) {
-      return !!state.userInfos.permissions.find(p => p.domain === domain && p.action === action);
+      return !!state.userInfos.permissions.find((p) => p.domain === domain && p.action === action);
     }
     return false;
   },
-  havePermissionDomain: state => domain => {
+  havePermissionDomain: (state) => (domain) => {
     if (state.userInfos) {
-      return !!state.userInfos.permissions.find(p => p.domain === domain);
+      return !!state.userInfos.permissions.find((p) => p.domain === domain);
     }
     return false;
   },
-  userLanguage: state => {
+  userLanguage: (state) => {
     return state.userInfos && state.userInfos.preferredLocale
       ? state.userInfos.preferredLocale
       : undefined;
   },
-  userIsPartner: state => {
+  userIsPartner: (state) => {
     return state.userInfos && state.userInfos.type === 'PARTNER';
   },
-  userIsGroupPartner: state => {
+  userIsGroupPartner: (state) => {
     return state.userInfos && state.userInfos.type === 'PARTNER_GROUP';
   },
-  userIsOperator: state => {
+  userIsOperator: (state) => {
     return state.userInfos && state.userInfos.type === 'OPERATOR';
   },
-  userHaveEsimEnabled: state => {
+  userHaveEsimEnabled: (state) => {
     return state.userInfos && state.userInfos.esimEnabled;
   },
   userIsMVNO: (state, getters) => {
@@ -72,16 +71,16 @@ export const getters = {
     }
     return undefined;
   },
-  userPartyGroup: state => {
+  userPartyGroup: (state) => {
     return state.userInfos && state.userInfos.partyGroup;
   },
-  userIsBO: state => {
+  userIsBO: (state) => {
     return state.userInfos && state.userInfos.isAdminOrBackOffice;
   },
-  userIsMultiPartner: state => {
+  userIsMultiPartner: (state) => {
     return state.userInfos && state.userInfos.partners && state.userInfos.partners.length > 1;
   },
-  userIsGroupAccount: state => {
+  userIsGroupAccount: (state) => {
     return (
       state.userInfos &&
       state.userInfos.type === 'PARTNER' &&
@@ -95,10 +94,7 @@ export const actions = {
   async fetchUserInfos({ commit }) {
     const currenUser = await fetchCurrentUserInfos();
     try {
-      currenUser.isEnabledPartySubscriptionOption = await isEnabledPartySubscriptionOption(
-        'FLEET_ENABLED',
-        currenUser.partners ? currenUser.partners.map(p => p.id) : []
-      );
+      currenUser.isFleetEnabled = await isFeatureAvailable('FLEET_ENABLED');
     } catch {
       console.warn('erreur party subscription');
     }
@@ -127,7 +123,6 @@ export const mutations = {
   setAuthToken(state, { token, tokenStr }) {
     state.accessToken = tokenStr;
     state.token = token;
-    log('New Token ', state.accessToken);
   },
   startRefreshingToken(state) {
     if (!state.refreshingToken) {

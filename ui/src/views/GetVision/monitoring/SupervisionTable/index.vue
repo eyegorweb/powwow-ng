@@ -127,7 +127,7 @@ export default {
           sortingName: 'countryName',
           format: {
             type: 'Getter',
-            getter: row => {
+            getter: (row) => {
               return row.countryName || row.countryNameFr;
             },
           },
@@ -282,7 +282,7 @@ export default {
 
   methods: {
     getExportFn() {
-      return async (columnsParam, orderBy, exportFormat) => {
+      return async (columnsParam, orderBy, exportFormat, asyncExportRequest) => {
         const sorting = {};
         sorting[orderBy.key] = orderBy.direction;
         const columns = [
@@ -324,7 +324,7 @@ export default {
           return await geoCounterListExport({
             filter: this.filtersForExport,
             columns,
-            asyncExportRequest: this.total >= 100000,
+            asyncExportRequest,
             exportFormat,
           });
         } else if (
@@ -335,7 +335,7 @@ export default {
           return await geoListExport({
             filter: this.filtersForExport,
             columns,
-            asyncExportRequest: this.total >= 100000,
+            asyncExportRequest,
             exportFormat,
           });
         }

@@ -155,7 +155,7 @@ export default {
       this.isLoading = false;
     },
     changeCellsOrder(orderedCells) {
-      const notVisibleCells = this.columns.filter(c => !c.visible);
+      const notVisibleCells = this.columns.filter((c) => !c.visible);
       this.columns = orderedCells.concat(notVisibleCells);
     },
     openAlarmPanel(payload) {

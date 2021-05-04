@@ -66,7 +66,7 @@ export default {
       if (this.$route.params && this.$route.params.queryFilters) {
         this.setRouteParamsFilters(this.$route.params.queryFilters);
         haveDateFilterInQueryFilter = !!this.$route.params.queryFilters.find(
-          f => f.id === 'filters.actDateStart'
+          (f) => f.id === 'filters.actDateStart'
         );
       }
       this.initFilterForContext();
@@ -92,7 +92,7 @@ export default {
     },
   },
   beforeRouteEnter(to, from, next) {
-    next(vm => {
+    next((vm) => {
       vm.prevRoute = from.name;
 
       vm.initAfterRouteIsSet();

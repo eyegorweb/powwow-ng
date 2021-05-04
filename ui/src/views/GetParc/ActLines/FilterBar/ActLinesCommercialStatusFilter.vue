@@ -24,7 +24,7 @@ export default {
 
     async refreshList() {
       const data = await fetchCommercialStatuses(this.selectedPartnersValues);
-      this.items = data.map(l => {
+      this.items = data.map((l) => {
         return {
           id: l,
           label: this.$t(`${'getparc.actLines.commercialStatuses.'}${l}`),

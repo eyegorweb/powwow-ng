@@ -100,7 +100,7 @@ export default {
     this.simTypes = await fetchSim(
       get(this.synthesis, 'billingAccount.value.partnerId'),
       undefined,
-      { eq: 'STANDARD' }
+      { ne: 'ESIM' }
     );
     this.selectedNumberOfSims = get(this.synthesis, 'quantity.selection.quantity', 0);
     /**
@@ -110,7 +110,7 @@ export default {
     const selectedProductInSynthesis = get(this.synthesis, 'product.selection.product', {});
     if (!selectedProductInSynthesis.simCard && get(this.order, 'orderedSIMCard.code')) {
       this.selectedSimTypeValue = this.simTypes.find(
-        s => s.simCard.code === get(this.order, 'orderedSIMCard.code')
+        (s) => s.simCard.code === get(this.order, 'orderedSIMCard.code')
       );
     } else {
       this.selectedSimTypeValue = selectedProductInSynthesis;
@@ -230,7 +230,7 @@ export default {
   computed: {
     filteredSimTypes: {
       get() {
-        return this.simTypes.slice(0, this.limit).filter(s => !!s.simCard);
+        return this.simTypes.slice(0, this.limit).filter((s) => !!s.simCard);
       },
       set(newVal) {
         return newVal;

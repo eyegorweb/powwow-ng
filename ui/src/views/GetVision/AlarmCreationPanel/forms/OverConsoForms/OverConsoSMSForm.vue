@@ -53,16 +53,11 @@ export default {
   },
 
   computed: {
-    basePercent: {
-      get() {
-        if (this.duplicateFrom && this.duplicateFrom.levelSmsMax) {
-          return this.duplicateFrom.levelSmsMax;
-        }
-        return 100;
-      },
-      set(newValue) {
-        this.duplicateFrom.levelSmsMax = newValue;
-      },
+    basePercent() {
+      if (this.duplicateFrom && this.duplicateFrom.levelSmsMax) {
+        return this.duplicateFrom.levelSmsMax;
+      }
+      return 100;
     },
   },
 

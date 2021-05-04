@@ -155,6 +155,7 @@ import carouselItems from './carouselItems';
 import PairingByFileFormContainer from '@/views/GetParc/ActLines/ActCreation/formContainers/PairingByFileFormContainer.vue';
 
 import { fetchSingleIndicator } from '@/api/linesActions';
+import { isFeatureAvailable } from '@/api/partners';
 
 export default {
   components: {
@@ -224,6 +225,7 @@ export default {
       ],
       // Pour recréer le composant ActForm à chaque changement des prérequis
       actToCreateFormVersionChange: 0,
+      lvFeature: false,
     };
   },
 
@@ -250,12 +252,12 @@ export default {
     ]),
 
     ...mapState({
-      actToCreate: state => state.actLines.actToCreate,
+      actToCreate: (state) => state.actLines.actToCreate,
     }),
 
     withCustomFormBehavior() {
       if (this.actCreationPrerequisites && this.actToCreate) {
-        const isPairing = !!['PAIRING'].find(i => i === this.actToCreate.id);
+        const isPairing = !!['PAIRING'].find((i) => i === this.actToCreate.id);
         return isPairing && this.$loGet(this.actCreationPrerequisites, 'filePairing');
       }
       return false;
@@ -287,35 +289,35 @@ export default {
       let itemsToReturn;
       if (this.userIsPartner || this.userInfos.type === 'PARTNER_GROUP') {
         itemsToReturn = carouselItems
-          .filter(i => {
+          .filter((i) => {
             return !i.boOnly;
           })
-          .filter(i => {
+          .filter((i) => {
             if (i.hideForMVNO) {
               return !this.userIsMVNO;
             }
             return true;
           })
-          .filter(i => {
+          .filter((i) => {
             if (i.hideForMultiCustomer) {
               return !this.userIsMultiCustomer;
             }
             return true;
           })
-          .filter(i => {
+          .filter((i) => {
             if (i.permission) {
               return this.havePermission(i.permission.domain, i.permission.action);
             }
             return true;
           })
-          .filter(i => {
+          .filter((i) => {
             if (i.title === 'getparc.actCreation.carouselItem.CHANGE_OFFER') {
               return this.optionsPartner.offerChange;
             }
             return true;
           });
       } else {
-        itemsToReturn = carouselItems.filter(i => {
+        itemsToReturn = carouselItems.filter((i) => {
           if (i.permission) {
             return this.havePermission(i.permission.domain, i.permission.action);
           }
@@ -324,10 +326,15 @@ export default {
       }
 
       if (!this.userHaveEsimEnabled) {
-        return itemsToReturn.filter(i => !i.esimAct);
+        return itemsToReturn.filter((i) => !i.esimAct);
       }
 
-      return itemsToReturn;
+      return itemsToReturn.filter((i) => {
+        if (i.partnerFeature === 'LV') {
+          return this.lvFeature;
+        }
+        return true;
+      });
     },
     canShowForm() {
       const actWithFileUpload = this.creationMode && this.creationMode.containFile;
@@ -366,14 +373,14 @@ export default {
     },
     partnersForIndicators() {
       if (this.defaultAppliedFilters && this.defaultAppliedFilters.length) {
-        return this.defaultAppliedFilters.find(f => f.id === 'filters.partners');
+        return this.defaultAppliedFilters.find((f) => f.id === 'filters.partners');
       }
 
       return null;
     },
   },
   beforeRouteEnter(to, from, next) {
-    next(vm => {
+    next((vm) => {
       vm.prevRoute = from.name;
       vm.initAfterRouteIsSet();
     });
@@ -381,7 +388,8 @@ export default {
   mounted() {
     this.setupIndicators();
     this.setActToCreate(null);
-    this.enableOfferChange();
+    this.fetchPartnerOptions();
+    this.fetchPartyFeatures();
 
     /**
      * la recherche n'est pas réinitialisée au retour de la page de détails, du coup on doit mettre la bonne valeur dans cette variable.
@@ -405,6 +413,9 @@ export default {
       'resetState',
     ]),
     ...mapMutations(['openPanel']),
+    async fetchPartyFeatures() {
+      this.lvFeature = await isFeatureAvailable('LV');
+    },
     onToggleChange(newToggleValue) {
       this.useFileImportAsInput = newToggleValue === 'byImport';
 
@@ -414,7 +425,7 @@ export default {
       }
     },
 
-    async enableOfferChange() {
+    async fetchPartnerOptions() {
       let response;
       if (this.userIsPartner || this.userInfos.type === 'PARTNER_GROUP') {
         response = await getPartyOptions(this.userInfos.partners[0].id);
@@ -674,7 +685,7 @@ export default {
       });
     },
     currentFilters(currentFilters) {
-      const haveValues = !!currentFilters.find(filter => {
+      const haveValues = !!currentFilters.find((filter) => {
         return (
           (filter.values && filter.values.length) ||
           filter.value ||

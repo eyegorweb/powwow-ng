@@ -3,7 +3,7 @@
     <div v-if="!partner" class="row">
       <div class="col">
         <h5>{{ $t('getparc.actLines.step1Partner') }}</h5>
-        <PartnersPart @setpartner="setPartner" />
+        <PartnersPart @setpartner="setPartner" :have-lv-offers="haveLvOffers" />
       </div>
       <div v-if="canSelectBillingAccount" class="col">
         <h5>{{ $t('getparc.actLines.billingAccount') }}</h5>
@@ -18,6 +18,7 @@
             :offer.sync="selectedOffer"
             :disabled="isPartnerEmpty"
             :all-offers="allOffers"
+            :have-lv-offers="haveLvOffers"
             keep-selected-value
             billing-account-mandatory
           />
@@ -37,6 +38,7 @@
             :offer.sync="selectedOffer"
             :disabled="isPartnerEmpty"
             :all-offers="allOffers"
+            :have-lv-offers="haveLvOffers"
           />
         </div>
         <div class="pl-1 to-bottom">
@@ -84,6 +86,7 @@ export default {
     },
     canSelectBillingAccount: Boolean,
     allOffers: Boolean,
+    haveLvOffers: Boolean,
   },
   watch: {
     partner(newValue) {

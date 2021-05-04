@@ -55,7 +55,7 @@ export default {
         'PT03-LOC_DER10007',
         'PT03-LOC_DER10500',
       ];
-      if (!availableErrors.find(e => e === this.errorCode)) {
+      if (!availableErrors.find((e) => e === this.errorCode)) {
         return this.$t('getparc.lineDetail.tab3.localisation.errors.generic', {
           errorCode: this.errorCode,
         });
@@ -63,7 +63,7 @@ export default {
       return this.$t('getparc.lineDetail.tab3.localisation.errors.' + this.errorCode);
     },
     status() {
-      return this.act.unitAction.status;
+      return this.act.unitAction.statusCode;
     },
     errorCode() {
       return this.act.unitAction.errorCode;
@@ -84,7 +84,7 @@ export default {
       return this.status === 'CANCELLED';
     },
     isWaiting() {
-      return !!['WAITING', 'SENT', 'IN_PROGRESS', 'REPLAYED'].find(i => i === this.status);
+      return !!['WAITING', 'SENT', 'IN_PROGRESS', 'REPLAYED'].find((i) => i === this.status);
     },
     label() {
       if (this.isOK) {
@@ -115,6 +115,7 @@ export default {
 <style lang="scss" scoped>
 .subTitle {
   color: $gray;
+  font-size: 0.8rem;
 }
 li {
   max-width: 18rem;

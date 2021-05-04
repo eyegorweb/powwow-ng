@@ -84,7 +84,7 @@ function addNewFilter(gqlFilters, selectedFilters, filterName, filterApiName) {
 function addActionsFilter(gqlFilters, selectedFilters) {
   const actions = getFilterValues(selectedFilters, 'filters.action');
   if (actions) {
-    actions.forEach(e => {
+    actions.forEach((e) => {
       if (e.id === 'filters.actionValues.ACTIVATED' && e.value) {
         gqlFilters.push(`activationAsked: {eq: ${e.value}}`);
       }
@@ -223,7 +223,7 @@ export async function fetchEsimCategories() {
   const response = await query(queryStr);
 
   if (response && response.data && response.data.simCardCategories) {
-    return response.data.simCardCategories.map(s => {
+    return response.data.simCardCategories.map((s) => {
       return {
         label: s.label,
         value: s.simCardCategory,

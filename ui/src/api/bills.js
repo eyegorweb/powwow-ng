@@ -57,7 +57,7 @@ export function formatFilters(selectedFilters) {
 }
 
 function addPartyIdFilter(gqlFilters, selectedFilters) {
-  const foundFilter = selectedFilters.find(f => f.id === 'getadmin.users.filters.partners');
+  const foundFilter = selectedFilters.find((f) => f.id === 'getadmin.users.filters.partners');
 
   if (foundFilter) {
     gqlFilters.push(`partnerId: ${foundFilter.data.id}`);
@@ -65,7 +65,7 @@ function addPartyIdFilter(gqlFilters, selectedFilters) {
 }
 
 function addCF(gqlFilters, selectedFilters) {
-  const foundFilter = selectedFilters.find(f => f.id === 'filters.billingAccounts');
+  const foundFilter = selectedFilters.find((f) => f.id === 'filters.billingAccounts');
 
   if (foundFilter) {
     gqlFilters.push(`customerAccountId: ${foundFilter.data.id}`);
@@ -73,7 +73,7 @@ function addCF(gqlFilters, selectedFilters) {
 }
 
 function addPeriod(gqlFilters, selectedFilters) {
-  const foundFilter = selectedFilters.find(f => f.id === 'common.period');
+  const foundFilter = selectedFilters.find((f) => f.id === 'common.period');
 
   if (foundFilter) {
     gqlFilters.push(`startPeriod: "${foundFilter.startDate}", endPeriod: "${foundFilter.endDate}"`);

@@ -30,7 +30,7 @@ export default {
   },
   async mounted() {
     const countries = await fetchDeliveryCountries(this.$i18n.locale);
-    this.countries = countries.map(c => ({
+    this.countries = countries.map((c) => ({
       ...c,
       label: c.name,
       value: c.code,

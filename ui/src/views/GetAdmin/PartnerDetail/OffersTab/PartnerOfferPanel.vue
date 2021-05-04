@@ -107,7 +107,7 @@ export default {
       if (!newValue) {
         return (this.visibleOffers = [...this.offers]);
       }
-      this.visibleOffers = this.offers.filter(o => {
+      this.visibleOffers = this.offers.filter((o) => {
         const isNameValid = o.name && o.name.toLowerCase().indexOf(newValue.toLowerCase()) !== -1;
         const isCodeValid = o.code && o.code.toLowerCase().indexOf(newValue.toLowerCase()) !== -1;
 
@@ -150,7 +150,7 @@ export default {
     },
 
     async save() {
-      const offerIds = this.offers.filter(f => f.checked).map(f => f.id);
+      const offerIds = this.offers.filter((f) => f.checked).map((f) => f.id);
       const response = await updateOffers(this.content.partner.id, offerIds);
       if (!response) {
         this.flashMessage({ level: 'danger', message: this.$t('genericErrorMessage') });
@@ -164,16 +164,16 @@ export default {
       this.isLoading = true;
       const items = await getAvailableOffer(this.content.partner.id, pagination);
 
-      const offersPage = items.map(i => {
+      const offersPage = items.map((i) => {
         const services = get(i, 'workflow.initialOffer.marketingServices', []);
-        const isChecked = !!this.partnerOffers.find(p => p.id === i.workflow.id);
+        const isChecked = !!this.partnerOffers.find((p) => p.id === i.workflow.id);
         return {
           id: i.workflow.id,
           name: i.workflow.name,
           code: i.workflow.code,
           checked: isChecked,
-          editableServices: services.filter(s => s.editable).map(s => s.labelService),
-          defaultServices: services.filter(s => !s.optional).map(s => s.labelService),
+          editableServices: services.filter((s) => s.editable).map((s) => s.labelService),
+          defaultServices: services.filter((s) => !s.optional).map((s) => s.labelService),
         };
       });
 

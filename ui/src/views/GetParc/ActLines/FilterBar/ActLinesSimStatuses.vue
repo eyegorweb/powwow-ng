@@ -26,7 +26,7 @@ export default {
       if (!this.actToCreate) return false;
 
       const concernedFilter = this.actToCreate.filters.find(
-        f => f.id === 'filters.lines.SIMCardStatus'
+        (f) => f.id === 'filters.lines.SIMCardStatus'
       );
 
       if (concernedFilter && concernedFilter.values) {
@@ -55,7 +55,7 @@ export default {
     disabledItems() {
       if (this.actToCreate) {
         const concernedFilter = this.actToCreate.filters.find(
-          f => f.id === 'filters.lines.SIMCardStatus'
+          (f) => f.id === 'filters.lines.SIMCardStatus'
         );
         if (concernedFilter) {
           return concernedFilter.values;

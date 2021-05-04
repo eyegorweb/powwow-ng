@@ -60,8 +60,8 @@ export default {
     const currentCustomFields = this.currentCustomFields;
 
     if (currentCustomFields && currentCustomFields.length) {
-      currentCustomFields.forEach(c => {
-        const correspondingField = this.allCustomFields.find(cf => cf.code === c.code);
+      currentCustomFields.forEach((c) => {
+        const correspondingField = this.allCustomFields.find((cf) => cf.code === c.code);
         if (correspondingField) {
           this.onValueChanged(correspondingField, c.value);
         }
@@ -73,7 +73,7 @@ export default {
     async fetchCustomFieldsForPartner() {
       const partnerId = get(this.lineData, 'party.id');
       const customFields = await fetchCustomFields(partnerId);
-      this.allCustomFields = customFields.customFields.map(c => {
+      this.allCustomFields = customFields.customFields.map((c) => {
         if (c.mandatory === 'NONE') {
           c.isOptional = true;
         } else {
@@ -85,15 +85,15 @@ export default {
     },
 
     getSelectedValue(code) {
-      const existingFieldValue = this.customFieldsValues.find(c => c.code === code);
+      const existingFieldValue = this.customFieldsValues.find((c) => c.code === code);
       if (existingFieldValue) {
         return existingFieldValue.enteredValue;
       }
     },
     onValueChanged(customField, enteredValue) {
-      const existingFieldValue = this.customFieldsValues.find(c => c.code === customField.code);
+      const existingFieldValue = this.customFieldsValues.find((c) => c.code === customField.code);
       if (existingFieldValue) {
-        this.customFieldsValues = this.customFieldsValues.map(c => {
+        this.customFieldsValues = this.customFieldsValues.map((c) => {
           if (c.code === customField.code) {
             return {
               ...c,
@@ -109,8 +109,8 @@ export default {
     },
     async doRequest(context) {
       const { notificationCheck, actDate } = context;
-      const getCustomFieldValue = code => {
-        const found = this.customFieldsValues.filter(c => c.code === code);
+      const getCustomFieldValue = (code) => {
+        const found = this.customFieldsValues.filter((c) => c.code === code);
         if (found && found.length) {
           return found[0].enteredValue;
         }
@@ -138,7 +138,7 @@ export default {
       }
     },
     getCustomFieldLabel(index) {
-      const found = this.allCustomFields.find(c => c.code === `custom${index}`);
+      const found = this.allCustomFields.find((c) => c.code === `custom${index}`);
       if (found) {
         return found.label;
       } else {
@@ -146,8 +146,8 @@ export default {
       }
     },
     chekcForErrors() {
-      const getCustomFieldValue = code => {
-        const found = this.customFieldsValues.filter(c => c.code === code);
+      const getCustomFieldValue = (code) => {
+        const found = this.customFieldsValues.filter((c) => c.code === code);
         if (found && found.length) {
           return found[0].enteredValue;
         }
@@ -155,14 +155,14 @@ export default {
       };
 
       this.customFieldsErrors = this.allCustomFields
-        .filter(c => c.mandatory !== 'NONE')
-        .filter(c => {
+        .filter((c) => c.mandatory !== 'NONE')
+        .filter((c) => {
           const value = getCustomFieldValue(c.code);
           if (!value || value.length === 0) {
             return true;
           }
         })
-        .map(c => c.code);
+        .map((c) => c.code);
     },
     arraysEqual(arr1, arr2) {
       if (arr1.length !== arr2.length) return false;
@@ -197,17 +197,17 @@ export default {
     canSend() {
       // si les deux tableaux sont identiques après saisie des nouvelles valeurs, alors nous ne pouvons pas valider
       const areEqualArrays = this.arraysEqual(
-        this.allCustomFields.map(c => {
+        this.allCustomFields.map((c) => {
           return c.enteredValue;
         }),
-        this.customFieldsValues.map(c => {
+        this.customFieldsValues.map((c) => {
           return c.enteredValue;
         })
       );
       if (areEqualArrays) return false;
 
       // si tous les champs sont optionnels, alors nous pouvons envoyer le formulaire avant tout changement
-      if (this.allCustomFields.filter(c => c.isOptional).length === this.allCustomFields.length) {
+      if (this.allCustomFields.filter((c) => c.isOptional).length === this.allCustomFields.length) {
         return true;
       }
 
@@ -215,14 +215,14 @@ export default {
       // pour chaque champ obligatoire, il faut que la valeur ne soit plus vide
       else {
         const itemListRequiredNotNull = this.customFieldsValues.length
-          ? this.allCustomFields.filter(c => !c.isOptional && c.type === 'LIST').length ===
+          ? this.allCustomFields.filter((c) => !c.isOptional && c.type === 'LIST').length ===
             this.customFieldsValues.filter(
-              c => !c.isOptional && c.type === 'LIST' && c.enteredValue !== 'none'
+              (c) => !c.isOptional && c.type === 'LIST' && c.enteredValue !== 'none'
             ).length
           : false;
         return (
-          this.allCustomFields.filter(c => !c.isOptional).length ===
-            this.customFieldsValues.filter(c => !c.isOptional && c.enteredValue).length &&
+          this.allCustomFields.filter((c) => !c.isOptional).length ===
+            this.customFieldsValues.filter((c) => !c.isOptional && c.enteredValue).length &&
           itemListRequiredNotNull
         );
       }
