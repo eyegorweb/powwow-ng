@@ -105,9 +105,7 @@ export default {
         data: get(this.duplicateFrom, 'party'),
       };
       if (this.sharedAlarm) {
-        this.chosenOffer = `${
-          this.duplicateFrom.offerGroup.offerInstance.marketingOffer.description
-        } /
+        this.chosenOffer = `${this.duplicateFrom.offerGroup.offerInstance.marketingOffer.description} /
           ${this.duplicateFrom.offerGroup.customerAccount.code} -
         ${this.duplicateFrom.offerGroup.customerAccount.name}`;
       }

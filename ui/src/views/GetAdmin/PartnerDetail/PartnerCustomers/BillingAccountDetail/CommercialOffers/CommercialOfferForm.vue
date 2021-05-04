@@ -128,9 +128,7 @@
       </ContentBlock>
 
       <ContentBlock v-if="form && form.discounts && form.discounts.length" no-handle>
-        <template slot="title"
-          >Remises</template
-        >
+        <template slot="title">Remises</template>
         <template slot="content">
           <DiscountFields
             :dicounts="form.discounts"

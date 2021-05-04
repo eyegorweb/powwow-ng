@@ -3,9 +3,7 @@ import get from 'lodash.get';
 
 export async function getAvailableOffer(partnerId, pagination) {
   const queryStr = `{
-  getAvailableOffer(partnerId: ${partnerId}, pagination: { page: ${pagination.page}, limit: ${
-    pagination.limit
-  }}) {
+  getAvailableOffer(partnerId: ${partnerId}, pagination: { page: ${pagination.page}, limit: ${pagination.limit}}) {
     total
     items {
       workflow {
