@@ -2,6 +2,21 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.313+20210504131421
+2021-05-04
+
+### Features
+
+- [2590] Ajout du filtre IP_FIXE + type d'import dans actLines (906eb0258e5c052fcb21c51bc5ee11e3eb36e4ee)
+- [2590] Ajout du filtre IP_FIXE + type d'import dans actLines (bfb8bef2b24ff771ac3308cd3d0a6f2d7d778251)
+- [2590] Ajout du filtre IP_FIXE + type d'import dans actLines (1a4530bc91102e93d6eb80ce4f2657624043379a)
+
+### Fixes
+
+- [2590] Ajout du filtre IP_FIXE + type d'import dans actLines (6a96b132b0389615d41f1ec11b84bb4965c2d1ea)
+- [2590] problème de condition dans l'affichage (3d8c2adedf5b6549560dd79c10c3bbfcef3d47f7)
+- [2618] afficher le bouton de rechargement LV (ff399f8adf5d1f594764ac440470566086263f2a)
+
 ## 1.17.0-master.312+20210504094135
 2021-05-04
 
