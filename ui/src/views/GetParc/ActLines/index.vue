@@ -17,7 +17,7 @@
     <div class="row mb-5" v-if="canShowCarousel">
       <div class="col-md-12">
         <ActionCarousel
-          v-if="optionsPartner.offerChange !== undefined"
+          v-if="!isFetchingPartnerOptions && optionsPartner.offerChange !== undefined"
           title="getparc.actLines.chooseAct"
           :actions="carouselItems"
           @itemClick="onCarouselItemClick"
@@ -89,9 +89,9 @@
             num="1"
             v-if="
               creationMode &&
-                actCreationPrerequisites &&
-                !actToCreate.containFile &&
-                !useFileImportAsInput
+              actCreationPrerequisites &&
+              !actToCreate.containFile &&
+              !useFileImportAsInput
             "
             title="getparc.actLines.step1Title"
             :color="actToCreate.color"
@@ -176,6 +176,7 @@ export default {
   },
   data() {
     return {
+      isFetchingPartnerOptions: true,
       canMounTable: true,
       prereqSet: false,
       indicators: undefined,
@@ -331,6 +332,7 @@ export default {
 
       return itemsToReturn.filter((i) => {
         if (i.partnerFeature === 'LV') {
+          console.log('this.lvFeature > ', this.lvFeature);
           return this.lvFeature;
         }
         return true;
@@ -385,11 +387,12 @@ export default {
       vm.initAfterRouteIsSet();
     });
   },
-  mounted() {
+  async mounted() {
     this.setupIndicators();
     this.setActToCreate(null);
     this.fetchPartnerOptions();
-    this.fetchPartyFeatures();
+    await this.fetchPartyFeatures();
+    this.isFetchingPartnerOptions = false;
 
     /**
      * la recherche n'est pas réinitialisée au retour de la page de détails, du coup on doit mettre la bonne valeur dans cette variable.
