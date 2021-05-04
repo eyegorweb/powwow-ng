@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.312+20210504094135
+2021-05-04
+
+### Features
+
+- [2634] pouvoir faire un nouvel export pour l'utilisateur backOffice (ab1fe719e8edfcb1a9fcbce2ad22bf5b9a99755c)
+
 ## 1.17.0-master.311+20210503142214
 2021-05-03
 
