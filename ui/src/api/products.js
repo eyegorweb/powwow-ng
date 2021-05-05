@@ -27,3 +27,15 @@ export async function fetchSim(partnerId, customerAccountId, simCategoryFilter) 
 
   return response.data.findLatestSimcardsOrder.items;
 }
+
+export async function disableSimCard(partnerId, simId) {
+  const response = await query(
+    `
+      mutation{
+        disableSimForParty(partnerId: ${partnerId}, simcardId: ${simId})
+      }
+    `
+  );
+
+  return response.data.disableSimForParty;
+}

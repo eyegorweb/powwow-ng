@@ -24,8 +24,8 @@
       <Card
         v-for="list in filteredItems"
         :key="list.id"
-        :can-delete="!noEdit"
-        :can-modify="!noEdit"
+        :can-delete="!noEdit && canDelete"
+        :can-modify="!noEdit && canModify"
         @modify="$emit('modify', list)"
         @delete="$emit('delete', list)"
       >
@@ -54,6 +54,7 @@ export default {
     filterFn: Function,
     noEdit: Boolean,
     canDelete: Boolean,
+    canModify: Boolean,
   },
 
   data() {

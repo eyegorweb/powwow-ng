@@ -721,6 +721,7 @@
       "specificFields": "Champs spécifiques",
       "deliveryAddress": "Adresses de livraison",
       "addDeliveryAddress": "Ajouter une adresse de livraison",
+      "manageSimCards": "Gérer les cartes SIM associées",
       "modifyDeliveryAddress": "Modifier une adresse de livraison",
       "deleteDeliveryAddress": "Etes-vous sûr de vouloir supprimer l'adresse de livraison ?",
       "listName": "Nom de la liste de diffusion",
@@ -931,6 +932,16 @@
         "offerSearch": "Rechercher une Offre",
         "searchInput": "Saisir un nom ou un code",
         "offerManagement": "Gérer les offres associées",
+        "defaultServices": "Services activés par défaut",
+        "default": "Activés par défaut",
+        "modifiedServices": "Services modifiables"
+      },
+      "simCardsFromPanel": {
+        "title": "Panel cartes SIM",
+        "availableOffers": "Cartes SIM disponibles pour cette entité",
+        "offerSearch": "Rechercher une carte SIM",
+        "searchInput": "Saisir un nom ou un code",
+        "offerManagement": "Gérer les cartes SIM associées",
         "defaultServices": "Services activés par défaut",
         "default": "Activés par défaut",
         "modifiedServices": "Services modifiables"
