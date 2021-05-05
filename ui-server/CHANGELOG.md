@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.316+20210505154332
+2021-05-05
+
+### Fixes
+
+- [2535] Corriger le branchement de l'api lastGeographicalLocation (8438b429f0fb18ecf6a65b68adc345b6b79b838c)
+
 ## 1.17.0-master.315+20210505090819
 2021-05-05
 
