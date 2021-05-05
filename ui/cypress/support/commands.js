@@ -20,8 +20,8 @@ Cypress.Commands.add('startAsBO', () => {
 Cypress.Commands.add('startAsPartner', () => {
   cy.userIsMonoPartner = false;
   cy.visit(Cypress.env('APP_URL') + 'p/callback#access_token=' + Cypress.env('PARTNER_TOKEN'));
+
   cy.get('#app-loader').should('not.be.visible');
-  cy.url().should('eq', Cypress.env('APP_URL') + 'p/');
 });
 
 Cypress.Commands.add('waitGet', path => {

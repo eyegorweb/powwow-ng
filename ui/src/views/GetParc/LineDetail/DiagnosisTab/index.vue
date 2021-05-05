@@ -7,7 +7,7 @@
           v-for="item in visibleMenuItems"
           :key="item.title"
           class="list-group-item"
-          :class="{ '-inactive': !isLineActive }"
+          :class="({ '-inactive': !isLineActive }, `menu_${item.section}`)"
         >
           <router-link :to="item.to" :class="{ active: $route.name == item.to.name }">
             {{ $t(item.title) }} <i class="ic-Arrow-Next-Icon float-right"></i>

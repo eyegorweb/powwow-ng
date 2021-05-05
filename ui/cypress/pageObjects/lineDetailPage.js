@@ -53,9 +53,142 @@ export default {
       cy.waitGet('.mt-4.mb-4 .tabs-bar > li:nth-child(2) > a').click();
       cy.url().should('include', '/ongoing');
     },
+    ongoingDetails: {
+      tableIsVisible() {
+        cy.waitGet('.table').should('be.visible');
+      },
+      warningMessageIsVisible() {
+        cy.waitGet('.pt-4.pl-4 > div > .position-relative > div').should(
+          'have.class',
+          'warning-message'
+        );
+      },
+    },
     analysis() {
       cy.waitGet('.mt-4.mb-4 .tabs-bar > li:nth-child(3) > a').click();
       cy.url().should('include', '/analysis');
+    },
+    analysisDetails: {
+      menu: {
+        tests() {
+          cy.waitGet('.menu_last_tests > a').click();
+          cy.url().should('include', '/tests');
+        },
+        networkLocationTest() {
+          cy.waitGet('.menu_network_location_test > a').click();
+          cy.url().should('include', '/network-location-test');
+        },
+        networkTestControl() {
+          cy.waitGet('.menu_network_test_control > a').click();
+          cy.url().should('include', '/network-test-control');
+        },
+        supervision() {
+          cy.waitGet('.menu_supervision > a').click();
+          cy.url().should('include', '/supervision');
+        },
+        networkHistory() {
+          cy.waitGet('.menu_network_history > a').click();
+          cy.url().should('include', '/network-history');
+        },
+      },
+      warningMessageIsVisible() {
+        cy.waitGet('.col-md-9.pt-3 > div').should('have.class', 'warning-message');
+      },
+    },
+  },
+  buttons: {
+    changerCarteSIM: {
+      clickable() {
+        cy.waitGet('.slick-slide:nth-child(1) > div > .carousel-item > div').should(
+          'not.have.class',
+          'inactive'
+        );
+      },
+      notClickable() {
+        cy.waitGet('.slick-slide:nth-child(1) > div > .carousel-item > div').should(
+          'have.class',
+          'inactive'
+        );
+      },
+      click() {
+        cy.waitGet('.slick-slide:nth-child(1)').click();
+      },
+    },
+    changerMSISDN: {
+      clickable() {
+        cy.waitGet('.slick-slide:nth-child(2) > div > .carousel-item > div').should(
+          'not.have.class',
+          'inactive'
+        );
+      },
+      notClickable() {
+        cy.waitGet('.slick-slide:nth-child(2) > div > .carousel-item > div').should(
+          'have.class',
+          'inactive'
+        );
+      },
+      click() {
+        cy.waitGet('.slick-slide:nth-child(2)').click();
+      },
+    },
+    modifierChampsLibres: {
+      clickable() {
+        cy.waitGet('.slick-slide:nth-child(3) > div > .carousel-item > div').should(
+          'not.have.class',
+          'inactive'
+        );
+      },
+      notClickable() {
+        cy.waitGet('.slick-slide:nth-child(3) > div > .carousel-item > div').should(
+          'have.class',
+          'inactive'
+        );
+      },
+      click() {
+        cy.waitGet('.slick-slide:nth-child(3)').click();
+      },
+    },
+    changementCF: {
+      clickable() {
+        cy.waitGet('.slick-slide:nth-child(4) > div > .carousel-item > div').should(
+          'not.have.class',
+          'inactive'
+        );
+      },
+      notClickable() {
+        cy.waitGet('.slick-slide:nth-child(4) > div > .carousel-item > div').should(
+          'have.class',
+          'inactive'
+        );
+      },
+      click() {
+        cy.waitGet('.slick-slide:nth-child(4)').click();
+      },
+    },
+    changerOffre: {
+      clickable() {
+        cy.waitGet('.slick-slide:nth-child(5) > div > .carousel-item > div').should(
+          'not.have.class',
+          'inactive'
+        );
+      },
+      notClickable() {
+        cy.waitGet('.slick-slide:nth-child(5) > div > .carousel-item > div').should(
+          'have.class',
+          'inactive'
+        );
+      },
+      click() {
+        cy.waitGet('.slick-slide:nth-child(5)').click();
+      },
+    },
+    panel: {
+      closePanel() {
+        cy.waitGet('.cd-panel__header > a').click();
+      },
+      isVisible() {
+        cy.waitGet('.cd-panel').should('have.class', 'cd-panel--is-visible');
+      },
     },
   },
 };
