@@ -368,7 +368,6 @@ export default {
       }
     },
     getExportFn() {
-      console.log('ferfer');
       return async (columnsParam, orderBy, exportFormat) => {
         return await exportUsers(columnsParam, this.orderBy, exportFormat, [
           ...this.currentAppliedFilters,

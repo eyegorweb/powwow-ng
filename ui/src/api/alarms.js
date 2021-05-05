@@ -433,7 +433,6 @@ export async function deleteAlarmInstance2(alarmInput) {
     }
 
     const fileFilter = alarmInput.filters.find((f) => f.id === 'filters.lines.fromFile.title');
-    console.log('🚀 ~ file: alarms.js ~ line 415 ~ deleteAlarmInstance2 ~ fileFilter', fileFilter);
     if (fileFilter && fileFilter.values && fileFilter.values.length) {
       input.alarmFilterInput.tempDataUuid = fileFilter.values[0].tempDataUuid;
     }

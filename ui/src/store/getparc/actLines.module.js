@@ -385,7 +385,6 @@ export const mutations = {
     });
   },
   selectEsimCategoryFilter(state, meta) {
-    console.log('🚀 ~ file: actLines.module.js ~ line 372 ~ selectEsimCategoryFilter ~ meta', meta);
     selectFilterValue(state, {
       id: 'indicators.getparc.lines.esim.category',
       value: meta.label,

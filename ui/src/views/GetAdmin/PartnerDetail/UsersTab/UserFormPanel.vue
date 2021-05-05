@@ -87,10 +87,10 @@
         </div>
       </div>
 
-      <div v-if="content.duplicateFrom && havePermission('user', 'create')" class="entries-line">
+      <div v-if="isEditMode" class="entries-line">
         <div class="form-entry">
           <button class="btn pt-0 pl-0 btn-link" @click.stop="() => openChangePasswordPanel()">
-            <i class="arrow ic-Plus-Icon" />
+            <em class="arrow ic-Plus-Icon" />
             {{ $t('getadmin.partnerDetail.changePassword.title') }}
           </button>
         </div>
@@ -306,7 +306,7 @@ export default {
         roles: this.selectedRoles,
       };
 
-      if (this.createMode) {
+      if (this.createMode || this.isDuplicateMode) {
         params.password = this.form.password;
         params.confirmPassword = this.form.passwordConfirm;
       }
@@ -384,6 +384,9 @@ export default {
     isEditMode() {
       return !!this.content.duplicateFrom && !this.content.duplicate;
     },
+    isDuplicateMode() {
+      return !!this.content.duplicateFrom && this.content.duplicate;
+    },
 
     loginFieldDisabled() {
       if (this.isEditMode && !this.userIsBO) {
@@ -445,7 +448,7 @@ export default {
       const passwordError = !!this.passwordConfirmationErrors.length;
       const fieldsToCheck = ['title', 'language', 'firstName', 'lastName', 'email', 'username'];
 
-      if (this.createMode) {
+      if (this.createMode || this.isDuplicateMode) {
         fieldsToCheck.push('password', 'passwordConfirm');
       }
 
@@ -476,7 +479,7 @@ export default {
 
     passwordConfirmationErrors() {
       if (!this.form.password) return [];
-      if (this.createMode) {
+      if (this.createMode || this.isDuplicateMode) {
         const errors = checkPasswordErrors(this.form.password, this.form.passwordConfirm);
 
         // Le mot de passe doit être différent du nom ou prénom.

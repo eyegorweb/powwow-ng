@@ -24,7 +24,6 @@ export default {
       return this.visibleColumns.length > MAX_SIZE_BEFORE_TRUNCATE;
     },
     typeDetails() {
-      console.log('row', this.row);
       return this.row.simCardType.label ? this.row.simCardType.label : '-';
     },
   },
