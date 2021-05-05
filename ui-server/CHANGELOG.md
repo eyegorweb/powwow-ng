@@ -2,6 +2,17 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.314+20210505085650
+2021-05-05
+
+### Features
+
+- [1184] ajout de la gestion des cartes sim dans detail partner (5b6c472379da5541b52d9ea731d850121535f67d)
+
+### Fixes
+
+- [2648] Création d'un utilisateur par duplication (e3107ded186785f5e66d5d47343900a0b02dbebf)
+
 ## 1.17.0-master.313+20210504131421
 2021-05-04
 
