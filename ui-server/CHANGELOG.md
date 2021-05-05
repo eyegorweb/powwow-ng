@@ -2,12 +2,14 @@
 
 <!--- next entry here -->
 
-## 1.17.0-master.314+20210505085650
+## 1.17.0-master.315+20210505090819
 2021-05-05
 
 ### Features
 
 - [1184] ajout de la gestion des cartes sim dans detail partner (5b6c472379da5541b52d9ea731d850121535f67d)
+- [2657] ajout option ipFixe dans partner options (b4a3f0d30d526c6f3754c2ad1f513687f57705ae)
+- [000] Ajout de 5 tests sur line_detail (b90e63961dca3af280cebabd123524d65e26e440)
 
 ### Fixes
 
