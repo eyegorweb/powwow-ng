@@ -52,6 +52,7 @@ export default {
   & ::v-deep input {
     border-radius: 0;
     font-size: 1.05rem;
+    padding: 0.33rem 0.8rem;
   }
 
   & ::v-deep select {

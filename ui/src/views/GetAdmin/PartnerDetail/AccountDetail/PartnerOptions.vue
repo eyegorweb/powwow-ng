@@ -408,7 +408,7 @@
         <UiButton
           v-if="
             havePermission('party', 'update_main_options') ||
-              havePermission('party', 'update_secondary_options')
+            havePermission('party', 'update_secondary_options')
           "
           variant="primary"
           class="p-3"
@@ -489,11 +489,6 @@ export default {
   },
   props: {
     partner: Object,
-  },
-  watch: {
-    userIsBO(newValue) {
-      console.log('🚀 ~ file: PartnerOptions.vue ~ line 495 ~ userIsBO ~ newValue', newValue);
-    },
   },
 
   async mounted() {

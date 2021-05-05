@@ -563,8 +563,13 @@ export default {
     ...mapActions('actLines', ['clearFilter']),
 
     async fetchPartnerOptions() {
-      const optionsPartner = await getPartyOptions(this.userInfos.id);
-      this.ipFixeEnabled = optionsPartner.ipFixeEnable;
+      let response;
+      if (this.userIsPartner || this.userInfos.type === 'PARTNER_GROUP') {
+        response = await getPartyOptions(this.userInfos.partners[0].id);
+        this.ipFixeEnabled = response ? response.ipFixeEnable : true;
+      } else {
+        this.ipFixeEnabled = true;
+      }
     },
 
     showAllFilters() {

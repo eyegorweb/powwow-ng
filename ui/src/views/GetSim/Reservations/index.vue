@@ -288,7 +288,6 @@ export default {
       };
     },
     async applyFilters(payload) {
-      console.log('🚀 ~ file: index.vue ~ line 267 ~ applyFilters ~ payload', payload);
       this.lastPayload = payload;
 
       const { pagination, filters } = payload || {

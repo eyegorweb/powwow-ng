@@ -332,7 +332,6 @@ export default {
 
       return itemsToReturn.filter((i) => {
         if (i.partnerFeature === 'LV') {
-          console.log('this.lvFeature > ', this.lvFeature);
           return this.lvFeature;
         }
         return true;
