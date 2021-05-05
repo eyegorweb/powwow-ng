@@ -3,11 +3,13 @@
     :key="version"
     search-input-txt="getadmin.partnerDetail.simcards.search"
     placeholder-txt="getadmin.partnerDetail.simcards.searchPlaceholder"
-    add-txt="getadmin.customize.addDeliveryAddress"
-    add-icon="ic-Pin-Icon"
+    add-txt="getadmin.customize.manageSimCards"
+    add-icon="ic-Sim-Icon"
+    @create="manageSimCards"
+    :can-modify="false"
     :fetch-fn="fetchFn"
     :filter-fn="filterFn"
-    no-edit
+    :no-edit="!havePermissionToEdit"
   >
     <template #title>
       <h4 class="text-primary text-uppercase">{{ $t('getadmin.partnerDetail.simcards.title') }}</h4>
@@ -27,7 +29,11 @@
           {{ $t('getsim.sim-type-labels.orderDate') }}: : {{ getFromObject(item, 'orderDate') }}
         </li>
       </ul>
-
+      <slot>
+        <div class="cardBloc-buttons" v-if="havePermissionToEdit">
+          <Button :variant="'import'" @click="disableSim(item.simCard.id)">{{ $t('actions.DISABLE') }}</Button>
+        </div>
+      </slot>
       <div class="cards-sim">
         <img src="@/assets/simtype.png" />
       </div>
@@ -40,12 +46,14 @@ import CardsList from '@/views/GetAdmin/PartnerDetail/parts/CardsList.vue';
 import get from 'lodash.get';
 
 import { mapMutations, mapGetters } from 'vuex';
+import Button from '@/components/ui/Button';
 
-import { fetchSim } from '@/api/products.js';
+import { fetchSim, disableSimCard } from '@/api/products.js';
 
 export default {
   components: {
     CardsList,
+    Button,
   },
 
   props: {
@@ -67,13 +75,46 @@ export default {
   methods: {
     ...mapMutations(['openPanel', 'confirmAction']),
 
+    manageSimCards() {
+      const doReset = () => {
+        this.fetchFn();
+      };
+      this.openPanel({
+        title: this.$t('getadmin.partnerDetail.simCardsFromPanel.title'),
+        panelId: 'getadmin.partnerDetail.simCardsFromPanel.title',
+        payload: { partner: this.partner, offers: this.simCards },
+        backdrop: true,
+        width: '40rem',
+        ignoreClickAway: true,
+        onClosePanel(params) {
+          if (params && params.resetSearch) {
+            doReset();
+          }
+        },
+      });
+    },
+
+    async disableSim(simId) {
+      const doReset = () => {
+        this.fetchFn();
+      };
+      this.confirmAction({
+        message: 'confirmAction',
+        actionFn: async () => {
+          await disableSimCard(this.partner.id, simId)
+          doReset();
+        },
+      });
+    },
+
     async fetchFn() {
       let cfId;
 
       if (this.billingAccountToDetail) {
         cfId = this.billingAccountToDetail.id;
       }
-      return await fetchSim(this.partner.id, cfId);
+      const sims = await fetchSim(this.partner.id, cfId)
+      return sims;
     },
 
     getFromObject(object, path, defaultValue = '') {
@@ -102,6 +143,12 @@ export default {
 
   computed: {
     ...mapGetters(['userInfos']),
+    ...mapGetters(['havePermission']),
+
+    havePermissionToEdit() {
+      return this.havePermission('party', 'update_available_sims');
+    }
+
   },
 };
 </script>
@@ -111,6 +158,10 @@ h3 {
   font-size: 16px;
   margin-bottom: 20px;
   color: #0055a4;
+}
+
+.cardBloc {
+  height: 14rem;
 }
 
 .cards {
