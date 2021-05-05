@@ -45,14 +45,26 @@
             </div>
           </div>
         </div>
-        <div class="third-size to-center pb-3" v-if="partner.partyType === 'CUSTOMER'">
-          <UiToggle
-            :label="$t('getadmin.partners.optionsDetails.eSim')"
-            :editable="true"
-            :bold-label="eSim"
-            v-model="eSim"
-            small-label
-          />
+        <div class="d-flex">
+          <div class="third-size to-center pb-3" v-if="partner.partyType === 'CUSTOMER'">
+            <UiToggle
+              :label="$t('getadmin.partners.optionsDetails.eSim')"
+              :editable="true"
+              :bold-label="eSim"
+              v-model="eSim"
+              small-label
+            />
+          </div>
+
+          <div class="third-size to-center pb-3">
+            <UiToggle
+              :label="$t('getadmin.partners.optionsDetails.ipFixe')"
+              :editable="true"
+              :bold-label="ipFixe"
+              v-model="ipFixe"
+              small-label
+            />
+          </div>
         </div>
 
         <div class="d-flex" v-if="partyType === 'CUSTOMER' && getToggle(services, 'BROADCAST_SMS')">
@@ -742,6 +754,7 @@ export default {
       this.diffusionListEnabled = this.partnerOptions.diffusionListEnabled;
       this.resilationSecurityNotificationMails = this.partnerOptions.resilationSecurityNotificationMails;
       this.eSim = this.partnerOptions.esimEnable;
+      this.ipFixe = this.partnerOptions.ipFixeEnable;
       this.mailOrder = this.partnerOptions.mailOrder;
       this.crEmail = this.partnerOptions.crEmail;
       this.portabilityAcquittalsEmails = this.partnerOptions.portabilityAcquittalsEmails;
@@ -900,6 +913,7 @@ export default {
           resilationSecurityEnabled: this.getToggle(this.services, 'SECU_RESIL'),
           resilationSecurityDelay,
           esimEnable,
+          ipFixeEnable: this.ipFixe,
           resilationSecurityNotificationEnabled: this.resilationSecurityNotificationEnabled,
           resilationSecurityNotificationMails,
           terminationDfeEnabled: this.getToggle(this.services, 'TERMINATION_DFE'),

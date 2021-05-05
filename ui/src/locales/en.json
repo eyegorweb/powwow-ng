@@ -670,6 +670,7 @@
       },
       "optionsDetails": {
         "smsCodes": "Short codes SMS",
+        "ipFixe": "Fixed IP active",
         "notifyEmail": "Email notification",
         "userReference": "Entering the customer reference",
         "listCR": "RC mailing list",

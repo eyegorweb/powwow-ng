@@ -764,6 +764,7 @@
       },
       "optionsDetails": {
         "eSim": "Esim pour le partenaire",
+        "ipFixe": "IP Fixe active",
         "smsCodes": "Codes courts SMS",
         "notifyEmail": "Notification par mail",
         "userReference": "Saisie de la référence client",
