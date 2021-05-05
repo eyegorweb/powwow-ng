@@ -42,3 +42,55 @@ Then('Je peux naviguer entre les differents onglets', () => {
   lineDetailPage.tab.ongoing();
   lineDetailPage.tab.analysis();
 });
+
+Then("Je peux cliquer sur les boutons et les panneaux s'ouvrent", () => {
+  lineDetailPage.buttons.changerCarteSIM.clickable();
+  lineDetailPage.buttons.changerCarteSIM.click();
+  lineDetailPage.buttons.panel.isVisible();
+  lineDetailPage.buttons.panel.closePanel();
+  lineDetailPage.buttons.changerMSISDN.clickable();
+  lineDetailPage.buttons.changerMSISDN.click();
+  lineDetailPage.buttons.panel.isVisible();
+  lineDetailPage.buttons.panel.closePanel();
+  lineDetailPage.buttons.modifierChampsLibres.clickable();
+  lineDetailPage.buttons.modifierChampsLibres.click();
+  lineDetailPage.buttons.panel.isVisible();
+  lineDetailPage.buttons.panel.closePanel();
+  lineDetailPage.buttons.changementCF.clickable();
+  lineDetailPage.buttons.changementCF.click();
+  lineDetailPage.buttons.panel.isVisible();
+  lineDetailPage.buttons.panel.closePanel();
+  lineDetailPage.buttons.changerOffre.clickable();
+  lineDetailPage.buttons.changerOffre.click();
+  lineDetailPage.buttons.panel.isVisible();
+  lineDetailPage.buttons.panel.closePanel();
+});
+
+Then('Le tableau de consommation est present dans l\'onglet "EN COURS DE CONSOMMATION"', () => {
+  lineDetailPage.tab.ongoing();
+  lineDetailPage.tab.ongoingDetails.tableIsVisible();
+});
+
+Then("Je peux cliquer sur les differents menus de l'onglet d'analyse", () => {
+  lineDetailPage.tab.analysis();
+  lineDetailPage.tab.analysisDetails.menu.tests();
+  lineDetailPage.tab.analysisDetails.menu.networkLocationTest();
+  lineDetailPage.tab.analysisDetails.menu.networkTestControl();
+  lineDetailPage.tab.analysisDetails.menu.supervision();
+  lineDetailPage.tab.analysisDetails.menu.networkHistory();
+});
+
+Then("Le message d'avertissement est present dans les onglets de consommation et d'analyse", () => {
+  lineDetailPage.tab.ongoing();
+  lineDetailPage.tab.ongoingDetails.warningMessageIsVisible();
+  lineDetailPage.tab.analysis();
+  lineDetailPage.tab.analysisDetails.warningMessageIsVisible();
+});
+
+Then('Je verifie que les boutons ne sont pas clickable', () => {
+  lineDetailPage.buttons.changerCarteSIM.notClickable();
+  lineDetailPage.buttons.changerMSISDN.notClickable();
+  lineDetailPage.buttons.modifierChampsLibres.notClickable();
+  lineDetailPage.buttons.changementCF.notClickable();
+  lineDetailPage.buttons.changerOffre.notClickable();
+});
