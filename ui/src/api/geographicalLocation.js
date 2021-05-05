@@ -9,9 +9,18 @@ export async function lastGeographicalLocation(simCardInstanceId) {
       celluleID
       lastCommunicationDate
       usageDetailsByDirection
+      ticketGeneration
       ticketGenerationTranslated
       latitude
       longitude
+      pdpConnectionStatus
+      connectionClosingReason
+      pdpConnectionStartDate
+      pdpConnectionEndDate
+      ipAddressType
+      ipV4Address
+      ipV6Address
+      apn
     }
   }
     `

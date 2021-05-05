@@ -21,24 +21,24 @@
             <div class="d-flex">
               <div class="item">
                 <h6>{{ $t('getparc.lineDetail.tab2.lineAnalysisContent.connexionStatus') }}:</h6>
-                <p>{{ getConnectionStatus() }}</p>
+                <p>{{ getValue(geographicalLocation, 'pdpConnectionStatus') }}</p>
               </div>
               <div class="item justify-content-end">
                 <h6>
                   {{ $t('getparc.lineDetail.tab2.lineAnalysisContent.closingConnexionReason') }}:
                 </h6>
-                <p>{{ getClosingReason() }}</p>
+                <p>{{ getValue(geographicalLocation, 'connectionClosingReason') }}</p>
               </div>
             </div>
             <hr />
             <div class="d-flex">
               <div class="item">
                 <h6>{{ $t('getparc.lineDetail.tab2.lineAnalysisContent.connexionDebut') }}:</h6>
-                <p>{{ getValue(geographicalLocation, 'startDate') }}</p>
+                <p>{{ getValue(geographicalLocation, 'pdpConnectionStartDate') }}</p>
               </div>
               <div class="item justify-content-end">
                 <h6>{{ $t('getparc.lineDetail.tab2.lineAnalysisContent.connexionEnd') }}:</h6>
-                <p>{{ getValue(geographicalLocation, 'endDate') }}</p>
+                <p>{{ getValue(geographicalLocation, 'pdpConnectionEndDate') }}</p>
               </div>
             </div>
           </div>
@@ -55,7 +55,7 @@
               </div>
               <div class="item justify-content-end">
                 <h6>{{ $t('getparc.lineDetail.tab2.lineAnalysisContent.IPType') }}:</h6>
-                <p>{{ getValue(geographicalLocation, 'ipAddressTypeTranslated') }}</p>
+                <p>{{ getValue(geographicalLocation, 'ipAddressType') }}</p>
               </div>
             </div>
             <hr />
@@ -187,15 +187,9 @@ export default {
   async mounted() {
     if (this.getValue(this.content, 'id')) {
       this.loadingGeoloc = true;
-      // const pdpResponse = await dataUsage(this.getValue(this.content, 'id'), { page: 0, limit: 1 });
-      // if (pdpResponse && pdpResponse.items && pdpResponse.items.length) {
-      //   this.pdpConnexionData = {
-      //     ...pdpResponse.items[0],
-      //     ...pdpResponse.items[0].pdpConnectionDateInfo,
-      //     ...pdpResponse.items[0].pdpConnectionHistory,
-      //   };
-      // }
+
       this.geographicalLocation = await lastGeographicalLocation(this.getValue(this.content, 'id'));
+
       this.loadingGeoloc = false;
     }
 
@@ -216,19 +210,6 @@ export default {
       }
       const value = get(objectToUse, path, defaultValue);
       return value !== null ? value : '-';
-    },
-    getConnectionStatus() {
-      const connectionStatus = this.getValue(this.pdpConnexionData, 'connectionStatusTranslated');
-      if (connectionStatus === '-') return '-';
-      return connectionStatus;
-    },
-    getClosingReason() {
-      const connectionClosingReason = this.getValue(
-        this.pdpConnexionData,
-        'connectionClosingReasonTranslated'
-      );
-      if (connectionClosingReason === '-') return '-';
-      return connectionClosingReason;
     },
   },
   computed: {
