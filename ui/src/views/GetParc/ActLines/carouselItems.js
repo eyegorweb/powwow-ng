@@ -115,7 +115,7 @@ export default excludeMocked([
         values: [
           {
             id: 'SUSPENDED',
-            label: 'Suspendu',
+            label: 'Suspendue',
           },
         ],
       },
