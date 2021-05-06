@@ -2,6 +2,15 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.320+20210506134908
+2021-05-06
+
+### Fixes
+
+- [2660] modification du filtre obligatoire sur les lignes appairées lors du téléchargement des profils (f8fa9ba76b11318184c56f4745f7a0430e638fcd)
+- [2660] correction du libellé du statut de la ligne (cd5cb0583eb29175e1dcb015527d0e3eba7d8ebb)
+- [2605] Nom de l'offre dans le message de confirmation (998d6be244d932eab6caf1d7cc1b5f8f01f9e4d8)
+
 ## 1.17.0-master.319+20210506131301
 2021-05-06
 
