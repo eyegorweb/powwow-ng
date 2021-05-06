@@ -274,6 +274,19 @@ export async function averageTimeMassAction(partyId, period, actionTypes) {
   return response.data.massActionAverageTime;
 }
 
+export async function fetchErrorCodes() {
+  const queryStr = `
+  query {
+    universeErrorsCodes(universeType:null) {
+      code
+      libelle
+      type
+    }
+  }`;
+  const response = await query(queryStr);
+  return response.data.universeErrorsCodes;
+}
+
 export async function fetchSingleIndicator(filters, contextFilters = []) {
   const filtersToUse = [...filters, ...contextFilters];
   const queryStr = `
@@ -376,6 +389,12 @@ function formatFilters(filters) {
       .join(',');
 
     allFilters.push(customFeldsGQLparams);
+  }
+
+  const errorCodes = getValuesCodes(filters, 'filters.lines.error');
+  if (errorCodes) {
+    console.log("error codes", errorCodes)
+    allFilters.push(`errorCode: [${errorCodes}]`);
   }
 
   // addQuantityFilter(allFilters, filters);
@@ -483,10 +502,18 @@ function addServices(gqlFilters, selectedFilters) {
 }
 //*/
 
+
 function getValuesIds(filters, filterId) {
   const values = getFilterValues(filters, filterId);
   if (values) {
     return values.map((i) => `"${i.id}"`).join(',');
+  }
+}
+
+function getValuesCodes(filters, filterId) {
+  const values = getFilterValues(filters, filterId);
+  if (values) {
+    return values.map((c) => `"${c.code}"`).join(',');
   }
 }
 

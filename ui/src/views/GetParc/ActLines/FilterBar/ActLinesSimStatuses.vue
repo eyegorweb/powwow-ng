@@ -34,22 +34,6 @@ export default {
       }
 
       return false;
-
-      /*
-      if (
-        !concernedFilter ||
-        !this.selectedSimStatusesValues ||
-        !this.selectedSimStatusesValues.length
-      ) {
-        return false;
-      }
-
-      return !!xorWith(
-        this.selectedSimStatusesValues,
-        concernedFilter.values,
-        (a, b) => a.id === b.id
-      ).length;
-      //*/
     },
 
     disabledItems() {
