@@ -456,8 +456,8 @@ export default excludeMocked([
       },
       {
         id: 'indicators.getparc.lines.esim.pairedLine',
-        value: 'Non',
-        meta: { label: 'Non', value: 'NO' },
+        value: 'Oui',
+        meta: { label: 'Oui', value: 'YES' },
       },
     ],
   },
