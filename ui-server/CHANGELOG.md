@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.318+20210506080621
+2021-05-06
+
+### Features
+
+- [1585] Ajout de la deuxième ligne d'adresse dans l'adresse du compte de facturation (7c1705eff4d66ee05d536f8998f89f1f79b90821)
+
 ## 1.17.0-master.317+20210506073506
 2021-05-06
 
