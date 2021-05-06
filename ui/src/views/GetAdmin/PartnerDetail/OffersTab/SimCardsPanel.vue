@@ -18,23 +18,23 @@
       <template v-else>
         <div>
           <BlockCheckbox
-            :key="'check' + offer.id"
-            v-model="offer.checked"
-            :title="offer.name"
-            v-for="offer in visibleOffers"
+            :key="'check' + simCard.id"
+            v-model="simCard.checked"
+            :title="simCard.name"
+            v-for="simCard in visibleSimCards"
           >
             <div class="block-content" ref="checkboxBloc">
-              <div class="mt-2" v-tooltip="offer.defaultServices.join('\n')">
+              <div class="mt-2" v-tooltip="simCard.defaultServices.join('\n')">
                 {{ $t('getadmin.partnerDetail.simCardsFromPanel.default') }}:
-                {{ offer.defaultServices.slice(0, 5).join(', ') }}
-                <template v-if="offer.defaultServices.length > 6">
+                {{ simCard.defaultServices.slice(0, 5).join(', ') }}
+                <template v-if="simCard.defaultServices.length > 6">
                   ...
                 </template>
               </div>
-              <div class="mt-2" v-tooltip="offer.editableServices.join('\n')">
+              <div class="mt-2" v-tooltip="simCard.editableServices.join('\n')">
                 {{ $t('getadmin.partnerDetail.simCardsFromPanel.modifiedServices') }}:
-                {{ offer.editableServices.slice(0, 5).join(', ') }}
-                <template v-if="offer.editableServices.length > 6">
+                {{ simCard.editableServices.slice(0, 5).join(', ') }}
+                <template v-if="simCard.editableServices.length > 6">
                   ...
                 </template>
               </div>
@@ -65,8 +65,7 @@ import BaseDetailPanelContent from '@/components/BaseDetailPanelContent';
 import UiButton from '@/components/ui/Button';
 import UiInput from '@/components/ui/UiInput';
 
-import { getAvailableOffer, updateOffers } from '@/api/offers.js';
-import { fetchSim } from '@/api/products.js';
+import { getAvailableSim, updateSimsOnParty } from '@/api/products.js';
 import get from 'lodash.get';
 import { mapGetters, mapMutations } from 'vuex';
 
@@ -88,9 +87,9 @@ export default {
     return {
       testval: undefined,
       isLoading: false,
-      offers: [],
-      visibleOffers: [],
-      partnerOffers: [],
+      simCards: [],
+      visibleSimCards: [],
+      partnersimCards: [],
       searchValue: undefined,
       pagination: { page: 0, limit: 20 },
       blocsHeight: 0,
@@ -106,9 +105,9 @@ export default {
   watch: {
     searchValue(newValue) {
       if (!newValue) {
-        return (this.visibleOffers = [...this.offers]);
+        return (this.visibleSimCards = [...this.simCards]);
       }
-      this.visibleOffers = this.offers.filter((o) => {
+      this.visibleSimCards = this.simCards.filter((o) => {
         const isNameValid = o.name && o.name.toLowerCase().indexOf(newValue.toLowerCase()) !== -1;
         const isCodeValid = o.code && o.code.toLowerCase().indexOf(newValue.toLowerCase()) !== -1;
 
@@ -118,14 +117,14 @@ export default {
   },
 
   async mounted() {
-    this.partnerOffers = this.content.offers;
+    this.partnersimCards = this.content.offers;
 
-    this.offers = await this.fetchPartnerSim(this.pagination);
-    this.visibleOffers = [...this.offers];
+    this.simCards = await this.fetchPartnerSim(this.pagination);
+    this.visibleSimCards = [...this.simCards];
     this.blocsHeight =
       (parseFloat(getComputedStyle(this.$refs.checkboxBloc[1]).height.replace('px', '')) +
         CHECKBOX_MARGIN) *
-      this.visibleOffers.length;
+      this.visibleSimCards.length;
   },
 
   methods: {
@@ -137,12 +136,23 @@ export default {
       if (this.$refs.checkboxBloc && panelRef) {
         let scrollMaxHeight = panelRef.scrollTop + (panelRef.scrollHeight - this.blocsHeight);
         let loadMore = scrollMaxHeight >= this.blocsHeight;
+        if (loadMore && !this.isLoading) {
+          this.pagination.page += 1;
+          this.nextPage = await this.fetchPartnerSim(this.pagination);
+          if (this.nextPage.length > 0) {
+            this.simCards = [...this.simCards, ...this.nextPage];
+            this.visibleSimCards = [...this.simCards];
+            console.log('visibleCards', this.visibleSimCards)
+            console.log('nextPage', this.nextPage)
+          } else {
+            this.canLoadByScroll = false;
+          }
+        }
       }
     },
-
     async save() {
-      const offerIds = this.offers.filter((f) => f.checked).map((f) => f.id);
-      const response = await updateOffers(this.content.partner.id, offerIds);
+      const simCardsIds = this.simCards.filter((f) => f.checked).map((f) => f.id);
+      const response = await updateSimsOnParty(this.content.partner.id, simCardsIds);
       if (!response) {
         this.flashMessage({ level: 'danger', message: this.$t('genericErrorMessage') });
       } else {
@@ -153,11 +163,11 @@ export default {
     },
     async fetchPartnerSim(pagination) {
       this.isLoading = true;
-      const items = await fetchSim(this.content.partner.id);
-
-      const offersPage = items.map((i) => {
+      const items = await getAvailableSim(this.content.partner.id, pagination);
+      console.log(items)
+      const simCardsPage = items.map((i) => {
         const services = get(i, 'workflow.initialOffer.marketingServices', []);
-        const isChecked = !!this.partnerOffers.find((p) => p.id === i.workflow.id);
+        const isChecked = !!this.partnersimCards.find((p) => p.id === i.workflow.id);
         return {
           id: i.simCard.id,
           name: i.simCard.name,
@@ -169,7 +179,7 @@ export default {
       });
 
       this.isLoading = false;
-      return offersPage;
+      return simCardsPage;
     },
   },
 };

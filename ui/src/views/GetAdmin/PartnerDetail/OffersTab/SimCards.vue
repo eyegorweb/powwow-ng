@@ -31,7 +31,7 @@
       </ul>
       <slot>
         <div class="cardBloc-buttons" v-if="havePermissionToEdit">
-          <Button :variant="'import'" @click="disableSim(item.simCard.id)">{{ $t('actions.DISABLE') }}</Button>
+          <Button :variant="'import'" @click="changeStatut(item)">{{ $t(item.disabled ? 'actions.ENABLE' : 'actions.DISABLE') }}</Button>
         </div>
       </slot>
       <div class="cards-sim">
@@ -48,7 +48,7 @@ import get from 'lodash.get';
 import { mapMutations, mapGetters } from 'vuex';
 import Button from '@/components/ui/Button';
 
-import { fetchSim, disableSimCard } from '@/api/products.js';
+import { fetchSim, disableSimCard, enableSimCard } from '@/api/products.js';
 
 export default {
   components: {
@@ -94,14 +94,19 @@ export default {
       });
     },
 
-    async disableSim(simId) {
+    async changeStatut(item) {
       const doReset = () => {
         this.fetchFn();
       };
       this.confirmAction({
         message: 'confirmAction',
         actionFn: async () => {
-          await disableSimCard(this.partner.id, simId)
+          if(item.disabled) {
+            await enableSimCard(this.partner.id, item.simCard.id)
+          }
+          else {
+            await disableSimCard(this.partner.id, item.simCard.id)
+          }
           doReset();
         },
       });
@@ -113,7 +118,8 @@ export default {
       if (this.billingAccountToDetail) {
         cfId = this.billingAccountToDetail.id;
       }
-      const sims = await fetchSim(this.partner.id, cfId)
+      const sims = await fetchSim(this.partner.id, cfId, null, true)
+      console.log(sims)
       return sims;
     },
 
