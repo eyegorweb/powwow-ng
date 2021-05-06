@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.317+20210506073506
+2021-05-06
+
+### Features
+
+- [2631] ajout du nouveau filtre Erreur pour la recherche dans les actes de gestion (21ddde8854c2b175a56ae8a7a3297e8f3fc3346e)
+
 ## 1.17.0-master.316+20210505154332
 2021-05-05
 
