@@ -2,11 +2,11 @@
   <Modal v-if="!!actionToConfirm">
     <div slot="body">
       <div class="alert alert-warning" v-if="actionToConfirm.isWarning">
-        {{ $t(actionToConfirm.message) }}
+        {{ actionMessage }}
       </div>
       <div v-else class="text-danger">
         <i class="ic-Alert-Icon"></i>
-        {{ $t(actionToConfirm.message) }}
+        {{ actionMessage }}
       </div>
     </div>
     <div slot="footer">
@@ -49,6 +49,16 @@ export default {
   },
   computed: mapState({
     actionToConfirm: (state) => state.ui.actionToConfirm,
+    actionMessage() {
+      if (this.actionToConfirm) {
+        if (this.actionToConfirm.noTranslation) {
+          return this.actionToConfirm.message;
+        }
+        return this.$t(this.actionToConfirm.message);
+      }
+
+      return '';
+    },
   }),
 
   data() {

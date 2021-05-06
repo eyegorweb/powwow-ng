@@ -1,5 +1,9 @@
 <template>
-  <VerticalEmptyContainer :validate-fn="validate">
+  <VerticalEmptyContainer
+    :validate-fn="validate"
+    :confirm-msg="confirmationMessage"
+    no-confirm-translation
+  >
     <div slot="main" slot-scope="{ containerValidationFn }">
       <div class="pricing">
         <div v-if="packages && onPackageCLick" class="pricing-container">
@@ -76,6 +80,15 @@ export default {
   computed: {
     ...mapState('actLines', ['selectedLinesForActCreation', 'actCreationPrerequisites']),
     ...mapGetters('actLines', ['appliedFilters']),
+    confirmationMessage() {
+      if (this.chosenPackage) {
+        return `${this.$t('getparc.actCreation.rechargeLV.confirm')} "${
+          this.chosenPackage.label
+        }" ?`;
+      }
+
+      return '';
+    },
   },
   async mounted() {
     const response = await fetchLVOffers(

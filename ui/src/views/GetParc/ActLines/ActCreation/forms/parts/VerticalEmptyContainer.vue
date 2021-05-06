@@ -57,6 +57,7 @@ export default {
       type: String,
       default: 'confirmAction',
     },
+    noConfirmTranslation: Boolean,
     preventSend: Boolean,
   },
   data() {
@@ -76,29 +77,32 @@ export default {
     ]),
 
     async validate() {
-      this.confirmAction({
-        message: this.confirmMsg,
-        actionFn: async () => {
-          if (this.haveErrors()) return;
+      setTimeout(() => {
+        this.confirmAction({
+          message: this.confirmMsg,
+          noTranslation: this.noConfirmTranslation,
+          actionFn: async () => {
+            if (this.haveErrors()) return;
 
-          const response = await this.validateFn({
-            actDate: this.actDate,
-            notificationCheck: this.notificationCheck,
-          });
+            const response = await this.validateFn({
+              actDate: this.actDate,
+              notificationCheck: this.notificationCheck,
+            });
 
-          if (!response) {
-            this.flashMessage({ level: 'danger', message: this.$t('genericErrorMessage') });
-          }
-
-          if (response) {
-            if (response.errors && response.errors.length) {
-              this.validationErrors = { errors: response.errors };
-              this.tempDataUuid = response.tempDataUuid;
-            } else {
-              this.onSuccess();
+            if (!response) {
+              this.flashMessage({ level: 'danger', message: this.$t('genericErrorMessage') });
             }
-          }
-        },
+
+            if (response) {
+              if (response.errors && response.errors.length) {
+                this.validationErrors = { errors: response.errors };
+                this.tempDataUuid = response.tempDataUuid;
+              } else {
+                this.onSuccess();
+              }
+            }
+          },
+        });
       });
     },
 
