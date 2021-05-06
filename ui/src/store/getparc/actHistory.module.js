@@ -41,6 +41,9 @@ export const getters = {
   selectedActDateStart: (state) =>
     state.currentFilters.find((f) => f.id === 'filters.actDateStart'),
   selectedActDateEnd: (state) => state.currentFilters.find((f) => f.id === 'filters.actDateEnd'),
+  selectedErrorValues: (state) => {
+    return selectedFilterValuesById(state)('filters.lines.error');
+  },
 };
 
 // Actions
@@ -185,9 +188,39 @@ export const mutations = {
     });
   },
   setActStatusFilter(state, statuses) {
+    const isFilterErrorFound = state.currentFilters.find((f) => f.id === 'filters.lines.error' && f.values.length > 0);
+    if (isFilterErrorFound && !statuses.find(f => f.id === "IN_ERROR")) {
+      statuses = statuses.concat([{id: "IN_ERROR", label: "En échec"}]);
+    }
     selectFilterValue(state, {
       id: 'filters.actStatus',
       values: statuses,
+    });
+  },
+  setErrorFilter(state, errorsCodes) {
+    let valuesStatusFound = [];
+    if (state.currentFilters.find(f => f.id === 'filters.actStatus')) {
+      valuesStatusFound = state.currentFilters.find(f => f.id === 'filters.actStatus').values;
+    }
+    if (errorsCodes.length) {
+      if (!valuesStatusFound.length || !valuesStatusFound.find(f => f.id === 'IN_ERROR')) {
+        valuesStatusFound = valuesStatusFound.concat({ id: 'IN_ERROR', label: 'En échec' });
+      }
+      selectFilterValue(state, {
+        id: 'filters.actStatus',
+        values: valuesStatusFound
+      });
+    } else {
+      const deleteInErrorStatus = valuesStatusFound.findIndex(f => f.id === 'IN_ERROR');
+      valuesStatusFound.splice(deleteInErrorStatus, 1);
+      selectFilterValue(state, {
+        id: 'filters.actStatus',
+        values: valuesStatusFound
+      });
+    }
+    selectFilterValue(state, {
+      id: 'filters.lines.error',
+      values: errorsCodes
     });
   },
   setServicesFilter(state, types) {

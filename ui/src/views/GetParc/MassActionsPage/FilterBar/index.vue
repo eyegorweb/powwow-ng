@@ -10,6 +10,7 @@
         :current-filters="currentFilters"
         @applyFilters="applyFilters"
         @clear="(filterId) => clearFilter(filterId)"
+        :fixed-filters="fixedFilters"
       >
         <template #actions>
           <div class="actions d-flex flex-column flex-md-row mb-2">
@@ -59,6 +60,9 @@
           <FoldableBlock :title="$t('filters.actStatus')" :key="'el8'" draggable>
             <ManagementActStatusFilter />
           </FoldableBlock>
+          <FoldableBlock :title="$t('filters.lines.error')" :key="'el9'" draggable>
+            <ActLinesErrorFilter />
+          </FoldableBlock>
         </transition-group>
       </draggable>
     </div>
@@ -96,6 +100,7 @@ import ManagementActTypesFilter from './ManagementActTypesFilter';
 import ManagementActStatusFilter from './ManagementActStatusFilter';
 import ManagementActionServices from './ManagementActionServices';
 import SelectedFilters from '@/components/Filters/SelectedFilters';
+import ActLinesErrorFilter from './ActLinesErrorFilter';
 import OrderCreatorFilter from '@/components/Filters/OrderCreatorFilter';
 import DateCreation from './DateCreation';
 import DateStart from './DateStart';
@@ -116,6 +121,7 @@ export default {
     ManagementActStatusFilter,
     ManagementActionServices,
     UiButton,
+    ActLinesErrorFilter,
   },
   data() {
     return {
@@ -131,6 +137,17 @@ export default {
       'selectedOrderCreatorValues',
     ]),
 
+    fixedFilters() {
+      if (
+        this.currentFilters.find((f) => f.id === 'filters.lines.error') &&
+        this.currentFilters.find((f) => f.id === 'filters.lines.error').values &&
+        this.currentFilters.find((f) => f.id === 'filters.lines.error').values.length > 0
+      ) {
+        return [{ id: 'filters.actStatus', values: [{ id: 'IN_ERROR', label: 'En échec' }] }];
+      }
+      return [];
+    },
+
     noDatesInFilters() {
       if (this.currentFilters && this.currentFilters.length) {
         const dateFilters = [
@@ -144,7 +161,7 @@ export default {
     },
   },
   methods: {
-    ...mapMutations('actHistory', ['applyFilters', 'setOrderCreatorFilter']),
+    ...mapMutations('actHistory', ['applyFilters', 'setOrderCreatorFilter', 'selectErrorFilter']),
     ...mapActions('actHistory', ['clearFilter']),
 
     showAllFilters() {

@@ -73,6 +73,7 @@
   "loading": "Chargement",
   "display": "Affichage",
   "types": "Types",
+  "error": "Erreur",
   "seeMore": "Voir plus",
   "MB": "{value} Mio",
   "MN": "{value} Mn",
@@ -2122,6 +2123,7 @@
       "actionId": "Id acte de gestion",
       "states": "État de profil eUICC",
       "terminationValidated": "Résiliation validée",
+      "error": "Erreur",
       "profileStateFilter": {
         "ENABLED": "Activé",
         "DISABLED": "Désactivé",
