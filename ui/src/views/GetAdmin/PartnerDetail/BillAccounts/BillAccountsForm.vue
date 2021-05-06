@@ -39,6 +39,7 @@
         <div class="billAccounts-bloc">
           <div class="billAccounts-bloc-content">
             <FormControl label="getadmin.partnerDetail.address" v-model="form.address" />
+            <FormControl label="getadmin.partnerDetail.address2" v-model="form.address2" />
             <div class="billAccounts-bloc-content-flex">
               <FormControl label="getadmin.partnerDetail.zipCode" v-model="form.zipCode" />
               <FormControl label="getadmin.partnerDetail.city" v-model="form.city" />
@@ -99,6 +100,7 @@ export default {
         label: undefined,
         company: undefined,
         address: undefined,
+        address2: undefined,
         zipCode: undefined,
         city: undefined,
         state: undefined,
@@ -134,6 +136,7 @@ export default {
         this.form.company = this.account[0].company;
         this.form.actBlock = this.account[0].massActionsDisabled;
         this.form.address = this.account[0].address.address1;
+        this.form.address2 = this.account[0].address.address2;
         this.form.zipCode = this.account[0].address.zipCode;
         this.form.city = this.account[0].address.city;
         this.form.state = this.account[0].address.state;
@@ -162,6 +165,7 @@ export default {
         label: this.form.label,
         company: this.form.company,
         address: this.form.address,
+        address2: this.form.address2,
         actBlock: this.form.actBlock,
         zipCode: this.form.zipCode,
         city: this.form.city,

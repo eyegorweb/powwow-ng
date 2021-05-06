@@ -706,6 +706,7 @@ export async function updateCustomerAccount(params) {
       actBlockade: ${params.actBlock},
       company: "${params.company}",
       address: "${params.address}",
+      address2: "${params.address2}",
       zipCode: "${params.zipCode}",
       city: "${params.city}",
       country: "${params.country}"
