@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.321+20210507150353
+2021-05-07
+
+### Fixes
+
+- [2648] Correction du filtre par fichier (855c6bd34b421aee7cd63ae97f64c60c0c705a04)
+
 ## 1.17.0-master.320+20210506134908
 2021-05-06
 
