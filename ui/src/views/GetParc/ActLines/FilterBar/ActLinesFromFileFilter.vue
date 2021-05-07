@@ -1,5 +1,7 @@
 <template>
+  <div v-if="!isReady"></div>
   <SearchLinesByFileImportFilter
+    v-else
     :file-meta="fileMeta"
     @clear="onClear"
     @setFilter="onSetFilter"
@@ -10,11 +12,11 @@
 <script>
 import SearchLinesByFileImportFilter from '@/components/Filters/SearchLinesByFileImportFilter.vue';
 import { mapMutations, mapGetters, mapActions } from 'vuex';
-import { getPartyOptions } from '@/api/partners.js';
 
 export default {
   data() {
     return {
+      isReady: false,
       otherOptions: [
         {
           code: 'c7',
@@ -29,7 +31,13 @@ export default {
   },
   computed: {
     ...mapGetters('actLines', ['selectedFileImportValues']),
-    ...mapGetters(['userInfos', 'userIsBO', 'userIsGroupPartner']),
+    ...mapGetters([
+      'userInfos',
+      'userIsBO',
+      'userIsGroupPartner',
+      'userPartnerOptions',
+      'userIsPartner',
+    ]),
     ...mapGetters(['havePermission']),
     fileMeta() {
       if (this.selectedFileImportValues && this.selectedFileImportValues.length) {
@@ -39,17 +47,24 @@ export default {
     },
   },
 
-  async mounted () {
-    const optionsPartner = await getPartyOptions(this.userInfos.id);
-    console.log(this.userIsBO)
-    if (((this.userIsPartner || this.userIsGroupPartner) && optionsPartner.ipFixeEnable) || this.userIsBO) {
-      this.otherOptions = [...this.otherOptions, {
-        code: 'c8',
-        label: 'IP_FIXE',
-        value: 'IP_FIXE',
-      }]
-    };
+  mounted() {
+    let ipFixeEnabled = false;
+    if (this.userIsPartner || this.userInfos.type === 'PARTNER_GROUP') {
+      ipFixeEnabled = this.userPartnerOptions.ipFixeEnable;
+    }
 
+    if (((this.userIsPartner || this.userIsGroupPartner) && ipFixeEnabled) || this.userIsBO) {
+      this.otherOptions = [
+        ...this.otherOptions,
+        {
+          code: 'c8',
+          label: 'IP_FIXE',
+          value: 'IP_FIXE',
+        },
+      ];
+    }
+
+    this.isReady = true;
   },
   methods: {
     ...mapMutations('actLines', ['setFileImportFilter']),
