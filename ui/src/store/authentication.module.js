@@ -1,5 +1,5 @@
 import { fetchCurrentUserInfos } from '@/api/user';
-import { isFeatureAvailable } from '@/api/partners';
+import { isFeatureAvailable, getPartyOptions } from '@/api/partners';
 import { api } from '@/api/utils';
 import cloneDeep from 'lodash.clonedeep';
 // import moment from 'moment';
@@ -88,6 +88,13 @@ export const getters = {
       state.userInfos.partners.length > 1
     );
   },
+  userPartnerOptions: (state) => {
+    if (state.userInfos && state.userInfos.partnerOptions) {
+      return state.userInfos.partnerOptions;
+    }
+
+    return {};
+  },
 };
 
 export const actions = {
@@ -95,6 +102,9 @@ export const actions = {
     const currenUser = await fetchCurrentUserInfos();
     try {
       currenUser.isFleetEnabled = await isFeatureAvailable('FLEET_ENABLED');
+      if (currenUser.partners && currenUser.partners.length) {
+        currenUser.partnerOptions = await getPartyOptions(currenUser.partners[0].id);
+      }
     } catch {
       console.warn('erreur party subscription');
     }
