@@ -704,7 +704,7 @@ export async function createRechargeLVOffer(filters, lines, params) {
           errors: response.errors,
         };
       }
-      return response.data.preactivateAndActivateSImcardInstanceV2;
+      return response.data.topUpLongLifeOffer;
     } catch (e) {
       return {
         errors: [
