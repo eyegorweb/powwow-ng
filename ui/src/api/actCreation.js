@@ -746,7 +746,7 @@ export async function preactivateAndActivateSImcardInstance(filters, lines, para
 
     let customfields = '';
     allCustomFields.forEach((e) => {
-      customfields = `,${customfields}${e.code}: "${e.enteredValue}"`;
+      customfields = `${customfields}, ${e.code}: "${e.enteredValue}"`;
     });
 
     const queryStr = `
