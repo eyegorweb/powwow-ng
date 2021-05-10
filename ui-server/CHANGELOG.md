@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.322+20210510093259
+2021-05-10
+
+### Fixes
+
+- [2615] branchement des API sur les customsfields des actes (5282ece7c027a6c71bf7dcae6fc2ce7ae092b2ee)
+- [2615] branchement des API sur les customsfields des actes (df9d1f6df01e0c9bead922ed6df490aba4c5cbf2)
+
 ## 1.17.0-master.321+20210507150353
 2021-05-07
 
