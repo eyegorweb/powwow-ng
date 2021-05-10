@@ -375,7 +375,7 @@ export async function esimDownloadProfil(args) {
 
   let customfields = '';
   allCustomFields.forEach((e) => {
-    customfields = `,${customfields}${e.code}: "${e.enteredValue}"`;
+    customfields = `${customfields}, ${e.code}: "${e.enteredValue}"`;
   });
 
   const queryStr = `
