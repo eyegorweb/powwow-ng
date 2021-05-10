@@ -16,6 +16,23 @@
         </div>
       </div>
     </div>
+    <div slot="bottom">
+      <div class="row">
+        <div class="col-md-4">
+          <UiDate
+            @change="onActDateChange"
+            :value="actDate"
+            :error="dateError"
+            class="d-block"
+            :min-date="minDate"
+            time-picker
+            fixed
+          >
+            <em slot="icon" class="select-icon ic-Flag-Icon" />
+          </UiDate>
+        </div>
+      </div>
+    </div>
     <div slot="messages" class="text-info">
       <div v-if="requestErrors && requestErrors.length">
         <ul class="text-danger list-unstyled">
@@ -28,6 +45,9 @@
 
 <script>
 import VerticalEmptyContainer from './parts/VerticalEmptyContainer';
+import UiDate from '@/components/ui/UiDate';
+import moment from 'moment';
+
 import { fetchLVOffers } from '@/api/offers.js';
 import { mapState, mapGetters } from 'vuex';
 import { createRechargeLVOffer } from '@/api/actCreation.js';
@@ -69,17 +89,23 @@ export default {
   components: {
     VerticalEmptyContainer,
     PackageCardComponent,
+    UiDate,
   },
   data() {
     return {
       packages: undefined,
       chosenPackage: undefined,
       requestErrors: [],
+      actDate: null,
+      dateError: null,
     };
   },
   computed: {
     ...mapState('actLines', ['selectedLinesForActCreation', 'actCreationPrerequisites']),
     ...mapGetters('actLines', ['appliedFilters']),
+    minDate() {
+      return moment().format('DD/MM/YYYY HH:mm:ss');
+    },
     confirmationMessage() {
       if (this.chosenPackage) {
         return `${this.$t('getparc.actCreation.rechargeLV.confirm')} "${
@@ -108,8 +134,13 @@ export default {
         return all;
       }, []);
     }
+
+    this.actDate = formattedCurrentDateExtended();
   },
   methods: {
+    onActDateChange(value) {
+      this.actDate = value;
+    },
     onPackageCLick(pack, validationCallback) {
       this.chosenPackage = pack;
       validationCallback();
@@ -117,7 +148,7 @@ export default {
     async validate(contextValues) {
       const params = {
         partyId: this.actCreationPrerequisites.partner.id,
-        dueDate: formattedCurrentDateExtended(),
+        dueDate: this.actDate,
         workflowId: this.actCreationPrerequisites.offer.data.id,
         packageLabel: this.chosenPackage.label,
         tempDataUuid: contextValues.tempDataUuid,
