@@ -727,6 +727,7 @@ export async function preactivateAndActivateSImcardInstance(filters, lines, para
       servicesChoice,
       customerAccountID,
       workflowCode,
+      allCustomFields,
     } = params;
 
     let gqlTempDataUuid = '';
@@ -743,6 +744,11 @@ export async function preactivateAndActivateSImcardInstance(filters, lines, para
       });
     }
 
+    let customfields = '';
+    allCustomFields.forEach((e) => {
+      customfields = `,${customfields}${e.code}: "${e.enteredValue}"`;
+    });
+
     const queryStr = `
     mutation {
       preactivateAndActivateSImcardInstanceV2(
@@ -756,6 +762,7 @@ export async function preactivateAndActivateSImcardInstance(filters, lines, para
           workflowCode: "${workflowCode}",
           ${gqlTempDataUuid}
           ${changeServicesParamsGql}
+          ${customfields}
         })
         {
           tempDataUuid

@@ -361,6 +361,7 @@ export async function esimDownloadProfil(args) {
     services,
     targetDownload,
     simStatus,
+    allCustomFields,
   } = args;
 
   let changeServicesParamsGql = '';
@@ -371,6 +372,11 @@ export async function esimDownloadProfil(args) {
       services: services.services,
     });
   }
+
+  let customfields = '';
+  allCustomFields.forEach((e) => {
+    customfields = `,${customfields}${e.code}: "${e.enteredValue}"`;
+  });
 
   const queryStr = `
   mutation EsimDownloadProfil(
@@ -393,6 +399,7 @@ export async function esimDownloadProfil(args) {
       simStatus: $simStatus
       filter: {${formatFilters(filters)}}
       ${changeServicesParamsGql}
+      ${customfields}
     }) {
       tempDataUuid
       validated
