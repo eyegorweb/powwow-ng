@@ -220,6 +220,7 @@ export default {
             ? this.billingAccount.id
             : this.preselectBillingAccount.id,
           tempDataUuid: contextValues.tempDataUuid,
+          allCustomFields: this.customFieldsValues,
         };
 
         response = await preactivateAndActivateSImcardInstance(

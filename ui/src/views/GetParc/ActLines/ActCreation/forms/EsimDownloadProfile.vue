@@ -261,6 +261,7 @@ export default {
         targetDownload: this.selectedDownloadStatus,
         services: this.servicesChoice,
         simStatus: this.actCreationPrerequisites.selectedStatus.id,
+        allCustomFields: this.customFieldsValues,
       });
       return response;
     },
