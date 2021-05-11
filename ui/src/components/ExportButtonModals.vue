@@ -60,6 +60,7 @@
                 exportPanelParams.otherExportChoices && exportPanelParams.otherExportChoices.length
               "
               :options="otherExportChoicesLabels"
+              :get-export-choice-disabled-message="getExportChoiceDisabledMessage"
               @click="onOtherExportChoice"
               :button-style="{
                 padding: '.2rem 0.8rem',
@@ -118,6 +119,15 @@ export default {
       return this.exportPanelParams
         ? this.exportPanelParams.otherExportChoices.map((e) => e.label)
         : [];
+    },
+
+    getExportChoiceDisabledMessage() {
+      return (option) => {
+        if (this.exportPanelParams && this.exportPanelParams.getExportChoiceDisabledMessage) {
+          return this.exportPanelParams.getExportChoiceDisabledMessage(option);
+        }
+        return false;
+      };
     },
   },
   data() {
