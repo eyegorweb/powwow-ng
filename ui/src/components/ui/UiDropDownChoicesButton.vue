@@ -12,18 +12,28 @@
     </UiButton>
 
     <div slot-scope="{ hide }" class="dropdown-menu show">
-      <a
-        class="dropdown-item"
+      <div
         v-for="opt in options"
         :key="opt"
-        @click.stop="
-          () => {
-            hide();
-            $emit('click', opt);
-          }
-        "
-        >{{ $t(opt) }}
-      </a>
+        v-tooltip="getExportChoiceDisabledMessage ? getExportChoiceDisabledMessage(opt) : undefined"
+      >
+        <a
+          class="dropdown-item"
+          :class="{
+            disabled: getExportChoiceDisabledMessage
+              ? !!getExportChoiceDisabledMessage(opt)
+              : false,
+          }"
+          @click.stop="
+            () => {
+              hide();
+              $emit('click', opt);
+            }
+          "
+        >
+          {{ $t(opt) }}
+        </a>
+      </div>
     </div>
   </UiDropdownButton>
 </template>
@@ -44,6 +54,10 @@ export default {
     },
     buttonStyle: Object,
     isActive: Boolean,
+    getExportChoiceDisabledMessage: {
+      type: Function,
+      required: false,
+    },
   },
 };
 </script>

@@ -34,6 +34,7 @@
               :order-by="orderBy"
               :export-choices="exportChoices"
               :other-export-choices="otherExportChoices"
+              :get-export-choice-disabled-message="getExportChoiceDisabledMessage"
             >
               <span slot="title">
                 {{ $t('getparc.history.details.EXPORT_LINES', { total: formattedTotal }) }}
@@ -228,7 +229,6 @@ export default {
         const partnerInFilter = partnerFilter.values[0];
         canExportConso = partnerInFilter.partyType !== 'MVNO';
       }
-
       if (canExportConso) {
         otherExportChoices.push({
           id: 'CONSUMPTION',
@@ -244,6 +244,24 @@ export default {
       }
 
       return otherExportChoices;
+    },
+
+    isChosenPartnerValidForExport() {
+      const partnerFilter = this.appliedFilters.find((a) => a.id === 'filters.partners');
+
+      if (partnerFilter) {
+        const partnerNotFound =
+          !partnerFilter || (partnerFilter.values && !partnerFilter.values.length);
+
+        let mvnoFound = false;
+        if (partnerFilter && partnerFilter.values && partnerFilter.values.length) {
+          mvnoFound = partnerFilter.values.find((f) => f.partyType === 'MVNO');
+        }
+
+        return !partnerNotFound && !mvnoFound;
+      }
+
+      return false;
     },
   },
   methods: {
@@ -319,6 +337,39 @@ export default {
           return this.$t('exportError');
         }
       };
+    },
+
+    getExportChoiceDisabledMessage(option) {
+      let errorMessages = [];
+      if (option === 'exportTable.services') {
+        let simFilterFound = false;
+
+        const simStatusFilter = this.appliedFilters.find(
+          (a) => a.id === 'filters.lines.SIMCardStatus'
+        );
+
+        if (simStatusFilter && simStatusFilter.values) {
+          simFilterFound = simStatusFilter.values.find((s) => s.id === 'ACTIVATED');
+        }
+
+        if (!this.isChosenPartnerValidForExport) {
+          errorMessages.push(`- ${this.$t('getparc.actCreation.rechargeLV.partnerExportError')}`);
+        }
+
+        if (!simFilterFound) {
+          errorMessages.push(`- ${this.$t('getparc.actCreation.rechargeLV.simSHouldBeActive')}`);
+        }
+
+        if (errorMessages.length) {
+          return errorMessages.join(`\n`);
+        }
+      } else if (option === 'exportTable.inProgress') {
+        if (!this.isChosenPartnerValidForExport) {
+          return `- ${this.$t('getparc.actCreation.rechargeLV.partnerExportError')}`;
+        }
+      }
+
+      return false;
     },
 
     getExportFn() {

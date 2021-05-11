@@ -31,6 +31,10 @@ export default {
     },
     otherExportChoices: Array,
     exportChoices: Array,
+    getExportChoiceDisabledMessage: {
+      type: Function,
+      required: false,
+    },
   },
   methods: {
     ...mapMutations(['openExportChoice']),
@@ -45,6 +49,7 @@ export default {
         forceAsyncExport: this.forceAsyncExport,
         otherExportChoices: this.otherExportChoices,
         exportChoices: this.exportChoices,
+        getExportChoiceDisabledMessage: this.getExportChoiceDisabledMessage,
       });
     },
   },
