@@ -2,6 +2,17 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.324+20210511103114
+2021-05-11
+
+### Features
+
+- [2672] Gestion des boutons d'export dans le pop-up des exports de lignes (7099609f3e55a47ba8f2b8c072e1e381e96a7419)
+
+### Fixes
+
+- [2671] traduciton label getparc (37a721fc0518999377a46a1e4d08c47ca535e086)
+
 ## 1.17.0-master.323+20210510133859
 2021-05-10
 
