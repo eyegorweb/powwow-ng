@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.325+20210512105552
+2021-05-12
+
+### Features
+
+- [000] Ajout de nouveaux tests pour le détail de lignes (fe0f31a701a5f9666c16e1a1a1b7593575b8a921)
+
 ## 1.17.0-master.324+20210511103114
 2021-05-11
 
