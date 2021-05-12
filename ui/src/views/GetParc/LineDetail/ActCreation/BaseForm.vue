@@ -32,7 +32,7 @@
             class="btn btn-primary pl-4 pr-4 pt-2 pb-2 mt-4"
             :disabled="!canSend"
           >
-            <i slot="icon" class="pr-2 select-icon ic-Floppy-Icon" />
+            <em slot="icon" class="pr-2 select-icon ic-Floppy-Icon" />
 
             <span>{{ $t('set') }}</span>
           </button>
@@ -65,13 +65,9 @@ export default {
   },
   mounted() {
     if (this.changeOffer && this.userIsBO && !this.userIsMVNO) {
-      this.actDate = moment()
-        .endOf('month')
-        .format('DD/MM/YYYY HH:mm:ss');
+      this.actDate = moment().endOf('month').format('DD/MM/YYYY HH:mm:ss');
     } else if (this.changeOffer && !this.userIsBO && !this.userIsMVNO) {
-      this.actDate = moment()
-        .endOf('month')
-        .format('DD/MM/YYYY HH:mm:ss');
+      this.actDate = moment().endOf('month').format('DD/MM/YYYY HH:mm:ss');
       this.disabledDate = true;
     } else {
       this.actDate = moment().format('DD/MM/YYYY HH:mm:ss');

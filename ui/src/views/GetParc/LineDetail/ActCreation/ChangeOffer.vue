@@ -69,6 +69,23 @@ export default {
       };
 
       const response = await changeSingleOffer(params);
+
+      // gestion temporaire des des erreurs LV
+      if (response && response.errors) {
+        response.errors = response.errors.map((e) => {
+          const formatted = { ...e };
+          if (
+            e.extensions &&
+            (e.extensions.sourceWorkflowID === 'LONG_LIFE_NOT_ALLOWED' ||
+              e.extensions.targetWorkflowID === 'LONG_LIFE_NOT_ALLOWED')
+          ) {
+            formatted.message = this.$t(
+              'getparc.actCreation.errors.workflow.LONG_LIFE_NOT_ALLOWED'
+            );
+          }
+          return formatted;
+        });
+      }
       if (response) {
         return { report: { ...response.data.changeOfferV2 }, errors: response.errors };
       }
