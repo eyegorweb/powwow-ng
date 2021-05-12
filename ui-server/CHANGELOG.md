@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.327+20210512131410
+2021-05-12
+
+### Features
+
+- [2674] implémentation basique du code d'erreur LONG_LIFE_NOT_ALLOWED dans le détail de la ligne (49826b18063b79f85700cc2e4cbcf40da9d23b99)
+- [2655] Ajout techno dans les rapport et trad (20c1d630bed998d46fb5893736de974240f0fb6f)
+
 ## 1.17.0-master.326+20210512122401
 2021-05-12
 
