@@ -842,7 +842,14 @@
   "getreport": {
     "pageTitle": "Report Templates",
     "reports_tooltip": "This page allows you to configure reports",
-    "create_report": "Create a report",
+    "create_report": "Create a report",    
+    "from_report": {
+      "Custom": "Custom",
+      "M2M": "Export",
+      "MVNO": "Export",
+      "LAST_USAGE": "LLast usage",
+      "SERVICES": "Services export"
+    },
     "actions": {
       "DETAIL": "See the detail of the reporting",
       "ACTIVATION": "Activate / Deactivate report",
