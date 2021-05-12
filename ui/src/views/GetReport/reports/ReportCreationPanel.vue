@@ -17,7 +17,7 @@
         <p>{{ $t('getreport.creation.chooseInfosDescription') }}</p>
         <div v-if="reportModels" class="mt-4 mb-2">
           <h6>{{ $t('getreport.creation.fromReport') }}</h6>
-          <UiSelect class="report-field" v-model="reportModel" :options="reportModels" block />
+          <UiSelect class="report-field" v-model="reportModel" :options="reportModels" :trad-prefix="'getreport.from_report.'" block />
         </div>
         <div class="checkbox-groups" v-if="groups">
           <template v-for="group in groups">
@@ -106,6 +106,11 @@
       </div>
       <div class="fieldsRecap">
         <h5>{{ $t('getreport.creation.dataReport') }}</h5>
+        <ul class="list-unstyled templateMandatoryItems">
+          <li v-for="i in templateMandatoryItems" :key="'remove_' + i.label + '_' + i.code">
+            {{ i.label }}
+          </li>
+        </ul>
         <ul class="list-unstyled">
           <li v-for="i in orderedSelectedItems" :key="'remove_' + i.label + '_' + i.code">
             <button class="btn btn-link p-1" @click.stop="() => removeItem(i)">
@@ -471,8 +476,8 @@ export default {
         const models = await reportModels(this.selectedPartner.id);
 
         this.reportModels = [
-          { label: 'Custom', value: 'NONE', data: { fields: [] } },
-          ...models.map((m) => ({ label: m.modelType, value: m.modelType, data: m })),
+          { label: this.$t('getreport.from_report.Custom'), value: 'NONE', data: { fields: [] } },
+          ...models.map((m) => ({ label: this.$t('getreport.from_report.' + m.modelType), value: m.modelType, data: m })),
         ];
         this.reportModel = 'NONE';
       }
@@ -496,7 +501,7 @@ export default {
     },
     async onSaveReport() {
       const params = {
-        columns: this.orderedSelectedItems,
+        columns: [...this.templateMandatoryItems, ...this.orderedSelectedItems],
         notification: this.shouldNotify,
         mailingListId: this.notifList,
         frequency: this.reportFrequency,
@@ -505,7 +510,6 @@ export default {
         name: this.name,
         isDisabled: !this.isActive,
       };
-
       if (this.selectedPartner) {
         params.partyId = this.selectedPartner.id;
       }
@@ -1068,6 +1072,18 @@ export default {
       'userIsMVNO',
     ]),
 
+    templateMandatoryItems() {
+      if(this.reportModel === "LAST_USAGE") {
+        return [{
+          code: 'TECHNOLOGY',
+          label: 'Technologie'
+        }]
+      }
+      else {
+        return []
+      }
+    },
+
     dateLabel() {
       if (this.reportFrequency === 'ONCE') {
         return 'getreport.creation.dateForOneItem';
@@ -1141,6 +1157,9 @@ export default {
   &:hover {
     text-decoration: none;
   }
+}
+.templateMandatoryItems {
+  margin-left: 30px;
 }
 .checkbox-groups {
   .foldable-block.is-open {

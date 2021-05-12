@@ -963,6 +963,13 @@
     "pageTitle": "Modèles de rapports",
     "reports_tooltip": "Cette page permet de paramétrer des rapports",
     "create_report": "Créer un rapport",
+    "from_report": {
+      "Custom": "Personnalisé",
+      "M2M": "Export classique",
+      "MVNO": "Export classique",
+      "LAST_USAGE": "Dernier usage",
+      "SERVICES": "Export des services"
+    },
     "actions": {
       "DETAIL": "Voir   le détail du reporting",
       "ACTIVATION": "Activer  / Désactiver le rapport",
