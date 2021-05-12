@@ -208,6 +208,15 @@ export default {
                 message: messageErrorMaxLine,
               },
             ];
+          } else if (
+            r.extensions.sourceWorkflowID === 'LONG_LIFE_NOT_ALLOWED' ||
+            r.extensions.targetWorkflowID === 'LONG_LIFE_NOT_ALLOWED'
+          ) {
+            this.requestErrors = [
+              {
+                message: this.$t('getparc.actCreation.errors.workflow.LONG_LIFE_NOT_ALLOWED'),
+              },
+            ];
           } else {
             this.requestErrors = [
               {

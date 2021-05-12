@@ -1586,6 +1586,11 @@
       "byImport": "Par import",
       "autoPairing": "Appairage auto",
       "filePairing": "Appairage par fichier",
+      "errors": {
+        "workflow": {
+          "LONG_LIFE_NOT_ALLOWED": "Changement d'offre impossible sur les offres LV."
+        }
+      },
       "carouselItem": {
         "CONSUMING": "En cours consommation",
         "EXPORT_CONS": "Export consommation",
