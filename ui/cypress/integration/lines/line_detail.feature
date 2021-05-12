@@ -65,3 +65,109 @@ Feature: detail des lignes
     And j'ouvre le panneau de détail de la ligne
     When Je clique sur "Voir le detail de la ligne"
     Then Le message d'avertissement est present dans les onglets de consommation et d'analyse
+
+  Scenario: Verification du changement de carte SIM
+    Given en tant que BO
+    And Je suis sur la page de gestion de lignes
+    And je lance la recherche par ID "33669497435"
+    And j'ouvre le panneau de détail de la ligne
+    And Je clique sur "Voir le detail de la ligne"
+    And Je clique sur le bouton "Changer de carte SIM"
+    And Je rentre le nouvel ICCID "8933209519078857391"
+    When Je clique sur le bouton "Appliquer"
+    Then Je confirme le changement
+
+  Scenario: Verification du changement de MSISDN
+    Given en tant que BO
+    And Je suis sur la page de gestion de lignes
+    And je lance la recherche par ID "33669497435"
+    And j'ouvre le panneau de détail de la ligne
+    And Je clique sur "Voir le detail de la ligne"
+    And Je clique sur le bouton "Changer de MSISDN"
+    And Je rentre le nouvel MSISDN "337000039585078"
+    When Je clique sur le bouton "Appliquer"
+    Then Je confirme le changement
+
+  Scenario: Verification du changement de CF
+    Given en tant que BO
+    And Je suis sur la page de gestion de lignes
+    And je lance la recherche par ID "33669497435"
+    And j'ouvre le panneau de détail de la ligne
+    And Je clique sur "Voir le detail de la ligne"
+    And Je clique sur le bouton "Changer de CF"
+    And Je selectionne le compte "TEST - 6.42661"
+    When Je clique sur le bouton "Appliquer"
+    Then Je confirme le changement
+
+  Scenario: Verification du changement d'offre
+    Given en tant que BO
+    And Je suis sur la page de gestion de lignes
+    And je lance la recherche par ID "33669497435"
+    And j'ouvre le panneau de détail de la ligne
+    And Je clique sur "Voir le detail de la ligne"
+    And Je clique sur le bouton "Changer d'offre"
+    And Je selectionne l'offre "Parc 2 forfait"
+    When Je clique sur le bouton "Appliquer"
+    Then Je confirme le changement
+
+  Scenario: Ouverture de l'historique de declenchement d'une alarme activee
+    Given en tant que BO
+    And Je suis sur la page de gestion de lignes
+    And je lance la recherche par ID "33669497435"
+    And j'ouvre le panneau de détail de la ligne
+    And Je clique sur "Voir le detail de la ligne"
+    And Je clique sur "Liste des alarmes"
+    When Je clique sur "Oui" dans la deuxieme ligne dans la colonne "Declenchement"
+    Then Le panneau s'est ouvert
+
+  Scenario: Ouverture de la modification d'alarme en cliquant sur l'ID d'une alarme
+    Given en tant que BO
+    And Je suis sur la page de gestion de lignes
+    And je lance la recherche par ID "33669497435"
+    And j'ouvre le panneau de détail de la ligne
+    And Je clique sur "Voir le detail de la ligne"
+    And Je clique sur "Liste des alarmes"
+    When Je clique sur l'ID de la premiere alarme
+    Then Le panneau s'est ouvert
+
+  Scenario: Ouverture de la creation d'alarme
+    Given en tant que BO
+    And Je suis sur la page de gestion de lignes
+    And je lance la recherche par ID "33669497435"
+    And j'ouvre le panneau de détail de la ligne
+    And Je clique sur "Voir le detail de la ligne"
+    And Je clique sur "Liste des alarmes"
+    When Je clique sur "Creer une alarme"
+    Then Le panneau s'est ouvert
+
+  Scenario: Ouverture de l'acte de masse d'un acte de gestion
+    Given en tant que BO
+    And Je suis sur la page de gestion de lignes
+    And je lance la recherche par ID "33669497435"
+    And j'ouvre le panneau de détail de la ligne
+    And Je clique sur "Voir le detail de la ligne"
+    And Je clique sur "Suivi pilotage des actes de gestion"
+    When Je clique sur l'acte de masse de la premiere ligne
+    Then Le panneau s'est ouvert
+
+  Scenario: Ouverture de la page de l'acte de gestion en cliquant sur "Voir le detail du resultat" dans le panneau
+    Given en tant que BO
+    And Je suis sur la page de gestion de lignes
+    And je lance la recherche par ID "33669497435"
+    And j'ouvre le panneau de détail de la ligne
+    And Je clique sur "Voir le detail de la ligne"
+    And Je clique sur "Suivi pilotage des actes de gestion"
+    When Je clique sur l'acte de masse de la premiere ligne
+    And Je clique sur "Voir le detail du resultat"
+    Then La page de l'acte de gestion s'est ouverte
+
+  Scenario: Ouverture de la page de l'acte de gestion en cliquant sur "Voir le resultat de l'acte" dans le panneau
+    Given en tant que BO
+    And Je suis sur la page de gestion de lignes
+    And je lance la recherche par ID "33669497435"
+    And j'ouvre le panneau de détail de la ligne
+    And Je clique sur "Voir le detail de la ligne"
+    And Je clique sur "Suivi pilotage des actes de gestion"
+    When Je clique sur l'acte de masse de la premiere ligne
+    And Je clique sur "Voir le resultat de l'acte"
+    Then La page de l'acte de gestion s'est ouverte
