@@ -44,9 +44,40 @@ export default {
         cy.waitGet('.menu_alarm_list > a').click();
         cy.url().should('include', '/details/alarms');
       },
+      alarmsDetails: {
+        openTriggerHistory() {
+          cy.waitGet('table > tbody > tr:nth-child(2) > td:nth-child(5) > div > button').click();
+        },
+        openAlarmModification() {
+          cy.waitGet('table > tbody > tr:nth-child(1) > td:nth-child(1) > div > button').click();
+        },
+        openAlarmCreation() {
+          cy.waitGet('div.col-md-9 > div > div.row.mb-3.mt-3 > div.col-md-4 > button').click();
+        },
+      },
       acts() {
         cy.waitGet('.menu_acts_history > a').click();
         cy.url().should('include', '/details/acts');
+      },
+      actsDetails: {
+        openMassAction() {
+          cy.waitGet('table > tbody > tr:nth-child(1) > td:nth-child(2) > div > button').click();
+        },
+        showResultDetailsClick() {
+          cy.waitGet(
+            '.panel-vertical-container .main-content.data-detail-container > div:nth-child(1) > div.overview-item.d-flex > button'
+          ).click();
+          cy.wait(400);
+        },
+        showActResultClick() {
+          cy.waitGet(
+            '#main-sliding-panel > div > div > div > div > div > div.footer-back > div > div.goto-detail-button > button'
+          ).click();
+          cy.wait(400);
+        },
+        verifyUrlActDetail() {
+          cy.url().should('include', '/act-detail/426');
+        },
       },
     },
     ongoing() {
@@ -96,6 +127,14 @@ export default {
       },
     },
   },
+  panel: {
+    closePanel() {
+      cy.waitGet('.cd-panel__header > a').click();
+    },
+    isVisible() {
+      cy.waitGet('.cd-panel').should('have.class', 'cd-panel--is-visible');
+    },
+  },
   buttons: {
     changerCarteSIM: {
       clickable() {
@@ -113,6 +152,11 @@ export default {
       click() {
         cy.waitGet('.slick-slide:nth-child(1)').click();
       },
+      newICCID(iccid) {
+        cy.waitGet(
+          'div.data-detail-container.main-content > div > div.data-detail-container.main-content > div > div:nth-child(2) > p > div > label > input[type=text]'
+        ).type(iccid);
+      },
     },
     changerMSISDN: {
       clickable() {
@@ -129,6 +173,11 @@ export default {
       },
       click() {
         cy.waitGet('.slick-slide:nth-child(2)').click();
+      },
+      newMSISDN(msisdn) {
+        cy.waitGet(
+          'div.data-detail-container.main-content > div > div.data-detail-container.main-content > div > div:nth-child(2) > p > div > label > input[type=text]'
+        ).type(msisdn);
       },
     },
     modifierChampsLibres: {
@@ -164,6 +213,15 @@ export default {
       click() {
         cy.waitGet('.slick-slide:nth-child(4)').click();
       },
+      newCF(cf) {
+        cy.waitGet(
+          'div.data-detail-container.main-content > div > div.data-detail-container.main-content > div > div:nth-child(2) > p > div > fieldset > input'
+        )
+          .click()
+          .type(cf);
+        cy.wait(200);
+        cy.waitGet('.autocomplete-results > li:nth-child(1)').click();
+      },
     },
     changerOffre: {
       clickable() {
@@ -181,14 +239,23 @@ export default {
       click() {
         cy.waitGet('.slick-slide:nth-child(5)').click();
       },
+      newOffre(offre) {
+        cy.waitGet(
+          'div.data-detail-container.main-content > div > div.data-detail-container.main-content > div > div:nth-child(2) > p > div > fieldset > input'
+        )
+          .click()
+          .type(offre);
+        cy.wait(200);
+        cy.waitGet('.autocomplete-results > li:nth-child(1)').click();
+      },
     },
-    panel: {
-      closePanel() {
-        cy.waitGet('.cd-panel__header > a').click();
-      },
-      isVisible() {
-        cy.waitGet('.cd-panel').should('have.class', 'cd-panel--is-visible');
-      },
+    apply() {
+      cy.waitGet('button.btn.btn-primary.pl-4.pr-4.pt-2.pb-2.mt-4').click();
+    },
+    save() {
+      cy.waitGet(
+        'div.modal-mask > div > div > div.modal-footer > div > button.btn-success'
+      ).click();
     },
   },
 };
