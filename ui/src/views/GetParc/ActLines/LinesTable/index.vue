@@ -208,7 +208,8 @@ export default {
       const partnerFilter = this.appliedFilters.find((a) => a.id === 'filters.partners');
 
       const otherExportChoices = [];
-      if (this.havePermission('getParc', 'export_service') && this.isServicesEnabled) {
+
+      if (this.havePermission('getParc', 'export_service')) {
         otherExportChoices.push({
           id: 'SERVICES',
           label: 'exportTable.services',
