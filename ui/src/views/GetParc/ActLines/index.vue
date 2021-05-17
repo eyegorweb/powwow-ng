@@ -146,6 +146,7 @@ import ActionCarousel from './ActionCarousel';
 import Indicators from '@/components/Indicators';
 import DropZone from '@/components/ui/DropZone';
 import UiSelect from '@/components/ui/UiSelect';
+import { getAvailableOffer } from '@/api/offers.js';
 import { mapState, mapActions, mapMutations, mapGetters } from 'vuex';
 import { getPartyOptions } from '@/api/partners.js';
 import Toggle from '@/components/ui/UiToggle2';
@@ -242,6 +243,7 @@ export default {
       'searchingById',
     ]),
     ...mapGetters('actLines', ['appliedFilters', 'linesActionsResponse']),
+    ...mapGetters(['userIsPartner', 'singlePartner']), 
     ...mapGetters([
       'userIsPartner',
       'userInfos',
@@ -327,15 +329,17 @@ export default {
       }
 
       if (!this.userHaveEsimEnabled) {
-        return itemsToReturn.filter((i) => !i.esimAct);
+        return this.configureDisableConstraint(itemsToReturn.filter((i) => !i.esimAct));
       }
 
-      return itemsToReturn.filter((i) => {
-        if (i.partnerFeature === 'LV') {
-          return this.lvFeature;
-        }
-        return true;
-      });
+      return this.configureDisableConstraint(
+        itemsToReturn.filter((i) => {
+          if (i.partnerFeature === 'LV') {
+            return this.lvFeature;
+          }
+          return true;
+        })
+      );
     },
     canShowForm() {
       const actWithFileUpload = this.creationMode && this.creationMode.containFile;
@@ -417,6 +421,28 @@ export default {
     ...mapMutations(['openPanel']),
     async fetchPartyFeatures() {
       this.lvFeature = await isFeatureAvailable('LV');
+    },
+    configureDisableConstraint(carouselItems) {
+      let response;
+      let partnerFilter = this.appliedFilters.find(e => e.id === "filters.partners");
+      console.log(partnerFilter)
+      if(this.singlePartner) {
+        response = getAvailableOffer(this.singlePartner.id, { page: 0, limit: 20 })
+      }
+      else if (this.userIsBO && (partnerFilter || partnerFilter.values.length === 1)) {
+        response = getAvailableOffer(this.partnerFilter.values[0].id, { page: 0, limit: 20 })
+      }
+      carouselItems.map((item) => {
+        if (item.id === 'CHANGE_OFFER') {
+          item.isDisable = () => {             
+            if(response && response.length <= 1) {
+              return true;
+            }
+            return false;
+          };
+        }
+      });
+      return carouselItems;
     },
     onToggleChange(newToggleValue) {
       this.useFileImportAsInput = newToggleValue === 'byImport';

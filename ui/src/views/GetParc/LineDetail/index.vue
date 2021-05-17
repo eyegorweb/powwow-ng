@@ -253,6 +253,13 @@ export default {
               icon: 'ic-Ticket-Icon',
               title: 'getparc.actCreation.carouselItem.lineDetail.CHANGE_OFFER',
               selected: false,
+              isDisable() {                   
+                const response = getAvailableOffer(this.lineData.party.id, { page: 0, limit: 20 })
+                if(response && response.length <= 1) {
+                  return true;
+                }
+                return false;
+              },
               permission: { domain: 'act', action: 'manage_main' },
             },
           ])

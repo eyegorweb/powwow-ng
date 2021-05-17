@@ -92,6 +92,7 @@
     "lowdb": "^1.0.0",
     "mkdirp": "^0.5.1",
     "postinstall-postinstall": "^2.0.0",
+    "leaf-translations": "RPLeaf/rage-translations#master",
     "sass-loader": "^7.0.1",
     "shortid": "^2.2.8",
     "vue-cli-plugin-i18n": "^0.5.1",
