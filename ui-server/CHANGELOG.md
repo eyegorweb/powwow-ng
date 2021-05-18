@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.329+20210518073209
+2021-05-18
+
+### Features
+
+- [976] Ajout de regles sur acte changer offre getParc et detail (81f193597ab27256ee86bcbc9f01b5baf45d38c6)
+
 ## 1.17.0-master.328+20210517090101
 2021-05-17
 
