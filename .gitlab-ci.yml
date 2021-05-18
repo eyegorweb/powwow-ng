@@ -263,6 +263,7 @@ e2e_integration:
     - cd ui
     - yarn install --frozen-lockfile
     - yarn e2e
+    - yarn generate:html:report
     - cd ../
   artifacts:
     when: always
@@ -270,3 +271,4 @@ e2e_integration:
     paths:
       - ui/cypress/videos
       - ui/cypress/screenshots
+      - ui/TestReport
