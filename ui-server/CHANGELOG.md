@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.331+20210518140839
+2021-05-18
+
+### Fixes
+
+- [2655] problème de scrollback sur le composant multisearch (95e8e40a422dbc13f3b603dc948731ac4cefdf98)
+- [000] Corriger des tests (fbcdbe2f640745b4e2771150071589a91f6e25f7)
+
 ## 1.17.0-master.330+20210518100934
 2021-05-18
 
