@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.330+20210518100934
+2021-05-18
+
+### Fixes
+
+- [000] Corriger l'écran getParc (df392fa8d31eb4cc9886686697efd85e52b06678)
+
 ## 1.17.0-master.329+20210518073209
 2021-05-18
 
