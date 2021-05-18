@@ -243,7 +243,7 @@ export default {
       'searchingById',
     ]),
     ...mapGetters('actLines', ['appliedFilters', 'linesActionsResponse']),
-    ...mapGetters(['userIsPartner', 'singlePartner']), 
+    ...mapGetters(['userIsPartner', 'singlePartner']),
     ...mapGetters([
       'userIsPartner',
       'userInfos',
@@ -422,27 +422,25 @@ export default {
     async fetchPartyFeatures() {
       this.lvFeature = await isFeatureAvailable('LV');
     },
-    configureDisableConstraint(carouselItems) {
+    configureDisableConstraint(carouselInputItems) {
       let response;
-      let partnerFilter = this.appliedFilters.find(e => e.id === "filters.partners");
-      console.log(partnerFilter)
-      if(this.singlePartner) {
-        response = getAvailableOffer(this.singlePartner.id, { page: 0, limit: 20 })
+      let partnerFilter = this.appliedFilters.find((e) => e.id === 'filters.partners');
+      if (this.singlePartner) {
+        response = getAvailableOffer(this.singlePartner.id, { page: 0, limit: 20 });
+      } else if (this.userIsBO && partnerFilter && partnerFilter.values.length === 1) {
+        response = getAvailableOffer(this.partnerFilter.values[0].id, { page: 0, limit: 20 });
       }
-      else if (this.userIsBO && (partnerFilter || partnerFilter.values.length === 1)) {
-        response = getAvailableOffer(this.partnerFilter.values[0].id, { page: 0, limit: 20 })
-      }
-      carouselItems.map((item) => {
+      carouselInputItems.map((item) => {
         if (item.id === 'CHANGE_OFFER') {
-          item.isDisable = () => {             
-            if(response && response.length <= 1) {
+          item.isDisable = () => {
+            if (response && response.length <= 1) {
               return true;
             }
             return false;
           };
         }
       });
-      return carouselItems;
+      return carouselInputItems;
     },
     onToggleChange(newToggleValue) {
       this.useFileImportAsInput = newToggleValue === 'byImport';
