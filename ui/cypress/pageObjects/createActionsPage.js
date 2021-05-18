@@ -64,7 +64,7 @@ export default {
     },
   },
   filters: {
-    massByPartner: partnerName => {
+    massByPartner: (partnerName) => {
       //cy.waitGet('.partner-prereq input');
       cy.waitGet('.partner-prereq > .position-relative > .form-group > .form-control')
         .click()
@@ -229,7 +229,7 @@ export default {
       },
     },
     manageCancellation: {
-      chooseDelay: delay => {
+      chooseDelay: (delay) => {
         cy.waitGet('.manage-cancellation-delay-choice select').select(delay);
       },
 
@@ -265,10 +265,6 @@ export default {
       path = ':nth-child(4) > :nth-child(2) > :nth-child(2) > .btn';
     cy.waitGet(path).click();
     cy.waitGet('.btn-success').click();
-    if (typeMassAction === 'Changement des champs custom')
-      cy.waitGet(
-        '#app > div.modal-mask > div > div > div.modal-footer > div > button.modal-default-button.btn.btn-success.btn-sm.ml-1'
-      ).click();
     cy.wait(500);
   },
 };

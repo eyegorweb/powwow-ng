@@ -17,7 +17,16 @@ export default {
   exportFile: layout.exportFile,
 
   chooseExportType(exportType) {
-    cy.get('.exportTypes button').each($el => {
+    cy.get('.exportTypes button').each(($el) => {
+      if ($el.text().trim() === exportType) {
+        cy.wrap($el).click();
+      }
+    });
+  },
+
+  chooseOtherExportType(exportType) {
+    cy.get('.dropdown-toggle').click();
+    cy.get('.dropdown-item').each(($el) => {
       if ($el.text().trim() === exportType) {
         cy.wrap($el).click();
       }
@@ -31,7 +40,7 @@ export default {
   },
 
   getRows(callback) {
-    cy.waitGet('table tbody tr').then(elements => callback(elements));
+    cy.waitGet('table tbody tr').then((elements) => callback(elements));
   },
 
   panel: {
@@ -71,7 +80,7 @@ export default {
       .waitGet(
         '#app > div.container > div.mt-4 > div:nth-child(3) > div.col-md-9.extra-bottom-margin > div > div > div.row.mb-3 > div:nth-child(1) > h2'
       )
-      .then(e => {
+      .then((e) => {
         const parts = e
           .text()
           .trim()

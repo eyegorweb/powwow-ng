@@ -15,7 +15,7 @@ Given(`j'ouvre le détail d'une ligne`, () => {
   linesPage.panel.goToDetail();
 });
 
-When(`je lance la recherche par ID {string}`, id => {
+When(`je lance la recherche par ID {string}`, (id) => {
   linesPage.idSearch.typeId(id);
   linesPage.idSearch.applySearch();
   cy.wait(500);
@@ -26,47 +26,47 @@ When(`je clique sur retour`, () => {
 });
 
 Then(`la table contient les résultats de la page précédente`, () => {
-  linesPage.getRows(elements => {
+  linesPage.getRows((elements) => {
     expect(elements.length).to.be.above(0);
   });
 });
 
-Given(`je choisis le filtre partenaire {string}`, partnerName => {
+Given(`je choisis le filtre partenaire {string}`, (partnerName) => {
   linesPage.filterBar.partner.toggle();
   linesPage.filterBar.partner.filter(partnerName);
   linesPage.filterBar.partner.choose(1);
   linesPage.filterBar.close();
 });
 
-Given(`je choisis le filtre compte de facturation {string}`, billingAccount => {
+Given(`je choisis le filtre compte de facturation {string}`, (billingAccount) => {
   linesPage.filterBar.billingAccount.toggle();
   linesPage.filterBar.billingAccount.filter(billingAccount);
   linesPage.filterBar.billingAccount.choose(1);
   linesPage.filterBar.close();
 });
 
-Given(`je choisis le filtre type {string}`, simType => {
+Given(`je choisis le filtre type {string}`, (simType) => {
   linesPage.filterBar.type.toggle();
   linesPage.filterBar.type.filter(simType);
   linesPage.filterBar.type.choose(1);
   linesPage.filterBar.close();
 });
 
-Given(`je choisis le filtre offre {string}`, offer => {
+Given(`je choisis le filtre offre {string}`, (offer) => {
   linesPage.filterBar.offer.toggle();
   linesPage.filterBar.offer.filter(offer);
   linesPage.filterBar.offer.choose(1);
   linesPage.filterBar.close();
 });
 
-Given(`je choisis le filtre statut de facturation {string}`, billingStatus => {
+Given(`je choisis le filtre statut de facturation {string}`, (billingStatus) => {
   linesPage.filterBar.showAllTypes();
   linesPage.filterBar.billingStatus.toggle();
   linesPage.filterBar.billingStatus.filter(billingStatus);
   linesPage.filterBar.billingStatus.choose(1);
 });
 
-Given(`je choisis le filtre id {string}`, offer => {
+Given(`je choisis le filtre id {string}`, (offer) => {
   linesPage.filterBar.id.toggle();
   linesPage.filterBar.id.filter(offer);
 });
@@ -79,7 +79,7 @@ When(`je lance la recherche`, () => {
   cy.wait(500);
 });
 
-Then(`la table contient {int} resultat`, nbrResult => {
+Then(`la table contient {int} resultat`, (nbrResult) => {
   cy.wrap(null).then(() => {
     return cy.waitUntiGQLIsSent('simCardInstances').then(({ response }) => {
       expect(get(response, 'body.data.simCardInstances.total')).to.be.equal(nbrResult);
@@ -87,7 +87,7 @@ Then(`la table contient {int} resultat`, nbrResult => {
   });
 });
 
-Then(`la table contient plus de {int} resultat`, nbrResult => {
+Then(`la table contient plus de {int} resultat`, (nbrResult) => {
   cy.wrap(null).then(() => {
     return cy.waitUntiGQLIsSent('simCardInstances').then(({ response }) => {
       expect(get(response, 'body.data.simCardInstances.total')).to.be.above(nbrResult);
@@ -95,16 +95,22 @@ Then(`la table contient plus de {int} resultat`, nbrResult => {
   });
 });
 
-When(`je lance un Export {string}`, exportType => {
+When(`je lance un Export {string}`, (exportType) => {
   linesPage.exportFile.openChoice();
   linesPage.chooseExportType(exportType);
   linesPage.exportFile.chooseFormat('csv');
 });
 
+When(`je lance un Export supplémentaire {string}`, (exportType) => {
+  linesPage.exportFile.openChoice();
+  linesPage.chooseOtherExportType(exportType);
+  //linesPage.exportFile.chooseFormat('csv');
+});
+
 Then(`le fichier est bien téléchargé`, () => {
   cy.wait(500);
   cy.wrap(null).then(() => {
-    return cy.waitUntiGQLIsSent('exportSimCardInstances').then(http => {
+    return cy.waitUntiGQLIsSent('exportSimCardInstances').then((http) => {
       const downloadUri = get(http.response, 'body.data.exportSimCardInstances.downloadUri');
       expect(downloadUri).to.not.be.undefined;
     });

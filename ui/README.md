@@ -59,3 +59,36 @@ If tests are giving errors in almost every file, you may need to clear jest cach
 [yarn]: https://yarnpkg.com/lang/en/
 [npm]: https://www.npmjs.com/
 [eslint-plugin-vue]: https://github.com/vuejs/eslint-plugin-vue/
+
+### Lancer les tests cypress en parallèle
+
+#### Préparation de sorry cypress
+
+Modifier le fichier suivant :
+
+```
+.cache/Cypress/5.6.0/Cypress/resources/app/packages/server/config/app.yml
+```
+
+Remplacer api.cypress.io par
+
+```
+api_url: http://localhost:1234/
+```
+
+```sh
+cd cypress/dashboard
+docker-compose -f ./docker-compose.minio.yml up
+```
+
+#### Lancer les tests
+
+```sh
+yarn e2e:dashboard --ci-build-id cypress_run_1
+```
+
+#### Portail Sorry cypress
+
+```
+http://localhost:9090/
+```

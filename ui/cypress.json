@@ -6,5 +6,12 @@
     "PARTNER_TOKEN": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvcmdhbml6YXRpb25JZCI6IkJ5dGVsIiwiZXhwIjoxNjEwNjIzODMxLCJ1c2VyX25hbWUiOiJMWVJBIiwianRpIjoiZGRlZDhkMDItOThlOS00MWE1LWE1Y2ItOTVkNzY1YWE1YWY0IiwiY2xpZW50X2lkIjoicG93d293dWktaW1wbGljaXQiLCJzY29wZSI6WyJ1aS1lbmRwb2ludHMiXX0.BeovccZuLSR_uuxUYwdWQP3yiwJm4XPgopMHo_9lfCQ"
   },
   "testFiles": "**/*.feature",
-  "projectId": "powwow-ng"
+  "projectId": "powwow-ng",
+  "reporter": "../node_modules/mochawesome/src/mochawesome.js",
+  "reporterOptions": {
+    "overwrite": false,
+    "html": false,
+    "json": true
+  },
+  "video": false
 }
