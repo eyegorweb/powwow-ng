@@ -13,7 +13,7 @@
               :title="item.title"
               :subtitle="item.subtitle"
               :item="item"
-              :default-disabled="defaultDisabled"
+              :default-disabled="checkDisable(item)"
               @click="() => $emit('itemClick', item)"
             />
           </slick>
@@ -58,6 +58,14 @@ export default {
   },
 
   methods: {
+    checkDisable(item) {
+      if(this.defaultDisabled) return true;
+      if(item.isDisable) {
+        return item.isDisable();
+      }
+      return false;
+    },
+    
     next() {
       this.$refs.slick.next();
     },
