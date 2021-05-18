@@ -131,7 +131,7 @@ export default {
       maximumSelectableItems: 2,
       showAll: false,
       canNotifyScrollLimit: true,
-      searchValue: undefined,
+      searchValue: '',
     };
   },
 
