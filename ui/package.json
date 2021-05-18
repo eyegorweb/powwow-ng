@@ -18,9 +18,13 @@
     "test:unit": "vue-cli-service test:unit",
     "e2e:open": "cypress open ",
     "e2e:open:focus": "cypress open -e TAGS=\"@focus\"",
-    "e2e": "./node_modules/.bin/cypress-tags run -e TAGS=\"not @ignore\"",
+    "e2e": "yarn run clean:reports && ./node_modules/.bin/cypress-tags run -e TAGS=\"not @ignore\"",
     "e2e:focus": "./node_modules/.bin/cypress-tags run -e TAGS=\"@focus\"",
-    "e2e:dashboard": "./node_modules/.bin/cypress-tags run -e TAGS=\"not @ignore\" --record --key ci-tests --parallel "
+    "e2e:dashboard": "./node_modules/.bin/cypress-tags run -e TAGS=\"not @ignore\" --record --key ci-tests --parallel ",
+    "clean:reports": "rm -rf mochawesome-report/ TestReport cypress-tests-report.json",
+    "merge:reports": "mochawesome-merge mochawesome-report/*.json > cypress-tests-report.json",
+    "create:html:report": "marge --reportDir TestReport cypress-tests-report.json",
+    "generate:html:report": "yarn run merge:reports && yarn run create:html:report"
   },
   "dependencies": {
     "@johmun/vue-tags-input": "^2.1.0",
@@ -91,6 +95,10 @@
     "faked-promise": "^2.0.0",
     "lowdb": "^1.0.0",
     "mkdirp": "^0.5.1",
+    "mocha": "^8.4.0",
+    "mochawesome": "^6.2.2",
+    "mochawesome-merge": "^4.2.0",
+    "mochawesome-report-generator": "^5.2.0",
     "postinstall-postinstall": "^2.0.0",
     "leaf-translations": "RPLeaf/rage-translations#master",
     "sass-loader": "^7.0.1",

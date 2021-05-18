@@ -140,6 +140,8 @@ Feature: detail des lignes
     When Je clique sur "Creer une alarme"
     Then Le panneau s'est ouvert
 
+  # Ignoré par manque de données
+  @ignore
   Scenario: Ouverture de l'acte de masse d'un acte de gestion
     Given en tant que BO
     And Je suis sur la page de gestion de lignes
@@ -150,6 +152,8 @@ Feature: detail des lignes
     When Je clique sur l'acte de masse de la premiere ligne
     Then Le panneau s'est ouvert
 
+  # Ignoré par manque de données
+  @ignore
   Scenario: Ouverture de la page de l'acte de gestion en cliquant sur "Voir le detail du resultat" dans le panneau
     Given en tant que BO
     And Je suis sur la page de gestion de lignes
@@ -161,6 +165,8 @@ Feature: detail des lignes
     And Je clique sur "Voir le detail du resultat"
     Then La page de l'acte de gestion s'est ouverte
 
+  # Ignoré par manque de données
+  @ignore
   Scenario: Ouverture de la page de l'acte de gestion en cliquant sur "Voir le resultat de l'acte" dans le panneau
     Given en tant que BO
     And Je suis sur la page de gestion de lignes

@@ -4,7 +4,7 @@ import get from 'lodash.get';
 import alarmsPage from '../../../pageObjects/alarmsPage';
 import alarmDetailPage from '../../../pageObjects/alarmsDetailPage';
 
-Given(`je suis sur la page détail de l'alarme {int}`, id => {
+Given(`je suis sur la page détail de l'alarme {int}`, (id) => {
   alarmsPage.init();
   alarmsPage.openDetailPanel(id);
   alarmsPage.detailPanel.gotoDetail();
@@ -12,7 +12,7 @@ Given(`je suis sur la page détail de l'alarme {int}`, id => {
   cy.wait(500);
 });
 
-Given(`je choisis les alarmes {string}`, tabToChoose => {
+Given(`je choisis les alarmes {string}`, (tabToChoose) => {
   alarmDetailPage.tabs.chooseTab(tabToChoose);
 });
 
@@ -24,7 +24,7 @@ When(`je lance un Export des lignes`, () => {
 Then(`l'export des déclenchemets dans le mois est bien téléchargé`, () => {
   cy.wait(500);
   cy.wrap(null).then(() => {
-    return cy.waitUntiGQLIsSent('alarmsWithTriggersExport').then(http => {
+    return cy.waitUntiGQLIsSent('alarmsWithTriggersExport').then((http) => {
       const downloadUri = get(http.response, 'body.data.alarmsWithTriggersExport.downloadUri');
       expect(downloadUri).to.not.be.undefined;
     });
@@ -34,7 +34,7 @@ Then(`l'export des déclenchemets dans le mois est bien téléchargé`, () => {
 Then(`l'export des lignes ciblées est bien téléchargé`, () => {
   cy.wait(500);
   cy.wrap(null).then(() => {
-    return cy.waitUntiGQLIsSent('linesBoundToAlarmExport').then(http => {
+    return cy.waitUntiGQLIsSent('linesBoundToAlarmExport').then((http) => {
       const downloadUri = get(http.response, 'body.data.linesBoundToAlarmExport.downloadUri');
       expect(downloadUri).to.not.be.undefined;
     });
@@ -44,7 +44,7 @@ Then(`l'export des lignes ciblées est bien téléchargé`, () => {
 Then(`l'export des lignes exclues est bien téléchargé`, () => {
   cy.wait(500);
   cy.wrap(null).then(() => {
-    return cy.waitUntiGQLIsSent('linesBoundToAlarmExport').then(http => {
+    return cy.waitUntiGQLIsSent('linesBoundToAlarmExport').then((http) => {
       const downloadUri = get(http.response, 'body.data.linesBoundToAlarmExport.downloadUri');
       expect(downloadUri).to.not.be.undefined;
     });

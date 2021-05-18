@@ -8,7 +8,7 @@ export default {
     layout.menu.massActions();
   },
   openDetailPanel(id) {
-    cy.get('tbody tr:first td button.id-cell').each($el => {
+    cy.get('.id-cell').each(($el) => {
       if ($el.text().trim() === '' + id) {
         cy.wrap($el).click();
       }
@@ -37,7 +37,7 @@ export default {
     requestCreator: new MultiSelectFilter(2),
     actionType: new MultiSelectFilter(3),
     getSelectedFilters(onFilterFoundFn) {
-      cy.waitGet('.selected-filter .detail').then(e => {
+      cy.waitGet('.selected-filter .detail').then((e) => {
         const formatted = [];
         for (let i = 0; i < e.length; i++) {
           formatted.push(e[i].innerText);
@@ -65,9 +65,9 @@ export default {
     },
   },
   getTotal() {
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       cy.wait(200);
-      cy.waitGet('.mb-3 > :nth-child(1) > .text-gray').then(e => {
+      cy.waitGet('.mb-3 > :nth-child(1) > .text-gray').then((e) => {
         const parts = e
           .text()
           .trim()

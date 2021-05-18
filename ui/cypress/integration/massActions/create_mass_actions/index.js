@@ -15,7 +15,7 @@ Given(`je regarde le nombre d'actes de gestions`, () => {
   layout.menu.massActions(true);
 
   cy.wrap(null).then(() => {
-    return cy.waitForGQL('massActionsV2').then(response => {
+    return cy.waitForGQL('massActionsV2').then((response) => {
       totalMassAction = get(response, 'body.data.massActionsV2.total');
     });
   });
@@ -90,7 +90,7 @@ When('Je créé la validation avec un délai de 3 mois', () => {
 Then('Je valide que la due date est à la date du jour + 3 mois', () => {
   layout.menu.massActions();
   cy.wrap(null).then(() => {
-    return cy.waitForGQL('massActionsV2').then(response => {
+    return cy.waitForGQL('massActionsV2').then((response) => {
       const lastItem = get(response, 'body.data.massActionsV2.items[0]');
       const dueDateStr = lastItem.massAction.dueDate;
       const dueDateMonth = parseInt(dueDateStr.split(' ')[0].split('/')[1]);
@@ -150,7 +150,7 @@ Then(`J'ai bien 2 KO quand j'essaie de résilier pour ces 2 lignes`, () => {
 Then('un act de refus de résiliation est bien créé', () => {
   layout.menu.massActions();
   cy.wrap(null).then(() => {
-    return cy.waitForGQL('massActionsV2').then(response => {
+    return cy.waitForGQL('massActionsV2').then((response) => {
       const actionType = get(response, 'body.data.massActionsV2.items[0].massAction.actionType');
       expect(actionType).to.equal('STATUS_CHANGE');
     });
@@ -161,9 +161,10 @@ Then(`je verifie que mon acte a été créé`, () => {
   layout.menu.massActions();
 
   cy.wrap(null).then(() => {
-    return cy.waitForGQL('massActionsV2').then(response => {
+    return cy.waitForGQL('massActionsV2').then((response) => {
       const newTotal = get(response, 'body.data.massActionsV2.total');
-      expect(newTotal).to.be.equal(totalMassAction);
+
+      expect(newTotal).to.be.equal(totalMassAction + 1);
       createActionsPage.getLastActionType().should('have.text', typeMassAction);
     });
   });

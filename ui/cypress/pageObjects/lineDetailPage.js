@@ -14,9 +14,7 @@ export default {
       ).click();
     },
     getTable() {
-      return cy.waitGet(
-        '#app > div.container > div.mt-4 > div.mt-4.mb-4 > div.pt-4.pl-4 > div > div > table'
-      );
+      return cy.waitGet('table');
     },
   },
   openDetailLine() {
@@ -76,7 +74,7 @@ export default {
           cy.wait(400);
         },
         verifyUrlActDetail() {
-          cy.url().should('include', '/act-detail/426');
+          cy.url().should('include', '/act-detail/');
         },
       },
     },

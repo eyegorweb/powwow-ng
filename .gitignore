@@ -60,3 +60,7 @@ ui/cypress/screenshots
 
 ui/debug.Log
 *.lnk
+mochawesome-report
+TestReport
+cypress-tests-report.json
+ui/cypress/dashboard/data

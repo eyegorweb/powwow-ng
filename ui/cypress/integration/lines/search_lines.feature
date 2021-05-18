@@ -92,6 +92,7 @@ Feature: Recherche de lignes
   Scenario: Export des lignes (Services)
     Given en tant que BO
     And je suis sur la page recherche de lignes
+    And je choisis le filtre partenaire "lyra"
     And j'affiche toutes les lignes
-    When je lance un Export "Services"
+    When je lance un Export supplémentaire "Services"
     Then le fichier est bien téléchargé

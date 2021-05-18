@@ -48,7 +48,6 @@ Feature: creation d'actes de gestion
     When je refuse les résiliations
     Then un act de refus de résiliation est bien créé
 
-  @focus
   Scenario: Les lignes rejetées ne doivent pas être validées lors d'une validation de résiliation
     Given en tant que BO
     And je suis sur la page de création d'actes de gestion
