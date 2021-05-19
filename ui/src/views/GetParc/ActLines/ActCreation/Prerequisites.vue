@@ -21,9 +21,14 @@
               <SearchById v-if="currentToggle === 'byId'" :act="act" />
 
               <AutoPairingPrereq
-                v-if="currentToggle === 'autoPairing' || currentToggle === 'filePairing'"
+                v-if="
+                  currentToggle === 'autoPairing' ||
+                  currentToggle === 'filePairing' ||
+                  currentToggle === 'filePairingEidIccid'
+                "
                 :act="act"
                 :can-select-sim-type="currentToggle === 'autoPairing'"
+                :current-toggle="currentToggle"
               />
             </div>
 
@@ -118,6 +123,10 @@ export default {
         {
           id: 'filePairing',
           label: 'getparc.actCreation.filePairing',
+        },
+        {
+          id: 'filePairingEidIccid',
+          label: 'getparc.actCreation.filePairingEidIccid',
         },
       ];
     }

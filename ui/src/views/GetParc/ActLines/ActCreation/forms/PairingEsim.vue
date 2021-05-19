@@ -1,15 +1,28 @@
 <template>
-  <ActFormContainer :validate-fn="onValidate"></ActFormContainer>
+  <div>
+    <div class="mb-2">
+      <DropZone v-model="selectedFile" class="dropZone" />
+    </div>
+
+    <ActFormContainer :validate-fn="onValidate"> </ActFormContainer>
+  </div>
 </template>
 
 <script>
 import ActFormContainer from './parts/ActFormContainer2';
 import { mapState, mapGetters } from 'vuex';
 import { pairingByStockedEid } from '@/api/esim.js';
+import DropZone from '@/components/ui/DropZone';
 
 export default {
   components: {
     ActFormContainer,
+    DropZone,
+  },
+  data() {
+    return {
+      selectedFile: undefined,
+    };
   },
   computed: {
     ...mapState('actLines', ['selectedLinesForActCreation', 'actCreationPrerequisites']),
@@ -24,15 +37,14 @@ export default {
         simCardInstanceIds = this.selectedLinesForActCreation.map((a) => a.id);
       }
 
-      return await pairingByStockedEid(
-        partnerId,
-        this.appliedFilters,
-        simCardTypeId,
-        simCardInstanceIds
-      );
+      return pairingByStockedEid(partnerId, this.appliedFilters, simCardTypeId, simCardInstanceIds);
     },
   },
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.dropZone {
+  width: 100%;
+}
+</style>
