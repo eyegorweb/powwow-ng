@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.335+20210519135355
+2021-05-19
+
+### Fixes
+
+- [000] Partie front de l'appairage par fichier (ebbe4a83902b6085d3f76d55dfb1e0bd4f481581)
+
 ## 1.17.0-master.334+20210519083505
 2021-05-19
 
