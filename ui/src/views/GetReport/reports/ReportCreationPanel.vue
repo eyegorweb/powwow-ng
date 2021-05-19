@@ -17,7 +17,13 @@
         <p>{{ $t('getreport.creation.chooseInfosDescription') }}</p>
         <div v-if="reportModels" class="mt-4 mb-2">
           <h6>{{ $t('getreport.creation.fromReport') }}</h6>
-          <UiSelect class="report-field" v-model="reportModel" :options="reportModels" :trad-prefix="'getreport.from_report.'" block />
+          <UiSelect
+            class="report-field"
+            v-model="reportModel"
+            :options="reportModels"
+            :trad-prefix="'getreport.from_report.'"
+            block
+          />
         </div>
         <div class="checkbox-groups" v-if="groups">
           <template v-for="group in groups">
@@ -477,7 +483,11 @@ export default {
 
         this.reportModels = [
           { label: this.$t('getreport.from_report.Custom'), value: 'NONE', data: { fields: [] } },
-          ...models.map((m) => ({ label: this.$t('getreport.from_report.' + m.modelType), value: m.modelType, data: m })),
+          ...models.map((m) => ({
+            label: this.$t('getreport.from_report.' + m.modelType),
+            value: m.modelType,
+            data: m,
+          })),
         ];
         this.reportModel = 'NONE';
       }
@@ -1073,14 +1083,15 @@ export default {
     ]),
 
     templateMandatoryItems() {
-      if(this.reportModel === "LAST_USAGE") {
-        return [{
-          code: 'TECHNOLOGY',
-          label: 'Technologie'
-        }]
-      }
-      else {
-        return []
+      if (this.reportModel === 'LAST_USAGE') {
+        return [
+          {
+            code: 'TECHNOLOGY',
+            label: 'Technologie',
+          },
+        ];
+      } else {
+        return [];
       }
     },
 

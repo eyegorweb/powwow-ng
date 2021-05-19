@@ -31,7 +31,9 @@
       </ul>
       <slot>
         <div class="cardBloc-buttons" v-if="havePermissionToEdit">
-          <Button :variant="'import'" @click="changeStatut(item)">{{ $t(item.disabled ? 'actions.ENABLE' : 'actions.DISABLE') }}</Button>
+          <Button :variant="'import'" @click="changeStatut(item)">{{
+            $t(item.disabled ? 'actions.ENABLE' : 'actions.DISABLE')
+          }}</Button>
         </div>
       </slot>
       <div class="cards-sim">
@@ -101,11 +103,10 @@ export default {
       this.confirmAction({
         message: 'confirmAction',
         actionFn: async () => {
-          if(item.disabled) {
-            await enableSimCard(this.partner.id, item.simCard.id)
-          }
-          else {
-            await disableSimCard(this.partner.id, item.simCard.id)
+          if (item.disabled) {
+            await enableSimCard(this.partner.id, item.simCard.id);
+          } else {
+            await disableSimCard(this.partner.id, item.simCard.id);
           }
           doReset();
         },
@@ -118,8 +119,8 @@ export default {
       if (this.billingAccountToDetail) {
         cfId = this.billingAccountToDetail.id;
       }
-      const sims = await fetchSim(this.partner.id, cfId, null, true)
-      console.log(sims)
+      const sims = await fetchSim(this.partner.id, cfId, null, true);
+      console.log(sims);
       return sims;
     },
 
@@ -153,8 +154,7 @@ export default {
 
     havePermissionToEdit() {
       return this.havePermission('party', 'update_available_sims');
-    }
-
+    },
   },
 };
 </script>

@@ -123,7 +123,7 @@ export default {
         }
       }
 
-      if (this.report.successful) {
+      if (this.report && this.report.successful) {
         this.closePanel();
       }
     },

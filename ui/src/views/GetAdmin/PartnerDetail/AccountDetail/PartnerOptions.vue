@@ -420,7 +420,7 @@
         <UiButton
           v-if="
             havePermission('party', 'update_main_options') ||
-            havePermission('party', 'update_secondary_options')
+              havePermission('party', 'update_secondary_options')
           "
           variant="primary"
           class="p-3"

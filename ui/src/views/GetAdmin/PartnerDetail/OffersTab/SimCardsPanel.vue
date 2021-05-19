@@ -142,8 +142,8 @@ export default {
           if (this.nextPage.length > 0) {
             this.simCards = [...this.simCards, ...this.nextPage];
             this.visibleSimCards = [...this.simCards];
-            console.log('visibleCards', this.visibleSimCards)
-            console.log('nextPage', this.nextPage)
+            console.log('visibleCards', this.visibleSimCards);
+            console.log('nextPage', this.nextPage);
           } else {
             this.canLoadByScroll = false;
           }
@@ -164,7 +164,7 @@ export default {
     async fetchPartnerSim(pagination) {
       this.isLoading = true;
       const items = await getAvailableSim(this.content.partner.id, pagination);
-      console.log(items)
+      console.log(items);
       const simCardsPage = items.map((i) => {
         const services = get(i, 'workflow.initialOffer.marketingServices', []);
         const isChecked = !!this.partnersimCards.find((p) => p.id === i.workflow.id);

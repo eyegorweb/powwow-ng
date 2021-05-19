@@ -133,8 +133,16 @@ export default {
 
       this.chekcForErrors();
       const response = await changeSingleCustomFields(params);
-      if (response) {
+      if (response && response.data) {
         return { report: { ...response.data.changeCustomFieldsV2 }, errors: response.errors };
+      } else {
+        return {
+          errors: [
+            {
+              message: this.$t('requestError'),
+            },
+          ],
+        };
       }
     },
     getCustomFieldLabel(index) {
