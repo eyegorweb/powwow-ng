@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.333+20210519072759
+2021-05-19
+
+### Features
+
+- [000] Ajout de tests pour le recherche de partenaire et le détail de partenaire (getAdmin > Gestion des partenaires) (ae64c8cd0170e04d56b372e9138e16d52771dc00)
+
 ## 1.17.0-master.332+20210518142430
 2021-05-18
 
