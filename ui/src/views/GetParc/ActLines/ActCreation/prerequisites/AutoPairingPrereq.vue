@@ -82,6 +82,7 @@ export default {
       default: undefined,
     },
     canSelectSimType: Boolean,
+    currentToggle: String,
   },
   watch: {
     partner(newValue) {
@@ -163,7 +164,7 @@ export default {
       const allPrereq = {
         partner: this.selectedPartner,
         billingAccount: this.chosenBillingAccount,
-        filePairing: !this.canSelectSimType,
+        filePairing: this.currentToggle === 'filePairingEidIccid',
       };
 
       if (this.selectedTypeSimCard) {

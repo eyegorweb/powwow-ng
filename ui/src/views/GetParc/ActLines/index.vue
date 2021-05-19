@@ -89,9 +89,9 @@
             num="1"
             v-if="
               creationMode &&
-                actCreationPrerequisites &&
-                !actToCreate.containFile &&
-                !useFileImportAsInput
+              actCreationPrerequisites &&
+              !actToCreate.containFile &&
+              !useFileImportAsInput
             "
             title="getparc.actLines.step1Title"
             :color="actToCreate.color"
@@ -427,8 +427,13 @@ export default {
       let partnerFilter = this.appliedFilters.find((e) => e.id === 'filters.partners');
       if (this.singlePartner) {
         response = getAvailableOffer(this.singlePartner.id, { page: 0, limit: 20 });
-      } else if (this.userIsBO && partnerFilter && partnerFilter.values.length === 1) {
-        response = getAvailableOffer(this.partnerFilter.values[0].id, { page: 0, limit: 20 });
+      } else if (
+        this.userIsBO &&
+        partnerFilter &&
+        partnerFilter.values &&
+        partnerFilter.values.length === 1
+      ) {
+        response = getAvailableOffer(partnerFilter.values[0].id, { page: 0, limit: 20 });
       }
       carouselInputItems.map((item) => {
         if (item.id === 'CHANGE_OFFER') {

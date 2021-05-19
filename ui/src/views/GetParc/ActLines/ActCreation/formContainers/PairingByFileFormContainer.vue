@@ -42,7 +42,7 @@ export default {
     async doSendPairingRequest(params) {
       const partnerId = this.$loGet(this.actCreationPrerequisites, 'partner.id');
       const tempEidUuid = params.tempDataUuid;
-      return await pairingByImportedFile({ partnerId, tempEidUuid });
+      return pairingByImportedFile({ partnerId, tempEidUuid });
     },
     async onValidate(contextValues) {
       if (!contextValues.tempDataUuid) {
@@ -52,12 +52,12 @@ export default {
             return this.searchFileResponse;
           }
 
-          return await this.doSendPairingRequest({
+          return this.doSendPairingRequest({
             tempDataUuid: this.searchFileResponse.tempDataUuid,
           });
         }
       } else {
-        return await this.doSendPairingRequest({
+        return this.doSendPairingRequest({
           tempDataUuid: contextValues.tempDataUuid,
         });
       }
