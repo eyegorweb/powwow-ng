@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.334+20210519083505
+2021-05-19
+
+### Fixes
+
+- [2679] message lors d'un changement de champ libre (5c8dc85dc5fdfe0a47eaf3fd0eafb6428fe3b176)
+
 ## 1.17.0-master.333+20210519072759
 2021-05-19
 
