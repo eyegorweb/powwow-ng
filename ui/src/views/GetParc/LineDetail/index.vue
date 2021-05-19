@@ -62,6 +62,7 @@ import get from 'lodash.get';
 import { excludeMocked } from '@/featureFlipping/plugin';
 import { getPartyOptions } from '@/api/partners.js';
 import { getFromLatestLineFromAccessPoint } from '@/utils/line.js';
+import { getAvailableOffer } from '@/api/offers.js';
 
 export default {
   components: {
@@ -223,6 +224,11 @@ export default {
         }
 
         if (this.lineData.party && this.lineData.party.partyType !== 'MVNO') {
+          const availableOffers = await getAvailableOffer(this.lineData.party.id, {
+            page: 0,
+            limit: 20,
+          });
+
           this.carouselItems = excludeMocked([
             {
               icon: 'ic-Sim-Icon',
@@ -253,9 +259,8 @@ export default {
               icon: 'ic-Ticket-Icon',
               title: 'getparc.actCreation.carouselItem.lineDetail.CHANGE_OFFER',
               selected: false,
-              isDisable() {                   
-                const response = getAvailableOffer(this.lineData.party.id, { page: 0, limit: 20 })
-                if(response && response.length <= 1) {
+              isDisable() {
+                if (availableOffers && availableOffers.length <= 1) {
                   return true;
                 }
                 return false;

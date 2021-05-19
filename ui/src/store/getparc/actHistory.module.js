@@ -188,9 +188,11 @@ export const mutations = {
     });
   },
   setActStatusFilter(state, statuses) {
-    const isFilterErrorFound = state.currentFilters.find((f) => f.id === 'filters.lines.error' && f.values.length > 0);
-    if (isFilterErrorFound && !statuses.find(f => f.id === "IN_ERROR")) {
-      statuses = statuses.concat([{id: "IN_ERROR", label: "En échec"}]);
+    const isFilterErrorFound = state.currentFilters.find(
+      (f) => f.id === 'filters.lines.error' && f.values.length > 0
+    );
+    if (isFilterErrorFound && !statuses.find((f) => f.id === 'IN_ERROR')) {
+      statuses = statuses.concat([{ id: 'IN_ERROR', label: 'En échec' }]);
     }
     selectFilterValue(state, {
       id: 'filters.actStatus',
@@ -199,28 +201,28 @@ export const mutations = {
   },
   setErrorFilter(state, errorsCodes) {
     let valuesStatusFound = [];
-    if (state.currentFilters.find(f => f.id === 'filters.actStatus')) {
-      valuesStatusFound = state.currentFilters.find(f => f.id === 'filters.actStatus').values;
+    if (state.currentFilters.find((f) => f.id === 'filters.actStatus')) {
+      valuesStatusFound = state.currentFilters.find((f) => f.id === 'filters.actStatus').values;
     }
     if (errorsCodes.length) {
-      if (!valuesStatusFound.length || !valuesStatusFound.find(f => f.id === 'IN_ERROR')) {
+      if (!valuesStatusFound.length || !valuesStatusFound.find((f) => f.id === 'IN_ERROR')) {
         valuesStatusFound = valuesStatusFound.concat({ id: 'IN_ERROR', label: 'En échec' });
       }
       selectFilterValue(state, {
         id: 'filters.actStatus',
-        values: valuesStatusFound
+        values: valuesStatusFound,
       });
     } else {
-      const deleteInErrorStatus = valuesStatusFound.findIndex(f => f.id === 'IN_ERROR');
+      const deleteInErrorStatus = valuesStatusFound.findIndex((f) => f.id === 'IN_ERROR');
       valuesStatusFound.splice(deleteInErrorStatus, 1);
       selectFilterValue(state, {
         id: 'filters.actStatus',
-        values: valuesStatusFound
+        values: valuesStatusFound,
       });
     }
     selectFilterValue(state, {
       id: 'filters.lines.error',
-      values: errorsCodes
+      values: errorsCodes,
     });
   },
   setServicesFilter(state, types) {

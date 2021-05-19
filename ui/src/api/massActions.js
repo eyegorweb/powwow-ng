@@ -393,7 +393,7 @@ function formatFilters(filters) {
 
   const errorCodes = getValuesCodes(filters, 'filters.lines.error');
   if (errorCodes) {
-    console.log("error codes", errorCodes)
+    console.log('error codes', errorCodes);
     allFilters.push(`errorCode: [${errorCodes}]`);
   }
 
@@ -501,7 +501,6 @@ function addServices(gqlFilters, selectedFilters) {
   }
 }
 //*/
-
 
 function getValuesIds(filters, filterId) {
   const values = getFilterValues(filters, filterId);

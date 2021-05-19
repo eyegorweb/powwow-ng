@@ -59,13 +59,13 @@ export default {
 
   methods: {
     checkDisable(item) {
-      if(this.defaultDisabled) return true;
-      if(item.isDisable) {
+      if (this.defaultDisabled) return true;
+      if (item.isDisable) {
         return item.isDisable();
       }
       return false;
     },
-    
+
     next() {
       this.$refs.slick.next();
     },
