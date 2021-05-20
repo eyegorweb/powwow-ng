@@ -1,21 +1,38 @@
 <template>
-  <PaginatedDataTable
-    :columns="columns"
-    :order="defaultOrderBy"
-    :fetch-data-fn="getFetchFn()"
-    :size="8"
-  />
+  <div>
+    <div class="row">
+      <div class="col-md-9"></div>
+      <div class="col-md-3">
+        <permission domain="party" action="create_customer_account">
+          <UiButton variant="accent" block class="float-right" @click="createCustomerAccount()">
+            {{ $t('getadmin.partnerDetail.addCustomerAccount') }}
+          </UiButton>
+        </permission>
+      </div>
+    </div>
+
+    <div class="mt-4">
+      <PaginatedDataTable
+        :columns="columns"
+        :order="defaultOrderBy"
+        :fetch-data-fn="getFetchFn()"
+        :size="8"
+      />
+    </div>
+  </div>
 </template>
 
 <script>
 import PaginatedDataTable from '@/components/DataTable/PaginatedDataTable.vue';
 import BillAccountStatusCell from './BillAccountStatusCell';
+import UiButton from '@/components/ui/Button';
 
 import { fetchCustomerAccountsByPartnerId } from '@/api/partners.js';
 
 export default {
   components: {
     PaginatedDataTable,
+    UiButton,
   },
   props: {
     partner: {
@@ -97,6 +114,12 @@ export default {
           total: response.total,
         };
       };
+    },
+    createCustomerAccount() {
+      this.$router.push({
+        name: 'getAdminPartnerDetails.billingAccounts.form',
+        params: { id: this.$route.params.id, customerAccountCode: undefined },
+      });
     },
   },
 };
