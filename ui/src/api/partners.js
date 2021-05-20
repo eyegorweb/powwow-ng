@@ -718,6 +718,42 @@ export async function updateCustomerAccount(params) {
   return response;
 }
 
+export async function createCustomerAccount(params) {
+  const queryStr = `
+  mutation {
+    createCustomerAccount(input: {
+      partyId: ${params.partyId},
+      code: "${params.code}",
+      label: "${params.label}",
+      actBlockade: ${params.actBlock},
+      company: "${params.company}",
+      address: "${params.address}",
+      address2: "${params.address2}",
+      zipCode: "${params.zipCode}",
+      city: "${params.city}",
+      country: "${params.country}"
+      taxArea: "${params.taxArea}"
+    })
+  }
+  `;
+
+  const response = await query(queryStr);
+  return response;
+}
+
+export async function getTaxArea() {
+  const queryStr = `
+  query{
+    countryReferences{
+      code
+      label
+    }
+  }
+  `;
+  const response = await query(queryStr);
+  return response.data.countryReferences;
+}
+
 export async function fetchBroadcastLists(id) {
   const queryStr = `
   query{

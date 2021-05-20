@@ -727,6 +727,7 @@
       "generalInformations": "General informations",
       "legalInformations": "Legal information",
       "backToCF": "Back to the list of C.F.",
+      "addCustomerAccount": "Add a customer account",
       "contactDetail": "Contact information",
       "created": "Created the",
       "blockAct": "Blocking of management acts",
@@ -2011,7 +2012,8 @@
           "delivery": "Delivery information [optional]:",
           "cancel": "Cancel",
           "add": "Add a recipient",
-          "modify": "Modify a recipient"
+          "modify": "Modify a recipient",
+          "taxArea": "Tax area"
         }
       }
     },
