@@ -25,7 +25,7 @@
         <a v-if="value && !disabled" @click.prevent="resetValue" class="btn crossCancel">
           <i class="select-icon ic-Cross-Icon"></i>
         </a>
-        <a class="p-0" @click.prevent="showSuggestions">
+        <a v-if="!disabled" class="p-0" @click.prevent="showSuggestions">
           <i v-if="!noIcon" :class="iconClass" />
         </a>
         <ul
@@ -288,7 +288,7 @@ export default {
   watch: {
     // Pas possible d'utiliser une computed property à cause de la
     // nature async de debounce
-    $value: debounce(function() {
+    $value: debounce(function () {
       this.fetchResults();
     }, 200),
 
