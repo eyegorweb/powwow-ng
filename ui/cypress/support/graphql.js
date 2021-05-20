@@ -15,37 +15,32 @@ Cypress.Commands.add('resetGQLCache', () => {
 });
 
 Cypress.Commands.add('getExecutedQuery', (queryName, onFoundCb) => {
-  const found = lastQueries.find(meta => meta.queryStr.includes(queryName));
+  const found = lastQueries.find((meta) => meta.queryStr.includes(queryName));
   onFoundCb(found);
 });
 
 Cypress.Commands.add('startObservationGql', () => {
-  cy.server().route({
-    method: 'POST',
-    url: '**/graphql',
-    onRequest: arg => {
-      if (arg.request.body && arg.request.body.query) {
-        lastQueries.push({
-          id: arg.id,
-          queryStr: arg.request.body.query,
-        });
-        if (lastQueries.length > MAX_QUERIES_TO_SAVE) {
-          lastQueries.splice(0, 1);
-        }
+  cy.intercept('/api/graphql', (req) => {
+    const payload = {};
+    if (req.body && req.body.query) {
+      payload.queryStr = req.body.query;
+      payload.request = req;
+      lastQueries.push(payload);
+      if (lastQueries.length > MAX_QUERIES_TO_SAVE) {
+        lastQueries.splice(0, 1);
       }
-    },
-    onResponse: ({ id, request, response }) => {
-      window.Cypress.emit('gql', { request, response });
-      const correspondingEntry = lastQueries.find(m => m.id === id);
-      if (correspondingEntry) {
-        correspondingEntry.response = response;
-      }
-    },
+    }
+
+    req.on('response', (response) => {
+      // console.log('🚀 ~ file: graphql.js ~ line 35 ~ req.on ~ response', response);
+      payload.response = response;
+      window.Cypress.emit('gql', { request: req, response });
+    });
   });
 });
 
-Cypress.Commands.add('waitForGQL', queryName => {
-  return new Cypress.Promise(resolve => {
+Cypress.Commands.add('waitForGQL', (queryName) => {
+  return new Cypress.Promise((resolve) => {
     cy.on('gql', ({ request, response }) => {
       if (request.body && request.body.query && request.body.query.includes(queryName)) {
         resolve(response);
@@ -54,16 +49,18 @@ Cypress.Commands.add('waitForGQL', queryName => {
   });
 });
 
-Cypress.Commands.add('waitUntiGQLIsSent', queryName => {
-  const check = resolve => {
-    const meta = lastQueries.find(meta => meta.queryStr.includes(queryName));
+Cypress.Commands.add('waitUntiGQLIsSent', (queryName) => {
+  console.log('🚀 ~ file: graphql.js ~ line 53 ~ Cypress.Commands.add ~ queryName', queryName);
+  const check = (resolve) => {
+    const meta = lastQueries.find((meta) => meta.queryStr.includes(queryName));
+    console.log('🚀 ~ file: graphql.js ~ line 56 ~ check ~ lastQueries', lastQueries, queryName);
     if (meta) {
       resolve(meta);
     } else {
       setTimeout(() => check(resolve), 500);
     }
   };
-  return new Cypress.Promise(resolve => {
+  return new Cypress.Promise((resolve) => {
     check(resolve);
     /*
     cy.on('gql', ({ request, response }) => {

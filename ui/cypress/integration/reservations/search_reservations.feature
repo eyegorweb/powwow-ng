@@ -11,9 +11,7 @@ Feature: Recherche de reservations
     And Je ferme le filtre quantite
     And Je choisis le filtre compte de facturation "6.42661"
     And Je ferme le filtre compte de facturation
-    And Je choisis le filtre date de reservation depuis 1 an
-    And Je ferme le filtre date de reservation
-    And Je choisis le filtre type de carte SIM "ESIM CARTE 5"
+    And Je choisis le filtre type de carte SIM "ESIM CARTE 3"
     And Je ferme le filtre type de carte SIM
     And Je choisis le filtre createur de reservation "admin"
     And Je ferme le filtre createur de reservation
