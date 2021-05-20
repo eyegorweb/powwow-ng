@@ -108,7 +108,8 @@ export default {
     this.simTypes = await fetchSim(
       this.$loGet(this.synthesis, 'stepClient.billingAccount.data.party.id'),
       undefined,
-      { eq: 'ESIM' }
+      { eq: 'ESIM' },
+      false
     );
 
     this.preFill();
