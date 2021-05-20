@@ -2,8 +2,12 @@
 
 <!--- next entry here -->
 
-## 1.17.0-master.337+20210520113111
+## 1.17.0-master.338+20210520114348
 2021-05-20
+
+### Fixes
+
+- [000] gestion des permission pour les reservations Esim et Gestion de stock (588060dd6956ca8a20b422b7b63918b6a4ca2156)
 
 ## 1.17.0-master.336+20210520092056
 2021-05-20
