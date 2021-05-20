@@ -100,7 +100,8 @@ export default {
     this.simTypes = await fetchSim(
       get(this.synthesis, 'billingAccount.value.partnerId'),
       undefined,
-      { ne: 'ESIM' }
+      { ne: 'ESIM' },
+      false
     );
     this.selectedNumberOfSims = get(this.synthesis, 'quantity.selection.quantity', 0);
     /**
