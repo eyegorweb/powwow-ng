@@ -2,6 +2,17 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.336+20210520092056
+2021-05-20
+
+### Features
+
+- [2638] création d'un compte de facturation (ca6e72202e9d84b15beda617d4ea9a38d90e4bca)
+
+### Fixes
+
+- [000] ne pas afficher les suggestions pour les combos désactivées (32d01ef859de08f1b4878877fae1fc065a87ca3c)
+
 ## 1.17.0-master.335+20210519135355
 2021-05-19
 
