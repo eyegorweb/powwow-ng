@@ -51,10 +51,13 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['userHaveEsimEnabled']),
+    ...mapGetters(['userHaveEsimEnabled', 'havePermission']),
     currentTabToShow() {
       if (this.$route.name.includes('reservations')) return 1;
       return 0;
+    },
+    canOrderEsim() {
+      return this.userHaveEsimEnabled && this.havePermission('getSim', 'order_esim');
     },
   },
 
@@ -80,7 +83,7 @@ export default {
   },
 
   mounted() {
-    if (this.userHaveEsimEnabled) {
+    if (this.canOrderEsim) {
       this.initTabs();
     }
   },

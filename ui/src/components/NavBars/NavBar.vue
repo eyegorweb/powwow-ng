@@ -208,7 +208,12 @@ export default {
           {
             label: 'menu.getSim.manage-stocks',
             to: { name: 'stocks' },
-            permission: { domain: 'getSim', action: 'read' },
+            permission: () => {
+              return (
+                this.havePermission('getSim', 'read') &&
+                this.havePermission('getSim', 'manage_stock_esim')
+              );
+            },
           },
         ],
       },
