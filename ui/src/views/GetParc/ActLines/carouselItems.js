@@ -423,7 +423,6 @@ export default excludeMocked([
     stepTitle: 'getparc.actCreation.step2Titles.configure',
     selected: false,
     esimAct: true,
-    permission: { domain: 'getSim', action: 'order_esim' },
     partnerFeature: 'LV',
     filters: [
       {
