@@ -45,7 +45,7 @@
                     :disabled="preventSend"
                     class="btn btn-primary pl-4 pr-4 pt-2 pb-2"
                   >
-                    <span>{{ $t('set') }}</span>
+                    <span>{{ confirmLabel ? $t(confirmLabel) : $t('set') }} </span>
                   </button>
                 </slot>
               </div>
@@ -145,6 +145,7 @@ export default {
     validateFn: Function,
     checkErrorsFn: Function,
     excludeDefaultFields: Boolean,
+    confirmLabel: String,
     successMessage: String,
     noModal: Boolean,
     preventSend: Boolean,

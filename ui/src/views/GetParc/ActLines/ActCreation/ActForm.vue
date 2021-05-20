@@ -63,6 +63,11 @@
           act.title === 'getparc.actCreation.carouselItem.esim.DOWNLOAD_ESIM_PROFILE' && !isLoading
         "
       />
+      <EsimPolicyRules
+        v-if="
+          act.title === 'getparc.actCreation.carouselItem.esim.POLICY_RULES' && !isLoading
+        "
+      />
       <ChargeLVOffers
         v-if="act.title === 'getparc.actCreation.carouselItem.esim.CHARGE_LV_LINES' && !isLoading"
       />
@@ -89,6 +94,7 @@ import ChangeOffer from './forms/ChangeOffer';
 import PairingEsim from './forms/PairingEsim';
 import EsimFreeReservations from './forms/EsimFreeReservations';
 import EsimChangeProfile from './forms/EsimChangeProfile';
+import EsimPolicyRules from './forms/EsimPolicyRules';
 import EsimDownloadProfile from './forms/EsimDownloadProfile';
 
 const ChargeLVOffers = () =>
@@ -118,6 +124,7 @@ export default {
     EsimChangeProfile,
     EsimDownloadProfile,
     ChargeLVOffers,
+    EsimPolicyRules,
   },
   props: {
     act: Object,

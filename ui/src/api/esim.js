@@ -1,6 +1,21 @@
 import { formatFilters } from '@/api/linesActions.js';
 import { query, getFilterValues, getValuesIdsWithoutQuotes, formatServicesForGQL } from './utils';
 
+
+export async function updatePolicyRules(partyId, date, notification, subject, action, qualification) {
+  const queryStr =`
+   mutation {
+    policyRulesUpdate(input:{filter:{simcardCategory:{eq:ESIM}}, partyId:${partyId}, dueDate:"${date}", notification:${notification},  subject:${subject}, action:${action}, qualification: ${qualification}}) {
+      tempDataUuid
+      validated
+      errors {
+        key
+      }
+    }
+  }`;
+  const response = await query(queryStr);
+  return response.data.policyRulesUpdate;
+}
 export async function exportEsimReservations(columns, orderBy, exportFormat, filters = []) {
   const orderingInfo = orderBy ? `, sorting: {${orderBy.key}: ${orderBy.direction}}` : '';
   const queryStr = `
