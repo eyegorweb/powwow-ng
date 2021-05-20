@@ -79,6 +79,7 @@ When('Je lance la recherche', () => {
 });
 
 Then('La table contient plus de {int} resultat', (nbrResult) => {
+  console.log('🚀 ~ file: index.js ~ line 82 ~ Then ~ nbrResult', nbrResult);
   reservations.getTotal((total) => {
     expect(total).to.be.above(nbrResult);
   });

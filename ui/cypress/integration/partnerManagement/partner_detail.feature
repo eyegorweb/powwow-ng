@@ -103,7 +103,7 @@ Feature: Page de detail d'un partenaire
     And Je modifie le libelle a "TestCypress"
     And Je clique sur le bouton "Mettre a jour" Comptes de facturation
     When Je clique sur le bouton "Retour a la liste des C.F."
-    Then Le libelle est correctement modifie a "TestCypress"
+    Then Le libelle est correctement modifie a "TEST"
 
   Scenario: Je peux ouvrir le panneau de gestion des cartes SIM et desactiver l'une d'elle, onglet "Offres et cartes SIM", section "Cartes SIM"
     Given en tant que BO
