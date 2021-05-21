@@ -27,7 +27,12 @@ export async function getAvailableOffer(partnerId, pagination) {
 `;
 
   const response = await query(queryStr);
-  return response.data.getAvailableOffer.items;
+  console.log(response)
+  if (response.data.getAvailableOffer && response.data.getAvailableOffer.items) {
+    return response.data.getAvailableOffer.items;
+  } else {
+    return response
+  }
 }
 
 export async function updateOffers(partnerId, offerIds) {
