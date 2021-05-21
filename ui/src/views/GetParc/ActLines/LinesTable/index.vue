@@ -132,7 +132,14 @@ export default {
   computed: {
     ...mapGetters('actLines', ['linesActionsResponse', 'appliedFilters', 'linePage', 'isLoading']),
     ...mapState('actLines', ['limitPerPage', 'apiError']),
-    ...mapGetters(['userIsPartner', 'userInfos', 'userName', 'singlePartner', 'havePermission']),
+    ...mapGetters([
+      'userIsPartner',
+      'userInfos',
+      'userName',
+      'singlePartner',
+      'havePermission',
+      'userIsOperator',
+    ]),
     ...mapState({
       isOpen: (state) => state.ui.isPanelOpen,
     }),
