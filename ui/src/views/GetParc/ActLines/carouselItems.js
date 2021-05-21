@@ -461,6 +461,32 @@ export default excludeMocked([
     ],
   },
   {
+    icon: 'ic-Settings-Icon',
+    title: 'getparc.actCreation.carouselItem.esim.POLICY_RULES',
+    id: 'POLICY_RULES',
+    stepTitle: 'getparc.actCreation.step2Titles.configure',
+    selected: false,
+    esimAct: true,
+    permission: { domain: 'getSim', action: 'order_esim' },
+    filters: [
+      {
+        id: 'indicators.getparc.lines.esim.category',
+        value: 'eSim',
+        meta: { label: 'eSim', value: 'ESIM' },
+      },
+      {
+        id: 'indicators.getparc.lines.esim.type',
+        value: 'STEP2',
+        meta: { label: 'STEP2', value: 'STEP2' },
+      },
+      {
+        id: 'indicators.getparc.lines.esim.pairedLine',
+        value: 'Oui',
+        meta: { label: 'Oui', value: 'YES' },
+      },
+    ],
+  },
+  {
     icon: 'ic-Plug-Icon',
     title: 'getparc.actCreation.carouselItem.esim.CHANGE_STATUS_PROFIL_ESIM',
     id: 'CHANGE_STATUS_PROFIL_ESIM',

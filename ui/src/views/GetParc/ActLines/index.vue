@@ -435,6 +435,7 @@ export default {
       ) {
         response = getAvailableOffer(partnerFilter.values[0].id, { page: 0, limit: 20 });
       }
+
       carouselInputItems.map((item) => {
         if (item.id === 'CHANGE_OFFER') {
           item.isDisable = () => {
