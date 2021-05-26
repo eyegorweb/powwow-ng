@@ -88,48 +88,57 @@ export default {
 
   methods: {
     onToggleChange(newToggleValue) {
-      this.currentToggle = newToggleValue.id;
+      this.currentToggle = newToggleValue ? newToggleValue.id : undefined;
       this.$emit('toggle', this.currentToggle);
+    },
+    initToggles() {
+      this.onToggleChange();
+      this.toggleValues = [
+        {
+          id: 'mass',
+          label: 'getparc.actCreation.mass',
+          // default: this.starting === 'graph',
+        },
+        {
+          id: 'byId',
+          label: 'getparc.actCreation.byId',
+        },
+      ];
+      if (this.act.id === 'CUSTOM_FIELDS') {
+        this.toggleValues = [
+          ...this.toggleValues,
+          {
+            id: 'byImport',
+            label: 'getparc.actCreation.byImport',
+          },
+        ];
+      }
+
+      if (this.act.id === 'PAIRING') {
+        this.toggleValues = [
+          {
+            id: 'autoPairing',
+            label: 'getparc.actCreation.autoPairing',
+          },
+          {
+            id: 'filePairing',
+            label: 'getparc.actCreation.filePairing',
+          },
+          {
+            id: 'filePairingEidIccid',
+            label: 'getparc.actCreation.filePairingEidIccid',
+          },
+        ];
+      }
+    },
+  },
+  watch: {
+    act() {
+      this.initToggles();
     },
   },
   mounted() {
-    this.toggleValues = [
-      {
-        id: 'mass',
-        label: 'getparc.actCreation.mass',
-        // default: this.starting === 'graph',
-      },
-      {
-        id: 'byId',
-        label: 'getparc.actCreation.byId',
-      },
-    ];
-    if (this.act.id === 'CUSTOM_FIELDS') {
-      this.toggleValues = [
-        ...this.toggleValues,
-        {
-          id: 'byImport',
-          label: 'getparc.actCreation.byImport',
-        },
-      ];
-    }
-
-    if (this.act.id === 'PAIRING') {
-      this.toggleValues = [
-        {
-          id: 'autoPairing',
-          label: 'getparc.actCreation.autoPairing',
-        },
-        {
-          id: 'filePairing',
-          label: 'getparc.actCreation.filePairing',
-        },
-        {
-          id: 'filePairingEidIccid',
-          label: 'getparc.actCreation.filePairingEidIccid',
-        },
-      ];
-    }
+    this.initToggles();
   },
 };
 </script>
