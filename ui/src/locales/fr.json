@@ -667,6 +667,9 @@
     }
   },
   "getadmin": {
+    "permissions": {
+      "save": "Enregistrer les permissions ?"
+    },
     "cf": {
       "name": "Comptes de facturation",
       "marketLine": "Ligne de marché",
