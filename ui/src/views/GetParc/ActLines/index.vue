@@ -439,7 +439,7 @@ export default {
       carouselInputItems.map((item) => {
         if (item.id === 'CHANGE_OFFER') {
           item.isDisable = () => {
-            if (response && response.length <= 1) {
+            if ((response && response.length <= 1) || !this.optionsPartner.offerChange) {
               return true;
             }
             return false;
