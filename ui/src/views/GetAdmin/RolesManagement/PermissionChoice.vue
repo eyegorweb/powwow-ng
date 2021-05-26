@@ -1,7 +1,7 @@
 <template>
   <div class="domain-group">
     <div class="list-group-item domain-item">
-      <div>{{ domain.label }}</div>
+      <div>{{ domain.labelDomain }}</div>
       <a class="p-0" @click.prevent="isOpen = !isOpen">
         {{ isOpen ? ' Cacher les permissions' : ' Afficher les permissions' }}
 
@@ -20,7 +20,7 @@
           >
             <input class="blue-checkbox" type="checkbox" v-model="p.checked" />
 
-            <span class="pl-2 pb-2">{{ p.label }}</span>
+            <span class="pl-2 pb-2">{{ p.labelAction }}</span>
           </li>
         </ul>
       </div>
