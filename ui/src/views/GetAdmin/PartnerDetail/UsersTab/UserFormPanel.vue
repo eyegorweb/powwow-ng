@@ -40,15 +40,11 @@
           <label>{{ $t('getadmin.users.language') }}</label>
           <UiSelect class="text-gray language" block v-model="form.language" :options="languages" />
         </div>
-        <div
-          v-if="!userIsPartner && userType === 'PARTNER'"
-          class="form-entry"
-          :class="{ noDisplay: fromPagePartner }"
-        >
+        <div v-if="shouldSelectAPartner" class="form-entry" :class="{ noDisplay: fromPagePartner }">
           <label>{{ $t('getadmin.users.userTypes.partner') }}</label>
           <PartnerCombo :value.sync="selectedPartner" :disabled="!!content.duplicateFrom" />
         </div>
-        <div v-if="userType === 'PARTNER_GROUP'" class="form-entry">
+        <div v-if="shouldSelectAPartnerGroup" class="form-entry">
           <label>{{ $t('getadmin.users.filters.partnerGroup') }}</label>
           <UiApiAutocomplete
             :placeholder="$t('getadmin.users.filters.partnerGroup')"
@@ -311,7 +307,7 @@ export default {
         params.confirmPassword = this.form.passwordConfirm;
       }
 
-      if (this.userIsPartner || this.userType === 'PARTNER') {
+      if (this.shouldSelectAPartner) {
         if (this.selectedPartner && this.selectedPartner.id) {
           params.partyId = this.selectedPartner.id;
         }
@@ -378,8 +374,30 @@ export default {
       'userIsGroupAccount',
       'havePermission',
       'userIsPartner',
+      'userIsGroupPartner',
       'singlePartner',
     ]),
+
+    shouldSelectAPartnerGroup() {
+      if (this.$loGet(this.content, 'duplicateFrom.type') === 'PARTNER_GROUP') {
+        return false;
+      }
+
+      return this.userType === 'PARTNER_GROUP';
+    },
+
+    shouldSelectAPartner() {
+      if (!this.content.duplicateFrom) {
+        if (this.userIsGroupPartner) {
+          return true;
+        }
+      }
+
+      if (!this.userIsPartner) {
+        return this.userType === 'PARTNER';
+      }
+      return false;
+    },
 
     isEditMode() {
       return !!this.content.duplicateFrom && !this.content.duplicate;
@@ -468,6 +486,12 @@ export default {
         }
       }
 
+      if (this.userIsGroupPartner) {
+        if (this.shouldSelectAPartner) {
+          userTypeValid = !!(this.selectedPartner && this.selectedPartner.id);
+        }
+      }
+
       return (
         !missingFields.length &&
         !passwordError &&
@@ -553,7 +577,9 @@ export default {
           highlighted: this.content.duplicateFrom.partners[0].name,
         };
       } else if (this.userType === 'PARTNER_GROUP') {
-        this.selectedPartner = this.content.duplicateFrom.partners;
+        if (this.content.duplicateFrom.partners && this.content.duplicateFrom.partners.length) {
+          this.selectedPartner = this.content.duplicateFrom.partners[0];
+        }
       }
 
       if (this.userType === 'OPERATOR') {
@@ -576,12 +602,10 @@ export default {
             label: p.name,
           };
         });
-        this.selectedGroupPartner =
-          this.groupPartners && this.groupPartners.length > 0 ? this.groupPartners[0].label : '';
-        const groupPartnerId =
-          this.groupPartners && this.groupPartners.length > 0 ? this.groupPartners[0].id : null;
 
-        roles = await fetchAllowedRoles(this.content.duplicateFrom.id, null, groupPartnerId);
+        this.selectedGroupPartner = this.content.duplicateFrom.partyGroup;
+
+        roles = await fetchAllowedRoles(this.content.duplicateFrom.id, null, this.$loGet(this.selectedGroupPartner, 'id'));
         this.roles = this.formattedRoles(roles);
         this.selectedRoles = this.roles.filter((r) => r.data.activated);
       }
