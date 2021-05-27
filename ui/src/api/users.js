@@ -177,6 +177,10 @@ export async function searchUsers(q, orderBy, pagination, filters = []) {
           name
           description
         }
+        partyGroup{
+          id
+          label: name
+        }
       }
     }
   }
