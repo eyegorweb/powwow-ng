@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.341+20210527140810
+2021-05-27
+
+### Fixes
+
+- [000] Séléctionner un partenaire durant la création d'un utilisateur groupe (94431d39b5209d3a9e61dcab32be74fbfd6d18f0)
+
 ## 1.17.0-master.340+20210527124915
 2021-05-27
 
