@@ -2,6 +2,24 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.339+20210527115141
+2021-05-27
+
+### Features
+
+- [000] Mise à jour de Cypress, utilisation de la 7.0 (877cdfb6d53bbafbce5e20697c68357f20047832)
+- [2652] Ajout acte Policy Rules (66806919c95e8feacff0f8596722b7c249771cfe)
+- [1146] Ajout regle gestion option change offer sur acte (95df48d5bb5a46c2b5ce7c9eadc54b4ce85f5d63)
+
+### Fixes
+
+- [000] enlever la vérification de permissions pour la recharge LV (21d0e5af7266fffd3ac32b1e95c7bfd269c893c2)
+- [000] Correction de l'export des encours (d60b6accd24bdfa3164fd45c940f3310be155734)
+- [2686] Branchement de l'api de permissions (c4aab87057b21ac99011d152c7651359f5c9d8a5)
+- [2690] réinitialisation des sélections lorsqu'on bascule d'une action à une autre (941fe2ca7c9723d003f2bbcedf29cd77ff9073a5)
+- [2693] suppression de l'action Supprimer une alarme (ebe6210160477bf2a485c93df99f1641c20fd0d6)
+- [2672] Gestion des boutons d'export de services dans le pop-up des exports de lignes (4609a9c953c810d4fc32b8c2f488ca1b84a77e56)
+
 ## 1.17.0-master.338+20210520114348
 2021-05-20
 
