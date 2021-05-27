@@ -314,8 +314,7 @@ export default {
       }
 
       if (this.userType === 'PARTNER_GROUP') {
-        const groupPartnerId =
-          this.groupPartners && this.groupPartners.length > 0 ? this.groupPartners[0].id : null;
+        const groupPartnerId = this.$loGet(this.selectedGroupPartner, 'id');
         if (this.selectedGroupPartner && groupPartnerId) {
           params.partyGroupId = this.selectedGroupPartner.id;
         }
@@ -379,10 +378,6 @@ export default {
     ]),
 
     shouldSelectAPartnerGroup() {
-      if (this.$loGet(this.content, 'duplicateFrom.type') === 'PARTNER_GROUP') {
-        return false;
-      }
-
       return this.userType === 'PARTNER_GROUP';
     },
 
@@ -645,9 +640,7 @@ export default {
     },
     async selectedGroupPartner() {
       if (!this.content.duplicateFrom) {
-        const groupPartnerId =
-          this.groupPartners && this.groupPartners.length > 0 ? this.groupPartners[0].id : null;
-        const roles = await fetchAllowedRoles(null, null, groupPartnerId);
+        const roles = await fetchAllowedRoles(null, null, this.$loGet(this.selectedGroupPartner, 'id'));
         this.roles = this.formattedRoles(roles);
       }
     },
