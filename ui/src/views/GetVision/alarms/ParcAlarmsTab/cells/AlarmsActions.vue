@@ -26,10 +26,9 @@ export default {
       } else {
         additionalActions.push('actions.DISABLE');
       }
-
-      if (!this.alarm.numberOfTargetedLines) {
-        additionalActions.push('actions.DELETE');
-      }
+      // if (!this.alarm.numberOfTargetedLines) {
+      //   additionalActions.push('actions.DELETE');
+      // }
 
       return additionalActions;
     },
