@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.340+20210527124915
+2021-05-27
+
+### Fixes
+
+- [2593] Correction de l'url pour l'affichage du compte en tant que partenaire (32ad1055b495c94e78c95a7190d54cb240b42b20)
+
 ## 1.17.0-master.339+20210527115141
 2021-05-27
 
