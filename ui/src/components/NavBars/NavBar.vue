@@ -159,8 +159,8 @@ export default {
         {
           label: 'menu.account',
           to: {
-            name: 'getAdminPartnerDetails',
-            params: { id: this.userInfos.partners[0].id },
+            name: 'partnerDetail.users.admins',
+            params: { id: `${this.userInfos.partners[0].id}` },
           },
           permission: { domain: 'party', action: 'read' },
         },
