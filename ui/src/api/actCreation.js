@@ -155,30 +155,7 @@ export async function changeSingleCustomFields(params) {
     `;
 
   const response = await query(queryStr);
-  // const response = {
-  //   "errors":[
-  //     {
-  //       "message":"Exception while fetching data (/changeCustomFieldsV2) : massAction exceeds limit",
-  //       "locations":[
-  //         {
-  //           "line":1,
-  //           "column":17
-  //         }
-  //       ],
-  //       "path":[
-  //         "changeCustomFieldsV2"
-  //       ],
-  //       "extensions":{
-  //         "limit":10000,
-  //         "error":"MassActionLimit",
-  //         "classification":"DataFetchingException"
-  //       }
-  //     }
-  //   ],
-  //   "data":{
-  //     "changeCustomFieldsV2":null
-  //   }
-  // };
+
   if (response.errors) {
     return {
       errors: response.errors,
@@ -188,15 +165,15 @@ export async function changeSingleCustomFields(params) {
 }
 
 export async function suspendLines(filters, lines, params) {
-  return await suspendReactivateLines(filters, lines, params, true);
+  return suspendReactivateLines(filters, lines, params, true);
 }
 
 export async function reactivateLines(filters, lines, params) {
-  return await suspendReactivateLines(filters, lines, params, false);
+  return suspendReactivateLines(filters, lines, params, false);
 }
 
 async function suspendReactivateLines(filters, lines, params, suspension) {
-  return await actCreationMutation(filters, lines, async (gqlFilter, gqlLines) => {
+  return actCreationMutation(filters, lines, async (gqlFilter, gqlLines) => {
     const {
       suspendreFacturation,
       notifEmail,
@@ -248,7 +225,7 @@ async function suspendReactivateLines(filters, lines, params, suspension) {
 }
 
 export async function changeCustomerAccount(filters, lines, params) {
-  return await actCreationMutation(filters, lines, async (gqlFilter, gqlLines) => {
+  return actCreationMutation(filters, lines, async (gqlFilter, gqlLines) => {
     const { partyId, dueDate, notifEmail, targetCustomerAccount, tempDataUuid } = params;
     let gqlTempDataUuid = '';
     if (tempDataUuid) {
@@ -278,30 +255,7 @@ export async function changeCustomerAccount(filters, lines, params) {
     }
     `;
     const response = await query(queryStr);
-    // const response = {
-    //   "errors":[
-    //     {
-    //       "message":"Exception while fetching data (/changeCustomFieldsV2) : massAction exceeds limit",
-    //       "locations":[
-    //         {
-    //           "line":1,
-    //           "column":17
-    //         }
-    //       ],
-    //       "path":[
-    //         "changeCustomFieldsV2"
-    //       ],
-    //       "extensions":{
-    //         "limit":10000,
-    //         "error":"MassActionLimit",
-    //         "classification":"DataFetchingException"
-    //       }
-    //     }
-    //   ],
-    //   "data":{
-    //     "changeCustomFieldsV2":null
-    //   }
-    // };
+
     if (response.errors) {
       return {
         errors: response.errors,
@@ -312,7 +266,7 @@ export async function changeCustomerAccount(filters, lines, params) {
 }
 
 export async function transferSIMCards(filters, lines, params) {
-  return await actCreationMutation(filters, lines, async (gqlFilter, gqlLines) => {
+  return actCreationMutation(filters, lines, async (gqlFilter, gqlLines) => {
     const {
       partyId,
       dueDate,
@@ -378,7 +332,7 @@ export async function transferSIMCards(filters, lines, params) {
 }
 
 export async function manageCancellation(filters, lines, params) {
-  return await actCreationMutation(filters, lines, async (gqlFilter, gqlLines) => {
+  return actCreationMutation(filters, lines, async (gqlFilter, gqlLines) => {
     const { dueDate, partyId, validate, tempDataUuid } = params;
 
     let gqlTempDataUuid = '';
@@ -427,7 +381,7 @@ export async function manageCancellation(filters, lines, params) {
 }
 
 export async function endPhaseTest(filters, lines, params) {
-  return await actCreationMutation(filters, lines, async (gqlFilter, gqlLines) => {
+  return actCreationMutation(filters, lines, async (gqlFilter, gqlLines) => {
     const { notifEmail, dueDate, partyId, tempDataUuid } = params;
 
     let gqlTempDataUuid = '';
@@ -470,7 +424,7 @@ export async function endPhaseTest(filters, lines, params) {
 }
 
 export async function sendSMS(filters, lines, params) {
-  return await actCreationMutation(filters, lines, async (gqlFilter, gqlLines) => {
+  return actCreationMutation(filters, lines, async (gqlFilter, gqlLines) => {
     const {
       partyId,
       notifEmail,
@@ -523,7 +477,7 @@ export async function sendSMS(filters, lines, params) {
 }
 
 export async function terminateLines(filters, lines, params) {
-  return await actCreationMutation(filters, lines, async (gqlFilter, gqlLines) => {
+  return actCreationMutation(filters, lines, async (gqlFilter, gqlLines) => {
     const { notifEmail, dueDate, partyId, tempDataUuid } = params;
 
     let gqlTempDataUuid = '';
@@ -577,7 +531,7 @@ export async function fetchShortCodes(partnerId) {
 }
 
 export async function changeService(filters, lines, params) {
-  return await actCreationMutation(filters, lines, async (gqlFilter, gqlLines) => {
+  return actCreationMutation(filters, lines, async (gqlFilter, gqlLines) => {
     const {
       notifEmail,
       dueDate,
@@ -664,7 +618,7 @@ export async function changeService(filters, lines, params) {
 }
 
 export async function createRechargeLVOffer(filters, lines, params) {
-  return await actCreationMutation(filters, lines, async (gqlFilter, gqlLines) => {
+  return actCreationMutation(filters, lines, async (gqlFilter, gqlLines) => {
     const { dueDate, partyId, workflowId, packageLabel, tempDataUuid } = params;
 
     let gqlTempDataUuid = '';
@@ -718,7 +672,7 @@ export async function createRechargeLVOffer(filters, lines, params) {
 }
 
 export async function preactivateAndActivateSImcardInstance(filters, lines, params) {
-  return await actCreationMutation(filters, lines, async (gqlFilter, gqlLines) => {
+  return actCreationMutation(filters, lines, async (gqlFilter, gqlLines) => {
     const {
       notifEmail,
       dueDate,
@@ -787,7 +741,7 @@ export async function preactivateAndActivateSImcardInstance(filters, lines, para
 }
 
 export async function preactivateSimCardInstance(filters, lines, params) {
-  return await actCreationMutation(filters, lines, async (gqlFilter, gqlLines) => {
+  return actCreationMutation(filters, lines, async (gqlFilter, gqlLines) => {
     const { notifEmail, dueDate, partyId, tempDataUuid, customerAccountID } = params;
 
     let gqlTempDataUuid = '';
@@ -830,7 +784,7 @@ export async function preactivateSimCardInstance(filters, lines, params) {
 }
 
 export async function changeOffer(filters, lines, params, keepServices) {
-  return await actCreationMutation(filters, lines, async (gqlFilter, gqlLines) => {
+  return actCreationMutation(filters, lines, async (gqlFilter, gqlLines) => {
     const {
       notifEmail,
       dueDate,
@@ -880,7 +834,7 @@ export async function changeOffer(filters, lines, params, keepServices) {
             number
             message
           }
-         }
+        }
     }
     `;
 

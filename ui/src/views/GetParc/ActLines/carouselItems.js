@@ -66,6 +66,7 @@ export default excludeMocked([
             id: 'ACTIVATED',
             label: 'Activée',
           },
+          { id: 'SUSPENDED', label: 'Suspendue' },
         ],
       },
     ],

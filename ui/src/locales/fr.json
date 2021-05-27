@@ -1805,8 +1805,9 @@
 
       "rechargeLV": {
         "confirm": "Voulez vous choisir l'offre ",
-        "partnerExportError": "Veuillez choisir un partenaire ( non MVNO)",
-        "simSHouldBeActive": "Le statut de la SIM doit être actif"
+        "partnerExportError": "Il faut sélectionner un partenaire non MVNO.",
+        "simSHouldBeActive": "Le statut de la SIM doit être actif",
+        "simStatusError": "Le statut de la ligne doit être \"Activée\" ou \"Suspendue\"."
       },
 
       "SERVICE_TO_ACTIVATE": "Services à activer",
