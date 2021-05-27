@@ -113,6 +113,7 @@ import get from 'lodash.get';
 import { setTimeout } from 'timers';
 import UiButton from '@/components/ui/Button';
 import SearchResultSkeleton from '@/components/ui/skeletons/SearchResultSkeleton';
+import { isFiltersAcceptable } from '@/utils/filters.js';
 
 export default {
   components: {
@@ -237,6 +238,7 @@ export default {
         const partnerInFilter = partnerFilter.values[0];
         canExportConso = partnerInFilter.partyType !== 'MVNO';
       }
+
       if (canExportConso) {
         otherExportChoices.push({
           id: 'CONSUMPTION',
@@ -350,6 +352,23 @@ export default {
     getExportChoiceDisabledMessage(option) {
       let errorMessages = [];
       if (option === 'exportTable.services') {
+        const haveStatusFilter = this.appliedFilters.find(
+          (a) => a.id === 'filters.lines.SIMCardStatus'
+        );
+        const isStatusFilterOk =
+          haveStatusFilter &&
+          isFiltersAcceptable(this.appliedFilters, [
+            {
+              id: 'filters.lines.SIMCardStatus',
+              values: [
+                {
+                  id: 'ACTIVATED',
+                },
+                { id: 'SUSPENDED' },
+              ],
+            },
+          ]);
+
         let simFilterFound = false;
 
         const simStatusFilter = this.appliedFilters.find(
@@ -366,6 +385,10 @@ export default {
 
         if (!simFilterFound) {
           errorMessages.push(`- ${this.$t('getparc.actCreation.rechargeLV.simSHouldBeActive')}`);
+        }
+
+        if (!isStatusFilterOk) {
+          errorMessages.push(`- ${this.$t('getparc.actCreation.rechargeLV.simStatusError')}`);
         }
 
         if (errorMessages.length) {
@@ -390,7 +413,7 @@ export default {
         forceAsyncExport,
         exportChoice
       ) => {
-        return await exportSimCardInstances(
+        return exportSimCardInstances(
           columns,
           orderBy,
           exportFormat,

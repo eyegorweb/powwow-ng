@@ -843,7 +843,7 @@
   "getreport": {
     "pageTitle": "Report Templates",
     "reports_tooltip": "This page allows you to configure reports",
-    "create_report": "Create a report",    
+    "create_report": "Create a report",
     "from_report": {
       "Custom": "Custom",
       "M2M": "Export",
@@ -1594,6 +1594,12 @@
         "currentOffer": "Current offer",
         "changeServices": "With change of services?"
       },
+      "rechargeLV": {
+        "confirm": "Choose the offer ?",
+        "partnerExportError": "You must select a non-MVNO partner.",
+        "simSHouldBeActive": "Sim status must be ACTIVE",
+        "simStatusError": "The status of the line must be \"Activated\" or \"Suspended\"."
+      },
       "SERVICE_TO_ACTIVATE": "Services to activate",
       "SERVICE_TO_DESACTIVATE": "Services to deactivate",
       "NOTIFICATION_CHECK": "Get notified by email when done?",
@@ -2073,5 +2079,13 @@
   "card": "Card",
   "days": "Days",
   "specific": "specific",
-  "map": { "world": "World", "countryFR": "France" }
+  "map": { "world": "World", "countryFR": "France" },
+  "exportTable": {
+    "classic": "Classic",
+    "complete": "Complete",
+    "lastUsage": "Last usage",
+    "inProgress": "consumer outstandings",
+    "services": "Services",
+    "BO": "Backoffice"
+  }
 }
