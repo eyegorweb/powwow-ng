@@ -2,7 +2,7 @@ image: gradle:5.1.1
 
 stages:
   - version
-  #- unitTests
+  - unitTests
   - build
   - test
   - release
@@ -49,23 +49,23 @@ version:
     - schedules
   interruptible: true
 
-# unitTests:
-#   stage: unitTests
-#   script:
-#     - gradle :ui:frontUnitTests --info
-#   cache:
-#     key: "$CI_COMMIT_REF_NAME"
-#     paths:
-#       - .gradle/caches
-#       - ui/.gradle/nodejs
-#       - ui/.gradle/yarn
-#       - ui/node_modules
-#       - cache/Cypress
-#       - .cache/Cypress
-#   except:
-#     - tags
-#     - schedules
-#   interruptible: true
+unitTests:
+  stage: unitTests
+  script:
+    - gradle :ui:frontUnitTests --info
+  cache:
+    key: "$CI_COMMIT_REF_NAME"
+    paths:
+      - .gradle/caches
+      - ui/.gradle/nodejs
+      - ui/.gradle/yarn
+      - ui/node_modules
+      - cache/Cypress
+      - .cache/Cypress
+  except:
+    - tags
+    - schedules
+  interruptible: true
 
 build:
   stage: build
