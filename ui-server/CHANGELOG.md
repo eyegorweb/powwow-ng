@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.342+20210527144335
+2021-05-27
+
+### Fixes
+
+- [000] brancher correctement l'id du groupe partenaire (317628d00ee9eb0a13bcd972eb81f887178da1f7)
+
 ## 1.17.0-master.341+20210527140810
 2021-05-27
 
