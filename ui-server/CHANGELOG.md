@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.346+20210528151641
+2021-05-28
+
+### Fixes
+
+- [000] envoyer l'état final des apn (363086493d159ab4c2e4c113dd8e073df6eec16c)
+
 ## 1.17.0-master.345+20210528142109
 2021-05-28
 
