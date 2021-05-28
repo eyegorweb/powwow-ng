@@ -260,11 +260,10 @@ export default {
       const partnerFilter = this.appliedFilters.find((a) => a.id === 'filters.partners');
 
       if (partnerFilter) {
-        const partnerNotFound =
-          !partnerFilter || (partnerFilter.values && !partnerFilter.values.length);
+        const partnerNotFound = partnerFilter.values && !partnerFilter.values.length;
 
         let mvnoFound = false;
-        if (partnerFilter && partnerFilter.values && partnerFilter.values.length) {
+        if (partnerFilter.values && partnerFilter.values.length) {
           mvnoFound = partnerFilter.values.find((f) => f.partyType === 'MVNO');
         }
 
@@ -369,22 +368,8 @@ export default {
             },
           ]);
 
-        let simFilterFound = false;
-
-        const simStatusFilter = this.appliedFilters.find(
-          (a) => a.id === 'filters.lines.SIMCardStatus'
-        );
-
-        if (simStatusFilter && simStatusFilter.values) {
-          simFilterFound = simStatusFilter.values.find((s) => s.id === 'ACTIVATED');
-        }
-
         if (!this.isChosenPartnerValidForExport) {
           errorMessages.push(`- ${this.$t('getparc.actCreation.rechargeLV.partnerExportError')}`);
-        }
-
-        if (!simFilterFound) {
-          errorMessages.push(`- ${this.$t('getparc.actCreation.rechargeLV.simSHouldBeActive')}`);
         }
 
         if (!isStatusFilterOk) {
