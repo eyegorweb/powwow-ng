@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.344+20210528121300
+2021-05-28
+
+### Fixes
+
+- [2672] retour (bf01cc8a93f82107495f5da26f03edceac4d4770)
+- [2672] retour sur les exports (a0729801402b61dec39732eae0613f398d9abe8a)
+
 ## 1.17.0-master.343+20210528090257
 2021-05-28
 
