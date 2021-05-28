@@ -1,9 +1,15 @@
 import { formatFilters } from '@/api/linesActions.js';
 import { query, getFilterValues, getValuesIdsWithoutQuotes, formatServicesForGQL } from './utils';
 
-
-export async function updatePolicyRules(partyId, date, notification, subject, action, qualification) {
-  const queryStr =`
+export async function updatePolicyRules(
+  partyId,
+  date,
+  notification,
+  subject,
+  action,
+  qualification
+) {
+  const queryStr = `
    mutation {
     policyRulesUpdate(input:{filter:{simcardCategory:{eq:ESIM}}, partyId:${partyId}, dueDate:"${date}", notification:${notification},  subject:${subject}, action:${action}, qualification: ${qualification}}) {
       tempDataUuid

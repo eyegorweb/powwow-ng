@@ -64,9 +64,7 @@
         "
       />
       <EsimPolicyRules
-        v-if="
-          act.title === 'getparc.actCreation.carouselItem.esim.POLICY_RULES' && !isLoading
-        "
+        v-if="act.title === 'getparc.actCreation.carouselItem.esim.POLICY_RULES' && !isLoading"
       />
       <ChargeLVOffers
         v-if="act.title === 'getparc.actCreation.carouselItem.esim.CHARGE_LV_LINES' && !isLoading"

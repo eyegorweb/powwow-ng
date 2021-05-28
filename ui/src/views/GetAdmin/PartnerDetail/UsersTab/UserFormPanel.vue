@@ -600,7 +600,11 @@ export default {
 
         this.selectedGroupPartner = this.content.duplicateFrom.partyGroup;
 
-        roles = await fetchAllowedRoles(this.content.duplicateFrom.id, null, this.$loGet(this.selectedGroupPartner, 'id'));
+        roles = await fetchAllowedRoles(
+          this.content.duplicateFrom.id,
+          null,
+          this.$loGet(this.selectedGroupPartner, 'id')
+        );
         this.roles = this.formattedRoles(roles);
         this.selectedRoles = this.roles.filter((r) => r.data.activated);
       }
@@ -640,7 +644,11 @@ export default {
     },
     async selectedGroupPartner() {
       if (!this.content.duplicateFrom) {
-        const roles = await fetchAllowedRoles(null, null, this.$loGet(this.selectedGroupPartner, 'id'));
+        const roles = await fetchAllowedRoles(
+          null,
+          null,
+          this.$loGet(this.selectedGroupPartner, 'id')
+        );
         this.roles = this.formattedRoles(roles);
       }
     },

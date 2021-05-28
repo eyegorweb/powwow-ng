@@ -260,8 +260,12 @@ export default {
               title: 'getparc.actCreation.carouselItem.lineDetail.CHANGE_OFFER',
               selected: false,
               isDisable() {
-                console.log(!availableOffers.errors)
-                if ((availableOffers && availableOffers.length <= 1) || availableOffers.errors || !this.offerChangeEnabled) {
+                console.log(!availableOffers.errors);
+                if (
+                  (availableOffers && availableOffers.length <= 1) ||
+                  availableOffers.errors ||
+                  !this.offerChangeEnabled
+                ) {
                   return true;
                 }
                 return false;
