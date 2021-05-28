@@ -530,6 +530,32 @@ export async function fetchShortCodes(partnerId) {
   return response.data.party.shortCodes;
 }
 
+function getDataParams(parameters) {
+  let paramsAdd;
+  let paramsRemove;
+
+  const params = parameters.reduce(
+    (all, item) => {
+      if (item.active === false && item.selected === true) {
+        all.paramsToAdd.push(item.code);
+      }
+      if (item.active === true && item.selected === false) {
+        all.paramsToDelete.push(item.code);
+      }
+      return all;
+    },
+    {
+      paramsToAdd: [],
+      paramsToDelete: [],
+    }
+  );
+
+  paramsAdd = params.paramsToAdd.map((p) => `{parameterCode: "${p}", action: ADD}`);
+  paramsRemove = params.paramsToDelete.map((p) => `{parameterCode: "${p}", action: DELETE}`);
+
+  return [paramsAdd.join(','), paramsRemove.join(',')].join(',');
+}
+
 export async function changeService(filters, lines, params) {
   return actCreationMutation(filters, lines, async (gqlFilter, gqlLines) => {
     const {
@@ -564,13 +590,9 @@ export async function changeService(filters, lines, params) {
 
     if (dataService) {
       if (dataService.checked) {
-        const apnToAddParams = dataService.parameters
-          .filter((a) => a.selected)
-          .map((a) => `{parameterCode: "${a.code}"}`);
+        const dataParams = getDataParams(dataService.parameters);
 
-        const catalogServiceParameters = `${[...apnToAddParams].join(',')}`;
-
-        dataCodeParams = `{serviceCode: "${dataService.code}", action: ADD, catalogServiceParameters: [${catalogServiceParameters}]}`;
+        dataCodeParams = `{serviceCode: "${dataService.code}", action: ADD, catalogServiceParameters: ${dataParams}}`;
       } else {
         dataCodeParams = `{serviceCode: "${dataService.code}", action: DELETE}`;
       }

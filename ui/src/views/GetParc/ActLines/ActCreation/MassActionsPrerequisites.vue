@@ -115,7 +115,7 @@ export default {
         'getparc.actCreation.carouselItem.MANAGE_CANCELLATION',
         'getparc.actCreation.carouselItem.TRANSFERT_LINES',
         'getparc.actCreation.carouselItem.CHANGE_MSISDN',
-        'getparc.actCreation.carouselItem.CHANGE_SIMCARD',        
+        'getparc.actCreation.carouselItem.CHANGE_SIMCARD',
         'getparc.actCreation.carouselItem.esim.POLICY_RULES',
       ].find((a) => a === actTitle);
     },

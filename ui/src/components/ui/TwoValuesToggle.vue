@@ -36,7 +36,11 @@ export default {
 <template>
   <label class="switch mb-3">
     <input type="checkbox" class="switch-input" v-model="value" />
-    <span class="switch-label" :data-on="labelOn ? $t(labelOn) : 'A partir de' " :data-off="labelOff ? $t(labelOff) : 'Plage'"></span>
+    <span
+      class="switch-label"
+      :data-on="labelOn ? $t(labelOn) : 'A partir de'"
+      :data-off="labelOff ? $t(labelOff) : 'Plage'"
+    ></span>
     <span class="switch-handle"></span>
   </label>
 </template>

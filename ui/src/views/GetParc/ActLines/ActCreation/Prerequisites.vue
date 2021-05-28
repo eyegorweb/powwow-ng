@@ -23,8 +23,8 @@
               <AutoPairingPrereq
                 v-if="
                   currentToggle === 'autoPairing' ||
-                  currentToggle === 'filePairing' ||
-                  currentToggle === 'filePairingEidIccid'
+                    currentToggle === 'filePairing' ||
+                    currentToggle === 'filePairingEidIccid'
                 "
                 :act="act"
                 :can-select-sim-type="currentToggle === 'autoPairing'"
