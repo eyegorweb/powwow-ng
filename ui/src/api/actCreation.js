@@ -553,7 +553,18 @@ function getDataParams(parameters) {
   paramsAdd = params.paramsToAdd.map((p) => `{parameterCode: "${p}", action: ADD}`);
   paramsRemove = params.paramsToDelete.map((p) => `{parameterCode: "${p}", action: DELETE}`);
 
-  return [paramsAdd.join(','), paramsRemove.join(',')].join(',');
+  const ret = [];
+
+  if (paramsAdd && paramsAdd.length) {
+    ret.push(paramsAdd.join(','));
+  }
+  if (paramsRemove && paramsRemove.length) {
+    ret.push(paramsRemove.join(','));
+  }
+  if (ret.length === 2) return ret.join(',');
+  if (ret.length === 1) return ret[0];
+
+  return '';
 }
 
 export async function changeService(filters, lines, params) {
@@ -592,7 +603,7 @@ export async function changeService(filters, lines, params) {
       if (dataService.checked) {
         const dataParams = getDataParams(dataService.parameters);
 
-        dataCodeParams = `{serviceCode: "${dataService.code}", action: ADD, catalogServiceParameters: ${dataParams}}`;
+        dataCodeParams = `{serviceCode: "${dataService.code}", action: ADD, catalogServiceParameters: [${dataParams}]}`;
       } else {
         dataCodeParams = `{serviceCode: "${dataService.code}", action: DELETE}`;
       }
