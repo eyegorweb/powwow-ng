@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.343+20210528090257
+2021-05-28
+
+### Fixes
+
+- [2694] Problème de route sur le bouton retour detail acte (e487610c40172c33a826e0a91c04bb6df7bf066d)
+- [000]  ajout du paramètre action pour les apns (61411324396c6efa3c862c2d8b70652de8f3488a)
+
 ## 1.17.0-master.342+20210527144335
 2021-05-27
 
