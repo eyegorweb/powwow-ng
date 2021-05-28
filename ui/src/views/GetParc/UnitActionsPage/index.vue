@@ -7,7 +7,7 @@
       <div class="row">
         <div class="col-md-9">
           <button
-            @click.prevent="$router.push({ name: 'actHistory', params: { queryFilters: filters } })"
+            @click.prevent="backRoute"
             class="btn btn-link back-btn"
           >
             <i class="ic-Arrow-Previous-Icon" />
@@ -90,7 +90,6 @@ export default {
   async mounted() {
     this.refreshTables();
   },
-
   data() {
     return {
       isLoading: true,
@@ -160,6 +159,11 @@ export default {
     },
   },
   computed: {
+    backRoute() {
+      return this.$route.params.simpleBack 
+      ? this.$router.go(-1) 
+      : this.$router.push({ name: 'actHistory', params: { queryFilters: filters } })
+    },
     filters() {
       return this.$loGet(this.$route, 'params.actHistoryTableFilters');
     },

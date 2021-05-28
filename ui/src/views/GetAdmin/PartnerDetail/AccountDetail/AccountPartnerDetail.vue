@@ -55,10 +55,12 @@
 
       <div class="accountdetail-bloc">
         <div class="accountdetail-legalInfos-img">
-          <!-- <h4>Logotype :</h4>
-          <img src="" alt="" />
+          <h4>Logotype :</h4>
+          <div class="previewLogo">
+            <img :src="urlLogoPreview" class="previewLogo-img" />
+          </div>
           <label for="changeLogotype">Changer l'image</label>
-          <input type="file" name="changeLogotype" id="changeLogotype" />-->
+          <input type="file" name="changeLogotype" id="changeLogotype" @change="logoPreview" />
         </div>
         <div class="accountdetail-legalInfos-txt">
           <FormControl label="getadmin.partnerDetail.partnerName" v-model="form.partnerName" />
@@ -212,6 +214,7 @@ export default {
       },
       actDate: null,
       dateError: null,
+      urlLogoPreview: undefined,
       countries: [],
     };
   },
@@ -283,6 +286,10 @@ export default {
       return get(this.accountDetail, path, defaultValue);
     },
 
+    logoPreview(event) {
+        this.urlLogoPreview = URL.createObjectURL(event.target.files[0]);
+    },
+    
     onContractDateChange(value) {
       this.form.contractDate = value;
     },
@@ -412,6 +419,16 @@ export default {
 
     &-img {
       width: 30%;
+
+      .previewLogo {
+        display: flex;
+        justify-content: center;
+        
+        &-img {          
+          width: 7rem;
+        }
+      }
+
 
       input {
         visibility: hidden;
