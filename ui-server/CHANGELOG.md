@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.345+20210528142109
+2021-05-28
+
+### Fixes
+
+- [000] corriger la requête de changement d'apn (dea7fea591a0dccf0349b604c8e16df35d54bb52)
+
 ## 1.17.0-master.344+20210528121300
 2021-05-28
 
