@@ -213,8 +213,6 @@ export default {
     },
 
     otherExportChoices() {
-      const partnerFilter = this.appliedFilters.find((a) => a.id === 'filters.partners');
-
       const otherExportChoices = [];
 
       if (this.havePermission('getParc', 'export_service')) {
@@ -224,27 +222,10 @@ export default {
         });
       }
 
-      let canExportConso = false;
-
-      if (this.userIsGroupPartner) {
-        canExportConso = true;
-      }
-
-      if (this.userIsPartner && !this.userIsMVNO) {
-        canExportConso = true;
-      }
-
-      if (this.userIsOperator && partnerFilter && partnerFilter.values.length === 1) {
-        const partnerInFilter = partnerFilter.values[0];
-        canExportConso = partnerInFilter.partyType !== 'MVNO';
-      }
-
-      if (canExportConso) {
-        otherExportChoices.push({
-          id: 'CONSUMPTION',
-          label: 'exportTable.inProgress',
-        });
-      }
+      otherExportChoices.push({
+        id: 'CONSUMPTION',
+        label: 'exportTable.inProgress',
+      });
 
       if (this.havePermission('getParc', 'export_bo')) {
         otherExportChoices.push({
