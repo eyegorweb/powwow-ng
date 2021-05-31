@@ -20,6 +20,7 @@ export default {
       type: Object,
       required: false,
     },
+    nbOfLines: Number,
     exportFn: Function,
     onErrorFn: Function,
     exportAll: Boolean,
@@ -42,6 +43,7 @@ export default {
     chooseExportFormat() {
       this.openExportChoice({
         columns: this.columns,
+        nbOfLines: this.nbOfLines,
         orderBy: this.orderBy,
         exportFn: this.exportFn,
         onErrorFn: this.onErrorFn,

@@ -11,6 +11,7 @@
   "search": "Rechercher",
   "subject": "Sujet",
   "title": "Titre",
+  "disableExportLinesExceed": "Export excel indisponible au dessus de 500.000 lignes.",
   "date-over": "avant le {date}",
   "voice": "Voix",
   "mandatory": "Obligatoire",
