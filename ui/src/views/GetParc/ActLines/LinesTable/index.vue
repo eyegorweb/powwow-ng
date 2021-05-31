@@ -35,6 +35,7 @@
               :export-choices="exportChoices"
               :other-export-choices="otherExportChoices"
               :get-export-choice-disabled-message="getExportChoiceDisabledMessage"
+              :nbOfLines="total"
             >
               <span slot="title">
                 {{ $t('getparc.history.details.EXPORT_LINES', { total: formattedTotal }) }}

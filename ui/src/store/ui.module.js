@@ -24,6 +24,7 @@ export const state = {
 
   exportPanelParams: undefined,
   isExportFormatChoiceOpen: false,
+  exportNumberLines: undefined,
 
   homeWidgets: undefined,
 
@@ -90,6 +91,7 @@ export const mutations = {
   openExportChoice(state, params) {
     state.exportPanelParams = params;
     state.isExportFormatChoiceOpen = true;
+    state.exportNumberLines = params.nbOfLines;
   },
   closeExportChoice(state) {
     state.isExportFormatChoiceOpen = false;

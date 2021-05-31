@@ -34,12 +34,16 @@
               <span>CSV</span>
             </button>
           </div>
-          <div class="col text-center">
+          <div class="col text-center" >
             <button
+              :class="{disableExport: toManyLinesToExcelExport}"
               class="btn btn-link export-button export-excel-format"
-              @click.stop="exportFile('EXCEL')"
+              @click.stop="toManyLinesToExcelExport || exportFile('EXCEL')"
               :disabled="isLoading"
             >
+              <div class="disableExport-tooltip">
+                {{$t('disableExportLinesExceed')}}
+              </div>
               <img src="@/assets/excel.svg" alt="excel" />
               <span>Excel</span>
             </button>
@@ -56,9 +60,7 @@
               :key="'expo_togg_' + toggleVersion"
             />
             <UiDropDownChoicesButton
-              v-if="
-                exportPanelParams.otherExportChoices && exportPanelParams.otherExportChoices.length
-              "
+              v-if="exportPanelParams.otherExportChoices && exportPanelParams.otherExportChoices.length"
               :options="otherExportChoicesLabels"
               :get-export-choice-disabled-message="getExportChoiceDisabledMessage"
               @click="onOtherExportChoice"
@@ -98,6 +100,7 @@ import { mapGetters } from 'vuex';
 import UiDropDownChoicesButton from '@/components/ui/UiDropDownChoicesButton';
 
 export default {
+
   components: {
     Modal,
     Checkbox,
@@ -113,8 +116,12 @@ export default {
     ...mapState({
       isExportFormatChoiceOpen: (state) => state.ui.isExportFormatChoiceOpen,
       exportPanelParams: (state) => state.ui.exportPanelParams,
+      exportNumberLines: (state) => state.ui.exportNumberLines,
     }),
-
+    
+    toManyLinesToExcelExport() {
+      return this.exportNumberLines >= 500000;
+    },
     otherExportChoicesLabels() {
       return this.exportPanelParams
         ? this.exportPanelParams.otherExportChoices.map((e) => e.label)
@@ -130,6 +137,8 @@ export default {
       };
     },
   },
+
+
   data() {
     return {
       isAsyncExportAlertOpen: false,
@@ -146,6 +155,7 @@ export default {
       toggleVersion: 0,
     };
   },
+
   watch: {
     isExportFormatChoiceOpen(value) {
       if (value) {
@@ -163,6 +173,7 @@ export default {
       }
     },
   },
+
   methods: {
     ...mapMutations([
       'closeExportChoice',
@@ -270,9 +281,43 @@ export default {
     },
   },
 };
+
 </script>
 
 <style lang="scss" scoped>
+.disableExport {
+  background: rgb(179, 179, 179);
+  position: relative;
+
+  &:hover {    
+    text-decoration: none;
+  }
+  img {
+    filter: grayscale(1);
+  }
+  span {
+    color: white;
+  }
+
+  &-tooltip {
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: 12px;
+    z-index: 9;
+    background: black;
+    color: white;
+    width: 100%;
+    padding: 1rem;
+    border-radius: 5px;
+    opacity: 0;
+    transition: 0.3s;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
 .loader {
   position: absolute;
   width: 100%;
