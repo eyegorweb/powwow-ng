@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.347+20210531072921
+2021-05-31
+
+### Fixes
+
+- [2696] Ajout du blocage export excel au dessus de 500k ligns (368025d795819071c76b0e3e3e80a559744961e4)
+
 ## 1.17.0-master.346+20210528151641
 2021-05-28
 
