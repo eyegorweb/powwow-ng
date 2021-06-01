@@ -30,7 +30,7 @@ export default {
 
     selectedValue: {
       get() {
-        return this.value ? this.value.id : undefined;
+        return this.value ? this.value.value : undefined;
       },
       set(value) {
         if (value && value.label === '') {
@@ -51,6 +51,9 @@ export default {
         label: `${o.workflow.workflowDescription} / ${o.customerAccount.code} - ${o.customerAccount.name}`,
         meta: o,
       }));
+      if (this.options && this.options.length === 1) {
+        this.selectedValue = this.options[0].value;
+      }
     },
   },
 
