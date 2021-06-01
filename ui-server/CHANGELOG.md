@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.350+20210601132414
+2021-06-01
+
+### Fixes
+
+- [2161] affichage par défaut en cas d'offre unique pour la création d'alarme (e6e25b79e8a28f1234044b34f1bf3577f379e144)
+
 ## 1.17.0-master.349+20210601102059
 2021-06-01
 
