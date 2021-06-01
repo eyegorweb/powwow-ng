@@ -2,13 +2,14 @@
 
 <!--- next entry here -->
 
-## 1.17.0-master.348+20210601100755
+## 1.17.0-master.349+20210601102059
 2021-06-01
 
 ### Fixes
 
 - [2679] Traitement du message d'erreur des actes dans le détail de ligne (895345adc0f0e1b3cbfa143af1ec80634c385ff0)
 - [2671] Update en.json . Remplacer invoiced par charged (59304a75f0f89710f86d63035b19054a063107d1)
+- [2671] Update en.json . Remplacer invoiced par charged (520b0d0484f182b1178b5c83c734d9f248143e13)
 
 ## 1.17.0-master.347+20210531072921
 2021-05-31
