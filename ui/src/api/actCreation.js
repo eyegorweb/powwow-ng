@@ -6,7 +6,7 @@ async function actCreationMutation(filters, lines, creationActFn) {
   let gqlFilter = '';
   let lineIds = '';
   if (lines && lines.length > 0) {
-    lineIds = lines.map(l => l.id).join(',');
+    lineIds = lines.map((l) => l.id).join(',');
   } else {
     gqlFilter = formatFilters(filters);
   }
@@ -14,7 +14,7 @@ async function actCreationMutation(filters, lines, creationActFn) {
 }
 
 export async function updateCustomFields(filters, lines, params) {
-  return await actCreationMutation(filters, lines, async (gqlFilter, gqlLines) => {
+  return actCreationMutation(filters, lines, async (gqlFilter, gqlLines) => {
     const {
       partyId,
       notifEmail,
@@ -550,8 +550,8 @@ function getDataParams(parameters) {
     }
   );
 
-  paramsAdd = params.paramsToAdd.map(p => `{parameterCode: "${p}", action: ADD}`);
-  paramsRemove = params.paramsToDelete.map(p => `{parameterCode: "${p}", action: DELETE}`);
+  paramsAdd = params.paramsToAdd.map((p) => `{parameterCode: "${p}", action: ADD}`);
+  paramsRemove = params.paramsToDelete.map((p) => `{parameterCode: "${p}", action: DELETE}`);
 
   const ret = [];
 
@@ -590,11 +590,11 @@ export async function changeService(filters, lines, params) {
     let dataCodeParams = '';
 
     if (servicesToEnable && servicesToEnable.length) {
-      codesToEnable = servicesToEnable.map(s => `{serviceCode: "${s.code}", action: ADD}`);
+      codesToEnable = servicesToEnable.map((s) => `{serviceCode: "${s.code}", action: ADD}`);
     }
 
     if (servicesToDisable && servicesToDisable.length) {
-      codesToDisable = servicesToDisable.map(s => `{serviceCode: "${s.code}", action: DELETE}`);
+      codesToDisable = servicesToDisable.map((s) => `{serviceCode: "${s.code}", action: DELETE}`);
     }
 
     let codesToaddToGqlQuery = [...codesToEnable, ...codesToDisable];
@@ -732,7 +732,7 @@ export async function preactivateAndActivateSImcardInstance(filters, lines, para
     }
 
     let customfields = '';
-    allCustomFields.forEach(e => {
+    allCustomFields.forEach((e) => {
       customfields = `${customfields}, ${e.code}: "${e.enteredValue}"`;
     });
 
@@ -905,7 +905,7 @@ export async function changeMSISDN(params) {
    }
   `;
 
-  return await query(queryStr);
+  return query(queryStr);
 }
 
 export async function changeSingleMSISDN(params) {
@@ -930,7 +930,7 @@ export async function changeSingleMSISDN(params) {
    }
   `;
 
-  return await query(queryStr);
+  return query(queryStr);
 }
 
 export async function changeICCID(params) {
@@ -955,7 +955,7 @@ export async function changeICCID(params) {
    }
   `;
 
-  return await query(queryStr);
+  return query(queryStr);
 }
 
 export async function changeSingleICCID(params) {
@@ -981,7 +981,7 @@ export async function changeSingleICCID(params) {
    }
   `;
 
-  return await query(queryStr);
+  return query(queryStr);
 }
 
 export async function changeSingleCustomerAccount(params) {
@@ -1008,7 +1008,7 @@ export async function changeSingleCustomerAccount(params) {
   }
   `;
 
-  return await query(queryStr);
+  return query(queryStr);
 }
 
 export async function changeSingleOffer(params) {
@@ -1045,11 +1045,11 @@ export async function changeSingleOffer(params) {
     }
     `;
 
-  return await query(queryStr);
+  return query(queryStr);
 }
 
 export async function createGeoLocationMassAction(simCardId) {
-  return await query(`
+  return query(`
   mutation {
     createGeoLocationMassAction(simCardInstanceId: ${simCardId})
   }

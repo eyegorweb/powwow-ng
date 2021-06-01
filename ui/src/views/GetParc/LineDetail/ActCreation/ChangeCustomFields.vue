@@ -16,10 +16,10 @@
           show-optional-field
         />
       </div>
-      <div slot="after" slot-scope="{ report }">
-        <FormReport v-if="report" :data="report" />
-      </div>
     </div>
+    <template #after="{ report }">
+      <FormReport v-if="report" :data="report" />
+    </template>
   </BaseForm>
 </template>
 
@@ -133,8 +133,8 @@ export default {
 
       this.chekcForErrors();
       const response = await changeSingleCustomFields(params);
-      if (response && response.data) {
-        return { report: { ...response.data.changeCustomFieldsV2 }, errors: response.errors };
+      if (response && !response.errors.length) {
+        return { report: { ...response }, errors: response.errors };
       } else {
         return {
           errors: [

@@ -65,13 +65,9 @@ export default {
   },
   mounted() {
     if (this.changeOffer && this.userIsBO && !this.userIsMVNO) {
-      this.actDate = moment()
-        .endOf('month')
-        .format('DD/MM/YYYY HH:mm:ss');
+      this.actDate = moment().endOf('month').format('DD/MM/YYYY HH:mm:ss');
     } else if (this.changeOffer && !this.userIsBO && !this.userIsMVNO) {
-      this.actDate = moment()
-        .endOf('month')
-        .format('DD/MM/YYYY HH:mm:ss');
+      this.actDate = moment().endOf('month').format('DD/MM/YYYY HH:mm:ss');
       this.disabledDate = true;
     } else {
       this.actDate = moment().format('DD/MM/YYYY HH:mm:ss');
@@ -112,7 +108,7 @@ export default {
       this.report = response.report;
 
       if (response) {
-        if (response.errors) {
+        if (response.errors && response.errors.length) {
           response.errors.forEach((e) => {
             this.flashMessage({ level: 'danger', message: e.message });
           });
