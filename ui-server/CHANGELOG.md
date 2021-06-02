@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.353+20210602131402
+2021-06-02
+
+### Fixes
+
+- [2704] Gestion affichage liste de diffusion en fonction de input (9d4860b5a681fa9ca3bf8cef37c4279887404920)
+
 ## 1.17.0-master.352+20210602125331
 2021-06-02
 
