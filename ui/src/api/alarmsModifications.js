@@ -214,10 +214,11 @@ function getSharedAlarmGqlParams(params) {
   const levelsData = [];
   const levelsSms = [];
   const levelsVoice = [];
-
+  console.log(params)
   gqlParams.push(`sharedAlarmId:${params.sharedAlarmId}`);
   gqlParams.push(`alarmName:"${params.alarmName}"`);
   gqlParams.push(`mailNotification:${params.emailNotification}`);
+  gqlParams.push(`activateAlarm:${params.activateAlarm}`);
 
   if (params.levelsData) {
     if (params.levelsData.levelMax) {

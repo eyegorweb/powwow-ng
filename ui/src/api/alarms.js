@@ -50,6 +50,7 @@ export async function searchSharedConsumptionAlarm(orderBy, pagination, filters)
         mailingList {
           id
         }
+        disabled
         notifyByWs
         volumeData
         volumeSms
