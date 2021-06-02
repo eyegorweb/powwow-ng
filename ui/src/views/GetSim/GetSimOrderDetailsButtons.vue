@@ -18,11 +18,18 @@
       <UiButton variant="accent" block @click="updateStatus('CANCELED')">{{
         $t('getsim.actions.CANCEL')
       }}</UiButton>
-    </div>
+    </div>          
     <div v-if="order.status == 'TERMINATED'">
-      <UiButton variant="accent" block>
-        <span class="small-button">{{ $t('getsim.actions.EXPORT') }}</span>
-      </UiButton>
+          <ExportButton
+            export-all
+            :export-fn="getExportFn()"
+            :columns="[]"
+            :order-by="orderBy"
+            :export-choices="exportChoices"
+            class="exportButton"
+          >
+        <span slot="title">{{ $t('getsim.actions.EXPORT') }}</span>
+      </ExportButton>
     </div>
     <div
       v-if="
@@ -52,6 +59,8 @@ import { updateOrderStatus } from '@/api/orders';
 import { mapMutations } from 'vuex';
 import { setTimeout } from 'timers';
 import { mapGetters } from 'vuex';
+import { exportSimCardInstances } from '@/api/linesActions';
+import ExportButton from '@/components/ExportButton';
 
 export default {
   props: {
@@ -59,15 +68,62 @@ export default {
   },
   components: {
     UiButton,
+    ExportButton,
   },
-
+  data() {
+    return {
+      orderBy: {
+        key: 'id',
+        direction: 'DESC',
+      },
+    }
+  },
   computed: {
     ...mapGetters(['userIsBO', 'havePermission']),
-  },
 
+    exportChoices() {
+      const exportChoices = [
+        {
+          id: 'CLASSIC',
+          label: 'exportTable.classic',
+        },
+        {
+          id: 'FULL',
+          label: 'exportTable.complete',
+        },
+      ];
+
+      if (this.havePermission('getParc', 'export_last_usage')) {
+        exportChoices.push({
+          id: 'LAST_USAGE',
+          label: 'exportTable.lastUsage',
+        });
+      }
+
+      return exportChoices;
+    },
+  },
+  
   methods: {
     ...mapMutations(['openPanel', 'closePanel']),
     ...mapMutations('getsim', ['refreshIndicators', 'updateOrderInTable']),
+
+    getExportFn() {
+      return async (columns, orderBy, exportFormat, asyncExportRequest, exportAll, forceAsyncExport, exportChoice) => {
+        let columnsToUse = [];
+        let orderToUse = {direction: 'DESC', key: 'id' };
+        let filtersToUse = [{id: 'filters.lines.orderID', value: this.order.id}]
+        return await exportSimCardInstances(
+          columnsToUse,
+          orderToUse,
+          exportFormat,
+          filtersToUse,
+          asyncExportRequest,
+          exportAll,
+          exportChoice
+        );
+      };
+    },
 
     async updateStatus(newStatus) {
       const orderData = await updateOrderStatus(this.order.id, newStatus);
@@ -116,10 +172,29 @@ export default {
       }, 500);
     },
   },
+  
 };
 </script>
 
 <style lang="scss" scoped>
+.exportButton {
+  width: 100%;
+  text-align: center;
+  background: #c8007b;
+  color: white;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+
+  button {
+    width: 100%;
+    
+    span {
+      color: white;
+      text-align: center;
+    }
+  }
+}
 .action-buttons {
   display: flex;
   justify-content: space-between;
