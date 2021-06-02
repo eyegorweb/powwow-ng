@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.352+20210602125331
+2021-06-02
+
+### Fixes
+
+- [2698] Problème de gestion API sur modificaiton alarme (c31ab7008a216b4602e846d7ed945ed64535a3af)
+- [000] Utiliser la bonne version de Node durant le build (39870c6f76489a1e595d60e350cf72c7abd8bbac)
+
 ## 1.17.0-master.351+20210602092002
 2021-06-02
 
