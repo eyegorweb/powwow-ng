@@ -205,7 +205,7 @@ export default {
       function isMatching(displayedValues) {
         const selectedItems = results;
         if (displayedValues) {
-          return displayedValues.every(function(v) {
+          return displayedValues.every(function (v) {
             return !!selectedItems.filter((s) => isEqual(s, v));
           });
         }

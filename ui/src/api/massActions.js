@@ -399,6 +399,7 @@ function formatFilters(filters) {
 
   // addQuantityFilter(allFilters, filters);
   addActionTypeFilter(allFilters, filters);
+  addCategoryFilter(allFilters, filters);
   actStatus(allFilters, filters);
   addActDateCreationFilter(allFilters, filters);
   addActDueDateFilter(allFilters, filters);
@@ -410,6 +411,13 @@ function formatFilters(filters) {
   // addServices(allFilters, filters);
 
   return allFilters.join(',');
+}
+
+function addCategoryFilter(gqlFilters, selectedFilters) {
+  const category = selectedFilters.find((f) => f.id === 'filters.category');
+  if (category) {
+    gqlFilters.push(`categoryEnum: ${category.value}`);
+  }
 }
 
 function addIdsFilter(gqlFilters, selectedFilters) {

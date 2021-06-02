@@ -249,6 +249,13 @@ export const mutations = {
       });
     }
   },
+  setActCategoryFilter(state, value) {
+    selectFilterValue(state, {
+      id: 'filters.category',
+      value,
+      hidden: true,
+    });
+  },
   setActDateEndFilter(state, { startDate, endDate }) {
     if (startDate || endDate) {
       selectFilterValue(state, {

@@ -7,7 +7,6 @@ const Home = () => import('@/views/Home');
 const Examples = () => import('@/views/Examples');
 const Alarms = () => import('@/views/GetVision/alarms');
 const AlarmDetail = () => import('@/views/GetVision/alarmDetail');
-const MassActionsPage = () => import('@/views/GetParc/MassActionsPage');
 const GetParcActDetail = () => import('@/views/GetParc/UnitActionsPage');
 const GetParcManagementActLines = () => import('@/views/GetParc/ActLines');
 const SearchUsers = () => import('@/views/GetAdmin/SearchUsers');
@@ -28,6 +27,8 @@ import partnerDetailRoute from '@/views/GetAdmin/PartnerDetail/routes.js';
 
 import getSimRoutes from '@/views/GetSim/routes.js';
 
+import getParcRoutes from '@/views/GetParc/MassActionsPage/routes.js';
+
 import { excludeMocked } from '@/featureFlipping/plugin';
 
 Vue.use(Router);
@@ -39,6 +40,7 @@ export default new Router({
     lineDetailRoute,
     partnerDetailRoute,
     getSimRoutes,
+    getParcRoutes,
     {
       path: '/',
       name: 'home',
@@ -59,11 +61,7 @@ export default new Router({
       name: 'refresh',
       component: AuthenticationRefreshCallback,
     },
-    {
-      path: '/act-history',
-      name: 'actHistory',
-      component: MassActionsPage,
-    },
+
     {
       path: '/act-detail/:massActionId',
       name: 'actDetail',

@@ -2,6 +2,7 @@
   <div class="card filter-bar cmp-filter-bar">
     <div class="card-body" :class="[allFiltersVisible ? 'show-all-filters' : 'hide-all-filters']">
       <h5 class="card-title">{{ $t('filters.title') }}</h5>
+      <slot name="beforeSelectedFilters"> </slot>
       <SelectedFilters
         v-if="canShowSelectedFilter"
         :current-filters="currentFilters"
@@ -23,8 +24,9 @@
           variant="primary"
           @click="applyFilters"
           class="apply-filters-btn flex-grow-1 py-1 px-3 ml-1"
-          >{{ $t('applyFilters') }}</UiButton
         >
+          {{ $t('applyFilters') }}
+        </UiButton>
       </div>
 
       <draggable handle=".handle">

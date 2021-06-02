@@ -1004,6 +1004,8 @@
     "management-act-detail": "History of act details",
     "management-lines": "Line management",
     "tooltip-title-text": "You can find all the lines in the fleet, their condition as well as the line diagnostic tools. You can also manage lines, modify services and offers, export information and usage data.",
+    "classic-acts": "Classic acts",
+    "esim-acts": "Esim acts",
     "actTypes": {
       "PREACTIVATION": "Pre-activation",
       "PREACTIVATION_ACTIVATION": "Pre-activation and Activation",
