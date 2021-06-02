@@ -157,7 +157,7 @@
           </div>
 
           <div class="third-size pr-4" v-if="getToggle(billingToggles, 'MAD_FACT')">
-            <div class="form-group">
+            <div class="form-group" v-if="diffusionListEnabled">
               <label class="small-label">{{ $t('getvsion.mailing-list') }}</label>
               <UiSelect
                 class="report-field"
