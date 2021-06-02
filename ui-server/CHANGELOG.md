@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.351+20210602092002
+2021-06-02
+
+### Fixes
+
+- [2691] monde eSIM dans l'historique des actes de gestion (a585c740c77a42dfbed6ccefebdc2cfce07b3322)
+
 ## 1.17.0-master.350+20210601132414
 2021-06-01
 
