@@ -11,10 +11,14 @@
           @noMoreFilters="onAllFiltersCleared"
           @currentFiltersChange="$emit('currentFiltersChange', $event)"
         >
+          <template #beforeSelectedFilters>
+            <slot name="beforeSelectedFilters"></slot>
+          </template>
           <template #actions="{ hasAnyValue, onSearch }">
             <div v-if="hasAnyValue" class="actions d-flex flex-column flex-md-row mb-2">
               <UiButton
                 variant="primary"
+                :disabled="isSearchDisabled"
                 @click="onSearch"
                 class="apply-filters-btn flex-grow-1 py-1 px-3 ml-1"
                 >{{ $t('applyFilters') }}</UiButton
@@ -109,6 +113,7 @@ export default {
     isTableLoading: Boolean,
     noPagination: Boolean,
     showReset: Boolean,
+    isSearchDisabled: Boolean,
     size: {
       type: Number,
       default: 7,

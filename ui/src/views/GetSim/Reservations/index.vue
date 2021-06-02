@@ -78,10 +78,9 @@ import ActionFilter from './ActionFilter.vue';
 
 import { fetchEsimReservations, exportEsimReservations } from '@/api/esim.js';
 import { formatDateForGql, prepareEndDateForBackend } from '@/api/utils.js';
-import { mapGetters } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 import { fetchCustomFields } from '@/api/customFields';
 import { formatLargeNumber } from '@/utils/numbers';
-import { mapMutations } from 'vuex';
 
 export default {
   components: {

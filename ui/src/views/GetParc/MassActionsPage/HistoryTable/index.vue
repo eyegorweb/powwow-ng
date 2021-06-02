@@ -274,6 +274,11 @@ export default {
           label: this.$t('filters.actDateStart'),
           startDate: currentDateMinusMounts(3),
         },
+        {
+          id: 'filters.category',
+          value: 'STANDARD',
+          hidden: true,
+        },
       ]);
     },
     async fetchMassActions() {
@@ -302,7 +307,7 @@ export default {
         }
 
         if (exportAll) {
-          return await exporAlltMassActions(
+          return exporAlltMassActions(
             this.appliedFilters,
             [
               'MASS_ACTION_ID',
@@ -330,7 +335,7 @@ export default {
             true
           );
         } else {
-          return await exportMassActionsOnly(
+          return exportMassActionsOnly(
             [...columnsToUse, 'STARTED'],
             exportFormat,
             this.appliedFilters,

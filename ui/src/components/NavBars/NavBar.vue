@@ -229,7 +229,7 @@ export default {
           },
           {
             label: 'menu.massActions',
-            to: { name: 'actHistory' },
+            to: { name: 'actHistory.classic' },
             permission: { domain: 'act', action: 'read' },
           },
         ],
