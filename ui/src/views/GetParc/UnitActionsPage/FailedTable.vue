@@ -226,6 +226,13 @@ export default {
           name: 'type',
           exportId: 'UNIT_ACTION_TYPE',
         },
+        {
+          id: 6,
+          label: this.$t('getparc.actLines.massActionsHistory.columns.error'),
+          name: 'description',
+          orderable: false,
+          visible: true,
+        },
       ],
       page: 0,
       pageLimit: 20,

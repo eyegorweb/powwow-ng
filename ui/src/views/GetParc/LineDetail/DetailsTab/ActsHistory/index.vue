@@ -95,6 +95,13 @@ export default {
           orderable: false,
           visible: true,
         },
+        {
+          id: 6,
+          label: this.$t('getparc.actLines.massActionsHistory.columns.error'),
+          name: 'description',
+          orderable: false,
+          visible: true,
+        },
       ],
       orderBy: {
         key: 'ID',
