@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.354+20210603135143
+2021-06-03
+
+### Features
+
+- [2649] Ajout de la colonne erreur dans le detail act (614c76ae5df8d63daf354d7344b7ff5e299ad933)
+
 ## 1.17.0-master.353+20210602131402
 2021-06-02
 
