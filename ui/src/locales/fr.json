@@ -1871,7 +1871,8 @@
           "actionType": "Type d’acte",
           "extraInfo": "Détail de l’acte",
           "status": "Etat",
-          "dueDate": "Prévu"
+          "dueDate": "Prévu",
+          "error": "Erreur"
         },
         "statuses": {
           "WAITING": "En attente",
