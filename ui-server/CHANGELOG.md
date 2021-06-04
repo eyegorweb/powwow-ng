@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.356+20210604080130
+2021-06-04
+
+### Fixes
+
+- [000] corriger le filtre partenaire (7e1b67d04d6c51e7473850b3f24b166e14b9fc0a)
+
 ## 1.17.0-master.355+20210604073010
 2021-06-04
 
