@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.355+20210604073010
+2021-06-04
+
+### Features
+
+- [1299] ajout export dans detail de commmande panel (0e5fe2c85f0ab68f0abe55850503698a18515db3)
+
 ## 1.17.0-master.354+20210603135143
 2021-06-03
 
