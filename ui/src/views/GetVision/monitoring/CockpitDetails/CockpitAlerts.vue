@@ -99,7 +99,7 @@ export default {
 
       return this.appliedFilters.reduce((filters, item) => {
         if (item.id === 'getadmin.users.filters.partners') {
-          filters.partyIds = [item.data.id];
+          filters.partnerId = item.data.id;
         }
 
         if (item.id === 'filters.country') {
