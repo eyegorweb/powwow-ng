@@ -642,7 +642,7 @@ function valuesFromMutiselectFilter(
 function addOrderId(gqlFilters, selectedFilters) {
   const orderId = getFilterValue(selectedFilters, 'filters.lines.orderID');
   if (orderId) {
-    gqlFilters.push(`idOrder: {eq: "${orderId}"}`);
+    gqlFilters.push(`idOrder: {eq: "${orderId || uniqueOrderId}"}`);
   }
 }
 
