@@ -630,9 +630,9 @@ export default {
       if (this.prevRoute && this.prevRoute.includes('lineDetail') && this.linesActionsResponse) {
         return;
       }
-      // if (this.$route.params && this.$route.params.queryFilters) {
-      //   this.setRouteParamsFilters(this.$route.params.queryFilters);
-      // }
+      if (this.$route.params && this.$route.params.queryFilters) {
+        this.setRouteParamsFilters(this.$route.params.queryFilters);
+      }
       this.initFilterForContext();
     },
 
