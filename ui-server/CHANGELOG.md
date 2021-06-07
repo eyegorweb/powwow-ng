@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.357+20210607124127
+2021-06-07
+
+### Fixes
+
+- [2707] problème de filtre sur le bouton afficher les sim dans le detail de commande (9aa0b65127f32222f7dc9560c24e3c1cf99b8117)
+- [2694] probleme bouton retour act detail (ed989cd5236eacc127f798cb269e6c8d15bb93bb)
+
 ## 1.17.0-master.356+20210604080130
 2021-06-04
 
