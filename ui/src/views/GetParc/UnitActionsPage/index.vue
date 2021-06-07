@@ -7,7 +7,7 @@
       <div class="row">
         <div class="col-md-9">
           <button
-            @click.prevent="backRoute"
+            @click.prevent="backRoute()"
             class="btn btn-link back-btn"
           >
             <i class="ic-Arrow-Previous-Icon" />
@@ -160,9 +160,13 @@ export default {
   },
   computed: {
     backRoute() {
-      return this.$route.params.simpleBack 
-      ? this.$router.go(-1) 
-      : this.$router.push({ name: 'actHistory', params: { queryFilters: filters } })
+      if(!this.$route.params.simpleBack && this.filters) 
+      {
+        return this.$router.push({ name: 'actHistory', params: { queryFilters: this.filters } })
+      }
+      else {
+        return this.$router.go(-1) 
+      }       
     },
     filters() {
       return this.$loGet(this.$route, 'params.actHistoryTableFilters');
