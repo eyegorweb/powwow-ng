@@ -25,7 +25,7 @@ export default {
   },
 
   chooseOtherExportType(exportType) {
-    cy.get('.dropdown-toggle').click();
+    cy.get('.exportTypes .dropdown-toggle').click();
     cy.get('.dropdown-item').each(($el) => {
       if ($el.text().trim() === exportType) {
         cy.wrap($el).click();
@@ -69,6 +69,7 @@ export default {
     offer: new MultiSelectFilter(5),
     id: idFilter,
     type: new MultiSelectFilter(4),
+    lineStatus: new MultiSelectFilter(8),
     billingStatus: new MultiSelectFilter(10),
     close() {
       cy.waitGet(`.ic-Arrow-Up-Icon`).click();

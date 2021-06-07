@@ -2,7 +2,6 @@ Feature: création d'alarmes
 
   je veux créer des alarmes de changement
 
-  @ignore
   Scenario: créer une alarme de changement d'operateur par défaut
     Given en tant que BO
     And je suis sur la page de création d'alarmes
@@ -11,7 +10,6 @@ Feature: création d'alarmes
     When je valide la création
     Then je vérifie que mon alarme a été créé
 
-  @ignore
   Scenario: créer une alarme de changement de statut par défaut
     Given en tant que BO
     And je suis sur la page de création d'alarmes
@@ -20,7 +18,6 @@ Feature: création d'alarmes
     When je valide la création
     Then je vérifie que mon alarme a été créé
 
-  @ignore
   Scenario: créer une alarme de changement d'equipement par défaut
     Given en tant que BO
     And je suis sur la page de création d'alarmes
@@ -29,7 +26,6 @@ Feature: création d'alarmes
     When je valide la création
     Then je vérifie que mon alarme a été créé
 
-  @ignore
   Scenario: créer une alarme de changement de pays par défaut
     Given en tant que BO
     And je suis sur la page de création d'alarmes
@@ -38,7 +34,6 @@ Feature: création d'alarmes
     When je valide la création
     Then je vérifie que mon alarme a été créé
 
-  @ignore
   Scenario: créer une alarme de changement d'operateur par défaut
     Given en tant que BO
     And je suis sur la page de création d'alarmes
@@ -47,7 +42,6 @@ Feature: création d'alarmes
     When je valide la création
     Then je vérifie que mon alarme a été créé
 
-  @ignore
   Scenario: créer une alarme de changement de statut par défaut
     Given en tant que BO
     And je suis sur la page de création d'alarmes
@@ -56,7 +50,6 @@ Feature: création d'alarmes
     When je valide la création
     Then je vérifie que mon alarme a été créé
 
-  @ignore
   Scenario: créer une alarme de changement d'equipement par défaut
     Given en tant que BO
     And je suis sur la page de création d'alarmes
@@ -65,7 +58,6 @@ Feature: création d'alarmes
     When je valide la création
     Then je vérifie que mon alarme a été créé
 
-  @ignore
   Scenario: créer une alarme de changement de pays par défaut
     Given en tant que BO
     And je suis sur la page de création d'alarmes

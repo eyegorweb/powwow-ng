@@ -14,7 +14,11 @@ export default {
     },
     report() {
       cy.startObservationGql();
-      cy.waitGet(':nth-child(5) > .dropdown > div > a:nth-child(1)').click({ force: true });
+      cy.waitGet('.menu_getReportsModels').click({ force: true });
+    },
+    document() {
+      cy.startObservationGql();
+      cy.waitGet('.menu_documents').click({ force: true });
     },
     lines: () => {
       cy.startObservationGql();
@@ -24,9 +28,7 @@ export default {
     massActions: () => {
       cy.startObservationGql();
 
-      cy.waitGet(
-        '#app > div.container > div.navbars.bg-white > div > div:nth-child(1) > div > ol > li:nth-child(2) > div > div > a.dropdown-item.menu_actHistory'
-      ).click({ force: true });
+      cy.waitGet('.menu_actHistory_classic').click({ force: true });
     },
     userManagement: () => {
       cy.startObservationGql();

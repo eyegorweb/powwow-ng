@@ -23,7 +23,6 @@ Feature: Recherche de lignes
     When je lance la recherche
     Then la table contient plus de 0 resultat
 
-  @ignore
   Scenario: recherche par type de carte SIM
     Given en tant que BO
     And je suis sur la page recherche de lignes
@@ -88,11 +87,11 @@ Feature: Recherche de lignes
     When je lance un Export "Dernier usage"
     Then le fichier est bien téléchargé
 
-  @focus
   Scenario: Export des lignes (Services)
     Given en tant que BO
     And je suis sur la page recherche de lignes
     And je choisis le filtre partenaire "lyra"
+    And je choisis le filtre statut de la ligne "Activée"
     And j'affiche toutes les lignes
     When je lance un Export supplémentaire "Services"
     Then le fichier est bien téléchargé

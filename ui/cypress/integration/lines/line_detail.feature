@@ -2,6 +2,7 @@ Feature: detail des lignes
 
   Je veux tester le detail des lignes
 
+  @focus
   Scenario: je veux verifier l'en cours d'une ligne activée
     Given en tant que BO
     And Je suis sur la page de gestion de lignes
@@ -10,6 +11,7 @@ Feature: detail des lignes
     When je clique sur voir l'en-cours
     Then la table de l'en-cours existe
 
+  @focus
   Scenario: je veux verifier l'en cours d'une ligne non-activée
     Given en tant que BO
     And Je suis sur la page de gestion de lignes
@@ -29,7 +31,7 @@ Feature: detail des lignes
   Scenario: Verification du clickable des boutons dans le detail d'une ligne activee
     Given en tant que BO
     And Je suis sur la page de gestion de lignes
-    And je lance la recherche par ID "33669497435"
+    And je lance la recherche par ID "8933203494859102801"
     And j'ouvre le panneau de détail de la ligne
     When Je clique sur "Voir le detail de la ligne"
     Then Je peux cliquer sur les boutons et les panneaux s'ouvrent
@@ -69,7 +71,7 @@ Feature: detail des lignes
   Scenario: Verification du changement de carte SIM
     Given en tant que BO
     And Je suis sur la page de gestion de lignes
-    And je lance la recherche par ID "33669497435"
+    And je lance la recherche par ID "8933203494859102801"
     And j'ouvre le panneau de détail de la ligne
     And Je clique sur "Voir le detail de la ligne"
     And Je clique sur le bouton "Changer de carte SIM"
@@ -80,7 +82,7 @@ Feature: detail des lignes
   Scenario: Verification du changement de MSISDN
     Given en tant que BO
     And Je suis sur la page de gestion de lignes
-    And je lance la recherche par ID "33669497435"
+    And je lance la recherche par ID "8933203494859102801"
     And j'ouvre le panneau de détail de la ligne
     And Je clique sur "Voir le detail de la ligne"
     And Je clique sur le bouton "Changer de MSISDN"
@@ -91,7 +93,7 @@ Feature: detail des lignes
   Scenario: Verification du changement de CF
     Given en tant que BO
     And Je suis sur la page de gestion de lignes
-    And je lance la recherche par ID "33669497435"
+    And je lance la recherche par ID "8933203494859102801"
     And j'ouvre le panneau de détail de la ligne
     And Je clique sur "Voir le detail de la ligne"
     And Je clique sur le bouton "Changer de CF"
@@ -102,7 +104,7 @@ Feature: detail des lignes
   Scenario: Verification du changement d'offre
     Given en tant que BO
     And Je suis sur la page de gestion de lignes
-    And je lance la recherche par ID "33669497435"
+    And je lance la recherche par ID "8933203494859102801"
     And j'ouvre le panneau de détail de la ligne
     And Je clique sur "Voir le detail de la ligne"
     And Je clique sur le bouton "Changer d'offre"
@@ -140,24 +142,20 @@ Feature: detail des lignes
     When Je clique sur "Creer une alarme"
     Then Le panneau s'est ouvert
 
-  # Ignoré par manque de données
-  @ignore
   Scenario: Ouverture de l'acte de masse d'un acte de gestion
     Given en tant que BO
     And Je suis sur la page de gestion de lignes
-    And je lance la recherche par ID "33669497435"
+    And je lance la recherche par ID "8933203494859102801"
     And j'ouvre le panneau de détail de la ligne
     And Je clique sur "Voir le detail de la ligne"
     And Je clique sur "Suivi pilotage des actes de gestion"
     When Je clique sur l'acte de masse de la premiere ligne
     Then Le panneau s'est ouvert
 
-  # Ignoré par manque de données
-  @ignore
   Scenario: Ouverture de la page de l'acte de gestion en cliquant sur "Voir le detail du resultat" dans le panneau
     Given en tant que BO
     And Je suis sur la page de gestion de lignes
-    And je lance la recherche par ID "33669497435"
+    And je lance la recherche par ID "8933203494859102801"
     And j'ouvre le panneau de détail de la ligne
     And Je clique sur "Voir le detail de la ligne"
     And Je clique sur "Suivi pilotage des actes de gestion"
@@ -165,12 +163,10 @@ Feature: detail des lignes
     And Je clique sur "Voir le detail du resultat"
     Then La page de l'acte de gestion s'est ouverte
 
-  # Ignoré par manque de données
-  @ignore
   Scenario: Ouverture de la page de l'acte de gestion en cliquant sur "Voir le resultat de l'acte" dans le panneau
     Given en tant que BO
     And Je suis sur la page de gestion de lignes
-    And je lance la recherche par ID "33669497435"
+    And je lance la recherche par ID "8933203494859102801"
     And j'ouvre le panneau de détail de la ligne
     And Je clique sur "Voir le detail de la ligne"
     And Je clique sur "Suivi pilotage des actes de gestion"

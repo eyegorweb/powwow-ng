@@ -46,7 +46,7 @@ export default {
       });
     },
     removeDefaultFilter() {
-      cy.waitGet(':nth-child(1) > .close > span').click();
+      cy.waitGet('.card.filter-bar .close').click();
     },
     creationDate: {
       toggle() {
