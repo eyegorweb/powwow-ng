@@ -21,11 +21,9 @@
     </div>          
     <div v-if="order.status == 'TERMINATED'">
           <ExportButton
-            export-all
             :export-fn="getExportFn()"
             :columns="[]"
             :order-by="orderBy"
-            :export-choices="exportChoices"
             class="exportButton"
           >
         <span slot="title">{{ $t('getsim.actions.EXPORT') }}</span>

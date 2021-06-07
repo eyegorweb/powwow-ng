@@ -138,6 +138,7 @@ export async function fetchOffers(
   }
 
   if (partners && partners.length > 0) {
+    console.log(partners)
     partnersIds = partners.map((i) => `"${i.id}"`).join(',');
     partnerGqlParam = `, partyId:{in: [${partnersIds}]}`;
     rCardGqlParam = `rCard(partyId: ${partners[0].id})`;
