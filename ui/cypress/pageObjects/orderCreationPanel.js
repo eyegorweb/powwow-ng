@@ -3,7 +3,7 @@ import layout from './layout';
 export default {
   init() {
     layout.menu.getSim();
-    cy.waitGet('.col-md-3 > .float-right').click({ force: true });
+    cy.waitGet('.col-md-3 > button').click({ force: true });
   },
   next() {
     cy.wait(800);

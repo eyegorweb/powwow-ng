@@ -10,7 +10,6 @@ Feature: tests des exports du dashboard
     And j'export l'historique de conso
     Then le fichier est bien téléchargé
 
-  @ignore
   Scenario: Export du graph (Statut du Parc)
     Given en tant que BO
     And je suis sur la page du dashboard getReport

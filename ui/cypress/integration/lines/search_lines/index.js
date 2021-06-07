@@ -66,6 +66,13 @@ Given(`je choisis le filtre statut de facturation {string}`, (billingStatus) => 
   linesPage.filterBar.billingStatus.choose(1);
 });
 
+Given('je choisis le filtre statut de la ligne {string}', (lineStatus) => {
+  linesPage.filterBar.showAllTypes();
+  linesPage.filterBar.lineStatus.toggle();
+  linesPage.filterBar.lineStatus.filter(lineStatus);
+  linesPage.filterBar.lineStatus.choose(1);
+});
+
 Given(`je choisis le filtre id {string}`, (offer) => {
   linesPage.filterBar.id.toggle();
   linesPage.filterBar.id.filter(offer);
@@ -104,7 +111,7 @@ When(`je lance un Export {string}`, (exportType) => {
 When(`je lance un Export supplémentaire {string}`, (exportType) => {
   linesPage.exportFile.openChoice();
   linesPage.chooseOtherExportType(exportType);
-  //linesPage.exportFile.chooseFormat('csv');
+  linesPage.exportFile.chooseFormat('csv');
 });
 
 Then(`le fichier est bien téléchargé`, () => {

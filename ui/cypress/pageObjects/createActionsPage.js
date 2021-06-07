@@ -107,8 +107,23 @@ export default {
       apply() {
         cy.waitGet('.pl-1 > .btn').click();
       },
+      validate() {
+        cy.waitGet(
+          '.col-7 > div:nth-child(7) > div:nth-child(2) > div:nth-child(2) > button'
+        ).click();
+      },
       inMass() {
         cy.waitGet('.item > :nth-child(1)').click();
+      },
+      selectSecondLine() {
+        cy.waitGet(
+          'table > tbody > tr:nth-child(2) > td:nth-child(1) > div > div > label > span'
+        ).click();
+      },
+      selectFifthLine() {
+        cy.waitGet(
+          'table > tbody > tr:nth-child(5) > td:nth-child(1) > div > div > label > span'
+        ).click();
       },
     },
     suspend: {
@@ -121,6 +136,9 @@ export default {
       },
       apply() {
         cy.waitGet('.pl-1 > .btn').click();
+        cy.waitGet(
+          '.col-7 > div:nth-child(2) > div:nth-child(2) > div:nth-child(2) > button'
+        ).click();
       },
       checkLineByICCID(iccid) {
         cy.get(`button[item='${iccid}']`)
@@ -169,6 +187,11 @@ export default {
           )
           .click();
       },
+      validate() {
+        cy.waitGet(
+          '.col-7 > div:nth-child(2) > div:nth-child(2) > div:nth-child(2) > button'
+        ).click();
+      },
       apply() {
         cy.waitGet('.pl-1 > .btn').click();
       },
@@ -176,19 +199,23 @@ export default {
     editFreeFields: {
       fillFirstFreeField(freeField) {
         cy.waitGet(
-          '#app > div.container > div.mt-4 > div:nth-child(4) > div.col-md-9.extra-bottom-margin > div:nth-child(4) > div > div > div > div > div.col-7 > div:nth-child(1) > div > div:nth-child(2) > div:nth-child(1) > div > label > input[type=text]'
+          '.col-7 > div:nth-child(1) > div > div:nth-child(2) > div:nth-child(1) > div > label > input[type=text]'
         )
           .click()
           .type(freeField);
       },
       fillSecondFreeField(freeField) {
         cy.waitGet(
-          '#app > div.container > div.mt-4 > div:nth-child(4) > div.col-md-9.extra-bottom-margin > div:nth-child(4) > div > div > div > div > div.col-7 > div:nth-child(1) > div > div:nth-child(2) > div:nth-child(2) > div > label > input[type=text]'
+          '.col-7 > div:nth-child(1) > div > div:nth-child(2) > div:nth-child(2) > div > label > input[type=text]'
         )
           .click()
           .type(freeField);
       },
-
+      validate() {
+        cy.waitGet(
+          '.col-7 > div:nth-child(2) > div:nth-child(2) > div:nth-child(2) > div > button'
+        ).click();
+      },
       inMass() {
         cy.waitGet('.item > :nth-child(1)').click();
       },
@@ -206,13 +233,13 @@ export default {
       },
       selectOffer(offerName) {
         cy.waitGet(
-          '#app > div.container > div.mt-4 > div:nth-child(3) > div > div > div > div > div > div.flex-grow-1 > div > div:nth-child(2) > div > div > fieldset > input'
+          '.flex-grow-1.pl-4.pr-4 > div > div:nth-child(2) > div > div > div > fieldset > input'
         )
           .click()
           .type(offerName)
           .wait(200)
           .waitGet(
-            '#app > div.container > div.mt-4 > div:nth-child(3) > div > div > div > div > div > div.flex-grow-1 > div > div:nth-child(2) > div > div > fieldset > ul > li:nth-child(1)'
+            '.flex-grow-1.pl-4.pr-4 > div > div:nth-child(2) > div > div > div > fieldset > ul > li:nth-child(2)'
           )
           .click();
       },
@@ -221,10 +248,15 @@ export default {
           '#app > div.container > div.mt-4 > div:nth-child(3) > div > div > div > div > div > div.pl-1.to-bottom > button'
         ).click();
       },
-      deactivateService() {
+      desactivateService() {
         // modifer la maniere dont on selectionne les services a modifier
         cy.waitGet(
           ':nth-child(2) > .container > .search-input > :nth-child(2) > .checkboxes > .checkbox-container > .filled > .checkmark'
+        ).click();
+      },
+      validate() {
+        cy.waitGet(
+          '.col-7 > div:nth-child(4) > div:nth-child(2) > div:nth-child(2) > button'
         ).click();
       },
     },
@@ -233,19 +265,14 @@ export default {
         cy.waitGet('.manage-cancellation-delay-choice select').select(delay);
       },
 
-      validateResil: () => {
-        cy.get('.manage-cancellation-save-btn').click({ force: true });
-        cy.get('.modal-default-button.btn-success').click({ force: true });
-      },
-
       createAct: () => {
         cy.get('.manage-cancellation-save-btn').click({ force: true });
         cy.get('.modal-default-button.btn-success').click({ force: true });
-        cy.get('.btn-double-validation').click({ force: true });
       },
 
       refuseCancellation: () => {
         cy.get('.manage-cancellation-refuse-btn').click({ force: true });
+        cy.get('.modal-default-button.btn-success').click({ force: true });
       },
     },
   },
@@ -263,7 +290,7 @@ export default {
         '#app > div.container > div.mt-4 > div:nth-child(4) > div.col-md-9.extra-bottom-margin > div:nth-child(4) > div > div > div > div > div.col-7 > div:nth-child(2) > div:nth-child(2) > div:nth-child(2) > div > button';
     if (typeMassAction === 'Changement de services')
       path = ':nth-child(4) > :nth-child(2) > :nth-child(2) > .btn';
-    cy.waitGet(path).click();
+    //cy.waitGet(path).click();
     cy.waitGet('.btn-success').click();
     cy.wait(500);
   },

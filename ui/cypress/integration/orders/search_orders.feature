@@ -23,7 +23,6 @@ Feature: Recherche de commandes
     When je lance la recherche
     Then la table contient plus de 0 resultat
 
-  @ignore
   Scenario: Recherche par type de carte SIM
     Given en tant que BO
     And je suis sur la page recherche de commandes
