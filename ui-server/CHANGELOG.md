@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.358+20210607140107
+2021-06-07
+
+### Features
+
+- [000] Ajout des tests de getReport (7fdd6ee16577e94dd7ab1edaaf68f0b36cf1b185)
+
 ## 1.17.0-master.357+20210607124127
 2021-06-07
 
