@@ -2,6 +2,21 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.359+20210608121623
+2021-06-08
+
+### Features
+
+- [2684] Création de l'alarme Changement de statut de profil (8cbf7b4ed390fa066a85a138570dae3c41aa94ad)
+
+### Fixes
+
+- [1299] enlever les type export dans detail panel order (cfa3917b66d41ed4c4d04887bcdde311a5957803)
+- [2649] Probleme affichage erreur dans acte detail (ad09e66ea5e85d8b68e5d6959ad7316e43d86be2)
+- [2677]  Correctifs sur la supervision (Carte Google) (1b2eb56d50a9cf3c0534690686da4d366dcd976d)
+- [000] filtres cockpit (502cc83be7b911deef592b8c7f1a905ab4de2e61)
+- [000] enlever les console.log inutiles (ac28955a043f8500db2e61e69552ac28e826bff7)
+
 ## 1.17.0-master.358+20210607140107
 2021-06-07
 
