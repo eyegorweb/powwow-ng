@@ -2,6 +2,17 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.360+20210608140714
+2021-06-08
+
+### Features
+
+- [2638] création d'un compte de facturation pour un partenaire (fa4aae831ccb39dc305fdd96a74e0171c56c8ea3)
+
+### Fixes
+
+- [2652] Ajout des simIds a la rq (0c0c7596f1f3608a31216ca9326b7a102df4115f)
+
 ## 1.17.0-master.359+20210608121623
 2021-06-08
 
