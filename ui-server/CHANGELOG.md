@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.361+20210608151506
+2021-06-08
+
+### Fixes
+
+- [2722] Correction de l'affichage des boutons du panel des actes (1dd27f17533c888ec887b6a3c94798364f5beb86)
+
 ## 1.17.0-master.360+20210608140714
 2021-06-08
 
