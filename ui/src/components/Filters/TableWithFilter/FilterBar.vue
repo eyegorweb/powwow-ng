@@ -144,7 +144,13 @@ export default {
     }
 
     if (this.defaultValues) {
-      this.currentFilters = [...this.currentFilters, ...this.defaultValues];
+      const currentFilters = [...this.currentFilters, ...this.defaultValues];
+
+      // remove duplicates from array
+      this.currentFilters = currentFilters.filter((f, index) => {
+        const valueIndex = currentFilters.findIndex((s) => s.id === f.id);
+        return valueIndex === index;
+      });
     }
 
     if (this.currentFilters && this.currentFilters.length) {

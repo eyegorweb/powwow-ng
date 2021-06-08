@@ -8,20 +8,22 @@
     }"
     :style="cssStyle"
   >
-    <div class=" cell">
+    <div class="cell" @mouseleave="resetPopup">
       <div
         v-if="data.alertNumber !== undefined && data.alertNumber !== null"
         class="mb-1 alert-number"
         @click="$emit('alertClick')"
+        @mouseover="showAlertsPopover()"
       >
         {{ data.alertNumber }}
       </div>
 
-      <div class="d-flex values">
+      <div class="d-flex values" @mouseover="showLinesUsagePopover()">
         <div @click="$emit('clickData')">{{ data.dataTrafic }}</div>
         <div class="middle-value" @click="$emit('clickSms')">{{ data.smsTrafic }}</div>
         <div @click="$emit('clickVoice')">{{ data.voiceTrafic }}</div>
       </div>
+      <div v-if="isVisible" class="box">{{ contentPopup }}</div>
     </div>
   </div>
 </template>
@@ -37,6 +39,8 @@ export default {
   data() {
     return {
       cssStyle: undefined,
+      isVisible: false,
+      contentPopup: undefined,
     };
   },
 
@@ -59,6 +63,23 @@ export default {
       left: `${adjustedPosition.x}px`,
       top: `${adjustedPosition.y}px`,
     };
+  },
+  methods: {
+    resetPopup() {
+      this.contentPopup = '';
+      this.isVisible = false;
+    },
+    showAlertsPopover() {
+      this.contentPopup = `Nombre d'alertes sur les 7 derniers jours`;
+      this.isVisible = true;
+    },
+    showLinesUsagePopover() {
+      this.contentPopup = `Nombre SIM trafiquantes du jour
+Data: ${this.data.dataTrafic}
+SMS: ${this.data.smsTrafic}
+Voix: ${this.data.voiceTrafic}`;
+      this.isVisible = true;
+    },
   },
 };
 </script>
@@ -105,6 +126,30 @@ export default {
 
   &.marker-orange {
     background: $warning;
+  }
+
+  .box {
+    position: absolute;
+    display: none;
+    color: black;
+    min-width: 15rem;
+    width: 100%;
+    padding: 0.5rem;
+    left: calc(100% + 10px);
+    top: 0;
+    z-index: 1;
+    background-color: $white;
+    font-size: 0.8rem;
+    line-height: 1.5rem;
+    box-shadow: 2px 2px 19px -8px rgba(69, 69, 69, 0.5);
+    white-space: pre;
+    text-align: initial;
+  }
+
+  &:hover {
+    .box {
+      display: block;
+    }
   }
 }
 </style>

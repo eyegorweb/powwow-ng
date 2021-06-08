@@ -160,13 +160,13 @@ export default {
   },
   computed: {
     backRoute() {
-      if(!this.$route.params.simpleBack && this.filters) 
+      if(!this.$route.params.simpleBack && this.filters)
       {
         return this.$router.push({ name: 'actHistory', params: { queryFilters: this.filters } })
       }
       else {
-        return this.$router.go(-1) 
-      }       
+        return this.$router.go(-1)
+      }
     },
     filters() {
       return this.$loGet(this.$route, 'params.actHistoryTableFilters');

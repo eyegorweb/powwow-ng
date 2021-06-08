@@ -16,7 +16,6 @@
         :frozen-values="frozenValues"
         always-show-button
         @applyFilters="doSearch"
-        @noMoreFilters="onAllFiltersCleared"
         @currentFiltersChange="onCurrentChange"
       />
     </div>
@@ -56,6 +55,7 @@
             <CockpitDetails
               :marker-data="cockpitMarkerToDetail"
               :applied-filters="appliedFilters"
+              :default-tab-num="cockpitMarkerToDetail.type === 'ALERT' ? 1 : 0"
               @tabchange="onTabChange"
               @gotomap="gotoCockpitMap"
             />
@@ -167,6 +167,10 @@ export default {
       currentTab: 'graphs',
       lastCenteredCountry: undefined,
 
+      // Garder les valeurs déjà utilisée dans d'autres usages
+      allUsagesPreviousFilters: [],
+      currentUsagePrevFilters: undefined,
+
       commonFilters: {
         partnerGroup: {
           title: 'getadmin.users.filters.partnerGroup',
@@ -235,6 +239,7 @@ export default {
     },
     currentUsage() {
       this.appliedFilters = undefined;
+      this.currentUsagePrevFilters = undefined;
       this.refreshLinesFn = undefined;
       this.indicatorTotal = undefined;
       this.canShowIndicators = false;
@@ -246,8 +251,10 @@ export default {
 
       if (this.currentUsage === 'COCKPIT') {
         this.refreshCockpitFilters();
+        // this.setupDefaultValues();
       } else {
         this.filters = this.getUsageFilters();
+        this.setupDefaultValues();
       }
     },
   },
@@ -290,6 +297,11 @@ export default {
   },
 
   methods: {
+    setupDefaultValues() {
+      this.defaultValues = this.allUsagesPreviousFilters.filter((f) => {
+        return !!this.filters.find((ff) => ff.title === f.id);
+      });
+    },
     showWorldM2MGraphs() {
       // this.appliedFilters = []
       this.cockpitMarkerToDetail = { world: true };
@@ -357,6 +369,7 @@ export default {
 
       if (countryFilter) {
         frozenValues = frozenValues.filter((f) => f.id !== 'filters.country');
+
         frozenValues.push(countryFilter);
       }
 
@@ -374,9 +387,42 @@ export default {
     doSearch(appliedFilters) {
       this.appliedFilters = cloneDeep(appliedFilters);
 
+      this.manageDeletionFromAppliedFilters();
+      this.currentUsagePrevFilters = this.appliedFilters; // utilisé pour détecter le supression de filtre dans le future
+      this.savePrevFilterValues();
+
       this.canShowIndicators = true;
     },
-    onAllFiltersCleared() {},
+    manageDeletionFromAppliedFilters() {
+      if (!this.currentUsagePrevFilters) return;
+      if (!this.allUsagesPreviousFilters) return;
+
+      for (const prevFilter of this.currentUsagePrevFilters) {
+        const corresponding = this.appliedFilters.find((f) => f.id === prevFilter.id);
+        if (!corresponding || !corresponding.data) {
+          // was there, but not anymore, so delete it from allIsagePrevFilters
+          this.allUsagesPreviousFilters = this.allUsagesPreviousFilters.filter(
+            (f) => f.id !== prevFilter.id
+          );
+        }
+      }
+    },
+    savePrevFilterValues() {
+      let allUsagesPreviousFilters = this.allUsagesPreviousFilters || [];
+
+      for (const appliedFilter of this.appliedFilters) {
+        // gerer la suppression
+        const correspondingInAllUsageIndex = this.allUsagesPreviousFilters.findIndex(
+          (f) => f.id === appliedFilter.id
+        );
+        if (correspondingInAllUsageIndex > -1) {
+          this.allUsagesPreviousFilters[correspondingInAllUsageIndex] = appliedFilter;
+        } else {
+          allUsagesPreviousFilters.push(appliedFilter);
+        }
+      }
+      this.allUsagesPreviousFilters = allUsagesPreviousFilters;
+    },
 
     onCurrentChange(currentFilters) {
       this.currentFilters = cloneDeep(currentFilters);
@@ -384,7 +430,7 @@ export default {
 
     getCockpitFilters() {
       const currentVisibleFilters = [];
-      if (this.userIsBO) {
+      if (this.havePermission('getVision', 'filter_domain')) {
         currentVisibleFilters.push(this.commonFilters.partnerGroup);
       }
 
@@ -473,7 +519,7 @@ export default {
           },
         },
       ];
-      if (this.userIsBO) {
+      if (this.havePermission('getVision', 'filter_domain')) {
         currentVisibleFilters.push(this.commonFilters.partnerGroup);
       }
 
@@ -613,7 +659,7 @@ export default {
           filtersForapi.iso3CountryCode = 'USA';
         }
 
-        return await fetchLinesForMarker(locationType, filtersForapi, pagination, sorting);
+        return fetchLinesForMarker(locationType, filtersForapi, pagination, sorting);
       };
     },
 
@@ -629,23 +675,23 @@ export function filterFormatter(appliedFilters) {
 
   return appliedFilters.reduce((filters, item) => {
     try {
-      if (item.id === 'getadmin.users.filters.partners') {
+      if (item.id === 'getadmin.users.filters.partners' && item.data) {
         filters.partyId = item.data.id;
       }
 
-      if (item.id === 'getvsion.monitoring.filterByFile') {
+      if (item.id === 'getvsion.monitoring.filterByFile' && item.data) {
         filters.tempDataUuid = item.data.tempDataUuid;
       }
 
-      if (item.id === 'filters.offers') {
+      if (item.id === 'filters.offers' && item.data) {
         filters.offerCode = item.data.id;
       }
 
-      if (item.id === 'getadmin.users.filters.partnerGroup') {
+      if (item.id === 'getadmin.users.filters.partnerGroup' && item.data) {
         filters.partiesDomain = item.data.value;
       }
 
-      if (item.id === 'common.identifier') {
+      if (item.id === 'common.identifier' && item.data) {
         if (item.data.imei) {
           filters.imei = '' + item.data.imei;
         }
@@ -655,9 +701,7 @@ export function filterFormatter(appliedFilters) {
         }
       }
 
-      if (item.id === 'filters.zone') {
-        // filters.zone = item.data.zone.value;
-
+      if (item.id === 'filters.zone' && item.data) {
         if (item.data.zone.value === 'world') {
           if (item.data.country) {
             filters.iso3CountryCode = item.data.country.codeIso3;

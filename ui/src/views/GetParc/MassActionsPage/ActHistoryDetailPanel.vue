@@ -30,7 +30,12 @@
             </div>
             <UiButton
               variant="import"
-              @click="$router.push({ name: 'actDetail', params: { massActionId: content.id, simpleBack: true } })"
+              @click="
+                $router.push({
+                  name: 'actDetail',
+                  params: { massActionId: content.id, simpleBack: true },
+                })
+              "
             >
               <span>{{ $t('getparc.history.details.MORE_DETAIL') }}</span>
             </UiButton>
@@ -44,7 +49,7 @@
                   @click="
                     $router.push({
                       name: 'actDetail',
-                      params: { massActionId: content.id, index: 0},
+                      params: { massActionId: content.id, index: 0 },
                     })
                   "
                 >

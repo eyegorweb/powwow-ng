@@ -287,9 +287,9 @@ export default {
     },
 
     logoPreview(event) {
-        this.urlLogoPreview = URL.createObjectURL(event.target.files[0]);
+      this.urlLogoPreview = URL.createObjectURL(event.target.files[0]);
     },
-    
+
     onContractDateChange(value) {
       this.form.contractDate = value;
     },
@@ -423,12 +423,11 @@ export default {
       .previewLogo {
         display: flex;
         justify-content: center;
-        
-        &-img {          
+
+        &-img {
           width: 7rem;
         }
       }
-
 
       input {
         visibility: hidden;

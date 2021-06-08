@@ -195,7 +195,7 @@ export default {
       this.mapOverlay.setMap(this.map);
       this.google.maps.event.addListener(this.map, 'idle', () => {
         if (this.isReady) {
-          this.refreshData();
+          this.refreshData(true);
         } else {
           this.isReady = true;
         }
@@ -240,13 +240,12 @@ export default {
         this.map.setZoom(zoomLevel);
       }
     },
-    async refreshData() {
+    async refreshData(isDragging) {
       if (this.isLoading) return;
       if (!this.canSearch) return;
 
       try {
         this.isLoading = true;
-        // this.markers = [];
         if (!this.zipCodeFilter) {
           await this.initZoom();
         }
@@ -256,9 +255,7 @@ export default {
         const zoomLevel = this.map.getZoom();
 
         this.setMaxZoom(CELL_ZOOM_LEVEL);
-        // this.map.setOptions({ maxZoom: CELL_ZOOM_LEVEL });
         if (this.usage === 'COCKPIT') {
-          // this.map.setOptions({ maxZoom: COUNTRY_ZOOM_LEVEL });
           this.setMaxZoom(COUNTRY_ZOOM_LEVEL);
           await this.loadDataForM2MCockpit();
         } else if (this.zipCodeFilter) {
@@ -267,7 +264,7 @@ export default {
           await this.loadDataById();
         } else {
           if (zoomLevel < CONTINENT_ZOOM_LEVEL) {
-            await this.loadDataForContinents();
+            await this.loadDataForContinents(isDragging);
           } else if (zoomLevel >= CONTINENT_ZOOM_LEVEL && zoomLevel < 6) {
             if (countryCode == 'US' && zoomLevel == 5) {
               await this.loadDataForUsStates();
@@ -322,6 +319,7 @@ export default {
     },
 
     centerOnCoords(longitude, latitude) {
+      if (this.isSameFilters) return;
       const countryCoords = new this.google.maps.LatLng(latitude, longitude);
       this.map.setCenter(countryCoords);
     },
@@ -360,19 +358,27 @@ export default {
 
       return this.appliedFilters.reduce((filters, item) => {
         if (item.id === 'getadmin.users.filters.partners') {
-          filters.partyId = item.data.id;
+          if (item.data) {
+            filters.partyId = item.data.id;
+          }
         }
 
         if (item.id === 'getadmin.users.filters.partnerGroup') {
-          filters.partiesDomain = item.data.value;
+          if (item.data) {
+            filters.partiesDomain = item.data.value;
+          }
         }
 
         if (item.id === 'filters.offers') {
-          filters.offerCode = item.data.id;
+          if (item.data) {
+            filters.offerCode = item.data.id;
+          }
         }
 
         if (item.id === 'filters.country') {
-          filters.countryCode = item.data.codeIso3;
+          if (item.data) {
+            filters.countryCode = item.data.codeIso3;
+          }
         }
 
         return filters;
@@ -549,8 +555,10 @@ export default {
       this.markers = this.formatMarkers(data);
     },
 
-    async loadDataForContinents() {
-      this.centerOnFrance();
+    async loadDataForContinents(isDragging) {
+      if (!isDragging) {
+        this.centerOnFrance();
+      }
 
       this.locationType = 'CONTINENT';
       this.adjustPosition = adjustPositionForContinent;

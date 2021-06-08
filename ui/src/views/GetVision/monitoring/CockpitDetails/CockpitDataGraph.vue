@@ -40,12 +40,11 @@ export default {
 
   methods: {
     sumAllData(dataOut, dataIn) {
-      let all = dataOut.map((n) => {
+      return dataOut.map((n) => {
         const corresponding = dataIn.find((c) => c[0] == n[0]);
         const sum = n[1] + corresponding[1];
         return [n[0], sum];
       });
-      return all;
     },
     async refreshData() {
       const data = await fetchSupervisionGraphData({
@@ -175,7 +174,7 @@ export default {
         tooltip: {
           shared: true,
           useHTML: true,
-          xDateFormat: '%d/%m/%Y',
+          xDateFormat: '%d/%m/%Y %Hh',
           pointFormatter() {
             if (!this.series.userOptions.name.includes('Volume')) {
               return `
