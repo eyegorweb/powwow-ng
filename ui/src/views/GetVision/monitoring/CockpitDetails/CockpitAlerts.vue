@@ -1,11 +1,14 @@
 <template>
-  <PaginatedDataTable
-    :key="version"
-    :columns="columns"
-    :fetch-data-fn="fetchDataFn()"
-    :size="7"
-    :order="orderBy"
-  ></PaginatedDataTable>
+  <div>
+    <PaginatedDataTable
+      v-if="appliedFilters.length > 0"
+      :key="version"
+      :columns="columns"
+      :fetch-data-fn="fetchDataFn()"
+      :size="7"
+      :order="orderBy"
+    ></PaginatedDataTable>
+  </div>
 </template>
 
 <script>

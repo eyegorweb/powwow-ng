@@ -198,6 +198,8 @@ export default {
       if (!this.appliedFilters || !this.appliedFilters.length) return;
 
       return this.appliedFilters.reduce((filters, item) => {
+        if (!item.data) return filters;
+
         if (item.id === 'getvsion.monitoring.filterByFile') {
           filters.tempDataUuid = item.data.tempDataUuid;
         }

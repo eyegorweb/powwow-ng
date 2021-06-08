@@ -34,15 +34,15 @@
               <span>CSV</span>
             </button>
           </div>
-          <div class="col text-center" >
+          <div class="col text-center">
             <button
-              :class="{disableExport: toManyLinesToExcelExport}"
+              :class="{ disableExport: toManyLinesToExcelExport }"
               class="btn btn-link export-button export-excel-format"
               @click.stop="toManyLinesToExcelExport || exportFile('EXCEL')"
               :disabled="isLoading"
             >
               <div class="disableExport-tooltip">
-                {{$t('disableExportLinesExceed')}}
+                {{ $t('disableExportLinesExceed') }}
               </div>
               <img src="@/assets/excel.svg" alt="excel" />
               <span>Excel</span>
@@ -60,7 +60,9 @@
               :key="'expo_togg_' + toggleVersion"
             />
             <UiDropDownChoicesButton
-              v-if="exportPanelParams.otherExportChoices && exportPanelParams.otherExportChoices.length"
+              v-if="
+                exportPanelParams.otherExportChoices && exportPanelParams.otherExportChoices.length
+              "
               :options="otherExportChoicesLabels"
               :get-export-choice-disabled-message="getExportChoiceDisabledMessage"
               @click="onOtherExportChoice"
@@ -100,7 +102,6 @@ import { mapGetters } from 'vuex';
 import UiDropDownChoicesButton from '@/components/ui/UiDropDownChoicesButton';
 
 export default {
-
   components: {
     Modal,
     Checkbox,
@@ -118,7 +119,7 @@ export default {
       exportPanelParams: (state) => state.ui.exportPanelParams,
       exportNumberLines: (state) => state.ui.exportNumberLines,
     }),
-    
+
     toManyLinesToExcelExport() {
       return this.exportNumberLines >= 500000;
     },
@@ -137,7 +138,6 @@ export default {
       };
     },
   },
-
 
   data() {
     return {
@@ -281,7 +281,6 @@ export default {
     },
   },
 };
-
 </script>
 
 <style lang="scss" scoped>
@@ -289,7 +288,7 @@ export default {
   background: rgb(179, 179, 179);
   position: relative;
 
-  &:hover {    
+  &:hover {
     text-decoration: none;
   }
   img {

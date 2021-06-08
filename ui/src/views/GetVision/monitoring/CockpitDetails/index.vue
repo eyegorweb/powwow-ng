@@ -49,6 +49,10 @@ export default {
   props: {
     markerData: Object,
     appliedFilters: Array,
+    defaultTabNum: Number,
+  },
+  mounted() {
+    this.currentTab = this.defaultTabNum;
   },
   data() {
     return {

@@ -5,12 +5,12 @@
         :key="filter.name"
         v-if="
           filter &&
-          ((filter.values && filter.values.length) ||
-            filter.value ||
-            filter.startDate ||
-            filter.endDate ||
-            filter.from ||
-            filter.to)
+            ((filter.values && filter.values.length) ||
+              filter.value ||
+              filter.startDate ||
+              filter.endDate ||
+              filter.from ||
+              filter.to)
         "
         :filter="filter"
         :fixed="checkIfFilterIsFixed(filter)"
