@@ -61,7 +61,10 @@ export default {
         id: 'STATUS_CHANGE',
         description: this.$t('getvsion.alarm-creation.description.STATUS_CHANGE'),
       },
-
+      {
+        id: 'STATUS_CHANGE_PROFILE',
+        description: this.$t('getvsion.alarm-creation.description.STATUS_CHANGE_PROFILE'),
+      },
       {
         id: 'IMEI_CHANGE',
         description: this.$t('getvsion.alarm-creation.description.IMEI_CHANGE'),
