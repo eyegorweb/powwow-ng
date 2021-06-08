@@ -112,6 +112,37 @@ export async function createStatusChangeAlarm(params) {
   return { errors: response.errors };
 }
 
+export async function createStatusChangeProfileAlarm(params) {
+  const gqlParams = getFormGQLParams(params);
+
+  gqlParams.push(`statusChangeProfile: ${params.formData}`);
+
+  const queryStr = `
+  mutation {
+    createStatusChangeProfileAlarm(
+      filter: {${getScopeGQLParams(params)}},
+      alarmCreationInput: {${gqlParams.join(',')}}
+      )
+      {
+        tempDataUuid
+        validated
+        errors {
+          key
+          number
+        }
+    }
+  }
+  `;
+
+  const response = await query(queryStr);
+
+  if (response.errors) {
+    return { errors: response.errors };
+  }
+
+  return response.data.createStatusChangeProfileAlarm;
+}
+
 export async function createSharedConsumptionAlarm(params) {
   const queryStr = `mutation CreateSharedConsumptionAlarm($offerAlarmCreationInput: OfferAlarmCreationInput!){
     createSharedConsumptionAlarm(offerAlarmCreationInput: $offerAlarmCreationInput)
