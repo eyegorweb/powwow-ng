@@ -251,7 +251,7 @@ export default {
 
       if (this.currentUsage === 'COCKPIT') {
         this.refreshCockpitFilters();
-        // this.setupDefaultValues();
+        this.setupDefaultValues();
       } else {
         this.filters = this.getUsageFilters();
         this.setupDefaultValues();
