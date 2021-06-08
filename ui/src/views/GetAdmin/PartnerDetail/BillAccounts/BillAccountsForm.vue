@@ -158,7 +158,7 @@ export default {
         country: undefined,
         actBlock: false,
       },
-      creationMode: false,
+      creationMode: true,
     };
   },
 
@@ -197,9 +197,9 @@ export default {
   async mounted() {
     await this.refreshCountries();
     if (this.$route.params && this.$route.params.customerAccountCode) {
+      this.creationMode = false;
       await this.fillForm();
     } else {
-      this.creationMode = true;
       await this.refreshCountriesForAreaTax();
     }
   },
@@ -233,7 +233,7 @@ export default {
       this.form.zipCode = this.account[0].address.zipCode;
       this.form.city = this.account[0].address.city;
       this.form.state = this.account[0].address.state;
-      this.form.country = this.getCountryData(this.account[0].address.country);
+      this.form.country = this.countries.find((c) => c.code === this.account[0].address.country);
     },
     getCountryData(countryCode) {
       if (countryCode === 'null' || !countryCode) {
@@ -245,7 +245,7 @@ export default {
         }
 
         if (foundCountry) {
-          return foundCountry.name;
+          return foundCountry.code;
         }
         return '';
       }
@@ -260,7 +260,7 @@ export default {
         }
 
         if (foundCountry) {
-          return foundCountry.label;
+          return foundCountry.code;
         }
         return '';
       }
@@ -279,7 +279,7 @@ export default {
           zipCode: this.form.zipCode,
           city: this.form.city,
           state: this.form.state,
-          country: this.countries.find((c) => c.name === this.form.country.code || ''),
+          country: this.form.country && this.form.country.code ? this.form.country.code : '',
         };
       } else {
         const country = this.getCountryData(this.form.country.code);
@@ -290,11 +290,11 @@ export default {
           label: this.form.label,
           company: this.form.company,
           address: this.form.address,
-          address2: this.form.address2,
+          address2: this.form.address2 || '',
           actBlock: this.form.actBlock,
           zipCode: this.form.zipCode,
           city: this.form.city,
-          state: this.form.state,
+          state: this.form.state || '',
           country,
           taxArea: countryTaxArea,
         };

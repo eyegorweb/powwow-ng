@@ -731,6 +731,7 @@ export async function createCustomerAccount(params) {
       address2: "${params.address2}",
       zipCode: "${params.zipCode}",
       city: "${params.city}",
+      state: "${params.state}",
       country: "${params.country}"
       taxArea: "${params.taxArea}"
     })
