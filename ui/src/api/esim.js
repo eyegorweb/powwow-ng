@@ -3,6 +3,7 @@ import { query, getFilterValues, getValuesIdsWithoutQuotes, formatServicesForGQL
 
 export async function updatePolicyRules(
   partyId,
+  simIds,
   date,
   notification,
   subject,
@@ -11,7 +12,7 @@ export async function updatePolicyRules(
 ) {
   const queryStr = `
    mutation {
-    policyRulesUpdate(input:{filter:{simcardCategory:{eq:ESIM}}, partyId:${partyId}, dueDate:"${date}", notification:${notification},  subject:${subject}, action:${action}, qualification: ${qualification}}) {
+    policyRulesUpdate(input:{filter:{simcardCategory:{eq:ESIM}}, simCardInstanceIds:[${simIds}], partyId:${partyId}, dueDate:"${date}", notification:${notification},  subject:${subject}, action:${action}, qualification: ${qualification}}) {
       tempDataUuid
       validated
       errors {
