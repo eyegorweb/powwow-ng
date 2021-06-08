@@ -33,7 +33,7 @@ export async function query(q, variables) {
     console.log(logStr);
   }
 
-  return await doAndRetryHTTPQuery(async () => {
+  return doAndRetryHTTPQuery(async () => {
     const haveToken = get(api, 'defaults.headers.common.Authorization');
     if (!haveToken) return;
     const payload = { query: q };

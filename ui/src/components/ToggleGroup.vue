@@ -38,9 +38,6 @@ export default {
     },
   },
   methods: {
-    onServiceChange(values) {
-      console.log(values);
-    },
     revertServices() {
       this.services = cloneDeep(this.initialServices);
     },

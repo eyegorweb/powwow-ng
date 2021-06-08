@@ -7,8 +7,6 @@
     add-icon="ic-Pin-Icon"
     :fetch-fn="fetchFn"
     :filter-fn="filterFn"
-    @create="openCreationPanel"
-    @modify="modifyList($event)"
     no-edit
   >
     <template #default="{ item }">
@@ -101,12 +99,6 @@ export default {
       }
 
       return filteredAdresses;
-    },
-    openCreationPanel() {
-      console.log('creation');
-    },
-    modifyList(address) {
-      console.log(address);
     },
     getFromObject(object, path, defaultValue = '') {
       const value = get(object, path, defaultValue);

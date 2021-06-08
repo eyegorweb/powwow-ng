@@ -109,7 +109,7 @@ export default {
       if (this.duplicateFrom && this.duplicateFrom.toModify) {
         this.isLoading = true;
         // response = await updateStatusChangeAlarm({ ...params, id: this.duplicateFrom.id });
-        console.log("en attende de l'api de modification pour ce type d'alarme");
+        // console.log("en attende de l'api de modification pour ce type d'alarme");
         this.isLoading = false;
       } else {
         this.isLoading = true;

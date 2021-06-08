@@ -109,9 +109,6 @@ export default {
         },
       });
     },
-    getSelectedValue() {
-      console.log('get selected value');
-    },
     addNewCustomField() {
       const doReset = () => {
         this.fetchCustomFieldsForPartner();

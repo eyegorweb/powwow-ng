@@ -119,9 +119,7 @@ export default {
       if (this.billingAccountToDetail) {
         cfId = this.billingAccountToDetail.id;
       }
-      const sims = await fetchSim(this.partner.id, cfId, null, true);
-      console.log(sims);
-      return sims;
+      return fetchSim(this.partner.id, cfId, null, true);
     },
 
     getFromObject(object, path, defaultValue = '') {

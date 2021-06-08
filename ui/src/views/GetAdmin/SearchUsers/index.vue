@@ -25,7 +25,6 @@
       :is-loading="isLoading"
       @resetSearch="resetFilters"
       @applyFilters="applyFilters"
-      @colEvent="onColEvent"
       @columnOrdered="orderedColumns = $event"
     >
       <div slot="title">{{ $t('getadmin.users.total', { total: total }) }}</div>
@@ -347,9 +346,6 @@ export default {
       });
     },
 
-    onColEvent(payload) {
-      console.log('col event', payload);
-    },
     async searchByLogin(value) {
       this.searchByLoginValue = value;
       const data = await searchUsers('', this.orderBy, { page: 0, limit: 20 }, [
@@ -369,7 +365,7 @@ export default {
     },
     getExportFn() {
       return async (columnsParam, orderBy, exportFormat) => {
-        return await exportUsers(columnsParam, this.orderBy, exportFormat, [
+        return exportUsers(columnsParam, this.orderBy, exportFormat, [
           ...this.currentAppliedFilters,
           { id: 'getadmin.users.filters.userName', value: this.searchByLoginValue },
         ]);

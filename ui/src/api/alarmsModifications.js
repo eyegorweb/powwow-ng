@@ -109,7 +109,6 @@ export async function modifyUnderConso(params) {
 async function consoQuery(queryName, params) {
   const gqlParams = getGqlParams(params);
 
-  console.log(params);
   addLevels(params, gqlParams);
 
   const queryStr = `
@@ -214,7 +213,6 @@ function getSharedAlarmGqlParams(params) {
   const levelsData = [];
   const levelsSms = [];
   const levelsVoice = [];
-  console.log(params);
   gqlParams.push(`sharedAlarmId:${params.sharedAlarmId}`);
   gqlParams.push(`alarmName:"${params.alarmName}"`);
   gqlParams.push(`mailNotification:${params.emailNotification}`);

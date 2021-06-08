@@ -81,9 +81,6 @@ export default {
     onValueChanged(item, newVal) {
       this.$emit('change', item, newVal);
     },
-    getSelectedValue() {
-      console.log('get selected value');
-    },
     async refreshLists() {
       await fetchCustomFields(this.partnerid);
     },

@@ -27,16 +27,12 @@
               <div class="mt-2" v-tooltip="simCard.defaultServices.join('\n')">
                 {{ $t('getadmin.partnerDetail.simCardsFromPanel.default') }}:
                 {{ simCard.defaultServices.slice(0, 5).join(', ') }}
-                <template v-if="simCard.defaultServices.length > 6">
-                  ...
-                </template>
+                <template v-if="simCard.defaultServices.length > 6"> ... </template>
               </div>
               <div class="mt-2" v-tooltip="simCard.editableServices.join('\n')">
                 {{ $t('getadmin.partnerDetail.simCardsFromPanel.modifiedServices') }}:
                 {{ simCard.editableServices.slice(0, 5).join(', ') }}
-                <template v-if="simCard.editableServices.length > 6">
-                  ...
-                </template>
+                <template v-if="simCard.editableServices.length > 6"> ... </template>
               </div>
             </div>
           </BlockCheckbox>
@@ -142,8 +138,6 @@ export default {
           if (this.nextPage.length > 0) {
             this.simCards = [...this.simCards, ...this.nextPage];
             this.visibleSimCards = [...this.simCards];
-            console.log('visibleCards', this.visibleSimCards);
-            console.log('nextPage', this.nextPage);
           } else {
             this.canLoadByScroll = false;
           }
