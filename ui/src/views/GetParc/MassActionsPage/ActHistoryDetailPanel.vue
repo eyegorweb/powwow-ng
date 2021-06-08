@@ -3,7 +3,7 @@
     <div v-if="!content" class="alert" role="alert">
       {{ $t('getparc.history.details.noResult') }}
     </div>
-    <div v-else>
+    <template v-else>
       <div class="main-content data-detail-container">
         <div class="overview-container m-3 bg-white">
           <div class="overview-item">
@@ -169,7 +169,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </template>
   </div>
 </template>
 
