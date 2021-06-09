@@ -4,6 +4,11 @@
       v-if="!userIsPartner && actWithNoPrerequs(act.title)"
       @set:preprequisites="setPrerequisites"
     />
+    <PartnerAndCFTransfertSim
+      v-if="['getparc.actCreation.carouselItem.TRANSFERT_LINES'].find((a) => a === act.title)"
+      @set:preprequisites="setPrerequisites"
+      :user-partner="userPartner"
+    />
     <PartnerAndCF
       v-if="
         [
@@ -38,8 +43,8 @@
       :partner="userPartner"
       :can-select-billing-account="
         act.title === 'getparc.actCreation.carouselItem.CHANGE_OFFER' ||
-          act.title === 'getparc.actCreation.carouselItem.CHANGE_CF' ||
-          act.title === 'getparc.actCreation.carouselItem.esim.CHARGE_LV_LINES'
+        act.title === 'getparc.actCreation.carouselItem.CHANGE_CF' ||
+        act.title === 'getparc.actCreation.carouselItem.esim.CHARGE_LV_LINES'
       "
       :have-lv-offers="act.title === 'getparc.actCreation.carouselItem.esim.CHARGE_LV_LINES'"
     />
@@ -50,6 +55,7 @@
 // ACTIVATE_PREACTIVATE
 import NoPrerequisitesPre from './prerequisites/NoPrerequisitesPre';
 import OfferPrerequisite from './prerequisites/OfferPrerequisite';
+import PartnerAndCFTransfertSim from './prerequisites/PartnerAndCFTransfertSim';
 import PartnerAndCF from './prerequisites/PartnerAndCF';
 import PartnerCFEsimStatus from './prerequisites/PartnerCFEsimStatus';
 import { mapState, mapActions, mapMutations, mapGetters } from 'vuex';
@@ -60,6 +66,7 @@ export default {
     OfferPrerequisite,
     PartnerAndCF,
     PartnerCFEsimStatus,
+    PartnerAndCFTransfertSim,
   },
   props: {
     act: Object,
@@ -113,7 +120,6 @@ export default {
         'getparc.actCreation.carouselItem.TEST_PHASE',
         'getparc.actCreation.carouselItem.CUSTOM_FIELDS',
         'getparc.actCreation.carouselItem.MANAGE_CANCELLATION',
-        'getparc.actCreation.carouselItem.TRANSFERT_LINES',
         'getparc.actCreation.carouselItem.CHANGE_MSISDN',
         'getparc.actCreation.carouselItem.CHANGE_SIMCARD',
         'getparc.actCreation.carouselItem.esim.POLICY_RULES',
