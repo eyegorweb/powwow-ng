@@ -27,7 +27,7 @@ import Toggle from '@/components/ui/UiToggle2';
 import SectionTitle from '@/components/SectionTitle';
 import { createStatusChangeProfileAlarm } from '@/api/alarmCreation';
 import { mapMutations } from 'vuex';
-// import { updateStatusChangeAlarm } from '@/api/alarmsModifications';
+import { updateStatusChangeProfileAlarm } from '@/api/alarmsModifications';
 
 export default {
   components: {
@@ -108,8 +108,7 @@ export default {
 
       if (this.duplicateFrom && this.duplicateFrom.toModify) {
         this.isLoading = true;
-        // response = await updateStatusChangeAlarm({ ...params, id: this.duplicateFrom.id });
-        // console.log("en attende de l'api de modification pour ce type d'alarme");
+        response = await updateStatusChangeProfileAlarm({ ...params, id: this.duplicateFrom.id });
         this.isLoading = false;
       } else {
         this.isLoading = true;
