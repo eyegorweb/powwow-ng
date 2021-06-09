@@ -15,7 +15,7 @@ const WAIT_BEFORE_RETRY_IN_MS = 1000;
  *  Besoin de gérer les erreurs
  */
 
-export async function query(q, variables) {
+export async function query(q, variables, careful = false) {
   if (isOnDebugMode()) {
     let logStr = `
     ** requête **
@@ -40,8 +40,20 @@ export async function query(q, variables) {
     if (variables) {
       payload.variables = variables;
     }
-    const response = await api.post(process.env.VUE_APP_GQL_SERVER_URL, payload);
-    return response.data;
+
+    if (careful) {
+      try {
+        const response = await api.post(process.env.VUE_APP_GQL_SERVER_URL, payload);
+        return response.data;
+      } catch {
+        return {
+          errors: [{ code: 'API_ERROR', message: 'API Error' }],
+        };
+      }
+    } else {
+      const response = await api.post(process.env.VUE_APP_GQL_SERVER_URL, payload);
+      return response.data;
+    }
   });
 }
 

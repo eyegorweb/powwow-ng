@@ -218,6 +218,11 @@ export default {
         tempDataUuid: contextValues.tempDataUuid,
         servicesChoice: this.servicesChoice,
       };
+
+      if (this.actCreationPrerequisites && this.actCreationPrerequisites.billingAccount) {
+        params.fromCustomerAccountId = this.actCreationPrerequisites.billingAccount.id;
+      }
+
       const response = await transferSIMCards(
         this.appliedFilters,
         this.selectedLinesForActCreation,
