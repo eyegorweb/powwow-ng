@@ -2,16 +2,17 @@
   <div class="cmp-billing-account-choice">
     <h6>{{ $t('getparc.actLines.billingAccount') }}</h6>
     <UiApiAutocomplete
-      :items="billingAccounts"
       v-model="selectedBillingAccount"
       :error="errors.billingAccount"
       display-results-while-empty
+      scroll-for-next
+      :api-method="fetchBillingAccounts"
     />
   </div>
 </template>
 
 <script>
-import { fetchBillibAccountForPartnerId } from '@/api/billingAccounts';
+import { fetchBillingAccounts } from '@/api/billingAccounts';
 import UiApiAutocomplete from '@/components/ui/UiApiAutocomplete';
 import { mapState } from 'vuex';
 
@@ -20,7 +21,7 @@ export default {
     UiApiAutocomplete,
   },
   props: {
-    partnerId: String,
+    partner: Object,
     errors: {
       type: Object,
       required: false,
@@ -32,21 +33,7 @@ export default {
       selectedBillingAccount: undefined,
     };
   },
-  async mounted() {
-    const data = await fetchBillibAccountForPartnerId(this.partnerId);
-    this.billingAccounts = data
-      .filter((ba) => ba.id !== this.prerequisiteBillingAccount.id)
-      .map((ba) => ({
-        id: ba.id,
-        label: `${ba.code} - ${ba.name}`,
-        partnerId: ba.party.id,
-        partner: ba.party,
-      }));
 
-    if (this.billingAccounts && this.billingAccounts.length === 1) {
-      this.selectedBillingAccount = this.billingAccounts[0];
-    }
-  },
   computed: {
     ...mapState('actLines', ['actCreationPrerequisites']),
     prerequisiteBillingAccount() {
@@ -58,6 +45,25 @@ export default {
   watch: {
     selectedBillingAccount(newValue) {
       this.$emit('set:billingAccount', newValue);
+    },
+  },
+
+  methods: {
+    async fetchBillingAccounts(q, page = 0) {
+      const partners = [];
+      if(this.partner) { 
+        partners.push(this.partner);
+      }
+      const data = await fetchBillingAccounts(q,partners , { page, limit:10 });
+      return data
+        .filter((ba) => ba.id !== this.prerequisiteBillingAccount.id)
+        .map((ba) => ({
+          id: ba.id,
+          label: `${ba.code} - ${ba.name}`,
+          partnerId: ba.party.id,
+          partner: ba.party,
+        }));
+
     },
   },
 };

@@ -18,14 +18,14 @@
       <UiButton variant="accent" block @click="updateStatus('CANCELED')">{{
         $t('getsim.actions.CANCEL')
       }}</UiButton>
-    </div>          
+    </div>
     <div v-if="order.status == 'TERMINATED'">
-          <ExportButton
-            :export-fn="getExportFn()"
-            :columns="[]"
-            :order-by="orderBy"
-            class="exportButton"
-          >
+      <ExportButton
+        :export-fn="getExportFn()"
+        :columns="[]"
+        :order-by="orderBy"
+        class="exportButton"
+      >
         <span slot="title">{{ $t('getsim.actions.EXPORT') }}</span>
       </ExportButton>
     </div>
@@ -74,7 +74,7 @@ export default {
         key: 'id',
         direction: 'DESC',
       },
-    }
+    };
   },
   computed: {
     ...mapGetters(['userIsBO', 'havePermission']),
@@ -101,16 +101,24 @@ export default {
       return exportChoices;
     },
   },
-  
+
   methods: {
     ...mapMutations(['openPanel', 'closePanel']),
     ...mapMutations('getsim', ['refreshIndicators', 'updateOrderInTable']),
 
     getExportFn() {
-      return async (columns, orderBy, exportFormat, asyncExportRequest, exportAll, forceAsyncExport, exportChoice) => {
+      return async (
+        columns,
+        orderBy,
+        exportFormat,
+        asyncExportRequest,
+        exportAll,
+        forceAsyncExport,
+        exportChoice
+      ) => {
         let columnsToUse = [];
-        let orderToUse = {direction: 'DESC', key: 'id' };
-        let filtersToUse = [{id: 'filters.lines.orderID', value: this.order.id}]
+        let orderToUse = { direction: 'DESC', key: 'id' };
+        let filtersToUse = [{ id: 'filters.lines.orderID', value: this.order.id }];
         return await exportSimCardInstances(
           columnsToUse,
           orderToUse,
@@ -170,7 +178,6 @@ export default {
       }, 500);
     },
   },
-  
 };
 </script>
 
@@ -186,7 +193,7 @@ export default {
 
   button {
     width: 100%;
-    
+
     span {
       color: white;
       text-align: center;
