@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.364+20210609095152
+2021-06-09
+
+### Fixes
+
+- [2724] usertype désactivé mais visible dans le userpanel (867fa21d27de396767c261e34ef5a7086264d0df)
+
 ## 1.17.0-master.363+20210609090438
 2021-06-09
 
