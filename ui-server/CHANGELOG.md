@@ -2,6 +2,15 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.362+20210609074321
+2021-06-09
+
+### Fixes
+
+- [2696] ajout de la trad anglaise (1cbf3493bb3e803f6827781f0d04b289cfcaa283)
+- [1184] Gestion des pre-check + reset au close (8707b0161f767dd8865beca278a38054fd972739)
+- [2710] Ajout de la pagination dans les selects de CF des actes (90598e3187ecb47e143f153d3918a6d83785b150)
+
 ## 1.17.0-master.361+20210608151506
 2021-06-08
 
