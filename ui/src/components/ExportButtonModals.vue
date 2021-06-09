@@ -34,7 +34,7 @@
               <span>CSV</span>
             </button>
           </div>
-          <div class="col text-center">
+          <div class="col text-center" >
             <button
               :class="{ disableExport: toManyLinesToExcelExport }"
               class="btn btn-link export-button export-excel-format"
@@ -60,9 +60,7 @@
               :key="'expo_togg_' + toggleVersion"
             />
             <UiDropDownChoicesButton
-              v-if="
-                exportPanelParams.otherExportChoices && exportPanelParams.otherExportChoices.length
-              "
+              v-if="exportPanelParams.otherExportChoices && exportPanelParams.otherExportChoices.length"
               :options="otherExportChoicesLabels"
               :get-export-choice-disabled-message="getExportChoiceDisabledMessage"
               @click="onOtherExportChoice"
@@ -102,6 +100,7 @@ import { mapGetters } from 'vuex';
 import UiDropDownChoicesButton from '@/components/ui/UiDropDownChoicesButton';
 
 export default {
+
   components: {
     Modal,
     Checkbox,
@@ -281,6 +280,7 @@ export default {
     },
   },
 };
+
 </script>
 
 <style lang="scss" scoped>

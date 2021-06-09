@@ -16,6 +16,7 @@
   "partnerAlarm": "Alarm type",
   "choosePartner": "Select partners",
   "chooseBillingAccounts": "Select billing accounts",
+  "disableExportLinesExceed": "Excel export is unavailable above 500,000 lines.",
   "selectAll": "Select all",
   "unSelectAll": "Unselect all",
   "showOrHideColumns": "Add / hide columns",
