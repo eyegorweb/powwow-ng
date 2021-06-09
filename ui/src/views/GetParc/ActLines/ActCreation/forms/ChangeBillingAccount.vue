@@ -9,7 +9,7 @@
       <div>
         <BillingAccountChoice
           :key="partner.id"
-          :partner-id="'' + partner.id"
+          :partner="partner"
           @set:billingAccount="setBillingAccount"
           :errors="errors"
         />

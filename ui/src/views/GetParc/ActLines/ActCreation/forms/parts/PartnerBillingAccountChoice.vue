@@ -8,7 +8,10 @@
     />
     <h6>{{ $t('getparc.actLines.billingAccountTarget') }}</h6>
     <UiApiAutocomplete
-      :items="billingAccounts"
+      v-if="canSeeBillingAccount"
+      :disabled="!selectedPartner || !selectedPartner.id"
+      :api-method="fetchBillingAccounts"
+      scroll-for-next
       v-model="selectedBillingAccount"
       :error="errors.billingAccount"
       display-results-while-empty
@@ -21,7 +24,7 @@
 <script>
 import PartnersPart from '../../prerequisites/parts/PartnersPart';
 import UiApiAutocomplete from '@/components/ui/UiApiAutocomplete';
-import { fetchBillibAccountForPartnerId } from '@/api/billingAccounts';
+import { fetchBillingAccounts } from '@/api/billingAccounts';
 
 export default {
   components: {
@@ -44,17 +47,19 @@ export default {
       selectedPartner: undefined,
       billingAccounts: [],
       selectedBillingAccount: undefined,
+      canSeeBillingAccount: true,
     };
   },
   methods: {
     setPartner(chosenPartner) {
       this.selectedPartner = chosenPartner;
+      if(this.selectedPartner && this.selectedPartner.id) {
+        this.canSeeBillingAccount = false;
+        setTimeout(() => this.canSeeBillingAccount = true);
+      }
     },
-  },
-  watch: {
-    async selectedPartner({ id }) {
-      // NOTE: pendant que l'on tape, les valeurs sont remontes mais non validees. lorsque l'on click, on recupere la vrai valeur
-      if (id == null) return;
+
+    async fetchBillingAccounts(q, page = 0) {
       if (
         this.selectedBillingAccount &&
         this.selectedBillingAccount.partnerId !== this.selectedPartner.id
@@ -62,19 +67,23 @@ export default {
         this.selectedBillingAccount = null;
       }
 
-      const data = await fetchBillibAccountForPartnerId(id);
-      this.billingAccounts = data.map((ba) => ({
+      const partners = [];
+      if(this.selectedPartner) { 
+        partners.push(this.selectedPartner);
+      }
+      const data = await fetchBillingAccounts(q,partners , { page, limit:10 });
+
+      return data.map((ba) => ({
         id: ba.id,
         label: `${ba.code} - ${ba.name}`,
+        data: ba,
         partnerId: ba.party.id,
         partner: ba.party,
         code: ba.code,
       }));
-
-      if (this.billingAccounts && this.billingAccounts.length === 1) {
-        this.selectedBillingAccount = this.billingAccounts[0];
-      }
     },
+  },
+  watch: {
 
     selectedBillingAccount(newValue) {
       this.$emit('set:billingAccount', newValue);

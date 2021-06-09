@@ -162,7 +162,11 @@ export default {
       if (!this.chosenBillingAccount) return;
       this.selectedOffer = undefined;
       this.offers = [];
-      const data = await fetchOffers('', [this.chosenBillingAccount.partner], {
+      let partnerParams = [];
+      if (this.chosenBillingAccount && this.chosenBillingAccount.partner) {
+        partnerParams.push(this.chosenBillingAccount.partner);
+      }
+      const data = await fetchOffers('', partnerParams, {
         page: 0,
         limit: 99,
         disabledOffer: true,
