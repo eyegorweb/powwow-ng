@@ -66,7 +66,7 @@ export async function updateCustomFields(filters, lines, params) {
     }
     `;
 
-    const response = await query(queryStr);
+    const response = await query(queryStr, undefined, true);
     if (response.errors) {
       return {
         errors: response.errors,
@@ -104,7 +104,7 @@ export async function updateCustomAndSpecificFieldsByFile(
   }
  `;
 
-  const response = await query(queryStr);
+  const response = await query(queryStr, undefined, true);
 
   return response.data;
 }
@@ -154,7 +154,7 @@ export async function changeSingleCustomFields(params) {
     }
     `;
 
-  const response = await query(queryStr);
+  const response = await query(queryStr, undefined, true);
 
   if (response.errors) {
     return {
@@ -214,7 +214,7 @@ async function suspendReactivateLines(filters, lines, params, suspension) {
     }
     `;
 
-    const response = await query(queryStr);
+    const response = await query(queryStr, undefined, true);
     if (response.errors) {
       return {
         errors: response.errors,
@@ -254,7 +254,7 @@ export async function changeCustomerAccount(filters, lines, params) {
         }
     }
     `;
-    const response = await query(queryStr);
+    const response = await query(queryStr, undefined, true);
 
     if (response.errors) {
       return {
@@ -272,6 +272,7 @@ export async function transferSIMCards(filters, lines, params) {
       dueDate,
       toPartyId,
       toCustomerAccountId,
+      fromCustomerAccountId,
       toWorkflowId,
       tempDataUuid,
       servicesChoice,
@@ -283,6 +284,11 @@ export async function transferSIMCards(filters, lines, params) {
     let gqlTempDataUuid = '';
     if (tempDataUuid) {
       gqlTempDataUuid = `tempDataUuid: "${tempDataUuid}",`;
+    }
+
+    let gqlFromCustomerAccountId = '';
+    if (fromCustomerAccountId) {
+      gqlFromCustomerAccountId = `fromCustomerAccountId: ${fromCustomerAccountId},`;
     }
 
     let changeServicesParamsGql = '';
@@ -305,6 +311,7 @@ export async function transferSIMCards(filters, lines, params) {
             dueDate: "${dueDate}",
             toPartyId: ${toPartyId},
             toCustomerAccountId: ${toCustomerAccountId},
+            ${gqlFromCustomerAccountId}
             ${gqlWorkflowId}
             ${gqlTempDataUuid}
             ${changeServicesParamsGql}
@@ -321,7 +328,8 @@ export async function transferSIMCards(filters, lines, params) {
       }
       `;
 
-    const response = await query(queryStr);
+    const response = await query(queryStr, undefined, true);
+
     if (response.errors) {
       return {
         errors: response.errors,
@@ -370,7 +378,7 @@ export async function manageCancellation(filters, lines, params) {
     }
     `;
 
-    const response = await query(queryStr);
+    const response = await query(queryStr, undefined, true);
     if (response.errors) {
       return {
         errors: response.errors,
@@ -413,7 +421,7 @@ export async function endPhaseTest(filters, lines, params) {
 
       `;
 
-    const response = await query(queryStr);
+    const response = await query(queryStr, undefined, true);
     if (response.errors) {
       return {
         errors: response.errors,
@@ -466,7 +474,7 @@ export async function sendSMS(filters, lines, params) {
     }
     `;
 
-    const response = await query(queryStr);
+    const response = await query(queryStr, undefined, true);
     if (response.errors) {
       return {
         errors: response.errors,
@@ -508,7 +516,7 @@ export async function terminateLines(filters, lines, params) {
     }
     `;
 
-    const response = await query(queryStr);
+    const response = await query(queryStr, undefined, true);
     if (response.errors) {
       return {
         errors: response.errors,
@@ -526,7 +534,7 @@ export async function fetchShortCodes(partnerId) {
     }
   }
   `;
-  const response = await query(queryStr);
+  const response = await query(queryStr, undefined, true);
   return response.data.party.shortCodes;
 }
 
@@ -636,11 +644,11 @@ export async function changeService(filters, lines, params) {
             number
             message
           }
-         }
+        }
     }
     `;
 
-    const response = await query(queryStr);
+    const response = await query(queryStr, undefined, true);
     if (response.errors) {
       return {
         errors: response.errors,
@@ -684,7 +692,7 @@ export async function createRechargeLVOffer(filters, lines, params) {
     `;
 
     try {
-      const response = await query(queryStr);
+      const response = await query(queryStr, undefined, true);
 
       if (!response || response.errors) {
         return {
@@ -763,7 +771,7 @@ export async function preactivateAndActivateSImcardInstance(filters, lines, para
     }
     `;
 
-    const response = await query(queryStr);
+    const response = await query(queryStr, undefined, true);
     if (response.errors) {
       return {
         errors: response.errors,
@@ -806,7 +814,7 @@ export async function preactivateSimCardInstance(filters, lines, params) {
     }
     `;
 
-    const response = await query(queryStr);
+    const response = await query(queryStr, undefined, true);
     if (response.errors) {
       return {
         errors: response.errors,
@@ -871,7 +879,7 @@ export async function changeOffer(filters, lines, params, keepServices) {
     }
     `;
 
-    const response = await query(queryStr);
+    const response = await query(queryStr, undefined, true);
     if (response.errors) {
       return {
         errors: response.errors,
