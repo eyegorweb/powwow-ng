@@ -116,7 +116,8 @@ export default {
       import('@/views/GetAdmin/PartnerDetail/UsersTab/ChangeUserPasswordPanel.vue'),
     PartnerOfferPanel: () =>
       import('@/views/GetAdmin/PartnerDetail/OffersTab/PartnerOfferPanel.vue'),
-    SimCardsPanel: () => import('@/views/GetAdmin/PartnerDetail/OffersTab/SimCardsPanel.vue'),
+    SimCardsPanel: () =>
+      import('@/views/GetAdmin/PartnerDetail/OffersTab/SimCardsPanel.vue'),
     BroadcastListFormPanel: () =>
       import('@/views/GetAdmin/PartnerDetail/CustomizeTab/BroadcastListFormPanel.vue'),
     CustomFieldFormPanel: () =>

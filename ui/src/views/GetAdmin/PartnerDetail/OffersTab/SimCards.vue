@@ -10,6 +10,7 @@
     :fetch-fn="fetchFn"
     :filter-fn="filterFn"
     :no-edit="!havePermissionToEdit"
+    v-if="canShow"
   >
     <template #title>
       <h4 class="text-primary text-uppercase">{{ $t('getadmin.partnerDetail.simcards.title') }}</h4>
@@ -31,9 +32,7 @@
       </ul>
       <slot>
         <div class="cardBloc-buttons" v-if="havePermissionToEdit">
-          <Button :variant="'import'" @click="changeStatut(item)">{{
-            $t(item.disabled ? 'actions.ENABLE' : 'actions.DISABLE')
-          }}</Button>
+          <Button :variant="'import'" @click="changeStatut(item)">{{ $t(item.disabled ? 'actions.ENABLE' : 'actions.DISABLE') }}</Button>
         </div>
       </slot>
       <div class="cards-sim">
@@ -71,6 +70,7 @@ export default {
       version: 0,
       isLoading: true,
       simCards: [],
+      canShow: true,
     };
   },
 
@@ -80,18 +80,18 @@ export default {
     manageSimCards() {
       const doReset = () => {
         this.fetchFn();
+        this.canShow = true;
       };
+      this.canShow = false;
       this.openPanel({
         title: this.$t('getadmin.partnerDetail.simCardsFromPanel.title'),
         panelId: 'getadmin.partnerDetail.simCardsFromPanel.title',
-        payload: { partner: this.partner, offers: this.simCards },
+        payload: { partner: this.partner, simCards: this.simCards },
         backdrop: true,
         width: '40rem',
         ignoreClickAway: true,
-        onClosePanel(params) {
-          if (params && params.resetSearch) {
-            doReset();
-          }
+        onClosePanel() {
+          doReset();
         },
       });
     },
@@ -103,10 +103,11 @@ export default {
       this.confirmAction({
         message: 'confirmAction',
         actionFn: async () => {
-          if (item.disabled) {
-            await enableSimCard(this.partner.id, item.simCard.id);
-          } else {
-            await disableSimCard(this.partner.id, item.simCard.id);
+          if(item.disabled) {
+            await enableSimCard(this.partner.id, item.simCard.id)
+          }
+          else {
+            await disableSimCard(this.partner.id, item.simCard.id)
           }
           doReset();
         },
@@ -119,7 +120,9 @@ export default {
       if (this.billingAccountToDetail) {
         cfId = this.billingAccountToDetail.id;
       }
-      return fetchSim(this.partner.id, cfId, null, true);
+      const sims = await fetchSim(this.partner.id, cfId, null, true)
+      this.simCards = sims;
+      return sims;
     },
 
     getFromObject(object, path, defaultValue = '') {
@@ -152,7 +155,8 @@ export default {
 
     havePermissionToEdit() {
       return this.havePermission('party', 'update_available_sims');
-    },
+    }
+
   },
 };
 </script>
