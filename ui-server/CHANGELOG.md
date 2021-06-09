@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.365+20210609125946
+2021-06-09
+
+### Fixes
+
+- [000] Ne pas voir les actes ESIM si l'utilisateur n'a pas la bonne option (546d76655eafd326ebf5fefeda284663568a6023)
+
 ## 1.17.0-master.364+20210609095152
 2021-06-09
 
