@@ -27,12 +27,16 @@
               <div class="mt-2" v-tooltip="simCard.defaultServices.join('\n')">
                 {{ $t('getadmin.partnerDetail.simCardsFromPanel.default') }}:
                 {{ simCard.defaultServices.slice(0, 5).join(', ') }}
-                <template v-if="simCard.defaultServices.length > 6"> ... </template>
+                <template v-if="simCard.defaultServices.length > 6">
+                  ...
+                </template>
               </div>
               <div class="mt-2" v-tooltip="simCard.editableServices.join('\n')">
                 {{ $t('getadmin.partnerDetail.simCardsFromPanel.modifiedServices') }}:
                 {{ simCard.editableServices.slice(0, 5).join(', ') }}
-                <template v-if="simCard.editableServices.length > 6"> ... </template>
+                <template v-if="simCard.editableServices.length > 6">
+                  ...
+                </template>
               </div>
             </div>
           </BlockCheckbox>
@@ -113,7 +117,7 @@ export default {
   },
 
   async mounted() {
-    this.partnersimCards = this.content.offers;
+    this.partnersimCards = this.content.simCards;
 
     this.simCards = await this.fetchPartnerSim(this.pagination);
     this.visibleSimCards = [...this.simCards];
@@ -158,10 +162,9 @@ export default {
     async fetchPartnerSim(pagination) {
       this.isLoading = true;
       const items = await getAvailableSim(this.content.partner.id, pagination);
-      console.log(items);
       const simCardsPage = items.map((i) => {
         const services = get(i, 'workflow.initialOffer.marketingServices', []);
-        const isChecked = !!this.partnersimCards.find((p) => p.id === i.workflow.id);
+        const isChecked = !!this.partnersimCards.find(p => p.simCard.id === i.simCard.id);
         return {
           id: i.simCard.id,
           name: i.simCard.name,
