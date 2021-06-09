@@ -32,6 +32,7 @@
 <script>
 import UiTabs from '@/components/ui/Tabs';
 import UiTab from '@/components/ui/Tab';
+import { mapGetters } from 'vuex';
 
 export default {
   components: {
@@ -50,6 +51,7 @@ export default {
       if (this.$route.name.includes('esim')) return 1;
       return 0;
     },
+    ...mapGetters(['userHaveEsimEnabled']),
   },
 
   methods: {
@@ -63,7 +65,7 @@ export default {
           },
         },
         {
-          label: 'reservations',
+          label: 'esim',
           title: this.$t('getparc.esim-acts'),
           to: {
             name: 'actHistory.esim',
@@ -74,7 +76,9 @@ export default {
   },
 
   mounted() {
-    this.initTabs();
+    if (this.userHaveEsimEnabled) {
+      this.initTabs();
+    }
   },
 };
 </script>
