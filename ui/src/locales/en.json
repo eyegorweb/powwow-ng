@@ -124,7 +124,7 @@
       "cancelationAct": "Acts: Termination",
       "actsStatus": "Status of management acts",
       "searchLine": "Search a line",
-      "topTriggeredAlarms": "Top 5 of triggered alarm",
+      "topTriggeredAlarms": "Top 5 of triggered alarms",
       "userActs": "Latest management acts from user « {userName} »",
       "dataVoiceConso": "Monthly usage",
       "stateParc": {
