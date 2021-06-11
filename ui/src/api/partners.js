@@ -956,20 +956,19 @@ export async function updateBroadcastLists(params) {
 
 export async function fetchOrderState(id) {
   const queryStr = `
-  query {
-    partys(filter: {id: {eq: ${id}} })
-    {
-      items {
-        orderPreactivationMandatory
-        orderActivationMandatory
-      }
+  query{
+    getPartyOptions(partyId: ${id}){
+    
+      orderPreactivationMandatory
+      orderActivationMandatory
+    
     }
   }
-
+  
 
   `;
   const response = await query(queryStr);
-  return response.data.partys.items;
+  return response.data.getPartyOptions;
 }
 
 export async function createBroadcastLists(params) {
