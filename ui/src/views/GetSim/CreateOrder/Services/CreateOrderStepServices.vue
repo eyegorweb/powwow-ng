@@ -8,8 +8,9 @@
             :label="$t('col.preActivationAsked')"
             v-model="preActivation"
             :editable="!activation"
+            :no-click="activation || preActivationValue"
           />
-          <UiToggle :label="$t('col.activationAsked')" v-model="activation" />
+          <UiToggle :label="$t('col.activationAsked')" v-model="activation" disabled :no-click="activation"/>
         </div>
       </div>
       <LoaderContainer :is-loading="isLoadingOffers">
@@ -101,8 +102,8 @@ export default {
     const billingAccountCode = get(this.synthesis, 'billingAccount.selection.billingAccount.code');
 
     const stateOrder = await fetchOrderState(this.partnerId);
-    this.activation = stateOrder[0].orderActivationMandatory;
-    this.preActivation = stateOrder[0].orderPreactivationMandatory;
+    this.activation = stateOrder.orderActivationMandatory;
+    this.preActivation = stateOrder.orderPreactivationMandatory;
     this.isLoadingOffers = true;
     const data = await fetchOffers('', [{ id: this.partnerId }], {
       page: 0,
