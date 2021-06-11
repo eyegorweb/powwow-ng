@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.366+20210611131748
+2021-06-11
+
+### Fixes
+
+- [000] Libellé : Ajout d'un "s" à Top 5 of Triggered alarm"s" (4250d587f10832f6eed10ba02aa65d955dad197a)
+
 ## 1.17.0-master.365+20210609125946
 2021-06-09
 
