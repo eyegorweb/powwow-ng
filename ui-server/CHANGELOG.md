@@ -2,12 +2,13 @@
 
 <!--- next entry here -->
 
-## 1.17.0-master.366+20210611131748
+## 1.17.0-master.367+20210611133427
 2021-06-11
 
 ### Fixes
 
 - [000] Libellé : Ajout d'un "s" à Top 5 of Triggered alarm"s" (4250d587f10832f6eed10ba02aa65d955dad197a)
+- [2728] Changement des règles sur config service order et api (6e54983ea005128755b16d511c84902bf1922033)
 
 ## 1.17.0-master.365+20210609125946
 2021-06-09
