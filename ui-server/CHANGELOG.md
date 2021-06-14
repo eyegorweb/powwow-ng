@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.374+20210614144400
+2021-06-14
+
+### Fixes
+
+- [2735] export des lignes d'un acte de gestion (cf21ddbbbe3ac95590de5d2dc617dfd5ff4e0d8f)
+- [000] Changement du message lors de la désactivation d'une alerte pour une ligne (c334373d26e2e202be29cbe04a4fcd63409096c9)
+
 ## 1.17.0-master.373+20210614135612
 2021-06-14
 
