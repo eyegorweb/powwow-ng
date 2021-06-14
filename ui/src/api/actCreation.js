@@ -488,6 +488,11 @@ export async function terminateLines(filters, lines, params) {
   return actCreationMutation(filters, lines, async (gqlFilter, gqlLines) => {
     const { notifEmail, dueDate, partyId, tempDataUuid } = params;
 
+    let gqlDueDate = '';
+    if (dueDate) {
+      gqlDueDate = moment(dueDate, 'DD/MM/YYYY HH:mm:ss').format('DD/MM/YYYY HH:mm:ss Z');
+    }
+
     let gqlTempDataUuid = '';
     if (tempDataUuid) {
       gqlTempDataUuid = `tempDataUuid: "${tempDataUuid}"`;
@@ -501,7 +506,7 @@ export async function terminateLines(filters, lines, params) {
           partyId: ${partyId},
           simCardInstanceIds: [${gqlLines}],
           notification: ${boolStr(notifEmail)},
-          dueDate: "${dueDate}"
+          dueDate: "${gqlDueDate}"
           ${gqlTempDataUuid}
         })
         {
