@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.372+20210614132142
+2021-06-14
+
+### Fixes
+
+- [2733] Gestion de la date des résiliations (432d2e9ee3d10d5865e343ea859c29651e5ab2b9)
+- [000] Ajouter une trad pour "DATA_IN_MULTIPLES" (9a86cb439edbb3db3b8136e811b6bb16b1e36023)
+
 ## 1.17.0-master.371+20210614094621
 2021-06-14
 
