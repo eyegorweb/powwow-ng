@@ -1869,7 +1869,8 @@
           "import": {
             "DATA_INVALID_FORMAT": "{count} lignes ont un {idType} erroné.",
             "DATA_NOT_FOUND": "{count} lignes ont un {idType} inconnu.",
-            "NEW_DATA_ALREADY_EXISTS": "L'{idType} existe déjà."
+            "NEW_DATA_ALREADY_EXISTS": "L'{idType} existe déjà.",
+            "DATA_IN_MULTIPLES": "{count} Données en multiples."
           }
         }
       },

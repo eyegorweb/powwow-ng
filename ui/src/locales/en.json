@@ -1651,7 +1651,8 @@
           "import": {
             "DATA_INVALID_FORMAT": "{count} lines have wrong {idType}.",
             "DATA_NOT_FOUND": "{count} lines have an unknown {idType}.",
-            "NEW_DATA_ALREADY_EXISTS": "The {idType} already exists."
+            "NEW_DATA_ALREADY_EXISTS": "The {idType} already exists.",
+            "DATA_IN_MULTIPLES": "{count} Duplicated data."
           }
         }
       },
