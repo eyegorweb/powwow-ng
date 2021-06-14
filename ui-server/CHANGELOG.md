@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.371+20210614094621
+2021-06-14
+
+### Fixes
+
+- [2560] Modification des filtres pour l'acte téléchargement de profile (1fecabcc7b96687790ab26ebf942b66ceb3a31e7)
+
 ## 1.17.0-master.370+20210614092653
 2021-06-14
 
