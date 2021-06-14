@@ -261,16 +261,12 @@ export async function searchAlarms(orderBy, pagination, filters = []) {
   return response.data.alarms;
 }
 
-export async function fetchTriggerHistory(alarmId, simIds = []) {
+export async function fetchTriggerHistory(alarmId, simCardInstanceId) {
   let simIdsGQLparam = '';
-
-  if (simIds && simIds.length) {
-    simIdsGQLparam = `, simCardInstanceId: {in: [${simIds.join(',')}]}`;
-  }
 
   const queryStr = `
   query {
-    alarmEvents(alarmEventsFilterInput: {alarmId: {eq: ${alarmId}}${simIdsGQLparam}}, pagination: {page: 0, limit: 20}) {
+    alarmEvents(alarmEventsFilterInput: {alarmId: {eq: ${alarmId}}${simIdsGQLparam}}, simCardInstanceId: {in: [${simCardInstanceId}]}, pagination: {page: 0, limit: 20}) {
       items {
         id
         emissionDate,
