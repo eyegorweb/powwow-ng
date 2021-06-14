@@ -16,7 +16,7 @@
             :key="action"
             v-if="
               action !== 'getparc.history.actions.EXPORT' &&
-                action !== 'getparc.history.actions.EXPORT_LINES'
+              action !== 'getparc.history.actions.EXPORT_LINES'
             "
             type="button"
             class="list-group-item list-group-item-action order-action hover-pointer"
@@ -36,8 +36,9 @@
             :columns="columns"
             :order-by="orderBy"
             class="list-group-item list-group-item-action p-0"
+            btn-class-name="btn btn-link export-link align-left "
           >
-            <i slot="icon" />
+            <em slot="icon" />
             <span slot="title">{{ $t(action) }}</span>
           </ExportButton>
           <ExportButton
@@ -47,9 +48,10 @@
             :columns="columns"
             :order-by="orderBy"
             class="list-group-item list-group-item-action p-0"
+            btn-class-name=" btn btn-link export-link align-left"
           >
-            <i slot="icon" />
-            <span slot="title">{{ $t(action) }}</span>
+            <em slot="icon" />
+            <span class="exp-small-text" slot="title">{{ $t(action) }}</span>
           </ExportButton>
         </template>
       </div>
@@ -307,5 +309,9 @@ export default {
 .list-group-item-action button.export-link {
   float: left !important;
   color: #495057 !important;
+}
+
+.exp-small-text {
+  font-size: 0.9rem;
 }
 </style>
