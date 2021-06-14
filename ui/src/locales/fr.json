@@ -2115,6 +2115,7 @@
     "country": "Pays",
     "action": "Action",
     "state": "État [facultatif]",
+    "downloadedProfile": "Profil téléchargé",
     "actionValues": {
       "ACTIVATED": "Activé",
       "PREACTIVATED": "Pré-activé"

@@ -164,7 +164,7 @@ export default {
       const items = await getAvailableSim(this.content.partner.id, pagination);
       const simCardsPage = items.map((i) => {
         const services = get(i, 'workflow.initialOffer.marketingServices', []);
-        const isChecked = !!this.partnersimCards.find(p => p.simCard.id === i.simCard.id);
+        const isChecked = !!this.partnersimCards.find((p) => p.simCard.id === i.simCard.id);
         return {
           id: i.simCard.id,
           name: i.simCard.name,

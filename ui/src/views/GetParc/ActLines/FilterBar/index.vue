@@ -330,6 +330,7 @@
               @update:value="selectTerminationFilter($event)"
             />
           </FoldableBlock>
+
           <template v-if="userHaveEsimEnabled">
             <FoldableBlock
               :title="$t('indicators.getparc.lines.esim.id')"
@@ -341,6 +342,14 @@
                 :selected-value="selectedEsimIdValue"
                 @update:value="selectEsimIdFilter($event)"
               />
+            </FoldableBlock>
+            <FoldableBlock
+              :title="$t('filters.downloadedProfile')"
+              :key="'downloadedProfile'"
+              :disabled="filtersAreDisabled"
+              draggable
+            >
+              <DownloadProfileFilter />
             </FoldableBlock>
 
             <FoldableBlock
@@ -442,8 +451,7 @@ import ActLinesTerminationFilter from './ActLinesTerminationFilter';
 import TypeEsimFilter from '@/views/GetParc/ActLines/FilterBar/Esim/TypeEsimFilter.vue';
 import EsimDownloadStatusFilter from '@/views/GetParc/ActLines/FilterBar/Esim/EsimDownloadStatusFilter.vue';
 import EsimPairedLine from '@/views/GetParc/ActLines/FilterBar/Esim/EsimPairedLine.vue';
-
-// import EsimFamilyFilter from '@/views/GetParc/ActLines/FilterBar/Esim/EsimFamilyFilter.vue'
+import DownloadProfileFilter from '@/views/GetParc/ActLines/FilterBar/DownloadProfileFilter.vue';
 import EsimCategoryFilter from '@/views/GetParc/ActLines/FilterBar/Esim/EsimCategoryFilter.vue';
 
 import SelectedFiltersManagement from '@/components/Filters/SelectedFiltersManagement.vue';
@@ -475,6 +483,7 @@ export default {
     EsimDownloadStatusFilter,
     EsimPairedLine,
     ActLinesTerminationFilter,
+    DownloadProfileFilter,
     // EsimFamilyFilter
   },
   data() {
