@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.370+20210614092653
+2021-06-14
+
+### Fixes
+
+- [2713] Envoi des CF obligatoire pour les partenaires MB (55a758e517a10631367289bec0f5b2270d9c2a3e)
+
 ## 1.17.0-master.369+20210614085637
 2021-06-14
 
