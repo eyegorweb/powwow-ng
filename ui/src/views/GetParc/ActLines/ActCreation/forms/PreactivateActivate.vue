@@ -193,7 +193,12 @@ export default {
       const fieldErrors = {};
       let haveError = false;
       if (this.activation) {
-        if (!this.preselectBillingAccount || !this.preselectBillingAccount.id) {
+        let billingAccountToUse = this.preselectBillingAccount;
+        if (!this.preselectBillingAccount) {
+          billingAccountToUse = this.chosenBillingAccount;
+        }
+
+        if (!billingAccountToUse || !billingAccountToUse.id) {
           fieldErrors.billingAccount = true;
           haveError = true;
         }
@@ -210,15 +215,18 @@ export default {
     async doRequest(contextValues) {
       let params, response;
       if (this.activation) {
+        let billingAccountToUse = this.preselectBillingAccount;
+        if (!this.preselectBillingAccount) {
+          billingAccountToUse = this.chosenBillingAccount;
+        }
+
         params = {
           partyId: this.partner.id,
           dueDate: contextValues.actDate,
           notifEmail: contextValues.notificationCheck,
           workflowCode: this.selectedOffer ? this.selectedOffer.id : undefined,
           servicesChoice: this.servicesChoice,
-          customerAccountID: this.billingAccount
-            ? this.billingAccount.id
-            : this.preselectBillingAccount.id,
+          customerAccountID: billingAccountToUse.id,
           tempDataUuid: contextValues.tempDataUuid,
           allCustomFields: this.customFieldsValues,
         };
