@@ -350,7 +350,7 @@ export async function manageCancellation(filters, lines, params) {
 
     let gqlDueDate = '';
     if (dueDate) {
-      gqlDueDate = moment(dueDate, 'DD/MM/YYYY HH:mm:ss').format('DD/MM/YYYY HH:mm:ss');
+      gqlDueDate = moment(dueDate, 'DD/MM/YYYY HH:mm:ss').format('DD/MM/YYYY HH:mm:ss Z');
     }
 
     const queryStr = `
