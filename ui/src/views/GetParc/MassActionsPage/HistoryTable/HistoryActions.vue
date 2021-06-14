@@ -14,7 +14,10 @@
         <template v-for="action in actions">
           <button
             :key="action"
-            v-if="action !== 'getparc.history.actions.EXPORT'"
+            v-if="
+              action !== 'getparc.history.actions.EXPORT' &&
+                action !== 'getparc.history.actions.EXPORT_LINES'
+            "
             type="button"
             class="list-group-item list-group-item-action order-action hover-pointer"
             @click="
@@ -27,9 +30,20 @@
             {{ $t(action) }}
           </button>
           <ExportButton
-            v-else
+            v-else-if="action === 'getparc.history.actions.EXPORT'"
             :key="action"
             :export-fn="getExportFn()"
+            :columns="columns"
+            :order-by="orderBy"
+            class="list-group-item list-group-item-action p-0"
+          >
+            <i slot="icon" />
+            <span slot="title">{{ $t(action) }}</span>
+          </ExportButton>
+          <ExportButton
+            v-else
+            :key="action"
+            :export-fn="getExportLinesFn()"
             :columns="columns"
             :order-by="orderBy"
             class="list-group-item list-group-item-action p-0"
@@ -50,6 +64,7 @@ import { exportMassAction, cancelMassAction } from '@/api/massActions';
 import DetailsCell from '@/views/GetParc/UnitActionsPage/DetailsCell';
 import ExportButton from '@/components/ExportButton';
 import { mapMutations } from 'vuex';
+import { exportSimCardInstances } from '@/api/linesActions';
 
 export default {
   components: {
@@ -174,6 +189,10 @@ export default {
           this.getExportFn();
           break;
         }
+        case 'getparc.history.actions.EXPORT_LINES': {
+          this.getExportLinesFn();
+          break;
+        }
         case 'getparc.history.actions.CANCEL': {
           const doRefresh = () => {
             this.$emit('refreshSearch');
@@ -218,6 +237,36 @@ export default {
         );
       };
     },
+    getExportLinesFn() {
+      return async (columns, orderBy, exportFormat, asyncExportRequest, exportAll) => {
+        let columnsToUse = [
+          'LINE_ICCID',
+          'PARTY_ID',
+          'LINE_MSISDN',
+          'LINE_IMSI',
+          'LINE_SIM_STATUS',
+          'LINE_COMMERCIAL_DATE',
+          'LINE_COMMERCIAL_STATUS',
+          'LINE_OFFER',
+          'LINE_AMSISDN',
+          'LINE_MANUFACTURER',
+          'LINE_DEVICE_REFERENCE',
+          'LINE_ACTIVATION_DATE',
+          'BILLING_ACCOUNT',
+        ];
+        let orderToUse = { direction: 'DESC', key: 'id' };
+        let filtersToUse = [{ id: 'filters.lines.actionId', value: this.item.id }];
+        return await exportSimCardInstances(
+          columnsToUse,
+          orderToUse,
+          exportFormat,
+          filtersToUse,
+          asyncExportRequest,
+          exportAll,
+          'FULL'
+        );
+      };
+    },
   },
   computed: {
     totalFailed() {
@@ -227,13 +276,21 @@ export default {
       let actions = [];
       switch (this.item.status) {
         case 'WAITING': {
-          actions = ['getparc.history.actions.DETAIL', 'getparc.history.actions.EXPORT'];
+          actions = [
+            'getparc.history.actions.DETAIL',
+            'getparc.history.actions.EXPORT',
+            'getparc.history.actions.EXPORT_LINES',
+          ];
 
           break;
         }
 
         default:
-          actions = ['getparc.history.actions.DETAIL', 'getparc.history.actions.EXPORT'];
+          actions = [
+            'getparc.history.actions.DETAIL',
+            'getparc.history.actions.EXPORT',
+            'getparc.history.actions.EXPORT_LINES',
+          ];
       }
 
       if (this.item.cancellable) {

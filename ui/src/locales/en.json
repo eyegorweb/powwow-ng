@@ -1112,6 +1112,7 @@
         "btn": "Actions",
         "DETAIL": "See the detail",
         "EXPORT": "Export act",
+        "EXPORT_LINES": "Export the lines",
         "CANCEL": "Cancel act"
       }
     },
