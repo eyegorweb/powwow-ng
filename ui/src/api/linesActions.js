@@ -269,7 +269,7 @@ export async function searchLinesForTable(orderBy, pagination, filters = []) {
       }
     }
   }`;
-  return await searchLinesQuery(orderBy, pagination, filters, fields);
+  return searchLinesQuery(orderBy, pagination, filters, fields);
 }
 
 export async function searchLines(orderBy, pagination, filters = []) {
@@ -491,12 +491,20 @@ export function formatFilters(filters) {
   addEsimPairingStatus(allFilters, filters);
   addSMSRIDStatus(allFilters, filters);
   addIsDownload(allFilters, filters);
+  addMassActionId(allFilters, filters);
 
   return allFilters.join(',');
 }
 
 function trim(value) {
   return ('' + value).trim();
+}
+
+function addMassActionId(gqlFilters, selectedFilters) {
+  const id = getFilterValue(selectedFilters, 'filters.lines.actionId');
+  if (id) {
+    gqlFilters.push(`massActionId: ${id}`);
+  }
 }
 
 function addIsDownload(gqlFilters, selectedFilters) {
