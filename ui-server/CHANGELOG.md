@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.373+20210614135612
+2021-06-14
+
+### Fixes
+
+- [000] Corriger la vérification d'erreurs du compte d efacturation (33e8d0de9d610d27a87a4e7e620695576ca19485)
+
 ## 1.17.0-master.372+20210614132142
 2021-06-14
 
