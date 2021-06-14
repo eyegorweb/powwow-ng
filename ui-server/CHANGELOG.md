@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.375+20210614152717
+2021-06-14
+
+### Fixes
+
+- [2733]  Gestion de la date des résiliations (796ad252cee476a815de5fa6cf09a8d7fa40ad4b)
+
 ## 1.17.0-master.374+20210614144400
 2021-06-14
 
