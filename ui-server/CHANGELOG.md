@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.376+20210614160109
+2021-06-14
+
+### Fixes
+
+- [000] Aligner correctement les éléments du menu (8d864aabe9bd5773ecd6bc5f280c72a98589050f)
+
 ## 1.17.0-master.375+20210614152717
 2021-06-14
 
