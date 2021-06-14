@@ -53,9 +53,9 @@ export default {
   methods: {
     setPartner(chosenPartner) {
       this.selectedPartner = chosenPartner;
-      if(this.selectedPartner && this.selectedPartner.id) {
+      if (this.selectedPartner && this.selectedPartner.id) {
         this.canSeeBillingAccount = false;
-        setTimeout(() => this.canSeeBillingAccount = true);
+        setTimeout(() => (this.canSeeBillingAccount = true));
       }
     },
 
@@ -68,10 +68,10 @@ export default {
       }
 
       const partners = [];
-      if(this.selectedPartner) { 
+      if (this.selectedPartner) {
         partners.push(this.selectedPartner);
       }
-      const data = await fetchBillingAccounts(q,partners , { page, limit:10 });
+      const data = await fetchBillingAccounts(q, partners, { page, limit: 10 });
 
       return data.map((ba) => ({
         id: ba.id,
@@ -84,7 +84,6 @@ export default {
     },
   },
   watch: {
-
     selectedBillingAccount(newValue) {
       this.$emit('set:billingAccount', newValue);
     },

@@ -43,8 +43,8 @@
       :partner="userPartner"
       :can-select-billing-account="
         act.title === 'getparc.actCreation.carouselItem.CHANGE_OFFER' ||
-        act.title === 'getparc.actCreation.carouselItem.CHANGE_CF' ||
-        act.title === 'getparc.actCreation.carouselItem.esim.CHARGE_LV_LINES'
+          act.title === 'getparc.actCreation.carouselItem.CHANGE_CF' ||
+          act.title === 'getparc.actCreation.carouselItem.esim.CHARGE_LV_LINES'
       "
       :have-lv-offers="act.title === 'getparc.actCreation.carouselItem.esim.CHARGE_LV_LINES'"
     />

@@ -46,6 +46,7 @@ export const getters = {
   selectedFileImportValues: findFilterValuesById('filters.lines.fromFile.title'),
   selectedSimStatusesValues: findFilterValuesById('filters.lines.SIMCardStatus'), // deprecated
   selectedSimStatuses: findFilterById('filters.lines.SIMCardStatus'),
+  selectedDownloadProfile: findFilterById('filters.downloadedProfile'),
   selectedBillingAccountsValues: findFilterValuesById('filters.billingAccounts'),
   selectedNetworkStatusesValues: findFilterValuesById('filters.lines.networkStatus'),
   selectedBilligStatusesValues: findFilterValuesById('filters.lines.billingStatus'),
@@ -221,37 +222,37 @@ export const mutations = {
   ...filterUtils.initMutations(),
   removeFromCurrentById,
 
-  setApiError(state, value) {
-    state.apiError = value;
+  setApiError(s, value) {
+    s.apiError = value;
   },
 
-  clearAllFilters(state) {
-    state.currentFilters = [];
-    state.filterCustomFieldsList = [];
-    filterUtils.clearAppliedFilters(state);
+  clearAllFilters(s) {
+    s.currentFilters = [];
+    s.filterCustomFieldsList = [];
+    filterUtils.clearAppliedFilters(s);
   },
-  setQueryFilterAndSearch(state) {
-    state.filterCustomFieldsList = [];
-    filterUtils.setQueryFilterAndSearch(state);
+  setQueryFilterAndSearch(s) {
+    s.filterCustomFieldsList = [];
+    filterUtils.setQueryFilterAndSearch(s);
   },
-  setFilterCustomFieldsList: (state, data) => {
-    state.filterCustomFieldsList = data;
+  setFilterCustomFieldsList: (s, data) => {
+    s.filterCustomFieldsList = data;
   },
-  setCustomFieldsFilter(state, customFields) {
-    selectFilterValue(state, {
+  setCustomFieldsFilter(s, customFields) {
+    selectFilterValue(s, {
       id: 'filters.customFields',
       values: customFields,
     });
   },
-  setPage(state, newPage) {
-    state.linePage = newPage;
+  setPage(s, newPage) {
+    s.linePage = newPage;
   },
-  setLinesActionsResponse(state, actLines) {
-    state.linesActionsResponse = actLines;
+  setLinesActionsResponse(s, actLines) {
+    s.linesActionsResponse = actLines;
   },
   selectFilterValue,
-  setCurrentFilters: (state, currentFilters) => {
-    state.currentFilters = currentFilters;
+  setCurrentFilters: (s, currentFilters) => {
+    s.currentFilters = currentFilters;
   },
   setBillingAccountsFilter(state, billingAccounts) {
     selectFilterValue(state, {
@@ -259,10 +260,17 @@ export const mutations = {
       values: billingAccounts,
     });
   },
-  setTypeSimCardFilter(state, types) {
-    selectFilterValue(state, {
+  setTypeSimCardFilter(s, types) {
+    selectFilterValue(s, {
       id: 'filters.lines.typeSIMCard',
       values: types,
+    });
+  },
+  setDownloadProfile(s, downloadProfile) {
+    selectFilterValue(s, {
+      id: 'filters.downloadedProfile',
+      value: downloadProfile ? downloadProfile.value : undefined,
+      meta: downloadProfile,
     });
   },
   setCommercialStatusesFilter(state, types) {

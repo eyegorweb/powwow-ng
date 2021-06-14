@@ -51,10 +51,10 @@ export default {
   methods: {
     async fetchBillingAccounts(q, page = 0) {
       const partners = [];
-      if(this.partner) { 
+      if (this.partner) {
         partners.push(this.partner);
       }
-      const data = await fetchBillingAccounts(q,partners , { page, limit:10 });
+      const data = await fetchBillingAccounts(q, partners, { page, limit: 10 });
       return data
         .filter((ba) => ba.id !== this.prerequisiteBillingAccount.id)
         .map((ba) => ({
@@ -63,7 +63,6 @@ export default {
           partnerId: ba.party.id,
           partner: ba.party,
         }));
-
     },
   },
 };

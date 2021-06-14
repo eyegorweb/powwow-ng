@@ -6,8 +6,8 @@
     <div class="mt-4 bottom-space">
       <div class="row">
         <div class="col-md-9">
-          <button @click.prevent="backRoute" class="btn btn-link back-btn">
-            <i class="ic-Arrow-Previous-Icon" />
+          <button @click.prevent="backRoute()" class="btn btn-link back-btn">
+            <em class="ic-Arrow-Previous-Icon" />
             {{ $t('back') }}
           </button>
         </div>
@@ -15,9 +15,9 @@
       <div class="row mb-5">
         <div class="col-md-9">
           <h4>
-            <b>GetParc</b>
+            <strong>GetParc</strong>
             {{ massActionsTitleInfos }}
-            <i class="ic-Info-Icon" />
+            <em class="ic-Info-Icon" />
           </h4>
         </div>
       </div>
@@ -27,7 +27,7 @@
           <UiTab v-if="tab" :is-selected="index === selectedIndex" class="tab-grow">
             <a href="#" @click.prevent="() => (currentLinkIndex = index)">
               {{ tab.title }}
-              <img v-if="tab.isLoading" class="loader" src="@/assets/spinner.svg" />
+              <img v-if="tab.isLoading" alt="spinner" class="loader" src="@/assets/spinner.svg" />
 
               <span
                 v-if="!tab.isLoading"
@@ -115,6 +115,11 @@ export default {
     };
   },
   methods: {
+    backRoute() {
+      return this.$route.params.simpleBack
+        ? this.$router.go(-1)
+        : this.$router.push({ name: 'actHistory', params: { queryFilters: this.filters } });
+    },
     async refreshTables() {
       this.isLoading = true;
       await this.refreshCurrentMassAction();
@@ -156,11 +161,6 @@ export default {
     },
   },
   computed: {
-    backRoute() {
-      return this.$route.params.simpleBack
-        ? this.$router.go(-1)
-        : this.$router.push({ name: 'actHistory', params: { queryFilters: filters } });
-    },
     filters() {
       return this.$loGet(this.$route, 'params.actHistoryTableFilters');
     },

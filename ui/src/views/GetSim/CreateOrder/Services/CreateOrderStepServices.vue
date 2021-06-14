@@ -10,7 +10,12 @@
             :editable="!activation"
             :no-click="activation || preActivationValue"
           />
-          <UiToggle :label="$t('col.activationAsked')" v-model="activation" disabled :no-click="activation"/>
+          <UiToggle
+            :label="$t('col.activationAsked')"
+            v-model="activation"
+            disabled
+            :no-click="activation"
+          />
         </div>
       </div>
       <LoaderContainer :is-loading="isLoadingOffers">

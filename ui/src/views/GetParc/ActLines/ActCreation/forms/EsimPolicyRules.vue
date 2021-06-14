@@ -60,9 +60,9 @@ export default {
         action: this.action ? 'DELETE' : 'DISABLE',
         qualification: this.qualification ? 'NOT_ALLOWED' : 'AUTO_DELETE',
       };
-      let selectedLinesId = []
-      if(this.selectedLinesForActCreation) {
-        selectedLinesId = this.selectedLinesForActCreation.map(e => e.id)
+      let selectedLinesId = [];
+      if (this.selectedLinesForActCreation) {
+        selectedLinesId = this.selectedLinesForActCreation.map((e) => e.id);
       }
 
       const response = await updatePolicyRules(

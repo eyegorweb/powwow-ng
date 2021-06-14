@@ -469,7 +469,6 @@ export function formatFilters(filters) {
   addDateFilter(allFilters, filters, 'commitmentEnd', 'filters.lines.endCommitmentDate');
   addDateFilter(allFilters, filters, 'activationDate', 'filters.lines.activationDate');
   addDateFilter(allFilters, filters, 'preactivationDate', 'filters.lines.preActivationDate');
-  // addDateFilter(allFilters, filters, 'todo', 'filters.lines.statusDate');
   addTrafficFilter(allFilters, filters);
   addDateFilter(allFilters, filters, 'commercialStatusDate', 'filters.lines.statusDate');
   addCountries(allFilters, filters);
@@ -491,12 +490,24 @@ export function formatFilters(filters) {
   addDownloadStatus(allFilters, filters);
   addEsimPairingStatus(allFilters, filters);
   addSMSRIDStatus(allFilters, filters);
+  addIsDownload(allFilters, filters);
 
   return allFilters.join(',');
 }
 
 function trim(value) {
   return ('' + value).trim();
+}
+
+function addIsDownload(gqlFilters, selectedFilters) {
+  const foundFilter = selectedFilters.find((f) => f.id === 'filters.downloadedProfile');
+  if (foundFilter) {
+    if (foundFilter.meta.label === 'common.YES' || foundFilter.meta.label === 'common.NO') {
+      gqlFilters.push(
+        `isDownloaded: ${foundFilter.meta.label === 'common.YES' ? 'true' : 'false'}`
+      );
+    }
+  }
 }
 
 function addEsimPairingStatus(gqlFilters, selectedFilters) {
@@ -642,7 +653,7 @@ function valuesFromMutiselectFilter(
 function addOrderId(gqlFilters, selectedFilters) {
   const orderId = getFilterValue(selectedFilters, 'filters.lines.orderID');
   if (orderId) {
-    gqlFilters.push(`idOrder: {eq: "${orderId || uniqueOrderId}"}`);
+    gqlFilters.push(`idOrder: {eq: "${orderId}"}`);
   }
 }
 
