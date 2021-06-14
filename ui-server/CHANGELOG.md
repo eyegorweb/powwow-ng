@@ -2,7 +2,7 @@
 
 <!--- next entry here -->
 
-## 1.17.0-master.368+20210614084114
+## 1.17.0-master.369+20210614085637
 2021-06-14
 
 ### Features
@@ -14,6 +14,7 @@
 - [2726] correction de la consultation des déclenchements d'une alarme sur une ligne (55c255c79313a0969f5d3d570b067362be53f6a2)
 - [2716] Rajouter un filtre esim : profil téléchargé (8f74ac199916aa70cb7f9501978307a81d5ab0bb)
 - [1073] mise à jour des indicateurs en fonction de la barre de contexte et du filtre partenaires (788c5c10d37fa09ed55d55168269a1d6c2107476)
+- [2731]  passer le filtre massActionId lors de l'appel de l'api (6382eb9f8afb8cd84d7f039a9216ef60d02ec173)
 
 ## 1.17.0-master.367+20210611133427
 2021-06-11
