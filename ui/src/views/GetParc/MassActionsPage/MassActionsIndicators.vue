@@ -1,6 +1,12 @@
 <template>
   <div>
-    <Indicators v-if="indicators" :meta="indicators" :on-click="onClick" precalculated />
+    <Indicators
+      v-if="indicators"
+      :meta="indicators"
+      :applied-filters-value="appliedFiltersValue"
+      :on-click="onClick"
+      precalculated
+    />
   </div>
 </template>
 
@@ -72,6 +78,15 @@ export default {
   computed: {
     ...mapState('getsim', ['defaultAppliedFilters']),
     ...mapGetters(['userIsMVNO']),
+    ...mapGetters('actHistory', ['appliedFilters']),
+    appliedFiltersValue() {
+      let partners = [];
+      let partnersFilter = this.appliedFilters.find((e) => e.id === 'filters.partners');
+      if (partnersFilter) {
+        partners = partnersFilter.values.map((p) => p.id);
+      }
+      return partners;
+    },
   },
   methods: {
     ...mapMutations('actHistory', ['setCurrentFilters', 'applyFilters']),

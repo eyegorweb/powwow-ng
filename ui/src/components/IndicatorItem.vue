@@ -123,11 +123,6 @@ export default {
   },
 
   watch: {
-    partners() {
-      if (!this.precalculated) {
-        this.refreshIndicator();
-      }
-    },
     contextFilters() {
       if (!this.precalculated) {
         this.refreshIndicator();
