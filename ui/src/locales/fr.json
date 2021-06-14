@@ -1902,7 +1902,7 @@
       },
       "alarmList": {
         "title": "Liste des alarmes",
-        "confirmationWarning": "Attention ! Toutes les données seront perdues."
+        "confirmationWarning": "L'historique des alertes ne sera plus accessibles."
       },
       "simStatuses": {
         "NOT_PREACTIVATED": "Non préactivée",

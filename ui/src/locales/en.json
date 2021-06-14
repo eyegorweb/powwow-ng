@@ -1684,7 +1684,7 @@
       },
       "alarmList": {
         "title": "List of alarms",
-        "confirmationWarning": "Attention! All data will be lost."
+        "confirmationWarning": "The alert history will no longer be accessible."
       },
       "simStatuses": {
         "NOT_PREACTIVATED": "Not pre-activated",
