@@ -64,6 +64,28 @@ export async function updateStatusChangeAlarm(params) {
   return response.data.updateStatusChangeAlarm;
 }
 
+export async function updateStatusChangeProfileAlarm(params) {
+  const gqlParams = getGqlParams(params);
+
+  gqlParams.push(`statusChangeProfile: ${params.formData}`);
+
+  const queryStr = `
+  mutation {
+    updateStatusChangeProfileAlarm(alarmUpdateInput:{${gqlParams.join(',')}}) {
+      id
+    }
+  }
+  `;
+
+  const response = await query(queryStr);
+
+  if (response.errors) {
+    return { errors: response.errors };
+  }
+
+  return response.data.updateStatusChangeProfileAlarm;
+}
+
 export async function updateISPList(params) {
   const gqlParams = getGqlParams(params);
 
