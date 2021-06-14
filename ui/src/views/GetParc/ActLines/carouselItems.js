@@ -459,6 +459,11 @@ export default excludeMocked([
         value: 'Oui',
         meta: { label: 'Oui', value: 'YES' },
       },
+      {
+        id: 'filters.downloadedProfile',
+        value: 'Non déterminé',
+        meta: { id: 3, label: 'notDefined', value: 'Non déterminé', default: false },
+      },
     ],
   },
   {
