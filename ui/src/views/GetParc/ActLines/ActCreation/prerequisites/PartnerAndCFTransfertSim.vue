@@ -1,6 +1,6 @@
 <template>
   <PrereqContainer>
-    <template v-if="userIsMultiCustomer">
+    <template v-if="shouldChooseCF">
       <div class="row">
         <div class="col p-0 pr-4">
           <h5>{{ $t('getparc.actLines.step1Partner') }}</h5>
@@ -102,6 +102,16 @@ export default {
     isPartnerMVNO() {
       if (this.isPartnerEmpty) return;
       return this.selectedPartner.partyType === 'MVNO';
+    },
+    shouldChooseCF() {
+      if (!this.userIsMultiCustomer) {
+        if (this.$loGet(this.selectedPartner, 'partyType') === 'MULTI_CUSTOMER') {
+          return true;
+        }
+        return false;
+      } else {
+        return true;
+      }
     },
   },
   methods: {
