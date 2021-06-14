@@ -2,6 +2,19 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.368+20210614084114
+2021-06-14
+
+### Features
+
+- [2717] ajout de la modification d'un compte de facturation d'un partenaire (1a83ec88dfb02d5c4f551ceda70fc6e28dfde22a)
+
+### Fixes
+
+- [2726] correction de la consultation des déclenchements d'une alarme sur une ligne (55c255c79313a0969f5d3d570b067362be53f6a2)
+- [2716] Rajouter un filtre esim : profil téléchargé (8f74ac199916aa70cb7f9501978307a81d5ab0bb)
+- [1073] mise à jour des indicateurs en fonction de la barre de contexte et du filtre partenaires (788c5c10d37fa09ed55d55168269a1d6c2107476)
+
 ## 1.17.0-master.367+20210611133427
 2021-06-11
 
