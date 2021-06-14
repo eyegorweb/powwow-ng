@@ -1255,6 +1255,7 @@
         "btn": "Actions",
         "DETAIL": "Voir le détail",
         "EXPORT": "Exporter l'acte",
+        "EXPORT_LINES": "Exporter les lignes",
         "CANCEL": "Annuler l'acte"
       }
     },
