@@ -2,6 +2,7 @@
   <Indicators
     v-if="indicators"
     :meta="indicators"
+    :applied-filters-value="appliedFiltersValue"
     :on-click="(indicator) => $emit('click', indicator)"
     :no-borders="noBorders"
     :small="small"
@@ -14,7 +15,7 @@ import Indicators from '@/components/Indicators';
 import { fetchSingleIndicator } from '@/api/orders';
 import moment from 'moment';
 
-import { mapState, mapGetters, mapMutations } from 'vuex';
+import { mapGetters } from 'vuex';
 import { fromHoursToDDHH } from '@/api/utils';
 
 const dateFormat = 'DD/MM/YYYY';
@@ -28,17 +29,19 @@ export default {
     small: Boolean,
   },
   computed: {
-    ...mapState('getsim', ['defaultAppliedFilters', 'indicatorsVersion']),
     ...mapGetters('userContext', ['contextFilters']),
     ...mapGetters(['userIsPartner']),
-  },
-  watch: {
-    contextFilters() {
-      this.refreshIndicators();
+    ...mapGetters('getsim', ['appliedFilters']),
+    appliedFiltersValue() {
+      let partners = [];
+      let partnersFilter = this.appliedFilters.find((e) => e.id === 'filters.partners');
+      if (partnersFilter) {
+        partners = partnersFilter.values.map((p) => p.id);
+      }
+      return partners;
     },
   },
   methods: {
-    ...mapMutations('getsim', ['refreshIndicators']),
     fetchIndicators() {
       let indicators = [
         {

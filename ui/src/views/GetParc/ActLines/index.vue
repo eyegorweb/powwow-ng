@@ -36,6 +36,7 @@
         <Indicators
           v-if="indicators"
           :meta="indicators"
+          :applied-filters-value="appliedFiltersValue"
           :on-click="onClick"
           :disable-click="!!creationMode"
           precalculated
@@ -235,7 +236,6 @@ export default {
     ...mapState('userContext', ['contextPartnersType', 'contextPartners']),
     ...mapState('actLines', [
       'currentFilters',
-      'defaultAppliedFilters',
       'actCreationPrerequisites',
       'selectedFileForActCreation',
       'selectedLinesForActCreation',
@@ -253,10 +253,17 @@ export default {
       'userIsMultiCustomer',
       'userHaveEsimEnabled',
     ]),
-
     ...mapState({
       actToCreate: (state) => state.actLines.actToCreate,
     }),
+    appliedFiltersValue() {
+      let partners = [];
+      let partnersFilter = this.appliedFilters.find((e) => e.id === 'filters.partners');
+      if (partnersFilter) {
+        partners = partnersFilter.values.map((p) => p.id);
+      }
+      return partners;
+    },
 
     withCustomFormBehavior() {
       if (this.actCreationPrerequisites && this.actToCreate) {
@@ -375,13 +382,6 @@ export default {
         }
       }
       return true;
-    },
-    partnersForIndicators() {
-      if (this.defaultAppliedFilters && this.defaultAppliedFilters.length) {
-        return this.defaultAppliedFilters.find((f) => f.id === 'filters.partners');
-      }
-
-      return null;
     },
   },
   beforeRouteEnter(to, from, next) {
@@ -727,8 +727,9 @@ export default {
           filter.to
         );
       });
+      const havePartners = this.contextPartners.map((p) => p.id);
 
-      if (!haveValues && !this.searchingById) {
+      if (!haveValues && !this.searchingById && !havePartners) {
         this.resetAfterFilterClear();
       }
     },
@@ -738,10 +739,6 @@ export default {
     },
     contextPartners() {
       this.initFilterForContext();
-    },
-    defaultAppliedFilters() {
-      // refresh indicators
-      this.indicators = [...this.indicators];
     },
     actToCreate(newValue, oldValue) {
       if (!newValue && oldValue) {

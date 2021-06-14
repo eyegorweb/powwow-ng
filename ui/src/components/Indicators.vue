@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ul class="list-group bg-white" :class="listClasses">
+    <ul v-if="showIndicators" class="list-group bg-white" :class="listClasses">
       <IndicatorItem
         v-for="indicator in visibleIndicators"
         :key="indicator.labelKey"
@@ -23,6 +23,7 @@ import IndicatorItem from './IndicatorItem';
 import { mapGetters, mapState } from 'vuex';
 import { fetchPrecalculatedIndicators } from '@/api/indicators.js';
 import { isBefore } from '@/utils/date.js';
+import { delay } from '@/api/utils.js';
 
 export default {
   components: {
@@ -42,6 +43,7 @@ export default {
     noBorders: Boolean,
     small: Boolean,
     precalculated: Boolean,
+    appliedFiltersValue: Array,
   },
 
   data() {
@@ -49,12 +51,14 @@ export default {
       indicators: [],
       isIndicatorsLoading: false,
       lastUpdateDate: undefined,
+      showIndicators: true,
     };
   },
 
   async mounted() {
     if (this.precalculated) {
-      this.loadPrecalculated();
+      const partners = this.contextPartners.map((p) => p.id) || [];
+      this.loadPrecalculated(partners);
     } else {
       this.indicators = this.meta;
     }
@@ -93,7 +97,7 @@ export default {
     removeIndicator(indicatorToRemove) {
       this.indicators = this.indicators.filter((i) => i !== indicatorToRemove);
     },
-    async loadPrecalculated() {
+    async loadPrecalculated(partners) {
       const keys = this.meta
         .filter((i) => i.fetchKey !== '')
         .filter((i) => i.fetchKey)
@@ -107,13 +111,16 @@ export default {
         );
       }
 
-      let partners;
-      if (this.contextPartners) {
-        partners = this.contextPartners.map((p) => p.id);
-      }
-
       const responseIndicators =
         (await fetchPrecalculatedIndicators(keys, partners, this.contextPartnersType)) || [];
+      this.showIndicators = false;
+      // reset meta indicators
+      this.indicators = this.meta.map((i) => {
+        if (i.precalculatedValue) {
+          i.precalculatedValue = undefined;
+        }
+      });
+      // fill meta indicators
       this.indicators = this.meta.map((i) => {
         const response = responseIndicators.find((r) => r.name === i.fetchKey);
         if (response) {
@@ -121,6 +128,9 @@ export default {
         }
         return i;
       });
+
+      await delay(1);
+      this.showIndicators = true;
 
       const ordered = this.indicators
         .filter((i) => !!i.precalculatedValue)
@@ -135,10 +145,17 @@ export default {
   },
   watch: {
     contextPartners() {
-      this.loadPrecalculated();
+      let partners;
+      partners = this.contextPartners.map((p) => p.id);
+      this.loadPrecalculated(partners);
     },
     contextPartnersType() {
-      this.loadPrecalculated();
+      let partners;
+      partners = this.contextPartners.map((p) => p.id);
+      this.loadPrecalculated(partners);
+    },
+    appliedFiltersValue(partners) {
+      this.loadPrecalculated(partners);
     },
   },
 };
