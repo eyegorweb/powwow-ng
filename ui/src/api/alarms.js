@@ -262,11 +262,9 @@ export async function searchAlarms(orderBy, pagination, filters = []) {
 }
 
 export async function fetchTriggerHistory(alarmId, simCardInstanceId) {
-  let simIdsGQLparam = '';
-
   const queryStr = `
   query {
-    alarmEvents(alarmEventsFilterInput: {alarmId: {eq: ${alarmId}}${simIdsGQLparam}}, simCardInstanceId: {in: [${simCardInstanceId}]}, pagination: {page: 0, limit: 20}) {
+    alarmEvents(alarmEventsFilterInput: {alarmId: {eq: ${alarmId}}, simCardInstanceId: {in: [${simCardInstanceId}]}}, pagination: {page: 0, limit: 20}) {
       items {
         id
         emissionDate,
