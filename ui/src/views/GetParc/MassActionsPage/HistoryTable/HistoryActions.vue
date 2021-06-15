@@ -19,7 +19,13 @@
               action !== 'getparc.history.actions.EXPORT_LINES'
             "
             type="button"
-            class="list-group-item list-group-item-action order-action hover-pointer"
+            class="
+              list-group-item list-group-item-action
+              order-action
+              hover-pointer
+              exp-small-text
+              pl-3
+            "
             @click="
               () => {
                 hide();
@@ -39,7 +45,7 @@
             btn-class-name="btn btn-link export-link align-left "
           >
             <em slot="icon" />
-            <span slot="title">{{ $t(action) }}</span>
+            <span class="exp-small-text" slot="title">{{ $t(action) }}</span>
           </ExportButton>
           <ExportButton
             v-else
