@@ -312,6 +312,9 @@ export default {
           params.partyId = this.selectedPartner.id;
         }
       }
+      if (this.userIsPartner) {
+        params.partyId = this.selectedPartner.id;
+      }
 
       if (this.userType === 'PARTNER_GROUP') {
         const groupPartnerId = this.$loGet(this.selectedGroupPartner, 'id');
