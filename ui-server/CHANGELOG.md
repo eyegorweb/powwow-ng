@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.379+20210615135425
+2021-06-15
+
+### Fixes
+
+- [1299] correction de l'export dans le volet d'une commande (f50333325924900b61b72eb416241fdc5e7b1219)
+- [2726] correction de la requête de déclenchement des alarmes (ab0c4ecb874b38f0429bf9d371dcdf9768e53731)
+
 ## 1.17.0-master.378+20210615130858
 2021-06-15
 
