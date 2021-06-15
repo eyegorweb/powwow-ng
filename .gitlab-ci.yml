@@ -1,4 +1,4 @@
-image: gradle:5.1.1
+image: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/gradle:5.1.1
 
 stages:
   - version
@@ -247,7 +247,7 @@ undeploy_uat:
   dependencies: []
 
 e2e_integration:
-  image: cypress/base:10
+  image: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/cypress/base:10
   stage: test
   only:
     - schedules
