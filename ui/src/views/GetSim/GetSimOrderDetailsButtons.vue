@@ -116,7 +116,21 @@ export default {
         forceAsyncExport,
         exportChoice
       ) => {
-        let columnsToUse = [];
+        let columnsToUse = [
+          'LINE_ICCID',
+          'PARTY_ID',
+          'LINE_MSISDN',
+          'LINE_IMSI',
+          'LINE_SIM_STATUS',
+          'LINE_COMMERCIAL_DATE',
+          'LINE_COMMERCIAL_STATUS',
+          'LINE_OFFER',
+          'LINE_AMSISDN',
+          'LINE_MANUFACTURER',
+          'LINE_DEVICE_REFERENCE',
+          'LINE_ACTIVATION_DATE',
+          'BILLING_ACCOUNT',
+        ];
         let orderToUse = { direction: 'DESC', key: 'id' };
         let filtersToUse = [{ id: 'filters.lines.orderID', value: this.order.id }];
         return await exportSimCardInstances(
