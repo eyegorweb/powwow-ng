@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.377+20210615113052
+2021-06-15
+
+### Fixes
+
+- [000] Taille de texte uniforme pour les actions (b32ff551f33e8864619dec55928bb2e734ce95c4)
+- [2741]  Ajouter l'id du partenaire durant la création d'un utilisateur (ed9e029bb5133abbaf71890641211bbc41620744)
+
 ## 1.17.0-master.376+20210614160109
 2021-06-14
 
