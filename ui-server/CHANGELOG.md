@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.378+20210615130858
+2021-06-15
+
+### Features
+
+- add proxy dependency in gitlab ci (b096c41b49b0dfd6aba07aa60bed8659f050685a)
+
 ## 1.17.0-master.377+20210615113052
 2021-06-15
 
