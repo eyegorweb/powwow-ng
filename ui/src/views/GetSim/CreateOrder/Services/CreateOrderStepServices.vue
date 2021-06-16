@@ -7,13 +7,14 @@
           <UiToggle
             :label="$t('col.preActivationAsked')"
             v-model="preActivation"
-            :editable="!activation"
+            :editable="canEditPreactivation"
             :no-click="activation || preActivationValue"
           />
           <UiToggle
             :label="$t('col.activationAsked')"
             v-model="activation"
             disabled
+            :editable="canEditActivation"
             :no-click="activation"
           />
         </div>
@@ -84,6 +85,15 @@ export default {
   },
 
   computed: {
+    canEditPreactivation() {
+      if (this.orderPreactivationMandatory) return false;
+
+      return !this.activation;
+    },
+    canEditActivation() {
+      if (this.orderActivationMandatory) return false;
+      return true;
+    },
     isrcard() {
       const rCardValues = ['RCARD', 'RCARD_INTER_MERE', 'RCARD_INTER_FILLE'];
       const currentCategory = get(this.synthesis, 'product.selection.product.simCard.category');
@@ -109,6 +119,10 @@ export default {
     const stateOrder = await fetchOrderState(this.partnerId);
     this.activation = stateOrder.orderActivationMandatory;
     this.preActivation = stateOrder.orderPreactivationMandatory;
+
+    this.orderActivationMandatory = stateOrder.orderActivationMandatory;
+    this.orderPreactivationMandatory = stateOrder.orderPreactivationMandatory;
+
     this.isLoadingOffers = true;
     const data = await fetchOffers('', [{ id: this.partnerId }], {
       page: 0,
@@ -214,6 +228,8 @@ export default {
   },
   data() {
     return {
+      orderActivationMandatory: false,
+      orderPreactivationMandatory: false,
       offerServices: undefined,
       chosenServices: undefined,
       selectedOffer: null,
