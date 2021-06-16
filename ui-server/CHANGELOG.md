@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.381+20210616131711
+2021-06-16
+
+### Fixes
+
+- [2746] Modification des services dans la commande non compatible avec SIL (76cdf59f27b9622edaa27ca34755c71edfe91487)
+
 ## 1.17.0-master.380+20210616081607
 2021-06-16
 
