@@ -61,7 +61,7 @@
         <div :key="service.id" v-for="service in servicesToShow" class="single-service">
           <UiToggle
             :label="service.labelService"
-            :editable="!noClick && service.editable"
+            :editable="isServiceEditable(service)"
             :bold-label="isChanged(service)"
             :no-click="noClick"
             v-model="service.checked"
@@ -83,6 +83,7 @@
           @apnChange="onApnChange"
           :disabled="noClick"
           :no-click="noClick"
+          :read-only="readOnly"
         />
       </div>
     </div>
@@ -111,6 +112,7 @@ export default {
     fullWidth: Boolean,
     noClick: Boolean,
     disabled: Boolean,
+    readOnly: Boolean,
   },
   computed: {
     ...mapGetters(['userIsMVNO']),
@@ -137,6 +139,12 @@ export default {
   methods: {
     ...mapMutations(['popupMessage']),
 
+    isServiceEditable(service) {
+      if (this.readOnly) return false;
+
+      return !this.noClick && service.editable;
+    },
+
     setup() {
       const dataService = this.services.find((s) => s.code === 'DATA');
       if (dataService) {
@@ -150,6 +158,8 @@ export default {
       return initialService.checked !== service.checked;
     },
     canChangeValue(service) {
+      if (this.readOnly) return false;
+
       let canChange = true;
 
       if (service.preServiceCode) {

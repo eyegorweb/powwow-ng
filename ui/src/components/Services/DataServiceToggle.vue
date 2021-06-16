@@ -3,7 +3,7 @@
     <div class="line">
       <UiToggle
         :label="$t('services.DATA')"
-        :editable="!noClick && editable"
+        :editable="isEditable"
         v-model="checked"
         :no-click="noClick"
       />
@@ -14,7 +14,7 @@
         :items="apns"
         @change="toggleApn"
         :empty-error-message="needToChekForApn"
-        :disabled="noClick || !checked"
+        :disabled="isApnDisabled"
       />
     </div>
   </div>
@@ -23,7 +23,7 @@
       <div class="col">
         <UiToggle
           :label="$t('services.DATA')"
-          :editable="!noClick && editable"
+          :editable="isEditable"
           v-model="checked"
           :no-click="noClick"
         />
@@ -35,7 +35,7 @@
             :empty-error-message="needToChekForApn"
             :items="apns"
             @change="toggleApn"
-            :disabled="noClick || !checked"
+            :disabled="isApnDisabled"
           />
         </div>
       </div>
@@ -58,6 +58,7 @@ export default {
     vertical: Boolean,
     dataParamsNeeded: Boolean,
     noClick: Boolean,
+    readOnly: Boolean,
   },
 
   data() {
@@ -70,6 +71,15 @@ export default {
   computed: {
     needToChekForApn() {
       return this.dataParamsNeeded && this.checked;
+    },
+    isEditable() {
+      if (this.readOnly) return false;
+      return !this.noClick && this.editable;
+    },
+    isApnDisabled() {
+      if (this.readOnly) return true;
+
+      return this.noClick || !this.checked;
     },
   },
   mounted() {
