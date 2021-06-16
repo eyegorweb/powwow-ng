@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.380+20210616081607
+2021-06-16
+
+### Fixes
+
+- [000] ne pas modifier la combobox d'activation si l'option partenaire est présente (09f633599b5b8b9200395d3c70f4dad306551e2f)
+
 ## 1.17.0-master.379+20210615135425
 2021-06-15
 
