@@ -10,12 +10,15 @@ import { mapMutations, mapGetters } from 'vuex';
 export default {
   props: {
     order: Object,
+    columns: Array,
+    orderBy: Object,
+    exportFn: Function,
   },
   components: {
     ActionButtons,
   },
   methods: {
-    ...mapMutations(['openPanel']),
+    ...mapMutations(['openPanel', 'openExportChoice']),
     ...mapMutations('getsim', ['refreshIndicators']),
     async onActionClicked(action) {
       switch (action) {
@@ -63,7 +66,11 @@ export default {
           break;
         }
         case 'getsim.actions.EXPORT': {
-          // TODO
+          this.openExportChoice({
+            columns: this.columns,
+            orderBy: this.orderBy,
+            exportFn: this.exportFn,
+          });
           break;
         }
         case 'getsim.actions.SHOW_SIM': {
