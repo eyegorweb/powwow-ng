@@ -2,6 +2,17 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.382+20210617121742
+2021-06-17
+
+### Features
+
+- [000] Tests sur les indicateurs - Pages : Gestion des commandes, Gestion des lignes, Suivi/pilotage des actes de gestion (3c840950db90df1246fb107fd816a918962a5472)
+
+### Fixes
+
+- [000] Ajouter des tests unitaires pour le formulaire de création d'utilisateurs (5ed8fff70a09a6777194d7bad9ad108dd9112720)
+
 ## 1.17.0-master.381+20210616131711
 2021-06-16
 
