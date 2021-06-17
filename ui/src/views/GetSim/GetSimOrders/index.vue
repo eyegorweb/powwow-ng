@@ -39,7 +39,12 @@
             <SearchOrderById @searchById="searchById" :init-value="searchByIdValue" />
           </template>
           <template slot="actions" slot-scope="{ row }">
-            <GetSimOrdersActions :order="row" />
+            <GetSimOrdersActions
+              :order="row"
+              :export-fn="getExportLinesFn(row.id)"
+              :columns="columns"
+              :order-by="orderBy"
+            />
           </template>
         </DataTable>
       </template>
@@ -61,6 +66,7 @@ import DataTable from '@/components/DataTable/DataTable';
 import GetSimOrdersActions from './GetSimOrdersActions';
 import { mapGetters, mapActions, mapMutations } from 'vuex';
 import { ordersExport } from '@/api/orders';
+import { exportSimCardInstances } from '@/api/linesActions';
 import SearchOrderById from './SearchOrderById';
 import LoaderContainer from '@/components/LoaderContainer';
 import ExportButton from '@/components/ExportButton';
@@ -116,6 +122,47 @@ export default {
         );
       };
     },
+    getExportLinesFn(orderID) {
+      return async (
+        columns,
+        orderBy,
+        exportFormat,
+        asyncExportRequest,
+        exportAll,
+        forceAsyncExport,
+        exportChoice
+      ) => {
+        let columnsToUse = [
+          'LINE_ICCID',
+          'PARTY_ID',
+          'LINE_MSISDN',
+          'LINE_IMSI',
+          'LINE_SIM_STATUS',
+          'LINE_COMMERCIAL_DATE',
+          'LINE_COMMERCIAL_STATUS',
+          'LINE_OFFER',
+          'LINE_AMSISDN',
+          'LINE_MANUFACTURER',
+          'LINE_DEVICE_REFERENCE',
+          'LINE_ACTIVATION_DATE',
+          'BILLING_ACCOUNT',
+        ];
+        if (this.havePermission('getVision', 'read')) {
+          columnsToUse.push('LAST_COUNTRY');
+        }
+        let orderToUse = { direction: 'DESC', key: 'id' };
+        let filtersToUse = [{ id: 'filters.lines.orderID', value: orderID }];
+        return await exportSimCardInstances(
+          columnsToUse,
+          orderToUse,
+          exportFormat,
+          filtersToUse,
+          asyncExportRequest,
+          exportAll,
+          'CLASSIC'
+        );
+      };
+    },
     resetFilters() {
       this.searchByIdValue = undefined;
       this.forceAppliedFilters([]);
@@ -141,7 +188,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['userIsPartner', 'userInfos', 'userName']),
+    ...mapGetters(['userIsPartner', 'userInfos', 'userName', 'havePermission']),
     ...mapGetters('getsim', ['appliedFilters', 'ordersResponse', 'orderPage', 'isLoading']),
     formattedTotal() {
       return formatLargeNumber(this.total);

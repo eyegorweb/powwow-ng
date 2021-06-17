@@ -54,9 +54,8 @@
 <script>
 import UiButton from '@/components/ui/Button';
 import { updateOrderStatus } from '@/api/orders';
-import { mapMutations } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 import { setTimeout } from 'timers';
-import { mapGetters } from 'vuex';
 import { exportSimCardInstances } from '@/api/linesActions';
 import ExportButton from '@/components/ExportButton';
 
@@ -78,28 +77,6 @@ export default {
   },
   computed: {
     ...mapGetters(['userIsBO', 'havePermission']),
-
-    exportChoices() {
-      const exportChoices = [
-        {
-          id: 'CLASSIC',
-          label: 'exportTable.classic',
-        },
-        {
-          id: 'FULL',
-          label: 'exportTable.complete',
-        },
-      ];
-
-      if (this.havePermission('getParc', 'export_last_usage')) {
-        exportChoices.push({
-          id: 'LAST_USAGE',
-          label: 'exportTable.lastUsage',
-        });
-      }
-
-      return exportChoices;
-    },
   },
 
   methods: {
@@ -130,7 +107,16 @@ export default {
           'LINE_DEVICE_REFERENCE',
           'LINE_ACTIVATION_DATE',
           'BILLING_ACCOUNT',
+          'LINE_CUSTOM_FIELD1',
+          'LINE_CUSTOM_FIELD2',
+          'LINE_CUSTOM_FIELD3',
+          'LINE_CUSTOM_FIELD4',
+          'LINE_CUSTOM_FIELD5',
+          'LINE_CUSTOM_FIELD6',
         ];
+        if (this.havePermission('getVision', 'read')) {
+          columnsToUse.push('LAST_COUNTRY');
+        }
         let orderToUse = { direction: 'DESC', key: 'id' };
         let filtersToUse = [{ id: 'filters.lines.orderID', value: this.order.id }];
         return await exportSimCardInstances(
@@ -140,7 +126,7 @@ export default {
           filtersToUse,
           asyncExportRequest,
           exportAll,
-          exportChoice
+          'CLASSIC'
         );
       };
     },
