@@ -442,7 +442,8 @@ export default {
           this.total = data.total;
           this.currentAppliedFilters = filters;
         }
-      } catch {
+      } catch (e) {
+        console.log(e);
         this.isLoading = false;
         this.apiError = true;
       }

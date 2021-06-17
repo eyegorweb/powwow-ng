@@ -312,7 +312,8 @@ export default {
               getSupportWindow.location.replace(targetUrl);
             }
             waitingForGetSupportLink = false;
-          } catch {
+          } catch (e) {
+            console.log(e);
             waitingForGetSupportLink = false;
           }
         },

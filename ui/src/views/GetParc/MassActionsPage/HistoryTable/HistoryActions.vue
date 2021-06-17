@@ -218,7 +218,7 @@ export default {
     },
     getExportFn() {
       return async (columnsParam, orderBy, exportFormat, asyncExportRequest) => {
-        return await exportMassAction(
+        return exportMassAction(
           this.item.id,
           ['WAITING', 'SENT', 'IN_PROGRESS', 'OK', 'KO', 'REPLAYED', 'CANCELLED'],
           'NONE',

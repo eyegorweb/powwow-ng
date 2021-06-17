@@ -45,7 +45,8 @@ export async function query(q, variables, careful = false) {
       try {
         const response = await api.post(process.env.VUE_APP_GQL_SERVER_URL, payload);
         return response.data;
-      } catch {
+      } catch (e) {
+        console.log(e);
         return {
           errors: [{ code: 'API_ERROR', message: 'API Error' }],
         };

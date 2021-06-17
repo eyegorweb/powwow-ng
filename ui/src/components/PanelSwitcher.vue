@@ -91,8 +91,6 @@ import { mapState, mapMutations } from 'vuex';
 
 import UserFormPanel from '@/views/GetAdmin/PartnerDetail/UsersTab/UserFormPanel.vue';
 
-console.log('🚀 ~ file: PanelSwitcher.vue ~ line 93 ~ UserFormPanel', UserFormPanel);
-
 export default {
   components: {
     SlidePanel,

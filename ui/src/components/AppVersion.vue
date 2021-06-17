@@ -16,7 +16,7 @@ export default {
       if (response && response.data) {
         this.appVersion = response.data;
       }
-    } catch {
+    } catch (e) {
       this.appVersion = 'local';
     }
   },

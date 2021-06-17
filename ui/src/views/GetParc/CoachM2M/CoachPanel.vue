@@ -167,7 +167,8 @@ export default {
         if (downloadResponse && downloadResponse.downloadUri) {
           this.startDownload(getBaseURL() + downloadResponse.downloadUri);
         }
-      } catch {
+      } catch (e) {
+        console.log(e);
         this.flashMessage({ level: 'danger', message: this.$t('genericErrorMessage') });
       }
     },

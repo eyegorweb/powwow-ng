@@ -106,7 +106,8 @@ export const actions = {
       if (currenUser.partners && currenUser.partners.length) {
         currenUser.partnerOptions = await getPartyOptions(currenUser.partners[0].id);
       }
-    } catch {
+    } catch (e) {
+      console.log(e);
       console.warn('erreur party subscription');
     }
 

@@ -227,7 +227,7 @@ export default {
           exportId: 'UNIT_ACTION_TYPE',
         },
         {
-          id: 14,
+          id: 15,
           label: this.$t('getparc.actLines.massActionsHistory.columns.error'),
           name: 'description',
           orderable: false,

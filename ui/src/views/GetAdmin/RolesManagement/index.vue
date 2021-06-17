@@ -113,7 +113,8 @@ export default {
           try {
             await updatePermissions(this.selectedRole.Id, permissions);
             this.flashMessage({ level: 'success', message: this.$t('genericSuccessMessage') });
-          } catch {
+          } catch (e) {
+            console.log(e);
             this.flashMessage({ level: 'danger', message: this.$t('genericErrorMessage') });
           }
         },

@@ -429,7 +429,8 @@ export default {
       setTimeout(() => {
         this.isLoading = false;
       }, 3000);
-    } catch {
+    } catch (e) {
+      console.log(e);
       this.isLoading = false;
     }
   },

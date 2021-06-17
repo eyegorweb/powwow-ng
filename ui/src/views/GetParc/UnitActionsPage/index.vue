@@ -118,7 +118,7 @@ export default {
     backRoute() {
       return this.$route.params.simpleBack
         ? this.$router.go(-1)
-        : this.$router.push({ name: 'actHistory', params: { queryFilters: this.filters } });
+        : this.$router.push({ name: 'actHistory.classic', params: { queryFilters: this.filters } });
     },
     async refreshTables() {
       this.isLoading = true;

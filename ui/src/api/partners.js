@@ -9,7 +9,7 @@ export async function isFeatureAvailable(optionType, lineId) {
   `;
   const response = await query(queryStr, { optionType, lineId });
 
-  if (response.errors) {
+  if (response && response.errors) {
     return { errors: response.errors };
   }
 
@@ -958,13 +958,13 @@ export async function fetchOrderState(id) {
   const queryStr = `
   query{
     getPartyOptions(partyId: ${id}){
-    
+
       orderPreactivationMandatory
       orderActivationMandatory
-    
+
     }
   }
-  
+
 
   `;
   const response = await query(queryStr);

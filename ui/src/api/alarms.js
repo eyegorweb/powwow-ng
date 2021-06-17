@@ -359,7 +359,8 @@ export async function createAlarmInstance2(alarmInput) {
       alarmInput: input,
     });
     return response.data.createAlarmInstance;
-  } catch {
+  } catch (e) {
+    console.log(e);
     return;
   }
 }
@@ -440,7 +441,8 @@ export async function deleteAlarmInstance2(alarmInput) {
       alarmInput: input,
     });
     return response.data.deleteAlarmInstance;
-  } catch {
+  } catch (e) {
+    console.log(e);
     return;
   }
 }
