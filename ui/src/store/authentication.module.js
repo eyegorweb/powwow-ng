@@ -29,7 +29,6 @@ export const getters = {
     return false;
   },
   havePermission: (state) => (domain, action) => {
-    if (domain === 'user' && action === 'create') return true;
     if (state.userInfos) {
       return !!state.userInfos.permissions.find((p) => p.domain === domain && p.action === action);
     }
