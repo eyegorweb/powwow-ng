@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.384+20210617133144
+2021-06-17
+
+### Fixes
+
+- [1299] correction de l'export de lignes à partir d'une commande (56d9a0c1af04fd4c86dcf1426d8e16b60f0891bb)
+
 ## 1.17.0-master.383+20210617130645
 2021-06-17
 
