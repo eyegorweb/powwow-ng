@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.383+20210617130645
+2021-06-17
+
+### Fixes
+
+- [000] Corriger le bouton retour dans le détail d'un acte (c97e97a565e130ca68acc0010cb56c2e07b501e8)
+
 ## 1.17.0-master.382+20210617121742
 2021-06-17
 
