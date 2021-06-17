@@ -4,7 +4,7 @@ import fakePromise from 'faked-promise';
 import { $t, $i18n } from '@/../tests-utils';
 
 const mocks = { $i18n, $t };
-const tick = () => new Promise(resolve => setTimeout(resolve, 0));
+const tick = () => new Promise((resolve) => setTimeout(resolve, 0));
 
 const apiMethod = jest.fn();
 

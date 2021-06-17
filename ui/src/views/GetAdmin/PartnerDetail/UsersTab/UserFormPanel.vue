@@ -44,7 +44,7 @@
           <label>{{ $t('getadmin.users.userTypes.partner') }}</label>
           <PartnerCombo :value.sync="selectedPartner" :disabled="!!content.duplicateFrom" />
         </div>
-        <div v-if="shouldSelectAPartnerGroup" class="form-entry">
+        <div v-if="shouldSelectAPartnerGroup" class="form-entry" ref="partner-group">
           <label>{{ $t('getadmin.users.filters.partnerGroup') }}</label>
           <UiApiAutocomplete
             :placeholder="$t('getadmin.users.filters.partnerGroup')"
@@ -68,7 +68,7 @@
       <div class="entries-line">
         <div class="form-entry">
           <FormControl label="common.email" v-model="form.email" />
-          <span v-if="form.email && !isEmailValid(form.email)" class="error-text">
+          <span v-if="haveMailError" class="error-text">
             {{ $t('errors.password.email-error') }}
           </span>
         </div>
@@ -255,7 +255,8 @@ export default {
     ...mapMutations(['flashMessage', 'closePanel', 'openPanel', 'confirmAction']),
 
     isEmailValid(email) {
-      var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      var re =
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       return re.test(email);
     },
 
@@ -379,6 +380,11 @@ export default {
       'userIsGroupPartner',
       'singlePartner',
     ]),
+
+    haveMailError() {
+      if (!this.form) return false;
+      return this.form.email && !this.isEmailValid(this.form.email);
+    },
 
     shouldSelectAPartnerGroup() {
       return this.userType === 'PARTNER_GROUP';
@@ -544,6 +550,7 @@ export default {
     }
 
     // Mode création depuis le menu partenaires
+
     if (this.content.fromPartnerMenu) {
       this.canShowForm = true;
       return;
@@ -552,7 +559,8 @@ export default {
     // Mode création depuis le menu utilisateurs
     if (this.content.fromUserMenu && this.userIsPartner) {
       this.canShowForm = true;
-      roles = await fetchAllowedRoles(null, this.userInfos.partners[0].id, null);
+
+      roles = await fetchAllowedRoles(null, this.singlePartner.id, null);
       this.roles = this.formattedRoles(roles);
       return;
     } else if (this.content.fromUserMenu && this.userInfos.type === 'PARTNER_GROUP') {
