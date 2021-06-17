@@ -28,6 +28,7 @@
 
 <script>
 export default {
+  name: 'UiToggle2',
   data() {
     return {
       chosenValue: undefined,

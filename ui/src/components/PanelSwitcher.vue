@@ -89,9 +89,14 @@
 import SlidePanel from '@/components/SlidePanel';
 import { mapState, mapMutations } from 'vuex';
 
+import UserFormPanel from '@/views/GetAdmin/PartnerDetail/UsersTab/UserFormPanel.vue';
+
+console.log('🚀 ~ file: PanelSwitcher.vue ~ line 93 ~ UserFormPanel', UserFormPanel);
+
 export default {
   components: {
     SlidePanel,
+    UserFormPanel,
     GetSimCreateOrderPanel: () => import('@/views/GetSim/CreateOrder/CreateOrderPanel'),
     GetSimOrderDetails: () => import('@/views/GetSim/GetSimOrderDetails'),
     GetSimReservationDetails: () => import('@/views/GetSim/GetSimReservationDetails'),
@@ -111,7 +116,6 @@ export default {
     ImportSimCardsToOrderPanel: () => import('@/views/GetSim/ImportSimCardsToOrderPanel.vue'),
     ActLinesImportSimCards: () => import('@/views/GetParc/ActLines/ActLinesImportSimCards.vue'),
     AdminFormPanel: () => import('@/views/GetAdmin/PartnerDetail/UsersTab/AdminFormPanel.vue'),
-    UserFormPanel: () => import('@/views/GetAdmin/PartnerDetail/UsersTab/UserFormPanel.vue'),
     ChangeUserPasswordPanel: () =>
       import('@/views/GetAdmin/PartnerDetail/UsersTab/ChangeUserPasswordPanel.vue'),
     PartnerOfferPanel: () =>

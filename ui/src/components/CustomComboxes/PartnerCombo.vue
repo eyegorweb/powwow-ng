@@ -17,6 +17,7 @@ import { mapState } from 'vuex';
 import { fetchpartners } from '@/api/partners';
 
 export default {
+  name: 'PartnerCombo',
   components: {
     UiApiAutocomplete,
   },
