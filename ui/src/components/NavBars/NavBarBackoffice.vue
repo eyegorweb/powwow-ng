@@ -25,7 +25,7 @@
           <UiButton
             slot="trigger"
             variant="primary"
-            class="flex-grow-1 py-1 px-3"
+            class="contextBarApply flex-grow-1 py-1 px-3"
             @click="savePartnerContext"
             >{{ $t('set') }}</UiButton
           >

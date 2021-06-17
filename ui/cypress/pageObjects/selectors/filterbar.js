@@ -47,3 +47,13 @@ export function applySearch() {
     cy.get('.apply-filters-btn').click({ force: true });
   });
 }
+
+export function deleteFilter(index) {
+  cy.waitGet('body').then(($body) => {
+    cy.get(
+      'div.card.filter-bar > div.card-body > div:nth-child(2) > div.mb-3 > div:nth-child(' +
+        index +
+        ') > button'
+    ).click();
+  });
+}
