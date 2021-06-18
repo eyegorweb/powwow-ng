@@ -17,7 +17,7 @@ const defaultValue = {
   },
 };
 
-describe.skip('api/filters', () => {
+describe('api/filters', () => {
   beforeEach(() => {
     query.mockReset();
   });
@@ -25,33 +25,12 @@ describe.skip('api/filters', () => {
   it('sorts by locale', async () => {
     query.mockResolvedValue(defaultValue);
     await fetchDeliveryCountries('fr');
-    expect(query).toHaveBeenCalledWith(expect.stringContaining('nameFr: ASC'));
-    await fetchDeliveryCountries('en');
-    expect(query).toHaveBeenLastCalledWith(expect.stringContaining('nameEn: ASC'));
-  });
 
-  it('only requires the necessary code', async () => {
-    query.mockResolvedValue(defaultValue);
-    await fetchDeliveryCountries('fr');
-    expect(query).toHaveBeenCalledWith(
-      expect.stringContaining(`
-      countries {
-        id
-        code
-        nameFr
-      }
-    `)
-    );
+    expect(query.mock.calls[0][1].sorting.nameFr).toEqual('ASC');
+
     await fetchDeliveryCountries('en');
-    expect(query).toHaveBeenLastCalledWith(
-      expect.stringContaining(`
-      countries {
-        id
-        code
-        nameEn
-      }
-    `)
-    );
+
+    expect(query.mock.calls[1][1].sorting.nameEn).toEqual('ASC');
   });
 
   it('formats countries', async () => {

@@ -1,11 +1,23 @@
 import { mount } from '@vue/test-utils';
 import { $t, $i18n } from '@/../tests-utils';
 import GetSimOrdersActions from './GetSimOrdersActions';
+import { Store } from 'vuex-mock-store';
 
-const mocks = { $i18n, $t };
-
-describe.skip('GetSimOrdersActions.vue', () => {
+describe('GetSimOrdersActions.vue', () => {
   /** @type {import('@vue/test-utils').Wrapper} */
+  const store = new Store({
+    getters: {
+      userIsBO: false,
+      havePermission: () => {
+        return true;
+      },
+    },
+    mutations: {
+      openExportChoice: jest.fn(),
+      openPanel: jest.fn(),
+      refreshIndicators: jest.fn(),
+    },
+  });
 
   it('shows actions for status = NOT_VALIDATED', () => {
     const order = {
@@ -13,16 +25,19 @@ describe.skip('GetSimOrdersActions.vue', () => {
     };
     const wrapper = mount(GetSimOrdersActions, {
       propsData: { order },
-      mocks,
+      mocks: { $i18n, $t, $store: store },
     });
     wrapper.find('button').trigger('click');
 
-    const visibleActions = wrapper.findAll('.order-action');
-    expect(visibleActions).toHaveLength(4);
-    expect(visibleActions.at(0).text()).toEqual('getsim.actions.DETAIL');
-    expect(visibleActions.at(1).text()).toEqual('getsim.actions.DUPLICATE');
-    expect(visibleActions.at(2).text()).toEqual('getsim.actions.CANCEL');
-    expect(visibleActions.at(3).text()).toEqual('getsim.actions.VALIDATE');
+    expect(wrapper.vm.actions).toHaveLength(4);
+    expect(wrapper.vm.actions).toEqual(
+      expect.arrayContaining([
+        'getsim.actions.DETAIL',
+        'getsim.actions.CANCEL',
+        'getsim.actions.VALIDATE',
+        'getsim.actions.DUPLICATE',
+      ])
+    );
   });
 
   it('shows actions for status = VALIDATED', () => {
@@ -32,17 +47,15 @@ describe.skip('GetSimOrdersActions.vue', () => {
 
     const wrapper = mount(GetSimOrdersActions, {
       propsData: { order },
-      mocks,
+      mocks: { $i18n, $t, $store: store },
     });
 
     wrapper.find('button').trigger('click');
 
-    const visibleActions = wrapper.findAll('.order-action');
-
-    expect(visibleActions).toHaveLength(3);
-    expect(visibleActions.at(0).text()).toEqual('getsim.actions.DETAIL');
-    expect(visibleActions.at(1).text()).toEqual('getsim.actions.DUPLICATE');
-    expect(visibleActions.at(2).text()).toEqual('getsim.actions.CANCEL');
+    expect(wrapper.vm.actions).toHaveLength(2);
+    expect(wrapper.vm.actions).toEqual(
+      expect.arrayContaining(['getsim.actions.DETAIL', 'getsim.actions.DUPLICATE'])
+    );
   });
 
   it('shows actions for status = CONFIRMATION_IN_PROGRESS', () => {
@@ -52,16 +65,17 @@ describe.skip('GetSimOrdersActions.vue', () => {
 
     const wrapper = mount(GetSimOrdersActions, {
       propsData: { order },
-      mocks,
+      mocks: { $i18n, $t, $store: store },
     });
 
     wrapper.find('button').trigger('click');
 
-    const visibleActions = wrapper.findAll('.order-action');
+    expect(wrapper.vm.actions).toHaveLength(2);
 
-    expect(visibleActions).toHaveLength(2);
-    expect(visibleActions.at(0).text()).toEqual('getsim.actions.DETAIL');
-    expect(visibleActions.at(1).text()).toEqual('getsim.actions.DUPLICATE');
+    expect(wrapper.vm.actions).toHaveLength(2);
+    expect(wrapper.vm.actions).toEqual(
+      expect.arrayContaining(['getsim.actions.DETAIL', 'getsim.actions.DUPLICATE'])
+    );
   });
 
   it('shows actions for status = CONFIRMED', () => {
@@ -71,17 +85,19 @@ describe.skip('GetSimOrdersActions.vue', () => {
 
     const wrapper = mount(GetSimOrdersActions, {
       propsData: { order },
-      mocks,
+      mocks: { $i18n, $t, $store: store },
     });
 
     wrapper.find('button').trigger('click');
 
-    const visibleActions = wrapper.findAll('.order-action');
-
-    expect(visibleActions).toHaveLength(3);
-    expect(visibleActions.at(0).text()).toEqual('getsim.actions.DETAIL');
-    expect(visibleActions.at(1).text()).toEqual('getsim.actions.SHOW_SIM');
-    expect(visibleActions.at(2).text()).toEqual('getsim.actions.DUPLICATE');
+    expect(wrapper.vm.actions).toHaveLength(3);
+    expect(wrapper.vm.actions).toEqual(
+      expect.arrayContaining([
+        'getsim.actions.DETAIL',
+        'getsim.actions.DUPLICATE',
+        'getsim.actions.SHOW_SIM',
+      ])
+    );
   });
 
   it('shows actions for status = CANCELED', () => {
@@ -91,16 +107,15 @@ describe.skip('GetSimOrdersActions.vue', () => {
 
     const wrapper = mount(GetSimOrdersActions, {
       propsData: { order },
-      mocks,
+      mocks: { $i18n, $t, $store: store },
     });
 
     wrapper.find('button').trigger('click');
 
-    const visibleActions = wrapper.findAll('.order-action');
-
-    expect(visibleActions).toHaveLength(2);
-    expect(visibleActions.at(0).text()).toEqual('getsim.actions.DETAIL');
-    expect(visibleActions.at(1).text()).toEqual('getsim.actions.DUPLICATE');
+    expect(wrapper.vm.actions).toHaveLength(2);
+    expect(wrapper.vm.actions).toEqual(
+      expect.arrayContaining(['getsim.actions.DETAIL', 'getsim.actions.DUPLICATE'])
+    );
   });
 
   it('shows actions for status = TERMINATED', () => {
@@ -110,17 +125,19 @@ describe.skip('GetSimOrdersActions.vue', () => {
 
     const wrapper = mount(GetSimOrdersActions, {
       propsData: { order },
-      mocks,
+      mocks: { $i18n, $t, $store: store },
     });
 
     wrapper.find('button').trigger('click');
 
-    const visibleActions = wrapper.findAll('.order-action');
-
-    expect(visibleActions).toHaveLength(4);
-    expect(visibleActions.at(0).text()).toEqual('getsim.actions.DETAIL');
-    expect(visibleActions.at(1).text()).toEqual('getsim.actions.EXPORT');
-    expect(visibleActions.at(2).text()).toEqual('getsim.actions.SHOW_SIM');
-    expect(visibleActions.at(3).text()).toEqual('getsim.actions.DUPLICATE');
+    expect(wrapper.vm.actions).toHaveLength(4);
+    expect(wrapper.vm.actions).toEqual(
+      expect.arrayContaining([
+        'getsim.actions.DETAIL',
+        'getsim.actions.DUPLICATE',
+        'getsim.actions.EXPORT',
+        'getsim.actions.SHOW_SIM',
+      ])
+    );
   });
 });

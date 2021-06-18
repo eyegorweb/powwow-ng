@@ -1,4 +1,4 @@
-import { fetchCurrentUserInfos } from '@/api/user';
+import { fetchCurrentUserInfos } from '@/api/user.js';
 import { isFeatureAvailable, getPartyOptions } from '@/api/partners';
 import { api } from '@/api/utils';
 import cloneDeep from 'lodash.clonedeep';
