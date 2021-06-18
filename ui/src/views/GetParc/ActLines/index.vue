@@ -102,6 +102,7 @@
             v-if="canShowTable && canMounTable && !useFileImportAsInput"
             :creation-mode="canShowForm"
             :widget-init-search-by-id="$route.params.idFilters"
+            :query-filters-from-order="$route.params.queryFilters"
             @noResults="checkTableResult"
           >
             <template v-if="canShowForm" slot="title">
