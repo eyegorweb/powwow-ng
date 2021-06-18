@@ -23,6 +23,8 @@ export default {
 
   methods: {
     async fetchApi(q, partners, partnerType, { page, limit }) {
+      try {
+
       const data = await fetchOffers(q, partners, { page, limit, partnerType });
       if (data) {
         return data
@@ -39,6 +41,9 @@ export default {
             }
             return all;
           }, []);
+      }
+       } catch (e) {
+        console.log('>> ', e);
       }
     },
   },

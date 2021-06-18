@@ -1,11 +1,16 @@
 import * as filterModule from './getsim.module';
-import * as api from '@/api/customFields';
+import * as filterUtils from '@/store/filterUtils.js';
+
+import { fetchCustomFields } from '@/api/customFields';
+
+jest.mock('@/api/customFields', () => ({
+  fetchCustomFields: jest.fn(),
+}));
 
 describe('store/filters.module', () => {
   describe('getters', () => {
-    it.skip('should get values from the state', () => {
+    it('should get values from the state', () => {
       const state = {
-        allAvailableFilters: 'lulu',
         currentFilters: [
           {
             name: 'partners',
@@ -18,7 +23,6 @@ describe('store/filters.module', () => {
           },
         ],
       };
-      expect(filterModule.getters.allAvailableFilters(state)).toBe('lulu');
       expect(filterModule.getters.currentFilters(state)).toEqual([
         {
           name: 'partners',
@@ -35,8 +39,9 @@ describe('store/filters.module', () => {
   });
 
   describe('mutations', () => {
-    it.skip('sets applied filters', () => {
+    it('sets applied filters', () => {
       const state = {
+        ...filterUtils.initState(),
         currentFilters: [
           {
             id: 'filter1',
@@ -59,14 +64,16 @@ describe('store/filters.module', () => {
       ]);
     });
 
-    it.skip('should add a new entry to selected filters when a new value is set', () => {
+    it('should add a new entry to selected filters when a new value is set', () => {
       const state = {
+        ...filterUtils.initState(),
+
         currentFilters: [],
       };
 
       const payload = {
         id: 'partners',
-        newValue: [
+        values: [
           {
             code: 'c1',
             label: 'partner1',
@@ -308,7 +315,7 @@ describe('store/filters.module', () => {
       ]);
     });
 
-    it.skip('should refresh custom fields when one only one partner is selected', async () => {
+    it('should refresh custom fields when one only one partner is selected', async () => {
       const store = {
         commit: jest.fn(),
         getters: {
@@ -324,15 +331,16 @@ describe('store/filters.module', () => {
         },
       ];
 
-      const mockCustomFields = [
-        {
-          name: 'custom field 1',
-          type: 'text',
-        },
-      ];
+      const mockCustomFields = {
+        customFields: [
+          {
+            name: 'custom field 1',
+            type: 'text',
+          },
+        ],
+      };
 
-      api.fetchCustomFields = jest.fn();
-      api.fetchCustomFields.mockResolvedValue(mockCustomFields);
+      fetchCustomFields.mockResolvedValue(mockCustomFields);
 
       await filterModule.actions.setPartnersFilter(store, { partners });
 

@@ -3,19 +3,11 @@ import * as utils from './utils';
 import { searchOrders } from './orders';
 
 // Parameters when values do not matter
-const orderBy = {
-  key: 'id',
-  direction: 'DESC',
-};
-const pagination = {
-  page: 1,
-  limit: 10,
-};
 
 const startDate = '10/01/2019';
 const endDate = '20/01/2019';
 
-describe.skip('order api', () => {
+describe('order api', () => {
   let querySpy = jest.spyOn(utils, 'query');
   beforeEach(() => {
     const response = {
@@ -62,11 +54,20 @@ describe.skip('order api', () => {
   });
 
   it('adds an orderDate paramater', async () => {
+    const orderBy = {
+      key: 'id',
+      direction: 'DESC',
+    };
+    const pagination = {
+      page: 1,
+      limit: 10,
+    };
+
     await searchOrders(orderBy, pagination, [{ id: 'filters.orderDate', startDate, endDate }]);
     expect(utils.query).toHaveBeenCalledTimes(1);
     const calledQuery = utils.query.mock.calls[0][0];
     expect(calledQuery).toContain(
-      'orderDate: {between: {startDate: "10-01-2019 00:00:00", endDate: "21-01-2019 00:00:00"}}'
+      'orderDate: {between: {startDate: "10/01/2019 00:00:00", endDate: "21/01/2019 00:00:00"}}'
     );
   });
 
@@ -219,7 +220,13 @@ describe.skip('order api', () => {
       },
       {
         id: 'filters.offers',
-        values: [{ id: 'LYRA_PARC1_COMPTEUR_TEST', label: 'Parc 1 compteur' }],
+        values: [
+          {
+            id: 'LYRA_PARC1_COMPTEUR_TEST',
+            label: 'Parc 1 compteur',
+            productCode: 'LYRA_PARC1_COMPTEUR_TEST',
+          },
+        ],
       },
     ];
     searchOrders(orderBy, pagination, filters);

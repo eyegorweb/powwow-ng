@@ -93,12 +93,11 @@
 
 <script>
 import Modal from '@/components/Modal';
-import { mapState, mapMutations } from 'vuex';
+import { mapState, mapMutations, mapGetters } from 'vuex';
 import { getBaseURL } from '@/utils.js';
 import sortBy from 'lodash.sortby';
 import Checkbox from '@/components/ui/Checkbox.vue';
 import Toggle from '@/components/ui/UiToggle2';
-import { mapGetters } from 'vuex';
 import UiDropDownChoicesButton from '@/components/ui/UiDropDownChoicesButton';
 
 export default {

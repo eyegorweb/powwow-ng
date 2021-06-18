@@ -22,7 +22,7 @@ jest.mock('@/api/language.js', () => ({
   fetchAllLanguages: jest.fn(),
 }));
 
-describe.skip('UserFormPanel : Gestion des erreurs du formulaire', () => {
+describe('UserFormPanel : Gestion des erreurs du formulaire', () => {
   const store = new Store({
     getters: {
       userInfos: false,
@@ -47,13 +47,6 @@ describe.skip('UserFormPanel : Gestion des erreurs du formulaire', () => {
 
   afterEach(() => {
     store.reset();
-
-    /*
-    fetchAllLanguages.mockReset();
-    fetchpartnerById.mockReset();
-    fetchAllowedRoles.mockReset();
-    fetchPartnerGroups.mockReset();
-    //*/
   });
 
   fetchAllLanguages.mockResolvedValue([

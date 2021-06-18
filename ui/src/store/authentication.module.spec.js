@@ -1,5 +1,15 @@
 import * as authentification from './authentication.module';
-import * as userApi from '@/api/user';
+import { fetchCurrentUserInfos } from '@/api/user.js';
+import { isFeatureAvailable } from '@/api/partners';
+
+jest.mock('@/api/user.js', () => ({
+  fetchCurrentUserInfos: jest.fn(),
+}));
+
+jest.mock('@/api/partners', () => ({
+  isFeatureAvailable: jest.fn(),
+  getPartyOptions: jest.fn(),
+}));
 
 describe('Authentication module', () => {
   describe('Mutations', () => {
@@ -58,6 +68,16 @@ describe('Authentication module', () => {
         userInfos: {
           firstName: 'Solid',
           lastName: 'Snake',
+          permissions: [
+            {
+              domain: 'getVision',
+              action: 'filter_domain',
+            },
+            {
+              domain: 'getSim',
+              action: 'read',
+            },
+          ],
         },
       };
 
@@ -67,10 +87,12 @@ describe('Authentication module', () => {
       expect(authentification.getters.userName(state)).toBe('Hulk');
       state.token = undefined;
       expect(authentification.getters.userName(state)).toBe('');
-      expect(authentification.getters.userInfos(state)).toEqual({
-        firstName: 'Solid',
-        lastName: 'Snake',
-      });
+      expect(authentification.getters.userInfos(state)).toEqual(state.userInfos);
+      expect(authentification.getters.havePermission(state)('getSim', 'read')).toBe(true);
+      expect(authentification.getters.havePermission(state)('user', 'create')).toBe(false);
+      expect(authentification.getters.havePermission(state)('getVision', 'filter_domain')).toBe(
+        true
+      );
     });
   });
 
@@ -79,13 +101,17 @@ describe('Authentication module', () => {
       const fakeUserInfos = {
         name: 'TUTU',
       };
-      userApi.fetchCurrentUserInfos = jest.fn().mockResolvedValue(fakeUserInfos);
 
+      fetchCurrentUserInfos.mockResolvedValue(fakeUserInfos);
+      isFeatureAvailable.mockResolvedValue(true);
       const context = {
         commit: jest.fn(),
       };
       await authentification.actions.fetchUserInfos(context);
-      expect(context.commit).toHaveBeenCalledWith('setCurrentUser', { name: 'TUTU' });
+      expect(context.commit).toHaveBeenCalledWith('setCurrentUser', {
+        isFleetEnabled: true,
+        name: 'TUTU',
+      });
     });
   });
 });
