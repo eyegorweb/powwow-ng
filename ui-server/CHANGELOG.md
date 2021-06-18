@@ -2,6 +2,15 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.387+20210618144950
+2021-06-18
+
+### Fixes
+
+- [2710] correction de la pagination sur les formulaires de recherche des comptes de facturation dans les actes de création (4b4a52df2c4b0cda6794c19263770d87321d47c4)
+- [2707] correction de la consultation des lignes d'une commande (f430d0856833add83c225cb9f70a747604522c56)
+- [000] Ajout de tests unitaires (f762386040c3ee0e670541e86d9ea222b288c8fb)
+
 ## 1.17.0-master.386+20210618070827
 2021-06-18
 
