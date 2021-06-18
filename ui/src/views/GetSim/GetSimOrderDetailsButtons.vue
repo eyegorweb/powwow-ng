@@ -107,6 +107,7 @@ export default {
           'LINE_DEVICE_REFERENCE',
           'LINE_ACTIVATION_DATE',
           'BILLING_ACCOUNT',
+          'LAST_COUNTRY',
           'LINE_CUSTOM_FIELD1',
           'LINE_CUSTOM_FIELD2',
           'LINE_CUSTOM_FIELD3',
