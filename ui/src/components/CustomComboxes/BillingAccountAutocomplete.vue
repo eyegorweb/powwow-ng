@@ -72,7 +72,7 @@ export default {
         this.isRefreshing = true;
         const data = await fetchBillingAccounts('', this.partners, {
           page: 0,
-          limit: 999,
+          limit: 10,
           partnerType: this.contextPartnersType,
         });
 

@@ -47,7 +47,7 @@ export default {
     async refreshList(q, page = 0) {
       const data = await fetchBillingAccounts('', this.partners, {
         page,
-        limit: 99,
+        limit: 10,
         partnerType: this.contextPartnersType,
       });
       this.options = [
