@@ -146,6 +146,13 @@ export default {
           'LINE_DEVICE_REFERENCE',
           'LINE_ACTIVATION_DATE',
           'BILLING_ACCOUNT',
+          'LAST_COUNTRY',
+          'LINE_CUSTOM_FIELD1',
+          'LINE_CUSTOM_FIELD2',
+          'LINE_CUSTOM_FIELD3',
+          'LINE_CUSTOM_FIELD4',
+          'LINE_CUSTOM_FIELD5',
+          'LINE_CUSTOM_FIELD6',
         ];
         if (this.havePermission('getVision', 'read')) {
           columnsToUse.push('LAST_COUNTRY');
