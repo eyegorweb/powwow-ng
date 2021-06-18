@@ -87,7 +87,7 @@ export default {
     gotoDetail() {
       this.$router.push({
         name: 'lineDetail.details.info',
-        params: { lineId: '' + this.lineId, meta: this.content },
+        params: { lineId: `${this.lineId}`, meta: this.content },
       });
     },
   },

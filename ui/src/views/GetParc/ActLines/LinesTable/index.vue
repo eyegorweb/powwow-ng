@@ -129,6 +129,7 @@ export default {
   props: {
     creationMode: Boolean,
     widgetInitSearchById: undefined,
+    queryFiltersFromOrder: undefined,
   },
 
   computed: {
@@ -270,6 +271,9 @@ export default {
       this.canSearchLines = true;
       if (this.widgetInitSearchById) {
         this.searchById(this.widgetInitSearchById);
+      }
+      if (this.queryFiltersFromOrder) {
+        this.searchById(this.queryFiltersFromOrder);
       }
     },
 

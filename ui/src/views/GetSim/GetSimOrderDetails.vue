@@ -307,7 +307,7 @@ export default {
       if (this.order.isNew) this.order.isNew = false;
     },
     gotoCorrespondingLines() {
-      const queryFilters = [{ id: 'filters.lines.orderID', value: this.order.id }];
+      const queryFilters = [{ id: 'filters.lines.orderID', value: `${this.order.id}` }];
       this.$router.push({
         name: 'actLines',
         params: {
