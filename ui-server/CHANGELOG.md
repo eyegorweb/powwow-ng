@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.389+20210622131108
+2021-06-22
+
+### Fixes
+
+- [2743] Lancer l'export uniquement quand le format et le type sont sélectionnés. (2c98ed52309c8296cde3104e1b9253ce2b9b08e5)
+
 ## 1.17.0-master.388+20210622092821
 2021-06-22
 
