@@ -8,7 +8,7 @@ import { $t } from '@/../tests-utils';
 const store = new Store({
   state: { getsim: {} },
   getters: {
-    selectedAction: [
+    'getsim/selectedAction': [
       {
         id: 'action.active',
         label: 'Activé',
@@ -22,7 +22,7 @@ const mocks = { $t, $store: store };
 
 afterEach(() => store.reset());
 
-describe.skip('GetSimAction', () => {
+describe('GetSimAction', () => {
   /** @type {import('@vue/test-utils').Wrapper} */
   let wrapper;
   wrapper = mount(GetSimAction, {
@@ -33,15 +33,15 @@ describe.skip('GetSimAction', () => {
     expect(wrapper.findAll('input')).toHaveLength(2);
   });
 
-  it('mutates the store', () => {
-    wrapper
+  it('mutates the store', async () => {
+    await wrapper
       .findAll('input')
       .at(0)
       .trigger('click');
     expect(store.commit).toHaveBeenCalledTimes(1);
-    expect(store.commit).toHaveBeenCalledWith('setActionFilter', [
+    expect(store.commit).toHaveBeenCalledWith('getsim/setActionFilter', [
       { id: 'action.active', label: 'Activé', value: false },
-      { id: 'action.active', label: 'filters.actionValues.ACTIVATED', value: true },
+      { id: 'action.PreActive', label: 'filters.actionValues.PREACTIVATED', value: true },
     ]);
   });
 });

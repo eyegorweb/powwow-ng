@@ -8,8 +8,8 @@ jest.mock('daterangepicker/daterangepicker.js', () => {});
 jest.mock('daterangepicker/daterangepicker.css', () => {});
 
 describe('FoldableBlock', () => {
-  it.skip('display custom field depending on type', async () => {
-    const fields = [
+  it('display custom field depending on type', async () => {
+    const customFields = [
       { id: '101customField1', code: 'customField1', type: 'TEXT', value: [], label: 'Field 1' },
       { id: '101customField2', code: 'customField2', type: 'TEXT', value: [], label: 'Field 2' },
       { id: '101customField3', code: 'customField3', type: 'TEXT', value: [], label: 'Field 3' },
@@ -24,15 +24,15 @@ describe('FoldableBlock', () => {
     ];
     const wrapper = shallowMount(CustomFields, {
       propsData: {
-        fields,
+        customFields,
         getSelectedValue: () => {},
       },
       mocks,
     });
-    expect(wrapper.html()).toContain('<uiinput-stub inputtype="text" class="d-block">');
-    expect(wrapper.html()).toContain('<uiinput-stub inputtype="text" class="d-block">');
-    expect(wrapper.html()).toContain(
-      '<uiselect-stub placeholder="Choisissez une valeur" options="pomme de reinette,pomme d api"'
-    );
+
+    const inputs = wrapper.findAllComponents({ name: 'UiInput' });
+    const dateComponents = wrapper.findAllComponents({ name: 'UiDate' });
+    expect(inputs).toHaveLength(4);
+    expect(dateComponents).toHaveLength(1);
   });
 });

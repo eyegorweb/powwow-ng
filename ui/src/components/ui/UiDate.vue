@@ -24,6 +24,7 @@ import 'daterangepicker/daterangepicker.js';
 import 'daterangepicker/daterangepicker.css';
 
 export default {
+  name: 'UiDate',
   model: {
     prop: 'value',
     event: 'change',
@@ -111,7 +112,7 @@ export default {
         );
 
         if (this.direction === 'auto') {
-          this.dateInstance.on('showCalendar.daterangepicker', function(ev, picker) {
+          this.dateInstance.on('showCalendar.daterangepicker', function (ev, picker) {
             if (
               picker.element.offset().top - $(window).scrollTop() + picker.container.outerHeight() >
               $(window).height()

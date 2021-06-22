@@ -13,12 +13,15 @@ const store = new Store({
     getsim: {},
   },
   getters: {
-    currentFilters: {},
-    canShowSelectedFilter: false,
-    selectedOrderDate: null,
-    selectedOrderStatus: undefined,
-    selectedPartnersValues: undefined,
-    selectedOrderCreatorValues: undefined,
+    'getsim/currentFilters': [],
+    'getsim/canShowSelectedFilter': false,
+    'getsim/selectedOrderDate': null,
+    'getsim/selectedPartnersValues': undefined,
+    'getsim/selectedOrderCreatorValues': undefined,
+    'getsim/selectedOrderStatus': undefined,
+    userIsPartner: false,
+    userInfos: {},
+    userIsMVNO: false,
   },
 });
 
@@ -29,11 +32,13 @@ const mocks = { $t, $store: store };
 jest.mock('flatpickr/dist/flatpickr.min.css', () => {});
 
 describe('GetSimFilters', () => {
-  it.skip('should show all filters', () => {
+  it('should show all filters', () => {
     const expectedFilters = [
+      'savedFilters',
       'filters.partners',
       'filters.billingAccounts',
       'filters.orderStatus',
+      'filters.lines.typeSIMCard',
       'filters.orderDate',
       'filters.offers',
       'filters.quantity',
@@ -42,9 +47,11 @@ describe('GetSimFilters', () => {
       'filters.deliveryCountry',
       'filters.postalCode',
       'filters.city',
+      'filters.action',
     ];
     const wrapper = mount(GetSimFilters, { mocks });
-    const renderedTitles = wrapper.findAll('.title');
+    const renderedTitles = wrapper.findAll('.foldable-block .title');
+
     for (let i = 0, max = expectedFilters.length; i < max; i++) {
       expect(renderedTitles.at(i).text()).toBe(expectedFilters[i]);
     }

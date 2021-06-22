@@ -1,26 +1,32 @@
 import { mount } from '@vue/test-utils';
 import MultiChoices from './MultiChoices.vue';
 
-describe.skip('components/Multichoices', () => {
+describe('components/Multichoices', () => {
   let wrapper;
   beforeEach(() => {
-    const values = [
+    const options = [
       {
         code: 'partners',
         label: 'Partenaires',
+        data: {
+          editable: true,
+        },
       },
       {
         code: 'orderDate',
         label: 'Date de la commande',
+        data: {
+          editable: true,
+        },
       },
     ];
-    const selectedValues = [];
+    const value = [];
 
     /** @type {import('@vue/test-utils').Wrapper} */
     wrapper = mount(MultiChoices, {
       propsData: {
-        values,
-        selectedValues,
+        options,
+        value,
       },
     });
   });
@@ -36,7 +42,7 @@ describe.skip('components/Multichoices', () => {
     allInputs.at(1).element.checked = true;
     allInputs.at(1).trigger('change');
 
-    expect(wrapper.emitted()['update:selectedValues']).toBeTruthy();
-    expect(wrapper.emitted()['update:selectedValues']).toHaveLength(2);
+    expect(wrapper.emitted()['input']).toBeTruthy();
+    expect(wrapper.emitted()['input']).toHaveLength(2);
   });
 });

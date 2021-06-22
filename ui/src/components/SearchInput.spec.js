@@ -1,7 +1,7 @@
 import { shallowMount } from '@vue/test-utils';
 import SearchInput from './SearchInput.vue';
 
-describe.skip('SearchInput.vue', () => {
+describe('SearchInput.vue', () => {
   /** @type {import('@vue/test-utils').Wrapper} */
   let wrapper;
   describe('single field', () => {
@@ -29,8 +29,8 @@ describe.skip('SearchInput.vue', () => {
       expect(wrapper.find('.results').text()).toBe('apple banana orange');
     });
 
-    it('filters results', () => {
-      wrapper.setProps({ value: 'nana' });
+    it('filters results', async () => {
+      await wrapper.setProps({ value: 'nana' });
       expect(wrapper.find('.results').text()).toBe('banana');
     });
 
@@ -38,8 +38,8 @@ describe.skip('SearchInput.vue', () => {
       expect(wrapper.find('.results-hl').html()).toMatchSnapshot();
     });
 
-    it('displays highlighted results', () => {
-      wrapper.setProps({ value: 'nana' });
+    it('displays highlighted results', async () => {
+      await wrapper.setProps({ value: 'nana' });
       expect(wrapper.find('.result-hl').html()).toMatchSnapshot();
     });
   });
@@ -73,8 +73,8 @@ describe.skip('SearchInput.vue', () => {
       expect(wrapper.find('.results').html()).toMatchSnapshot();
     });
 
-    it('filters results', () => {
-      wrapper.setProps({ value: 'jonat' });
+    it('filters results', async () => {
+      await wrapper.setProps({ value: 'jonat' });
       expect(wrapper.find('.results').text()).toBe('Jonathan Joestar -');
     });
 
@@ -82,8 +82,8 @@ describe.skip('SearchInput.vue', () => {
       expect(wrapper.find('.results-hl').html()).toMatchSnapshot();
     });
 
-    it('displays highlighted results', () => {
-      wrapper.setProps({ value: 'star' });
+    it('displays highlighted results', async () => {
+      await wrapper.setProps({ value: 'star' });
       expect(wrapper.find('.results-hl').html()).toMatchSnapshot();
     });
   });

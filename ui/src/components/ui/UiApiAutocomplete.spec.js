@@ -8,7 +8,7 @@ const tick = () => new Promise((resolve) => setTimeout(resolve, 0));
 
 const apiMethod = jest.fn();
 
-describe.skip('UiApiAutocomplete.vue', () => {
+describe('UiApiAutocomplete.vue', () => {
   /** @type {import('@vue/test-utils').Wrapper} */
   let wrapper, resolve;
   beforeEach(() => {
@@ -28,30 +28,30 @@ describe.skip('UiApiAutocomplete.vue', () => {
   });
 
   it('displays a message when the input is empty', () => {
-    expect(wrapper.find('.autocomplete-results').text()).toMatch('pour avoir des suggestions');
+    expect(wrapper.find('.autocomplete-results').text()).toMatch('suggestionsPlaceholder');
   });
 
-  it('shows up suggestions when input is focused', () => {
+  it('shows up suggestions when input is focused', async () => {
     expect(wrapper.find('.autocomplete-results').isVisible()).toBe(false);
-    wrapper.find('input').trigger('focus');
+    await wrapper.find('input').trigger('focus');
     expect(wrapper.find('.autocomplete-results').isVisible()).toBe(true);
   });
 
-  it('syncs the value', () => {
-    wrapper.setProps({ value: 'rue Rivoli' });
+  it('syncs the value', async () => {
+    await wrapper.setProps({ value: 'rue Rivoli' });
     expect(wrapper.find('input').element.value).toBe('rue Rivoli');
-    wrapper.find('input').setValue('rue Oberkampf');
+    await wrapper.find('input').setValue('rue Oberkampf');
     // setChecked emet deux évemenements...
     expect(wrapper.emitted('update:value')).toEqual([['rue Oberkampf']]);
   });
 
   it('displays suggestions upon typing', async () => {
     expect(apiMethod).not.toHaveBeenCalled();
-    wrapper.setProps({ value: 'Paris' });
+    await wrapper.setProps({ value: 'opt' });
     expect(apiMethod).toHaveBeenCalled();
     expect(wrapper.findAll('.autocomplete-result')).toHaveLength(0);
     await resolve();
-    // await wrapper.vm.$nextTick();
+    await wrapper.vm.$nextTick();
     expect(wrapper.findAll('.autocomplete-result')).toHaveLength(3);
   });
 
@@ -64,73 +64,73 @@ describe.skip('UiApiAutocomplete.vue', () => {
     expect(wrapper.find('.autocomplete-results').exists()).toBe(true);
     expect(wrapper.findAll('.autocomplete-result')).toHaveLength(0);
     await resolve();
-    // await wrapper.vm.$nextTick();
+    await wrapper.vm.$nextTick();
     expect(wrapper.findAll('.autocomplete-result')).toHaveLength(3);
   });
 
   describe('with suggestions', () => {
     beforeEach(async () => {
       // simulate changing the value while being in focus
-      wrapper.find('input').trigger('focus');
+      await wrapper.find('input').trigger('focus');
       // il semble etre nécessaire d'appeler les deux
       wrapper.find('input').element.focus();
-      wrapper.setProps({ value: 'Paris' });
+      await wrapper.setProps({ value: 'opt' });
       await resolve();
     });
 
-    it('selects a value on click then hides suggestions', () => {
+    it('selects a value on click then hides suggestions', async () => {
       expect(wrapper.find('input').is(':focus')).toBe(true);
       expect(wrapper.find('.autocomplete-results').isVisible()).toBe(true);
-      wrapper.find('.autocomplete-result').trigger('click');
+      await wrapper.find('.autocomplete-result').trigger('click');
       expect(wrapper.emitted('update:value')).toEqual([['option 1']]);
       expect(wrapper.find('.autocomplete-results').isVisible()).toBe(false);
       expect(wrapper.find('input').is(':focus')).toBe(true);
     });
 
-    it('can be selected with keyboard', () => {
+    it('can be selected with keyboard', async () => {
       expect(wrapper.find('.autocomplete-result.is-selected').exists()).toBe(false);
-      wrapper.find('input').trigger('keydown.down');
+      await wrapper.find('input').trigger('keydown.down');
       expect(wrapper.find('.autocomplete-result.is-selected').exists()).toBe(true);
       expect(wrapper.find('.autocomplete-result.is-selected').text()).toBe('option 1');
-      wrapper.find('input').trigger('keydown.down');
+      await wrapper.find('input').trigger('keydown.down');
       expect(wrapper.find('.autocomplete-result.is-selected').text()).toBe('option 2');
     });
 
-    it('does not go above limits', () => {
-      wrapper.find('input').trigger('keydown.down');
-      wrapper.find('input').trigger('keydown.up');
+    it('does not go above limits', async () => {
+      await wrapper.find('input').trigger('keydown.down');
+      await wrapper.find('input').trigger('keydown.up');
       expect(wrapper.find('.autocomplete-result.is-selected').text()).toBe('option 1');
-      wrapper.find('input').trigger('keydown.down');
+      await wrapper.find('input').trigger('keydown.down');
       expect(wrapper.find('.autocomplete-result.is-selected').text()).toBe('option 2');
-      wrapper.find('input').trigger('keydown.down');
+      await wrapper.find('input').trigger('keydown.down');
       expect(wrapper.find('.autocomplete-result.is-selected').text()).toBe('option 3');
-      wrapper.find('input').trigger('keydown.down');
+      await wrapper.find('input').trigger('keydown.down');
       expect(wrapper.find('.autocomplete-result.is-selected').text()).toBe('option 3');
     });
 
-    it('only one item is selected on hover', () => {
-      wrapper.find('input').trigger('keydown.down');
+    it('only one item is selected on hover', async () => {
+      await wrapper.find('input').trigger('keydown.down');
       expect(wrapper.find('.autocomplete-result.is-selected').text()).toBe('option 1');
-      wrapper
+      await wrapper
         .findAll('.autocomplete-result')
         .at(2)
         .trigger('mouseenter');
       expect(wrapper.find('.autocomplete-result.is-selected').text()).toBe('option 3');
     });
 
-    it('only one item is selected on arrow keys after hover', () => {
-      wrapper
+    it('only one item is selected on arrow keys after hover', async () => {
+      await wrapper
         .findAll('.autocomplete-result')
         .at(0)
         .trigger('mouseenter');
       expect(wrapper.find('.autocomplete-result.is-selected').text()).toBe('option 1');
-      wrapper.find('input').trigger('keydown.down');
+      await wrapper.find('input').trigger('keydown.down');
       expect(wrapper.find('.autocomplete-result.is-selected').text()).toBe('option 2');
     });
 
-    it('hides suggestions when focusing something else', () => {
+    it('hides suggestions when focusing something else', async () => {
       // relatedTarget est l'élément vers lequel prend le focus.
-      wrapper.find('input').trigger('blur', { relatedTarget: new EventTarget() });
+      await wrapper.find('input').trigger('blur', { relatedTarget: new EventTarget() });
       expect(wrapper.find('.autocomplete-results').isVisible()).toBe(false);
     });
   });

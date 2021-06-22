@@ -21,18 +21,22 @@ function factory() {
   });
 }
 
-describe.skip('components/SelectedFilterDetails', () => {
+describe('components/SelectedFilterDetails', () => {
   it('displays the id as title', () => {
     const wrapper = factory();
     expect(wrapper.text()).toContain('partners');
   });
 
-  it('displays list of values', () => {
+  it('displays list of values', async () => {
     const wrapper = factory();
-    wrapper.setProps({
+    await wrapper.setProps({
       filter: {
         id: 'partners',
-        values: [{ id: 1, label: 'first' }, { id: 2, label: 'second' }, { id: 3, label: 'third' }],
+        values: [
+          { id: 1, label: 'first' },
+          { id: 2, label: 'second' },
+          { id: 3, label: 'third' },
+        ],
       },
     });
     expect(wrapper.findAll('[data-test=content] span')).toHaveLength(3);
@@ -41,9 +45,9 @@ describe.skip('components/SelectedFilterDetails', () => {
     expect(wrapper.find('[data-test=content]').text()).toContain('third');
   });
 
-  it('displays a single value', () => {
+  it('displays a single value', async () => {
     const wrapper = factory();
-    wrapper.setProps({
+    await wrapper.setProps({
       filter: {
         id: 'partners',
         value: 'foo',
@@ -53,9 +57,9 @@ describe.skip('components/SelectedFilterDetails', () => {
     expect(wrapper.find('[data-test=content]').text()).toBe('foo');
   });
 
-  it('displays a date range', () => {
+  it('displays a date range', async () => {
     // mock format to french
-    const spy = jest.fn(key => {
+    const spy = jest.fn((key) => {
       if (key === 'getsim.date-from-to-format') return 'dd/MM/yyyy';
       return key;
     });
@@ -66,7 +70,7 @@ describe.skip('components/SelectedFilterDetails', () => {
       startDate,
       endDate,
     };
-    wrapper.setProps({
+    await wrapper.setProps({
       filter,
     });
     mocks.$t = $t;
