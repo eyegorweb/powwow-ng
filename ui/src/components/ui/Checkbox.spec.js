@@ -1,7 +1,7 @@
 import { shallowMount } from '@vue/test-utils';
 import Checkbox from './Checkbox.vue';
 
-describe.skip('Checkbox.vue', () => {
+describe('Checkbox.vue', () => {
   /** @type {import('@vue/test-utils').Wrapper} */
   let wrapper;
   beforeEach(() => {
@@ -48,8 +48,8 @@ describe.skip('Checkbox.vue', () => {
       expect(wrapper.find('input').is(':checked')).toBe(false);
     });
 
-    it('is checked when value is the same array as checked', () => {
-      wrapper.setProps({
+    it('is checked when value is the same array as checked', async () => {
+      await wrapper.setProps({
         checked: ['foo', 'bar'],
       });
       expect(wrapper.find('input').is(':checked')).toBe(true);
@@ -65,8 +65,8 @@ describe.skip('Checkbox.vue', () => {
       expect(wrapper.find('input').is(':checked')).toBe(false);
     });
 
-    it('is indeterminate when value contains one element', () => {
-      wrapper.setProps({
+    it('is indeterminate when value contains one element', async () => {
+      await wrapper.setProps({
         checked: ['foo'],
       });
       expect(wrapper.find('input').is(':checked')).toBe(false);

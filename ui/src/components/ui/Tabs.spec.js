@@ -3,7 +3,7 @@ import Tabs from './Tabs';
 
 const tabs = [{ label: 'First' }, { label: 'Second' }, { label: 'Third' }];
 
-describe.skip('Tabs.vue', () => {
+describe('Tabs.vue', () => {
   /** @type {import('@vue/test-utils').Wrapper} */
   let wrapper;
   beforeEach(() => {
@@ -13,7 +13,7 @@ describe.skip('Tabs.vue', () => {
   });
 
   it('displays no content by default', () => {
-    expect(wrapper.find('.tab-content').text()).toBe('');
+    expect(wrapper.find('.tab').text()).toBe('');
   });
 
   it('starts at index 0 by default', () => {
@@ -26,9 +26,9 @@ describe.skip('Tabs.vue', () => {
     ).toBe(false);
   });
 
-  it('changes the index by clicking on a tab', () => {
+  it('changes the index by clicking on a tab', async () => {
     const tabs = wrapper.findAll('.tab-label');
-    tabs.at(1).trigger('click');
+    await tabs.at(1).trigger('click');
     expect(tabs.at(0).is('.is-selected')).toBe(false);
     expect(
       wrapper

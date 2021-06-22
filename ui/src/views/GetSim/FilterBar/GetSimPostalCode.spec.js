@@ -8,7 +8,7 @@ import { $t } from '@/../tests-utils';
 const store = new Store({
   state: { getsim: {} },
   getters: {
-    selectedPostalCodeValue: '',
+    'getsim/selectedPostalCodeValue': '',
   },
 });
 
@@ -21,10 +21,6 @@ describe('GetSimPostalCode', () => {
   let wrapper;
   wrapper = mount(GetSimPostalCode, {
     mocks,
-  });
-
-  it.skip('renders one input number field', () => {
-    expect(wrapper.findAll('input[type="number"]')).toHaveLength(1);
   });
 
   it('mutates the store with the entered value', () => {

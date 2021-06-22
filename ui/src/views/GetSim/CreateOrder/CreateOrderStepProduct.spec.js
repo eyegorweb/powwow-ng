@@ -1,7 +1,11 @@
 import { mount } from '@vue/test-utils';
 import { $t, $i18n } from '@/../tests-utils';
 import CreateOrderStepProduct from './CreateOrderStepProduct';
-import * as api from '@/api/products';
+import { fetchSim } from '@/api/products';
+
+jest.mock('@/api/products', () => ({
+  fetchSim: jest.fn(),
+}));
 
 const mocks = { $i18n, $t };
 
@@ -29,14 +33,30 @@ const products = [
 const selectedObject = {
   product: {
     label: 'common.product',
-    selection: { product: { simCard: { id: '76', name: 'M2M sim avec code pin' } } },
-    value: { content: ['M2M sim avec code pin'], id: '76' },
+    selection: {
+      product: {
+        simCard: {
+          id: '76',
+          name: 'M2M sim avec code pin',
+        },
+      },
+    },
+    value: {
+      content: ['M2M sim avec code pin'],
+      id: '76',
+    },
   },
   quantity: {
-    label: 'common.quantity',
-    selection: { quantity: '4' },
-    value: { content: '4', id: 'quantity' },
+    label: 'getsim.nb-of-sim',
+    selection: {
+      quantity: '4',
+    },
+    value: {
+      content: '4',
+      id: 'quantity',
+    },
   },
+  tapes: undefined,
 };
 
 const props = {
@@ -49,12 +69,11 @@ const props = {
   },
 };
 
-describe.skip('CreateOrderStepProduct.vue', () => {
+describe('CreateOrderStepProduct.vue', () => {
   /** @type {import('@vue/test-utils').Wrapper} */
   let wrapper;
   beforeEach(() => {
-    api.fetchSim = jest.fn();
-    api.fetchSim.mockResolvedValue(products);
+    fetchSim.mockResolvedValue(products);
 
     wrapper = mount(CreateOrderStepProduct, {
       mocks,
@@ -81,16 +100,16 @@ describe.skip('CreateOrderStepProduct.vue', () => {
       .trigger('click');
   });
 
-  it('emits an event with the correct payload', () => {
-    wrapper.find('input[type=number]').setValue(4);
+  it('emits an event with the correct payload', async () => {
+    await wrapper.find('input[type=number]').setValue(4);
 
-    wrapper
+    await wrapper
       .findAll('.simtype')
       .at(0)
       .find('input')
       .trigger('click');
 
-    wrapper
+    await wrapper
       .findAll('button')
       .at(1)
       .trigger('click');

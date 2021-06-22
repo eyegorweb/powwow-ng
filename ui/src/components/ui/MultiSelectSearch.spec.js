@@ -34,7 +34,7 @@ const mocks = { $t };
 
 const unselectAll = 'unSelectAll (6)';
 
-describe.skip('PartnersSearch', () => {
+describe('PartnersSearch', () => {
   /** @type {import('@vue/test-utils').Wrapper} */
   let wrapper;
   beforeEach(() => {
@@ -67,9 +67,9 @@ describe.skip('PartnersSearch', () => {
 
   //*/
 
-  it('adds all filtered values to empty array', () => {
-    wrapper.find('input[type=text]').setValue('geo');
-    wrapper.find('input[type=checkbox]').setChecked(true);
+  it('adds all filtered values to empty array', async () => {
+    await wrapper.find('input[type=text]').setValue('geo');
+    await wrapper.find('input[type=checkbox]').setChecked(true);
     // expect(sortBy(wrapper.vm.selectedItems, 'id')).toEqual(partners.slice(3, 6));
     const selectedItems = wrapper.emitted('update:defaultSelectedItems')[0][0];
     expect(sortBy(selectedItems, 'id')).toEqual(partners.slice(3, 6));
@@ -93,9 +93,9 @@ describe.skip('PartnersSearch', () => {
     expect(sortBy(wrapper.vm.selectedItems, 'id')).toHaveLength(0);
   });
 
-  it('only removes searched terms from array when label is clicked after a search', () => {
-    wrapper.setProps({ defaultSelectedItems: [...partners] });
-    wrapper.find('input[type=text]').setValue('erdf');
+  it('only removes searched terms from array when label is clicked after a search', async () => {
+    await wrapper.setProps({ defaultSelectedItems: [...partners] });
+    await wrapper.find('input[type=text]').setValue('erdf');
     // NOTE meme chose que le test précédant
     // wrapper.find('input[type=checkbox]').setChecked(false);
     wrapper.vm.addAllToSelectedItems([], partners.slice(0, 3));
@@ -103,8 +103,8 @@ describe.skip('PartnersSearch', () => {
     expect(wrapper.emitted('update:defaultSelectedItems')).toEqual([[partners.slice(3, 6)]]);
   });
 
-  it('updates the label when all partners are selected', () => {
-    wrapper.findAll('input[type=checkbox]:not(:first-child)').setChecked(true);
+  it('updates the label when all partners are selected', async () => {
+    await wrapper.findAll('input[type=checkbox]:not(:first-child)').setChecked(true);
     expect(wrapper.emitted('update:defaultSelectedItems')).toBeTruthy();
 
     wrapper.setProps({ defaultSelectedItems: [...partners] }); // le composant parent renvoi la nouvelle selection d'items
@@ -128,10 +128,10 @@ describe.skip('PartnersSearch', () => {
   });
   //*/
 
-  it('removes from the array an item that is clicked', () => {
-    wrapper.setProps({ defaultSelectedItems: [...partners] });
+  it('removes from the array an item that is clicked', async () => {
+    await wrapper.setProps({ defaultSelectedItems: [...partners] });
     const itemToRemove = wrapper.findAll('.selection').at(1); // on se base sur un nombre maximum de partners fixé à 2
-    itemToRemove.find('.remove-item').trigger('click');
+    await itemToRemove.find('.remove-item').trigger('click');
     expect(wrapper.emitted('update:defaultSelectedItems')).toEqual([
       [
         [
