@@ -36,9 +36,9 @@
           </div>
           <div class="col text-center">
             <button
-              :class="{ disableExport: toManyLinesToExcelExport }"
+              :class="{ disableExport: tooManyLinesToExcelExport }"
               class="btn btn-link export-button export-excel-format"
-              @click.stop="toManyLinesToExcelExport || exportFile('EXCEL')"
+              @click.stop="tooManyLinesToExcelExport || exportFile('EXCEL')"
               :disabled="isLoading"
             >
               <div class="disableExport-tooltip">
@@ -83,7 +83,7 @@
             {{ $t('exportAll') }}
           </Checkbox>
         </div>
-        <button class="modal-default-button btn btn-danger btn-sm" @click.stop="closeExportChoice">
+        <button class="modal-default-button btn btn-danger btn-sm" @click.stop="closePanel">
           {{ $t('cancel') }}
         </button>
       </div>
@@ -119,7 +119,7 @@ export default {
       exportNumberLines: (state) => state.ui.exportNumberLines,
     }),
 
-    toManyLinesToExcelExport() {
+    tooManyLinesToExcelExport() {
       return this.exportNumberLines >= 500000;
     },
     otherExportChoicesLabels() {
@@ -181,10 +181,20 @@ export default {
       'startDownload',
     ]),
 
+    resetState() {
+      this.exportChoice = undefined;
+    },
+
+    closePanel() {
+      this.resetState();
+      this.closeExportChoice();
+    },
+
     async validateExport() {
       this.isAsyncExportAlertOpen = false;
       try {
         await this.doExport(this.exportFormat, true, this.exportAll, this.exportChoice);
+        this.exportChoice = undefined;
         this.closeAndResetExportChoice();
         this.flashMessage({ level: 'success', message: this.$t('genericSuccessMessage') });
       } catch (err) {
@@ -200,6 +210,7 @@ export default {
         .map((c) => c.exportId);
 
       this.isLoading = true;
+
       const downloadResponse = await exportFn(
         columnsParam,
         orderBy,
@@ -209,6 +220,7 @@ export default {
         forceAsyncExport,
         exportChoice
       );
+
       this.isLoading = false;
       if (downloadResponse.errors) throw downloadResponse.errors;
       return downloadResponse;
@@ -230,6 +242,9 @@ export default {
     },
 
     async exportFile(exportFormat) {
+      if (this.exportPanelParams && this.exportPanelParams.exportChoices && !this.exportChoice) {
+        return false;
+      }
       this.exportFormat = exportFormat;
       let downloadResponse = undefined;
       if (this.exportPanelParams.forceAsyncExport && this.exportAll) {
@@ -264,6 +279,7 @@ export default {
               this.messageError = this.$t('noLinesToExport');
               return this.messageError;
             }
+            this.exportChoice = undefined;
             this.closeAndResetExportChoice();
           }
         } catch (err) {
