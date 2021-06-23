@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.391+20210623130631
+2021-06-23
+
+### Fixes
+
+- [2767]  Ajout du filtre sur la date de résiliation sur la gestion des résiliations (c0d2342cfeb50d9ed16fd15013a5ce0c183dc8e3)
+
 ## 1.17.0-master.390+20210623122817
 2021-06-23
 
