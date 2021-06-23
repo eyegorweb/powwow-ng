@@ -7,9 +7,9 @@
             <button
               class="btn btn-primary pl-4 pr-4 pt-2 pb-2"
               @click="disableLines"
-              :disabled="alarm.disabled"
+              :disabled="alarm.disabled || rows.length === 0"
             >
-              <i class="ic-Minus-Icon" />
+              <em class="ic-Minus-Icon" />
               {{ $t('getvsion.alarm.disable_alarm_lines') }}
             </button>
           </div>
@@ -25,7 +25,7 @@
         <div class="col-5">
           <div class="text-info">
             <span>
-              <i class="ic-Alert-Icon"></i>{{ $t('getparc.actCreation.message_EXCLUDED_LINES') }}.
+              <em class="ic-Alert-Icon" />{{ $t('getparc.actCreation.message_EXCLUDED_LINES') }}.
             </span>
           </div>
         </div>
