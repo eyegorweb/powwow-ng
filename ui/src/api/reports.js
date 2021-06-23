@@ -13,8 +13,8 @@ export async function fetchReports(orderBy, pagination, partnerID) {
 
   const queryStr = `
   query {
-    reportDefinitions(
-      ${partnerIdParam}
+    reportDefinitionsV2(
+      filter: {${partnerIdParam}}
       ${paginationInfo}${orderingInfo}
     ) {
       total
@@ -58,7 +58,7 @@ export async function fetchReports(orderBy, pagination, partnerID) {
 
   const response = await query(queryStr);
 
-  return response.data.reportDefinitions;
+  return response.data.reportDefinitionsV2;
 }
 
 export async function enableReport(reportId) {
