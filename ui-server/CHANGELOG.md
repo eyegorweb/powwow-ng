@@ -2,6 +2,15 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.390+20210623122817
+2021-06-23
+
+### Fixes
+
+- [2763] Ne pas pouvoir faire d'action si aucune ligne n'est séléctionnée (32b16eae53c8e4cfa66cf37cf35ebb2e7a43ff56)
+- [2763] Gestion d'un CR lors du positionnement / dépositionnement d'une alarme sur des lignes (9a0d1fdfc25f524e05a5ec00b8ec9e82bfa85716)
+- [2727] mise à jour de l'export des services dans le module getReport (f37d2fe7c060ccd017b16131705bf8506bbe87df)
+
 ## 1.17.0-master.389+20210622131108
 2021-06-22
 
