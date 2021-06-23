@@ -295,6 +295,10 @@ export default excludeMocked([
         value: 'Non',
         meta: { label: 'Non', value: false },
       },
+      {
+        id: 'filters.lines.securityTerminationEnd',
+        value: 'Oui',
+      },
     ],
   },
   {

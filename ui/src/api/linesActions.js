@@ -492,12 +492,20 @@ export function formatFilters(filters) {
   addSMSRIDStatus(allFilters, filters);
   addIsDownload(allFilters, filters);
   addMassActionId(allFilters, filters);
+  addSecurityTermination(allFilters, filters);
 
   return allFilters.join(',');
 }
 
 function trim(value) {
   return ('' + value).trim();
+}
+
+function addSecurityTermination(gqlFilters, selectedFilters) {
+  const foundFilter = selectedFilters.find((f) => f.id === 'filters.lines.securityTerminationEnd');
+  if (foundFilter) {
+    gqlFilters.push(`securityTerminationEnd:true`);
+  }
 }
 
 function addMassActionId(gqlFilters, selectedFilters) {

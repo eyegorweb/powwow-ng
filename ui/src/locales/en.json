@@ -1933,6 +1933,7 @@
       "actionId": "Id of management act",
       "states": "EUICC profile state",
       "terminationValidated": "Termination validated",
+      "securityTerminationEnd": "Security date expired",
       "profileStateFilter": {
         "ENABLED": "Activated",
         "DISABLED": "Deactivated",

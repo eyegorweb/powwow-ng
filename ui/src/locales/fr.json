@@ -2165,6 +2165,7 @@
       "actionId": "Id acte de gestion",
       "states": "État de profil eUICC",
       "terminationValidated": "Résiliation validée",
+      "securityTerminationEnd": "Date de sécurisation échue",
       "error": "Erreur",
       "profileStateFilter": {
         "ENABLED": "Activé",
