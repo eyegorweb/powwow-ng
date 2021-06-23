@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-md-9">
         <button @click.prevent="$router.go(-1)" class="btn btn-link back-btn">
-          <i class="ic-Arrow-Previous-Icon" />
+          <em class="ic-Arrow-Previous-Icon" />
           {{ $t('back') }}
         </button>
       </div>
@@ -18,7 +18,7 @@
       </div>
       <div class="col-md-3">
         <UiButton variant="primary" block class="float-right" @click="modifyAlarm()">
-          <i class="select-icon ic-Amplifier-Icon" />
+          <em class="select-icon ic-Amplifier-Icon" />
           {{ $t('getvsion.detail-panel.change-alarm') }}
         </UiButton>
       </div>

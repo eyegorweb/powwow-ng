@@ -321,7 +321,15 @@ export async function createAlarmInstance(simCardInstanceIds, alarmId, partyId, 
 export async function createAlarmInstance2(alarmInput) {
   const queryStr = `
   mutation CreateAlarmInstance($alarmInput: AlarmInput) {
-    createAlarmInstance(alarmInput: $alarmInput){tempDataUuid}
+    createAlarmInstance(alarmInput: $alarmInput){
+      tempDataUuid
+      validated
+      errors{
+        key,
+        number,
+        message
+      }
+    }
   }`;
 
   const input = { ...alarmInput };
@@ -401,7 +409,15 @@ export async function deleteAlarmInstance(simCardInstanceIds, alarmId, partyId, 
 export async function deleteAlarmInstance2(alarmInput) {
   const queryStr = `
   mutation DeleteAlarmInstance($alarmInput: AlarmInput) {
-    deleteAlarmInstance(alarmInput: $alarmInput){tempDataUuid}
+    deleteAlarmInstance(alarmInput: $alarmInput){
+      tempDataUuid
+      validated
+      errors{
+        key,
+        number,
+        message
+      }
+    }
   }`;
 
   const input = { ...alarmInput };

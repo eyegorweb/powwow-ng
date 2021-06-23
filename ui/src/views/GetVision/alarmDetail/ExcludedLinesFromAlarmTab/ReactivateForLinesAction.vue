@@ -1,30 +1,28 @@
 <template>
-  <div class="card">
-    <div class="card-body">
-      <div class="row">
-        <div class="col-7">
-          <div>
-            <button
-              class="btn btn-primary pl-4 pr-4 pt-2 pb-2"
-              @click="reactivateLines"
-              :disabled="alarm.disabled || rows.length === 0"
-            >
-              <em class="ic-Plus-Icon" />
-              {{ $t('getvsion.alarm.react_alarm_lines') }}
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <ChangeAlarmStatusContainer :api-config="getApiCallConfig()" @success="$emit('success')">
+    <template #form="{ firstAttemptAction }">
+      <button
+        class="btn btn-primary pl-4 pr-4 pt-2 pb-2"
+        @click="firstAttemptAction"
+        :disabled="alarm.disabled || rows.length === 0"
+      >
+        <em class="ic-Plus-Icon" />
+        {{ $t('getvsion.alarm.react_alarm_lines') }}
+      </button>
+    </template>
+  </ChangeAlarmStatusContainer>
 </template>
 
 <script>
-import { createAlarmInstance2 } from '@/api/alarms.js';
+import ChangeAlarmStatusContainer from '@/views/GetVision/alarmDetail/ChangeAlarmStatusContainer.vue';
 import { formattedCurrentDate } from '@/utils/date';
-import { mapMutations } from 'vuex';
+import { createAlarmInstance2 } from '@/api/alarms.js';
 
 export default {
+  components: {
+    ChangeAlarmStatusContainer,
+  },
+
   props: {
     alarm: Object,
     total: Number,
@@ -33,9 +31,7 @@ export default {
   },
 
   methods: {
-    ...mapMutations(['flashMessage', 'confirmAction']),
-
-    reactivateLines() {
+    getApiCallConfig() {
       const alarmInput = {
         alarmId: this.alarm.id,
         partyId: this.$loGet(this.alarm, 'party.id'),
@@ -50,23 +46,10 @@ export default {
         alarmInput.filters = this.filters;
       }
 
-      this.confirmAction({
-        message: 'confirmAction',
-        actionFn: async () => {
-          const response = await createAlarmInstance2(alarmInput);
-          if (response && response.errors && response.errors.length) {
-            response.errors.forEach((e) => {
-              this.flashMessage({ level: 'danger', message: e.message });
-            });
-          }
-          if (!response) {
-            this.flashMessage({ level: 'danger', message: this.$t('genericErrorMessage') });
-          } else {
-            this.flashMessage({ level: 'success', message: this.$t('genericSuccessMessage') });
-            this.$emit('success');
-          }
-        },
-      });
+      return {
+        params: alarmInput,
+        apiFn: createAlarmInstance2,
+      };
     },
   },
 };
