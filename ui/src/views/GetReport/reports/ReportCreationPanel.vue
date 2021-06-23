@@ -482,7 +482,24 @@ export default {
         const models = await reportModels(this.selectedPartner.id);
 
         this.reportModels = [
-          { label: this.$t('getreport.from_report.Custom'), value: 'NONE', data: { fields: [] } },
+          {
+            label: this.$t('getreport.from_report.Custom'),
+            value: 'NONE',
+            data: {
+              fields: [
+                'OFFER_ROAMING',
+                'OFFER_SMS_IN',
+                'OFFER_SMS_OUT',
+                'OFFER_VOICE_IN',
+                'OFFER_VOICE_OUT',
+                'OFFER_CSD_DATA_IN',
+                'OFFER_CSD_DATA_OUT',
+                'OFFER_DATA_4G',
+                'OFFER_DATA_2G_3G',
+                'OFFER_APN',
+              ],
+            },
+          },
           ...models.map((m) => ({
             label: this.$t('getreport.from_report.' + m.modelType),
             value: m.modelType,
