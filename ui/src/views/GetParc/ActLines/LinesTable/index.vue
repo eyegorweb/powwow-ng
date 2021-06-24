@@ -15,7 +15,7 @@
                       total: formattedTotal,
                     })
                   }}
-                  <button v-if="formattedTotal === 0" class="btn btn-link" @click="resetFilters">
+                  <button v-if="formattedTotal === 0" class="btn btn-link" @click="resetSearch">
                     {{ $t('resetFilters') }}
                   </button>
                 </template>
@@ -64,9 +64,6 @@
           </DataTable>
         </template>
         <template v-else>
-          <div v-if="searchByIdValue">
-            <button class="btn btn-link" @click="resetFilters">{{ $t('resetFilters') }}</button>
-          </div>
           <div class="alert alert-light">{{ $t('noResult') }}</div>
         </template>
       </template>
@@ -277,9 +274,9 @@ export default {
       }
     },
 
-    resetFilters() {
+    resetSearch() {
       this.searchByIdValue = undefined;
-      this.forceAppliedFilters([]);
+      this.showInfoMessage = true;
     },
 
     searchById(params) {
