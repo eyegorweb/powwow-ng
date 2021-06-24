@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.393+20210624085608
+2021-06-24
+
+### Fixes
+
+- [2770] Modification de la gestion de la portée pour les api de création des alarmes (3bac4311f59c4e7fb306871020fb4a7daca83ad8)
+- [2755] configuration des filtres par défaut pour chaque acte de gestion lors de la recherche par réinitialisation (912bb716d66efa4f0ab121d3a61f40359da4d1a3)
+
 ## 1.17.0-master.392+20210624080444
 2021-06-24
 
