@@ -328,8 +328,39 @@
     }
   },
   "getsim": {
+    "reservations": {
+      "tabTitle": "my reservations",
+      "export": "Export {total} reservation(s)",
+      "tableTitle": "{total} Found reservation(s)",
+      "createReservation": "Reserve eSIM",
+      "synthesis": "Reservation summary",
+      "lastReservation": "Last reservation",
+      "noReservation": "Never reserved",
+      "save": "Save the reservation",
+      "details": {
+        "title": "Reservation n° {id}"
+      },
+      "creation": {
+        "pairing": "Pairing",
+        "upload": "Download file",
+        "profileSelect": "Profile download"
+      },
+      "filters": {
+        "creator": "Creator of the reservation",
+        "reservationDate": "Date of reservation"
+      },
+      "indicators": {
+        "reservationInProgress": "Reservations in progress",
+        "terminatedReservation": "Reservations completed"
+      },
+
+      "columns": {
+        "id": "Reservation ID",
+        "reservationStatus": "Reservation status"
+      }
+    },
     "stocks": {
-      "tooltip-text": "Gestion des stocks...",
+      "tooltip-text": "Inventory management...",
       "table": {
         "total": "{total} found SIM card type(s)",
         "import-file": "Import file pairing",
@@ -1138,6 +1169,8 @@
         "iccid": "ICCID",
         "actState": "Status of the act",
         "failDate": "Date of failure",
+        "statusDate": "Date of state",
+        "creationDate": "Date of creation",
         "failReason": "Reason for failure",
         "imsi": "IMSI",
         "constructor": "Maker",
