@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.392+20210624080444
+2021-06-24
+
+### Fixes
+
+- [2772]  Mise en place d'un encart pour annoncer les arrêts de service (db6b2d33a9ec15ce2a195a8dfcd33a7e35a082c4)
+
 ## 1.17.0-master.391+20210623130631
 2021-06-23
 
