@@ -1,19 +1,13 @@
 <template>
   <div class="mt-2">
-    <ff-wip>
-      <div class="bloc d-inline-block p-1 wide">
-        <div class="card">
-          <div class="card-header">ZONE FIXE NOTIFICATIONS</div>
-          <div class="card-body">Notifications ici</div>
-        </div>
+    <div class="bloc d-inline-block p-1 wide">
+      <div class="alert alert-warning" role="alert">
+        <h6>
+          <strong>{{ $t('event.title') }}</strong>
+        </h6>
+        <p>{{ $t('event.content') }}</p>
       </div>
-      <div class="bloc d-inline-block p-1 narrow">
-        <div class="card">
-          <div class="card-header">ZONE FIXE PROMOTION</div>
-          <div class="card-body">promotions ici</div>
-        </div>
-      </div>
-    </ff-wip>
+    </div>
 
     <HomePageDragDropGrid
       v-if="permittedHomeWidgets"
@@ -109,12 +103,8 @@ export default {
 
 <style lang="scss" scoped>
 .bloc {
-  &.narrow {
-    width: 33.3333%;
-  }
-
   &.wide {
-    width: 66.6666%;
+    width: 100%;
   }
 }
 .card {

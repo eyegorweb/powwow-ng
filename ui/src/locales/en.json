@@ -1,4 +1,8 @@
 {
+  "event": {
+    "title": "Notice:",
+    "content": "Important - Thursday, June 24th from 7:00 p.m. to 9:00 p.m., the service will be unavailable due to a maintenance operation. We are sorry for the inconvenience."
+  },
   "searchOrderById": "Search for an order by identifier",
   "searchActById": "Search for an act by identifier",
   "searchLineById": "Search for a line by identifier",
