@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.394+20210624140338
+2021-06-24
+
+### Fixes
+
+- [2766] ajout des traductions pour la partie eSim (a7e0e133161bf0d04e4792ef39c07da0992305b0)
+
 ## 1.17.0-master.393+20210624085608
 2021-06-24
 
