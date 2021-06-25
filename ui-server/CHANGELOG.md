@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.395+20210625140613
+2021-06-25
+
+### Fixes
+
+- [2771] Modification de la portée offre (26f5ccb9ee8a8cfb285fd385ee5a3d2a5ae83e92)
+
 ## 1.17.0-master.394+20210624140338
 2021-06-24
 
