@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.397+20210625152839
+2021-06-25
+
+### Fixes
+
+- [0000] La modification des services durant la création de commande n'est possible que pour le BO (13e477c75240c116d80e7c5f3e245f09982989f1)
+
 ## 1.17.0-master.396+20210625150933
 2021-06-25
 
