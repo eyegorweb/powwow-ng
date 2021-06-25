@@ -1,14 +1,5 @@
 <template>
   <div class="mt-2">
-    <div class="bloc d-inline-block p-1 wide">
-      <div class="alert alert-warning" role="alert">
-        <h6>
-          <strong>{{ $t('event.title') }}</strong>
-        </h6>
-        <p>{{ $t('event.content') }}</p>
-      </div>
-    </div>
-
     <HomePageDragDropGrid
       v-if="permittedHomeWidgets"
       :widgets="permittedHomeWidgets"
