@@ -198,8 +198,23 @@ export default {
           orderable: true,
           visible: false,
           format: {
-            type: 'ObjectAttribute',
-            path: 'name',
+            type: 'Getter',
+            getter: (row) => {
+              const marketingOffer = this.$loGet(row, 'offerGroup.offerInstance.marketingOffer');
+              const autoPositionCustAccount = this.$loGet(row, 'autoPositionCustAccount');
+
+              if (row.type === 'OVER_CONSUMPTION_VOLUME_FLOTTE') {
+                if (marketingOffer) {
+                  return `${marketingOffer.code} - ${marketingOffer.description}`;
+                } else {
+                  return '';
+                }
+              }
+
+              return autoPositionCustAccount
+                ? `${autoPositionCustAccount.code} - ${autoPositionCustAccount.name}`
+                : '';
+            },
           },
         },
       ],

@@ -200,7 +200,7 @@ export default {
           : '';
       }
       return this.content && this.content.autoPositionCustAccount
-        ? `${this.content.autoPositionCustAccount.id} - ${this.content.autoPositionCustAccount.name}`
+        ? `${this.content.autoPositionCustAccount.code} - ${this.content.autoPositionCustAccount.name}`
         : '';
     },
 

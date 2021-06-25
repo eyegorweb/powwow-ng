@@ -239,6 +239,7 @@ export async function searchAlarms(orderBy, pagination, filters = []) {
         }
         autoPositionCustAccount {
           id
+          code
           name
         }
         numberOfTargetedLines

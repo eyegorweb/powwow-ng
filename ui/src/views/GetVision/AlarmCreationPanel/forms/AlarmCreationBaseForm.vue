@@ -213,7 +213,7 @@ export default {
           : '';
       }
       return this.duplicateFrom && this.duplicateFrom.autoPositionCustAccount
-        ? `${this.duplicateFrom.autoPositionCustAccount.id} - ${this.duplicateFrom.autoPositionCustAccount.name}`
+        ? `${this.duplicateFrom.autoPositionCustAccount.code} - ${this.duplicateFrom.autoPositionCustAccount.name}`
         : '';
     },
 

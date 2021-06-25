@@ -24,21 +24,9 @@
             <h6>{{ $t('getparc.lineDetail.alarms.type') }}:</h6>
             <p>{{ $t('getparc.lineDetail.alarms.ALARM_TYPE.' + content.type) }}</p>
           </div>
-          <div class="item">
+          <div class="item" v-tooltip="getScopeTooltip()">
             <h6>{{ $t('getvsion.filters.ALARMS_SCOPE') }}:</h6>
             <p>{{ alarmScope }}</p>
-
-            <template v-if="offer">
-              <p class="text-small">
-                <strong> {{ $t('alarms.alarmScope.OFFER') }} </strong>: {{ offer }}
-              </p>
-            </template>
-            <template v-if="billingAccount">
-              <p class="text-small">
-                <strong> {{ $t('alarms.alarmScope.CUSTOMER_ACCOUNT') }} </strong>:
-                {{ billingAccount }}
-              </p>
-            </template>
           </div>
         </div>
       </div>
@@ -105,6 +93,18 @@ export default {
     get(path) {
       return get(this.content, path);
     },
+
+    getScopeTooltip() {
+      let ret = ``;
+      if (this.billingAccount) {
+        ret += `${this.$t('alarms.alarmScope.CUSTOMER_ACCOUNT')}: ${this.billingAccount}`;
+      }
+      if (this.offer) {
+        ret += `
+${this.$t('alarms.alarmScope.OFFER')}: ${this.offer}`;
+      }
+      return ret;
+    },
   },
 
   mounted() {
@@ -145,7 +145,7 @@ export default {
           : '';
       }
       return this.content && this.content.autoPositionCustAccount
-        ? `${this.content.autoPositionCustAccount.id} - ${this.content.autoPositionCustAccount.name}`
+        ? `${this.content.autoPositionCustAccount.code} - ${this.content.autoPositionCustAccount.name}`
         : '';
     },
 
