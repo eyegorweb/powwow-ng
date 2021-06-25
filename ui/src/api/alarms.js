@@ -554,7 +554,7 @@ function addCustomerAccount(gqlFilters, selectedFilters) {
 }
 
 function addScope(gqlFilters, selectedFilters) {
-  const ids = getValuesIdsWithoutQuotes(selectedFilters, 'getvsion.filters.ALARMS_OFFER');
+  const ids = getValuesIdsWithoutQuotes(selectedFilters, 'getvsion.filters.ALARMS_SCOPE');
   if (ids) {
     gqlFilters.push(`alarmScope: {in: [${ids}]}`);
   }

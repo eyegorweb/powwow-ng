@@ -1,9 +1,18 @@
 <template>
   <div class="p-4 slide-up-reveal">
     <div v-if="editMode">
-      <div v-if="!sharedAlarm">
-        <h5>{{ $t('getvsion.filters.ALARMS_OFFER') }} :</h5>
+      <div class="mb-2" v-if="!sharedAlarm">
+        <h5>{{ $t('getvsion.filters.ALARMS_SCOPE') }} :</h5>
         <p>{{ alarmScope }}</p>
+
+        <template v-if="offer">
+          <h5>{{ $t('alarms.alarmScope.OFFER') }} :</h5>
+          <p>{{ offer }}</p>
+        </template>
+        <template v-if="billingAccount">
+          <h5>{{ $t('alarms.alarmScope.CUSTOMER_ACCOUNT') }} :</h5>
+          <p>{{ billingAccount }}</p>
+        </template>
       </div>
       <div v-else>
         <template v-if="userIsMultiPartner">
@@ -153,7 +162,8 @@ export default {
           (this.lastChosenScope.partner ||
             this.lastChosenScope.searchById ||
             this.lastChosenScope.searchByFile ||
-            this.lastChosenScope.offer);
+            this.lastChosenScope.offer ||
+            this.lastChosenScope.billingAccount);
 
         if (this.editMode) {
           scopeIsValid = true;
@@ -186,7 +196,40 @@ export default {
     },
     alarmScope() {
       const alarmScope = get(this.duplicateFrom, 'alarmScope');
+      if (alarmScope === 'OFFER') {
+        return this.$t('alarms.offer_cf');
+      }
       return alarmScope ? this.$t('alarms.alarmScope.' + alarmScope) : '-';
+    },
+
+    billingAccount() {
+      if (this.duplicateFrom && this.duplicateFrom.type === 'OVER_CONSUMPTION_VOLUME_FLOTTE') {
+        return this.duplicateFrom &&
+          this.duplicateFrom.offerGroup &&
+          this.duplicateFrom.offerGroup.offerInstance &&
+          this.duplicateFrom.offerGroup.offerInstance.marketingOffer &&
+          this.duplicateFrom.offerGroup.offerInstance.marketingOffer
+          ? `${this.duplicateFrom.offerGroup.offerInstance.marketingOffer.code} - ${this.duplicateFrom.offerGroup.offerInstance.marketingOffer.description}`
+          : '';
+      }
+      return this.duplicateFrom && this.duplicateFrom.autoPositionCustAccount
+        ? `${this.duplicateFrom.autoPositionCustAccount.id} - ${this.duplicateFrom.autoPositionCustAccount.name}`
+        : '';
+    },
+
+    offer() {
+      if (this.duplicateFrom && this.duplicateFrom.type === 'OVER_CONSUMPTION_VOLUME_FLOTTE') {
+        return this.duplicateFrom &&
+          this.duplicateFrom.offerGroup &&
+          this.duplicateFrom.offerGroup.customerAccount
+          ? `${this.duplicateFrom.offerGroup.customerAccount.code} - ${this.duplicateFrom.offerGroup.customerAccount.name}`
+          : '';
+      }
+      return this.duplicateFrom &&
+        this.duplicateFrom.autoPositionWorkflow &&
+        this.duplicateFrom.autoPositionWorkflow.workflowDescription
+        ? this.duplicateFrom.autoPositionWorkflow.workflowDescription
+        : '';
     },
   },
 };

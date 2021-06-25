@@ -56,7 +56,7 @@ export default {
         this.$emit('input', undefined);
         return;
       }
-      if (value && value.label === '') {
+      if (value && (value.label === '' || value.label === undefined)) {
         this.$emit('input', undefined);
         return;
       }

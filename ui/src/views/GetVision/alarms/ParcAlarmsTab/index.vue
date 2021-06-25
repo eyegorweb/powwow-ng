@@ -325,11 +325,11 @@ export default {
       if (!this.m2m) {
         filters.push(
           {
-            title: 'getvsion.filters.ALARMS_OFFER',
+            title: 'getvsion.filters.ALARMS_SCOPE',
             component: AlarmsRangeFilter,
             onChange(chosenValues) {
               return {
-                id: 'getvsion.filters.ALARMS_OFFER',
+                id: 'getvsion.filters.ALARMS_SCOPE',
                 values: chosenValues,
                 data: chosenValues,
               };

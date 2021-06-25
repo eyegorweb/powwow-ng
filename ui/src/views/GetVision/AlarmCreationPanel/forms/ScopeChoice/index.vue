@@ -121,7 +121,7 @@ export default {
           value: 'LINE',
         },
         {
-          label: this.$t('col.offer'),
+          label: this.$t('alarms.offer_cf'),
           value: 'OFFER',
         },
         {
