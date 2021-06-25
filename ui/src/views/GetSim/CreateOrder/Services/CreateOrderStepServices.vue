@@ -36,7 +36,7 @@
               :key="selectedOffer.label"
               :services="offerServices"
               :data-params-needed="isDataParamsError"
-              read-only
+              :read-only="!userIsBO"
               vertical
               @datachange="onServiceChange"
             />
@@ -59,6 +59,7 @@ import { fetchOffers } from '@/api/offers';
 import CreateOrderStepContainer from '../CreateOrderStepContainer';
 
 import { getMarketingOfferServices } from '@/components/Services/utils.js';
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'CreateOrderStepServices',
@@ -86,6 +87,8 @@ export default {
   },
 
   computed: {
+    ...mapGetters(['userIsBO']),
+
     canEditPreactivation() {
       if (this.orderPreactivationMandatory) return false;
 
@@ -169,18 +172,19 @@ export default {
     },
     canGoNext() {
       let isDataParamsError = false;
-      /**
-       * désactiver en attendant la correction back
-       * https://m2m-gitlab.by-docapost.com/powwow-ng/backlog/-/issues/2746
-       */
-      /*
+      if (this.userIsBO) {
+        /**
+         * désactiver en attendant la correction back
+         * https://m2m-gitlab.by-docapost.com/powwow-ng/backlog/-/issues/2746
+         */
+
         isDataParamsError =
           this.servicesChoice &&
           this.servicesChoice.dataService &&
           this.servicesChoice.dataService.checked &&
           this.servicesChoice.dataService.parameters &&
           this.servicesChoice.dataService.parameters.filter((p) => p.selected).length === 0;
-          */
+      }
 
       this.isDataParamsError = isDataParamsError;
 
