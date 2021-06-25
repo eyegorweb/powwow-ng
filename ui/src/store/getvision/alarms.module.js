@@ -21,7 +21,7 @@ export const getters = {
   ...filterUtils.initGetters(),
   selectedPartnersValues: findFilterValuesById('filters.partners'),
   selectedBillingAccountsValues: findFilterValuesById('filters.billingAccounts'),
-  selectedAlarmRange: findFilterValuesById('getvsion.filters.ALARMS_OFFER'),
+  selectedAlarmRange: findFilterValuesById('getvsion.filters.ALARMS_SCOPE'),
   selectedAlarmType: findFilterValueById('getvsion.filters.ALARM_TYPE'),
   selectedOffersValues: (state) => {
     return selectedFilterValuesById(state)('filters.alarms.associatedOffer');
@@ -126,7 +126,7 @@ export const mutations = {
   },
   setAlarmRange(state, values) {
     selectFilterValue(state, {
-      id: 'getvsion.filters.ALARMS_OFFER',
+      id: 'getvsion.filters.ALARMS_SCOPE',
       values,
     });
   },

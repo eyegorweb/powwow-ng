@@ -25,8 +25,20 @@
             <p>{{ $t('getparc.lineDetail.alarms.ALARM_TYPE.' + content.type) }}</p>
           </div>
           <div class="item">
-            <h6>{{ $t('getvsion.filters.ALARMS_OFFER') }}:</h6>
+            <h6>{{ $t('getvsion.filters.ALARMS_SCOPE') }}:</h6>
             <p>{{ alarmScope }}</p>
+
+            <template v-if="offer">
+              <p class="text-small">
+                <strong> {{ $t('alarms.alarmScope.OFFER') }} </strong>: {{ offer }}
+              </p>
+            </template>
+            <template v-if="billingAccount">
+              <p class="text-small">
+                <strong> {{ $t('alarms.alarmScope.CUSTOMER_ACCOUNT') }} </strong>:
+                {{ billingAccount }}
+              </p>
+            </template>
           </div>
         </div>
       </div>
@@ -122,6 +134,33 @@ export default {
   },
 
   computed: {
+    billingAccount() {
+      if (this.content && this.content.type === 'OVER_CONSUMPTION_VOLUME_FLOTTE') {
+        return this.content &&
+          this.content.offerGroup &&
+          this.content.offerGroup.offerInstance &&
+          this.content.offerGroup.offerInstance.marketingOffer &&
+          this.content.offerGroup.offerInstance.marketingOffer
+          ? `${this.content.offerGroup.offerInstance.marketingOffer.code} - ${this.content.offerGroup.offerInstance.marketingOffer.description}`
+          : '';
+      }
+      return this.content && this.content.autoPositionCustAccount
+        ? `${this.content.autoPositionCustAccount.id} - ${this.content.autoPositionCustAccount.name}`
+        : '';
+    },
+
+    offer() {
+      if (this.content && this.content.type === 'OVER_CONSUMPTION_VOLUME_FLOTTE') {
+        return this.content && this.content.offerGroup && this.content.offerGroup.customerAccount
+          ? `${this.content.offerGroup.customerAccount.code} - ${this.content.offerGroup.customerAccount.name}`
+          : '';
+      }
+      return this.content &&
+        this.content.autoPositionWorkflow &&
+        this.content.autoPositionWorkflow.workflowDescription
+        ? this.content.autoPositionWorkflow.workflowDescription
+        : '';
+    },
     finalTextObservationCycle() {
       if (this.content.observationCycle === 'CUSTOM' || this.content.observationCycle === null) {
         if (
@@ -175,5 +214,9 @@ hr {
   text-transform: uppercase;
   font-size: 1.2rem;
   margin-bottom: 1rem;
+}
+
+.text-small {
+  font-size: 0.75rem;
 }
 </style>

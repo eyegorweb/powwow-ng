@@ -21,8 +21,18 @@
         <p>{{ $t('alarms.' + content.type) }}</p>
       </div>
       <div v-if="content.alarmScope" class="overview-item mr-5">
-        <h6>{{ $t('getvsion.filters.ALARMS_OFFER') }}:</h6>
-        <p>{{ $t('alarms.alarmScope.' + content.alarmScope) }}</p>
+        <h6>{{ $t('getvsion.filters.ALARMS_SCOPE') }}:</h6>
+        <p>{{ $t(scopeTradKey) }}</p>
+      </div>
+      <div v-if="billingAccount" class="overview-item mr-5">
+        <h6>{{ $t('common.billingAccount') }}:</h6>
+        <p>
+          {{ billingAccount }}
+        </p>
+      </div>
+      <div v-if="offer" class="overview-item mr-5">
+        <h6>{{ $t('alarms.alarmScope.OFFER') }}:</h6>
+        <p>{{ offer }}</p>
       </div>
       <div class="overview-item mr-5">
         <h6>{{ $t('getparc.history.details.quantityTargeted') }}:</h6>
@@ -54,18 +64,9 @@
         <p class="text-success">{{ content.startDate || '-' }}</p>
       </div>
     </div>
-    <div v-if="userIsPartner" class="overview-container m-3 bg-white">
-      <div class="overview-item">
-        <h4 class="font-weight-normal text-uppercase">{{ $t('getvsion.account-info') }}</h4>
-      </div>
-      <div class="overview-item mr-5">
-        <h6>{{ $t('col.partner') }}:</h6>
-        <p>{{ partner }}</p>
-      </div>
-    </div>
 
     <!-- ACCOUNT INFORMATION -->
-    <div class="overview-container m-3 bg-white">
+    <div v-if="!userIsPartner" class="overview-container m-3 bg-white">
       <div class="overview-item">
         <h4 class="font-weight-normal text-uppercase">{{ $t('getvsion.account-info') }}</h4>
       </div>
@@ -73,20 +74,10 @@
         <h6>{{ $t('alarms.alarmScope.PARTY') }}:</h6>
         <p>{{ partner }}</p>
       </div>
-      <div v-if="billingAccount" class="overview-item mr-5">
-        <h6>{{ $t('common.billingAccount') }}:</h6>
-        <p>
-          {{ billingAccount }}
-        </p>
-      </div>
-      <div v-if="offer" class="overview-item mr-5">
-        <h6>{{ $t('alarms.alarmScope.OFFER') }}:</h6>
-        <p>{{ offer }}</p>
-      </div>
     </div>
 
     <!-- NOTIFICATIONS -->
-    <div class="overview-container m-3 bg-white">
+    <div class="overview-container m-3 bg-white bottom-space">
       <div class="overview-item">
         <h4 class="font-weight-normal text-uppercase">{{ $t('getvsion.notifications') }}</h4>
       </div>
@@ -180,6 +171,17 @@ export default {
       isOpen: (state) => state.ui.isPanelOpen,
     }),
 
+    scopeTradKey() {
+      if (this.content) {
+        if (this.content.alarmScope === 'OFFER') {
+          return 'alarms.offer_cf';
+        }
+        return 'alarms.alarmScope.' + this.content.alarmScope;
+      }
+
+      return '';
+    },
+
     numberOfTargetedLines() {
       if (this.alarmType === 'OVER_CONSUMPTION_VOLUME_FLOTTE') {
         return this.content.numberLines;
@@ -210,8 +212,8 @@ export default {
       }
       return this.content &&
         this.content.autoPositionWorkflow &&
-        this.content.autoPositionWorkflow.name
-        ? this.content.autoPositionWorkflow.name
+        this.content.autoPositionWorkflow.workflowDescription
+        ? this.content.autoPositionWorkflow.workflowDescription
         : '';
     },
 

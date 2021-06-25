@@ -529,7 +529,7 @@
       "nonLocalisableSessions30Days": "Lines with a data session in the last 30 days but not locatable"
     },
     "filters": {
-      "ALARMS_OFFER": "Alarm range",
+      "ALARMS_SCOPE": "Alarm range",
       "ALARM_TYPE": "Alarm type",
       "DATE_TRIGGER": "Trigger date"
     },

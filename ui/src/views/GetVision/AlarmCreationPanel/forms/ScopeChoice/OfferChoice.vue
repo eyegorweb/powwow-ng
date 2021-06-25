@@ -8,11 +8,9 @@
     <template slot="form">
       <h6>{{ $t('alarms.alarmScope.OFFER') }}</h6>
       <OfferCombo v-model="selectedOffer" :partners="partners" />
-      <template v-if="selectedOffer">
-        <h6>{{ $t('common.billingAccount') }}</h6>
 
-        <BillingAccountCombo :value.sync="selectedBillingAccount" :partners="partners" />
-      </template>
+      <h6>{{ $t('common.billingAccount') }}</h6>
+      <BillingAccountCombo :value.sync="selectedBillingAccount" :partners="partners" />
     </template>
     <template slot="message">
       <ScopeSearchMessage :is-loading="isLoading" @refresh="searchLines">
@@ -50,30 +48,19 @@ export default {
 
   watch: {
     selectedOffer(offer) {
-      if (offer) {
-        this.params = {
-          offer,
-          billingAccount: this.selectedBillingAccount,
-          partnerId: this.partner.id,
-        };
-      } else {
-        this.params = undefined;
-        this.selectedBillingAccount = undefined;
-      }
-
+      this.params = {
+        offer,
+        billingAccount: this.selectedBillingAccount,
+        partnerId: this.partner.id,
+      };
       this.$emit('change', this.params);
     },
     selectedBillingAccount(billingAccount) {
-      if (this.selectedOffer && billingAccount) {
-        this.params = {
-          offer: this.selectedOffer,
-          partnerId: this.partner.id,
-          billingAccount,
-        };
-      } else {
-        this.params = undefined;
-      }
-
+      this.params = {
+        offer: this.selectedOffer,
+        partnerId: this.partner.id,
+        billingAccount,
+      };
       this.$emit('change', this.params);
     },
   },
