@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.396+20210625150933
+2021-06-25
+
+### Fixes
+
+- [000] enlever la notice de maintenance (13e2aaf1147efacc7c03df9ec9348ec941f66c26)
+
 ## 1.17.0-master.395+20210625140613
 2021-06-25
 
