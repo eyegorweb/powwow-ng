@@ -638,7 +638,7 @@ export async function changeService(filters, lines, params) {
           simCardInstanceIds: [${gqlLines}],
           notification: ${boolStr(notifEmail)},
           dueDate: "${dueDate}",
-          marketingOfferCode: "${offerCode}"
+          offerCode: "${offerCode}"
           ${gqlTempDataUuid}${changeServicesParamsGql}
         })
         {

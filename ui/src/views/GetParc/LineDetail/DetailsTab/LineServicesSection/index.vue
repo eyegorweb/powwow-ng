@@ -184,7 +184,7 @@ export default {
 
     async saveChanges() {
       const partyId = this.content.party.id;
-      const offerCode = get(this.content, 'accessPoint.offer.marketingOffer.code');
+      const offerCode = get(this.content, 'accessPoint.workflowCode');
       const {
         servicesToEnable,
         servicesToDisable,
@@ -206,10 +206,10 @@ export default {
         this.savingChanges = true;
         const dataService = canSaveData
           ? {
-              checked: this.dataCheck,
-              parameters: this.lastDataParams,
-              code: 'DATA',
-            }
+            checked: this.dataCheck,
+            parameters: this.lastDataParams,
+            code: 'DATA',
+          }
           : undefined;
         const response = await changeService([], [this.content], {
           notifEmail: false,
