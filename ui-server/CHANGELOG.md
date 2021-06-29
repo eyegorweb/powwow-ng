@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.399+20210629123642
+2021-06-29
+
+### Fixes
+
+- [000] Changement proxyace2 => proxyace1 (9ed4b7c5845654a651a503e1c2a80799b63208e6)
+
 ## 1.17.0-master.398+20210629085948
 2021-06-29
 
