@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.398+20210629085948
+2021-06-29
+
+### Fixes
+
+- [000] bandeau (7777d35c5bef03418cb08e83d879dfea1b736599)
+- [2776] Adaptation aux changements API (05456bc0a7994f98422bf56d61a0fb8d1adae596)
+
 ## 1.17.0-master.397+20210625152839
 2021-06-25
 
