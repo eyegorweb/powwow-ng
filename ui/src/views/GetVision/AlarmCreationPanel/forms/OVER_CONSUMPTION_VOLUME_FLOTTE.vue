@@ -429,6 +429,9 @@ export default {
         }
       }
 
+      if (!this.levelsData && !this.levelsSms && !this.levelsVoice) {
+        isFormValid &= false;
+      }
       return isFormValid;
     },
     onClose(response, key) {

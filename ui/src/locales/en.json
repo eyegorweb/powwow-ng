@@ -437,7 +437,6 @@
     "STATUS_CHANGE_PROFILE": "Profile status change",
     "IMEI_CHANGE": "Device change",
     "COUNTRY_CHANGE": "Country change",
-    "UNDER_CONSUMPTION_VOLUME_FLOTTE": "fleet under consumption",
     "OVER_CONSUMPTION_VOLUME_FLOTTE": "Over consumption pool",
     "MORE_DETAIL": "Display alarm details",
     "observationCycles": {

@@ -45,18 +45,25 @@ export default {
 
   mounted() {
     if (this.duplicateFrom) {
-      if (this.duplicateFrom && this.duplicateFrom.levelData1) {
+      if (this.duplicateFrom && this.duplicateFrom.levelDataMax) {
         this.lines[0] = {
-          value: this.duplicateFrom.levelData1,
-          limit: this.duplicateFrom.dateLevelData1,
+          value: this.duplicateFrom.levelDataMax,
+          limit: this.duplicateFrom.dateLevelDataMax,
           id: 1,
         };
       }
-      if (this.duplicateFrom && this.duplicateFrom.levelData2) {
+      if (this.duplicateFrom && this.duplicateFrom.levelData1) {
         this.lines[1] = {
+          value: this.duplicateFrom.levelData1,
+          limit: this.duplicateFrom.dateLevelData1,
+          id: 2,
+        };
+      }
+      if (this.duplicateFrom && this.duplicateFrom.levelData2) {
+        this.lines[2] = {
           value: this.duplicateFrom.levelData2,
           limit: this.duplicateFrom.dateLevelData2,
-          id: 2,
+          id: 3,
         };
       }
       this.hasLimits = !!this.lines.length;
