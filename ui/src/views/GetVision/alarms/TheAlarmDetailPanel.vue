@@ -46,7 +46,7 @@
         <p v-else>-</p>
       </div>
 
-      <div class="overview-item mr-5">
+      <div class="overview-item mr-5" v-if="!isPoolAlarm">
         <h6>{{ $t('getvsion.triggered_this_month') }}:</h6>
         <p>{{ nbOfEventsForCurrentMonth + ' ligne(s)' }}</p>
       </div>
@@ -55,7 +55,7 @@
         <h6>{{ $t('getvsion.table.thresholds') }}:</h6>
         <Thresholds :alarm="content" />
       </div>
-      <div class="overview-item mr-5">
+      <div class="overview-item mr-5" v-if="!isPoolAlarm">
         <h6>{{ $t('getparc.lineDetail.alarms.observationCycle') }}:</h6>
         <p>{{ finalTextObservationCycle }}</p>
       </div>
@@ -267,6 +267,10 @@ export default {
     observationDelay() {
       const observationDelay = get(this.content, 'observationDelay', null);
       return observationDelay !== null ? observationDelay : null;
+    },
+
+    isPoolAlarm() {
+      return ['OVER_CONSUMPTION_VOLUME_FLOTTE'].includes(this.alarmType);
     },
   },
 

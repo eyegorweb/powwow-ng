@@ -262,9 +262,13 @@ export async function searchAlarms(orderBy, pagination, filters = []) {
 }
 
 export async function fetchTriggerHistory(alarmId, simCardInstanceId) {
+  let simCardInstanceIdGql = '';
+  if (simCardInstanceId) {
+    simCardInstanceIdGql = `, simCardInstanceId: {in: [${simCardInstanceId}]}`;
+  }
   const queryStr = `
   query {
-    alarmEvents(alarmEventsFilterInput: {alarmId: {eq: ${alarmId}}, simCardInstanceId: {in: [${simCardInstanceId}]}}, pagination: {page: 0, limit: 20}) {
+    alarmEvents(alarmEventsFilterInput: {alarmId: {eq: ${alarmId}} ${simCardInstanceIdGql}}, pagination: {page: 0, limit: 20}) {
       items {
         id
         emissionDate,
@@ -291,6 +295,9 @@ export async function fetchTriggerHistory(alarmId, simCardInstanceId) {
           level3
           level3Up
           level3Down
+        }
+        accessPoint {
+          id
         }
       }
     }

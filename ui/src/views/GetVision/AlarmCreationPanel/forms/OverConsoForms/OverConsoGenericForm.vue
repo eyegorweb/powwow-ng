@@ -3,7 +3,7 @@
     <template v-if="active_ || (editMode && hasLimits)">
       <OverConsoVolumeFlotteGraph :init-limits="limits" @setLimits="setLimitsFromGraph" />
 
-      <div class="line-container">
+      <div class="line-container" v-if="!editMode">
         <div class="value">
           <span>{{ $t('getvsion.alarm-creation.thresholdIsOver') }}</span>
           <UiInput

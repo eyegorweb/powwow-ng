@@ -485,7 +485,6 @@
     "STATUS_CHANGE_PROFILE": "Changement de statut de profil",
     "IMEI_CHANGE": "Changement de module",
     "COUNTRY_CHANGE": "Changement de pays",
-    "UNDER_CONSUMPTION_VOLUME_FLOTTE": "sous-consommation de la flotte",
     "OVER_CONSUMPTION_VOLUME_FLOTTE": "Sur-conso de la flotte",
     "MORE_DETAIL": "Voir le détail de l'alarme",
     "observationCycles": {
