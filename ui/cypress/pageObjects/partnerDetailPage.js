@@ -297,6 +297,13 @@ export default {
             .clear()
             .type(label);
         },
+        taxArea(taxArea) {
+          cy.waitGet(
+            'div.col-md-9 > div > div:nth-child(4) > div > div:nth-child(5) > div > div > div > fieldset > input'
+          )
+            .clear()
+            .type(taxArea);
+        },
         save() {
           cy.waitGet('.billAccounts button').click();
         },

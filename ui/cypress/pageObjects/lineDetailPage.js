@@ -44,7 +44,7 @@ export default {
       },
       alarmsDetails: {
         openTriggerHistory() {
-          cy.waitGet('table > tbody > tr:nth-child(2) > td:nth-child(5) > div > button').click();
+          cy.waitGet('table > tbody > tr:nth-child(4) > td:nth-child(5) > div > button').click();
         },
         openAlarmModification() {
           cy.waitGet('table > tbody > tr:nth-child(1) > td:nth-child(1) > div > button').click();
@@ -69,7 +69,7 @@ export default {
         },
         showActResultClick() {
           cy.waitGet(
-            '#main-sliding-panel > div > div > div > div > div > div.footer-back > div > div.goto-detail-button > button'
+            '#main-sliding-panel > div > div > div > div > div.footer-back > div > div.goto-detail-button > button'
           ).click();
           cy.wait(400);
         },

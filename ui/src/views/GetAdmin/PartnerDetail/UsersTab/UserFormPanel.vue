@@ -13,14 +13,14 @@
             @update="userType = $event.id"
             :values="userTypes"
             :disabled="canShowTypes"
-            class="pl-2"
+            class="pl-2 user-types"
           />
         </div>
       </div>
 
       <div class="row mb-3">
         <div class="col">
-          <div class="d-flex">
+          <div class="d-flex gender">
             <label class="radio-container mr-3">
               {{ $t('common.MR') }}
               <input name="civility" type="radio" value="MR" v-model="form.title" />
@@ -42,11 +42,16 @@
         </div>
         <div v-if="shouldSelectAPartner" class="form-entry" :class="{ noDisplay: fromPagePartner }">
           <label>{{ $t('getadmin.users.userTypes.partner') }}</label>
-          <PartnerCombo :value.sync="selectedPartner" :disabled="!!content.duplicateFrom" />
+          <PartnerCombo
+            class="partner"
+            :value.sync="selectedPartner"
+            :disabled="!!content.duplicateFrom"
+          />
         </div>
         <div v-if="shouldSelectAPartnerGroup" class="form-entry" ref="partner-group">
           <label>{{ $t('getadmin.users.filters.partnerGroup') }}</label>
           <UiApiAutocomplete
+            class="partner-group"
             :placeholder="$t('getadmin.users.filters.partnerGroup')"
             :items="groupPartners"
             v-model="selectedGroupPartner"
@@ -58,16 +63,16 @@
 
       <div class="entries-line">
         <div class="form-entry">
-          <FormControl label="common.firstName" v-model="form.firstName" />
+          <FormControl class="firstname" label="common.firstName" v-model="form.firstName" />
         </div>
         <div class="form-entry pl-2">
-          <FormControl label="common.lastName" v-model="form.lastName" />
+          <FormControl class="lastname" label="common.lastName" v-model="form.lastName" />
         </div>
       </div>
 
       <div class="entries-line">
         <div class="form-entry">
-          <FormControl label="common.email" v-model="form.email" />
+          <FormControl class="email" label="common.email" v-model="form.email" />
           <span v-if="haveMailError" class="error-text">
             {{ $t('errors.password.email-error') }}
           </span>
@@ -76,7 +81,12 @@
       <div class="entries-line">
         <div class="form-entry">
           <input type="text" name="login" class="hidden" autocomplete="off" />
-          <FormControl label="login" v-model="form.username" :disabled="loginFieldDisabled" />
+          <FormControl
+            class="login"
+            label="login"
+            v-model="form.username"
+            :disabled="loginFieldDisabled"
+          />
           <span v-if="form.username && requestErrors && requestErrors.length" class="error-text">
             {{ requestErrors[0].message }}
           </span>
@@ -94,10 +104,16 @@
       <div v-else class="entries-line">
         <div class="form-entry">
           <input type="password" name="password" class="hidden" autocomplete="off" />
-          <FormControl label="password" input-type="password" v-model="form.password" />
+          <FormControl
+            class="password"
+            label="password"
+            input-type="password"
+            v-model="form.password"
+          />
         </div>
         <div class="form-entry pl-2">
           <FormControl
+            class="password-confirm"
             label="passwordConfirm"
             input-type="password"
             v-model="form.passwordConfirm"
@@ -124,7 +140,7 @@
           </h6>
         </div>
         <div v-else>
-          <MultiChoices :options="roles" v-model="selectedRoles" />
+          <MultiChoices class="roles" :options="roles" v-model="selectedRoles" />
         </div>
       </div>
     </div>

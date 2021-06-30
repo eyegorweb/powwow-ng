@@ -3,65 +3,118 @@ import layout from '../../../pageObjects/layout';
 import userCreationPage from '../../../pageObjects/userCreationPage';
 import userPage from '../../../pageObjects/userPage';
 
-let myUserLogin = '';
+let nbrUsers = 0;
+let firstname = '';
 
-Given(`je suis sur la page de gestion des utilisateurs`, () => {
+// Instructions communes
+
+Given('Je suis sur la page de gestion des utilisateurs', () => {
   layout.menu.userManagement();
+  cy.wait(400);
 });
 
-Given(`je créé un nouvel utilisateur interne`, () => {
-  userCreationPage.addUser();
-  userCreationPage.selectLanguage();
+Given('Je rentre le prénom {string}', (firstname) => {
+  userCreationPage.typeFirstname(firstname);
 });
 
-Given(`je lui donne pour sexe {string}`, userSex => {
-  userCreationPage.checkUserSex(userSex);
+When("J'enregistre l'utilisateur", () => {
+  userCreationPage.save();
+  cy.wait(400);
 });
 
-Given(`je lui donne pour prénom {string}`, userFirstName => {
-  userCreationPage.fillUserFirstName(userFirstName);
+// Création utilisateur
+
+Given('Je clique sur "Ajouter un utilisateur"', () => {
+  getTotal();
+  userPage.addUser();
 });
 
-Given(`je lui donne pour nom {string}`, userLastName => {
-  userCreationPage.fillUserLastName(userLastName);
+Given("Je choisis le type d'utilisateur {string}", (index) => {
+  userCreationPage.selectUserType(index);
 });
 
-Given(`je lui donne pour email {string}`, email => {
-  userCreationPage.fillUserEmail(email);
+Given('Je choisis le genre {string}', (index) => {
+  userCreationPage.selectGender(index);
 });
 
-Given(`je lui donne pour login {string}`, userLogin => {
-  const randomSuffix =
-    Math.random()
-      .toString(36)
-      .substring(2, 5) +
-    Math.random()
-      .toString(36)
-      .substring(2, 2);
-
-  myUserLogin = userLogin + randomSuffix;
-  userCreationPage.fillUserLogin(myUserLogin);
+Given('Je sélectionne le language {string}', (langage) => {
+  userCreationPage.selectLanguage(langage);
 });
 
-Given(`je lui donne pour mdp {string}`, password => {
-  userCreationPage.fillUserPassword(password);
+Given('Je sélectionne le partenaire {string}', (partner) => {
+  userCreationPage.typePartner(partner);
 });
 
-Given(`je lui donne pour rôle {string}`, userRole => {
-  userCreationPage.chooseRole();
-  // changer la maniere dont on selectionne le role
+Given('Je sélectionne le groupe de partenaire {string}', (partnerGroup) => {
+  userCreationPage.typePartnerGroup(partnerGroup);
 });
 
-Given(`j'enregistre la création de l'utilisateur`, () => {
-  userCreationPage.saveUser();
+Given('Je rentre le nom {string}', (lastname) => {
+  userCreationPage.typeLastname(lastname);
 });
 
-When(`je recherche le login de mon utilisateur`, () => {
-  userPage.searchUserByLogin(myUserLogin);
+Given("Je rentre l'email {string}", (email) => {
+  userCreationPage.typeEmail(email);
 });
 
-Then(`la table contient {int} resultat`, nbrResult => {
-  userPage.getTotal(total => {
-    expect(total).to.equal(nbrResult);
+Given('Je rentre le login {string}', (login) => {
+  userCreationPage.typeLogin(login);
+});
+
+Given('Je rentre le mot de passe {string}', (password) => {
+  userCreationPage.typePassword(password);
+});
+
+Given('Je sélectionne le rôle {string}', (index) => {
+  userCreationPage.checkRole(index);
+});
+
+Then('Je vérifie la création du nouvel utilisateur', () => {
+  userPage.verifyUserCreation(nbrUsers);
+});
+
+// Modification utilisateur
+
+Given("Je recherche l'utilisateur {string}", (userLogin) => {
+  userPage.searchUserByLogin(userLogin);
+});
+
+Given('Je clique sur le bouton "Modifier"', () => {
+  userPage.clickModifyButton();
+});
+
+Given('Je récupère le prénom', () => {
+  getFirstname();
+});
+
+When("Je recherche l'utilisateur {string}", (userLogin) => {
+  userPage.searchUserByLogin(userLogin);
+});
+
+Then("Je vérifie la modification de l'utilisateur", () => {
+  userPage.verifyUserModification(firstname);
+});
+
+// Fonctions
+
+function getTotal() {
+  cy.waitGet('.mb-3 > :nth-child(1) > .text-gray').then((e) => {
+    const parts = e
+      .text()
+      .trim()
+      .split(' ');
+    const value = parseInt(parts[0]);
+    nbrUsers = value;
   });
-});
+}
+
+function getFirstname() {
+  cy.waitGet('table > tbody > tr:first-child > td:nth-child(4) > div > div').then((e) => {
+    const parts = e
+      .text()
+      .trim()
+      .split();
+    const value = parts[0];
+    firstname = value;
+  });
+}

@@ -24,12 +24,21 @@ Cypress.Commands.add('startAsPartner', () => {
   cy.get('#app-loader').should('not.be.visible');
 });
 
-Cypress.Commands.add('waitGet', path => {
+Cypress.Commands.add('startAsGroupAccount', () => {
+  cy.userIsMonoPartner = false;
+  cy.visit(
+    Cypress.env('APP_URL') + 'p/callback#access_token=' + Cypress.env('GROUP_ACCOUNT_TOKEN')
+  );
+  cy.get('#app-loader').should('not.be.visible');
+  cy.url().should('eq', Cypress.env('APP_URL') + 'p/');
+});
+
+Cypress.Commands.add('waitGet', (path) => {
   return cy.get(path, { timeout: 10000 });
 });
 
-Cypress.Commands.add('waitForIt', nb => {
-  return Cypress.Promise(resolve => {
+Cypress.Commands.add('waitForIt', (nb) => {
+  return Cypress.Promise((resolve) => {
     setTimeout(() => resolve(), nb);
   });
 });

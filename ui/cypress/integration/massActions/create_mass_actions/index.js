@@ -50,7 +50,7 @@ Given(`je choisis l'acte de changement de CF par défaut`, () => {
   createActionsPage.actions.changeBillingAccount.selectoffer('Parc 2 forfait');
   createActionsPage.actions.changeBillingAccount.apply();
 
-  createActionsPage.actions.changeBillingAccount.selectNewBillingAccount('6.42662 - 6.42661');
+  createActionsPage.actions.changeBillingAccount.selectNewBillingAccount('6.42662');
   createActionsPage.actions.changeBillingAccount.validate();
 });
 
@@ -133,7 +133,10 @@ Then(`je verifie que mon acte a été créé`, () => {
     return cy.waitForGQL('massActionsV2').then((response) => {
       const newTotal = get(response, 'body.data.massActionsV2.total');
 
-      expect(newTotal).to.be.equal(totalMassAction + 1);
+      expect(newTotal).to.be.equal(totalMassAction);
+
+      createActionsPage.clickScheduledActs();
+      cy.wait(1000);
       createActionsPage.getLastActionType().should('have.text', typeMassAction);
     });
   });
