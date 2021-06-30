@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.400+20210630082923
+2021-06-30
+
+### Features
+
+- [000] Maintenance des tests et ajout des tests sur les utilisateurs (fd1ec3b8446996b95181e749dfad8f1278bb4589)
+
 ## 1.17.0-master.399+20210629123642
 2021-06-29
 
