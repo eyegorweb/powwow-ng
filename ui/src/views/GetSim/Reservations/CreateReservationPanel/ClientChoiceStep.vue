@@ -26,6 +26,7 @@ import PartnerCombo from '@/components/CustomComboxes/PartnerCombo.vue';
 import BillingAccountAutocomplete from '@/components/CustomComboxes/BillingAccountAutocomplete.vue';
 
 import { mapGetters } from 'vuex';
+import { getPartyOptions } from '@/api/partners.js';
 
 export default {
   components: {
@@ -66,7 +67,10 @@ export default {
         this.selectedPartner = this.singlePartner;
       }
     },
-    done() {
+    async done() {
+      const partnerOptions = await getPartyOptions(this.$loGet(this.selectedPartner, 'id'));
+      this.selectedPartner.options = partnerOptions;
+
       this.$emit('done', {
         stepClient: {
           partner: this.selectedPartner,

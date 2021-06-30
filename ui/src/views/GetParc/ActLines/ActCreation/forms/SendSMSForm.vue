@@ -19,11 +19,12 @@
             style="font-size: 24px"
             class="arrow"
             src="@/assets/search.svg"
+            alt="search"
             :style="{ left: 0 }"
           />
         </UiApiAutocomplete>
         <span v-if="!shortCodesValues" class="text-warning">
-          <i class="ic-Alert-Icon" />
+          <em class="ic-Alert-Icon" />
           {{ $t('getparc.actCreation.sendSMS.errorMessage') }}
         </span>
 
@@ -210,13 +211,13 @@ export default {
     },
 
     async fetchShortCodes() {
+      let partnerId = get(this.userInfos, 'partners[0].id');
+
       if (!this.userIsPartner) {
-        const shortCodesValues = get(this.actCreationPrerequisites, 'partner.shortCodes');
-        return shortCodesValues;
+        partnerId = this.$loGet(this.actCreationPrerequisites, 'partner.id');
       }
-      const partnerId = get(this.userInfos, 'partners[0].id');
-      const shortCodes = await fetchShortCodes(partnerId);
-      return shortCodes;
+
+      return fetchShortCodes(partnerId);
     },
   },
 };

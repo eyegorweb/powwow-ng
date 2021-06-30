@@ -100,7 +100,7 @@ export default {
     this.preFill();
     this.isOrderNumberMandatory = get(
       this.synthesis,
-      'billingAccount.selection.partner.orderNumberIsMandatory',
+      'billingAccount.selection.partner.options.orderNumberRequired',
       false
     );
   },

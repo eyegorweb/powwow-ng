@@ -97,10 +97,11 @@ export default {
 
   async mounted() {
     await this.fetchCustomFieldsForPartner();
+
     this.preFill();
-    this.isOrderNumberMandatory = get(
+    this.isOrderNumberMandatory = this.$loGet(
       this.synthesis,
-      'stepClient.partner.data.orderNumberRequired',
+      'stepClient.partner.options.orderNumberRequired',
       false
     );
   },
