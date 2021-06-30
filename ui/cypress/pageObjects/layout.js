@@ -33,9 +33,7 @@ export default {
     userManagement: () => {
       cy.startObservationGql();
 
-      cy.waitGet(
-        '#app > div.container > div.navbars.bg-white > div > div:nth-child(1) > div > ol > li:nth-child(7) > div > div > a.dropdown-item.menu_getAdminUsers'
-      ).click({ force: true });
+      cy.waitGet('a.dropdown-item.menu_getAdminUsers').click({ force: true });
     },
     partnerManagement: () => {
       cy.startObservationGql();

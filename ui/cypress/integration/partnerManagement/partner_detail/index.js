@@ -272,6 +272,10 @@ Given('Je modifie le libelle a {string}', (label) => {
   partnerDetailPage.tabs.billingAccount.edit.label(label);
 });
 
+Given('Je modifie la zone de taxe a {string}', (taxArea) => {
+  partnerDetailPage.tabs.billingAccount.edit.taxArea(taxArea);
+});
+
 Given('Je clique sur le bouton "Mettre a jour" Comptes de facturation', () => {
   partnerDetailPage.tabs.billingAccount.edit.save();
 });

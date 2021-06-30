@@ -101,6 +101,7 @@ Feature: Page de detail d'un partenaire
     And Je vais sur l'onglet "Comptes de facturation"
     And Je clique sur le code de la premiere ligne
     And Je modifie le libelle a "TestCypress"
+    And Je modifie la zone de taxe a "TaxAreaCypress"
     And Je clique sur le bouton "Mettre a jour" Comptes de facturation
     When Je clique sur le bouton "Retour a la liste des C.F."
     Then Le libelle est correctement modifie a "TEST"

@@ -5,6 +5,11 @@ export default {
   init() {
     layout.menu.lines();
   },
+  clickScheduledActs() {
+    cy.waitGet(
+      'div.col-md-3 > div:nth-child(1) > div > ul > li:nth-child(2) > div > button'
+    ).click({ force: true });
+  },
   chooseMassPrerequisites() {
     return cy
       .get(
@@ -20,9 +25,9 @@ export default {
       .click();
   },
   getLastActionType() {
-    return cy.waitGet(
-      '#app > div.container > div.mt-4 > div:nth-child(2) > div.col-md-9 > div > div > div:nth-child(2) > div:nth-child(2) > div > table > tbody > tr:nth-child(1) > td:nth-child(2) > div > div > div > div > span'
-    );
+    return cy
+      .waitGet('table > tbody > tr > td:nth-child(2) > div > div > div > div > span')
+      .first();
   },
   isPageLoaded() {
     cy.get('#app > div.container > div.mt-4 > div.row.mb-5 > div > div > div > div');

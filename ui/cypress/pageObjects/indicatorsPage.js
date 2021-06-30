@@ -12,7 +12,7 @@ export default {
       });
     },
     apply() {
-      cy.waitGet('button.contextBarApply').click();
+      cy.waitGet('button.context-bar-apply').click();
     },
     deleteSecondPartner() {
       cy.waitGet('div.partnerSelect > div > div > label > div:nth-child(3) > img').click();

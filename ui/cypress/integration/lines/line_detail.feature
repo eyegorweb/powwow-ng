@@ -2,7 +2,6 @@ Feature: detail des lignes
 
   Je veux tester le detail des lignes
 
-  @focus
   Scenario: je veux verifier l'en cours d'une ligne activée
     Given en tant que BO
     And Je suis sur la page de gestion de lignes
@@ -11,7 +10,6 @@ Feature: detail des lignes
     When je clique sur voir l'en-cours
     Then la table de l'en-cours existe
 
-  @focus
   Scenario: je veux verifier l'en cours d'une ligne non-activée
     Given en tant que BO
     And Je suis sur la page de gestion de lignes
@@ -101,16 +99,17 @@ Feature: detail des lignes
     When Je clique sur le bouton "Appliquer"
     Then Je confirme le changement
 
-  Scenario: Verification du changement d'offre
-    Given en tant que BO
-    And Je suis sur la page de gestion de lignes
-    And je lance la recherche par ID "8933203494859102801"
-    And j'ouvre le panneau de détail de la ligne
-    And Je clique sur "Voir le detail de la ligne"
-    And Je clique sur le bouton "Changer d'offre"
-    And Je selectionne l'offre "Parc 2 forfait"
-    When Je clique sur le bouton "Appliquer"
-    Then Je confirme le changement
+  # Bouton Changer d'offre désactivé
+  #Scenario: Verification du changement d'offre
+  #  Given en tant que BO
+  #  And Je suis sur la page de gestion de lignes
+  #  And je lance la recherche par ID "8933203494859102801"
+  #  And j'ouvre le panneau de détail de la ligne
+  #  And Je clique sur "Voir le detail de la ligne"
+  #  And Je clique sur le bouton "Changer d'offre"
+  #  And Je selectionne l'offre "Parc 2 forfait"
+  #  When Je clique sur le bouton "Appliquer"
+  #  Then Je confirme le changement
 
   Scenario: Ouverture de l'historique de declenchement d'une alarme activee
     Given en tant que BO

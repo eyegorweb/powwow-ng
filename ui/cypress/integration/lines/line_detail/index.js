@@ -132,10 +132,7 @@ Then("Je peux cliquer sur les boutons et les panneaux s'ouvrent", () => {
   lineDetailPage.buttons.changementCF.click();
   lineDetailPage.panel.isVisible();
   lineDetailPage.panel.closePanel();
-  lineDetailPage.buttons.changerOffre.clickable();
-  lineDetailPage.buttons.changerOffre.click();
-  lineDetailPage.panel.isVisible();
-  lineDetailPage.panel.closePanel();
+  lineDetailPage.buttons.changerOffre.notClickable();
 });
 
 Then('Le tableau de consommation est present dans l\'onglet "EN COURS DE CONSOMMATION"', () => {

@@ -1,4 +1,4 @@
-  export default {
+export default {
   startCreation() {
     cy.waitGet(
       '#app > div.container > div.mt-4 > div.mt-4.mb-4 > div > div > div > div > div > div > div.col-md-9 > div.row.mb-3 > div:nth-child(2) > div > div > div > button'
@@ -158,7 +158,7 @@
   countryChangement: {
     create() {
       cy.waitGet(
-        '#main-sliding-panel > div > div > div > div > div.buttonBar > div > ul > li:nth-child(7) > button'
+        '#main-sliding-panel > div > div > div > div > div.buttonBar > div > ul > li:nth-child(8) > button'
       ).click();
     },
     selectPartner(partnerName) {

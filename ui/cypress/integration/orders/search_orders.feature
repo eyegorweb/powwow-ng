@@ -14,7 +14,7 @@ Feature: Recherche de commandes
     And je suis sur la page recherche de commandes
     And je choisis le filtre compte de facturation "TEST"
     When je lance la recherche
-    Then la table contient 1 resultat
+    Then la table contient plus de 0 resultat
 
   Scenario: Recherche par statut de commande
     Given en tant que BO
