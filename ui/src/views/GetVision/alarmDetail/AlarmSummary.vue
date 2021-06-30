@@ -188,6 +188,9 @@ ${this.$t('alarms.alarmScope.OFFER')}: ${this.offer}`;
     },
     alarmScope() {
       const alarmScope = this.get('alarmScope');
+      if (alarmScope === 'OFFER') {
+        return this.$t('alarms.offer_cf');
+      }
       return alarmScope ? this.$t('alarms.alarmScope.' + alarmScope) : '-';
     },
   },
