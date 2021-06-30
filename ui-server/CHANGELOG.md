@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.403+20210630132938
+2021-06-30
+
+### Fixes
+
+- [2771] Utiliser un tooltip pour afficher l'offre  et CF dans le détail de l'alarme (12914a71a025e8ceb1c8bd42384a64040e74df78)
+- [2771] Corriger le titre (200dfa71bebdfbf729fe2d069fc53fecb7cbc614)
+
 ## 1.17.0-master.402+20210630122943
 2021-06-30
 
