@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.402+20210630122943
+2021-06-30
+
+### Fixes
+
+- [2779] ne plus utiliser l'api party pour chercher les options partenaire (1bc3de374ec89b532543183e4b64bccc950f8add)
+
 ## 1.17.0-master.401+20210630111520
 2021-06-30
 
