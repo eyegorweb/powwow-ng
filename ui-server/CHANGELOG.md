@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.401+20210630111520
+2021-06-30
+
+### Fixes
+
+- [2759] correction de la modification des options d'un partenaire (88c1ec354590439c78eefd7a81059dfcf385ac4b)
+- [2751] correction de bugs pour la création et la modification d'une alarme flotte (b6da120cede2d2690e1553850b615b694635ac57)
+
 ## 1.17.0-master.400+20210630082923
 2021-06-30
 
