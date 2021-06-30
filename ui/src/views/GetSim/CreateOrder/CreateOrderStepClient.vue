@@ -37,7 +37,8 @@
 <script>
 import UiApiAutocomplete from '@/components/ui/UiApiAutocomplete';
 import CreateOrderStepContainer from './CreateOrderStepContainer';
-import { fetchpartners, fetchpartnerById } from '@/api/partners';
+import { fetchpartners, fetchpartnerById, getPartyOptions } from '@/api/partners';
+
 import { fetchBillibAccountForPartnerId } from '@/api/billingAccounts';
 import get from 'lodash.get';
 import { mapGetters, mapState } from 'vuex';
@@ -77,7 +78,6 @@ export default {
       this.selectedPartner = {
         id: partner.id,
         label: partner.name,
-        orderNumberIsMandatory: partner.orderNumberRequired,
       };
     }
   },
@@ -95,10 +95,11 @@ export default {
       return data.map((p) => ({
         id: p.id,
         label: p.name,
-        orderNumberIsMandatory: p.orderNumberRequired,
       }));
     },
-    done() {
+    async done() {
+      const partnerOptions = await getPartyOptions(this.$loGet(this.selectedPartner, 'id'));
+      this.selectedPartner.options = partnerOptions;
       const alreadyChosenBillingAccount = get(
         this.synthesis,
         'billingAccount.selection.billingAccount.id'

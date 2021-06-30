@@ -33,6 +33,7 @@ import UiCheckbox from '@/components/ui/Checkbox';
 import { mapState, mapGetters } from 'vuex';
 import { suspendLines } from '@/api/actCreation';
 import { searchLineById } from '@/api/linesActions';
+import { getPartyOptions } from '@/api/partners.js';
 
 export default {
   components: {
@@ -45,6 +46,7 @@ export default {
       suspendBilling: false,
       singleLineFound: undefined,
       requestErrors: [],
+      partnerOptions: undefined,
     };
   },
   computed: {
@@ -63,19 +65,33 @@ export default {
 
     canSuspendBilling() {
       if (!this.actCreationPrerequisites) return false;
+      let suspensionFree = false;
 
-      return (
-        this.partner.partyType !== 'MVNO' &&
-        this.userIsBO &&
-        (this.partner.suspendBilling || this.partner.suspensionFree)
-      );
+      if (this.partnerOptions) {
+        suspensionFree = this.partnerOptions.suspensionFree;
+      }
+
+      return this.partner.partyType !== 'MVNO' && this.userIsBO && suspensionFree;
+    },
+  },
+  watch: {
+    async partner() {
+      this.refreshOptions();
     },
   },
   async mounted() {
     await this.loadSingleLineInfo();
+    this.refreshOptions();
   },
 
   methods: {
+    async refreshOptions() {
+      if (this.partner) {
+        this.partnerOptions = await getPartyOptions(this.partner.id);
+      } else {
+        this.partnerOptions = undefined;
+      }
+    },
     async loadSingleLineInfo() {
       if (
         this.actCreationPrerequisites.searchById &&

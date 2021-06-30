@@ -259,9 +259,10 @@ export default {
 
       const isOrderNumberMandatory = get(
         this.synthesis,
-        'billingAccount.selection.partner.orderNumberIsMandatory',
+        'billingAccount.selection.partner.options.orderNumberRequired',
         false
       );
+
       if (isOrderNumberMandatory) {
         const orderRefContent = get(this.synthesis, 'orderReference.value.content');
         this.orderReferenceError = orderRefContent ? undefined : 'errors.mandatory';

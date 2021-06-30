@@ -420,7 +420,7 @@
         <UiButton
           v-if="
             havePermission('party', 'update_main_options') ||
-              havePermission('party', 'update_secondary_options')
+            havePermission('party', 'update_secondary_options')
           "
           variant="primary"
           class="p-3"
@@ -495,8 +495,7 @@ export default {
     },
     partyType() {
       if (!this.partner) return [];
-      const partyType = get(this.partner, 'partyType', []);
-      return partyType;
+      return get(this.partner, 'partyType', []);
     },
   },
   props: {
@@ -752,7 +751,8 @@ export default {
         this.partnerOptions.esimTerminationDeleteMandatory
       );
       this.diffusionListEnabled = this.partnerOptions.diffusionListEnabled;
-      this.resilationSecurityNotificationMails = this.partnerOptions.resilationSecurityNotificationMails;
+      this.resilationSecurityNotificationMails =
+        this.partnerOptions.resilationSecurityNotificationMails;
       this.eSim = this.partnerOptions.esimEnable;
       this.ipFixe = this.partnerOptions.ipFixeEnable;
       this.mailOrder = this.partnerOptions.mailOrder;
@@ -821,7 +821,8 @@ export default {
 
       this.selectedBillingAccount = get(this.partnerOptions, 'defaultCustomerForActivation');
 
-      this.resilationSecurityNotificationEnabled = this.partnerOptions.resilationSecurityNotificationEnabled;
+      this.resilationSecurityNotificationEnabled =
+        this.partnerOptions.resilationSecurityNotificationEnabled;
       this.refUser = this.partnerOptions.userReferenceEnabled;
       this.billingDelay = this.partnerOptions.billingNonActDelay;
       this.comptaExport = this.partnerOptions.exportComptaBSCSModeEnabled;

@@ -69,6 +69,7 @@ export async function getPartyOptions(partyId) {
     coachM2MFleetpromotion
     coachM2m24h
     geolocViewLimit
+    suspensionFree
     geolocViewCounter
     flagDefautWorkflowActication
     DefautWorkflowActicationDelay
@@ -157,7 +158,18 @@ export async function deleteSecondaryAdministrator(partyId) {
 }
 
 // TO REFACTOR -----------------------
-export async function fetchpartners(
+export async function fetchpartners(q, params) {
+  const fields = `id
+  code
+  name
+  partyType
+  suspensionFree
+  `;
+  return fetchpartnersQuery(fields, q, params);
+}
+
+export async function fetchpartnersQuery(
+  fields,
   q,
   { page, limit, partnerType, partnerTypes, includeMailingLists, esim, haveLvOffers }
 ) {
@@ -192,21 +204,7 @@ export async function fetchpartners(
     partys(filter:{name: {startsWith: "${q}"}${partnerTypeGqlFilter}${esimGqlFilter}${lvOffers}}, pagination: {limit: ${limit}, page: ${page}}, sorting: {name: ASC}) {
       total,
       items {
-        id
-        code
-        name
-        orderNumberRequired
-        shortCodes
-        partyType
-        flagMsisdnA
-        optionViewCellId
-        suspensionFree
-        suspensionAuto
-        wsNotificationParam {
-          notificationOption
-          login
-          url
-        }
+        ${fields}
         ${extraFields.join(',')}
       },
     }

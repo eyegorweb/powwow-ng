@@ -70,6 +70,7 @@ import UiSelect from '@/components/ui/UiSelect';
 import UiInput from '@/components/ui/UiInput';
 import UiButton from '@/components/ui/Button';
 import get from 'lodash.get';
+import { getPartyOptions } from '@/api/partners.js';
 
 export default {
   components: {
@@ -94,7 +95,7 @@ export default {
       default: 3,
     },
   },
-  mounted() {
+  async mounted() {
     if (this.duplicateFrom) {
       this.notifList = this.duplicateFrom.mailingList
         ? this.duplicateFrom.mailingList.id
@@ -106,13 +107,17 @@ export default {
       this.enableSuspension = this.duplicateFrom.suspensionAuto;
       this.enableReactivation = this.duplicateFrom.reactivationAuto;
     }
+
+    if (this.partner) {
+      this.partnerOptions = await getPartyOptions(this.partner.id);
+    }
   },
   computed: {
     suspensionAuto() {
-      return get(this.partner, 'data.suspensionAuto');
+      return this.$loGet(this.partnerOptions, 'suspensionAuto');
     },
     wsNotifyOption() {
-      return get(this.partner, 'data.wsNotificationParam.notificationOption');
+      return this.$loGet(this.partnerOptions, 'wsNotificationParam.notificationOption');
     },
     mailingLists() {
       if (!this.partner) return [];
@@ -153,6 +158,7 @@ export default {
       enableSuspension: false,
       enableReactivation: false,
       notifList: undefined,
+      partnerOptions: undefined,
     };
   },
 };

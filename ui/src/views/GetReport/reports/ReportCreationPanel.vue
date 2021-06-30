@@ -74,7 +74,7 @@
             :error="dateError ? 'errors.mandatory' : undefined"
             class="d-block report-field"
           >
-            <i slot="icon" class="select-icon ic-Flag-Icon" />
+            <em slot="icon" class="select-icon ic-Flag-Icon" />
           </UiDate>
         </div>
 
@@ -120,7 +120,7 @@
         <ul class="list-unstyled">
           <li v-for="i in orderedSelectedItems" :key="'remove_' + i.label + '_' + i.code">
             <button class="btn btn-link p-1" @click.stop="() => removeItem(i)">
-              <i class="ic-Cross-Icon"></i>
+              <em class="ic-Cross-Icon" />
             </button>
             {{ i.label }}
           </li>
@@ -162,7 +162,7 @@ import get from 'lodash.get';
 import { createReport, updateReport, reportModels } from '@/api/reportCreation.js';
 import { mapMutations, mapGetters } from 'vuex';
 
-import { fetchpartnerById } from '@/api/partners.js';
+import { fetchpartnerById, getPartyOptions } from '@/api/partners.js';
 
 import PartnerCombo from '@/components/CustomComboxes/PartnerCombo.vue';
 import { currentDateTimeWithAdd } from '@/utils/date';
@@ -247,6 +247,7 @@ export default {
       notifList: undefined,
 
       groups: undefined,
+      partnerOptions: undefined,
     };
   },
 
@@ -345,6 +346,13 @@ export default {
             await this.loadModels();
           }
         }
+      }
+    },
+    async partnerForOptionCheck(partnerForOptionCheck) {
+      if (partnerForOptionCheck) {
+        this.partnerOptions = await getPartyOptions(partnerForOptionCheck.id);
+      } else {
+        this.partnerOptions = undefined;
       }
     },
   },
@@ -590,7 +598,7 @@ export default {
               order: 19,
               canShow: () => {
                 if (this.userIsOperator) return true;
-                return !!get(this.partnerForOptionCheck, 'data.flagMsisdnA');
+                return !!get(this.partnerOptions, 'flagMsisdnA');
               },
             },
             { code: 'IMEI', label: 'IMEI', checked: false, order: 19 },
@@ -700,7 +708,7 @@ export default {
             },
             {
               code: 'FIXED_IP_ADDRESSES',
-              label: this.$t('getreport.creation.groups.checkboxes.LAST_CHANGE_STATUS_DATE'),
+              label: this.$t('getreport.creation.groups.checkboxes.FIXED_IP_ADDRESSES'),
               checked: false,
               canShow: () => {
                 if (this.userIsMVNO) return false;
@@ -999,7 +1007,7 @@ export default {
               checked: false,
               canShow: () => {
                 if (this.userIsOperator) return true;
-                return !!get(this.partnerForOptionCheck, 'data.optionViewCellId');
+                return !!get(this.partnerOptions, 'optionViewCellId');
               },
             },
             {
@@ -1008,7 +1016,7 @@ export default {
               checked: false,
               canShow: () => {
                 if (this.userIsOperator) return true;
-                return !!get(this.partnerForOptionCheck, 'data.optionViewCellId');
+                return !!get(this.partnerOptions, 'optionViewCellId');
               },
             },
             {
@@ -1017,7 +1025,7 @@ export default {
               checked: false,
               canShow: () => {
                 if (this.userIsOperator) return true;
-                return !!get(this.partnerForOptionCheck, 'data.optionViewCellId');
+                return !!get(this.partnerOptions, 'optionViewCellId');
               },
             },
             {

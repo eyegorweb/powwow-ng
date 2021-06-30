@@ -149,8 +149,8 @@ export default {
 
     async initToggles() {
       const stateOrder = await fetchOrderState(this.partnerId);
-      this.activation = stateOrder[0].orderActivationMandatory;
-      this.preActivation = stateOrder[0].orderPreactivationMandatory;
+      this.activation = stateOrder.orderActivationMandatory;
+      this.preActivation = stateOrder.orderPreactivationMandatory;
     },
     async initOffers() {
       const billingAccountCode = this.$loGet(this.synthesis, 'stepClient.billingAccount.data.code');
