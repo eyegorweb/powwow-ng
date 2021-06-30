@@ -148,7 +148,7 @@
           </div>
           <div class="third-size to-bottom pb-3">
             <UiToggle
-              :label="$t('getadmin.partners.optionsDetails.diffusionListEnabled')"
+              :label="$t('getadmin.partners.optionsDetails.services.labels.MAD_FACT')"
               :editable="true"
               :bold-label="diffusionListEnabled"
               v-model="diffusionListEnabled"
@@ -156,8 +156,8 @@
             />
           </div>
 
-          <div class="third-size pr-4" v-if="getToggle(billingToggles, 'MAD_FACT')">
-            <div class="form-group" v-if="diffusionListEnabled">
+          <div class="third-size pr-4" v-if="diffusionListEnabled">
+            <div class="form-group">
               <label class="small-label">{{ $t('getvsion.mailing-list') }}</label>
               <UiSelect
                 class="report-field"
@@ -538,15 +538,6 @@ export default {
 
     this.billingToggles = [
       {
-        code: 'MAD_FACT',
-        visible: true,
-        checked: true,
-        editable: true,
-        optional: false,
-        activationDate: null,
-        labelService: this.$t('getadmin.partners.optionsDetails.services.labels.MAD_FACT'),
-      },
-      {
         code: 'SWITCH_RCARD',
         visible: true,
         checked: false,
@@ -897,9 +888,7 @@ export default {
         ? parseInt(this.resilationSecurityNotificationMails)
         : null;
       const crEmail = this.getToggle(this.orderToggles, 'REF_USER') ? parseInt(this.crEmail) : null;
-      const diffusionList = this.getToggle(this.billingToggles, 'MAD_FACT')
-        ? parseInt(this.diffusionList)
-        : null;
+      const diffusionList = this.diffusionListEnabled ? parseInt(this.diffusionList) : null;
       const coachM2MFleetpromotion = this.getToggle(this.otherToggles, 'COACH_M2M')
         ? this.coachM2MFleetpromotion
         : null;
@@ -1039,7 +1028,7 @@ export default {
         }
       }
 
-      if (this.getToggle(this.billingToggles, 'MAD_FACT')) {
+      if (this.diffusionListEnabled) {
         if (!this.diffusionList) {
           fieldErrors.diffusionList = true;
           haveError = true;
