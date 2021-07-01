@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.404+20210701073728
+2021-07-01
+
+### Fixes
+
+- [2783] Correction du champ downloadProfilAsked durant la création d'une réservation (9f0db7bef12054bf1ff3dedefeddac1221c8e82d)
+
 ## 1.17.0-master.403+20210630132938
 2021-06-30
 
