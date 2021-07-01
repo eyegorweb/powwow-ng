@@ -92,13 +92,14 @@ export default {
     },
 
     async saveReservation(synthesis) {
+      console.log(this.$loGet(synthesis, 'pairingStep.profile.id'));
       const esimReservationInput = {
         customerAccountId: this.$loGet(synthesis, 'stepClient.billingAccount.id'),
         simCardQuantity: parseInt(this.$loGet(synthesis, 'stepProduct.quantity')),
         preActivationAsked: this.$loGet(synthesis, 'serviceStep.preActivation'),
         activationAsked: this.$loGet(synthesis, 'serviceStep.activation'),
         pairingAsked: !!this.$loGet(synthesis, 'pairingStep.response.tempDataUuid'),
-        downloadProfilAsked: this.$loGet(synthesis, 'pairingStep.profile.id') === 'NO',
+        downloadProfilAsked: this.$loGet(synthesis, 'pairingStep.profile.id') === 'ENABLED',
         simCardId: this.$loGet(synthesis, 'stepProduct.selectedSimTypeValue.simCard.id'),
       };
 
