@@ -127,18 +127,22 @@ export default {
   methods: {
     getExportForLastVisitedCountries() {
       return async (columns, orderBy, exportFormat) => {
-        return await exportLastVisitedCountries(this.content.accessPoint.id, exportFormat);
+        return exportLastVisitedCountries(this.content.accessPoint.id, exportFormat);
       };
     },
     getExportForCellsConsumption() {
       return async (columns, orderBy, exportFormat) => {
-        return await exportCellsHistory(this.content.accessPoint.id, exportFormat);
+        return exportCellsHistory(this.content.accessPoint.id, exportFormat);
       };
     },
     fetchDataLastVisitedCountries() {
       return async (pageInfo) => {
         const response = await fetchLastVisitedCountries(this.content.accessPoint.id, pageInfo);
-        if (!response || !response.length) this.noResults.lastVisitedCountries = false;
+        if (response && response.total > 0) {
+          this.noResults.lastVisitedCountries = false;
+        } else {
+          this.noResults.lastVisitedCountries = true;
+        }
         return {
           rows: response.items,
           total: response.total,
@@ -152,7 +156,12 @@ export default {
           pageInfo,
           orderBy
         );
-        if (!response || !response.total) this.noResults.cellsConsumption = false;
+
+        if (response && response.total > 0) {
+          this.noResults.cellsConsumption = false;
+        } else {
+          this.noResults.cellsConsumption = true;
+        }
         return {
           rows: response.items,
           total: response.total,
