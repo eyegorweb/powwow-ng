@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.405+20210701080017
+2021-07-01
+
+### Fixes
+
+- [2784] Ne pas proposer l'export si le tableau est vide (687fac0a14f850832c41726fab7e4d16ba92da4d)
+
 ## 1.17.0-master.404+20210701073728
 2021-07-01
 
