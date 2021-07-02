@@ -18,16 +18,17 @@
             style="font-size: 24px"
             class="arrow"
             src="@/assets/search.svg"
+            alt="search"
             :style="{ left: 0 }"
           />
         </UiApiAutocomplete>
       </div>
-      <div>
+      <div v-if="canSeeBillingAccount">
         <h3 class="font-weight-light text-center mt-4 mb-4">{{ $t('orders.choose-account') }}</h3>
-        <UiApiAutocomplete
-          :items="billingAccounts"
+        <BillingAccountAutocomplete
           v-model="selectedBillingAccount"
-          display-results-while-empty
+          :selected-partner="selectedPartner"
+          preselect-first-only-when-one-item
         />
       </div>
     </div>
@@ -37,9 +38,9 @@
 <script>
 import UiApiAutocomplete from '@/components/ui/UiApiAutocomplete';
 import CreateOrderStepContainer from './CreateOrderStepContainer';
+import BillingAccountAutocomplete from '@/components/CustomComboxes/BillingAccountAutocomplete2.vue';
 import { fetchpartners, fetchpartnerById, getPartyOptions } from '@/api/partners';
 
-import { fetchBillibAccountForPartnerId } from '@/api/billingAccounts';
 import get from 'lodash.get';
 import { mapGetters, mapState } from 'vuex';
 
@@ -51,6 +52,7 @@ export default {
       billingAccounts: [],
       selectedPartner: null,
       selectedBillingAccount: null,
+      canSeeBillingAccount: true,
     };
   },
 
@@ -69,7 +71,11 @@ export default {
       this.synthesis.billingAccount.selection
     ) {
       this.selectedPartner = this.synthesis.billingAccount.selection.partner;
-      this.selectedBillingAccount = this.synthesis.billingAccount.selection.billingAccount;
+      this.canSeeBillingAccount = false;
+      this.$nextTick(() => {
+        this.selectedBillingAccount = this.synthesis.billingAccount.selection.billingAccount;
+        this.canSeeBillingAccount = true;
+      });
     } else if (this.order) {
       this.preFill();
     } else if (this.userIsPartner) {
@@ -176,6 +182,7 @@ export default {
         this.billingAccounts = [];
         return;
       }
+      /*
       const { id } = value;
       // NOTE: pendant que l'on tape, les valeurs sont remontes mais non validees. lorsque l'on click, on recupere la vrai valeur
       if (id == null) return;
@@ -197,6 +204,7 @@ export default {
       if (this.billingAccounts && this.billingAccounts.length === 1) {
         this.selectedBillingAccount = this.billingAccounts[0];
       }
+      //*/
     },
     synthesis(synthesis) {
       if (synthesis) {
@@ -209,6 +217,7 @@ export default {
   components: {
     UiApiAutocomplete,
     CreateOrderStepContainer,
+    BillingAccountAutocomplete,
   },
 };
 </script>

@@ -140,7 +140,7 @@ export default {
       // Assemble services
       const preActivation = this.order.preActivationAsked;
       const activation = this.order.activationAsked;
-      const offerCode = this.order.orderedMarketingOffer.code;
+      const offerCode = this.$loGet(this.order, 'orderedMarketingOffer.code');
 
       const offerServices = getMarketingOfferServices(this.order);
 
@@ -156,7 +156,7 @@ export default {
           value: {
             id: 'common.services',
             content: [
-              `Offre:  ${activation ? this.order.initialOffer.description : ''}`,
+              `Offre:  ${activation ? this.$loGet(this.order, 'initialOffer.description') : ''}`,
               `Activation: ${activation ? 'Oui' : 'Non'}`,
               `Préactivation: ${preActivation ? 'Oui' : 'Non'}`,
             ],

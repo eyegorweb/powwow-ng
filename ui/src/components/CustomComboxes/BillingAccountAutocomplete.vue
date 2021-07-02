@@ -67,12 +67,12 @@ export default {
     },
   },
   methods: {
-    async refreshList() {
+    async refreshList(q = '') {
       try {
         this.isRefreshing = true;
-        const data = await fetchBillingAccounts('', this.partners, {
+        const data = await fetchBillingAccounts(q, this.partners, {
           page: 0,
-          limit: 10,
+          limit: 2000,
           partnerType: this.contextPartnersType,
         });
 

@@ -3,7 +3,7 @@
     <div class="row mb-4">
       <div class="col-md-9">
         <h4>
-          <b>GetParc</b>
+          <strong>GetParc</strong>
           - {{ $t('getparc.management-lines') }}
           <Tooltip direction="right">{{ $t('getparc.tooltip-title-text') }}</Tooltip>
         </h4>
@@ -90,9 +90,9 @@
             num="1"
             v-if="
               creationMode &&
-                actCreationPrerequisites &&
-                !actToCreate.containFile &&
-                !useFileImportAsInput
+              actCreationPrerequisites &&
+              !actToCreate.containFile &&
+              !useFileImportAsInput
             "
             title="getparc.actLines.step1Title"
             :color="actToCreate.color"
