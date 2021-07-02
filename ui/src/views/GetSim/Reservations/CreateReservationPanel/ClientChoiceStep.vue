@@ -13,7 +13,7 @@
       <h3 class="font-weight-light text-center mt-4 mb-4">{{ $t('orders.choose-account') }}</h3>
       <BillingAccountAutocomplete
         v-model="selectedBillingAccount"
-        :partners="selectedPartner ? [selectedPartner] : undefined"
+        :selected-partner="selectedPartner"
         preselect-first-only-when-one-item
       />
     </div>
@@ -23,7 +23,7 @@
 <script>
 import CreateOrderStepContainer from '@/views/GetSim/CreateOrder/CreateOrderStepContainer.vue';
 import PartnerCombo from '@/components/CustomComboxes/PartnerCombo.vue';
-import BillingAccountAutocomplete from '@/components/CustomComboxes/BillingAccountAutocomplete.vue';
+import BillingAccountAutocomplete from '@/components/CustomComboxes/BillingAccountAutocomplete2.vue';
 
 import { mapGetters } from 'vuex';
 import { getPartyOptions } from '@/api/partners.js';

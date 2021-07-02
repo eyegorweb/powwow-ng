@@ -16,7 +16,7 @@
             :key="action"
             v-if="
               action !== 'getparc.history.actions.EXPORT' &&
-              action !== 'getparc.history.actions.EXPORT_LINES'
+                action !== 'getparc.history.actions.EXPORT_LINES'
             "
             type="button"
             class="
