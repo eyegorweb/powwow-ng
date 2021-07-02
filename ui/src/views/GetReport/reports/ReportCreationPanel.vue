@@ -1,150 +1,162 @@
 <template>
-  <div class="creationContainer">
-    <div class="panelContent">
-      <div class="checkBoxesContainer">
-        <template v-if="!userIsPartner">
-          <SectionTitle :num="1">{{ $t('getparc.history.col.partyId') }}</SectionTitle>
-          <PartnerCombo
-            :value.sync="selectedPartner"
-            :options="partnerChoices"
-            include-mailing-lists
-          />
-        </template>
-
-        <SectionTitle :num="baseNumber + 1">{{
-          $t('getreport.creation.chooseInfos')
-        }}</SectionTitle>
-        <p>{{ $t('getreport.creation.chooseInfosDescription') }}</p>
-        <div v-if="reportModels" class="mt-4 mb-2">
-          <h6>{{ $t('getreport.creation.fromReport') }}</h6>
-          <UiSelect
-            class="report-field"
-            v-model="reportModel"
-            :options="reportModels"
-            :trad-prefix="'getreport.from_report.'"
-            block
-          />
-        </div>
-        <div class="checkbox-groups" v-if="groups">
-          <template v-for="group in groups">
-            <FoldableBlock
-              v-if="!group.canShow || group.canShow()"
-              :title="group.title"
-              :key="group.title"
-              :disabled="group.isDisabled && group.isDisabled()"
-            >
-              <div class="bg-white p-3 bordered checkboxes-container">
-                <div
-                  :key="checkbox.label"
-                  v-for="checkbox in filterVisible(group.checkboxes)"
-                  class="d-flex pt-3 item"
-                >
-                  <UiCheckbox
-                    v-model="checkbox.checked"
-                    @change="() => selectOrRemove(checkbox)"
-                    :disabled="checkbox.isDisabled && checkbox.isDisabled()"
-                  />
-                  <span>{{ checkbox.label }}</span>
-                </div>
-              </div>
-            </FoldableBlock>
+  <LoaderContainer :is-loading="isLoading">
+    <div slot="on-loading">
+      {{ $t('processing') }}...
+      <CircleLoader />
+    </div>
+    <div class="creationContainer">
+      <div class="panelContent">
+        <div class="checkBoxesContainer">
+          <template v-if="!userIsPartner">
+            <SectionTitle :num="1">{{ $t('getparc.history.col.partyId') }}</SectionTitle>
+            <PartnerCombo
+              :value.sync="selectedPartner"
+              :options="partnerChoices"
+              include-mailing-lists
+            />
           </template>
-        </div>
 
-        <SectionTitle :num="baseNumber + 2">{{
-          $t('getreport.creation.generateReport')
-        }}</SectionTitle>
-        <div class="mb-2">
-          <h6>{{ $t('getreport.creation.dateAndRecursion') }}</h6>
-          <Toggle
-            v-if="reportFrequency"
-            @update="reportFrequency = $event.id"
-            :values="reportFrequencyChoices"
-            light-theme
-            class="pl-2"
-          />
-        </div>
-        <div class="mt-4 mb-2">
-          <h6>{{ $t(dateLabel) }}</h6>
-          <UiDate
-            time-picker
-            @change="(newVal) => (generationDate = newVal)"
-            :value="generationDate"
-            :start-date="generationDate"
-            :error="dateError ? 'errors.mandatory' : undefined"
-            class="d-block report-field"
-          >
-            <em slot="icon" class="select-icon ic-Flag-Icon" />
-          </UiDate>
-        </div>
+          <SectionTitle :num="baseNumber + 1">{{
+            $t('getreport.creation.chooseInfos')
+          }}</SectionTitle>
+          <p>{{ $t('getreport.creation.chooseInfosDescription') }}</p>
+          <div v-if="reportModels" class="mt-4 mb-2">
+            <h6>{{ $t('getreport.creation.fromReport') }}</h6>
+            <UiSelect
+              class="report-field"
+              v-model="reportModel"
+              :options="reportModels"
+              :trad-prefix="'getreport.from_report.'"
+              block
+            />
+          </div>
+          <div class="checkbox-groups" v-if="groups">
+            <template v-for="group in groups">
+              <FoldableBlock
+                v-if="!group.canShow || group.canShow()"
+                :title="group.title"
+                :key="group.title"
+                :disabled="group.isDisabled && group.isDisabled()"
+              >
+                <div class="bg-white p-3 bordered checkboxes-container">
+                  <div
+                    :key="checkbox.label"
+                    v-for="checkbox in filterVisible(group.checkboxes)"
+                    class="d-flex pt-3 item"
+                  >
+                    <UiCheckbox
+                      v-model="checkbox.checked"
+                      @change="() => selectOrRemove(checkbox)"
+                      :disabled="checkbox.isDisabled && checkbox.isDisabled()"
+                    />
+                    <span>{{ checkbox.label }}</span>
+                  </div>
+                </div>
+              </FoldableBlock>
+            </template>
+          </div>
 
-        <SectionTitle :num="baseNumber + 3">{{ $t('getvsion.notifications') }}</SectionTitle>
+          <SectionTitle :num="baseNumber + 2">{{
+            $t('getreport.creation.generateReport')
+          }}</SectionTitle>
+          <div class="mb-2">
+            <h6>{{ $t('getreport.creation.dateAndRecursion') }}</h6>
+            <Toggle
+              v-if="reportFrequency"
+              @update="reportFrequency = $event.id"
+              :values="reportFrequencyChoices"
+              light-theme
+              class="pl-2"
+            />
+          </div>
+          <div class="mt-4 mb-2">
+            <h6>{{ $t(dateLabel) }}</h6>
+            <UiDate
+              time-picker
+              @change="(newVal) => (generationDate = newVal)"
+              :value="generationDate"
+              :start-date="generationDate"
+              :error="dateError ? 'errors.mandatory' : undefined"
+              class="d-block report-field"
+            >
+              <em slot="icon" class="select-icon ic-Flag-Icon" />
+            </UiDate>
+          </div>
 
-        <div class="row">
-          <div class="col">
-            <div class="d-flex pt-3">
-              <UiCheckbox v-model="shouldNotify" />
-              <span>{{ $t('mailNotification') }}</span>
+          <SectionTitle :num="baseNumber + 3">{{ $t('getvsion.notifications') }}</SectionTitle>
+
+          <div class="row">
+            <div class="col">
+              <div class="d-flex pt-3">
+                <UiCheckbox v-model="shouldNotify" />
+                <span>{{ $t('mailNotification') }}</span>
+              </div>
+            </div>
+            <div v-if="!content && shouldNotify" class="col">
+              <div class="d-flex mailing-list">
+                <span class="pt-3">{{ $t('getreport.creation.list') }}</span>
+                <UiSelect
+                  class="report-field"
+                  v-model="notifList"
+                  :disabled="!!content"
+                  :options="mailingLists"
+                  block
+                />
+              </div>
             </div>
           </div>
-          <div v-if="!content && shouldNotify" class="col">
-            <div class="d-flex mailing-list">
-              <span class="pt-3">{{ $t('getreport.creation.list') }}</span>
-              <UiSelect
-                class="report-field"
-                v-model="notifList"
-                :disabled="!!content"
-                :options="mailingLists"
-                block
-              />
+
+          <div class="row">
+            <div class="col">
+              <div class="d-flex pt-3">
+                <UiCheckbox v-model="isActive" />
+                <span>{{ $t('filters.active') }}</span>
+              </div>
             </div>
           </div>
         </div>
-
-        <div class="row">
-          <div class="col">
-            <div class="d-flex pt-3">
-              <UiCheckbox v-model="isActive" />
-              <span>{{ $t('filters.active') }}</span>
-            </div>
-          </div>
+        <div class="fieldsRecap">
+          <h5>{{ $t('getreport.creation.dataReport') }}</h5>
+          <ul class="list-unstyled templateMandatoryItems">
+            <li v-for="i in templateMandatoryItems" :key="'remove_' + i.label + '_' + i.code">
+              {{ i.label }}
+            </li>
+          </ul>
+          <ul class="list-unstyled">
+            <li v-for="i in orderedSelectedItems" :key="'remove_' + i.label + '_' + i.code">
+              <button class="btn btn-link p-1" @click.stop="() => removeItem(i)">
+                <em class="ic-Cross-Icon" />
+              </button>
+              {{ i.label }}
+            </li>
+          </ul>
         </div>
       </div>
-      <div class="fieldsRecap">
-        <h5>{{ $t('getreport.creation.dataReport') }}</h5>
-        <ul class="list-unstyled templateMandatoryItems">
-          <li v-for="i in templateMandatoryItems" :key="'remove_' + i.label + '_' + i.code">
-            {{ i.label }}
-          </li>
-        </ul>
-        <ul class="list-unstyled">
-          <li v-for="i in orderedSelectedItems" :key="'remove_' + i.label + '_' + i.code">
-            <button class="btn btn-link p-1" @click.stop="() => removeItem(i)">
-              <em class="ic-Cross-Icon" />
-            </button>
-            {{ i.label }}
-          </li>
-        </ul>
+      <div class="fileInfo">
+        <div class="fileInfoContainer">
+          <div>
+            <h6>{{ $t('getreport.creation.nameReport') }}</h6>
+            <UiInput v-model="name" :disabled="!!content" class="d-block" />
+          </div>
+          <div>
+            <h6>{{ $t('getreport.creation.fileFormat') }}</h6>
+            <UiSelect class="report-field" v-model="fileFormat" :options="fileFormats" block />
+          </div>
+          <div>
+            <UiButton
+              variant="primary"
+              class="p-3"
+              block
+              @click="onSaveReport"
+              :disabled="!canSave"
+            >
+              <span class="btn-label">{{ $t('save') }}</span>
+            </UiButton>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="fileInfo">
-      <div class="fileInfoContainer">
-        <div>
-          <h6>{{ $t('getreport.creation.nameReport') }}</h6>
-          <UiInput v-model="name" :disabled="!!content" class="d-block" />
-        </div>
-        <div>
-          <h6>{{ $t('getreport.creation.fileFormat') }}</h6>
-          <UiSelect class="report-field" v-model="fileFormat" :options="fileFormats" block />
-        </div>
-        <div>
-          <UiButton variant="primary" class="p-3" block @click="onSaveReport" :disabled="!canSave">
-            <span class="btn-label">{{ $t('save') }}</span>
-          </UiButton>
-        </div>
-      </div>
-    </div>
-  </div>
+  </LoaderContainer>
 </template>
 
 <script>
@@ -156,6 +168,8 @@ import UiSelect from '@/components/ui/UiSelect';
 import FoldableBlock from '@/components/FoldableBlock';
 import UiInput from '@/components/ui/UiInput';
 import UiButton from '@/components/ui/Button';
+import LoaderContainer from '@/components/LoaderContainer';
+import CircleLoader from '@/components/ui/CircleLoader';
 
 import get from 'lodash.get';
 
@@ -188,6 +202,8 @@ export default {
     UiInput,
     PartnerCombo,
     UiButton,
+    LoaderContainer,
+    CircleLoader,
   },
 
   props: {
@@ -248,6 +264,7 @@ export default {
 
       groups: undefined,
       partnerOptions: undefined,
+      isLoading: false,
     };
   },
 
@@ -535,6 +552,7 @@ export default {
       this.toggleCheckbox(checkbox);
     },
     async onSaveReport() {
+      this.isLoading = true;
       const params = {
         columns: [...this.templateMandatoryItems, ...this.orderedSelectedItems],
         notification: this.shouldNotify,
@@ -556,8 +574,10 @@ export default {
           id: this.content.id,
           ...params,
         });
+        this.isLoading = false;
       } else {
         response = await createReport(params);
+        this.isLoading = false;
       }
 
       if (response.errors && response.errors.length) {
