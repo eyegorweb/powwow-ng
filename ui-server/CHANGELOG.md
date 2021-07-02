@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.408+20210702124332
+2021-07-02
+
+### Fixes
+
+- [2682] configuration de l'acte Appairer des eSim (1f4e265b4f0737be7f20bb9c6b8aaa00c68a804b)
+- [2710] Correction dans le choix du compte de facturation durant la création de commadnes (3c94e4db4eefd67b6790b4493868914df4bbfe12)
+
 ## 1.17.0-master.407+20210702085707
 2021-07-02
 
