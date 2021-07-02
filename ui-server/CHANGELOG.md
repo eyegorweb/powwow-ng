@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.406+20210702084045
+2021-07-02
+
+### Fixes
+
+- [2750] ajout d'un loader lors de la création d'un rapport (582e5d88c2cb2e5ff765a96d3ebc1369eaa0e8e0)
+
 ## 1.17.0-master.405+20210701080017
 2021-07-01
 
