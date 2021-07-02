@@ -88,9 +88,9 @@ export default {
       return false;
     },
     canChangeDate() {
-      if (this.userIsBo) {
-        if (!this.actCreationPrerequisites || !this.actCreationPrerequisites.partner) return false;
-        return this.actCreationPrerequisites.partner.partyType === 'MVNO';
+      if (this.userIsBO) {
+        if (!this.actCreationPrerequisites || !this.partner) return false;
+        return this.partner.partyType === 'MVNO';
       } else if (this.userIsPartner) {
         return this.isPartnerMVNO;
       } else {

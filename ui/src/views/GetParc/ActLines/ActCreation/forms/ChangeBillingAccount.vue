@@ -65,7 +65,7 @@ export default {
     },
 
     canChangeDate() {
-      if (this.userIsBo) {
+      if (this.userIsBO) {
         if (!this.actCreationPrerequisites || !this.partner) return false;
         return this.partner.partyType === 'MVNO';
       } else if (this.userIsPartner) {
