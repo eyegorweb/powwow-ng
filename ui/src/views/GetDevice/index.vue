@@ -322,7 +322,7 @@ export default {
           format: {
             type: 'Getter',
             getter: (row) => {
-              return get(row, 'offer');
+              return get(row, 'offer.marketingOffer.description');
             },
           },
         },

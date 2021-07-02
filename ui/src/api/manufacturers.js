@@ -83,6 +83,7 @@ export async function getDevices(orderBy, pagination, filters = []) {
         offer {
           marketingOffer {
             code
+            description
           }
         }
       }
