@@ -129,7 +129,7 @@
 <script>
 import UiDate from '@/components/ui/UiDate';
 import UiCheckbox from '@/components/ui/Checkbox';
-import { mapState, mapMutations } from 'vuex';
+import { mapMutations } from 'vuex';
 import moment from 'moment';
 import FormReport from './FormReport';
 import { exportLinesFromFileFilter } from '@/api/linesActions';
@@ -155,6 +155,7 @@ export default {
       type: Boolean,
       default: true,
     },
+    fixOnCurrentDate: Boolean,
   },
 
   data() {
@@ -171,16 +172,19 @@ export default {
     if (this.canChangeDate && this.partnerType !== 'CUSTOMER') {
       this.actDate = moment().format('DD/MM/YYYY HH:mm:ss');
     } else {
-      this.actDate = moment()
-        .add(1, 'month')
-        .startOf('month')
-        .subtract(1, 'day')
-        .format('DD/MM/YYYY 23:59:59');
+      if (this.fixOnCurrentDate) {
+        this.actDate = moment().format('DD/MM/YYYY HH:mm:ss');
+      } else {
+        this.actDate = moment()
+          .add(1, 'month')
+          .startOf('month')
+          .subtract(1, 'day')
+          .format('DD/MM/YYYY 23:59:59');
+      }
     }
   },
 
   computed: {
-    ...mapState('actLines', ['actCreationPrerequisites']),
     minDate() {
       return moment().format('DD/MM/YYYY HH:mm:ss');
     },
@@ -192,12 +196,7 @@ export default {
 
   methods: {
     ...mapMutations(['flashMessage', 'confirmAction']),
-    ...mapMutations('actLines', [
-      'setActToCreate',
-      'setActCreationPrerequisites',
-      'setSelectedLinesForActCreation',
-      'resetState',
-    ]),
+    ...mapMutations('actLines', ['resetState']),
 
     onActDateChange(value) {
       this.$emit('update:date', value);

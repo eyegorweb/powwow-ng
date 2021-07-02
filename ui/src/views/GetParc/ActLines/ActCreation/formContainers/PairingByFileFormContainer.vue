@@ -9,7 +9,7 @@
     <DropZone v-model="selectedFile" class="dropZone" />
 
     <div class="mt-5">
-      <ActFormContainer :validate-fn="onValidate" />
+      <ActFormContainer :validate-fn="onValidate" :can-change-date="false" fix-on-current-date />
     </div>
   </div>
 </template>
