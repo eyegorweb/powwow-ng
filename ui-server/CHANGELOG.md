@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.409+20210702143009
+2021-07-02
+
+### Fixes
+
+- [2785] Corriger le problème d'affichage de l'offre dans getDevice (e2d51598cf4c4b546390ebf9ff2de3e49e6d404c)
+
 ## 1.17.0-master.408+20210702124332
 2021-07-02
 
