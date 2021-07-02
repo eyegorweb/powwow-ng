@@ -2,12 +2,13 @@
 
 <!--- next entry here -->
 
-## 1.17.0-master.406+20210702084045
+## 1.17.0-master.407+20210702085707
 2021-07-02
 
 ### Fixes
 
 - [2750] ajout d'un loader lors de la création d'un rapport (582e5d88c2cb2e5ff765a96d3ebc1369eaa0e8e0)
+- [2682] configuration de l'acte Appairer des eSim (ba8c38cfd251ef17a44e287d6e4e8b8789fdd370)
 
 ## 1.17.0-master.405+20210701080017
 2021-07-01
