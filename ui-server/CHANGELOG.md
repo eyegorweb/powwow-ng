@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.410+20210702150143
+2021-07-02
+
+### Fixes
+
+- [2682] configuration de l'acte Appairer des eSim (fa4c73478a487fedb59aa0ba4b29c94456141f27)
+
 ## 1.17.0-master.409+20210702143009
 2021-07-02
 
