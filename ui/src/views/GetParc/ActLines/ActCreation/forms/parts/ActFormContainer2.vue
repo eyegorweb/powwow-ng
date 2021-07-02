@@ -169,19 +169,7 @@ export default {
   },
 
   mounted() {
-    if (this.canChangeDate && this.partnerType !== 'CUSTOMER') {
-      this.actDate = moment().format('DD/MM/YYYY HH:mm:ss');
-    } else {
-      if (this.fixOnCurrentDate) {
-        this.actDate = moment().format('DD/MM/YYYY HH:mm:ss');
-      } else {
-        this.actDate = moment()
-          .add(1, 'month')
-          .startOf('month')
-          .subtract(1, 'day')
-          .format('DD/MM/YYYY 23:59:59');
-      }
-    }
+    this.formatteDueDate();
   },
 
   computed: {
@@ -287,6 +275,34 @@ export default {
     clearForm() {
       this.resetState();
     },
+
+    formatteDueDate() {
+      if (this.canChangeDate) {
+        if (this.partnerType !== 'CUSTOMER') {
+          this.actDate = moment().format('DD/MM/YYYY HH:mm:ss');
+        } else {
+          this.actDate = moment()
+          .add(1, 'month')
+          .startOf('month')
+          .subtract(1, 'day')
+          .format('DD/MM/YYYY 23:59:59');
+        }
+      } else {
+        if (this.fixOnCurrentDate) {
+          this.actDate = moment().format('DD/MM/YYYY HH:mm:ss');
+        } else {
+          if (this.partnerType !== 'CUSTOMER') {
+            this.actDate = moment().format('DD/MM/YYYY HH:mm:ss');
+          } else {
+            this.actDate = moment()
+            .add(1, 'month')
+            .startOf('month')
+            .subtract(1, 'day')
+            .format('DD/MM/YYYY 23:59:59');
+          }
+        }
+      }
+    }
   },
 };
 </script>
