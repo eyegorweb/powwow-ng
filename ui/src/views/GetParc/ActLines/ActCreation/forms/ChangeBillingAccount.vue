@@ -1,9 +1,11 @@
 <template>
   <ActFormContainer
+  v-if="partnerType"
     :validate-fn="validate"
     success-message="getparc.actCreation.transfertCF.successMessage"
     :prevent-send="!canSend"
     :can-change-date="canChangeDate"
+    :partner-type="partnerType"
   >
     <template v-if="partner">
       <div>
@@ -88,6 +90,9 @@ export default {
   },
   async mounted() {
     await this.loadSingleLineInfo();
+    if (this.actCreationPrerequisites.partner.partyType) {
+      this.partnerType = this.actCreationPrerequisites.partner.partyType;
+    }
   },
   data() {
     return {
@@ -98,6 +103,7 @@ export default {
       notificationCheck: false,
       singleLineFound: undefined,
       requestErrors: [],
+      partnerType: undefined,
     };
   },
 
