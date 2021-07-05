@@ -70,20 +70,19 @@
       <template v-else>
         <div class="row">
           <div class="col-md-8">
-            <h4>{{ $t('getparc.search-lines-by-id') }}</h4>
-            <SearchByLinesId @searchById="searchById" :init-value="searchByIdValue" />
+            <template v-if="!actToCreate">
+              <h4>{{ $t('getparc.search-lines-by-id') }}</h4>
+              <SearchByLinesId @searchById="searchById" :init-value="searchByIdValue" />
+            </template>
           </div>
         </div>
 
-        <div class="alert alert-primary text-center mt-2" role="alert">
-          {{ $t('getparc.screen-search') }}
-          <br />
-          <UiButton
-            variant="primary"
-            class="show-all-lines flex-grow-1 py-1 px-3 ml- mt-3"
-            @click="initFetchLinesActions()"
-            >{{ $t('getparc.display-lines') }}</UiButton
-          >
+        <div class="alert alert-primary text-center mt-2 search-msg" role="alert">
+          <div class="ms-container">
+            <span>
+              {{ $t('getparc.screen-search') }}
+            </span>
+          </div>
         </div>
       </template>
     </div>
@@ -125,6 +124,7 @@ export default {
 
   props: {
     creationMode: Boolean,
+    actToCreate: Object,
     widgetInitSearchById: undefined,
     queryFiltersFromOrder: undefined,
   },
@@ -280,15 +280,19 @@ export default {
     },
 
     searchById(params) {
-      this.searchByIdValue = params.value;
-
-      this.page = 1;
-      this.startSearchingById([
-        {
-          id: params.id,
-          value: params.value,
-        },
-      ]);
+      if (params) {
+        this.searchByIdValue = params.value;
+        this.page = 1;
+        this.startSearchingById([
+          {
+            id: params.id,
+            value: params.value,
+          },
+        ]);
+      } else {
+        this.searchByIdValue = undefined;
+        this.applyFilters();
+      }
     },
     async initFetchLinesActions() {
       if (!this.canSearchLines) return;
@@ -762,6 +766,18 @@ export default {
     height: 0.5em;
     border-top: 1px solid $medium-gray;
     z-index: -1;
+  }
+}
+
+.search-msg {
+  height: 10rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+
+  .ms-container {
+    width: 100%;
+    font-size: 1.5rem;
   }
 }
 </style>

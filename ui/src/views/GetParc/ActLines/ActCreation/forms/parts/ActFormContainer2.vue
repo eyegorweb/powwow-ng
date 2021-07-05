@@ -282,10 +282,10 @@ export default {
           this.actDate = moment().format('DD/MM/YYYY HH:mm:ss');
         } else {
           this.actDate = moment()
-          .add(1, 'month')
-          .startOf('month')
-          .subtract(1, 'day')
-          .format('DD/MM/YYYY 23:59:59');
+            .add(1, 'month')
+            .startOf('month')
+            .subtract(1, 'day')
+            .format('DD/MM/YYYY 23:59:59');
         }
       } else {
         if (this.fixOnCurrentDate) {
@@ -295,14 +295,14 @@ export default {
             this.actDate = moment().format('DD/MM/YYYY HH:mm:ss');
           } else {
             this.actDate = moment()
-            .add(1, 'month')
-            .startOf('month')
-            .subtract(1, 'day')
-            .format('DD/MM/YYYY 23:59:59');
+              .add(1, 'month')
+              .startOf('month')
+              .subtract(1, 'day')
+              .format('DD/MM/YYYY 23:59:59');
           }
         }
       }
-    }
+    },
   },
 };
 </script>

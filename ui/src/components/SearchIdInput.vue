@@ -14,10 +14,11 @@
         <UiButton
           :variant="'primary'"
           @click="searchById"
-          :disabled="!isEnabled || resultQuery === ''"
+          :disabled="!isEnabled"
           :class="{ 'search-id-button': true, 'flex-grow-1': !inline }"
-          >{{ $t('search') }}</UiButton
         >
+          {{ $t('search') }}
+        </UiButton>
       </div>
     </div>
   </form>
@@ -99,7 +100,10 @@ export default {
 
   methods: {
     async searchById() {
-      if (!this.selectedSearchType) return;
+      if (!this.selectedSearchType) {
+        this.$emit('searchById');
+        return;
+      }
       this.$emit('searchById', {
         id: 'filters.' + this.selectedSearchType,
         value: this.resultQuery,

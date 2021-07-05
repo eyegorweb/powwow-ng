@@ -1,6 +1,6 @@
 <template>
   <div class="actions d-flex flex-column flex-md-row">
-    <UiDropdownButton>
+    <UiDropdownButton v-if="!noSave">
       <UiButton
         slot="trigger"
         slot-scope="{ staticClass, toggle }"
@@ -53,6 +53,7 @@ export default {
     moduleName: String,
     hideApply: Boolean,
     currentFilters: Array,
+    noSave: Boolean,
   },
 
   data() {

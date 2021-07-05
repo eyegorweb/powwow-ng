@@ -9,6 +9,7 @@
       v-if="canShowSelectedFilter"
       :current-filters="currentFilters"
       :module-name="moduleName"
+      :no-save="noSave"
       @applyFilters="$emit('applyFilters', $event)"
       @saved="onFilterSaved"
     />
@@ -41,6 +42,7 @@ export default {
     currentFilters: Array,
     canShowSelectedFilter: Boolean,
     moduleName: String,
+    noSave: Boolean,
     fixedFilters: {
       type: Array,
       required: false,

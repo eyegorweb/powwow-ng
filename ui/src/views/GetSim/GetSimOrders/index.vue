@@ -123,15 +123,7 @@ export default {
       };
     },
     getExportLinesFn(orderID) {
-      return async (
-        columns,
-        orderBy,
-        exportFormat,
-        asyncExportRequest,
-        exportAll,
-        forceAsyncExport,
-        exportChoice
-      ) => {
+      return async (columns, orderBy, exportFormat, asyncExportRequest, exportAll) => {
         let columnsToUse = [
           'LINE_ICCID',
           'PARTY_ID',
