@@ -344,14 +344,6 @@
                 @update:value="selectEsimIdFilter($event)"
               />
             </FoldableBlock>
-            <FoldableBlock
-              :title="$t('filters.downloadedProfile')"
-              :key="'downloadedProfile'"
-              :disabled="filtersAreDisabled"
-              draggable
-            >
-              <DownloadProfileFilter />
-            </FoldableBlock>
 
             <FoldableBlock
               :title="$t('indicators.getparc.lines.esim.category')"
@@ -379,6 +371,14 @@
               draggable
             >
               <EsimDownloadStatusFilter />
+            </FoldableBlock>
+            <FoldableBlock
+              :title="$t('filters.downloadedProfile')"
+              :key="'downloadedProfile'"
+              :disabled="filtersAreDisabled || !isEsimCategoryInFilter"
+              draggable
+            >
+              <DownloadProfileFilter />
             </FoldableBlock>
             <FoldableBlock
               :title="$t('indicators.getparc.lines.esim.pairedLine')"
