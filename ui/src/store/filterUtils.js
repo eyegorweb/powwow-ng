@@ -104,6 +104,55 @@ export function areFiltersEmpty(filters) {
   return false;
 }
 
+export function areFiltersIdentical(selectedFilters, filtersToCheck) {
+  if (selectedFilters && filtersToCheck && filtersToCheck.length && selectedFilters.length) {
+    if (selectedFilters.length === 0 && filtersToCheck.length === 0) return true;
+
+    const conformFilters = filtersToCheck.filter((filter) => {
+      const foundInSelected = selectedFilters.find((f) => f.id === filter.id);
+
+      if (foundInSelected) {
+        return isFilterEq(filter, foundInSelected);
+      }
+    });
+
+    return filtersToCheck.length === conformFilters.length;
+  }
+  return false;
+}
+
+export function isFilterEq(filter1, filter2) {
+  if (filter1.values) {
+    if (filter2.values && filter1.values.length === filter2.values.length) {
+      if (filter1.values.length === 0 && filter2.values.length === 0) return true;
+
+      const eqElements = filter1.values.filter((f1) => {
+        return !!filter2.values.find((f2) => f2.id === f1.id);
+      });
+      return !!eqElements.length;
+    }
+  }
+
+  if (filter1.value && filter2.value) {
+    return filter1.value === filter2.value;
+  }
+
+  const filter1StartDate = filter1.startDate;
+  const filter1EndDate = filter1.endDate;
+  const filter2StartDate = filter2.startDate;
+  const filter2EndDate = filter2.endDate;
+
+  if (filter1StartDate || filter1EndDate || filter2StartDate || filter2EndDate) {
+    return filter1StartDate === filter2StartDate && filter1EndDate === filter2EndDate;
+  }
+
+  if (filter1.from || filter1.to || filter2.from || filter2.to) {
+    return filter1.from === filter2.from && filter2.to === filter1.to;
+  }
+
+  return false;
+}
+
 export function resetSearchWhenCurrentFiltersAreEmpty(state) {
   if (areFiltersEmpty(state.currentFilters)) {
     clearAppliedFilters(state);

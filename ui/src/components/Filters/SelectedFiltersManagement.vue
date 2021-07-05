@@ -10,16 +10,21 @@
       :current-filters="currentFilters"
       :module-name="moduleName"
       :no-save="noSave"
+      :disabledSave="disabledSave"
+      :disableMessage="disableMessage"
       @applyFilters="$emit('applyFilters', $event)"
-      @saved="onFilterSaved"
+      @saved="refreshSavedFilters"
     />
     <FoldableBlock :title="$t('savedFilters')">
       <SavedFilters
         :key="savedFiltersVersion"
         :module-name="moduleName"
+        :savedFilters="savedFilters"
+        :isLoading="isLoading"
         :current-filters="currentFilters"
         :selected-filter="selectedFilter"
         @chooseFilter="chooseFilter"
+        @refresh="refreshSavedFilters"
       />
     </FoldableBlock>
   </div>
@@ -30,6 +35,8 @@ import SelectedFilters from '@/components/Filters/SelectedFilters';
 import ApplyAndSaveFilters from '@/components/Filters/ApplyAndSaveFilters.vue';
 import SavedFilters from '@/components/Filters/SavedFilters.vue';
 import FoldableBlock from '@/components/FoldableBlock';
+import { areFiltersIdentical } from '@/store/filterUtils.js';
+import { fetchFilters } from '@/api/filters.js';
 
 export default {
   components: {
@@ -48,12 +55,34 @@ export default {
       required: false,
     },
   },
+  mounted() {
+    this.refreshSavedFilters();
+  },
   data() {
     return {
       savedFiltersVersion: 0,
       selectedFilter: undefined,
       ignoreNextCurrent: false,
+      savedFilters: undefined,
+      isLoading: false
     };
+  },
+  computed: {
+    disabledSave() {
+      if (this.savedFilters && this.savedFilters.length >= 4) return true;
+      if (this.selectedFilter) {
+        const filters = JSON.parse(this.selectedFilter.filter);
+        return areFiltersIdentical(filters, this.currentFilters);
+      }
+
+      return false;
+    },
+    disableMessage() {
+      if (this.savedFilters && this.savedFilters.length >= 4) {
+        return this.$t('getparc.actLines.maxFilters');
+      }
+      return undefined;
+    }
   },
   watch: {
     currentFilters() {
@@ -65,13 +94,21 @@ export default {
     },
   },
   methods: {
-    onFilterSaved() {
-      this.savedFiltersVersion += 1;
+    async refreshSavedFilters() {
+      this.isLoading = true;
+      this.savedFilters = await fetchFilters(this.moduleName);
+      this.isLoading = false;
     },
     chooseFilter(selectedFilter) {
       this.ignoreNextCurrent = true;
-      this.selectedFilter = selectedFilter;
-      this.$emit('chooseFilter', selectedFilter);
+      if (this.selectedFilter === selectedFilter) {
+        this.selectedFilter = undefined;
+        this.$emit('chooseFilter', undefined);
+      } else {
+        this.selectedFilter = selectedFilter;
+        this.$emit('chooseFilter', selectedFilter);
+      }
+
     },
   },
 };

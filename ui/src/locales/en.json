@@ -1654,6 +1654,7 @@
       "message_EXCLUDED_LINES": "Lines removed from the alarm will be accessible in the Lines excluded from alarm 'tab'"
     },
     "actLines": {
+      "maxFilters": "Cannot save more than 4 filters",
       "details": {
         "title": "Line detail",
         "upcommingChanges": "Upcoming changes",

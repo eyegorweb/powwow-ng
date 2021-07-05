@@ -39,22 +39,15 @@ export default {
     moduleName: String,
     currentFilters: Array,
     selectedFilter: Object,
-  },
-
-  data() {
-    return {
-      savedFilters: [],
-      isLoading: true,
-    };
+    savedFilters: Array,
+    isLoading: Boolean
   },
 
   methods: {
     ...mapMutations(['confirmAction']),
 
     async refreshList() {
-      this.isLoading = true;
-      this.savedFilters = await fetchFilters(this.moduleName);
-      this.isLoading = false;
+      this.$emit('refresh');
     },
 
     async deleteFilter(filterToDelete) {
@@ -73,9 +66,6 @@ export default {
     },
   },
 
-  mounted() {
-    this.refreshList();
-  },
 };
 </script>
 

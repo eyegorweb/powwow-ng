@@ -612,6 +612,10 @@ export default {
     },
 
     chooseFilter(savedFilters) {
+      if (!savedFilters) {
+        this.setCurrentFilters([]);
+        this.applyFilters();
+      }
       if (savedFilters && savedFilters.filter && savedFilters.filter.length) {
         const filters = JSON.parse(savedFilters.filter);
         if (filters) {
