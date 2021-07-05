@@ -2,11 +2,12 @@
 
 <!--- next entry here -->
 
-## 1.17.0-master.412+20210705083755
+## 1.17.0-master.413+20210705085527
 2021-07-05
 
 ### Fixes
 
+- [2694]  correction de la gestion du retour dans le détail de la ligne (bf9eac8dd07fcc090f45adbe299d46d437639b00)
 - [000] Changement dans l'interface utilisateur de la gestion de lignes (5a1e0eef5592939d39da458709a4fcf029b1946e)
 - [2716] Rajouter le filtre "profil téléchargé" au niveau de Getparc (7036429f5f3d33c94493bf57eea97919f3c98c86)
 
