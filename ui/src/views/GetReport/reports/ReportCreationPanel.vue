@@ -10,6 +10,7 @@
           <template v-if="!userIsPartner">
             <SectionTitle :num="1">{{ $t('getparc.history.col.partyId') }}</SectionTitle>
             <PartnerCombo
+              class="partner-select"
               :value.sync="selectedPartner"
               :options="partnerChoices"
               include-mailing-lists
@@ -23,7 +24,7 @@
           <div v-if="reportModels" class="mt-4 mb-2">
             <h6>{{ $t('getreport.creation.fromReport') }}</h6>
             <UiSelect
-              class="report-field"
+              class="report-model report-field"
               v-model="reportModel"
               :options="reportModels"
               :trad-prefix="'getreport.from_report.'"
@@ -66,7 +67,7 @@
               @update="reportFrequency = $event.id"
               :values="reportFrequencyChoices"
               light-theme
-              class="pl-2"
+              class="report-frequency pl-2"
             />
           </div>
           <div class="mt-4 mb-2">
@@ -77,7 +78,7 @@
               :value="generationDate"
               :start-date="generationDate"
               :error="dateError ? 'errors.mandatory' : undefined"
-              class="d-block report-field"
+              class="report-date d-block report-field"
             >
               <em slot="icon" class="select-icon ic-Flag-Icon" />
             </UiDate>
@@ -88,7 +89,7 @@
           <div class="row">
             <div class="col">
               <div class="d-flex pt-3">
-                <UiCheckbox v-model="shouldNotify" />
+                <UiCheckbox class="should-notify" v-model="shouldNotify" />
                 <span>{{ $t('mailNotification') }}</span>
               </div>
             </div>
@@ -109,7 +110,7 @@
           <div class="row">
             <div class="col">
               <div class="d-flex pt-3">
-                <UiCheckbox v-model="isActive" />
+                <UiCheckbox class="report-activate" v-model="isActive" />
                 <span>{{ $t('filters.active') }}</span>
               </div>
             </div>
@@ -122,7 +123,7 @@
               {{ i.label }}
             </li>
           </ul>
-          <ul class="list-unstyled">
+          <ul class="report-data list-unstyled">
             <li v-for="i in orderedSelectedItems" :key="'remove_' + i.label + '_' + i.code">
               <button class="btn btn-link p-1" @click.stop="() => removeItem(i)">
                 <em class="ic-Cross-Icon" />

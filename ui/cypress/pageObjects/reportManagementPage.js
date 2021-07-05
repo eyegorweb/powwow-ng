@@ -66,15 +66,11 @@ export default {
       cy.waitGet('.fileInfoContainer > div:nth-child(2) > div > div > select').select(value);
     },
     deleteDataFromReportData() {
-      cy.waitGet(
-        '#main-sliding-panel > div > div > div > div > div.panelContent > div.fieldsRecap > ul:nth-child(3) > li:last-child > button'
-      ).click();
+      cy.waitGet('ul.report-data > li:last-child > button').click();
     },
     partner: {
       selectPartner(partner) {
-        cy.waitGet(
-          '#main-sliding-panel > div > div > div > div > div.panelContent > div.checkBoxesContainer > div.position-relative > fieldset > input'
-        ).type(partner);
+        cy.waitGet('div.partner-select > fieldset > input').type(partner);
         cy.wait(400);
         cy.waitGet('.autocomplete-results > li:nth-child(1)').click();
         cy.wait(400);
@@ -82,19 +78,17 @@ export default {
     },
     chooseInformation: {
       selectFromAReportTemplate(value) {
-        cy.waitGet(
-          '#main-sliding-panel > div > div > div > div > div.panelContent > div.checkBoxesContainer > div:nth-child(5) > div > div > select'
-        ).select(value);
+        cy.waitGet('div.report-model > div > select').select(value);
       },
       technicalInformation: {
         open() {
           cy.waitGet(
-            '#main-sliding-panel > div > div > div > div > div.panelContent > div.checkBoxesContainer > div.checkbox-groups > div:nth-child(1) > .d-flex > a'
+            'div.checkbox-groups > div:nth-child(1) > div.d-flex.align-items-center > a'
           ).click();
         },
         select(index) {
           cy.waitGet(
-            '#main-sliding-panel > div > div > div > div > div.panelContent > div.checkBoxesContainer > div.checkbox-groups > div:nth-child(1) > div.pt-3 > div > div:nth-child(' +
+            'div.checkbox-groups > div:nth-child(1) > div.pt-3 > div > div:nth-child(' +
               index +
               ') > div > label > span'
           ).click();
@@ -103,12 +97,12 @@ export default {
       dualSIMInformation: {
         open() {
           cy.waitGet(
-            '#main-sliding-panel > div > div > div > div > div.panelContent > div.checkBoxesContainer > div.checkbox-groups > div:nth-child(2) > .d-flex > a'
+            'div.checkbox-groups > div:nth-child(2) > div.d-flex.align-items-center > a'
           ).click();
         },
         select(index) {
           cy.waitGet(
-            '#main-sliding-panel > div > div > div > div > div.panelContent > div.checkBoxesContainer > div.checkbox-groups > div:nth-child(2) > div.pt-3 > div > div:nth-child(' +
+            'div.checkbox-groups > div:nth-child(2) > div.pt-3 > div > div:nth-child(' +
               index +
               ') > div > label > span'
           ).click();
@@ -116,13 +110,11 @@ export default {
       },
       commercialInformation: {
         open() {
-          cy.waitGet(
-            '#main-sliding-panel > div > div > div > div > div.panelContent > div.checkBoxesContainer > div.checkbox-groups > div:nth-child(3) > .d-flex > a'
-          ).click();
+          cy.waitGet('div.checkbox-groups > div:nth-child(3) > .d-flex > a').click();
         },
         select(index) {
           cy.waitGet(
-            '#main-sliding-panel > div > div > div > div > div.panelContent > div.checkBoxesContainer > div.checkbox-groups > div:nth-child(3) > div.pt-3 > div > div:nth-child(' +
+            'div.checkbox-groups > div:nth-child(3) > div.pt-3 > div > div:nth-child(' +
               index +
               ') > div > label > span'
           ).click();
@@ -130,13 +122,11 @@ export default {
       },
       orderInformation: {
         open() {
-          cy.waitGet(
-            '#main-sliding-panel > div > div > div > div > div.panelContent > div.checkBoxesContainer > div.checkbox-groups > div:nth-child(4) > .d-flex > a'
-          ).click();
+          cy.waitGet('div.checkbox-groups > div:nth-child(4) > .d-flex > a').click();
         },
         select(index) {
           cy.waitGet(
-            '#main-sliding-panel > div > div > div > div > div.panelContent > div.checkBoxesContainer > div.checkbox-groups > div:nth-child(4) > div.pt-3 > div > div:nth-child(' +
+            'div.checkbox-groups > div:nth-child(4) > div.pt-3 > div > div:nth-child(' +
               index +
               ') > div > label > span'
           ).click();
@@ -144,13 +134,11 @@ export default {
       },
       consumption: {
         open() {
-          cy.waitGet(
-            '#main-sliding-panel > div > div > div > div > div.panelContent > div.checkBoxesContainer > div.checkbox-groups > div:nth-child(5) > .d-flex > a'
-          ).click();
+          cy.waitGet('div.checkbox-groups > div:nth-child(5) > .d-flex > a').click();
         },
         select(index) {
           cy.waitGet(
-            '#main-sliding-panel > div > div > div > div > div.panelContent > div.checkBoxesContainer > div.checkbox-groups > div:nth-child(5) > div.pt-3 > div > div:nth-child(' +
+            'div.checkbox-groups > div:nth-child(5) > div.pt-3 > div > div:nth-child(' +
               index +
               ') > div > label > span'
           ).click();
@@ -158,13 +146,11 @@ export default {
       },
       lastUsedInformation: {
         open() {
-          cy.waitGet(
-            '#main-sliding-panel > div > div > div > div > div.panelContent > div.checkBoxesContainer > div.checkbox-groups > div:nth-child(6) > .d-flex > a'
-          ).click();
+          cy.waitGet('div.checkbox-groups > div:nth-child(6) > .d-flex > a').click();
         },
         select(index) {
           cy.waitGet(
-            '#main-sliding-panel > div > div > div > div > div.panelContent > div.checkBoxesContainer > div.checkbox-groups > div:nth-child(6) > div.pt-3 > div > div:nth-child(' +
+            'div.checkbox-groups > div:nth-child(6) > div.pt-3 > div > div:nth-child(' +
               index +
               ') > div > label > span'
           ).click();
@@ -173,37 +159,27 @@ export default {
     },
     generateReport: {
       selectOnlyOnce() {
-        cy.waitGet(
-          '#main-sliding-panel > div > div > div > div > div.panelContent > div.checkBoxesContainer > div:nth-child(8) > div > div > button:nth-child(1)'
-        )
+        cy.waitGet('div.report-frequency > div > button:nth-child(1)')
           .click()
           .should('have.class', 'active');
       },
       selectWeekly() {
-        cy.waitGet(
-          '#main-sliding-panel > div > div > div > div > div.panelContent > div.checkBoxesContainer > div:nth-child(8) > div > div > button:nth-child(2)'
-        )
+        cy.waitGet('div.report-frequency > div > button:nth-child(2)')
           .click()
           .should('have.class', 'active');
       },
       selectMonthly() {
-        cy.waitGet(
-          '#main-sliding-panel > div > div > div > div > div.panelContent > div.checkBoxesContainer > div:nth-child(8) > div > div > button:nth-child(3)'
-        )
+        cy.waitGet('div.report-frequency > div > button:nth-child(3)')
           .click()
           .should('have.class', 'active');
       },
     },
     notifications: {
       selectToBeNotifiedByEmail() {
-        cy.waitGet(
-          '#main-sliding-panel > div > div > div > div > div.panelContent > div.checkBoxesContainer > div:nth-child(11) > div > div > div > label > span'
-        ).click();
+        cy.waitGet('div.should-notify > label > span').click();
       },
       selectActivated() {
-        cy.waitGet(
-          '#main-sliding-panel > div > div > div > div > div.panelContent > div.checkBoxesContainer > div:nth-child(12) > div > div > div > label > span'
-        ).click();
+        cy.waitGet('div.report-activate > label > span').click();
       },
     },
   },

@@ -19,10 +19,10 @@ Feature: test des rapports
     And Je clique sur "Créer un rapport"
     And Je choisis le partenaire "lyra"
     And Je choisis l'export dernier usage
-    And Je rentre le nom du rapport "TestCypressDernierUsage"
+    And Je rentre le nom du rapport "TestCypressDernierUsage45"
     And Je choisis le format CSV
     When Je clique sur "Enregistrer"
-    Then Je verifie la création du rapport "TestCypressDernierUsage"
+    Then Je verifie la création du rapport "TestCypressDernierUsage45"
 
   Scenario: Je veux faire un rapport Export des services
     Given en tant que BO
@@ -35,6 +35,7 @@ Feature: test des rapports
     When Je clique sur "Enregistrer"
     Then Je verifie la création du rapport "TestCypressExportServices"
 
+  @focus
   Scenario: Je veux faire un rapport personnalise
     Given en tant que BO
     And Je suis sur la page de gestion des rapports
@@ -48,10 +49,10 @@ Feature: test des rapports
     And Je choisis l'information dernier usage Statut de la derniere connexion data
     And Je choisis de generer le rapport hebdomadairement
     And Je supprime la derniere donnee depuis les donnees du rapport
-    And Je rentre le nom du rapport "TestCypressPerso"
+    And Je rentre le nom du rapport "TestCypressPerso17"
     And Je choisis le format CSV
     When Je clique sur "Enregistrer"
-    Then Je verifie la création du rapport "TestCypressPerso"
+    Then Je verifie la création du rapport "TestCypressPerso17"
 
   Scenario: Je veux desactiver un rapport
     Given en tant que BO
