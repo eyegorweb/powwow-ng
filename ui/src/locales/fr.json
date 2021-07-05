@@ -1837,6 +1837,7 @@
       "message_EXCLUDED_LINES": "Les lignes retirées de l’alarme seront accessibles dans l’onglet « Lignes exclues de l’alarme »"
     },
     "actLines": {
+      "maxFilters": "Maximum de filtre atteint",
       "details": {
         "title": "Detail de la ligne",
         "upcommingChanges": "Changements à venir",

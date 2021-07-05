@@ -1,6 +1,6 @@
 <template>
   <div class="actions d-flex flex-column flex-md-row">
-    <UiDropdownButton v-if="!noSave">
+    <UiDropdownButton v-if="!noSave" v-tooltip="disableMessage">
       <UiButton
         slot="trigger"
         slot-scope="{ staticClass, toggle }"
@@ -8,8 +8,10 @@
         class="flex-grow-1 py-1 px-3"
         @click.prevent="toggle"
         :class="staticClass"
-        >{{ $t('save') }}</UiButton
+        :disabled="disabledSave"
       >
+        {{ $t('save') }}
+      </UiButton>
       <div slot-scope="{ hide }" class="p-3" style="width: 256px">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close" @click="hide">
           <span aria-hidden="true">&times;</span>
@@ -20,9 +22,9 @@
         <h6 class="modal-title mb-3">{{ $t('saveFilter') }}:</h6>
         <form @submit.prevent>
           <UiInput v-model="filterName" class="d-block" :placeholder="$t('newFilterName')" />
-          <UiButton variant="primary" @click="() => saveFilter(hide)" type="submit" block>{{
-            $t('save')
-          }}</UiButton>
+          <UiButton variant="primary" @click="() => saveFilter(hide)" type="submit" block>
+            {{ $t('save') }}
+          </UiButton>
         </form>
       </div>
     </UiDropdownButton>
@@ -31,8 +33,9 @@
       variant="primary"
       @click="$emit('applyFilters')"
       class="flex-grow-1 py-1 px-2 ml-1 apply-filters-btn"
-      >{{ $t('applyFilter') }}</UiButton
     >
+      {{ $t('applyFilter') }}
+    </UiButton>
   </div>
 </template>
 
@@ -41,6 +44,7 @@ import UiButton from '@/components/ui/Button';
 import UiInput from '@/components/ui/UiInput';
 import UiDropdownButton from '@/components/ui/UiDropdownButton';
 import { createFilter } from '@/api/filters.js';
+import SearchTranslationKeyVue from '../utils/SearchTranslationKey.vue';
 
 export default {
   components: {
@@ -54,6 +58,11 @@ export default {
     hideApply: Boolean,
     currentFilters: Array,
     noSave: Boolean,
+    disabledSave: Boolean,
+    disableMessage: {
+      type: String,
+      required: false
+    }
   },
 
   data() {
