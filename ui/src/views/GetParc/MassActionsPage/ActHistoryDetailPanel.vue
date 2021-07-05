@@ -28,17 +28,6 @@
                 {{ $t('getparc.history.details.lines') }}
               </p>
             </div>
-            <UiButton
-              variant="import"
-              @click="
-                $router.push({
-                  name: 'actDetail',
-                  params: { massActionId: content.id, simpleBack: true },
-                })
-              "
-            >
-              <span>{{ $t('getparc.history.details.MORE_DETAIL') }}</span>
-            </UiButton>
           </div>
           <div class="overview-item">
             <h6>{{ $t('getparc.history.details.quantityFailed') }} :</h6>
@@ -161,7 +150,7 @@
               @click="
                 $router.push({
                   name: 'actDetail',
-                  params: { massActionId: content.id, actHistoryTableFilters: content.filters },
+                  params: { massActionId: content.id, simpleBack: true },
                 })
               "
               >{{ $t('getparc.history.details.RESULT') }}</UiButton
