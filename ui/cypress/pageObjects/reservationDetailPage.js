@@ -9,7 +9,9 @@ export default {
   openDetailPanel() {
     cy.waitGet(
       '#app > div.container > div.mt-4 > div.pt-4.pl-4 > div > div:nth-child(2) > div > div.col-md-9 > div:nth-child(2) > div:nth-child(2) > div > table > tbody > tr > td:nth-child(1) > div > button'
-    ).click();
+    )
+      .first()
+      .click();
   },
   getDetailPanel() {
     cy.waitGet('.cd-panel__container').should('be.visible');
