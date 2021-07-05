@@ -84,15 +84,7 @@ export default {
     ...mapMutations('getsim', ['refreshIndicators', 'updateOrderInTable']),
 
     getExportFn() {
-      return async (
-        columns,
-        orderBy,
-        exportFormat,
-        asyncExportRequest,
-        exportAll,
-        forceAsyncExport,
-        exportChoice
-      ) => {
+      return async (columns, orderBy, exportFormat, asyncExportRequest, exportAll) => {
         let columnsToUse = [
           'LINE_ICCID',
           'PARTY_ID',

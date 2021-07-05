@@ -42,7 +42,7 @@
           precalculated
         />
         <br />
-        <FilterBar v-if="!transferSim" />
+        <FilterBar v-if="!transferSim" :creation-mode="!!creationMode" />
       </div>
       <template v-if="withCustomFormBehavior">
         <PairingByFileFormContainer
@@ -90,9 +90,9 @@
             num="1"
             v-if="
               creationMode &&
-              actCreationPrerequisites &&
-              !actToCreate.containFile &&
-              !useFileImportAsInput
+                actCreationPrerequisites &&
+                !actToCreate.containFile &&
+                !useFileImportAsInput
             "
             title="getparc.actLines.step1Title"
             :color="actToCreate.color"
@@ -101,6 +101,7 @@
           <LinesTable
             v-if="canShowTable && canMounTable && !useFileImportAsInput"
             :creation-mode="canShowForm"
+            :act-to-create="actToCreate"
             :widget-init-search-by-id="$route.params.idFilters"
             :query-filters-from-order="$route.params.queryFilters"
             @noResults="checkTableResult"

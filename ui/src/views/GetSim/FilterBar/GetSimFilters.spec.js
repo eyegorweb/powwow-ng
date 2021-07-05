@@ -4,6 +4,11 @@ import GetSimFilters from './GetSimFilters.vue';
 import { $t } from '@/../tests-utils';
 
 import { Store } from 'vuex-mock-store';
+import { fetchOrderStatuses } from '@/api/orderStatuses';
+
+jest.mock('@/api/orderStatuses', () => ({
+  fetchOrderStatuses: jest.fn(),
+}));
 
 jest.mock('daterangepicker/daterangepicker.js', () => {});
 jest.mock('daterangepicker/daterangepicker.css', () => {});

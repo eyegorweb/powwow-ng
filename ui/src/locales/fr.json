@@ -1,4 +1,4 @@
-{ 
+{
   "event": {
     "title": "EVENEMENT:",
     "content": "Attention - Jeudi 24 juin de 19h00 à 21h00, le service sera indisponible en raison d'une opération de maintenance. Nous vous prions de bien vouloir nous excuser pour la gêne occasionnée."
@@ -31,7 +31,7 @@
   "showOrHideColumns": "Ajouter / Masquer des colonnes",
   "save": "Enregistrer",
   "saveFilter": "Enregistrer un filtre",
-  "applyFilter": "Appliquer un filtre",
+  "applyFilter": "Rechercher",
   "applyTheFilter": "Appliquer le filtre",
   "newFilterName": "Nom du nouveau filtre",
   "savedFilters": "Filtres enregistrés",

@@ -28,9 +28,7 @@
             </div>
             <div v-tooltip="offer.defaultServices.join('\n')">
               {{ offer.defaultServices.slice(0, 5).join(', ') }}
-              <template v-if="offer.defaultServices.length > 6">
-                ...
-              </template>
+              <template v-if="offer.defaultServices.length > 6"> ... </template>
             </div>
           </div>
           <div
@@ -42,9 +40,7 @@
             </div>
             <div v-tooltip="offer.editableServices.join('\n')">
               {{ offer.editableServices.slice(0, 5).join(', ') }}
-              <template v-if="offer.editableServices.length > 6">
-                ...
-              </template>
+              <template v-if="offer.editableServices.length > 6"> ... </template>
             </div>
           </div>
           <div slot="buttons">
@@ -53,8 +49,9 @@
               class="button"
               :variant="'import'"
               @click="deleteOffer(offer)"
-              >{{ $t('actions.DISABLE') }}</Button
             >
+              {{ $t('actions.DISABLE') }}
+            </Button>
           </div>
         </Card>
       </template>

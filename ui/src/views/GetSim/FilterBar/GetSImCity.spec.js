@@ -9,7 +9,7 @@ const store = new Store({
   state: { getsim: {} },
 
   getters: {
-    selectedCityValue: '',
+    'getsim/selectedCityValue': undefined,
   },
 });
 

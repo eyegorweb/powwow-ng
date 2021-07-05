@@ -1,6 +1,6 @@
 <template>
   <ActFormContainer
-  v-if="partnerType"
+    v-if="partnerType"
     :validate-fn="validate"
     success-message="getparc.actCreation.transfertCF.successMessage"
     :prevent-send="!canSend"

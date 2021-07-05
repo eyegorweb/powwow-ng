@@ -27,6 +27,7 @@
     "generate:html:report": "yarn run merge:reports && yarn run create:html:report"
   },
   "dependencies": {
+    "@babel/runtime": "^7.14.6",
     "@johmun/vue-tags-input": "^2.1.0",
     "axios": "^0.18.0",
     "babel-eslint": "^10.1.0",
@@ -83,7 +84,7 @@
     "@vue/cli-plugin-unit-jest": "^3.2.0",
     "@vue/cli-service": "^3.2.0",
     "@vue/eslint-config-prettier": "^4.0.1",
-    "@vue/test-utils": "^1.0.0-beta.26",
+    "@vue/test-utils": "^1.2.1",
     "babel-core": "7.0.0-bridge.0",
     "compression-webpack-plugin": "^2.0.0",
     "cypress-wait-until": "^1.7.1",

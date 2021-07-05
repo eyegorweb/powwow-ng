@@ -36,6 +36,9 @@ describe('DataTable.vue', () => {
     const total = 20;
 
     wrapper = shallowMount(DataTable, {
+      directives: {
+        tooltip: jest.fn(),
+      },
       propsData: {
         columns,
         rows,

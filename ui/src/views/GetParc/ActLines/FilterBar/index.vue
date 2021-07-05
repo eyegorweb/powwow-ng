@@ -6,7 +6,8 @@
         module-name="SIM"
         :current-filters="currentFilters"
         :fixed-filters="fixedFilters"
-        :can-show-selected-filter="canShowSelectedFilter"
+        :can-show-selected-filter="true"
+        :no-save="!canSaveFilters"
         @clear="(filterId) => clearFilter(filterId)"
         @applyFilters="applyFilters"
         @chooseFilter="chooseFilter"
@@ -456,6 +457,7 @@ import EsimCategoryFilter from '@/views/GetParc/ActLines/FilterBar/Esim/EsimCate
 
 import SelectedFiltersManagement from '@/components/Filters/SelectedFiltersManagement.vue';
 import { getPartyOptions } from '@/api/partners.js';
+import { areFiltersEmpty } from '@/store/filterUtils.js';
 
 export default {
   components: {
@@ -485,6 +487,9 @@ export default {
     ActLinesTerminationFilter,
     DownloadProfileFilter,
     // EsimFamilyFilter
+  },
+  props: {
+    creationMode: Boolean,
   },
   data() {
     return {
@@ -524,6 +529,27 @@ export default {
       // 'selectedIdTypeFromFileValue',
       // 'selectedFileValue',
     ]),
+    canSaveFilters() {
+      if (this.currentFilters) {
+        const visibleFilters = this.currentFilters.filter((f) => !f.hidden);
+        if (!areFiltersEmpty(visibleFilters)) {
+          return true;
+        }
+      }
+      return false;
+    },
+    canShowSelectedFilterOrButtons() {
+      if (!this.creationMode) {
+        if (this.currentFilters) {
+          const visibleFilters = this.currentFilters.filter((f) => !f.hidden);
+          if (visibleFilters.length) {
+            return true;
+          }
+        }
+      }
+      console.log('this.canShowSelectedFilter >> ', this.canShowSelectedFilter);
+      return this.canShowSelectedFilter;
+    },
     isEsimCategoryInFilter() {
       return this.selectedEsimCategoryValue === 'eSim';
     },
