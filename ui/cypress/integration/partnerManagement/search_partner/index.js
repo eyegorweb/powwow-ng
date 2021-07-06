@@ -1,6 +1,7 @@
 import { Given, When, Then } from 'cypress-cucumber-preprocessor/steps';
 import partnerPage from '../../../pageObjects/partnerPage';
 
+
 Given('Je suis sur la page de gestion des partenaires', () => {
   partnerPage.init();
   cy.wait(400); // changer a 400, 2000 ou 3000 uniquement pour connexion lente et chargement long de la page

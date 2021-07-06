@@ -12,6 +12,9 @@ export const filterBarItems = (blocIndex) => {
           `.foldable-block:nth-child(${blocIndex}) .checkboxes > .checkbox-container:nth-child(${checkboxIndex}) > .filled > .checkmark`
         ).click({ force: true });
       },
+      select(value) {
+        cy.waitGet('.is-open .select > select').select(value);
+      },
       selectCheckbox(checkboxIndex) {
         cy.waitGet(
           `.is-open .checkbox-container:nth-child(${checkboxIndex}) > .filled > .checkmark`

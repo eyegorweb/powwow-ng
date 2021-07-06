@@ -42,7 +42,7 @@
         </div>
 
         <h5>{{ $t('getparc.lineDetail.alarms.name') }}</h5>
-        <UiInput class="d-block" v-model="alarmName" />
+        <UiInput class="alarm-name d-block" v-model="alarmName" />
       </div>
       <div class="col">
         <div class="d-flex mb-3 mt-1">
