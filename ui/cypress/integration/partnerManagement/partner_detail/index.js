@@ -6,7 +6,7 @@ import partnerDetailPage from '../../../pageObjects/partnerDetailPage';
 
 Given('Je suis sur la page de gestion des partenaires', () => {
   partnerPage.init();
-  cy.wait(400); // changer a 400, 2000 ou 3000 uniquement pour connexion lente et chargement long de la page
+  cy.wait(1000); // changer a 400, 2000 ou 3000 uniquement pour connexion lente et chargement long de la page
 });
 
 Given('Je vais sur la page de detail du partenaire LYRA', () => {
@@ -242,6 +242,7 @@ Given("J'indique que le champ est obligatoire a l'activation", () => {
 
 Given("J'enregistre", () => {
   partnerDetailPage.tabs.customization.fields.edit.save();
+  cy.wait(400);
 });
 
 When('Je clique sur le bouton "Modifier" de ce nouveau champ', () => {

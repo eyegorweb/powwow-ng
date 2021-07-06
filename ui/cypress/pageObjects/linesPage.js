@@ -34,7 +34,7 @@ export default {
   },
 
   showAllLines() {
-    cy.waitGet('.show-all-lines')
+    cy.waitGet('.search-id-button')
       .click()
       .wait(500);
   },

@@ -1,5 +1,5 @@
 <template>
-  <button class="btn btn-link p-0" v-if="row.isTriggered" @click.stop="openPanel">
+  <button class="btn-trigger btn btn-link p-0" v-if="row.isTriggered" @click.stop="openPanel">
     {{ $t('common.YES') }}
   </button>
   <span v-else>{{ $t('common.NO') }}</span>

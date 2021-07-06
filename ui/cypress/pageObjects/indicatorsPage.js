@@ -32,7 +32,7 @@ export default {
       cy.waitGet(
         'div.col-md-3 > div:nth-child(1) > ul > li:first-child > div > button > span'
       ).then(($number) => {
-        const ordersToBeValidated = $number.text();
+        const ordersToBeValidated = parseInt($number.text());
 
         cy.waitGet(
           'div.pt-4.pl-4 > div > div:nth-child(2) > div.col-md-9 > div > div > div.row.mb-3 > div:nth-child(1) > h2'
@@ -53,7 +53,7 @@ export default {
       cy.waitGet(
         'div.col-md-3 > div:nth-child(1) > ul > li:nth-child(2) > div > button > span'
       ).then(($number) => {
-        const ordersBeingProcessed = $number.text();
+        const ordersBeingProcessed = parseInt($number.text());
 
         cy.waitGet(
           'div.pt-4.pl-4 > div > div:nth-child(2) > div.col-md-9 > div > div > div.row.mb-3 > div:nth-child(1) > h2'

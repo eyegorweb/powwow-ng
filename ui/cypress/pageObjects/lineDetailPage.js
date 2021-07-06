@@ -44,7 +44,9 @@ export default {
       },
       alarmsDetails: {
         openTriggerHistory() {
-          cy.waitGet('table > tbody > tr:nth-child(4) > td:nth-child(5) > div > button').click();
+          cy.waitGet('.table .btn-trigger.btn.btn-link.p-0')
+            .first()
+            .click();
         },
         openAlarmModification() {
           cy.waitGet('table > tbody > tr:nth-child(1) > td:nth-child(1) > div > button').click();

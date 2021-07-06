@@ -4,6 +4,8 @@ import report from '../../../pageObjects/reportManagementPage';
 
 //Instructions communes à plusieurs tests
 
+let reportName = '';
+
 Given('Je suis sur la page de gestion des rapports', () => {
   layout.menu.report();
   cy.wait(400);
@@ -17,29 +19,42 @@ Given('Je choisis le partenaire {string}', (partner) => {
   report.panel.partner.selectPartner(partner);
 });
 
-Given('Je rentre le nom du rapport {string}', (name) => {
-  report.panel.reportName(name);
+Given('Je rentre le nom du rapport', () => {
+  reportName = strRandom({
+    includeUpperCase: true,
+    includeNumbers: true,
+    length: 16,
+    startsWithLowerCase: false,
+  });
+  report.panel.reportName(reportName);
 });
 
 Given('Je choisis le format CSV', () => {
   report.panel.fileFormat('CSV');
 });
 
-Given('Je cree un rapport classique {string}', (name) => {
+Given('Je cree un rapport classique', () => {
+  reportName = strRandom({
+    includeUpperCase: true,
+    includeNumbers: true,
+    length: 16,
+    startsWithLowerCase: true,
+  });
   report.createReport();
   report.panel.partner.selectPartner('lyra');
   report.panel.chooseInformation.selectFromAReportTemplate('M2M');
-  report.panel.reportName(name);
+  report.panel.reportName(reportName);
   report.panel.fileFormat('CSV');
   report.panel.save();
 });
 
 When('Je clique sur "Enregistrer"', () => {
   report.panel.save();
+  cy.wait(400);
 });
 
-Then('Je verifie la création du rapport {string}', (name) => {
-  report.checkFirstReportName(name);
+Then('Je verifie la création du rapport', () => {
+  report.checkFirstReportName(reportName);
 });
 
 //Scenario: Je veux faire un rapport classique
@@ -104,6 +119,7 @@ Given('Je supprime la derniere donnee depuis les donnees du rapport', () => {
 
 When('Je desactive le rapport', () => {
   report.unselectFirstReport();
+  cy.wait(500);
 });
 
 Then('Je verifie que le rapport est bien desactive', () => {
@@ -128,3 +144,32 @@ When('Je clique sur "Voir le detail" dans les actions', () => {
 Then('Le panneau de detail est visible', () => {
   report.panel.isVisible();
 });
+
+//fonctions
+
+function strRandom(o) {
+  var a = 10,
+    b = 'abcdefghijklmnopqrstuvwxyz',
+    c = '',
+    d = 0,
+    e = '' + b;
+  if (o) {
+    if (o.startsWithLowerCase) {
+      c = b[Math.floor(Math.random() * b.length)];
+      d = 1;
+    }
+    if (o.length) {
+      a = o.length;
+    }
+    if (o.includeUpperCase) {
+      e += b.toUpperCase();
+    }
+    if (o.includeNumbers) {
+      e += '1234567890';
+    }
+  }
+  for (; d < a; d++) {
+    c += e[Math.floor(Math.random() * e.length)];
+  }
+  return c;
+}

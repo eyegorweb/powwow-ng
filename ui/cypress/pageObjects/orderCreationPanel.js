@@ -89,7 +89,9 @@ export default {
     selectLastShippingAdress() {
       cy.waitGet(
         '.list-container > .adress > .adress__item > .checkbox-container > .filled > .checkmark'
-      ).click({ force: true });
+      )
+        .last()
+        .click({ force: true });
     },
   },
 };

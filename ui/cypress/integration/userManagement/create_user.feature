@@ -14,7 +14,7 @@ Feature: Creation et modification d'utilisateurs
     And Je rentre le prénom "Test"
     And Je rentre le nom "Cypress"
     And Je rentre l'email "test.cypress@gmail.com"
-    And Je rentre le login "TestCypressInternUser878"
+    And Je rentre le login
     And Je rentre le mot de passe "*TestCypress01*"
     And Je sélectionne le rôle "1"
     When J'enregistre l'utilisateur
@@ -31,7 +31,7 @@ Feature: Creation et modification d'utilisateurs
     And Je rentre le prénom "Test"
     And Je rentre le nom "Cypress"
     And Je rentre l'email "test.cypress@gmail.com"
-    And Je rentre le login "TestCypressUserPartner98"
+    And Je rentre le login
     And Je rentre le mot de passe "*TestCypress01*"
     And Je sélectionne le rôle "1"
     When J'enregistre l'utilisateur
@@ -48,7 +48,7 @@ Feature: Creation et modification d'utilisateurs
     And Je rentre le prénom "Test"
     And Je rentre le nom "Cypress"
     And Je rentre l'email "test.cypress@gmail.com"
-    And Je rentre le login "TestCypressUserGroupAccount2"
+    And Je rentre le login
     And Je rentre le mot de passe "*TestCypress01*"
     When J'enregistre l'utilisateur
     Then Je vérifie la création du nouvel utilisateur
@@ -56,34 +56,37 @@ Feature: Creation et modification d'utilisateurs
   Scenario: Modification d'un utilisateur interne en tant que BO
     Given en tant que BO
     And Je suis sur la page de gestion des utilisateurs
-    And Je recherche l'utilisateur "TestCypressInternUser"
+    And Je créé un utilisateur de type "1" par défaut ETQU BO
+    And Je recherche l'utilisateur
     And Je récupère le prénom
     And Je clique sur le bouton "Modifier"
     And Je rentre le prénom "TestModifié"
     When J'enregistre l'utilisateur
-    And Je recherche l'utilisateur "TestCypressInternUser"
+    And Je recherche l'utilisateur
     Then Je vérifie la modification de l'utilisateur
 
   Scenario: Modification d'un utilisateur partenaire en tant que BO
     Given en tant que BO
     And Je suis sur la page de gestion des utilisateurs
-    And Je recherche l'utilisateur "TestCypressUserPartner9"
+    And Je créé un utilisateur de type "2" par défaut ETQU BO
+    And Je recherche l'utilisateur
     And Je récupère le prénom
     And Je clique sur le bouton "Modifier"
     And Je rentre le prénom "TestModifié"
     When J'enregistre l'utilisateur
-    And Je recherche l'utilisateur "TestCypressUserPartner9"
+    And Je recherche l'utilisateur
     Then Je vérifie la modification de l'utilisateur
 
   Scenario: Modification d'un utilisateur compte groupe en tant que BO
     Given en tant que BO
     And Je suis sur la page de gestion des utilisateurs
-    And Je recherche l'utilisateur "TestCypressUserGroupAccount"
+    And Je créé un utilisateur de type "3" par défaut ETQU BO
+    And Je recherche l'utilisateur
     And Je récupère le prénom
     And Je clique sur le bouton "Modifier"
     And Je rentre le prénom "TestModifié"
     When J'enregistre l'utilisateur
-    And Je recherche l'utilisateur "TestCypressUserGroupAccount"
+    And Je recherche l'utilisateur
     Then Je vérifie la modification de l'utilisateur
 
   #ETQU partenaire => Création / Modification d'un utilisateur partenaire
@@ -97,21 +100,22 @@ Feature: Creation et modification d'utilisateurs
     And Je rentre le prénom "Test"
     And Je rentre le nom "Cypress"
     And Je rentre l'email "test.cypress@gmail.com"
-    And Je rentre le login "TestCypressUserPartnertByPartner"
+    And Je rentre le login
     And Je rentre le mot de passe "*TestCypress01*"
     And Je sélectionne le rôle "1"
     When J'enregistre l'utilisateur
     Then Je vérifie la création du nouvel utilisateur
 
-  Scenario: Modifcation d'un utilisateur partenaire en tant que partenaire
+  Scenario: Modification d'un utilisateur partenaire en tant que partenaire
     Given en tant que partenaire lyra
     And Je suis sur la page de gestion des utilisateurs
-    And Je recherche l'utilisateur "TestCypressUserPartnertByPartner"
+    And Je créé un utilisateur partenaire par défaut ETQU partenaire
+    And Je recherche l'utilisateur
     And Je récupère le prénom
     And Je clique sur le bouton "Modifier"
     And Je rentre le prénom "TestModifié"
     When J'enregistre l'utilisateur
-    And Je recherche l'utilisateur "TestCypressUserPartnertByPartner"
+    And Je recherche l'utilisateur
     Then Je vérifie la modification de l'utilisateur
 
   #ETQU compte groupe => Création / Modification d'un utilisateur partenaire
@@ -126,7 +130,7 @@ Feature: Creation et modification d'utilisateurs
     And Je rentre le prénom "Test"
     And Je rentre le nom "Cypress"
     And Je rentre l'email "test.cypress@gmail.com"
-    And Je rentre le login "TestCypressUserPartnerByGroupAccount"
+    And Je rentre le login
     And Je rentre le mot de passe "*TestCypress01*"
     And Je sélectionne le rôle "1"
     When J'enregistre l'utilisateur
@@ -135,10 +139,11 @@ Feature: Creation et modification d'utilisateurs
   Scenario: Modification d'un utilisateur partenaire en tant que compte groupe
     Given en tant que compte groupe
     And Je suis sur la page de gestion des utilisateurs
-    And Je recherche l'utilisateur "TestCypressUserPartnerByGroupAccount"
+    And Je créé un utilisateur partenaire par défaut ETQU compte groupe
+    And Je recherche l'utilisateur
     And Je récupère le prénom
     And Je clique sur le bouton "Modifier"
     And Je rentre le prénom "TestModifié"
     When J'enregistre l'utilisateur
-    And Je recherche l'utilisateur "TestCypressUserPartnerByGroupAccount"
+    And Je recherche l'utilisateur
     Then Je vérifie la modification de l'utilisateur

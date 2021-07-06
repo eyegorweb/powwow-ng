@@ -18,6 +18,7 @@ Feature: Page de detail d'un partenaire
     And Je clique sur le bouton "Enregistrer"
     Then Le prenom de l'administrateur a bien ete modifie par "LYRA"
 
+  @focus
   Scenario: Je peux modifier le prenom d'un utilisateur, onglet "Gestion des utilisateurs", section "Utilisateurs"
     Given en tant que BO
     And Je vais sur la page de detail du partenaire LYRA
@@ -81,6 +82,7 @@ Feature: Page de detail d'un partenaire
     When Je clique sur le bouton "Mettre a jour"
     Then Je verifie la modification du champ libre a "TestCypressV2"
 
+  @focus
   Scenario: Je verifie l'ouverture du panneau lors de la creation et de la modification, onglet "Personnalisation, section "Champs specifique"
     Given en tant que BO
     And Je vais sur la page de detail du partenaire LYRA
