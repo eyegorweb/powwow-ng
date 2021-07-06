@@ -2,6 +2,17 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.415+20210706121518
+2021-07-06
+
+### Features
+
+- [000] Ajouts de tests Cypress sur les alarmes (a3450dd432525adb23ccfa822dd5ac003a05a0c0)
+
+### Fixes
+
+- [000] Afficher un message si il n'ya pas de filtre séléctionné dans getParc (9a53732ce8ce1c8523cf0748d6ffb1b59613331b)
+
 ## 1.17.0-master.414+20210705145704
 2021-07-05
 
