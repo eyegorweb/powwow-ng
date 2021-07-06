@@ -2,7 +2,7 @@
   <ChangeAlarmStatusContainer :api-config="getApiCallConfig()" @success="$emit('success')">
     <template #form="{ firstAttemptAction }">
       <button
-        class="btn btn-primary pl-4 pr-4 pt-2 pb-2"
+        class="reactivate-line-alarm btn btn-primary pl-4 pr-4 pt-2 pb-2"
         @click="firstAttemptAction"
         :disabled="alarm.disabled || rows.length === 0"
       >

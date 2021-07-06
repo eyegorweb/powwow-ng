@@ -10,6 +10,10 @@ export function MultiSelectFilter(index) {
     filterBarSelectors.filterBarItems(this.myIndex).multiselect.choose(nth);
   };
 
+  this.select = (value) => {
+    filterBarSelectors.filterBarItems(this.myIndex).multiselect.select(value);
+  };
+
   this.selectCheckbox = (nth) => {
     filterBarSelectors.filterBarItems(this.myIndex).multiselect.selectCheckbox(nth);
   };
