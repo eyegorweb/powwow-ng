@@ -5,13 +5,14 @@
       :fixed-filters="fixedFilters"
       @clear="$emit('clear', $event)"
     />
+    <slot />
     <ApplyAndSaveFilters
       v-if="canShowSelectedFilter"
       :current-filters="currentFilters"
       :module-name="moduleName"
       :no-save="noSave"
-      :disabledSave="disabledSave"
-      :disableMessage="disableMessage"
+      :disabled-save="disabledSave"
+      :disable-message="disableMessage"
       @applyFilters="$emit('applyFilters', $event)"
       @saved="refreshSavedFilters"
     />
@@ -19,8 +20,8 @@
       <SavedFilters
         :key="savedFiltersVersion"
         :module-name="moduleName"
-        :savedFilters="savedFilters"
-        :isLoading="isLoading"
+        :saved-filters="savedFilters"
+        :is-loading="isLoading"
         :current-filters="currentFilters"
         :selected-filter="selectedFilter"
         @chooseFilter="chooseFilter"
@@ -64,7 +65,7 @@ export default {
       selectedFilter: undefined,
       ignoreNextCurrent: false,
       savedFilters: undefined,
-      isLoading: false
+      isLoading: false,
     };
   },
   computed: {
@@ -82,7 +83,7 @@ export default {
         return this.$t('getparc.actLines.maxFilters');
       }
       return undefined;
-    }
+    },
   },
   watch: {
     currentFilters() {
@@ -108,7 +109,6 @@ export default {
         this.selectedFilter = selectedFilter;
         this.$emit('chooseFilter', selectedFilter);
       }
-
     },
   },
 };

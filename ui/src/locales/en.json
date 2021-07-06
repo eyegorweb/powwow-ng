@@ -2114,6 +2114,7 @@
   "newFilterName": "Name of the new filter",
   "savedFilters": "Saved filters",
   "noSavedFilter": "No filter saved",
+  "noFilter": "No filter",
   "dragOrAddFile": "Drop your file here, or click to add",
   "retry": "Please try again",
   "exportLoading": "Your file is being prepared",

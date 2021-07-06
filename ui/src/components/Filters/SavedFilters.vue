@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import { fetchFilters, deleteFilter } from '@/api/filters.js';
+import { deleteFilter } from '@/api/filters.js';
 import { mapMutations } from 'vuex';
 
 export default {
@@ -40,7 +40,7 @@ export default {
     currentFilters: Array,
     selectedFilter: Object,
     savedFilters: Array,
-    isLoading: Boolean
+    isLoading: Boolean,
   },
 
   methods: {
@@ -65,7 +65,6 @@ export default {
       });
     },
   },
-
 };
 </script>
 

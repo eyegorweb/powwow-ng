@@ -108,7 +108,6 @@ import { exportSimCardInstances } from '@/api/linesActions';
 import { formatLargeNumber } from '@/utils/numbers';
 import get from 'lodash.get';
 import { setTimeout } from 'timers';
-import UiButton from '@/components/ui/Button';
 import SearchResultSkeleton from '@/components/ui/skeletons/SearchResultSkeleton';
 import { isFiltersAcceptable } from '@/utils/filters.js';
 
@@ -119,7 +118,6 @@ export default {
     SearchByLinesId,
     ExportButton,
     SearchResultSkeleton,
-    UiButton,
   },
 
   props: {

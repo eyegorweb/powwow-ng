@@ -7,11 +7,13 @@
         :current-filters="currentFilters"
         :fixed-filters="fixedFilters"
         :can-show-selected-filter="true"
-        :no-save="!canSaveFilters"
+        :no-save="!filtersHaveValues"
         @clear="(filterId) => clearFilter(filterId)"
         @applyFilters="applyFilters"
         @chooseFilter="chooseFilter"
-      />
+      >
+        <div v-if="!filtersHaveValues" class="alert alert-info">{{ $t('noFilter') }}</div>
+      </SelectedFiltersManagement>
       <draggable handle=".handle">
         <transition-group>
           <FoldableBlock
@@ -529,7 +531,7 @@ export default {
       // 'selectedIdTypeFromFileValue',
       // 'selectedFileValue',
     ]),
-    canSaveFilters() {
+    filtersHaveValues() {
       if (this.currentFilters) {
         const visibleFilters = this.currentFilters.filter((f) => !f.hidden);
         if (!areFiltersEmpty(visibleFilters)) {
@@ -673,5 +675,9 @@ export default {
       text-decoration: none;
     }
   }
+}
+
+.no-filters-message {
+  //border: 2px dashed $secondary;
 }
 </style>

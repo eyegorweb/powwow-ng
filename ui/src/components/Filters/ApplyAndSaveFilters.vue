@@ -44,7 +44,6 @@ import UiButton from '@/components/ui/Button';
 import UiInput from '@/components/ui/UiInput';
 import UiDropdownButton from '@/components/ui/UiDropdownButton';
 import { createFilter } from '@/api/filters.js';
-import SearchTranslationKeyVue from '../utils/SearchTranslationKey.vue';
 
 export default {
   components: {
@@ -61,8 +60,8 @@ export default {
     disabledSave: Boolean,
     disableMessage: {
       type: String,
-      required: false
-    }
+      required: false,
+    },
   },
 
   data() {

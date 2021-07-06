@@ -36,6 +36,7 @@
   "newFilterName": "Nom du nouveau filtre",
   "savedFilters": "Filtres enregistrés",
   "noSavedFilter": "Aucun filtre enregistré",
+  "noFilter": "Aucun filtre",
   "dragOrAddFile": "Déposez votre fichier ici, ou cliquez pour ajouter",
   "cancel": "Annuler",
   "reset": "Réinitialiser",
