@@ -70,7 +70,9 @@ export default {
         clickEditButton() {
           cy.waitGet(
             '.pt-4.pl-4 > div > div.col-md-9 > div > div.cards > div.cardBloc > div.cardBloc-buttons > button.btn.btn-primary'
-          ).click();
+          )
+            .first()
+            .click();
         },
         verifyName(newFirstname) {
           cy.waitGet('.cards > div.cardBloc > div.cardBloc-infos > div.cardBloc-infos-name').should(

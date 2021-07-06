@@ -3,8 +3,8 @@ import get from 'lodash.get';
 
 import layout from '../../../pageObjects/layout';
 import alarmsPage from '../../../pageObjects/alarmsPage';
-import alarmDetailPage from '../../../pageObjects/alarmsDetailPage';
 import alarmsDetailPage from '../../../pageObjects/alarmsDetailPage';
+import createAlarmsPage from '../../../pageObjects/createAlarmsPage';
 
 let idAlarm = '';
 
@@ -23,7 +23,12 @@ Given(`je suis sur la page détail de l'alarme créée`, () => {
 });
 
 Given(`je choisis les alarmes {string}`, (tabToChoose) => {
-  alarmDetailPage.tabs.chooseTab(tabToChoose);
+  alarmsDetailPage.tabs.chooseTab(tabToChoose);
+});
+
+Given('je valide la création', () => {
+  createAlarmsPage.saveAlarm();
+  cy.wait(400);
 });
 
 When("je suis sur la page de détail de l'alarme créée", () => {
@@ -80,8 +85,8 @@ Then('je peux confirmer la réactivation', () => {
 
 When(`je lance un Export des lignes`, () => {
   cy.wait(500);
-  alarmDetailPage.exportFile.openChoice();
-  alarmDetailPage.exportFile.chooseFormat('csv');
+  alarmsDetailPage.exportFile.openChoice();
+  alarmsDetailPage.exportFile.chooseFormat('csv');
 });
 
 Then(`l'export des déclenchemets dans le mois est bien téléchargé`, () => {

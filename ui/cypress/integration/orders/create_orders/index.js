@@ -1,15 +1,16 @@
 import { Given, When, Then } from 'cypress-cucumber-preprocessor/steps';
 
 import orderCreationPanel from '../../../pageObjects/orderCreationPanel';
-import layout from '../../../pageObjects/layout'
+import layout from '../../../pageObjects/layout';
 
 Given(`je suis sur la page de choix d'une offre dans la création de commande`, () => {
   orderCreationPanel.init();
+  cy.wait(1000);
 });
 
 Given(`je suis sur la page recherche de commandes`, () => {
   layout.menu.getSim();
-})
+});
 
 Given(`je crée une nouvelle commande`, () => {
   orderCreationPanel.init();
@@ -26,7 +27,7 @@ Given(`je choisis l'activation et une offre`, () => {
   orderCreationPanel.services.chooseOffer('AUCHAN_OFFRE_DATA2');
 });
 
-Given(`je choisis le partenaire de commande {string}`, orderPartner => {
+Given(`je choisis le partenaire de commande {string}`, (orderPartner) => {
   orderCreationPanel.client.choosePartner(orderPartner);
   orderCreationPanel.next();
 });
@@ -44,11 +45,11 @@ Given(`je choisis la commande par défaut`, () => {
   orderCreationPanel.next();
 });
 
-Given(`je choisis comme partenaire de commande {string}`, orderPartner => {
+Given(`je choisis comme partenaire de commande {string}`, (orderPartner) => {
   orderCreationPanel.client.choosePartner(orderPartner);
 });
 
-Given(`je sélectionne l'offre {string}`, offerName => {
+Given(`je sélectionne l'offre {string}`, (offerName) => {
   orderCreationPanel.services.chooseOffer(offerName);
 });
 
@@ -56,16 +57,16 @@ Given(`je vais à la prochaine étape`, () => {
   orderCreationPanel.next();
 });
 
-Given(`je choisis comme CF de commande {string}`, billingAccount => {
+Given(`je choisis comme CF de commande {string}`, (billingAccount) => {
   orderCreationPanel.client.chooseBillingAccount(billingAccount);
 });
 
-Given(`je choisis le type de SIM {int}`, indexSim => {
+Given(`je choisis le type de SIM {int}`, (indexSim) => {
   orderCreationPanel.product.displayAllSimTypes();
   orderCreationPanel.product.selectSimType(indexSim);
 });
 
-Given(`je choisis la quantité {int}`, NbrSim => {
+Given(`je choisis la quantité {int}`, (NbrSim) => {
   orderCreationPanel.product.setProductQuantity(NbrSim);
 });
 
@@ -95,7 +96,7 @@ Then(`ma commande a été enregistrée`, () => {
 });
 
 Then(`les noms doivent apparaitre en regard des toggles`, () => {
-  orderCreationPanel.getServicesNames(services => {
+  orderCreationPanel.getServicesNames((services) => {
     expect(services.length).to.be.greaterThan(0);
   });
 });

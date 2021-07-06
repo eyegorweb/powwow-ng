@@ -52,20 +52,24 @@ Feature: Recherche d'alarmes
     When je lance la recherche par ID "86"
     Then la table contient 1 resultat
 
+  @focus
   Scenario: Onglet alarmes mutualisées, recherche par partenaire
     Given en tant que BO
     And je suis sur la page recherche d'alarmes
     And je vais sur l'onglet alarmes mutualisées
     And je créé une alarme de sur-consommation de la flotte par défaut "TEST sur-consommation de la flotte"
+    And je valide la création
     And je choisis le filtre partenaire "auchan"
     When je lance la recherche
     Then la table contient plus de 0 resultat
 
+  @focus
   Scenario: Onglet alarmes mutualisées, recherche par compte de facturation
     Given en tant que BO
     And je suis sur la page recherche d'alarmes
     And je vais sur l'onglet alarmes mutualisées
     And je créé une alarme de sur-consommation de la flotte par défaut "TEST sur-consommation de la flotte"
+    And je valide la création
     And je choisis le filtre compte de facturation "auchan1"
     When je lance la recherche
     Then la table contient plus de 0 resultat

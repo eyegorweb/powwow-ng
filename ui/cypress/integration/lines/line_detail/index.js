@@ -4,7 +4,7 @@ import linesPage from '../../../pageObjects/linesPage';
 
 Given(`Je suis sur la page de gestion de lignes`, () => {
   linesPage.init();
-  cy.wait(400);
+  cy.wait(2000);
 });
 
 Given(`je lance la recherche par ID {string}`, (id) => {

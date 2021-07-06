@@ -8,10 +8,10 @@ Feature: test des rapports
     And Je clique sur "Créer un rapport"
     And Je choisis le partenaire "lyra"
     And Je choisis l'export classique
-    And Je rentre le nom du rapport "TestCypressClassique"
+    And Je rentre le nom du rapport
     And Je choisis le format CSV
     When Je clique sur "Enregistrer"
-    Then Je verifie la création du rapport "TestCypressClassique"
+    Then Je verifie la création du rapport
 
   Scenario: Je veux faire un rapport Dernier usage
     Given en tant que BO
@@ -19,10 +19,10 @@ Feature: test des rapports
     And Je clique sur "Créer un rapport"
     And Je choisis le partenaire "lyra"
     And Je choisis l'export dernier usage
-    And Je rentre le nom du rapport "TestCypressDernierUsage45"
+    And Je rentre le nom du rapport
     And Je choisis le format CSV
     When Je clique sur "Enregistrer"
-    Then Je verifie la création du rapport "TestCypressDernierUsage45"
+    Then Je verifie la création du rapport
 
   Scenario: Je veux faire un rapport Export des services
     Given en tant que BO
@@ -30,12 +30,11 @@ Feature: test des rapports
     And Je clique sur "Créer un rapport"
     And Je choisis le partenaire "lyra"
     And Je choisis l'export Export des services
-    And Je rentre le nom du rapport "TestCypressExportServices"
+    And Je rentre le nom du rapport
     And Je choisis le format CSV
     When Je clique sur "Enregistrer"
-    Then Je verifie la création du rapport "TestCypressExportServices"
+    Then Je verifie la création du rapport
 
-  @focus
   Scenario: Je veux faire un rapport personnalise
     Given en tant que BO
     And Je suis sur la page de gestion des rapports
@@ -49,28 +48,28 @@ Feature: test des rapports
     And Je choisis l'information dernier usage Statut de la derniere connexion data
     And Je choisis de generer le rapport hebdomadairement
     And Je supprime la derniere donnee depuis les donnees du rapport
-    And Je rentre le nom du rapport "TestCypressPerso17"
+    And Je rentre le nom du rapport
     And Je choisis le format CSV
     When Je clique sur "Enregistrer"
-    Then Je verifie la création du rapport "TestCypressPerso17"
+    Then Je verifie la création du rapport
 
   Scenario: Je veux desactiver un rapport
     Given en tant que BO
     And Je suis sur la page de gestion des rapports
-    And Je cree un rapport classique "TestCypressDesactivate"
+    And Je cree un rapport classique
     When Je desactive le rapport
     Then Je verifie que le rapport est bien desactive
 
   Scenario: Je verifie l'apparition du panneau des details du rapport en cliquant sur le nom
     Given en tant que BO
     And Je suis sur la page de gestion des rapports
-    And Je cree un rapport classique "TestCypressShowDetails1"
+    And Je cree un rapport classique
     When Je clique sur le nom du rapport
     Then Le panneau de detail est visible
 
   Scenario: Je verifie l'apparition du panneau des details du rapport en cliquant sur "Voir le detail" dans les actions
     Given en tant que BO
     And Je suis sur la page de gestion des rapports
-    And Je cree un rapport classique "TestCypressShowDetails2"
+    And Je cree un rapport classique
     When Je clique sur "Voir le detail" dans les actions
     Then Le panneau de detail est visible

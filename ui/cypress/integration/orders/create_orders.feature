@@ -16,6 +16,7 @@ Feature: Création de commande
     When j'enregistre la commande
     Then ma commande a été enregistrée
 
+  @focus
   Scenario: je veux créer une commande personnalisée
     Given en tant que BO
     And je crée une nouvelle commande

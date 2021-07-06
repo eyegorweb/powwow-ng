@@ -111,6 +111,7 @@ Feature: detail des lignes
   #  When Je clique sur le bouton "Appliquer"
   #  Then Je confirme le changement
 
+  @focus
   Scenario: Ouverture de l'historique de declenchement d'une alarme activee
     Given en tant que BO
     And Je suis sur la page de gestion de lignes
@@ -150,17 +151,6 @@ Feature: detail des lignes
     And Je clique sur "Suivi pilotage des actes de gestion"
     When Je clique sur l'acte de masse de la premiere ligne
     Then Le panneau s'est ouvert
-
-  Scenario: Ouverture de la page de l'acte de gestion en cliquant sur "Voir le detail du resultat" dans le panneau
-    Given en tant que BO
-    And Je suis sur la page de gestion de lignes
-    And je lance la recherche par ID "8933203494859102801"
-    And j'ouvre le panneau de détail de la ligne
-    And Je clique sur "Voir le detail de la ligne"
-    And Je clique sur "Suivi pilotage des actes de gestion"
-    When Je clique sur l'acte de masse de la premiere ligne
-    And Je clique sur "Voir le detail du resultat"
-    Then La page de l'acte de gestion s'est ouverte
 
   Scenario: Ouverture de la page de l'acte de gestion en cliquant sur "Voir le resultat de l'acte" dans le panneau
     Given en tant que BO

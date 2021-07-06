@@ -1,6 +1,7 @@
 import { Given, When, Then } from 'cypress-cucumber-preprocessor/steps';
 
 import alarmsPage from '../../../pageObjects/alarmsPage';
+import createAlarmsPage from '../../../pageObjects/createAlarmsPage';
 
 Given(`je suis sur la page recherche d'alarmes`, () => {
   alarmsPage.init();
@@ -40,6 +41,11 @@ Given(`je choisis le filtre portée de l'alarme {string}`, (alarmRange) => {
 Given("je choisis le filtre type d'alarme {string}", (value) => {
   alarmsPage.filterBar.alarmType.toggle();
   alarmsPage.filterBar.alarmType.select(value);
+});
+
+Given(`je valide la création`, () => {
+  createAlarmsPage.saveAlarm();
+  cy.wait(400);
 });
 
 When(`je lance la recherche par ID {string}`, (id) => {
