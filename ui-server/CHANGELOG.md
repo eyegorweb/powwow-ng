@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.418+20210707144305
+2021-07-07
+
+### Fixes
+
+- [000] optimisation de code (db591ad2ac50274784e1ef9fe2a3abb566e2a88b)
+
 ## 1.17.0-master.417+20210707135145
 2021-07-07
 
