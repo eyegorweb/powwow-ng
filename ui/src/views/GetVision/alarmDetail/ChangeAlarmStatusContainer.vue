@@ -96,7 +96,6 @@ export default {
         }
       } else {
         this.tempDataUuid = response.tempDataUuid;
-        this.secondAttemptAction();
       }
     },
   },

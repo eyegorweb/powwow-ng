@@ -4,7 +4,7 @@
       <button
         class="reactivate-line-alarm btn btn-primary pl-4 pr-4 pt-2 pb-2"
         @click="firstAttemptAction"
-        :disabled="alarm.disabled || rows.length === 0"
+        :disabled="alarm.disabled"
       >
         <em class="ic-Plus-Icon" />
         {{ $t('getvsion.alarm.react_alarm_lines') }}

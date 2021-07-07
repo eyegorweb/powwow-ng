@@ -5,7 +5,7 @@
         <button
           class="btn btn-primary pl-4 pr-4 pt-2 pb-2 disable-alarm-button"
           @click="firstAttemptAction"
-          :disabled="alarm.disabled || rows.length === 0"
+          :disabled="alarm.disabled"
         >
           <em class="ic-Minus-Icon" />
           {{ $t('getvsion.alarm.disable_alarm_lines') }}
