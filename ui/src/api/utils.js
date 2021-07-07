@@ -121,6 +121,26 @@ export async function postFile(url, formData) {
   });
 }
 
+export async function getFile(url, queryParams) {
+  const targetUrl = getBaseURL() + url;
+  return doAndRetryHTTPQuery(async () => {
+    const response = await api.get(targetUrl, {
+      params: queryParams,
+    });
+    return response.data;
+  });
+}
+
+export async function deleteFile(url, queryParams) {
+  const targetUrl = getBaseURL() + url;
+  return doAndRetryHTTPQuery(async () => {
+    const response = await api.delete(targetUrl, {
+      params: queryParams,
+    });
+    return response.data;
+  });
+}
+
 export function delay(t) {
   return new Promise((resolve) => setTimeout(resolve, t));
 }

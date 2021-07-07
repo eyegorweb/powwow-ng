@@ -4,10 +4,10 @@
       class="accountdetail-generalInfos"
       v-if="
         havePermission('party', 'read_account_detail') &&
-          !(
-            havePermission('party', 'read_main_options') ||
-            havePermission('party', 'read_secondary_options')
-          )
+        !(
+          havePermission('party', 'read_main_options') ||
+          havePermission('party', 'read_secondary_options')
+        )
       "
     >
       <h3>{{ $t('getadmin.partnerDetail.generalInformations') }}</h3>
@@ -57,10 +57,37 @@
         <div class="accountdetail-legalInfos-img">
           <h4>Logotype :</h4>
           <div class="previewLogo">
-            <img :src="urlLogoPreview" class="previewLogo-img" />
+            <div class="imageContainer">
+              <img
+                v-if="urlLogoPreview"
+                :src="urlLogoPreview"
+                class="previewLogo-img"
+                alt="preview logo image"
+              />
+              <img v-else src="@/assets/logo_notfound.png" alt="csv" />
+              <button
+                v-if="urlLogoPreview"
+                class="btn btn-sm btn-danger delete"
+                @click.prevent="deleteLogo"
+              >
+                <em slot="icon" class="select-icon ic-Trash-Icon" />
+              </button>
+            </div>
           </div>
-          <label for="changeLogotype">Changer l'image</label>
-          <input type="file" name="changeLogotype" id="changeLogotype" @change="logoPreview" />
+          <div v-if="imgError" class="imgError">
+            {{ imgError }}
+          </div>
+          <label for="changeLogotype" class="changeLogotype">{{
+            $t('getadmin.partnerDetail.changeImage')
+          }}</label>
+
+          <input
+            :key="'logo_' + inputVersion"
+            type="file"
+            name="changeLogotype"
+            id="changeLogotype"
+            @change="saveLogo"
+          />
         </div>
         <div class="accountdetail-legalInfos-txt">
           <FormControl label="getadmin.partnerDetail.partnerName" v-model="form.partnerName" />
@@ -92,7 +119,7 @@
                 class="d-block"
                 fixed
               >
-                <i slot="icon" class="select-icon ic-Flag-Icon" />
+                <em slot="icon" class="select-icon ic-Flag-Icon" />
               </UiDate>
             </div>
 
@@ -105,7 +132,7 @@
                 class="d-block"
                 fixed
               >
-                <i slot="icon" class="select-icon ic-Flag-Icon" />
+                <em slot="icon" class="select-icon ic-Flag-Icon" />
               </UiDate>
             </div>
           </div>
@@ -151,6 +178,7 @@
           <Button
             v-if="havePermission('party', 'update_account_detail')"
             :variant="'primary'"
+            class="updateDetail"
             @click="save"
             >{{ $t('getadmin.partnerDetail.update') }}</Button
           >
@@ -164,7 +192,14 @@
 import { mapMutations, mapGetters } from 'vuex';
 import FormControl from '@/components/ui/FormControl';
 import Button from '@/components/ui/Button';
-import { fetchAccountDetail, updatePartyDetail, fetchPartyDetail } from '@/api/partners.js';
+import {
+  fetchAccountDetail,
+  updatePartyDetail,
+  fetchPartyDetail,
+  uploadLogo,
+  fetchLogo,
+  deleteLogo,
+} from '@/api/partners.js';
 import get from 'lodash.get';
 import UiDate from '@/components/ui/UiDate';
 import { fetchDeliveryCountries } from '@/api/filters';
@@ -215,7 +250,10 @@ export default {
       actDate: null,
       dateError: null,
       urlLogoPreview: undefined,
+      imgToUpload: undefined,
       countries: [],
+      imgError: undefined,
+      inputVersion: 0,
     };
   },
 
@@ -276,18 +314,64 @@ export default {
       this.form.contractDate = this.partnerDetail.party.contractDate;
       this.form.contractExpiration = this.partnerDetail.party.contractExpiration;
     }
+
+    this.fetchLogo();
   },
 
   methods: {
-    ...mapMutations(['flashMessage']),
+    ...mapMutations(['flashMessage', 'confirmAction']),
     ...mapGetters(['userIsPartner']),
+
+    resetLogo() {
+      this.imgToUpload = undefined;
+      this.urlLogoPreview = undefined;
+      this.imgError = undefined;
+      this.inputVersion++;
+    },
+
+    deleteLogo() {
+      this.confirmAction({
+        message: 'confirmAction',
+        actionFn: async () => {
+          await deleteLogo(this.partner.id);
+          this.resetLogo();
+        },
+      });
+    },
+
+    async fetchLogo() {
+      try {
+        const response = await fetchLogo(this.partner.id);
+        if (response) {
+          this.urlLogoPreview = `data:image/png;base64,${response.pictureByte}`;
+        }
+      } catch {
+        this.urlLogoPreview = undefined;
+      }
+    },
 
     getFromContent(path, defaultValue = '-') {
       return get(this.accountDetail, path, defaultValue);
     },
 
-    logoPreview(event) {
-      this.urlLogoPreview = URL.createObjectURL(event.target.files[0]);
+    async saveLogo(event) {
+      this.imgToUpload = event.target.files[0];
+      this.imgError = undefined;
+
+      if (this.imgToUpload) {
+        this.imgError = undefined;
+        const responseImg = await uploadLogo(this.imgToUpload, this.partner.id);
+
+        if (responseImg) {
+          if (responseImg.errors) {
+            this.imgError = responseImg.errors.map((e) => e.message).join(';');
+          } else {
+            this.urlLogoPreview = URL.createObjectURL(this.imgToUpload);
+          }
+        } else {
+          this.imgError = this.$t('getadmin.partnerDetail.uploadImageError');
+        }
+      }
     },
 
     onContractDateChange(value) {
@@ -330,6 +414,7 @@ export default {
       let response;
 
       response = await updatePartyDetail(params);
+
       if (response && response.errors && response.errors.length) {
         // this.flashMessage({ level: 'danger', message: this.$t('genericErrorMessage') });
         response.errors.forEach((e) => {
@@ -355,6 +440,10 @@ export default {
     font-size: 14px;
     color: #454545;
     font-weight: 600;
+
+    &:hover {
+      cursor: pointer;
+    }
   }
 
   &-input {
@@ -411,7 +500,7 @@ export default {
       font-weight: 600;
     }
 
-    button {
+    button.updateDetail {
       float: right;
       width: 100%;
       max-width: 220px;
@@ -481,6 +570,12 @@ export default {
     }
   }
 }
+
+.imgError {
+  color: $orange;
+  font-size: 0.7rem;
+  text-align: center;
+}
 </style>
 
 <style lang="scss" scoped>
@@ -492,7 +587,7 @@ export default {
     font-weight: 600;
   }
 
-  button {
+  button.updateDetail {
     float: right;
     width: 100%;
     max-width: 250px;
@@ -502,6 +597,31 @@ export default {
 .position-relative {
   input {
     width: 16rem;
+  }
+}
+
+.removeLogo {
+  color: #ea5b0f;
+  display: block;
+  padding: 0;
+  text-align: center;
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
+.imageContainer {
+  position: relative;
+  button.delete {
+    position: absolute;
+    display: none;
+    top: 0;
+    right: 0;
+  }
+
+  &:hover {
+    button.delete {
+      display: block;
+    }
   }
 }
 </style>

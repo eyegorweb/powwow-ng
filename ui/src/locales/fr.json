@@ -837,6 +837,8 @@
       }
     },
     "partnerDetail": {
+      "uploadImageError": "Impossible d'envoyer cette image",
+      "changeImage": "Changer l'image",
       "mb": {
         "title": "{total} client(s) (C.F.) trouvé(s)",
         "export": "Exporter {total} client(s) (C.F.)",

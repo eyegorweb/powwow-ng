@@ -761,6 +761,8 @@
       "customerList": "List of customers (C.F)"
     },
     "partnerDetail": {
+      "uploadImageError": "Upload error",
+      "changeImage": "Change logo",
       "generalInformations": "General informations",
       "legalInformations": "Legal information",
       "backToCF": "Back to the list of C.F.",

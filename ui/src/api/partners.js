@@ -1,4 +1,4 @@
-import { query, getFilterValues, getValuesIds } from './utils';
+import { query, getFilterValues, getValuesIds, getFile, postFile, deleteFile } from './utils';
 import get from 'lodash.get';
 
 export async function isFeatureAvailable(optionType, lineId) {
@@ -1135,4 +1135,39 @@ function addTypeSimCardFilter(gqlFilters, selectedFilters) {
   if (values) {
     gqlFilters.push(`simcardCode: {in: [${values}]}`);
   }
+}
+
+export async function uploadLogo(file, partyId) {
+  const formData = new FormData();
+  formData.append('file', file);
+  formData.append('partyId', partyId);
+
+  try {
+    return await postFile(`/api/Picture/upload`, formData);
+  } catch (e) {
+    console.error(e);
+    return {
+      errors: [
+        {
+          key: e.status,
+          error: e.data && e.data.error ? e.data.error : 'unknown',
+          number: 0,
+          message: e.data.message,
+          data: e.data,
+        },
+      ],
+    };
+  }
+}
+
+export async function fetchLogo(partyId) {
+  return await getFile(`/api/Picture/get`, {
+    partyId,
+  });
+}
+
+export async function deleteLogo(partyId) {
+  return await deleteFile(`/api/Picture/delete`, {
+    partyId,
+  });
 }
