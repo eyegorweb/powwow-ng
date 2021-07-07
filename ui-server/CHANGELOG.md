@@ -2,6 +2,17 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.416+20210707131341
+2021-07-07
+
+### Features
+
+- [000] Maintenance des tests Cypress (e7e263e5f639b64139b21c4e81e497668ed2f3a6)
+
+### Fixes
+
+- [1436] pouvoir changer le logo de mon partenaire (8313a06f11e0f975371399512cfec399f24c3558)
+
 ## 1.17.0-master.415+20210706121518
 2021-07-06
 
