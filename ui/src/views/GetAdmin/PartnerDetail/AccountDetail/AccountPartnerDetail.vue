@@ -366,7 +366,7 @@ export default {
           if (responseImg.errors) {
             this.imgError = responseImg.errors.map((e) => e.message).join(';');
           } else {
-            this.urlLogoPreview = URL.createObjectURL(this.imgToUpload);
+            this.fetchLogo();
           }
         } else {
           this.imgError = this.$t('getadmin.partnerDetail.uploadImageError');
