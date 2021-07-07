@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.417+20210707135145
+2021-07-07
+
+### Fixes
+
+- [2799] Désactivation / Activation d'alarme sur plusieurs lignes (32a71be957c60342fcc8cec4e840be3a4ecbe23b)
+
 ## 1.17.0-master.416+20210707131341
 2021-07-07
 
