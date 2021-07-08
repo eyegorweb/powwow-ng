@@ -95,7 +95,9 @@ export default {
           this.tempDataUuid = response.tempDataUuid;
         }
       } else {
-        this.tempDataUuid = response.tempDataUuid;
+        this.flashMessage({ level: 'success', message: this.$t('genericSuccessMessage') });
+        this.resetState();
+        this.$emit('success');
       }
     },
   },
