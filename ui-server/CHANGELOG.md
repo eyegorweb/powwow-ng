@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.421+20210708091123
+2021-07-08
+
+### Fixes
+
+- [2799] Message de confirmation (17e0f9290ce261a9d6663b3ac2e296a80402d2cf)
+
 ## 1.17.0-master.420+20210708075312
 2021-07-08
 
