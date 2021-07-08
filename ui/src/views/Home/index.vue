@@ -1,7 +1,7 @@
 <template>
   <div class="mt-2">
     <HomePageDragDropGrid
-      v-if="permittedHomeWidgets"
+      v-if="permittedHomeWidgets && canShowGrid"
       :widgets="permittedHomeWidgets"
       :context-filters="contextFilters"
       @change="onWidgetsChange"
@@ -52,6 +52,7 @@ export default {
       version: 0,
       startWatchingWidgets: false,
       updating: false,
+      canShowGrid: false,
     };
   },
   mounted() {
@@ -59,6 +60,14 @@ export default {
     this.initFilterForContext();
 
     this.startWatchingWidgets = true;
+
+    /**
+     * Attendre avant de charger les composants de la page d'acceuil
+     * pour éviter des appels inutiles quand cypress reviens sur la page d'accueil entre les tests
+     */
+    setTimeout(() => {
+      this.canShowGrid = true;
+    }, 100);
   },
 
   methods: {

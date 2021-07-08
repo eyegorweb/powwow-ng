@@ -11,10 +11,15 @@ Cypress.Commands.add('login', (username, password) => {
 });
 
 Cypress.Commands.add('startAsBO', () => {
-  cy.userIsMonoPartner = false;
-  cy.visit(Cypress.env('APP_URL') + 'p/callback#access_token=' + Cypress.env('BO_TOKEN'));
-  cy.get('#app-loader').should('not.be.visible');
-  cy.url().should('eq', Cypress.env('APP_URL') + 'p/');
+  if (cy.currentUserType !== 'BO') {
+    cy.userIsMonoPartner = false;
+    cy.visit(Cypress.env('APP_URL') + 'p/callback#access_token=' + Cypress.env('BO_TOKEN'));
+    cy.get('#app-loader').should('not.be.visible');
+    cy.url().should('eq', Cypress.env('APP_URL') + 'p/');
+    cy.currentUserType = 'BO';
+  } else {
+    cy.get('.logoPart a').click({ force: true });
+  }
 });
 
 Cypress.Commands.add('startAsPartner', () => {
