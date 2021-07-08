@@ -43,7 +43,13 @@ export default {
       if (this.rows && this.rows.length) {
         alarmInput.simCardInstanceIds = this.rows.map((r) => r.id);
       } else {
-        alarmInput.filters = this.filters;
+        alarmInput.filters = [
+          ...this.filters,
+          {
+            id: 'filter.ne.id',
+            value: this.alarm.id,
+          },
+        ];
       }
 
       return {

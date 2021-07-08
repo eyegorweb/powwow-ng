@@ -359,6 +359,20 @@ export async function createAlarmInstance2(alarmInput) {
       };
     }
 
+    const neIdFilter = alarmInput.filters.find((f) => f.id === 'filter.ne.id');
+    if (neIdFilter) {
+      input.alarmFilterInput.alarmId = {
+        ne: neIdFilter.value,
+      };
+    }
+
+    const eqIdFilter = alarmInput.filters.find((f) => f.id === 'filter.eq.id');
+    if (eqIdFilter) {
+      input.alarmFilterInput.alarmId = {
+        eq: eqIdFilter.value,
+      };
+    }
+
     const tempDataUuidFilter = alarmInput.filters.find(
       (f) => f.id === 'filters.lines.fromFile.title'
     );
