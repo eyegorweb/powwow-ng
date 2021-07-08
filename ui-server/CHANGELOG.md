@@ -2,12 +2,13 @@
 
 <!--- next entry here -->
 
-## 1.17.0-master.419+20210708073919
+## 1.17.0-master.420+20210708075312
 2021-07-08
 
 ### Fixes
 
 - [000] Corriger le CI cypress (28aee5d82ba0f37af19cde1a915300408db0bc9a)
+- [000] enlever le mode lecture seule des services durant la création de commande (5117642ae5d88b4dd7ce2e792558598493ebc8a3)
 
 ## 1.17.0-master.418+20210707144305
 2021-07-07
