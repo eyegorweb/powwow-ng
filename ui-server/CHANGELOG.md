@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.419+20210708073919
+2021-07-08
+
+### Fixes
+
+- [000] Corriger le CI cypress (28aee5d82ba0f37af19cde1a915300408db0bc9a)
+
 ## 1.17.0-master.418+20210707144305
 2021-07-07
 
