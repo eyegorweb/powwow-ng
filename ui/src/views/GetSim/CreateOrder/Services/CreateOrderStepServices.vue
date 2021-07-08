@@ -36,7 +36,6 @@
               :key="selectedOffer.label"
               :services="offerServices"
               :data-params-needed="isDataParamsError"
-              :read-only="!userIsBO"
               vertical
               @datachange="onServiceChange"
             />
