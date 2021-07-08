@@ -150,7 +150,7 @@
               @click="
                 $router.push({
                   name: 'actDetail',
-                  params: { massActionId: content.id, simpleBack: true },
+                  params: { massActionId: content.massAction.id, simpleBack: true },
                 })
               "
               >{{ $t('getparc.history.details.RESULT') }}</UiButton
