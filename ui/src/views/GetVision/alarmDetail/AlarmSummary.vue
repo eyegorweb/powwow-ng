@@ -6,11 +6,7 @@
       <div class="col">
         <div class="d-flex">
           <div class="item">
-            <StepperNonLinear
-              v-if="statusStepperIndex != null"
-              :stepper-data="steps"
-              :current-index="statusStepperIndex"
-            />
+            <AlarmStatusStepper :content="content" />
           </div>
           <div class="item">
             <h6>{{ $t('getparc.history.details.quantityTargeted') }}:</h6>
@@ -76,14 +72,14 @@
 </template>
 
 <script>
-import StepperNonLinear from '@/components/ui/StepperNonLinear';
 import Thresholds from '@/components/Thresholds';
 import get from 'lodash.get';
+import AlarmStatusStepper from '@/views/GetVision/alarmDetail/AlarmStatusStepper.vue';
 
 export default {
   components: {
-    StepperNonLinear,
     Thresholds,
+    AlarmStatusStepper,
   },
   props: {
     content: Object,
@@ -107,42 +103,11 @@ ${this.$t('alarms.alarmScope.OFFER')}: ${this.offer}`;
     },
   },
 
-  mounted() {
-    this.steps = {
-      data: [
-        {
-          code: 'NOT_VALIDATED',
-          label: this.$t('getvsion.detail-panel.stepper.created'),
-          date: this.content.auditable.created,
-          index: 0,
-        },
-        {
-          code: 'VALIDATED',
-          label: this.$t('getparc.actLines.simStatuses.ACTIVATED'),
-          date: this.content.StartDate,
-          index: 1,
-        },
-      ],
-    };
-  },
-
-  data() {
-    return {
-      statusStepperIndex: 1,
-      steps: {},
-    };
-  },
-
   computed: {
     billingAccount() {
       if (this.content && this.content.type === 'OVER_CONSUMPTION_VOLUME_FLOTTE') {
-        return this.content &&
-          this.content.offerGroup &&
-          this.content.offerGroup.offerInstance &&
-          this.content.offerGroup.offerInstance.marketingOffer &&
-          this.content.offerGroup.offerInstance.marketingOffer
-          ? `${this.content.offerGroup.offerInstance.marketingOffer.code} - ${this.content.offerGroup.offerInstance.marketingOffer.description}`
-          : '';
+        const marketingOffer = this.$loGet(this.content, 'offerGroup.offerInstance.marketingOffer');
+        return marketingOffer ? `${marketingOffer.code} - ${marketingOffer.description}` : '';
       }
       return this.content && this.content.autoPositionCustAccount
         ? `${this.content.autoPositionCustAccount.code} - ${this.content.autoPositionCustAccount.name}`
