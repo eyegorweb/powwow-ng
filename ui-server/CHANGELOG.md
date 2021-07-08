@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.424+20210708143841
+2021-07-08
+
+### Fixes
+
+- [000] amélioration des perfs cypress (3823f32d354712b5c46d1c28d5a196fda64c700f)
+
 ## 1.17.0-master.423+20210708131746
 2021-07-08
 
