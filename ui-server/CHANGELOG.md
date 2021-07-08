@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.423+20210708131746
+2021-07-08
+
+### Fixes
+
+- [000] corriger CI (aedc6ebbac78c371463c23a710a1c432f214ca17)
+- [2802] Afficher correctement la page acte de gestion (381554b4087e3a45013447657d53d581ebba15c7)
+
 ## 1.17.0-master.422+20210708093801
 2021-07-08
 
