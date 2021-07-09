@@ -114,14 +114,17 @@ export default {
   },
   async mounted() {
     this.partnerId = get(this.synthesis, 'billingAccount.selection.partner.id');
-    this.activation = get(this.synthesis, 'services.selection.activation', false);
-    this.preActivation = get(this.synthesis, 'services.selection.preActivation', false);
-
     const billingAccountCode = get(this.synthesis, 'billingAccount.selection.billingAccount.code');
 
     const stateOrder = await fetchOrderState(this.partnerId);
-    this.activation = stateOrder.orderActivationMandatory;
-    this.preActivation = stateOrder.orderPreactivationMandatory;
+
+    if (this.$loGet(this.synthesis, 'services.selection')) {
+      this.activation = get(this.synthesis, 'services.selection.activation', false);
+      this.preActivation = get(this.synthesis, 'services.selection.preActivation', false);
+    } else {
+      this.activation = stateOrder.orderActivationMandatory;
+      this.preActivation = stateOrder.orderPreactivationMandatory;
+    }
 
     this.orderActivationMandatory = stateOrder.orderActivationMandatory;
     this.orderPreactivationMandatory = stateOrder.orderPreactivationMandatory;
