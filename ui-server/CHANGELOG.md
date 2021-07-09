@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.425+20210709075243
+2021-07-09
+
+### Fixes
+
+- [2746] Vérification d'erreurs sur le champ data (85e041ac3ba0d26f1e282739fb1705cad587311c)
+
 ## 1.17.0-master.424+20210708143841
 2021-07-08
 
