@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.426+20210709092043
+2021-07-09
+
+### Fixes
+
+- [000] Ne pas réinitialiser les services séléctionnés après le clic sur retour durant la création de commandes (cff0e5e781fada3d15c70f02c8dc180e490e894b)
+
 ## 1.17.0-master.425+20210709075243
 2021-07-09
 
