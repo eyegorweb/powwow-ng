@@ -74,8 +74,49 @@ export default {
     close() {
       cy.waitGet(`.ic-Arrow-Up-Icon`).click();
     },
+    saveFilter(filterName) {
+      cy.waitGet('button.save-filter-btn').click();
+      cy.waitGet('label.filter-name > input').type(filterName);
+      cy.waitGet('button.save-new-filter-btn').click();
+    },
+    deleteFilter() {
+      cy.waitGet('div.selected-filter button')
+        .first()
+        .click();
+    },
+    openSavedFilter() {
+      cy.waitGet('div.card-body > div:nth-child(2) > div.pt-3 > div:first-child > a').click();
+    },
+    clickFirstSavedFilter() {
+      cy.waitGet(
+        'div.card-body > div:nth-child(2) > div.pt-3 > div.pt-3 > div > div > span'
+      ).click();
+    },
+    deleteSavedFilter() {
+      cy.waitGet(
+        'div.card-body > div:nth-child(2) > div.pt-3 > div.pt-3 > div > div > button'
+      ).click();
+    },
+    checkFilters(partner, billingAccount) {
+      cy.waitGet('div.selected-filter span.detail')
+        .first()
+        .then((e) => {
+          const text = e.text().trim();
+          expect(partner).to.be.equal(text);
+        });
+      cy.waitGet('div.selected-filter span.detail')
+        .last()
+        .then((e) => {
+          const text = e.text().trim();
+          expect(billingAccount).to.be.equal(text);
+        });
+    },
   },
-
+  modal: {
+    save() {
+      cy.waitGet('div.modal-footer button.btn-success').click();
+    },
+  },
   getTotal(onTotalLoaded) {
     return cy
       .waitGet(

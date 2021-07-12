@@ -9,6 +9,9 @@ export default {
     cy.wait(1000);
     cy.waitGet('#app > div.container > div.mt-4 > div.tabs > ol > li:nth-child(2) > a').click();
   },
+  reserveESIM() {
+    cy.waitGet('button.btn.btn-accent.btn-block').click();
+  },
   filterBar: {
     apply: filterBarSelectors.applySearch,
 

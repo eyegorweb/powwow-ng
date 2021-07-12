@@ -5,7 +5,7 @@
         slot="trigger"
         slot-scope="{ staticClass, toggle }"
         variant="outline-primary"
-        class="flex-grow-1 py-1 px-3"
+        class="save-filter-btn flex-grow-1 py-1 px-3"
         @click.prevent="toggle"
         :class="staticClass"
         :disabled="disabledSave"
@@ -21,8 +21,18 @@
         <div class="clearfix" />
         <h6 class="modal-title mb-3">{{ $t('saveFilter') }}:</h6>
         <form @submit.prevent>
-          <UiInput v-model="filterName" class="d-block" :placeholder="$t('newFilterName')" />
-          <UiButton variant="primary" @click="() => saveFilter(hide)" type="submit" block>
+          <UiInput
+            v-model="filterName"
+            class="filter-name d-block"
+            :placeholder="$t('newFilterName')"
+          />
+          <UiButton
+            variant="primary"
+            class="save-new-filter-btn"
+            @click="() => saveFilter(hide)"
+            type="submit"
+            block
+          >
             {{ $t('save') }}
           </UiButton>
         </form>

@@ -37,6 +37,12 @@ Feature: Recherche d'actes de gestion
     When je lance la recherche par ID "33698014672"
     Then la table contient 0 resultat
 
+  Scenario: Voir l'historique des actes depuis la page d'accueil en cliquant sur la pendule
+    Given en tant que BO
+    And Je clique sur la pendule
+    When Je clique sur "Voir l'historique complet"
+    Then Je suis sur l'historique des actes de gestion
+
   Scenario: Export des actes de gestion (Classique)
     Given en tant que BO
     And je suis sur l'historique des actes de gestion

@@ -77,8 +77,28 @@ Given(`je choisis le filtre id {string}`, (offer) => {
   linesPage.filterBar.id.toggle();
   linesPage.filterBar.id.filter(offer);
 });
+
 Given(`j'affiche toutes les lignes`, () => {
   linesPage.showAllLines();
+});
+
+Given("J'enregistre les filtres sous le nom de {string}", (filterName) => {
+  linesPage.filterBar.saveFilter(filterName);
+});
+
+Given('Je supprime les filtres', () => {
+  linesPage.filterBar.deleteFilter();
+});
+
+When('Je clique sur le filtre enregistré', () => {
+  linesPage.filterBar.openSavedFilter();
+  linesPage.filterBar.clickFirstSavedFilter();
+});
+
+Then('Les filtres {string} et {string} sont activés', (partner, billingAccount) => {
+  linesPage.filterBar.checkFilters(partner, billingAccount);
+  linesPage.filterBar.deleteSavedFilter();
+  linesPage.modal.save();
 });
 
 When(`je lance la recherche`, () => {

@@ -7,6 +7,12 @@ export default {
   init() {
     layout.menu.massActions();
   },
+  clickClock() {
+    cy.waitGet('.icon.ic-Clock-Icon.nb-acts').click();
+  },
+  showFullHistory() {
+    cy.waitGet('.popover-content > .action-container > button').click();
+  },
   openDetailPanel(id) {
     cy.get('.id-cell').each(($el) => {
       if ($el.text().trim() === '' + id) {
@@ -14,9 +20,19 @@ export default {
       }
     });
   },
+  clickFirstId() {
+    cy.waitGet('table > tbody > tr > td:first-child > div > button').click();
+  },
+  verifyUrl(url) {
+    cy.url().should('include', url);
+  },
+  tableIsVisible() {
+    cy.waitGet('table').should('be.visible');
+  },
   detailPanel: {
     gotoDetail() {
       cy.get('.goto-detail-button button').click();
+      cy.wait(400);
     },
   },
   exportFile: layout.exportFile,

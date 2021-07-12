@@ -78,6 +78,9 @@ export default {
         verifyUrlActDetail() {
           cy.url().should('include', '/act-detail/');
         },
+        verifyUrl(url) {
+          cy.url().should('include', url);
+        },
       },
     },
     ongoing() {

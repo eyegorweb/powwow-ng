@@ -16,22 +16,26 @@ Given(`je choisis le filtre par date de création`, () => {
   massActionsPage.filterBar.creationDate.openChoices();
 });
 
-Given(`je choisis le filtre partenaire {string}`, partnerName => {
+Given(`je choisis le filtre partenaire {string}`, (partnerName) => {
   massActionsPage.filterBar.partner.toggle();
   massActionsPage.filterBar.partner.filter(partnerName);
   massActionsPage.filterBar.partner.choose(1);
 });
 
-Given(`je choisis le filtre createur de la demande {string}`, requestCreator => {
+Given(`je choisis le filtre createur de la demande {string}`, (requestCreator) => {
   massActionsPage.filterBar.requestCreator.toggle();
   massActionsPage.filterBar.requestCreator.filter(requestCreator);
   massActionsPage.filterBar.requestCreator.choose(1);
 });
 
-Given(`je choisis le filtre type d'acte {string}`, actionType => {
+Given(`je choisis le filtre type d'acte {string}`, (actionType) => {
   massActionsPage.filterBar.actionType.toggle();
   massActionsPage.filterBar.actionType.filter(actionType);
   massActionsPage.filterBar.actionType.choose(1);
+});
+
+Given('Je clique sur la pendule', () => {
+  massActionsPage.clickClock();
 });
 
 When(`je clique sur 1 mois`, () => {
@@ -43,7 +47,7 @@ When(`je lance la recherche`, () => {
   cy.wait(500);
 });
 
-When(`je lance la recherche par ID {string}`, id => {
+When(`je lance la recherche par ID {string}`, (id) => {
   cy.wait(500);
   massActionsPage.idSearch.typeId(id);
   massActionsPage.idSearch.applySearch();
@@ -62,36 +66,46 @@ When(`je lance un Export Complet`, () => {
   massActionsPage.exportFile.confirmExport();
 });
 
+When('Je clique sur "Voir l\'historique complet"', () => {
+  massActionsPage.showFullHistory();
+});
+
+Then("Je suis sur l'historique des actes de gestion", () => {
+  massActionsPage.verifyUrl('/act-history');
+  showHistory();
+  massActionsPage.tableIsVisible();
+});
+
 Then(`le fichier est bien téléchargé`, () => {
   cy.wait(500);
   cy.wrap(null).then(() => {
-    return cy.waitUntiGQLIsSent('massActionExport').then(http => {
+    return cy.waitUntiGQLIsSent('massActionExport').then((http) => {
       const downloadUri = get(http.response, 'body.data.massActionExport.downloadUri');
       expect(downloadUri).to.not.be.undefined;
     });
   });
 });
 
-Then(`la table contient {int} resultat`, nbrResult => {
-  massActionsPage.getTotal().then(total => {
+Then(`la table contient {int} resultat`, (nbrResult) => {
+  massActionsPage.getTotal().then((total) => {
     expect(total).to.be.equal(nbrResult);
   });
 });
 
-Then(`la table contient plus de {int} resultat`, nbrResult => {
-  massActionsPage.getTotal().then(total => {
+Then(`la table contient plus de {int} resultat`, (nbrResult) => {
+  massActionsPage.getTotal().then((total) => {
     expect(total).to.be.above(nbrResult);
   });
 });
 
-Then(`la table contient moins de {int} resultat`, nbrResult => {
-  massActionsPage.getTotal().then(total => {
+Then(`la table contient moins de {int} resultat`, (nbrResult) => {
+  massActionsPage.getTotal().then((total) => {
     expect(total).to.be.below(nbrResult);
   });
 });
 
 Then(`je peux appliquer le filtre`, () => {
-  massActionsPage.filterBar.getSelectedFilters(values => {
+  massActionsPage.filterBar.getSelectedFilters((values) => {
     const tmp = values[1].replace('Du ', '').replace(' au ', ',');
 
     const parts = tmp.split(',');
@@ -104,3 +118,10 @@ Then(`je peux appliquer le filtre`, () => {
     expect(diffInMonths).to.equal(1);
   });
 });
+
+//Test : Voir l'historique des actes en cliquant depuis la page d'accueil en cliquant sur la pendule
+//quickfix : permet d'afficher l'historique des actes de gestion
+//devrait être affiché par défaut
+function showHistory() {
+  cy.waitGet('div.mt-4 ol.tabs-bar > li:first-child > a').click();
+}

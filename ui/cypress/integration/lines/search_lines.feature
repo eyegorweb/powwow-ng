@@ -66,6 +66,16 @@ Feature: Recherche de lignes
     When je lance la recherche
     Then la table contient 1 resultat
 
+  Scenario: Vérification de l'enregistrement des filtres
+    Given en tant que BO
+    And je suis sur la page recherche de lignes
+    And je choisis le filtre partenaire "lyra"
+    And je choisis le filtre compte de facturation "6.42661"
+    And J'enregistre les filtres sous le nom de "Test Cypress"
+    And Je supprime les filtres
+    When Je clique sur le filtre enregistré
+    Then Les filtres "LYRA NETWORK" et "6.42661 - LYRA" sont activés
+
   Scenario: Export des lignes (Classique)
     Given en tant que BO
     And je suis sur la page recherche de lignes
