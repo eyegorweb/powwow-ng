@@ -1,6 +1,7 @@
 import { Given, When, Then } from 'cypress-cucumber-preprocessor/steps';
 import lineDetailPage from '../../../pageObjects/lineDetailPage';
 import linesPage from '../../../pageObjects/linesPage';
+import massActionsDetailsPage from '../../../pageObjects/massActionsDetailsPage';
 
 Given(`Je suis sur la page de gestion de lignes`, () => {
   linesPage.init();
@@ -60,6 +61,18 @@ Given('Je clique sur "Suivi pilotage des actes de gestion"', () => {
   lineDetailPage.tab.detailsOptions.acts();
 });
 
+Given("Je clique sur l'acte de masse de la premiere ligne", () => {
+  lineDetailPage.tab.detailsOptions.actsDetails.openMassAction();
+});
+
+Given('Je clique sur "Voir le resultat de l\'acte"', () => {
+  lineDetailPage.tab.detailsOptions.actsDetails.showActResultClick();
+});
+
+Given("Je vérifie que l'url contient {string}", (url) => {
+  lineDetailPage.tab.detailsOptions.actsDetails.verifyUrl(url);
+});
+
 When(`je clique sur voir l'en-cours`, () => {
   lineDetailPage.inProgress.openInProgress();
 });
@@ -94,6 +107,10 @@ When('Je clique sur "Voir le detail du resultat"', () => {
 
 When('Je clique sur "Voir le resultat de l\'acte"', () => {
   lineDetailPage.tab.detailsOptions.actsDetails.showActResultClick();
+});
+
+When('Je clique sur le bouton "Retour"', () => {
+  massActionsDetailsPage.clickBackButton();
 });
 
 Then(`la table de l'en-cours existe`, () => {
@@ -174,4 +191,8 @@ Then("Le panneau s'est ouvert", () => {
 
 Then("La page de l'acte de gestion s'est ouverte", () => {
   lineDetailPage.tab.detailsOptions.actsDetails.verifyUrlActDetail();
+});
+
+Then("Je vérifie que l'url contient {string}", (url) => {
+  lineDetailPage.tab.detailsOptions.actsDetails.verifyUrl(url);
 });

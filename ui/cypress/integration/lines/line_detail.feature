@@ -111,7 +111,6 @@ Feature: detail des lignes
   #  When Je clique sur le bouton "Appliquer"
   #  Then Je confirme le changement
 
-  @focus
   Scenario: Ouverture de l'historique de declenchement d'une alarme activee
     Given en tant que BO
     And Je suis sur la page de gestion de lignes
@@ -162,3 +161,16 @@ Feature: detail des lignes
     When Je clique sur l'acte de masse de la premiere ligne
     And Je clique sur "Voir le resultat de l'acte"
     Then La page de l'acte de gestion s'est ouverte
+
+  Scenario: Ouverture de la page de détail d'un acte de gestion puis retour sur le détail de ligne après avoir cliquer sur le bouton retour
+    Given en tant que BO
+    And Je suis sur la page de gestion de lignes
+    And je lance la recherche par ID "33698014672"
+    And j'ouvre le panneau de détail de la ligne
+    And Je clique sur "Voir le detail de la ligne"
+    And Je clique sur "Suivi pilotage des actes de gestion"
+    And Je clique sur l'acte de masse de la premiere ligne
+    And Je clique sur "Voir le resultat de l'acte"
+    And Je vérifie que l'url contient "/act-detail/"
+    When Je clique sur le bouton "Retour"
+    Then Je vérifie que l'url contient "/line-detail/"
