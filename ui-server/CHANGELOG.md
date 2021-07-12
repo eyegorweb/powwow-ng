@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.427+20210712142358
+2021-07-12
+
+### Features
+
+- [000] Ajout de nouveaux tests Cypress (38d2d2aba4fca779e90328bebbc9e8b780982796)
+
 ## 1.17.0-master.426+20210709092043
 2021-07-09
 
