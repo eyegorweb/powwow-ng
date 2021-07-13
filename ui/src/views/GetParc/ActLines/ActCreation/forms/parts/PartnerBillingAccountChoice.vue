@@ -7,14 +7,13 @@
       :limit-to-partners-in-search-bar="limitToPartnersInSearchBar"
     />
     <h6>{{ $t('getparc.actLines.billingAccountTarget') }}</h6>
-    <UiApiAutocomplete
-      v-if="canSeeBillingAccount"
-      :disabled="!selectedPartner || !selectedPartner.id"
-      :api-method="fetchBillingAccounts"
-      scroll-for-next
+
+    <BillingAccountAutocomplete
       v-model="selectedBillingAccount"
+      :selected-partner="selectedPartner"
+      :disabled="!selectedPartner || !selectedPartner.id"
       :error="errors.billingAccount"
-      display-results-while-empty
+      preselect-first-only-when-one-item
     />
 
     <slot name="bottom"></slot>
@@ -23,13 +22,12 @@
 
 <script>
 import PartnersPart from '../../prerequisites/parts/PartnersPart';
-import UiApiAutocomplete from '@/components/ui/UiApiAutocomplete';
-import { fetchBillingAccounts } from '@/api/billingAccounts';
+import BillingAccountAutocomplete from '@/components/CustomComboxes/BillingAccountAutocomplete.vue';
 
 export default {
   components: {
     PartnersPart,
-    UiApiAutocomplete,
+    BillingAccountAutocomplete,
   },
   props: {
     errors: {
@@ -45,7 +43,6 @@ export default {
   data() {
     return {
       selectedPartner: undefined,
-      billingAccounts: [],
       selectedBillingAccount: undefined,
       canSeeBillingAccount: true,
     };
@@ -57,30 +54,6 @@ export default {
         this.canSeeBillingAccount = false;
         setTimeout(() => (this.canSeeBillingAccount = true));
       }
-    },
-
-    async fetchBillingAccounts(q, page = 0) {
-      if (
-        this.selectedBillingAccount &&
-        this.selectedBillingAccount.partnerId !== this.selectedPartner.id
-      ) {
-        this.selectedBillingAccount = null;
-      }
-
-      const partners = [];
-      if (this.selectedPartner) {
-        partners.push(this.selectedPartner);
-      }
-      const data = await fetchBillingAccounts(q, partners, { page, limit: 10 });
-
-      return data.map((ba) => ({
-        id: ba.id,
-        label: `${ba.code} - ${ba.name}`,
-        data: ba,
-        partnerId: ba.party.id,
-        partner: ba.party,
-        code: ba.code,
-      }));
     },
   },
   watch: {

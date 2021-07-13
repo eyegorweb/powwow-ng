@@ -1,7 +1,7 @@
 <template>
   <BillingAccountAutocomplete
     v-model="selectedBillingAccount"
-    :partners="partnersForFilters"
+    :selected-partner="selectedPartner"
     :disabled="!partner"
   />
 </template>
@@ -29,9 +29,9 @@ export default {
   },
 
   computed: {
-    partnersForFilters() {
+    selectedPartner() {
       if (this.partner) {
-        return [this.partner.data];
+        return this.partner.data;
       }
 
       return undefined;
@@ -43,7 +43,7 @@ export default {
 
         const isSelectedDataValid = this.selectedData.data.party.id === this.partner.data.id;
         if (isSelectedDataValid) {
-          return this.selectedData.data;
+          return this.selectedData;
         }
 
         return undefined;

@@ -10,7 +10,7 @@
       <OfferCombo v-model="selectedOffer" :partners="partners" />
 
       <h6>{{ $t('common.billingAccount') }}</h6>
-      <BillingAccountCombo :value.sync="selectedBillingAccount" :partners="partners" />
+      <BillingAccountAutocomplete v-model="selectedBillingAccount" :selected-partner="partner" />
     </template>
     <template slot="message">
       <ScopeSearchMessage :is-loading="isLoading" @refresh="searchLines">
@@ -28,9 +28,9 @@
 
 <script>
 import OfferCombo from '@/components/CustomComboxes/OfferCombo.vue';
-import BillingAccountCombo from '@/components/CustomComboxes/BillingAccountCombo.vue';
 import ChoiceContainer from './ChoiceContainer';
 import ScopeSearchMessage from './ScopeSearchMessage';
+import BillingAccountAutocomplete from '@/components/CustomComboxes/BillingAccountAutocomplete.vue';
 
 import { countLines } from '@/api/linesActions.js';
 
@@ -39,7 +39,7 @@ export default {
     OfferCombo,
     ChoiceContainer,
     ScopeSearchMessage,
-    BillingAccountCombo,
+    BillingAccountAutocomplete,
   },
 
   props: {

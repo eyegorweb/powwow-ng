@@ -38,7 +38,7 @@ export default {
     notifyOrderChange() {
       const newWidgets = $(this.$refs.homepageGrid)
         .find('li')
-        .map(function () {
+        .map(function() {
           return $(this).attr('id');
         })
         .toArray()

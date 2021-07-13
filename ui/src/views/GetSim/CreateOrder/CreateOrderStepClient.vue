@@ -38,7 +38,7 @@
 <script>
 import UiApiAutocomplete from '@/components/ui/UiApiAutocomplete';
 import CreateOrderStepContainer from './CreateOrderStepContainer';
-import BillingAccountAutocomplete from '@/components/CustomComboxes/BillingAccountAutocomplete2.vue';
+import BillingAccountAutocomplete from '@/components/CustomComboxes/BillingAccountAutocomplete.vue';
 import { fetchpartners, fetchpartnerById, getPartyOptions } from '@/api/partners';
 
 import get from 'lodash.get';
@@ -182,29 +182,6 @@ export default {
         this.billingAccounts = [];
         return;
       }
-      /*
-      const { id } = value;
-      // NOTE: pendant que l'on tape, les valeurs sont remontes mais non validees. lorsque l'on click, on recupere la vrai valeur
-      if (id == null) return;
-      if (
-        this.selectedBillingAccount &&
-        this.selectedBillingAccount.partnerId !== this.selectedPartner.id
-      ) {
-        this.selectedBillingAccount = null;
-      }
-
-      const data = await fetchBillibAccountForPartnerId(id);
-      this.billingAccounts = data.map((ba) => ({
-        id: ba.id,
-        label: `${ba.code} - ${ba.name}`,
-        partnerId: ba.party.id,
-        code: ba.code,
-      }));
-
-      if (this.billingAccounts && this.billingAccounts.length === 1) {
-        this.selectedBillingAccount = this.billingAccounts[0];
-      }
-      //*/
     },
     synthesis(synthesis) {
       if (synthesis) {

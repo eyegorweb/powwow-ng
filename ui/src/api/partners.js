@@ -91,6 +91,7 @@ export async function getPartyOptions(partyId) {
     defaultCustomerForActivation {
       id
       code
+      name
     }
   }
 }`;

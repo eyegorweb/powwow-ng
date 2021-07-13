@@ -23,7 +23,7 @@
 <script>
 import CreateOrderStepContainer from '@/views/GetSim/CreateOrder/CreateOrderStepContainer.vue';
 import PartnerCombo from '@/components/CustomComboxes/PartnerCombo.vue';
-import BillingAccountAutocomplete from '@/components/CustomComboxes/BillingAccountAutocomplete2.vue';
+import BillingAccountAutocomplete from '@/components/CustomComboxes/BillingAccountAutocomplete.vue';
 
 import { mapGetters } from 'vuex';
 import { getPartyOptions } from '@/api/partners.js';

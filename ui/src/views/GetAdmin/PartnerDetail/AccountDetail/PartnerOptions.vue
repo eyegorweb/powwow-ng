@@ -209,7 +209,10 @@
           <div class="third-size pr-4" v-if="selectedOffer">
             <div class="form-group">
               <label class="small-label">{{ $t('common.billingAccounts') }}</label>
-              <BillingAccountCombo :value.sync="selectedBillingAccount" :partners="[partner]" />
+              <BillingAccountAutocomplete
+                v-model="selectedBillingAccount"
+                :selected-partner="partner"
+              />
             </div>
           </div>
           <div class="third-size pr-4" v-if="getToggle(billingToggles, 'FACT_SIM_STOCK')">
@@ -440,7 +443,6 @@ import ContentBlock from '@/views/GetParc/LineDetail/ContentBlock';
 import UiToggle from '@/components/ui/UiToggle';
 import Toggle from '@/components/ui/UiToggle2';
 import OfferCombo from '@/components/CustomComboxes/OfferCombo.vue';
-import BillingAccountCombo from '@/components/CustomComboxes/BillingAccountCombo.vue';
 import UiButton from '@/components/ui/Button';
 
 import ToggleGroup from '@/components/ToggleGroup.vue';
@@ -450,6 +452,7 @@ import get from 'lodash.get';
 import { mapGetters, mapMutations } from 'vuex';
 
 import { getPartyOptions, updatePartyOptions } from '@/api/partners.js';
+import BillingAccountAutocomplete from '@/components/CustomComboxes/BillingAccountAutocomplete.vue';
 
 export default {
   components: {
@@ -460,8 +463,8 @@ export default {
     UiInput,
     UiSelect,
     OfferCombo,
-    BillingAccountCombo,
     UiButton,
+    BillingAccountAutocomplete,
   },
   computed: {
     ...mapGetters(['havePermission']),
@@ -809,7 +812,13 @@ export default {
         };
       }
 
-      this.selectedBillingAccount = get(this.partnerOptions, 'defaultCustomerForActivation');
+      const ba = get(this.partnerOptions, 'defaultCustomerForActivation');
+      this.selectedBillingAccount = {
+        id: ba.id,
+        label: `${ba.code} - ${ba.name}`,
+        data: ba,
+        code: ba.code,
+      };
 
       this.resilationSecurityNotificationEnabled = this.partnerOptions.resilationSecurityNotificationEnabled;
       this.refUser = this.partnerOptions.userReferenceEnabled;
