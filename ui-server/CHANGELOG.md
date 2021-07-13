@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.428+20210713125254
+2021-07-13
+
+### Fixes
+
+- [2710] Utilisation du composant autocomplete pour tout les choix de compte de facturation uniques (e059dba812cde28a5f6f038d75f5bd507755fed6)
+
 ## 1.17.0-master.427+20210712142358
 2021-07-12
 
