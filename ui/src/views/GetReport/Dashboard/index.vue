@@ -16,7 +16,7 @@
         <BillingAccountAutocomplete
           :disabled="!selectedPartner"
           v-model="selectedBillingAccount"
-          :partners="partnersForFilters"
+          :selected-partner="selectedPartner"
           preselect-first
         />
       </div>

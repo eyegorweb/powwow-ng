@@ -36,7 +36,3 @@ export async function fetchBillingAccounts(q, partners, { page, limit, partnerTy
   const response = await query(queryStr);
   return response.data.customerAccounts.items;
 }
-
-export async function fetchBillibAccountForPartnerId(partnerId) {
-  return fetchBillingAccounts('', [{ id: partnerId }], { page: 0, limit: 2000 });
-}

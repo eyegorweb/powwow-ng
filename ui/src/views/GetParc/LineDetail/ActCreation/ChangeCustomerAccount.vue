@@ -11,10 +11,10 @@
     <div class="overview-item mr-5">
       <h6>{{ $t('getparc.actCreation.transfertCF.newBillingAccount') }} :</h6>
       <p>
-        <UiApiAutocomplete
-          :items="billingAccounts"
+        <BillingAccountAutocomplete
           v-model="newSelectedBillingAccount"
-          display-results-while-empty
+          :selected-partner="lineData.party"
+          preselect-first-only-when-one-item
         />
       </p>
     </div>
@@ -28,15 +28,14 @@
 import BaseForm from './BaseForm';
 import FormReport from './FormReport';
 import get from 'lodash.get';
-import UiApiAutocomplete from '@/components/ui/UiApiAutocomplete';
-import { fetchBillibAccountForPartnerId } from '@/api/billingAccounts';
 import { changeSingleCustomerAccount } from '@/api/actCreation';
+import BillingAccountAutocomplete from '@/components/CustomComboxes/BillingAccountAutocomplete.vue';
 
 export default {
   components: {
     BaseForm,
     FormReport,
-    UiApiAutocomplete,
+    BillingAccountAutocomplete,
   },
 
   props: {
@@ -50,12 +49,7 @@ export default {
   data() {
     return {
       newSelectedBillingAccount: undefined,
-      billingAccounts: [],
     };
-  },
-
-  mounted() {
-    this.fetchBillingAccounts();
   },
 
   methods: {
@@ -74,18 +68,6 @@ export default {
       if (response) {
         return { report: { ...response.data.changeCustomerAccountV2 }, errors: response.errors };
       }
-    },
-
-    async fetchBillingAccounts() {
-      const data = await fetchBillibAccountForPartnerId(this.lineData.party.id);
-      this.billingAccounts = data
-        .filter((ba) => ba.id !== this.idCurrentBillingAccount)
-        .map((ba) => ({
-          id: ba.id,
-          label: `${ba.code} - ${ba.name}`,
-          partnerId: ba.party.id,
-          partner: ba.party,
-        }));
     },
   },
 

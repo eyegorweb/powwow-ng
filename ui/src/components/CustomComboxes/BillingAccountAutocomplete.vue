@@ -1,110 +1,101 @@
 <template>
-  <UiApiAutocomplete
-    :placeholder="$t('common.billingAccount')"
-    :items="localItems"
-    v-model="selectedValue"
-    :disabled="disabled"
-    display-results-while-empty
-  />
+  <div>
+    <UiApiAutocomplete
+      v-if="canSeeAutoComplete"
+      :api-method="fetchBillingAccounts"
+      v-model="selectedBillingAccount"
+      :disabled="disabled"
+      :error="error"
+      scroll-for-next
+      display-results-while-empty
+    />
+  </div>
 </template>
 
 <script>
 import UiApiAutocomplete from '@/components/ui/UiApiAutocomplete';
-import { mapState } from 'vuex';
-import { fetchBillingAccounts } from '@/api/billingAccounts.js';
+import { fetchBillingAccounts } from '@/api/billingAccounts';
 
 export default {
   components: {
     UiApiAutocomplete,
   },
+
   props: {
     value: Object,
-    partners: Array,
+    selectedPartner: Object,
     disabled: Boolean,
-    preselectFirst: Boolean,
+    error: String,
     preselectFirstOnlyWhenOneItem: Boolean,
   },
+
   data() {
     return {
-      localItems: undefined,
-      isRefreshing: false,
-      partnershaveChanged: false,
-      partnerChangeCount: 0,
+      selectedBillingAccount: undefined,
+      canSeeAutoComplete: true,
+      canChooseWhenOneItem: true,
     };
   },
-  async mounted() {
-    if (!this.partners) return;
-    await this.refreshList();
+
+  mounted() {
+    this.selectedBillingAccount = this.value;
   },
+
   watch: {
-    async partners() {
-      if (this.isRefreshing) {
-        this.partnershaveChanged = true;
-      } else {
-        this.partnerChangeCount += 1;
-        await this.refreshList();
-
-        /**
-         * Choisir le premier compte de facturation et offre dans la combo, mais pour la première fois
-         * le but est d'avoir un composant visible au premier affichage de la page pour les utilisateurs
-         * de type partenaire...
-         */
-        if (this.partnerChangeCount === 1) {
-          if (
-            (this.preselectFirstOnlyWhenOneItem && this.localItems.length === 1) ||
-            (this.preselectFirst && this.localItems && this.localItems.length)
-          ) {
-            this.selectedValue = this.localItems[0];
-          }
+    selectedPartner(value, previous) {
+      if (value && value.id) {
+        if (!previous || !previous.id || (previous && previous.id && previous.id !== value.id)) {
+          this.canChooseWhenOneItem = true;
+          this.resetComponent();
         }
+      } else if (!value || (value && !value.label)) {
+        this.resetComponent();
       }
     },
-    async isRefreshing(newValue, oldValue) {
-      if (newValue === false && oldValue === true && this.partnershaveChanged) {
-        this.partnershaveChanged = false;
-        await this.refreshList();
+    selectedBillingAccount(newValue) {
+      if ((newValue && newValue.id) || newValue === undefined) {
+        this.$emit('input', newValue);
       }
     },
   },
+
   methods: {
-    async refreshList(q = '') {
-      try {
-        this.isRefreshing = true;
-        const data = await fetchBillingAccounts(q, this.partners, {
-          page: 0,
-          limit: 2000,
-          partnerType: this.contextPartnersType,
-        });
-
-        this.localItems = data.map((p) => ({
-          id: p.id,
-          label: `${p.code} - ${p.name}`,
-          data: p,
-        }));
-        this.isRefreshing = false;
-      } catch (e) {
-        this.isRefreshing = false;
-      }
+    resetComponent() {
+      this.selectedBillingAccount = undefined;
+      this.canSeeAutoComplete = false;
+      this.$nextTick(() => {
+        this.canSeeAutoComplete = true;
+      });
     },
-  },
-  computed: {
-    ...mapState('userContext', [' contextPartnersType', 'contextPartners']),
+    async fetchBillingAccounts(q, page = 0) {
+      const partners = [];
+      if (this.selectedPartner) {
+        partners.push(this.selectedPartner);
+      }
 
-    selectedValue: {
-      get() {
-        if (this.value && this.value.id && this.localItems && this.localItems.length) {
-          return this.localItems.find((i) => i.id === this.value.id);
-        }
+      const data = await fetchBillingAccounts(q, partners, { page, limit: 10 });
 
-        return this.value;
-      },
-      set(value) {
-        if (value && value.label === '') {
-          this.$emit('input', undefined);
-          return;
-        }
-        this.$emit('input', value);
-      },
+      const formatted = data.map((ba) => ({
+        id: ba.id,
+        label: `${ba.code} - ${ba.name}`,
+        data: ba,
+        partnerId: ba.party.id,
+        partner: ba.party,
+        code: ba.code,
+      }));
+
+      if (
+        (q === undefined || q === '') &&
+        page === 0 &&
+        formatted.length === 1 &&
+        this.canChooseWhenOneItem &&
+        this.preselectFirstOnlyWhenOneItem
+      ) {
+        this.selectedBillingAccount = formatted[0];
+        this.canChooseWhenOneItem = false;
+      }
+
+      return formatted;
     },
   },
 };

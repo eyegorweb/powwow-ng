@@ -19,9 +19,9 @@
             :key="`billingAccount_${partner}`"
             :partner="partner"
             :offer.sync="selectedOffer"
-            @set:billingAccount="setBillingAccount"
             :preselect-billing-account="preselectBillingAccount"
             :disabled="!!preselectBillingAccount && partner.partyType !== 'MVNO'"
+            @set:billingAccount="setBillingAccount"
           />
         </div>
         <div>

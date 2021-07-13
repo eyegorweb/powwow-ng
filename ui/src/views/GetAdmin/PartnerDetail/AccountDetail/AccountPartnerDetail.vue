@@ -4,10 +4,10 @@
       class="accountdetail-generalInfos"
       v-if="
         havePermission('party', 'read_account_detail') &&
-        !(
-          havePermission('party', 'read_main_options') ||
-          havePermission('party', 'read_secondary_options')
-        )
+          !(
+            havePermission('party', 'read_main_options') ||
+            havePermission('party', 'read_secondary_options')
+          )
       "
     >
       <h3>{{ $t('getadmin.partnerDetail.generalInformations') }}</h3>
