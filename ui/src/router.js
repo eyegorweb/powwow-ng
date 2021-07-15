@@ -144,5 +144,17 @@ export default new Router({
       component: Catalog,
       mock: true,
     },
+    {
+      path: '/admin-settings/messages',
+      name: 'messagesList',
+      component: () => import('@/views/AdminSettings/Messages/index.vue'),
+      ignoreAnalytics: true,
+    },
+    {
+      path: '/admin-settings/messages/edit/:id?',
+      name: 'messagesEdit',
+      component: () => import('@/views/AdminSettings/Messages/MessageEdit.vue'),
+      ignoreAnalytics: true,
+    },
   ]),
 });
