@@ -27,7 +27,12 @@ import addGaugeSupport from '@/dep/GaugeMeter.js';
 addGaugeSupport($);
 
 router.beforeEach((to, from, next) => {
-  router.app.$pushAnalyticsIfReady({ event: 'm2m.PageView', to: { name: to.name, path: to.path } });
+  if (!to.ignoreAnalytics) {
+    router.app.$pushAnalyticsIfReady({
+      event: 'm2m.PageView',
+      to: { name: to.name, path: to.path },
+    });
+  }
   next();
 });
 

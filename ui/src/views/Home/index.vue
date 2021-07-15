@@ -1,5 +1,6 @@
 <template>
   <div class="mt-2">
+    <Messages />
     <HomePageDragDropGrid
       v-if="permittedHomeWidgets && canShowGrid"
       :widgets="permittedHomeWidgets"
@@ -17,10 +18,12 @@
 <script>
 import { mapMutations, mapGetters, mapState, mapActions } from 'vuex';
 import HomePageDragDropGrid from './HomePageDragDropGrid';
+import Messages from './Messages';
 
 export default {
   components: {
     HomePageDragDropGrid,
+    Messages
   },
   computed: {
     ...mapGetters('userContext', ['contextFilters']),

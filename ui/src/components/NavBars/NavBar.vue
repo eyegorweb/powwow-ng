@@ -112,6 +112,14 @@
                 <br />
                 {{ userInfos.email }}
               </span>
+
+              <template v-if="userIsAdmin">
+                <div class="dropdown-divider"></div>
+                <router-link class="dropdown-item" :to="{ name: 'messagesList' }">
+                  Section admin
+                </router-link>
+              </template>
+
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" :href="logoutUrl">{{ $t('logout') }}</a>
             </div>
@@ -426,6 +434,7 @@ export default {
       'userIsGroupPartner',
       'userIsPartner',
       'userIsMVNO',
+      'userIsAdmin',
       'userName',
       'havePermission',
       'havePermissionDomain',
