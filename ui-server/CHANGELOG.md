@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.429+20210715091726
+2021-07-15
+
+### Fixes
+
+- [2780] Mise en place d'un bandeau avec des annonces (374bd9a1e8a81387265167b9b92e6c1fd1309dd5)
+
 ## 1.17.0-master.428+20210713125254
 2021-07-13
 
