@@ -37,11 +37,13 @@
     >
       <div slot="topRight" class="tar" v-if="total">
         <ExportButton :export-fn="getExportFn()" :columns="orderedColumns" :order-by="orderBy">
-          <span slot="title">{{ $t('getsim.stocks.export', { total: total }) }}</span>
+          <span slot="title">{{
+            $t('getsim.stocks.export', { total: $formatLargeNumber(total) })
+          }}</span>
         </ExportButton>
       </div>
       <div slot="title" class="mt-2 table-total">
-        {{ $t('getsim.stocks.table.total', { total: formattedTotal }) }}
+        {{ $t('getsim.stocks.table.total', { total: $formatLargeNumber(total) }) }}
       </div>
     </TableWithFilter>
   </div>

@@ -23,6 +23,8 @@
         </template>
         <div class="pt-4 pl-4" slot="inventory">
           <TableWithFilter
+            storage-version="002"
+            storage-id="'table.getdevice'"
             v-if="columns"
             :filters="filters"
             :columns="columns"
@@ -75,7 +77,9 @@
                 :columns="orderedColumns"
                 :order-by="orderBy"
               >
-                <span slot="title">{{ $t('getparc.actLines.export', { total: total }) }}</span>
+                <span slot="title">{{
+                  $t('getparc.actLines.export', { total: $formatLargeNumber(total) })
+                }}</span>
               </ExportButton>
             </div>
           </TableWithFilter>
@@ -614,6 +618,7 @@ export default {
   },
   computed: {
     ...mapGetters(['userInfos', 'userIsBO', 'havePermission']),
+
     canShowPartnerColumn() {
       return this.userInfos.type === 'OPERATOR' || this.userInfos.type === 'PARTNER_GROUP';
     },

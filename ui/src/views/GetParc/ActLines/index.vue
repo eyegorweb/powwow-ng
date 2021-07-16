@@ -109,7 +109,7 @@
             <template v-if="canShowForm" slot="title">
               {{
                 $t('getparc.actLines.selected', {
-                  total: totalSelected,
+                  total: $formatLargeNumber(totalSelected),
                 })
               }}
             </template>

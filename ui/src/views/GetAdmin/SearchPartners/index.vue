@@ -19,7 +19,9 @@
       :size="0"
       @applyFilters="applyFilters"
     >
-      <div slot="title">{{ $t('getadmin.partners.total', { total: total }) }}</div>
+      <div slot="title">
+        {{ $t('getadmin.partners.total', { total: $formatLargeNumber(total) }) }}
+      </div>
     </TableWithFilter>
   </div>
 </template>

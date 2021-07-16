@@ -25,7 +25,7 @@
     </li>
     <li v-if="totalNotCompatible > 0">
       <ExportButton :export-fn="getExportFn">
-        <span slot="title">{{ $t('getparc.actLines.export', { total: totalNotCompatible }) }}</span>
+        <span slot="title">{{ $t('getparc.actLines.export', { total: $formatLargeNumber(totalNotCompatible) }) }}</span>
       </ExportButton>
     </li>
   </ul>

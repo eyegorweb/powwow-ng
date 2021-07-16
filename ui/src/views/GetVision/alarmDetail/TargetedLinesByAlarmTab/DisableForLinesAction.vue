@@ -16,7 +16,7 @@
           {{ $t('getparc.actCreation.SINGULAR_EXCLUDED_LINES') }}
         </template>
         <template v-else>
-          {{ $t('getparc.actCreation.EXCLUDED_LINES', { total: total }) }}
+          {{ $t('getparc.actCreation.EXCLUDED_LINES', { total: $formatLargeNumber(total) }) }}
         </template>
       </div>
     </template>

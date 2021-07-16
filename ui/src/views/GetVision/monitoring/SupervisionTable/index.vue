@@ -3,7 +3,9 @@
     <div class="row">
       <div v-if="filtersForExport && total > 0" class="col">
         <ExportButton :export-fn="getExportFn()" :columns="columns" :order-by="orderBy">
-          <span slot="title">{{ $t('getparc.actLines.export', { total: total }) }}</span>
+          <span slot="title">{{
+            $t('getparc.actLines.export', { total: $formatLargeNumber(total) })
+          }}</span>
         </ExportButton>
       </div>
     </div>
