@@ -8,7 +8,7 @@
           <div class="checkboxes">
             <Checkbox
               v-for="column in localColumns"
-              :key="column.id"
+              :key="'colcolf' + column.id"
               v-model="column.visible"
               :disabled="isDisabled(column)"
               >{{ column.label }}</Checkbox

@@ -9,13 +9,15 @@
         <div class="row mb-3">
           <div class="col">
             <h2 class="text-gray font-weight-light" style="font-size: 2rem">
-              {{ $t('getparc.actDetail.title', { total: total }) }}
+              {{ $t('getparc.actDetail.title', { total: $formatLargeNumber(total) }) }}
             </h2>
           </div>
           <div class="col">
             <ExportButton :export-fn="getExportFn()" :columns="columns" :order-by="orderBy">
               <span slot="title">
-                {{ $t('getparc.history.details.EXPORT_LINES', { total: total }) }}
+                {{
+                  $t('getparc.history.details.EXPORT_LINES', { total: $formatLargeNumber(total) })
+                }}
               </span>
             </ExportButton>
           </div>

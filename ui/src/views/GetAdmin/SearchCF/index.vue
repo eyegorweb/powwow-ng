@@ -21,7 +21,7 @@
       @applyFilters="applyFilters"
       @columnOrdered="orderedColumns = $event"
     >
-      <div slot="title">{{ $t('getadmin.cf.total', { total: total }) }}</div>
+      <div slot="title">{{ $t('getadmin.cf.total', { total: $formatLargeNumber(total) }) }}</div>
 
       <div slot="topLeft">
         <SearchByNb

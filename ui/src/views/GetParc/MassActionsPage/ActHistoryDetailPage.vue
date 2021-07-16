@@ -19,7 +19,7 @@
               button-style
             >
               <span slot="title">{{
-                $t('getparc.history.details.EXPORT_LINES', { total: total })
+                $t('getparc.history.details.EXPORT_LINES', { total: $formatLargeNumber(total) })
               }}</span>
             </ExportButton>
           </div>

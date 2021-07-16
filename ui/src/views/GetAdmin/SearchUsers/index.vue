@@ -27,11 +27,13 @@
       @applyFilters="applyFilters"
       @columnOrdered="orderedColumns = $event"
     >
-      <div slot="title">{{ $t('getadmin.users.total', { total: total }) }}</div>
+      <div slot="title">{{ $t('getadmin.users.total', { total: $formatLargeNumber(total) }) }}</div>
 
       <div slot="topRight">
         <ExportButton :export-fn="getExportFn()" :columns="orderedColumns" :order-by="orderBy">
-          <span slot="title">{{ $t('getadmin.users.export', { total: total }) }}</span>
+          <span slot="title">{{
+            $t('getadmin.users.export', { total: $formatLargeNumber(total) })
+          }}</span>
         </ExportButton>
       </div>
 

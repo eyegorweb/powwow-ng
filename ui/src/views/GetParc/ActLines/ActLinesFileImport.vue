@@ -34,7 +34,7 @@
         <li v-if="totalNotCompatible > 0">
           <ExportButton :export-fn="getExportFn()" :columns="columns" :order-by="orderBy">
             <span slot="title">{{
-              $t('getparc.actLines.export', { total: totalNotCompatible })
+              $t('getparc.actLines.export', { total: $formatLargeNumber(totalNotCompatible) })
             }}</span>
           </ExportButton>
         </li>

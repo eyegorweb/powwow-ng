@@ -10,12 +10,14 @@
       <div class="row mb-3 mt-3">
         <div class="col-md-8">
           <h2 class="text-gray font-weight-light">
-            {{ $t('getadmin.partnerDetail.mb.title', { total: total }) }}
+            {{ $t('getadmin.partnerDetail.mb.title', { total: $formatLargeNumber(total) }) }}
           </h2>
         </div>
         <div class="col-md-4">
           <ExportButton :export-fn="getExportFn()" :columns="orderedColumns" :order-by="orderBy">
-            <span slot="title">{{ $t('getadmin.partnerDetail.mb.export', { total: total }) }}</span>
+            <span slot="title">{{
+              $t('getadmin.partnerDetail.mb.export', { total: $formatLargeNumber(total) })
+            }}</span>
           </ExportButton>
         </div>
       </div>

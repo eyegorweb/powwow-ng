@@ -31,7 +31,7 @@
       @currentFiltersChange="currentFilters = $event"
     >
       <div slot="title">
-        {{ $t('getsim.reservations.tableTitle', { total: formattedTotal }) }}
+        {{ $t('getsim.reservations.tableTitle', { total: $formatLargeNumber(total) }) }}
       </div>
 
       <div slot="topRight">
@@ -41,7 +41,9 @@
           :order-by="orderBy"
           export-all
         >
-          <span slot="title">{{ $t('getsim.reservations.export', { total: total }) }}</span>
+          <span slot="title">{{
+            $t('getsim.reservations.export', { total: $formatLargeNumber(total) })
+          }}</span>
         </ExportButton>
       </div>
 
