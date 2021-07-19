@@ -337,7 +337,7 @@ export async function fetchDataForCities(usageType, bounds, filters = {}) {
   });
 }
 
-export async function fetchDataForAlarms() {}
+export async function fetchDataForAlarms() { }
 
 export async function fetchFrenchRegionsData(usageType, bounds, filters = {}) {
   return geoMap({
@@ -389,9 +389,7 @@ async function geoMap(filters) {
 }
 
 export async function fetchSupervisionGraphData(filters) {
-  const queryStr = `query SupervisionDataGraph($supervisionType: SupervisionGraphType!, $params: GeoLocSearchParams!
-    $beginDate: Date,
-    $endDate: Date){
+  const queryStr = `query 
       supervisionDataGraphV2(supervisionType: $supervisionType,
         params: $params,
         beginDate: $beginDate,
@@ -416,9 +414,7 @@ export async function fetchSupervisionGraphData(filters) {
 }
 
 export async function fetchSupervisionGraphSMS(filters) {
-  const queryStr = `query SupervisionSmsGraph($supervisionType: SupervisionGraphType!, $params: GeoLocSearchParams!
-    $beginDate: Date,
-    $endDate: Date){
+  const queryStr = `query 
       supervisionSmsGraphV2(supervisionType: $supervisionType,
         params: $params,
         beginDate: $beginDate,
@@ -441,9 +437,7 @@ export async function fetchSupervisionGraphSMS(filters) {
 }
 
 export async function fetchSupervisionGraphVoice(filters) {
-  const queryStr = `query SupervisionVoiceGraph($supervisionType: SupervisionGraphType!, $params: GeoLocSearchParams!
-    $beginDate: Date,
-    $endDate: Date){
+  const queryStr = `query 
       supervisionVoiceGraphV2(supervisionType: $supervisionType,
         params: $params,
         beginDate: $beginDate,
