@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.431+20210719170342
+2021-07-19
+
+### Fixes
+
+- [2823] Erreur 400 dans la supervision (bbfd316e03d591e3b10f85840909b3ab674143b5)
+
 ## 1.17.0-master.430+20210716103808
 2021-07-16
 
