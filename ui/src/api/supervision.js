@@ -404,7 +404,7 @@ export async function fetchSupervisionGraphData(filters) {
           numberRequestsOpening
         }
       }
-    }`;
+    `;
 
   const response = await query(queryStr, filters);
 
@@ -427,7 +427,7 @@ export async function fetchSupervisionGraphSMS(filters) {
         }
         lastUpdateDate
       }
-    }`;
+    `;
 
   const response = await query(queryStr, filters);
 
@@ -453,7 +453,7 @@ export async function fetchSupervisionGraphVoice(filters) {
         }
         lastUpdateDate
       }
-    }`;
+    `;
 
   const response = await query(queryStr, filters);
 
