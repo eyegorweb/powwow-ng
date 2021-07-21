@@ -8,6 +8,7 @@
 <script>
 import { Chart } from 'highcharts-vue';
 import Highcharts from 'highcharts';
+import { resumeFormattedValueFromSeconds } from '@/api/utils.js';
 
 import { fetchVoiceUsageForGraph } from '@/api/consumption.js';
 
@@ -107,6 +108,24 @@ export default {
         ],
         tooltip: {
           shared: true,
+          useHTML: true,
+          pointFormatter() {
+            if (this.series.userOptions.name.includes('Minutes')) {
+              return `
+                <div style="width: 7px; height: 7px; border-radius: 15px; background-color: ${this.series.userOptions.color}; display: inline-block; margin-right: 0.5rem"></div>
+                ${this.series.userOptions.name}
+                :
+                ${resumeFormattedValueFromSeconds(this.y)} <br/>
+              `;
+            } else {
+              return `
+                <div style="width: 7px; height: 7px; border-radius: 15px; background-color: ${this.series.userOptions.color}; display: inline-block; margin-right: 0.5rem"></div>
+                ${this.series.userOptions.name}
+                :
+                ${this.y} <br/>
+              `;
+            }
+          },
         },
         series: [
           {
@@ -121,27 +140,18 @@ export default {
           {
             name: this.$t('getparc.lineDetail.supervision.minutesOut'),
             type: 'column',
-            tooltip: {
-              valueSuffix: '',
-            },
             color: '#f39c12',
             data: data.outgoingMinutesTotal,
           },
           {
             name: this.$t('getparc.lineDetail.supervision.voiceIn'),
             type: 'column',
-            tooltip: {
-              valueSuffix: '',
-            },
             color: '#fda77f',
             data: data.outgoing,
           },
           {
             name: this.$t('getparc.lineDetail.supervision.voiceOut'),
             type: 'column',
-            tooltip: {
-              valueSuffix: '',
-            },
             color: '#43ab92',
             data: data.incoming,
           },
@@ -150,9 +160,6 @@ export default {
             name: this.$t('getparc.lineDetail.supervision.voiceInAndOut'),
             type: 'spline',
             dashStyle: 'shortdot',
-            tooltip: {
-              valueSuffix: '',
-            },
             color: '#505bda',
             data: data.totalVoiceIO,
           },
@@ -161,9 +168,6 @@ export default {
             name: this.$t('getparc.lineDetail.supervision.totalMinutes'),
             type: 'spline',
             dashStyle: 'shortdot',
-            tooltip: {
-              valueSuffix: '',
-            },
             color: '#c93838',
             data: data.totalMinutesIO,
           },
