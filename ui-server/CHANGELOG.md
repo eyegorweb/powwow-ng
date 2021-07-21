@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.432+20210721101754
+2021-07-21
+
+### Fixes
+
+- [2825] formattage des données sur la voix des graphes de supervision (98622e7ea92476855a3f26c451069818a4bf617d)
+
 ## 1.17.0-master.431+20210719170342
 2021-07-19
 
