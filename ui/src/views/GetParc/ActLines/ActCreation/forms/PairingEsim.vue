@@ -4,7 +4,7 @@
       <DropZone v-model="selectedFile" class="dropZone" />
     </div>
 
-    <ActFormContainer :validate-fn="onValidate"> </ActFormContainer>
+    <ActFormContainer :validate-fn="onValidate" disabled-notification-check :can-change-date="false" fix-on-current-date> </ActFormContainer>
   </div>
 </template>
 
