@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.433+20210721143408
+2021-07-21
+
+### Fixes
+
+- [2682] modification du formulaire des actes Appairage auto (stock) et Appairage par fichier (EID) (6310d73f01c1dc3d2202ebcea6b07515b4d257aa)
+
 ## 1.17.0-master.432+20210721101754
 2021-07-21
 
