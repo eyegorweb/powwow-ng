@@ -96,10 +96,9 @@ export async function fetchCockpitMarkers(filters) {
 }
 
 export async function fetchLinesForCounter(
-  counter,
-  usageType,
+  filters,
   pagination = { limit: 10, page: 0 },
-  sorting = { cellid: 'ASC' }
+  sorting
 ) {
   const queryStr = `query GeoCounterList($filter: GeolocCounterFilterInput!, $pagination: Pagination!, $sorting: GeolocListSorting!) {
     geoCounterList(filter: $filter, pagination: $pagination, sorting: $sorting) {
@@ -143,10 +142,7 @@ export async function fetchLinesForCounter(
 }
 `;
   const response = await query(queryStr, {
-    filter: {
-      counter,
-      usageType,
-    },
+    filter: filters,
     pagination,
     sorting,
   });
@@ -389,7 +385,7 @@ async function geoMap(filters) {
 }
 
 export async function fetchSupervisionGraphData(filters) {
-  const queryStr = `query 
+  const queryStr = `query
       supervisionDataGraphV2(supervisionType: $supervisionType,
         params: $params,
         beginDate: $beginDate,
@@ -414,7 +410,7 @@ export async function fetchSupervisionGraphData(filters) {
 }
 
 export async function fetchSupervisionGraphSMS(filters) {
-  const queryStr = `query 
+  const queryStr = `query
       supervisionSmsGraphV2(supervisionType: $supervisionType,
         params: $params,
         beginDate: $beginDate,
@@ -437,7 +433,7 @@ export async function fetchSupervisionGraphSMS(filters) {
 }
 
 export async function fetchSupervisionGraphVoice(filters) {
-  const queryStr = `query 
+  const queryStr = `query
       supervisionVoiceGraphV2(supervisionType: $supervisionType,
         params: $params,
         beginDate: $beginDate,
