@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.434+20210722085443
+2021-07-22
+
+### Fixes
+
+- [2830] configuration du partenaire pour l'export de la supervision (e37869feeb1ceb8a2c6857bc5d36091a4899c120)
+
 ## 1.17.0-master.433+20210721143408
 2021-07-21
 
