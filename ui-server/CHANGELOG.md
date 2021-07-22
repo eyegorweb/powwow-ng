@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.435+20210722123739
+2021-07-22
+
+### Fixes
+
+- [2804] traduction corrigée pour la synthèse d'une commande (b8ccce0be74b69aec94bc1df3af11a41a8c5d56b)
+
 ## 1.17.0-master.434+20210722085443
 2021-07-22
 
