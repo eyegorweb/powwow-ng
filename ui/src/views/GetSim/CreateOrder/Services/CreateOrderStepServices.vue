@@ -218,9 +218,13 @@ export default {
           value: {
             id: 'common.services',
             content: [
-              `Offre:  ${this.activation ? offerCode : ''}`,
-              `Activation: ${this.activation ? 'Oui' : 'Non'}`,
-              `Préactivation: ${this.preActivation ? 'Oui' : 'Non'}`,
+              `${this.$t('col.offer')}:  ${this.activation ? offerCode : ''}`,
+              `${this.$t('col.activationAsked')}: ${
+                this.activation ? this.$t('common.YES') : this.$t('common.NO')
+              }`,
+              `${this.$t('col.preActivationAsked')}: ${
+                this.preActivation ? this.$t('common.YES') : this.$t('common.NO')
+              }`,
             ],
             offerCode,
             activation: this.activation,
