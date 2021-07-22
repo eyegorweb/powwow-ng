@@ -598,10 +598,17 @@ export default {
       this.refreshLinesFn = undefined;
       this.filtersForExport = undefined;
 
-      const filters = {
+      let partyId = undefined;
+
+      let filters = {
         counter,
         usageType,
       };
+      const formattedAppliedFilters = filterFormatter(this.appliedFilters || []);
+      if (formattedAppliedFilters && formattedAppliedFilters.partyId) {
+        partyId = formattedAppliedFilters.partyId;
+        filters = { ...filters, partyId };
+      }
       this.filtersForExport = { ...filters };
 
       setTimeout(() => {
