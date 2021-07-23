@@ -21,7 +21,9 @@
           <TableSkeleton :columns="columns" :size="3" />
         </div>
         <DataTable
-          :columns="columns"
+          storage-id="getreport.models"
+          storage-version="1"
+          :columns.sync="columns"
           :rows="rows || []"
           :page.sync="page"
           :page-limit.sync="pageLimit"
