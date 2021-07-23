@@ -32,14 +32,19 @@ export async function exportAccessPointsByLocalisation(
   filters,
   columns,
   exportFormat,
+  asyncExportRequest = false,
   localisationType = 'CP'
 ) {
   const columnsParam = columns.join(',');
-
+  let asyncExportRequestParam = '';
+  if (asyncExportRequest) {
+    asyncExportRequestParam = `, asyncExportRequest: ${asyncExportRequest}`;
+  }
+  
   const response = await query(
     `
     query {
-      exportAccessPointsByLocalisation(localisationType: ${localisationType},${formatFilters(
+      exportAccessPointsByLocalisation(localisationType: ${localisationType}${asyncExportRequestParam},${formatFilters(
       filters
     )}, columns: [${columnsParam}], exportFormat: ${exportFormat}) {
         downloadUri
