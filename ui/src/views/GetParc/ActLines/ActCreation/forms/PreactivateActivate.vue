@@ -76,6 +76,7 @@ import PartnerFields from '@/components/PartnerFields';
 
 import { mapState, mapGetters } from 'vuex';
 import { fetchCustomFields } from '@/api/customFields';
+import { formatBackErrors } from '@/utils/errors';
 
 import ActFormContainer from './parts/ActFormContainer2';
 
@@ -255,9 +256,15 @@ export default {
         );
       }
       if (response.errors && response.errors.length) {
+        const formatted = formatBackErrors(response.errors)
+          .map((e) => e.errors)
+          .flat();
+
+        const foundMassActionLimitError = formatted.find((err) => err.value === 'MassActionLimit');
+
         response.errors.forEach((r) => {
-          if (r.extensions.error === 'MassActionLimit') {
-            const count = r.extensions.limit ? r.extensions.limit : '';
+          if (foundMassActionLimitError) {
+            const count = r.extensions && r.extensions.limit ? r.extensions.limit : '';
             const messageErrorMaxLine = this.$t(
               'getparc.actCreation.report.FILE_MAX_LINE_NUMBER_INVALID',
               {
