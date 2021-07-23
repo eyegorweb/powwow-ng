@@ -813,12 +813,14 @@ export default {
       }
 
       const ba = get(this.partnerOptions, 'defaultCustomerForActivation');
-      this.selectedBillingAccount = {
-        id: ba.id,
-        label: `${ba.code} - ${ba.name}`,
-        data: ba,
-        code: ba.code,
-      };
+      if (ba) {
+        this.selectedBillingAccount = {
+          id: ba.id,
+          label: `${ba.code} - ${ba.name}`,
+          data: ba,
+          code: ba.code,
+        };
+      }
 
       this.resilationSecurityNotificationEnabled = this.partnerOptions.resilationSecurityNotificationEnabled;
       this.refUser = this.partnerOptions.userReferenceEnabled;
