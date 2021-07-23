@@ -1,6 +1,6 @@
 import { query, getFilterValue, getFilterValues, getValuesIdsWithoutQuotes } from './utils';
 
-export async function fetchAllowedRoles(userId, partyId, partyGroupId) {
+export async function fetchAllowedRoles(userId, partyId, partyGroupId, ws) {
   let partyGroupParam = '';
   if (partyGroupId) {
     partyGroupParam = `partyGroupId: ${partyGroupId},`;
@@ -11,7 +11,7 @@ export async function fetchAllowedRoles(userId, partyId, partyGroupId) {
     partyParam = `partyId: ${partyId},`;
   }
   const queryStr = `query {
-    userAllowedRoles(userId: ${userId}, withWS: false, ${partyParam} ${partyGroupParam}) {
+    userAllowedRolesV2(userId: ${userId}, wsFilter: {eq: ${ws || false}}, ${partyParam} ${partyGroupParam}) {
       Id
       name
       description
@@ -23,7 +23,7 @@ export async function fetchAllowedRoles(userId, partyId, partyGroupId) {
   }`;
 
   const response = await query(queryStr);
-  return response.data.userAllowedRoles;
+  return response.data.userAllowedRolesV2;
 }
 
 export async function deactivateUser(id) {
