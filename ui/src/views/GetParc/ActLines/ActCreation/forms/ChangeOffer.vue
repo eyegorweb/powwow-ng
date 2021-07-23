@@ -68,6 +68,7 @@ import { changeOffer } from '@/api/actCreation';
 
 import { getOfferOption } from '@/api/partners.js';
 import { getMarketingOfferServices } from '@/components/Services/utils.js';
+import { formatBackErrors } from '@/utils/errors';
 
 export default {
   components: {
@@ -194,9 +195,15 @@ export default {
         !this.canChangeServices
       );
       if (response.errors && response.errors.length) {
+        const formatted = formatBackErrors(response.errors)
+          .map((e) => e.errors)
+          .flat();
+
+        const foundMassActionLimitError = formatted.find((err) => err.value === 'MassActionLimit');
+
         response.errors.forEach((r) => {
-          if (r.extensions.error === 'MassActionLimit') {
-            const count = r.extensions.limit ? r.extensions.limit : '';
+          if (foundMassActionLimitError) {
+            const count = r.extensions && r.extensions.limit ? r.extensions.limit : '';
             const messageErrorMaxLine = this.$t(
               'getparc.actCreation.report.FILE_MAX_LINE_NUMBER_INVALID',
               {
