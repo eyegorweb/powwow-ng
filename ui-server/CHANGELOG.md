@@ -2,8 +2,12 @@
 
 <!--- next entry here -->
 
-## 1.17.0-master.437+20210723123921
+## 1.17.0-master.438+20210723125448
 2021-07-23
+
+### Fixes
+
+- [2833] correction sur contrôle de valeur dans les options du partenaire (20076f107a892e2f545751c5a6bbad82681dbddc)
 
 ## 1.17.0-master.436+20210723112725
 2021-07-23
