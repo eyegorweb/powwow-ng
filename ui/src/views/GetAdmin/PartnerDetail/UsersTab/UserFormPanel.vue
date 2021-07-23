@@ -132,7 +132,10 @@
       </div>
 
       <div>
-        <h4>{{ $t('getadmin.users.filters.roles') }}</h4>
+        <div class="rolesType">
+          <h4 :class="{ active: !showWebservices }" @click="showWebservices = false">ROLES</h4>
+          <h4 :class="{ active: showWebservices }" @click="showWebservices = true" v-if="haveWsPermission && rolesWs.length > 0 ">WEBSERVICES</h4>
+        </div>
         <div class="overview-item mr-5" v-if="!canShowRoles">
           <h6 v-if="userType === 'PARTNER'">{{ $t('getparc.actLines.step1Partner') }}</h6>
           <h6 v-if="userType === 'PARTNER_GROUP'">
@@ -140,7 +143,11 @@
           </h6>
         </div>
         <div v-else>
-          <MultiChoices class="roles" :options="roles" v-model="selectedRoles" />
+          <MultiChoices class="roles" :options="roles" v-model="selectedRoles" v-if="!showWebservices" />
+          <h3 v-if="rolesWsActions && showWebservices">Actions</h3>
+          <MultiChoices class="roles" :options="rolesWsActions" v-model="selectedRolesWsActions" v-if="showWebservices && rolesWs.length > 0 && haveWsPermission" />
+          <h3 v-if="rolesWsConsultation && showWebservices">Consultation</h3>
+          <MultiChoices class="roles" :options="rolesWsConsultation" v-model="selectedRolesWsConsultation" v-if="showWebservices && rolesWs.length > 0 && haveWsPermission" />
         </div>
       </div>
     </div>
@@ -224,11 +231,16 @@ export default {
   },
   data() {
     return {
+      showWebservices: false,
       languages: undefined,
       canShowForm: false,
       fetchLanguages: undefined,
       roles: [],
+      rolesWs: [],
       selectedRoles: [],
+      selectedRolesWs: [],
+      selectedRolesWsActions: [],
+      selectedRolesWsConsultation: [],
       selectedPartner: undefined,
       selectedGroupPartner: undefined,
       groupPartners: [],
@@ -271,7 +283,8 @@ export default {
     ...mapMutations(['flashMessage', 'closePanel', 'openPanel', 'confirmAction']),
 
     isEmailValid(email) {
-      var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      var re =
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       return re.test(email);
     },
 
@@ -307,7 +320,7 @@ export default {
 
     async save() {
       let lang = this.fetchLanguages.find((e) => e.label === this.form.language);
-
+      let wsRoles = this.selectedRolesWsActions.concat(selectedRolesWsConsultation);
       const params = {
         title: this.form.title,
         language: lang ? lang.language : this.userDefaultLanguage,
@@ -315,7 +328,7 @@ export default {
         lastName: this.form.lastName,
         email: this.form.email,
         username: this.form.username,
-        roles: this.selectedRoles,
+        roles: this.selectedRoles.concat(wsRoles),
       };
 
       if (this.createMode || this.isDuplicateMode) {
@@ -395,6 +408,18 @@ export default {
       'userIsGroupPartner',
       'singlePartner',
     ]),
+
+    rolesWsActions() {
+      return this.rolesWs.filter(e => e.data.category = 2);
+    },
+
+    rolesWsConsultation() {
+      return this.rolesWs.filter(e => e.data.category = 1);
+    },
+
+    haveWsPermission() {
+      return this.havePermission('user', 'webservice_permissions');
+    },
 
     haveMailError() {
       if (!this.form) return false;
@@ -543,6 +568,7 @@ export default {
   async mounted() {
     this.canShowForm = false;
     let roles;
+    let rolesWs;
 
     if (this.userIsPartner) {
       this.userType = 'PARTNER';
@@ -576,12 +602,16 @@ export default {
       this.canShowForm = true;
 
       roles = await fetchAllowedRoles(null, this.singlePartner.id, null);
+      rolesWs = await fetchAllowedRoles(null, this.singlePartner.id, null, true);
       this.roles = this.formattedRoles(roles);
+      this.rolesWs = this.formattedRoles(rolesWs);
       return;
     } else if (this.content.fromUserMenu && this.userInfos.type === 'PARTNER_GROUP') {
       this.canShowForm = true;
       roles = await fetchAllowedRoles(null, null, this.userInfos.partyGroup.id);
+      rolesWs = await fetchAllowedRoles(null, null, this.userInfos.partyGroup.id, true);
       this.roles = this.formattedRoles(roles);
+      this.rolesWs = this.formattedRoles(rolesWs);
       return;
     }
 
@@ -605,16 +635,27 @@ export default {
 
       if (this.userType === 'OPERATOR') {
         roles = await fetchAllowedRoles(this.content.duplicateFrom.id, null, null);
+        rolesWs = await fetchAllowedRoles(this.content.duplicateFrom.id, null, null, true);
         this.roles = this.formattedRoles(roles);
+        this.rolesWs = this.formattedRoles(rolesWs);
         this.selectedRoles = this.roles.filter((r) => r.data.activated);
+        this.selectedRolesWs = this.rolesWs.filter((r) => r.data.activated);
       } else if (this.userType === 'PARTNER') {
         roles = await fetchAllowedRoles(
           this.content.duplicateFrom.id,
           this.selectedPartner.id,
           null
         );
+        rolesWs = await fetchAllowedRoles(
+          this.content.duplicateFrom.id,
+          this.selectedPartner.id,
+          null,
+          true
+        );
         this.roles = this.formattedRoles(roles);
+        this.rolesWs = this.formattedRoles(rolesWs);
         this.selectedRoles = this.roles.filter((r) => r.data.activated);
+        this.selectedRolesWs = this.rolesWs.filter((r) => r.data.activated);
       } else if (this.userType === 'PARTNER_GROUP') {
         const groupPartnersResponse = await fetchPartnerGroups();
         this.groupPartners = groupPartnersResponse.map((p) => {
@@ -631,8 +672,16 @@ export default {
           null,
           this.$loGet(this.selectedGroupPartner, 'id')
         );
+        rolesWs = await fetchAllowedRoles(
+          this.content.duplicateFrom.id,
+          null,
+          this.$loGet(this.selectedGroupPartner, 'id'),
+          true
+        );
         this.roles = this.formattedRoles(roles);
+        this.rolesWs = this.formattedRoles(rolesWs);
         this.selectedRoles = this.roles.filter((r) => r.data.activated);
+        this.selectedRolesWs = this.rolesWs.filter((r) => r.data.activated);
       }
 
       // Pré-remplissage formulaire
@@ -665,7 +714,9 @@ export default {
       if (!this.content.duplicateFrom) {
         if (!this.selectedPartner) return;
         const roles = await fetchAllowedRoles(null, this.selectedPartner.id, null);
+        const rolesWs = await fetchAllowedRoles(null, this.selectedPartner.id, null, true);
         this.roles = this.formattedRoles(roles);
+        this.rolesWs = this.formattedRoles(rolesWs);
       }
     },
     async selectedGroupPartner() {
@@ -675,11 +726,19 @@ export default {
           null,
           this.$loGet(this.selectedGroupPartner, 'id')
         );
+        const rolesWs = await fetchAllowedRoles(
+          null,
+          null,
+          this.$loGet(this.selectedGroupPartner, 'id'),
+          true
+        );
         this.roles = this.formattedRoles(roles);
+        this.rolesWs = this.formattedRoles(rolesWs);
       }
     },
     async userType(value) {
       let roles;
+      let rolesWs;
       if (this.content.duplicateFrom) return;
       if (value === 'OPERATOR') {
         // Appelé en plus de l'initialisation => corriger donc
@@ -687,10 +746,13 @@ export default {
         this.selectedGroupPartner = undefined;
         if (this.content.fromUserMenu) {
           roles = await fetchAllowedRoles(null, null, null);
+          rolesWs = await fetchAllowedRoles(null, null, null, true);
         } else if (this.content.fromPartnerMenu) {
           roles = await fetchAllowedRoles(null, this.content.partnerId, null);
+          rolesWs = await fetchAllowedRoles(null, this.content.partnerId, null, true);
         }
         this.roles = this.formattedRoles(roles);
+        this.rolesWs = this.formattedRoles(rolesWs);
       } else if (value === 'PARTNER') {
         this.selectedGroupPartner = undefined;
       } else if (value === 'PARTNER_GROUP') {
@@ -764,6 +826,23 @@ export default {
   margin-right: 10px;
 }
 
+.rolesType {
+  display: flex;
+
+  h4 {
+    width: 50%;
+    text-align: center;
+    font-size: 14px;
+    margin-bottom: 20px;
+    cursor: pointer;
+
+    &.active {
+      border-bottom: 2px solid #009dcc;
+      font-weight: 500;
+      color: #009dcc;
+    }
+  }
+}
 .checkmark {
   position: absolute;
   top: 0;
