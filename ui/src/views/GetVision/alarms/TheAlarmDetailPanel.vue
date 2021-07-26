@@ -38,11 +38,12 @@
         <h6>{{ $t('getparc.history.details.quantityTargeted') }}:</h6>
         <a
           style="font-size: 0.8rem"
-          v-if="numberOfTargetedLines"
+          v-if="numberOfTargetedLines && !isPoolAlarm"
           href="#"
           @click.prevent="gotoTargetedAlarms()"
           >{{ numberOfTargetedLines }}</a
         >
+        <p v-else-if="numberOfTargetedLines && isPoolAlarm">{{ numberOfTargetedLines }}</p>
         <p v-else>-</p>
       </div>
 
