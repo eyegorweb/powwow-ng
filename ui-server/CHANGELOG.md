@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.439+20210726072834
+2021-07-26
+
+### Fixes
+
+- [2838] Ajout asyncexport dans export device et acesspointloc (e163fb4289087e1cd60bb5c1d1c231227280f082)
+- [2790] sauvegarde des colonnes dans les modeles de rapports (d8b3932d7be2a3961219a1db680fd1fc89333397)
+
 ## 1.17.0-master.438+20210723125448
 2021-07-23
 
