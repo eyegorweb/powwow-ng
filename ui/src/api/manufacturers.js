@@ -174,16 +174,21 @@ function addIdsFilter(gqlFilters, selectedFilters) {
   }
 }
 
-export async function exportDevices(columns, orderBy, exportFormat, filters = []) {
+export async function exportDevices(columns, orderBy, exportFormat, asyncExportRequest = false, filters = []) {
   const columnsParam = columns.join(',');
   const orderingInfo = orderBy ? `, sorting: {${orderBy.key}: ${orderBy.direction}}` : '';
+  let asyncExportRequestParam = '';
+  if (asyncExportRequest) {
+    asyncExportRequestParam = `, asyncExportRequest: ${asyncExportRequest}`;
+  }
   const response = await query(
     `
     query {
       exportDevices(filters: {${formatFilters(
         filters
-      )}}, columns: [${columnsParam}]${orderingInfo}, exportFormat: ${exportFormat} ) {
+      )}}, columns: [${columnsParam}]${orderingInfo}, exportFormat: ${exportFormat}${asyncExportRequestParam} ) {
         downloadUri
+        asyncRequired
         total
       }
     }
