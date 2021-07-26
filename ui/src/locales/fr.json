@@ -1340,9 +1340,9 @@
         "smsOut": "SMS Emis",
         "minutesIn": "Minutes reçues",
         "minutesOut": "Minutes émises",
-        "voiceOut": "Voix reçues",
-        "voiceIn": "Voix émises",
-        "voiceInAndOut": "Voix E/S",
+        "voiceOut": "Appels Entrants",
+        "voiceIn": "Appels Sortants",
+        "voiceInAndOut": "Appels E/S",
         "totalMinutes": "Minutes totales"
       },
       "alarms": {
