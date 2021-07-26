@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.441+20210726092041
+2021-07-26
+
+### Fixes
+
+- [2831] changement label supervision graph appels (a9672c5e6a71c7b2de182c1763468441105349d9)
+
 ## 1.17.0-master.440+20210726085450
 2021-07-26
 
