@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.442+20210726140459
+2021-07-26
+
+### Fixes
+
+- [2845] suppression du lien cliquable de la quantité ciblée pour les alarmes flottes (09c491ec2f14687a648de6830478010fd04230f4)
+
 ## 1.17.0-master.441+20210726092041
 2021-07-26
 
