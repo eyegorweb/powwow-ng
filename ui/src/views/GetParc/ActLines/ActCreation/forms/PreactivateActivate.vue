@@ -256,11 +256,14 @@ export default {
         );
       }
       if (response.errors && response.errors.length) {
-        const formatted = formatBackErrors(response.errors)
-          .map((e) => e.errors)
-          .flat();
+        let foundMassActionLimitError;
+        if (response.errors.extensions) {
+          const formatted = formatBackErrors(response.errors)
+            .map((e) => e.errors)
+            .flat();
 
-        const foundMassActionLimitError = formatted.find((err) => err.value === 'MassActionLimit');
+          foundMassActionLimitError = formatted.find((err) => err.value === 'MassActionLimit');
+        }
 
         response.errors.forEach((r) => {
           if (foundMassActionLimitError) {
