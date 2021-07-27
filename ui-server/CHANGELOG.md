@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.443+20210727052500
+2021-07-27
+
+### Fixes
+
+- [2824] correction de l'affichage des erreurs dans les CR pour les actes de masse (67eb99a56c03b5ec3e816c3a1b26210dd27b9a18)
+
 ## 1.17.0-master.442+20210726140459
 2021-07-26
 
