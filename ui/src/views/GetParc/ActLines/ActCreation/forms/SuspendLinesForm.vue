@@ -34,7 +34,6 @@ import { mapState, mapGetters } from 'vuex';
 import { suspendLines } from '@/api/actCreation';
 import { searchLineById } from '@/api/linesActions';
 import { getPartyOptions } from '@/api/partners.js';
-import { formatBackErrors } from '@/utils/errors';
 
 export default {
   components: {
@@ -114,35 +113,28 @@ export default {
         tempDataUuid: contextValues.tempDataUuid,
       });
       if (response.errors && response.errors.length) {
-        let foundMassActionLimitError;
-        if (response.errors.extensions) {
-          const formatted = formatBackErrors(response.errors)
-            .map((e) => e.errors)
-            .flat();
-
-          foundMassActionLimitError = formatted.find((err) => err.value === 'MassActionLimit');
-        }
-
         response.errors.forEach((r) => {
-          if (foundMassActionLimitError) {
-            const count = r.extensions && r.extensions.limit ? r.extensions.limit : '';
-            const messageErrorMaxLine = this.$t(
-              'getparc.actCreation.report.FILE_MAX_LINE_NUMBER_INVALID',
-              {
-                count,
-              }
-            );
-            this.requestErrors = [
-              {
-                message: messageErrorMaxLine,
-              },
-            ];
-          } else {
-            this.requestErrors = [
-              {
-                message: r.message,
-              },
-            ];
+          if (r.extensions && r.extensions.error) {
+            if (r.extensions.error === 'MassActionLimit') {
+              const count = r.extensions && r.extensions.limit ? r.extensions.limit : '';
+              const messageErrorMaxLine = this.$t(
+                'getparc.actCreation.report.FILE_MAX_LINE_NUMBER_INVALID',
+                {
+                  count,
+                }
+              );
+              this.requestErrors = [
+                {
+                  message: messageErrorMaxLine,
+                },
+              ];
+            } else {
+              this.requestErrors = [
+                {
+                  message: r.message,
+                },
+              ];
+            }
           }
         });
         return { errors: response.errors };
