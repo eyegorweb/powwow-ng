@@ -119,14 +119,7 @@ export default {
       if (this.$route.name.includes('diagnosis')) return 2;
       return 0;
     },
-    ...mapGetters([
-      'userIsBO',
-      'userIsMVNO',
-      'userInfos',
-      'userIsPartner',
-      'havePermission',
-      'userIsMultiCustomer',
-    ]),
+    ...mapGetters(['userIsBO', 'userIsMVNO', 'havePermission', 'userIsMultiCustomer']),
 
     canRunCoach() {
       return (
@@ -215,13 +208,9 @@ export default {
           this.partnerOptions = await getPartyOptions(partnerId);
         }
 
-        if (this.userIsPartner || this.userInfos.type === 'PARTNER_GROUP') {
-          this.offerChangeEnabled = this.partnerOptions
-            ? this.partnerOptions.offerChangeEnabled
-            : true;
-        } else {
-          this.offerChangeEnabled = true;
-        }
+        this.offerChangeEnabled = this.partnerOptions
+          ? this.partnerOptions.offerChangeEnabled
+          : undefined;
 
         if (this.lineData.party && this.lineData.party.partyType !== 'MVNO') {
           const availableOffers = await getAvailableOffer(this.lineData.party.id, {
@@ -259,8 +248,7 @@ export default {
               icon: 'ic-Ticket-Icon',
               title: 'getparc.actCreation.carouselItem.lineDetail.CHANGE_OFFER',
               selected: false,
-              isDisable() {
-                console.log(!availableOffers.errors);
+              isDisable: () => {
                 if (
                   (availableOffers && availableOffers.length <= 1) ||
                   availableOffers.errors ||
