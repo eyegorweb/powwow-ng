@@ -201,8 +201,11 @@ export default {
 
         if (response) {
           if (response.errors && response.errors.length) {
-            this.validationErrors = { errors: response.errors, validated: response.validated };
-            this.tempDataUuid = response.tempDataUuid;
+            this.validationErrors = {
+              errors: response.errors,
+              validated: response.validationError.validated,
+            };
+            this.tempDataUuid = response.validationError.tempDataUuid;
           } else {
             this.onSuccess();
           }

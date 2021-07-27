@@ -68,7 +68,6 @@ import { changeOffer } from '@/api/actCreation';
 
 import { getOfferOption } from '@/api/partners.js';
 import { getMarketingOfferServices } from '@/components/Services/utils.js';
-import { formatBackErrors } from '@/utils/errors';
 
 export default {
   components: {
@@ -195,44 +194,37 @@ export default {
         !this.canChangeServices
       );
       if (response.errors && response.errors.length) {
-        let foundMassActionLimitError;
-        if (response.errors.extensions) {
-          const formatted = formatBackErrors(response.errors)
-            .map((e) => e.errors)
-            .flat();
-
-          foundMassActionLimitError = formatted.find((err) => err.value === 'MassActionLimit');
-        }
-
         response.errors.forEach((r) => {
-          if (foundMassActionLimitError) {
-            const count = r.extensions && r.extensions.limit ? r.extensions.limit : '';
-            const messageErrorMaxLine = this.$t(
-              'getparc.actCreation.report.FILE_MAX_LINE_NUMBER_INVALID',
-              {
-                count,
-              }
-            );
-            this.requestErrors = [
-              {
-                message: messageErrorMaxLine,
-              },
-            ];
-          } else if (
-            r.extensions.sourceWorkflowID === 'LONG_LIFE_NOT_ALLOWED' ||
-            r.extensions.targetWorkflowID === 'LONG_LIFE_NOT_ALLOWED'
-          ) {
-            this.requestErrors = [
-              {
-                message: this.$t('getparc.actCreation.errors.workflow.LONG_LIFE_NOT_ALLOWED'),
-              },
-            ];
-          } else {
-            this.requestErrors = [
-              {
-                message: r.message,
-              },
-            ];
+          if (r.extensions) {
+            if (r.extensions.error && r.extensions.error === 'MassActionLimit') {
+              const count = r.extensions && r.extensions.limit ? r.extensions.limit : '';
+              const messageErrorMaxLine = this.$t(
+                'getparc.actCreation.report.FILE_MAX_LINE_NUMBER_INVALID',
+                {
+                  count,
+                }
+              );
+              this.requestErrors = [
+                {
+                  message: messageErrorMaxLine,
+                },
+              ];
+            } else if (
+              r.extensions.sourceWorkflowID === 'LONG_LIFE_NOT_ALLOWED' ||
+              r.extensions.targetWorkflowID === 'LONG_LIFE_NOT_ALLOWED'
+            ) {
+              this.requestErrors = [
+                {
+                  message: this.$t('getparc.actCreation.errors.workflow.LONG_LIFE_NOT_ALLOWED'),
+                },
+              ];
+            } else {
+              this.requestErrors = [
+                {
+                  message: r.message,
+                },
+              ];
+            }
           }
         });
         return { errors: response.errors };
