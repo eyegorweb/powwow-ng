@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.446+20210727143709
+2021-07-27
+
+### Fixes
+
+- [2849] correction de l'activation du changement d'offre dans le carousel du détail d'une ligne (2c7ab1dd9eddec3eef3e5d8788a5552b865ed846)
+
 ## 1.17.0-master.445+20210727103258
 2021-07-27
 
