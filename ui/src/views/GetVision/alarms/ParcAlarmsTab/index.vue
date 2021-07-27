@@ -183,7 +183,7 @@ export default {
         {
           id: 10,
           label: this.$t('getparc.lineDetail.offer'),
-          name: 'autoPositionWorkflow',
+          name: 'offer',
           orderable: true,
           visible: false,
           format: {
@@ -194,7 +194,7 @@ export default {
         {
           id: 11,
           label: this.$t('common.billingAccount'),
-          name: 'autoPositionCustAccount',
+          name: 'cf',
           orderable: true,
           visible: false,
           format: {
