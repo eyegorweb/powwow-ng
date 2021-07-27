@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.444+20210727080108
+2021-07-27
+
+### Fixes
+
+- [2778] correction du tri  par offre et par compte de facturation de la table des alarmes (524fa91d1df87483584df92274719801f9b0efa5)
+
 ## 1.17.0-master.443+20210727052500
 2021-07-27
 
