@@ -462,11 +462,12 @@ export default {
       this.rows = data.items;
     },
     getExportFn() {
-      return async (columnsParam, orderBy, exportFormat) => {
+      return async (columnsParam, orderBy, exportFormat, asyncExportRequest) => {
         return await exportDevices(
           columnsParam,
           this.orderBy,
           exportFormat,
+          asyncExportRequest,
           this.currentAppliedFilters
         );
       };
