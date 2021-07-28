@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.448+20210728093159
+2021-07-28
+
+### Fixes
+
+- [2838] correction de l'export getdevice en mode asynchrone (f8ef5bdbd0b95565815957f7a87a25466ca3cb1d)
+
 ## 1.17.0-master.447+20210728075821
 2021-07-28
 
