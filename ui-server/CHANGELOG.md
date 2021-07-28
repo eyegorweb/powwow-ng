@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.447+20210728075821
+2021-07-28
+
+### Fixes
+
+- [2791] ajout de la modification des rôles/permissions webservices dans le volet utilisateur (7a33229dca6ea591ce9fd2630e6596d1182ad480)
+
 ## 1.17.0-master.446+20210727143709
 2021-07-27
 
