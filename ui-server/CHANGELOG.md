@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.449+20210728120800
+2021-07-28
+
+### Fixes
+
+- [2829] correction de l'alignement à gauche de la table encours de consommation (0c91696cea2212e60f0c8f393efdded7dc18e174)
+
 ## 1.17.0-master.448+20210728093159
 2021-07-28
 
