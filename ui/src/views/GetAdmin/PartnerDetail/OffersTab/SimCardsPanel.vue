@@ -121,10 +121,12 @@ export default {
 
     this.simCards = await this.fetchPartnerSim(this.pagination);
     this.visibleSimCards = [...this.simCards];
-    this.blocsHeight =
-      (parseFloat(getComputedStyle(this.$refs.checkboxBloc[1]).height.replace('px', '')) +
-        CHECKBOX_MARGIN) *
-      this.visibleSimCards.length;
+    if (this.$refs.checkboxBloc) {
+      this.blocsHeight =
+        (parseFloat(getComputedStyle(this.$refs.checkboxBloc[1]).height.replace('px', '')) +
+          CHECKBOX_MARGIN) *
+        this.visibleSimCards.length;
+    }
   },
 
   methods: {
