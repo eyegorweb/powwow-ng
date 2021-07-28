@@ -134,7 +134,13 @@
       <div>
         <div class="rolesType">
           <h4 :class="{ active: !showWebservices }" @click="showWebservices = false">ROLES</h4>
-          <h4 :class="{ active: showWebservices }" @click="showWebservices = true" v-if="haveWsPermission && rolesWs.length > 0 ">WEBSERVICES</h4>
+          <h4
+            :class="{ active: showWebservices }"
+            @click="showWebservices = true"
+            v-if="haveWsPermission && rolesWs.length > 0"
+          >
+            WEBSERVICES
+          </h4>
         </div>
         <div class="overview-item mr-5" v-if="!canShowRoles">
           <h6 v-if="userType === 'PARTNER'">{{ $t('getparc.actLines.step1Partner') }}</h6>
@@ -143,11 +149,26 @@
           </h6>
         </div>
         <div v-else>
-          <MultiChoices class="roles" :options="roles" v-model="selectedRoles" v-if="!showWebservices" />
+          <MultiChoices
+            class="roles"
+            :options="roles"
+            v-model="selectedRoles"
+            v-if="!showWebservices"
+          />
           <h3 v-if="rolesWsActions && showWebservices">Actions</h3>
-          <MultiChoices class="roles" :options="rolesWsActions" v-model="selectedRolesWsActions" v-if="showWebservices && rolesWs.length > 0 && haveWsPermission" />
+          <MultiChoices
+            class="roles"
+            :options="rolesWsActions"
+            v-model="selectedRolesWsActions"
+            v-if="showWebservices && rolesWs.length > 0 && haveWsPermission"
+          />
           <h3 v-if="rolesWsConsultation && showWebservices">Consultation</h3>
-          <MultiChoices class="roles" :options="rolesWsConsultation" v-model="selectedRolesWsConsultation" v-if="showWebservices && rolesWs.length > 0 && haveWsPermission" />
+          <MultiChoices
+            class="roles"
+            :options="rolesWsConsultation"
+            v-model="selectedRolesWsConsultation"
+            v-if="showWebservices && rolesWs.length > 0 && haveWsPermission"
+          />
         </div>
       </div>
     </div>
@@ -283,8 +304,7 @@ export default {
     ...mapMutations(['flashMessage', 'closePanel', 'openPanel', 'confirmAction']),
 
     isEmailValid(email) {
-      var re =
-        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       return re.test(email);
     },
 
@@ -320,7 +340,7 @@ export default {
 
     async save() {
       let lang = this.fetchLanguages.find((e) => e.label === this.form.language);
-      let wsRoles = this.selectedRolesWsActions.concat(selectedRolesWsConsultation);
+      let wsRoles = this.selectedRolesWsActions.concat(this.selectedRolesWsConsultation);
       const params = {
         title: this.form.title,
         language: lang ? lang.language : this.userDefaultLanguage,
@@ -410,11 +430,11 @@ export default {
     ]),
 
     rolesWsActions() {
-      return this.rolesWs.filter(e => e.data.category = 2);
+      return this.rolesWs.filter((e) => (e.data.category = 2));
     },
 
     rolesWsConsultation() {
-      return this.rolesWs.filter(e => e.data.category = 1);
+      return this.rolesWs.filter((e) => (e.data.category = 1));
     },
 
     haveWsPermission() {
