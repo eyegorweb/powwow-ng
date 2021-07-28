@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.450+20210728125556
+2021-07-28
+
+### Fixes
+
+- [2786] correction de la gestion des offres pour le détail d'un partenaire (049b417ef8d10342165e067e12a7bf605658eae5)
+
 ## 1.17.0-master.449+20210728120800
 2021-07-28
 
