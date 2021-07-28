@@ -71,19 +71,16 @@ export default {};
     font-size: 1.4rem;
     font-weight: 300;
     line-height: 40px;
-    text-align: right;
   }
   li:nth-child(2) {
     color: $blue;
     font-size: 1rem;
     line-height: 1.4rem;
-    text-align: right;
   }
   li:nth-child(3) {
     color: $accent;
     font-size: 1rem;
     line-height: 1.4rem;
-    text-align: right;
   }
 }
 .partnerTypeMVNO .content-cell {
@@ -92,7 +89,6 @@ export default {};
     font-size: 1.4rem;
     font-weight: 300;
     line-height: 40px;
-    text-align: right;
   }
   li.total-value {
     font-size: 1.4rem;
@@ -103,7 +99,6 @@ export default {};
   li.value-line {
     font-size: 1rem;
     line-height: 1.4rem;
-    text-align: right;
   }
 }
 
@@ -112,11 +107,6 @@ export default {};
   color: $dark-gray;
   font-weight: 600;
   line-height: 40px;
-  text-align: right;
-}
-
-.table thead th {
-  text-align: right;
 }
 
 .partnerTypeMVNO tr td:nth-child(2) {
