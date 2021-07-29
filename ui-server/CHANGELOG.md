@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.451+20210729124941
+2021-07-29
+
+### Fixes
+
+- [2852] correction de la commande de SIM de type R-CARD (47430df2042ef0d57aa756079ba7809c94a07e77)
+
 ## 1.17.0-master.450+20210728125556
 2021-07-28
 
