@@ -36,24 +36,32 @@ export default {
       },
     },
     formattedOffers() {
-      return this.offers.map((i) => {
-        let workflowIsNotCompatible = false;
-        if (this.isRcard) {
-          workflowIsNotCompatible = !i.rCard;
-        }
+      return this.offers
+        .map((i) => {
+          let workflowIsNotCompatible = false;
+          if (this.isRcard) {
+            workflowIsNotCompatible = !i.rCard;
+          }
 
-        return {
-          code: i.code,
-          id: i.id,
-          initialOffer: i.initialOffer,
-          label: !workflowIsNotCompatible
-            ? i.workflowDescription
-            : `${i.initialOffer.description}${this.$t('services.compatibility')}`,
-          value: i.value,
-          disabled: workflowIsNotCompatible,
-          workflowDescription: i.workflowDescription,
-        };
-      });
+          return {
+            code: i.code,
+            id: i.id,
+            initialOffer: i.initialOffer,
+            label: !workflowIsNotCompatible
+              ? i.workflowDescription
+              : `${i.initialOffer.description}${this.$t('services.compatibility')}`,
+            value: i.value,
+            disabled: workflowIsNotCompatible,
+            workflowDescription: i.workflowDescription,
+            rCard: i.rCard,
+          };
+        })
+        .filter((o) => {
+          if (this.isRcard) {
+            return o.rCard;
+          }
+          return o;
+        });
     },
   },
   components: {
