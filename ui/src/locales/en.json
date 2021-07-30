@@ -1857,7 +1857,7 @@
     },
     "manufacturerIMEI": "Manufacturer (IMEI)",
     "frequency": "Frequency",
-    "lastCountry": "Last country (old PLMN)",
+    "lastCountry": "Last country",
     "import": "Import",
     "line": "Line"
   },

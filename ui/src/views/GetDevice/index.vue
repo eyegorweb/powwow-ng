@@ -73,6 +73,7 @@
 
             <div slot="topRight">
               <ExportButton
+                v-if="total > 0"
                 :export-fn="getExportFn()"
                 :columns="orderedColumns"
                 :order-by="orderBy"
@@ -429,7 +430,6 @@ export default {
       this.filters = this.filters.filter((f) => f.title !== partnerFilterID);
     },
     async resetFilters() {
-      console.log('reset filters');
       this.searchByIdValue = undefined;
       await this.applyFilters();
     },
@@ -440,7 +440,6 @@ export default {
       };
       this.isLoading = true;
       const data = await getDevices(undefined, pagination, filters);
-      console.log('apply filters: response >>>>>>>>>', data);
       this.isLoading = false;
       this.total = data.total;
       this.rows = data.items;
@@ -642,7 +641,7 @@ export default {
       return this.userInfos.type === 'OPERATOR' || this.userInfos.type === 'PARTNER_GROUP';
     },
     canShowPLMNColumn() {
-      return this.userIsBO && this.havePermission('getVision', 'read');
+      return this.havePermission('getVision', 'read');
     },
   },
 };

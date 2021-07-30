@@ -250,6 +250,10 @@ export default {
 
       return false;
     },
+
+    canShowPLMNColumn() {
+      return this.havePermission('getVision', 'read');
+    },
   },
   methods: {
     ...mapActions('actLines', ['fetchLinesActionsFromApi', 'initFilterForContext']),
@@ -573,6 +577,9 @@ export default {
           name: 'lastCountry',
           orderable: false,
           visible: false,
+          visibleWhen: () => {
+            return this.canShowPLMNColumn;
+          },
         },
         {
           id: 10,
