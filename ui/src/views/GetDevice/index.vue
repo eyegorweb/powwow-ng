@@ -492,12 +492,17 @@ export default {
 
       this.chartOptions = {
         chart: {
-          type: 'variablepie',
+          type: 'pie',
           height: 200,
         },
         plotOptions: {
-          variablepie: {
-            size: 90,
+          pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+              enabled: false,
+            },
+            showInLegend: true,
           },
         },
         title: {
@@ -512,7 +517,6 @@ export default {
         },
         series: [
           {
-            innerSize: '70%',
             zMin: 0,
             name: 'Zone',
             data: formatedData,
@@ -591,12 +595,17 @@ export default {
 
       this.chartOptions3 = {
         chart: {
-          type: 'variablepie',
+          type: 'pie',
           height: 200,
         },
         plotOptions: {
-          variablepie: {
-            size: 90,
+          pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+              enabled: false,
+            },
+            showInLegend: true,
           },
         },
         title: {
@@ -611,7 +620,6 @@ export default {
         },
         series: [
           {
-            innerSize: '70%',
             zMin: 0,
             name: 'Zone',
             data: formatedData,
