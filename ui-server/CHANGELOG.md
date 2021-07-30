@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.455+20210730134048
+2021-07-30
+
+### Fixes
+
+- [2856] mise à jour des libellés dans getdevice (634f0c3e5c898a8dcd57275823f3314c5348f7f8)
+
 ## 1.17.0-master.454+20210730131520
 2021-07-30
 
