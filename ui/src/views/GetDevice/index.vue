@@ -428,9 +428,10 @@ export default {
     getVisibleFilters(partnerFilterID) {
       this.filters = this.filters.filter((f) => f.title !== partnerFilterID);
     },
-    resetFilters() {
+    async resetFilters() {
+      console.log('reset filters');
       this.searchByIdValue = undefined;
-      this.applyFilters();
+      await this.applyFilters();
     },
     async applyFilters(payload) {
       const { pagination, filters } = payload || {
@@ -439,6 +440,7 @@ export default {
       };
       this.isLoading = true;
       const data = await getDevices(undefined, pagination, filters);
+      console.log('apply filters: response >>>>>>>>>', data);
       this.isLoading = false;
       this.total = data.total;
       this.rows = data.items;
@@ -457,13 +459,15 @@ export default {
       }
     },
     async searchById(params) {
+      if (!params.value) {
+        await this.resetFilters();
+        return;
+      }
       this.searchByIdValue = params.value;
 
       this.isLoading = true;
       const data = await getDevices(undefined, { page: 0, limit: 10 }, [params]);
-
       this.isLoading = false;
-
       this.total = data.total;
       this.rows = data.items;
     },

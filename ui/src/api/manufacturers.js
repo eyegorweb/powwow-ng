@@ -1,5 +1,9 @@
 import { query, getValuesIdsWithoutQuotes } from './utils';
 
+function trim(value) {
+  return ('' + value).trim();
+}
+
 export async function getManufacturers(q, orderBy, pagination) {
   const orderingInfo = orderBy ? `, sorting: {${orderBy.key}: ${orderBy.direction}}` : '';
   const paginationInfo = pagination
@@ -157,20 +161,20 @@ function addIdsFilter(gqlFilters, selectedFilters) {
   const imei = selectedFilters.find((f) => f.id === 'filters.imei');
   const msisdnA = selectedFilters.find((f) => f.id === 'filters.msisdnA');
 
-  if (iccid) {
-    gqlFilters.push(`iccid: {eq: "${iccid.value}"}`);
+  if (iccid && iccid.value) {
+    gqlFilters.push(`iccid: {eq: "${trim(iccid.value)}"}`);
   }
-  if (imsi) {
-    gqlFilters.push(`imsi: {eq: "${imsi.value}"}`);
+  if (imsi && imsi.value) {
+    gqlFilters.push(`imsi: {eq: "${trim(imsi.value)}"}`);
   }
-  if (msisdn) {
-    gqlFilters.push(`msisdn: {eq: "${msisdn.value}"}`);
+  if (msisdn && msisdn.value) {
+    gqlFilters.push(`msisdn: {eq: "${trim(msisdn.value)}"}`);
   }
-  if (imei) {
-    gqlFilters.push(`imei: {eq: "${imei.value}"}`);
+  if (imei && imei.value) {
+    gqlFilters.push(`imei: {eq: "${trim(imei.value)}"}`);
   }
-  if (msisdnA) {
-    gqlFilters.push(`msisdnA: {eq: "${msisdnA.value}"}`);
+  if (msisdnA && msisdnA.value) {
+    gqlFilters.push(`msisdnA: {eq: "${trim(msisdnA.value)}"}`);
   }
 }
 
