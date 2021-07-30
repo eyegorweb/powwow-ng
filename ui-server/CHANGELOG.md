@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.452+20210730085536
+2021-07-30
+
+### Fixes
+
+- [2855] suppression du filtre partenaire pour un utilisateur partenaire dans getdevice (31be02421dcc9b46e1380a158bf3e0ca1b745347)
+
 ## 1.17.0-master.451+20210729124941
 2021-07-29
 
