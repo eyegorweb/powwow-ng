@@ -419,9 +419,15 @@ export default {
     };
   },
   mounted() {
+    if (this.userIsPartner) {
+      this.getVisibleFilters('getdevice.partners');
+    }
     this.applyFilters();
   },
   methods: {
+    getVisibleFilters(partnerFilterID) {
+      this.filters = this.filters.filter((f) => f.title !== partnerFilterID);
+    },
     resetFilters() {
       this.searchByIdValue = undefined;
       this.applyFilters();
@@ -618,7 +624,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['userInfos', 'userIsBO', 'havePermission']),
+    ...mapGetters(['userInfos', 'userIsBO', 'havePermission', 'userIsPartner']),
 
     canShowPartnerColumn() {
       return this.userInfos.type === 'OPERATOR' || this.userInfos.type === 'PARTNER_GROUP';
