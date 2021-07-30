@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.453+20210730094217
+2021-07-30
+
+### Fixes
+
+- [2858] modification du graphe camembert de getdevice (714dc216da0839d4c40f10675d0c57e1e300c58a)
+
 ## 1.17.0-master.452+20210730085536
 2021-07-30
 
