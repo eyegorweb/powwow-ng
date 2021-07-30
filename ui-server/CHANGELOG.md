@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.454+20210730131520
+2021-07-30
+
+### Fixes
+
+- [2857] correction de la barre de recherche de getdevice (18459a7f4ff9f19eff296c0f7cbf1758350e5444)
+
 ## 1.17.0-master.453+20210730094217
 2021-07-30
 
