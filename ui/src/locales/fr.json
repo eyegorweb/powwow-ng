@@ -516,7 +516,7 @@
     "tab-3-conso-energy": "Conso énergétique",
     "tab-4-google-device": "Google device",
     "graphes": {
-      "title-graph-top5-manufacturers": "Top 5 Fabriquant",
+      "title-graph-top5-manufacturers": "Top 5 Constructeur",
       "title-graph-techno-repartition": "Nombre de lignes par techno",
       "title-graph-top5-references": "Top 5 Références Commerciales"
     },
@@ -1986,7 +1986,7 @@
         "lastPLMN": "Dernier pays",
         "msisdnA": "A-MSISDN",
         "manufacturer": "Constructeur",
-        "deviceReference": "Modèle (IMEI)",
+        "deviceReference": "Réf. Commerciale (IMEI)",
         "commercialRef": "Réf. Commerciale",
         "offer": "Offre",
         "lineStatus": "Statut de la ligne",
@@ -2035,10 +2035,10 @@
     "billingAccount": "Compte de facturation",
     "customFields": "Champ libre {num}",
     "specificFields": "Champ spécifique {num}",
-    "manufacturerIMEI": "Fabricant (IMEI)",
+    "manufacturerIMEI": "Constructeur (IMEI)",
     "frequency": "Fréquence",
     "freqTheo": "Fréquences théoriques",
-    "lastCountry": "Dernier pays (ancien PLMN)",
+    "lastCountry": "Dernier pays",
     "statuses": {
       "NOT_VALIDATED": "Non validée",
       "VALIDATED": "Validée",
