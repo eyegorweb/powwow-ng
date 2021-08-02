@@ -497,6 +497,11 @@ export default {
         chart: {
           type: 'pie',
           height: 200,
+          marginTop: 0,
+          spacingBottom: 0,
+        },
+        legend: {
+          margin: 0,
         },
         plotOptions: {
           pie: {
@@ -510,6 +515,7 @@ export default {
         },
         title: {
           text: '',
+          marrgin: 0,
         },
         tooltip: {
           headerFormat: '',
@@ -600,6 +606,11 @@ export default {
         chart: {
           type: 'pie',
           height: 200,
+          marginTop: 0,
+          spacingBottom: 0,
+        },
+        legend: {
+          margin: 0,
         },
         plotOptions: {
           pie: {
@@ -613,6 +624,7 @@ export default {
         },
         title: {
           text: '',
+          marrgin: 0,
         },
         tooltip: {
           headerFormat: '',
