@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.456+20210802133545
+2021-08-02
+
+### Fixes
+
+- [000] lint (c95a4ddc81f8dd38ff7d6510a66030a2a3c45d39)
+- [2858] réduction des marges des graphes de type camembert de getdevice (17c8e1c54c9d62d7323ee794c7ee3f034a484941)
+
 ## 1.17.0-master.455+20210730134048
 2021-07-30
 
