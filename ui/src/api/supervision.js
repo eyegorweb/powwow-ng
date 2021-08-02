@@ -95,11 +95,7 @@ export async function fetchCockpitMarkers(filters) {
   }
 }
 
-export async function fetchLinesForCounter(
-  filters,
-  pagination = { limit: 10, page: 0 },
-  sorting
-) {
+export async function fetchLinesForCounter(filters, pagination = { limit: 10, page: 0 }, sorting) {
   const queryStr = `query GeoCounterList($filter: GeolocCounterFilterInput!, $pagination: Pagination!, $sorting: GeolocListSorting!) {
     geoCounterList(filter: $filter, pagination: $pagination, sorting: $sorting) {
     msisdn
@@ -333,7 +329,7 @@ export async function fetchDataForCities(usageType, bounds, filters = {}) {
   });
 }
 
-export async function fetchDataForAlarms() { }
+export async function fetchDataForAlarms() {}
 
 export async function fetchFrenchRegionsData(usageType, bounds, filters = {}) {
   return geoMap({

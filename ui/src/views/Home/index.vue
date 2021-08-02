@@ -23,7 +23,7 @@ import Messages from './Messages';
 export default {
   components: {
     HomePageDragDropGrid,
-    Messages
+    Messages,
   },
   computed: {
     ...mapGetters('userContext', ['contextFilters']),

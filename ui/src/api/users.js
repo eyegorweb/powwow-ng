@@ -11,7 +11,8 @@ export async function fetchAllowedRoles(userId, partyId, partyGroupId, ws) {
     partyParam = `partyId: ${partyId},`;
   }
   const queryStr = `query {
-    userAllowedRolesV2(userId: ${userId}, wsFilter: {eq: ${ws || false}}, ${partyParam} ${partyGroupParam}) {
+    userAllowedRolesV2(userId: ${userId}, wsFilter: {eq: ${ws ||
+    false}}, ${partyParam} ${partyGroupParam}) {
       Id
       name
       description

@@ -30,7 +30,7 @@
                 :key="'form_fr'"
                 v-if="currentTabToShow === 0"
                 :locale="tabs[currentTabToShow].section"
-                :messageToEdit="messageToEdit"
+                :message-to-edit="messageToEdit"
               />
             </keep-alive>
             <keep-alive>
@@ -38,17 +38,11 @@
                 :key="'form_en'"
                 v-if="currentTabToShow === 1"
                 :locale="tabs[currentTabToShow].section"
-                :messageToEdit="messageToEdit"
+                :message-to-edit="messageToEdit"
               />
             </keep-alive>
           </div>
         </template>
-      </div>
-    </div>
-  </div>
-</template>
-
-
       </div>
     </div>
   </div>
@@ -65,7 +59,7 @@ export default {
   components: {
     UiTabs,
     UiTab,
-    MessageForm
+    MessageForm,
   },
 
   data() {
@@ -75,21 +69,23 @@ export default {
       tabs: [
         {
           section: 'fr',
-          title: 'Français'
+          title: 'Français',
         },
         {
           section: 'en',
-          title: 'English'
+          title: 'English',
         },
       ],
-      messageToEdit: undefined
-    }
+      messageToEdit: undefined,
+    };
   },
 
   async mounted() {
     if (this.$loGet(this.$route, 'params.id')) {
       const messages = await fetchEventMessages();
-      this.messageToEdit = messages.find(m => '' + m.id === '' + this.$loGet(this.$route, 'params.id'));
+      this.messageToEdit = messages.find(
+        (m) => '' + m.id === '' + this.$loGet(this.$route, 'params.id')
+      );
       if (this.messageToEdit && this.messageToEdit.locale === 'en') {
         this.currentTabToShow = 1;
       }
@@ -99,7 +95,7 @@ export default {
       });
     }
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -108,5 +104,4 @@ export default {
     color: $primary !important;
   }
 }
-
 </style>

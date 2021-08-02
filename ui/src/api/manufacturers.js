@@ -178,7 +178,13 @@ function addIdsFilter(gqlFilters, selectedFilters) {
   }
 }
 
-export async function exportDevices(columns, orderBy, exportFormat, asyncExportRequest = false, filters = []) {
+export async function exportDevices(
+  columns,
+  orderBy,
+  exportFormat,
+  asyncExportRequest = false,
+  filters = []
+) {
   const columnsParam = columns.join(',');
   const orderingInfo = orderBy ? `, sorting: {${orderBy.key}: ${orderBy.direction}}` : '';
   let asyncExportRequestParam = '';

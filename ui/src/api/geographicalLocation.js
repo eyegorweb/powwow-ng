@@ -40,7 +40,7 @@ export async function exportAccessPointsByLocalisation(
   if (asyncExportRequest) {
     asyncExportRequestParam = `, asyncExportRequest: ${asyncExportRequest}`;
   }
-  
+
   const response = await query(
     `
     query {

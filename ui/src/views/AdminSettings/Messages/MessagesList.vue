@@ -37,9 +37,7 @@
 </template>
 
 <script>
-
 import { fetchEventMessages, deleteEventMessage } from '@/api/eventMessages.js';
-import Truncate from '@/components/ui/Truncate';
 
 import { mapMutations } from 'vuex';
 
@@ -48,14 +46,10 @@ export default {
     this.refreshList();
   },
 
-  components: {
-    Truncate,
-  },
-
   data() {
     return {
-      items: []
-    }
+      items: [],
+    };
   },
 
   methods: {
@@ -66,20 +60,16 @@ export default {
     },
 
     async deleteMessage(id) {
-
       this.confirmAction({
         message: 'confirm',
         actionFn: async () => {
-          const response = await deleteEventMessage(id);
+          await deleteEventMessage(id);
           this.refreshList();
         },
       });
-    }
+    },
   },
-
-}
+};
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>
