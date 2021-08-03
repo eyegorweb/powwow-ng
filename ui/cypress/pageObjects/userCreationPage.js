@@ -1,6 +1,6 @@
 export default {
   selectUserType(index) {
-    cy.waitGet('.user-types > div.item > button:nth-child(' + index + ')').click();
+    cy.waitGet('.user-types > div.item > button:nth-child(' + index + ')').click({ force: true });
   },
   selectGender(index) {
     cy.waitGet('.gender > label:nth-child(' + index + ') > span').click();
@@ -16,7 +16,7 @@ export default {
   typePartnerGroup(partnerGroup) {
     cy.waitGet('.partner-group > fieldset > input').type(partnerGroup);
     cy.wait(400);
-    cy.waitGet('.autocomplete-result:first-child').click();
+    cy.waitGet('.autocomplete-result:first-child').click({ force: true });
   },
   typeFirstname(firstname) {
     cy.waitGet('.firstname > input')
@@ -25,7 +25,7 @@ export default {
   },
   typeLastname(lastname) {
     cy.waitGet('.lastname > input')
-      .clear()
+      .clear({ force: true })
       .type(lastname);
   },
   typeEmail(email) {

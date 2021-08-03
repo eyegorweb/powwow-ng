@@ -51,7 +51,7 @@ export default {
   },
   panel: {
     closePanel() {
-      cy.waitGet('.cd-panel__header > a').click();
+      cy.waitGet('.cd-panel__close').click({ force: true });
     },
     isVisible() {
       cy.waitGet('.cd-panel').should('have.class', 'cd-panel--is-visible');

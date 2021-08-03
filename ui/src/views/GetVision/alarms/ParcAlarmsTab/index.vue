@@ -28,7 +28,12 @@
       <div slot="topRight" class="mt-2">
         <div class="row d-flex flex-row-reverse">
           <div class="col-md-6">
-            <UiButton variant="secondary" block class="float-right" @click="createAlarm()">
+            <UiButton
+              variant="secondary"
+              block
+              class="float-right create-alarm-btn"
+              @click="createAlarm()"
+            >
               <i class="select-icon ic-Amplifier-Icon" />
               {{ $t('getvsion.table.create-alarm') }}
             </UiButton>

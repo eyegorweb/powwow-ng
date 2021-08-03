@@ -15,6 +15,10 @@ export default {
   filterBar: {
     apply: filterBarSelectors.applySearch,
 
+    showAllTypes() {
+      cy.waitGet('a.show-all-types').click({ force: true });
+    },
+
     partner: new MultiSelectFilter(1),
     compteFacturation: new MultiSelectFilter(2),
     dateReservation: new MultiSelectFilter(3),

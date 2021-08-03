@@ -99,4 +99,5 @@ Then(`les noms doivent apparaitre en regard des toggles`, () => {
   orderCreationPanel.getServicesNames((services) => {
     expect(services.length).to.be.greaterThan(0);
   });
+  orderCreationPanel.close();
 });

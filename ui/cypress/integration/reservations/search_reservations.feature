@@ -5,6 +5,7 @@ Feature: Recherche de reservations
   Scenario: Recherche avec tous les filtres actives
     Given en tant que BO
     And Je suis sur la page des reservations
+    #And J'ouvre tous les filtres
     And Je choisis le filtre partenaire "LYRA"
     And Je ferme le filtre partenaire
     And Je choisis le filtre quantite "0" a "3"

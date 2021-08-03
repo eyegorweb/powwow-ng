@@ -9,6 +9,7 @@ Feature: detail des lignes
     And j'ouvre le panneau de détail de la ligne
     When je clique sur voir l'en-cours
     Then la table de l'en-cours existe
+    And Je clique sur le bouton "Retour"
 
   Scenario: je veux verifier l'en cours d'une ligne non-activée
     Given en tant que BO
@@ -17,6 +18,7 @@ Feature: detail des lignes
     And j'ouvre le panneau de détail de la ligne
     When je clique sur voir l'en-cours
     Then la table de l'en-cours n'existe pas
+    And Je clique sur le bouton "Retour"
 
   Scenario: Verification de la navigation entre les differents onglets dans le detail d'une ligne
     Given en tant que BO
@@ -25,6 +27,7 @@ Feature: detail des lignes
     And j'ouvre le panneau de détail de la ligne
     When Je clique sur "Voir le detail de la ligne"
     Then Je peux naviguer entre les differents onglets
+    And Je clique sur le bouton "Retour"
 
   Scenario: Verification du clickable des boutons dans le detail d'une ligne activee
     Given en tant que BO
@@ -33,6 +36,7 @@ Feature: detail des lignes
     And j'ouvre le panneau de détail de la ligne
     When Je clique sur "Voir le detail de la ligne"
     Then Je peux cliquer sur les boutons et les panneaux s'ouvrent
+    And Je clique sur le bouton "Retour"
 
   Scenario: Verification du non clickable des boutons dans le detail d'une ligne non activee
     Given en tant que BO
@@ -41,6 +45,7 @@ Feature: detail des lignes
     And j'ouvre le panneau de détail de la ligne
     When Je clique sur "Voir le detail de la ligne"
     Then Je verifie que les boutons ne sont pas clickable
+    And Je clique sur le bouton "Retour"
 
   Scenario: Verification de la presence du tableau de consommation dans le detail d'une ligne activee
     Given en tant que BO
@@ -49,6 +54,7 @@ Feature: detail des lignes
     And j'ouvre le panneau de détail de la ligne
     When Je clique sur "Voir le detail de la ligne"
     Then Le tableau de consommation est present dans l'onglet "EN COURS DE CONSOMMATION"
+    And Je clique sur le bouton "Retour"
 
   Scenario: Verification de la navigation entre les differents menus dans l'onglet d'analyse d'une ligne activee
     Given en tant que BO
@@ -57,6 +63,7 @@ Feature: detail des lignes
     And j'ouvre le panneau de détail de la ligne
     When Je clique sur "Voir le detail de la ligne"
     Then Je peux cliquer sur les differents menus de l'onglet d'analyse
+    And Je clique sur le bouton "Retour"
 
   Scenario: Verification de la presence du message d'avertissement dans les onglets de consommation et d'analyse dans le detail d'une ligne non activee
     Given en tant que BO
@@ -65,6 +72,7 @@ Feature: detail des lignes
     And j'ouvre le panneau de détail de la ligne
     When Je clique sur "Voir le detail de la ligne"
     Then Le message d'avertissement est present dans les onglets de consommation et d'analyse
+    And Je clique sur le bouton "Retour"
 
   Scenario: Verification du changement de carte SIM
     Given en tant que BO
@@ -76,6 +84,7 @@ Feature: detail des lignes
     And Je rentre le nouvel ICCID "8933209519078857391"
     When Je clique sur le bouton "Appliquer"
     Then Je confirme le changement
+    And Je clique sur le bouton "Retour"
 
   Scenario: Verification du changement de MSISDN
     Given en tant que BO
@@ -87,6 +96,7 @@ Feature: detail des lignes
     And Je rentre le nouvel MSISDN "337000039585078"
     When Je clique sur le bouton "Appliquer"
     Then Je confirme le changement
+    And Je clique sur le bouton "Retour"
 
   Scenario: Verification du changement de CF
     Given en tant que BO
@@ -98,6 +108,7 @@ Feature: detail des lignes
     And Je selectionne le compte "TEST - 6.42661"
     When Je clique sur le bouton "Appliquer"
     Then Je confirme le changement
+    And Je clique sur le bouton "Retour"
 
   # Bouton Changer d'offre désactivé
   #Scenario: Verification du changement d'offre
@@ -120,6 +131,7 @@ Feature: detail des lignes
     And Je clique sur "Liste des alarmes"
     When Je clique sur "Oui" dans la deuxieme ligne dans la colonne "Declenchement"
     Then Le panneau s'est ouvert
+    And Je clique sur le bouton "Retour"
 
   Scenario: Ouverture de la modification d'alarme en cliquant sur l'ID d'une alarme
     Given en tant que BO
@@ -130,6 +142,7 @@ Feature: detail des lignes
     And Je clique sur "Liste des alarmes"
     When Je clique sur l'ID de la premiere alarme
     Then Le panneau s'est ouvert
+    And Je clique sur le bouton "Retour"
 
   Scenario: Ouverture de la creation d'alarme
     Given en tant que BO
@@ -140,6 +153,7 @@ Feature: detail des lignes
     And Je clique sur "Liste des alarmes"
     When Je clique sur "Creer une alarme"
     Then Le panneau s'est ouvert
+    And Je clique sur le bouton "Retour"
 
   Scenario: Ouverture de l'acte de masse d'un acte de gestion
     Given en tant que BO
@@ -150,6 +164,7 @@ Feature: detail des lignes
     And Je clique sur "Suivi pilotage des actes de gestion"
     When Je clique sur l'acte de masse de la premiere ligne
     Then Le panneau s'est ouvert
+    And Je clique sur le bouton "Retour"
 
   Scenario: Ouverture de la page de l'acte de gestion en cliquant sur "Voir le resultat de l'acte" dans le panneau
     Given en tant que BO
@@ -161,6 +176,7 @@ Feature: detail des lignes
     When Je clique sur l'acte de masse de la premiere ligne
     And Je clique sur "Voir le resultat de l'acte"
     Then La page de l'acte de gestion s'est ouverte
+    And Je clique sur le bouton "Retour"
 
   Scenario: Ouverture de la page de détail d'un acte de gestion puis retour sur le détail de ligne après avoir cliquer sur le bouton retour
     Given en tant que BO

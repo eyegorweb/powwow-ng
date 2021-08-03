@@ -62,7 +62,7 @@ Feature: Création d'alarmes
     Given en tant que BO
     And je suis sur la page de création d'alarmes
     And je vais sur l'onglet des alarmes mutualisées
-    And j'enregistre le nombre d'alarmes mutualisées
+    And j'enregistre le nombre d'alarmes
     And je créé une alarme de sur-consommation de la flotte par défaut "TEST sur-consommation de la flotte"
     When je valide la création
     Then je vérifie que mon alarme a été créé

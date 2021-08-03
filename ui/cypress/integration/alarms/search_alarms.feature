@@ -8,15 +8,7 @@ Feature: Recherche d'alarmes
     And je choisis le filtre partenaire "INGENICO"
     When je lance la recherche
     Then la table contient plus de 0 resultat
-
-  Scenario: Recherche par plusieurs filtres
-    Given en tant que BO
-    And je suis sur la page recherche d'alarmes
-    And je choisis le filtre partenaire "lyra"
-    And je ferme le pannel du filtre
-    And je choisis le filtre offre "Parc 2"
-    When je lance la recherche
-    Then la table contient plus de 0 resultat
+    And Je supprime les filtres
 
   Scenario: Recherche par compte de facturation
     Given en tant que BO
@@ -24,6 +16,7 @@ Feature: Recherche d'alarmes
     And je choisis le filtre compte de facturation "INGENICO1"
     When je lance la recherche
     Then la table contient plus de 0 resultat
+    And Je supprime les filtres
 
   Scenario: Recherche par offre associée
     Given en tant que BO
@@ -31,6 +24,7 @@ Feature: Recherche d'alarmes
     And je choisis le filtre offre "Parc 2"
     When je lance la recherche
     Then la table contient plus de 0 resultat
+    And Je supprime les filtres
 
   Scenario: recherche par portée d'alarmes
     Given en tant que BO
@@ -38,6 +32,7 @@ Feature: Recherche d'alarmes
     And je choisis le filtre portée de l'alarme "partenaire"
     When je lance la recherche
     Then la table contient plus de 0 resultat
+    And Je supprime les filtres
 
   Scenario: Recherche par type d'alarme
     Given en tant que BO
@@ -45,6 +40,7 @@ Feature: Recherche d'alarmes
     And je choisis le filtre type d'alarme "Sur-consommation"
     When je lance la recherche
     Then la table contient plus de 0 resultat
+    And Je supprime les filtres
 
   Scenario: rechercher une alarme par ID
     Given en tant que BO
@@ -52,7 +48,14 @@ Feature: Recherche d'alarmes
     When je lance la recherche par ID "86"
     Then la table contient 1 resultat
 
-  @focus
+  Scenario: Recherche par plusieurs filtres
+    Given en tant que BO
+    And je suis sur la page recherche d'alarmes
+    And je choisis le filtre partenaire "lyra"
+    And je choisis le filtre offre "Parc 2"
+    When je lance la recherche
+    Then la table contient plus de 0 resultat
+
   Scenario: Onglet alarmes mutualisées, recherche par partenaire
     Given en tant que BO
     And je suis sur la page recherche d'alarmes
@@ -63,7 +66,6 @@ Feature: Recherche d'alarmes
     When je lance la recherche
     Then la table contient plus de 0 resultat
 
-  @focus
   Scenario: Onglet alarmes mutualisées, recherche par compte de facturation
     Given en tant que BO
     And je suis sur la page recherche d'alarmes

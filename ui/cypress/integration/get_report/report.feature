@@ -66,6 +66,7 @@ Feature: test des rapports
     And Je cree un rapport classique
     When Je clique sur le nom du rapport
     Then Le panneau de detail est visible
+    And Je ferme le panneau
 
   Scenario: Je verifie l'apparition du panneau des details du rapport en cliquant sur "Voir le detail" dans les actions
     Given en tant que BO
@@ -73,3 +74,4 @@ Feature: test des rapports
     And Je cree un rapport classique
     When Je clique sur "Voir le detail" dans les actions
     Then Le panneau de detail est visible
+    And Je ferme le panneau

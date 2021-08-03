@@ -8,20 +8,23 @@ Feature: Recherche d'actes de gestion
     And je choisis le filtre par date de création
     When je clique sur 1 mois
     Then je peux appliquer le filtre
+    And Je supprime les filtres
 
   Scenario: recherche partenaire
     Given en tant que BO
     And je suis sur l'historique des actes de gestion
     And je choisis le filtre partenaire "lyra"
     When je lance la recherche
-    Then la table contient plus de 1 resultat
+    Then la table contient plus de 0 resultat
+    And Je supprime les filtres
 
   Scenario: recherche createur de la demande
     Given en tant que BO
     And je suis sur l'historique des actes de gestion
     And je choisis le filtre createur de la demande "bruce"
     When je lance la recherche
-    Then la table contient 8 resultat
+    Then la table contient plus de 0 resultat
+    And Je supprime les filtres
 
   Scenario: recherche type d'acte
     Given en tant que BO
@@ -29,13 +32,14 @@ Feature: Recherche d'actes de gestion
     And j'enlève le filtre par défaut
     And je choisis le filtre type d'acte "activation"
     When je lance la recherche
-    Then la table contient 8 resultat
+    Then la table contient plus de 0 resultat
+    And Je supprime les filtres
 
   Scenario: je lance une recherche par id
     Given en tant que BO
     And je suis sur l'historique des actes de gestion
     When je lance la recherche par ID "33698014672"
-    Then la table contient 0 resultat
+    Then la table contient 1 resultat
 
   Scenario: Voir l'historique des actes depuis la page d'accueil en cliquant sur la pendule
     Given en tant que BO

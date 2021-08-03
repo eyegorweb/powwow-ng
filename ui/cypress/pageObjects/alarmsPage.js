@@ -32,6 +32,15 @@ export default {
     close() {
       cy.waitGet(`.ic-Arrow-Up-Icon`).click();
     },
+    deleteFilter() {
+      cy.waitGet('div.selected-filter button')
+        .first()
+        .click();
+    },
+  },
+  parkAlarm() {
+    cy.waitGet('div.mt-4.mb-4 > div > ol > li:first-child > a').click();
+    cy.wait(400);
   },
   idSearch: {
     typeId(id) {

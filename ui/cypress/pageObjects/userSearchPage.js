@@ -8,12 +8,18 @@ export default {
         '#app > div.container > div.mt-4 > div:nth-child(2) > div > div.col-md-9 > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div > div > form > div > div.form-group.mb-0.col-md-8 > label > input[type=text]'
       )
         .click()
+        .clear({ force: true })
         .type(user);
     },
     launchSearch() {
       cy.get(
         '#app > div.container > div.mt-4 > div:nth-child(2) > div > div.col-md-9 > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div > div > form > div > div.form-group.col-md-3.mb-0 > button'
       ).click();
+    },
+    reinit() {
+      cy.waitGet('div.col-md-9 > div:nth-child(2) > div > div:nth-child(1) > button').click({
+        force: true,
+      });
     },
   },
   filterBar: {
@@ -25,7 +31,7 @@ export default {
     partner: new MultiSelectFilter(6),
     status: {
       toggle() {
-        cy.waitGet(':nth-child(4) > .d-flex > .p-0 > .ic-Arrow-Down-Icon').click();
+        cy.waitGet('span > .foldable-block:nth-child(4) > .d-flex > .p-0 > i').click();
       },
       selectStatus(status) {
         let path;
@@ -35,13 +41,18 @@ export default {
       },
     },
     getSelectedFilters(onFilterFoundFn) {
-      cy.waitGet('.selected-filter .detail').then(e => {
+      cy.waitGet('.selected-filter .detail').then((e) => {
         const formatted = [];
         for (let i = 0; i < e.length; i++) {
           formatted.push(e[i].innerText);
         }
         onFilterFoundFn(formatted);
       });
+    },
+    deleteFilter() {
+      cy.waitGet('div.selected-filter button')
+        .first()
+        .click();
     },
   },
 };

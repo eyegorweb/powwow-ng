@@ -1,12 +1,14 @@
 import { Given, When, Then } from 'cypress-cucumber-preprocessor/steps';
 import linesPage from '../../../pageObjects/linesPage';
 import lineDetailPage from '../../../pageObjects/lineDetailPage';
-import get from 'lodash.get';
+import get from 'lodash/get';
+
+let totalLines = 0;
 
 Given(`je suis sur la page recherche de lignes`, () => {
   cy.resetGQLCache();
   linesPage.init();
-  cy.wait(400);
+  cy.wait(2000);
 });
 
 Given(`j'ouvre le détail d'une ligne`, () => {
@@ -15,10 +17,22 @@ Given(`j'ouvre le détail d'une ligne`, () => {
   linesPage.panel.goToDetail();
 });
 
+Given("j'affiche tous les filtres", () => {
+  linesPage.filterBar.showAllTypes();
+});
+
+Given('je lance la recherche', () => {
+  linesPage.filterBar.apply();
+  cy.wait(400);
+  getTotalLines();
+  cy.wait(500);
+});
+
 When(`je lance la recherche par ID {string}`, (id) => {
   linesPage.idSearch.typeId(id);
   linesPage.idSearch.applySearch();
   cy.wait(500);
+  getTotalLines();
 });
 
 When(`je clique sur retour`, () => {
@@ -35,28 +49,28 @@ Given(`je choisis le filtre partenaire {string}`, (partnerName) => {
   linesPage.filterBar.partner.toggle();
   linesPage.filterBar.partner.filter(partnerName);
   linesPage.filterBar.partner.choose(1);
-  linesPage.filterBar.close();
+  linesPage.filterBar.partner.toggle();
 });
 
 Given(`je choisis le filtre compte de facturation {string}`, (billingAccount) => {
   linesPage.filterBar.billingAccount.toggle();
   linesPage.filterBar.billingAccount.filter(billingAccount);
   linesPage.filterBar.billingAccount.choose(1);
-  linesPage.filterBar.close();
+  linesPage.filterBar.billingAccount.toggle();
 });
 
 Given(`je choisis le filtre type {string}`, (simType) => {
   linesPage.filterBar.type.toggle();
   linesPage.filterBar.type.filter(simType);
   linesPage.filterBar.type.choose(1);
-  linesPage.filterBar.close();
+  linesPage.filterBar.type.toggle();
 });
 
 Given(`je choisis le filtre offre {string}`, (offer) => {
   linesPage.filterBar.offer.toggle();
   linesPage.filterBar.offer.filter(offer);
   linesPage.filterBar.offer.choose(1);
-  linesPage.filterBar.close();
+  linesPage.filterBar.offer.toggle();
 });
 
 Given(`je choisis le filtre statut de facturation {string}`, (billingStatus) => {
@@ -64,18 +78,20 @@ Given(`je choisis le filtre statut de facturation {string}`, (billingStatus) => 
   linesPage.filterBar.billingStatus.toggle();
   linesPage.filterBar.billingStatus.filter(billingStatus);
   linesPage.filterBar.billingStatus.choose(1);
+  linesPage.filterBar.billingStatus.toggle();
 });
 
 Given('je choisis le filtre statut de la ligne {string}', (lineStatus) => {
-  linesPage.filterBar.showAllTypes();
   linesPage.filterBar.lineStatus.toggle();
   linesPage.filterBar.lineStatus.filter(lineStatus);
   linesPage.filterBar.lineStatus.choose(1);
+  linesPage.filterBar.lineStatus.toggle();
 });
 
 Given(`je choisis le filtre id {string}`, (offer) => {
   linesPage.filterBar.id.toggle();
   linesPage.filterBar.id.filter(offer);
+  linesPage.filterBar.id.toggle();
 });
 
 Given(`j'affiche toutes les lignes`, () => {
@@ -104,22 +120,15 @@ Then('Les filtres {string} et {string} sont activés', (partner, billingAccount)
 When(`je lance la recherche`, () => {
   linesPage.filterBar.apply();
   cy.wait(500);
+  getTotalLines();
 });
 
 Then(`la table contient {int} resultat`, (nbrResult) => {
-  cy.wrap(null).then(() => {
-    return cy.waitUntiGQLIsSent('simCardInstances').then(({ response }) => {
-      expect(get(response, 'body.data.simCardInstances.total')).to.be.equal(nbrResult);
-    });
-  });
+  expect(totalLines).to.be.equal(nbrResult);
 });
 
 Then(`la table contient plus de {int} resultat`, (nbrResult) => {
-  cy.wrap(null).then(() => {
-    return cy.waitUntiGQLIsSent('simCardInstances').then(({ response }) => {
-      expect(get(response, 'body.data.simCardInstances.total')).to.be.above(nbrResult);
-    });
-  });
+  expect(totalLines).to.be.above(nbrResult);
 });
 
 When(`je lance un Export {string}`, (exportType) => {
@@ -143,3 +152,22 @@ Then(`le fichier est bien téléchargé`, () => {
     });
   });
 });
+
+Then('Je ferme le message', () => {
+  linesPage.modal.cancel();
+});
+
+Then('Je supprime les filtres', () => {
+  linesPage.filterBar.deleteFilter();
+});
+
+function getTotalLines() {
+  cy.waitGet('.mb-3 > :nth-child(1) > .text-gray').then((e) => {
+    const parts = e
+      .text()
+      .trim()
+      .split(' ');
+    const value = parseInt(parts[0]);
+    totalLines = value;
+  });
+}

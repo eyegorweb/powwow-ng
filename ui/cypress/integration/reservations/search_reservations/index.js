@@ -8,6 +8,10 @@ Given('Je suis sur la page des reservations', () => {
   cy.wait(1000);
 });
 
+Given("J'ouvre tous les filtres", () => {
+  reservations.filterBar.showAllTypes();
+});
+
 Given('Je choisis le filtre partenaire {string}', (partnerName) => {
   reservations.filterBar.partner.toggle();
   reservations.filterBar.partner.filter(partnerName);
@@ -51,6 +55,7 @@ Given('Je choisis le filtre action Pre-active', () => {
 
 Given('Je ferme le filtre partenaire', () => {
   reservations.filterBar.partner.toggle();
+  cy.wait(400);
 });
 
 Given('Je ferme le filtre quantite', () => {

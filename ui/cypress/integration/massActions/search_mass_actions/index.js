@@ -20,18 +20,21 @@ Given(`je choisis le filtre partenaire {string}`, (partnerName) => {
   massActionsPage.filterBar.partner.toggle();
   massActionsPage.filterBar.partner.filter(partnerName);
   massActionsPage.filterBar.partner.choose(1);
+  massActionsPage.filterBar.partner.toggle();
 });
 
 Given(`je choisis le filtre createur de la demande {string}`, (requestCreator) => {
   massActionsPage.filterBar.requestCreator.toggle();
   massActionsPage.filterBar.requestCreator.filter(requestCreator);
   massActionsPage.filterBar.requestCreator.choose(1);
+  massActionsPage.filterBar.requestCreator.toggle();
 });
 
 Given(`je choisis le filtre type d'acte {string}`, (actionType) => {
   massActionsPage.filterBar.actionType.toggle();
   massActionsPage.filterBar.actionType.filter(actionType);
   massActionsPage.filterBar.actionType.choose(1);
+  massActionsPage.filterBar.actionType.toggle();
 });
 
 Given('Je clique sur la pendule', () => {
@@ -40,6 +43,7 @@ Given('Je clique sur la pendule', () => {
 
 When(`je clique sur 1 mois`, () => {
   massActionsPage.filterBar.creationDate.preselect(1);
+  massActionsPage.filterBar.creationDate.toggle();
 });
 
 When(`je lance la recherche`, () => {
@@ -117,6 +121,10 @@ Then(`je peux appliquer le filtre`, () => {
 
     expect(diffInMonths).to.equal(1);
   });
+});
+
+Then('Je supprime les filtres', () => {
+  massActionsPage.filterBar.deleteFilter();
 });
 
 //Test : Voir l'historique des actes en cliquant depuis la page d'accueil en cliquant sur la pendule

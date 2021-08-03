@@ -3,7 +3,7 @@ import layout from './layout';
 export default {
   init() {
     layout.menu.getSim();
-    cy.waitGet('.col-md-3 > button').click({ force: true });
+    cy.waitGet('button.create-order').click({ force: true });
   },
   next() {
     cy.wait(800);
@@ -16,6 +16,9 @@ export default {
       .waitGet('.footer > .btn')
       .click();
     cy.wait(1000);
+  },
+  close() {
+    cy.waitGet('.cd-panel__close').click({ force: true });
   },
   client: {
     choosePartner(name) {

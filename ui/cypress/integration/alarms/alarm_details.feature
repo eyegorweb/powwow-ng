@@ -36,7 +36,6 @@ Feature: Détail d'une alarme
     When je filtre par motif de déclenchement "DATA"
     Then la table contient "0" résultats
 
-  @focus
   Scenario: Recherche par filtre depuis l'onglet LIGNES EXCLUES
     Given en tant que BO
     And je suis sur la page de création d'alarmes
@@ -58,7 +57,6 @@ Feature: Détail d'une alarme
     And je sélectionne la première lignes
     When je clique sur "Réactiver l'alarme des lignes"
     Then je peux confirmer la réactivation
-
 
   Scenario: Export des alarmes (depuis l'onglet DÉCLENCHEMENTS DANS LE MOIS)
     Given en tant que BO
