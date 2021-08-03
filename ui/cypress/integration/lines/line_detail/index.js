@@ -187,10 +187,15 @@ Then('Je confirme le changement', () => {
 
 Then("Le panneau s'est ouvert", () => {
   lineDetailPage.panel.isVisible();
+  lineDetailPage.panel.closePanel();
 });
 
 Then("La page de l'acte de gestion s'est ouverte", () => {
   lineDetailPage.tab.detailsOptions.actsDetails.verifyUrlActDetail();
+});
+
+Then('Je clique sur le bouton "Retour"', () => {
+  lineDetailPage.goBack();
 });
 
 Then("Je vérifie que l'url contient {string}", (url) => {

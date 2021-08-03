@@ -18,29 +18,34 @@ Given(`je choisis le filtre partenaire {string}`, (partnerName) => {
   alarmsPage.filterBar.partner.toggle();
   alarmsPage.filterBar.partner.filter(partnerName);
   alarmsPage.filterBar.partner.choose(1);
+  alarmsPage.filterBar.partner.toggle();
 });
 
 Given(`je choisis le filtre compte de facturation {string}`, (cf) => {
   alarmsPage.filterBar.billingAccount.toggle();
   alarmsPage.filterBar.billingAccount.filter(cf);
   alarmsPage.filterBar.billingAccount.choose(1);
+  alarmsPage.filterBar.billingAccount.toggle();
 });
 
 Given(`je choisis le filtre offre {string}`, (offer) => {
   alarmsPage.filterBar.offer.toggle();
   alarmsPage.filterBar.offer.filter(offer);
   alarmsPage.filterBar.offer.choose(1);
+  alarmsPage.filterBar.offer.toggle();
 });
 
 Given(`je choisis le filtre portée de l'alarme {string}`, (alarmRange) => {
   alarmsPage.filterBar.alarmRange.toggle();
   alarmsPage.filterBar.alarmRange.filter(alarmRange);
   alarmsPage.filterBar.alarmRange.choose(1);
+  alarmsPage.filterBar.alarmRange.toggle();
 });
 
 Given("je choisis le filtre type d'alarme {string}", (value) => {
   alarmsPage.filterBar.alarmType.toggle();
   alarmsPage.filterBar.alarmType.select(value);
+  alarmsPage.filterBar.alarmType.toggle();
 });
 
 Given(`je valide la création`, () => {
@@ -83,6 +88,10 @@ Then(`la table contient plus de {int} resultat`, (nbrResult) => {
     const value = parseInt(parts[0]);
     expect(value).to.be.above(nbrResult);
   });
+});
+
+Then('Je supprime les filtres', () => {
+  alarmsPage.filterBar.deleteFilter();
 });
 
 //fonction ci dessous non utilisée, gardée pour une refact de waitGraphQL

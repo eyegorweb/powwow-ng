@@ -18,24 +18,40 @@ Cypress.Commands.add('startAsBO', () => {
     cy.url().should('eq', Cypress.env('APP_URL') + 'p/');
     cy.currentUserType = 'BO';
   } else {
-    cy.get('.logoPart a').click({ force: true });
+    cy.get('.logoPart > a').click({
+      force: true,
+    });
   }
 });
 
 Cypress.Commands.add('startAsPartner', () => {
-  cy.userIsMonoPartner = false;
-  cy.visit(Cypress.env('APP_URL') + 'p/callback#access_token=' + Cypress.env('PARTNER_TOKEN'));
-
-  cy.get('#app-loader').should('not.be.visible');
+  if (cy.currentUserType !== 'partner') {
+    cy.userIsMonoPartner = false;
+    cy.visit(Cypress.env('APP_URL') + 'p/callback#access_token=' + Cypress.env('PARTNER_TOKEN'));
+    cy.get('#app-loader').should('not.be.visible');
+    cy.url().should('eq', Cypress.env('APP_URL') + 'p/');
+    cy.currentUserType = 'partner';
+  } else {
+    cy.get('.logoPart > a').click({
+      force: true,
+    });
+  }
 });
 
 Cypress.Commands.add('startAsGroupAccount', () => {
-  cy.userIsMonoPartner = false;
-  cy.visit(
-    Cypress.env('APP_URL') + 'p/callback#access_token=' + Cypress.env('GROUP_ACCOUNT_TOKEN')
-  );
-  cy.get('#app-loader').should('not.be.visible');
-  cy.url().should('eq', Cypress.env('APP_URL') + 'p/');
+  if (cy.currentUserType !== 'groupAccount') {
+    cy.userIsMonoPartner = false;
+    cy.visit(
+      Cypress.env('APP_URL') + 'p/callback#access_token=' + Cypress.env('GROUP_ACCOUNT_TOKEN')
+    );
+    cy.get('#app-loader').should('not.be.visible');
+    cy.url().should('eq', Cypress.env('APP_URL') + 'p/');
+    cy.currentUserType = 'groupAccount';
+  } else {
+    cy.get('.logoPart > a').click({
+      force: true,
+    });
+  }
 });
 
 Cypress.Commands.add('waitGet', (path) => {

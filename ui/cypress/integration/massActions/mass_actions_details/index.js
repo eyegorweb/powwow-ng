@@ -4,7 +4,7 @@ import massActionsDetailsPage from '../../../pageObjects/massActionsDetailsPage'
 
 Given('Je vais sur la page des actes de gestion', () => {
   massActionsPage.init();
-  cy.wait(1000);
+  cy.wait(2000);
 });
 
 Given('Je recherche par ID {string}', (id) => {

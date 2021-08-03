@@ -64,13 +64,18 @@ export default {
     removeDefaultFilter() {
       cy.waitGet('.card.filter-bar .close').click();
     },
+    deleteFilter() {
+      cy.waitGet('div.selected-filter button')
+        .last()
+        .click();
+    },
     creationDate: {
       toggle() {
         filterBarSelectors.filterBarItems(4).toggle();
       },
 
       openChoices() {
-        cy.waitGet('.foldable-block > .pt-3 > div > div > div').click();
+        cy.waitGet('.foldable-block.is-open > .pt-3 > div > div > div').click();
       },
 
       preselect(choice) {

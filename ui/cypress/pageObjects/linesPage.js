@@ -53,10 +53,20 @@ export default {
   },
   idSearch: {
     typeId(id) {
-      cy.waitGet('.flex-grow-1 > input').type(id);
+      cy.waitGet('.flex-grow-1 > input')
+        .clear({ force: true })
+        .type(id);
     },
     applySearch() {
       cy.waitGet('.form-row > .col-md-3 > .btn').click();
+    },
+  },
+  modal: {
+    cancel() {
+      cy.waitGet('.modal-footer > div > button').click({ force: true });
+    },
+    save() {
+      cy.waitGet('div.modal-footer button.btn-success').click();
     },
   },
   filterBar: {
@@ -110,11 +120,6 @@ export default {
           const text = e.text().trim();
           expect(billingAccount).to.be.equal(text);
         });
-    },
-  },
-  modal: {
-    save() {
-      cy.waitGet('div.modal-footer button.btn-success').click();
     },
   },
   getTotal(onTotalLoaded) {

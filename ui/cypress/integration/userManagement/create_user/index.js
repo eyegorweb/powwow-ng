@@ -182,6 +182,7 @@ function getTotal() {
     const value = parseInt(parts[0]);
     nbrUsers = value;
   });
+  cy.wait(400);
 }
 
 function getFirstname() {

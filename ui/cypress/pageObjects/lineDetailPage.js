@@ -1,6 +1,7 @@
 export default {
   goBack() {
     cy.waitGet('.back-btn').click({ force: true });
+    cy.wait(400);
   },
   openDetailPannel() {
     cy.waitGet(

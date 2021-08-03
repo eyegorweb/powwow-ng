@@ -145,6 +145,10 @@ Then('Le panneau de detail est visible', () => {
   report.panel.isVisible();
 });
 
+Then('Je ferme le panneau', () => {
+  report.panel.closePanel();
+});
+
 //fonctions
 
 function strRandom(o) {

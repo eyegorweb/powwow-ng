@@ -4,17 +4,17 @@ import layout from '../../../pageObjects/layout';
 
 Given('Je suis sur la page de gestion des commandes', () => {
   layout.menu.getSim();
-  cy.wait(400);
+  cy.wait(2000);
 });
 
 Given('Je suis sur la page de gestion des lignes', () => {
   layout.menu.lines();
-  cy.wait(400);
+  cy.wait(2000);
 });
 
 Given('Je suis sur la page des actes de gestion', () => {
   layout.menu.massActions();
-  cy.wait(400);
+  cy.wait(2000);
 });
 
 Given('Je selectionne le partenaire {string} dans la barre de contexte', (partner) => {
@@ -35,6 +35,7 @@ Given('Je selectionne le partenaire {string} dans les filtres', (partner) => {
   indicators.filterBar.partner.toggle();
   indicators.filterBar.partner.filter(partner);
   indicators.filterBar.partner.choose(1);
+  indicators.filterBar.partner.toggle();
 });
 
 When('Je clique sur le bouton "Appliquer"', () => {
@@ -106,6 +107,10 @@ Then('Je visualise les indicateurs actes de gestion du partenaire A uniquement',
   indicators.actsIndicators.checkScheduledActs();
 });
 
+Then('Je réinitialise les partenaires', () => {
+  cy.waitGet('button.context-bar-reinit').click({ force: true });
+});
+
 //quickfix temporaire : le filtre date de la commande s'applique alors qu'il ne devrait pas
 //le quickfix permet de retirer ce filtre
 function deleteFilterOrderDate() {
@@ -117,8 +122,10 @@ function deleteFilterOrderDate() {
 //quickfix temporaire : cliquer sur un indicateur enleve le filtre partenaire
 //le quickfix permet de remettre le filtre partenaire pour les verifications
 function addFilterPartner() {
+  indicators.filterBar.partner.toggle();
   indicators.filterBar.partner.filter('lyra');
   indicators.filterBar.partner.choose(1);
+  indicators.filterBar.partner.toggle();
   indicators.filterBar.apply();
   cy.wait(400);
 }

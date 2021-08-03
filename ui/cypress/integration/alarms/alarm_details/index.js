@@ -97,6 +97,7 @@ Then(`l'export des déclenchemets dans le mois est bien téléchargé`, () => {
       expect(downloadUri).to.not.be.undefined;
     });
   });
+  cy.waitGet('.modal-footer > div > button').click();
 });
 
 Then(`l'export des lignes ciblées est bien téléchargé`, () => {
@@ -107,6 +108,7 @@ Then(`l'export des lignes ciblées est bien téléchargé`, () => {
       expect(downloadUri).to.not.be.undefined;
     });
   });
+  cy.waitGet('.modal-footer > div > button').click();
 });
 
 Then(`l'export des lignes exclues est bien téléchargé`, () => {

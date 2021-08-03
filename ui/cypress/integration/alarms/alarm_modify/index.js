@@ -39,6 +39,7 @@ When(`je valide la création`, () => {
 
 Then("je vérifie la modification du nom de l'alarme mutualisée", () => {
   alarmsPage.sharedAlarms.verifyModification(myAlarmName);
+  alarmsPage.parkAlarm();
 });
 
 Then("je vérifie la modification du nom de l'alarme", () => {

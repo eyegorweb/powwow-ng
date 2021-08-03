@@ -33,7 +33,7 @@
             v-if="canCancel"
             slot="trigger"
             variant="danger"
-            class="flex-grow-1 py-1 px-3 ml-1"
+            class="context-bar-reinit flex-grow-1 py-1 px-3 ml-1"
             @click="revertSelection"
             >{{ $t('reset') }}</UiButton
           >

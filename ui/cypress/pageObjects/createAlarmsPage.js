@@ -1,8 +1,6 @@
 export default {
   startCreation() {
-    cy.waitGet(
-      '#app > div.container > div.mt-4 > div.mt-4.mb-4 > div > div > div > div > div > div > div.col-md-9 > div.row.mb-3 > div:nth-child(2) > div > div > div > button'
-    ).click();
+    cy.waitGet('button.create-alarm-btn').click();
   },
   getLastAlarm() {
     return cy.waitGet(
@@ -11,7 +9,7 @@ export default {
   },
   saveAlarm() {
     cy.waitGet(':nth-child(4) > :nth-child(2) > .p-3 > .btn-label').click({ force: true });
-    cy.wait(400);
+    cy.wait(2000);
   },
   fillAlarmName(alarmName) {
     cy.waitGet('label.alarm-name > input')

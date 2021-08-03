@@ -21,7 +21,7 @@ export default {
         cy.waitGet('span > .foldable-block:nth-child(3) > .pt-3 > div')
           .children()
           .find('label')
-          .then(labelElems => {
+          .then((labelElems) => {
             labelElems.each((index, labelElem) => {
               if (statusToChoose === labelElem.textContent) {
                 cy.waitGet(labelElem)
@@ -31,6 +31,11 @@ export default {
             });
           });
       },
+    },
+    deleteFilter() {
+      cy.waitGet('div.selected-filter button')
+        .first()
+        .click();
     },
   },
   idSearch: {
@@ -45,7 +50,7 @@ export default {
   },
   exportFile: layout.exportFile,
   getTotal(onTotalLoaded) {
-    return cy.waitGet('.total').then(e => {
+    return cy.waitGet('.total').then((e) => {
       const parts = e
         .text()
         .trim()
