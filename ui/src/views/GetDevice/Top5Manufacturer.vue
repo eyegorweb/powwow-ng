@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white p-3 mt-4">
+  <div class="bg-white p-3">
     <h5>{{ $t('getdevice.graphes.title-graph-top5-manufacturers') }}</h5>
     <chart v-if="chartOptions" :options="chartOptions" />
   </div>
