@@ -117,6 +117,7 @@ import {
 import PartnerNameFilter from '@/components/Filters/filterbar/PartnerFilter';
 import get from 'lodash.get';
 import { mapGetters } from 'vuex';
+import { truncateLabel } from '@/utils';
 
 export default {
   components: {
@@ -497,12 +498,15 @@ export default {
       this.chartOptions = {
         chart: {
           type: 'pie',
-          height: 200,
+          height: 250,
           marginTop: 0,
           spacingBottom: 0,
         },
         legend: {
           margin: 0,
+          labelFormatter() {
+            return truncateLabel(this.name, 20);
+          },
         },
         plotOptions: {
           pie: {
@@ -551,7 +555,7 @@ export default {
       this.chartOptions2 = {
         chart: {
           type: 'bar',
-          height: 200,
+          height: 250,
         },
         title: {
           text: '',
@@ -606,12 +610,15 @@ export default {
       this.chartOptions3 = {
         chart: {
           type: 'pie',
-          height: 200,
+          height: 250,
           marginTop: 0,
           spacingBottom: 0,
         },
         legend: {
           margin: 0,
+          labelFormatter() {
+            return truncateLabel(this.name, 20);
+          },
         },
         plotOptions: {
           pie: {
@@ -646,6 +653,9 @@ export default {
         },
       };
     },
+    // formattedLabel(label) {
+    //   return truncateLabel(label);
+    // },
   },
   computed: {
     ...mapGetters(['userInfos', 'userIsBO', 'havePermission', 'userIsPartner']),
