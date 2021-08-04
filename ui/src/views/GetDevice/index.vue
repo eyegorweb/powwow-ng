@@ -31,7 +31,7 @@
             :rows="rows"
             :total="total"
             :order-by.sync="orderBy"
-            :is-table-loading="isLoading"
+            :is-loading="isLoading"
             :show-reset="!!searchByIdValue"
             @resetSearch="resetFilters"
             @applyFilters="applyFilters"
