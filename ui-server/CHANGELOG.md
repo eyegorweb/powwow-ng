@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.458+20210804144201
+2021-08-04
+
+### Fixes
+
+- [2857] ajout du filtre pour l'export getdevice (5ac9b4687997bf11f1e2d20a2d8e13448ac589de)
+
 ## 1.17.0-master.457+20210804135235
 2021-08-04
 
