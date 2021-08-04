@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.460+20210804151556
+2021-08-04
+
+### Fixes
+
+- [2856] amélioration du chargement de la page getdevice (6c7af98bdca9bbcbbe18cde30c726eb7d716440a)
+
 ## 1.17.0-master.459+20210804145204
 2021-08-04
 
