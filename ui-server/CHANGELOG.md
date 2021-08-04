@@ -2,6 +2,17 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.457+20210804135235
+2021-08-04
+
+### Features
+
+- [000] Stabilisation des tests Cypress (5ffd51c40a5cfe60aaa7316d724e4d22b9adff6e)
+
+### Fixes
+
+- [2863] Ajouter le numéro de livraison à la requête "orders" (5d7ae0a74518dfdfc5affefa95ccc4f32a2d01b7)
+
 ## 1.17.0-master.456+20210802133545
 2021-08-02
 
