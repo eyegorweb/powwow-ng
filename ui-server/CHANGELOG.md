@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.461+20210805080001
+2021-08-05
+
+### Fixes
+
+- [2852] mise à jour de l'api pour récupérer des offres rCard (de42e80cbe42dd517487b7672e7964a2a22572a3)
+
 ## 1.17.0-master.460+20210804151556
 2021-08-04
 
