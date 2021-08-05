@@ -98,8 +98,8 @@ export default {
       return true;
     },
     isrcard() {
-      const rCardValues = ['RCARD', 'RCARD_INTER_MERE', 'RCARD_INTER_FILLE'];
-      const currentCategory = get(this.synthesis, 'product.selection.product.simCard.category');
+      const rCardValues = ['BACKUP', 'FULL_BACKUP'];
+      const currentCategory = get(this.synthesis, 'product.selection.product.simCard.family');
       const inrCardValues = rCardValues.indexOf(currentCategory) !== -1;
       return inrCardValues;
     },

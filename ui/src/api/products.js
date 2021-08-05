@@ -16,7 +16,7 @@ export async function fetchSim(partnerId, customerAccountId, simCategoryFilter, 
           licence
           type
           number
-          category
+          family
         }
         disabled
       }
