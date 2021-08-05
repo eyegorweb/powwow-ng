@@ -459,6 +459,7 @@ export default {
       }
     },
     async searchById(params) {
+      if (!params) return;
       if (!params.value) {
         await this.resetFilters();
         return;
@@ -466,11 +467,13 @@ export default {
       this.searchByIdValue = params.value;
 
       this.isLoading = true;
-      const data = await getDevices(undefined, { page: 0, limit: 10 }, [params]);
+      const data = await getDevices(undefined, { page: 0, limit: 10 }, [
+        ...this.currentAppliedFilters,
+        params,
+      ]);
       this.isLoading = false;
       this.total = data.total;
       this.rows = data.items;
-      this.currentAppliedFilters = [...this.currentAppliedFilters, params];
     },
     getExportFn() {
       return async (columnsParam, orderBy, exportFormat, asyncExportRequest) => {
