@@ -83,8 +83,8 @@ export default {
   },
   computed: {
     isrcard() {
-      const rCardValues = ['RCARD', 'RCARD_INTER_MERE', 'RCARD_INTER_FILLE'];
-      const currentCategory = this.$loGet(this.synthesis, 'stepProduct.simCard.category');
+      const rCardValues = ['BACKUP', 'FULL_BACKUP'];
+      const currentCategory = this.$loGet(this.synthesis, 'stepProduct.simCard.family');
       const inrCardValues = rCardValues.indexOf(currentCategory) !== -1;
       return inrCardValues;
     },
