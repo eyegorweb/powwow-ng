@@ -474,6 +474,7 @@ export default {
       this.isLoading = false;
       this.total = data.total;
       this.rows = data.items;
+      this.currentAppliedFilters = [...this.currentAppliedFilters, params];
     },
     getExportFn() {
       return async (columnsParam, orderBy, exportFormat, asyncExportRequest) => {
