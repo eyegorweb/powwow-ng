@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.463+20210806165051
+2021-08-06
+
+### Fixes
+
+- [2857] correction du filtre de recherche et de la barre de recherche getdevices (ce833493c589b8327f6e5d5f37203e57bb30b10a)
+
 ## 1.17.0-master.462+20210805145134
 2021-08-05
 
