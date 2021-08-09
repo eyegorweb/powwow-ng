@@ -5,12 +5,15 @@
 
       <SelectedFiltersManagement
         module-name="ORDER"
+        can-show-selected-filter
         :current-filters="currentFilters"
-        :can-show-selected-filter="canShowSelectedFilter"
+        :noSave="!filtersHaveValues"
         @applyFilters="applyFilters"
         @chooseFilter="chooseFilter"
         @clear="(filterId) => clearFilter(filterId)"
-      />
+      >
+        <div v-if="!filtersHaveValues" class="alert alert-info">{{ $t('noFilter') }}</div>
+      </SelectedFiltersManagement>
 
       <draggable handle=".handle">
         <transition-group>
@@ -122,6 +125,7 @@ import GetSimDateFilter from './GetSimDateFilter';
 import GetSimDeliveryCountries from './GetSimDeliveryCountries';
 import OrderCreatorFilter from '@/components/Filters/OrderCreatorFilter';
 import TypeSimCard from './TypeSimCard';
+import { areFiltersEmpty } from '@/store/filterUtils.js';
 
 import SelectedFiltersManagement from '@/components/Filters/SelectedFiltersManagement.vue';
 
@@ -151,6 +155,15 @@ export default {
       set(newValue) {
         this.setOrderStatusFilter(newValue);
       },
+    },
+    filtersHaveValues() {
+      if (this.currentFilters) {
+        const visibleFilters = this.currentFilters.filter((f) => !f.hidden);
+        if (!areFiltersEmpty(visibleFilters)) {
+          return true;
+        }
+      }
+      return false;
     },
   },
 
