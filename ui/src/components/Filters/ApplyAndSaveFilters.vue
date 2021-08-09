@@ -1,5 +1,5 @@
 <template>
-  <div class="actions d-flex flex-column flex-md-row">
+  <div class="actions d-flex flex-column flex-md-row mb-2">
     <UiDropdownButton v-if="!noSave" v-tooltip="disableMessage">
       <UiButton
         slot="trigger"

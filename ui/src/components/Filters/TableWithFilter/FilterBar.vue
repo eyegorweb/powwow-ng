@@ -3,8 +3,9 @@
     <div class="card-body" :class="[allFiltersVisible ? 'show-all-filters' : 'hide-all-filters']">
       <h5 class="card-title">{{ $t('filters.title') }}</h5>
       <slot name="beforeSelectedFilters"> </slot>
+      <div v-if="!filtersHaveValues" class="alert alert-info">{{ $t('noFilter') }}</div>
+
       <SelectedFilters
-        v-if="canShowSelectedFilter"
         :current-filters="currentFilters"
         :fixed-filters="frozenValues"
         @applyFilters="applyFilters"
@@ -69,6 +70,7 @@ import FoldableBlock from '@/components/FoldableBlock';
 import draggable from 'vuedraggable';
 import UiButton from '@/components/ui/Button';
 import FilterBarSlot from './FilterBarSlot';
+import { areFiltersEmpty } from '@/store/filterUtils.js';
 
 export default {
   components: {
@@ -109,6 +111,15 @@ export default {
   },
 
   computed: {
+    filtersHaveValues() {
+      if (this.currentFilters) {
+        const visibleFilters = this.currentFilters.filter((f) => !f.hidden);
+        if (!areFiltersEmpty(visibleFilters)) {
+          return true;
+        }
+      }
+      return false;
+    },
     allAreHidden() {
       const hiddenFilters = this.visibleComponents.filter((filter) => {
         return filter.isHidden && filter.isHidden();

@@ -4,9 +4,9 @@
       <h5 class="card-title">{{ $t('filters.title') }}</h5>
       <SelectedFiltersManagement
         module-name="SIM"
+        can-show-selected-filter
         :current-filters="currentFilters"
         :fixed-filters="fixedFilters"
-        :can-show-selected-filter="true"
         :no-save="!filtersHaveValues"
         @clear="(filterId) => clearFilter(filterId)"
         @applyFilters="applyFilters"

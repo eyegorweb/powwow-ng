@@ -15,7 +15,7 @@
             <slot name="beforeSelectedFilters"></slot>
           </template>
           <template #actions="{ hasAnyValue, onSearch }">
-            <div v-if="hasAnyValue" class="actions d-flex flex-column flex-md-row mb-2">
+            <div class="actions d-flex flex-column flex-md-row mb-2">
               <UiButton
                 variant="primary"
                 :disabled="isSearchDisabled"
