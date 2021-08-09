@@ -381,7 +381,9 @@ async function geoMap(filters) {
 }
 
 export async function fetchSupervisionGraphData(filters) {
-  const queryStr = `query
+  const queryStr = `query SupervisionDataGraph($supervisionType: SupervisionGraphType!, $params: GeoLocSearchParams!
+    $beginDate: Date,
+    $endDate: Date){
       supervisionDataGraphV2(supervisionType: $supervisionType,
         params: $params,
         beginDate: $beginDate,
@@ -406,7 +408,9 @@ export async function fetchSupervisionGraphData(filters) {
 }
 
 export async function fetchSupervisionGraphSMS(filters) {
-  const queryStr = `query
+  const queryStr = `query SupervisionSmsGraph($supervisionType: SupervisionGraphType!, $params: GeoLocSearchParams!
+    $beginDate: Date,
+    $endDate: Date){
       supervisionSmsGraphV2(supervisionType: $supervisionType,
         params: $params,
         beginDate: $beginDate,
@@ -429,7 +433,9 @@ export async function fetchSupervisionGraphSMS(filters) {
 }
 
 export async function fetchSupervisionGraphVoice(filters) {
-  const queryStr = `query
+  const queryStr = `query SupervisionVoiceGraph($supervisionType: SupervisionGraphType!, $params: GeoLocSearchParams!
+    $beginDate: Date,
+    $endDate: Date){
       supervisionVoiceGraphV2(supervisionType: $supervisionType,
         params: $params,
         beginDate: $beginDate,
