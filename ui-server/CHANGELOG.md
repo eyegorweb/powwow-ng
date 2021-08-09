@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.464+20210809092039
+2021-08-09
+
+### Features
+
+- [2861] Uniformiser les écrans de recherche (e0a5f59a92bac5d3262dbca8e8d7baab0f9f28a0)
+
 ## 1.17.0-master.463+20210806165051
 2021-08-06
 
