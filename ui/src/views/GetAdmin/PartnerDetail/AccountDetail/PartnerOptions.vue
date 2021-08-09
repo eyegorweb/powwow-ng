@@ -451,7 +451,7 @@ import UiSelect from '@/components/ui/UiSelect';
 import get from 'lodash.get';
 import { mapGetters, mapMutations } from 'vuex';
 
-import { getPartyOptions, updatePartyOptions } from '@/api/partners.js';
+import { getPartyOptions, updatePartyOptions, fetchBroadcastLists } from '@/api/partners.js';
 import BillingAccountAutocomplete from '@/components/CustomComboxes/BillingAccountAutocomplete.vue';
 
 export default {
@@ -471,8 +471,9 @@ export default {
     ...mapGetters(['userIsBO']),
     mailingLists() {
       if (!this.partner) return [];
-      const mailingLists = get(this.partner, 'mailingLists', []);
-      return mailingLists.map((m) => ({ label: m.name, value: m.id }));
+      if(this.diffusionListEmails) {
+        return this.diffusionListEmails.map((m) => ({ label: m.name, value: m.id }));
+      }
     },
     canSave() {
       return false;
@@ -506,6 +507,7 @@ export default {
   },
 
   async mounted() {
+    this.diffusionListEmails = await fetchBroadcastLists(this.partner.id);
     this.orderToggles = [
       {
         code: 'MANDATORY_ACTIVATION',
@@ -1051,6 +1053,7 @@ export default {
   },
   data() {
     return {
+      diffusionListEmails: [],
       canShowOptions: false,
       showPassword: false,
       partnerOptions: undefined,
