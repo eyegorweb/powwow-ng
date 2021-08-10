@@ -1,5 +1,5 @@
 <template>
-  <BaseGraph :load-data-fn="loadDataFn" unit="Go" />
+  <BaseGraph :load-data-fn="loadDataFn" :usage="usage" />
 </template>
 
 <script>
@@ -13,21 +13,22 @@ export default {
     BaseGraph,
   },
 
+  props: {
+    usage: String,
+  },
+
   methods: {
     async loadDataFn(partners) {
       if (partners && partners.length) {
         const response = await supervisionDataGraph(partners);
-        const formatData = (v) => Math.floor(v / Math.pow(1024, 3)); // octet => Go
-
-        if (response) {
-          return response.responses.map((d) => ({
-            date: formatDateToUTC(d.date),
-            out: formatData(d.upload),
-            in: formatData(d.download),
-          }));
-        } else {
-          console.log('Erreur API ', response);
+        if (response.errors) {
+          return;
         }
+        return response.responses.map((d) => ({
+          date: formatDateToUTC(d.date),
+          out: d.upload,
+          in: d.download,
+        }));
       }
     },
   },

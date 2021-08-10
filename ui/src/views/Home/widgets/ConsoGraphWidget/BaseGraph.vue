@@ -1,10 +1,14 @@
 <template>
   <div>
-    <chart
-      :key="'conso_' + version"
-      v-if="chartOptions && partners.length === 1"
-      :options="chartOptions"
-    />
+    <div v-if="!singlePartner" class="alert-light">
+      {{ $t('chooseAPartner') }}
+    </div>
+    <div v-else>
+      <chart :key="'conso_' + version" v-if="chartOptions" :options="chartOptions" />
+      <div v-else class="noResult alert-light" role="alert">
+        {{ $t('noResult') }}
+      </div>
+    </div>
   </div>
 </template>
 
@@ -12,6 +16,17 @@
 import { Chart } from 'highcharts-vue';
 import { mapState, mapGetters } from 'vuex';
 import get from 'lodash.get';
+import { formatBytes, resumeFormattedValueFromSeconds } from '@/api/utils.js';
+import { formatLargeNumber } from '@/utils/numbers';
+
+function formatterCallbackFn(usage, name, value) {
+  if (usage === 'SMS') {
+    return `${name}: ${formatLargeNumber(value)}`;
+  } else if (usage === 'VOICE') {
+    return `${name}: ${resumeFormattedValueFromSeconds(value)}`;
+  }
+  return `${name}: ${formatBytes(value)}`;
+}
 
 export default {
   components: {
@@ -19,30 +34,30 @@ export default {
   },
   props: {
     loadDataFn: Function,
-    unit: {
+    usage: {
       type: String,
       default: '',
     },
   },
   async mounted() {
-    await this.refresh();
+    await this.refreshData();
   },
   data() {
     return {
       chartOptions: undefined,
-      haveContent: false,
       graphData: undefined,
       version: 1,
     };
   },
 
   methods: {
-    createChart(graphData) {
+    createChart() {
       this.chartOptions = undefined;
-      if (!graphData) return;
+      if (!this.graphData) return;
 
-      const upSerieData = graphData.map((d) => [d.date, d.out]);
-      const downSerieData = graphData.map((d) => [d.date, d.in]);
+      const upSerieData = this.graphData.map((d) => [d.date, d.out]);
+      const downSerieData = this.graphData.map((d) => [d.date, d.in]);
+      const usage = this.usage;
 
       this.chartOptions = {
         chart: {
@@ -56,7 +71,9 @@ export default {
         },
         tooltip: {
           headerFormat: '',
-          pointFormat: '{series.name}: {point.y} ' + this.unit,
+          pointFormatter() {
+            return formatterCallbackFn(usage, this.series.name, this.y);
+          },
         },
         xAxis: {
           title: {
@@ -93,17 +110,17 @@ export default {
       };
     },
 
-    async refresh() {
+    async refreshData() {
       // format {data: Utc, up: number, down: number }
-      const graphData = await this.loadDataFn(this.partners);
-      this.createChart(graphData);
+      this.graphData = await this.loadDataFn(this.partners);
+      this.createChart();
 
       this.version += 1;
     },
   },
   watch: {
     contextPartners() {
-      this.refresh();
+      this.refreshData();
     },
   },
   computed: {
@@ -120,6 +137,9 @@ export default {
       }
 
       return [];
+    },
+    singlePartner() {
+      return this.partners.length === 1;
     },
   },
 };

@@ -402,6 +402,17 @@ export async function fetchSupervisionGraphData(filters) {
 
   const response = await query(queryStr, filters);
 
+  if (!response || !response.data) {
+    return {
+      errors: ['unknown'],
+    };
+  }
+  if (response.errors) {
+    return {
+      errors: response.errors,
+    };
+  }
+
   if (response.data) {
     return response.data.supervisionDataGraphV2;
   }
@@ -426,6 +437,17 @@ export async function fetchSupervisionGraphSMS(filters) {
     `;
 
   const response = await query(queryStr, filters);
+
+  if (!response || !response.data) {
+    return {
+      errors: ['unknown'],
+    };
+  }
+  if (response.errors) {
+    return {
+      errors: response.errors,
+    };
+  }
 
   if (response.data) {
     return response.data.supervisionSmsGraphV2;
@@ -454,6 +476,17 @@ export async function fetchSupervisionGraphVoice(filters) {
     `;
 
   const response = await query(queryStr, filters);
+
+  if (!response || !response.data) {
+    return {
+      errors: ['unknown'],
+    };
+  }
+  if (response.errors) {
+    return {
+      errors: response.errors,
+    };
+  }
 
   if (response.data) {
     return response.data.supervisionVoiceGraphV2;
