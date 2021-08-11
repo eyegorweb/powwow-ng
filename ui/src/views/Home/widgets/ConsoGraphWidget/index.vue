@@ -1,9 +1,6 @@
 <template>
   <WidgetBloc :widget="widget" @seeMore="onSeeMore">
-    <div v-if="!singlePartner" class="alert-light">
-      {{ $t('chooseAPartner') }}
-    </div>
-    <div v-else class="widget-header" slot="header">
+    <div class="widget-header" slot="header">
       <Toggle
         v-if="toggleValues"
         @update="updateGraph"
@@ -14,9 +11,9 @@
     </div>
 
     <template v-if="currentTab">
-      <DataGraph v-if="currentTab.id === 'DATA'" />
+      <DataGraph v-if="currentTab.id === 'DATA'" usage="DATA" />
       <SMSGraph v-if="currentTab.id === 'SMS'" />
-      <VoiceGraph v-if="currentTab.id === 'VOICE'" />
+      <VoiceGraph v-if="currentTab.id === 'VOICE'" usage="VOICE" />
     </template>
   </WidgetBloc>
 </template>

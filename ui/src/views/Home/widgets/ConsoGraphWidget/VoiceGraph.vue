@@ -1,5 +1,5 @@
 <template>
-  <BaseGraph :load-data-fn="loadDataFn" />
+  <BaseGraph :load-data-fn="loadDataFn" :usage="usage" />
 </template>
 
 <script>
@@ -13,10 +13,17 @@ export default {
     BaseGraph,
   },
 
+  props: {
+    usage: String,
+  },
+
   methods: {
     async loadDataFn(partners) {
       if (partners && partners.length) {
         const data = await supervisionVoiceGraph(partners);
+        if (data.errors) {
+          return;
+        }
 
         return data.responses.map((d) => ({
           date: formatDateToUTC(d.date),
