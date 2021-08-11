@@ -471,9 +471,10 @@ export default {
     ...mapGetters(['userIsBO']),
     mailingLists() {
       if (!this.partner) return [];
-      if(this.diffusionListEmails) {
+      if (this.diffusionListEmails) {
         return this.diffusionListEmails.map((m) => ({ label: m.name, value: m.id }));
       }
+      return [];
     },
     canSave() {
       return false;

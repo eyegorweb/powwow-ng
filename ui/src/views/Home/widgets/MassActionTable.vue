@@ -47,7 +47,7 @@ export default {
     },
     onSeeMore() {
       this.$router.push({
-        name: 'actHistory',
+        name: 'actHistory.classic',
         params: {
           queryFilters: [...this.widgetFilters],
         },
