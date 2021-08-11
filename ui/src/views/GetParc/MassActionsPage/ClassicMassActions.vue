@@ -44,7 +44,7 @@ export default {
       'setActCategoryFilter',
     ]),
     initAfterRouteIsSet() {
-      // Ne pas réinitialiser la bare de filtres si on reviens du détail d'une ligne
+      // Ne pas réinitialiser la bare de filtres si on revient du détail d'une ligne
 
       if (this.prevRoute === 'actDetail') {
         return;

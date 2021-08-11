@@ -35,7 +35,7 @@ export default {
   methods: {
     onCounterClick(indicator) {
       this.$router.push({
-        name: 'actHistory',
+        name: 'actHistory.classic',
         params: {
           queryFilters: [...indicator.filters, ...this.contextFilters],
         },
