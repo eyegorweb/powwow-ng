@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.465+20210811081233
+2021-08-11
+
+### Fixes
+
+- [1370] Probleme de refresh sur mailinglist optionsPartner (9974bb3641709ec82faed8d4de47b41cc438a0db)
+- [2854] gestion et conversion des données pour les graphes supervision (650657665ba8758ab8d9483d3a5e4e3a23bcf98a)
+
 ## 1.17.0-master.464+20210809092039
 2021-08-09
 
