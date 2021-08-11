@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.466+20210811135425
+2021-08-11
+
+### Fixes
+
+- [2875] correction de l'url affichée depuis le widget Acte de gestion (4dde86827406563b18b3a87a786ae0ddbc5d39c9)
+
 ## 1.17.0-master.465+20210811081233
 2021-08-11
 
