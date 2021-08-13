@@ -10,6 +10,7 @@ import { Chart } from 'highcharts-vue';
 
 import { fetchSupervisionGraphVoice } from '@/api/supervision.js';
 import { formatLargeNumber } from '@/utils/numbers';
+import { formatUTCtoStrDate } from '@/utils/date.js';
 
 export default {
   components: {
@@ -41,9 +42,13 @@ export default {
   methods: {
     sumAllData(dataOut, dataIn) {
       return dataOut.map((n) => {
-        const corresponding = dataIn.find((c) => c[0] == n[0]);
-        const sum = n[1] + corresponding[1];
-        return [n[0], sum];
+        const corresponding = dataIn.find((c) => c.x == n.x);
+        const sum = n.y + corresponding.y;
+        return {
+          x: n.x,
+          y: sum,
+          myData: n.myData,
+        };
       });
     },
     async refreshData() {
@@ -69,16 +74,41 @@ export default {
               parseInt(timeParts[0])
             ),
           };
-          all.minIn.push([formattedObj.date, formattedObj.volumeIn]);
-          all.minOut.push([formattedObj.date, formattedObj.volumeOut]);
-          all.nbCallsIn.push([formattedObj.date, formattedObj.numberCallsIn]);
-          all.nbCallsOut.push([formattedObj.date, formattedObj.numberCallsOut]);
-          all.trafficSMS.push([formattedObj.date, formattedObj.numberTraffSims]);
+          all.minIn.push({ x: formattedObj.date, y: formattedObj.volumeIn, myData: formattedObj });
+          all.minOut.push({
+            x: formattedObj.date,
+            y: formattedObj.volumeOut,
+            myData: formattedObj,
+          });
+          all.nbCallsIn.push({
+            x: formattedObj.date,
+            y: formattedObj.numberCallsIn,
+            myData: formattedObj,
+          });
+          all.nbCallsOut.push({
+            x: formattedObj.date,
+            y: formattedObj.numberCallsOut,
+            myData: formattedObj,
+          });
+          all.trafficSMS.push({
+            x: formattedObj.date,
+            y: formattedObj.numberTraffSims,
+            myData: formattedObj,
+          });
 
           return all;
         },
         { minIn: [], minOut: [], nbCallsIn: [], nbCallsOut: [], trafficSMS: [] }
       );
+
+      const pointFormatter = (p) => {
+        return `
+              <div style="width: 7px; height: 7px; border-radius: 15px; background-color: ${p.series.userOptions.color}; display: inline-block; margin-right: 0.5rem"></div>
+              ${p.series.userOptions.name}
+              :
+              ${p.y} <br/>
+              `;
+      };
 
       this.chartOptions = {
         credits: {
@@ -109,7 +139,14 @@ export default {
         },
         xAxis: [
           {
-            type: 'datetime',
+            labels: {
+              formatter() {
+                return formatUTCtoStrDate(this.value, 'DD. MMM');
+              },
+              style: {
+                color: Highcharts.getOptions().colors[1],
+              },
+            },
             crosshair: true,
           },
         ],
@@ -153,14 +190,15 @@ export default {
         tooltip: {
           shared: true,
           useHTML: true,
-          xDateFormat: '%d/%m/%Y %Hh',
-          pointFormatter() {
-            return `
-              <div style="width: 7px; height: 7px; border-radius: 15px; background-color: ${this.series.userOptions.color}; display: inline-block; margin-right: 0.5rem"></div>
-              ${this.series.userOptions.name}
-              :
-              ${this.y} <br/>
-              `;
+          formatter() {
+            return this.points.reduce(
+              (all, p) => {
+                const pointOut = pointFormatter(p);
+                all.push(pointOut);
+                return all;
+              },
+              [this.points[0].point.myData.formatDate, '<br />']
+            );
           },
         },
         legend: {

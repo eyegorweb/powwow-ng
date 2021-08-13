@@ -18,7 +18,6 @@ Then(`le fichier est bien téléchargé`, () => {
   cy.wait(500);
   cy.wrap(null).then(() => {
     return cy.waitUntiGQLIsSent('massActionExport').then((http) => {
-      console.log('🚀 ~ file: index.js ~ line 21 ~ returncy.waitUntiGQLIsSent ~ http', http);
       const downloadUri = get(http.response, 'body.data.massActionExport.downloadUri');
 
       expect(downloadUri).to.not.be.undefined;

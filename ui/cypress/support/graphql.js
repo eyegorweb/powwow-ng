@@ -32,7 +32,6 @@ Cypress.Commands.add('startObservationGql', () => {
     }
 
     req.on('response', (response) => {
-      // console.log('🚀 ~ file: graphql.js ~ line 35 ~ req.on ~ response', response);
       payload.response = response;
       window.Cypress.emit('gql', { request: req, response });
     });
@@ -50,10 +49,8 @@ Cypress.Commands.add('waitForGQL', (queryName) => {
 });
 
 Cypress.Commands.add('waitUntiGQLIsSent', (queryName) => {
-  console.log('🚀 ~ file: graphql.js ~ line 53 ~ Cypress.Commands.add ~ queryName', queryName);
   const check = (resolve) => {
     const meta = lastQueries.find((meta) => meta.queryStr.includes(queryName));
-    console.log('🚀 ~ file: graphql.js ~ line 56 ~ check ~ lastQueries', lastQueries, queryName);
     if (meta) {
       resolve(meta);
     } else {
