@@ -39,7 +39,12 @@
             :input-style="inputStyle"
           />
         </div>
-        <div class="limitDate">
+        <div v-if="editMode && lines[0] === line" class="limitDate">
+          <span>
+            {{ $t('getvsion.alarm-creation.beforeEndOfMonth') }}
+          </span>
+        </div>
+        <div v-else class="limitDate">
           <span class="before-date-selection-text">
             <template v-if="!!getPercentValFn(line.value)"
               >{{ getPercentValFn(line.value) }}
