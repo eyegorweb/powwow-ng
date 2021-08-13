@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.467+20210813122203
+2021-08-13
+
+### Fixes
+
+- [2871] formattage des dates dans les graphes état des services (452d197b4bef61a4d5ca5954e2b26ea638a6c779)
+
 ## 1.17.0-master.466+20210811135425
 2021-08-11
 
