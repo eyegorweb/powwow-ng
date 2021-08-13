@@ -391,6 +391,7 @@ export async function fetchSupervisionGraphData(filters) {
         lastUpdateDate
         responses {
           date
+          formatDate
           upload
           download
           numberRequests
@@ -398,6 +399,7 @@ export async function fetchSupervisionGraphData(filters) {
           numberRequestsOpening
         }
       }
+    }
     `;
 
   const response = await query(queryStr, filters);
@@ -428,12 +430,14 @@ export async function fetchSupervisionGraphSMS(filters) {
         endDate: $endDate){
         responses{
           date
+          formatDate
           numberOfSentSMS
           numberOfReceivedSMS
           numberOfTraffSims
         }
         lastUpdateDate
       }
+    }
     `;
 
   const response = await query(queryStr, filters);
@@ -464,6 +468,7 @@ export async function fetchSupervisionGraphVoice(filters) {
         endDate: $endDate){
         responses{
           date
+          formatDate
           volumeIn
           volumeOut
           numberCallsIn
@@ -473,6 +478,7 @@ export async function fetchSupervisionGraphVoice(filters) {
         }
         lastUpdateDate
       }
+    }
     `;
 
   const response = await query(queryStr, filters);

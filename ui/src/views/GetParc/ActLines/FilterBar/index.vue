@@ -549,7 +549,6 @@ export default {
           }
         }
       }
-      console.log('this.canShowSelectedFilter >> ', this.canShowSelectedFilter);
       return this.canShowSelectedFilter;
     },
     isEsimCategoryInFilter() {

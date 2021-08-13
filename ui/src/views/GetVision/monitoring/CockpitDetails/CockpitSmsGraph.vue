@@ -10,6 +10,7 @@ import { Chart } from 'highcharts-vue';
 
 import { fetchSupervisionGraphSMS } from '@/api/supervision.js';
 import { formatLargeNumber } from '@/utils/numbers';
+import { formatUTCtoStrDate } from '@/utils/date.js';
 
 export default {
   components: {
@@ -41,9 +42,13 @@ export default {
   methods: {
     sumAllData(dataOut, dataIn) {
       return dataOut.map((n) => {
-        const corresponding = dataIn.find((c) => c[0] == n[0]);
-        const sum = n[1] + corresponding[1];
-        return [n[0], sum];
+        const corresponding = dataIn.find((c) => c.x == n.x);
+        const sum = n.y + corresponding.y;
+        return {
+          x: n.x,
+          y: sum,
+          myData: n.myData,
+        };
       });
     },
     async refreshData() {
@@ -53,6 +58,15 @@ export default {
       });
 
       if (!data) return;
+
+      const pointFormatter = (p) => {
+        return `
+              <div style="width: 7px; height: 7px; border-radius: 15px; background-color: ${p.series.userOptions.color}; display: inline-block; margin-right: 0.5rem"></div>
+              ${p.series.userOptions.name}
+              :
+              ${p.y} <br/>
+              `;
+      };
 
       const formattedData = data.responses.reduce(
         (all, item) => {
@@ -69,9 +83,23 @@ export default {
               parseInt(timeParts[0])
             ),
           };
-          all.in.push([formattedObj.date, formattedObj.numberOfReceivedSMS]);
-          all.out.push([formattedObj.date, formattedObj.numberOfSentSMS]);
-          all.traffics.push([formattedObj.date, formattedObj.numberOfTraffSims]);
+          all.in.push({
+            x: formattedObj.date,
+            y: formattedObj.numberOfReceivedSMS,
+            myData: formattedObj,
+          });
+
+          all.out.push({
+            x: formattedObj.date,
+            y: formattedObj.numberOfSentSMS,
+            myData: formattedObj,
+          });
+
+          all.traffics.push({
+            x: formattedObj.date,
+            y: formattedObj.numberOfTraffSims,
+            myData: formattedObj,
+          });
 
           return all;
         },
@@ -107,7 +135,14 @@ export default {
         },
         xAxis: [
           {
-            type: 'datetime',
+            labels: {
+              formatter() {
+                return formatUTCtoStrDate(this.value, 'DD. MMM');
+              },
+              style: {
+                color: Highcharts.getOptions().colors[1],
+              },
+            },
             crosshair: true,
           },
         ],
@@ -151,14 +186,15 @@ export default {
         tooltip: {
           shared: true,
           useHTML: true,
-          xDateFormat: '%d/%m/%Y %Hh',
-          pointFormatter() {
-            return `
-              <div style="width: 7px; height: 7px; border-radius: 15px; background-color: ${this.series.userOptions.color}; display: inline-block; margin-right: 0.5rem"></div>
-              ${this.series.userOptions.name}
-              :
-              ${this.y} <br/>
-              `;
+          formatter() {
+            return this.points.reduce(
+              (all, p) => {
+                const pointOut = pointFormatter(p);
+                all.push(pointOut);
+                return all;
+              },
+              [this.points[0].point.myData.formatDate, '<br />']
+            );
           },
         },
         legend: {
