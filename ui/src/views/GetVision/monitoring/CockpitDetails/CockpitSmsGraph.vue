@@ -106,6 +106,9 @@ export default {
         { in: [], out: [], traffics: [] }
       );
 
+      const tickPositions = formattedData.in.map(d => d.x);
+
+
       this.chartOptions = {
         credits: {
           enabled: false,
@@ -135,6 +138,7 @@ export default {
         },
         xAxis: [
           {
+            tickPositions,
             labels: {
               formatter() {
                 return formatUTCtoStrDate(this.value, 'DD. MMM');
@@ -142,6 +146,7 @@ export default {
               style: {
                 color: Highcharts.getOptions().colors[1],
               },
+              rotation: -45
             },
             crosshair: true,
           },

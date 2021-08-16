@@ -101,6 +101,9 @@ export default {
         { minIn: [], minOut: [], nbCallsIn: [], nbCallsOut: [], trafficSMS: [] }
       );
 
+      const tickPositions = formattedData.minIn.map(d => d.x);
+
+
       const pointFormatter = (p) => {
         return `
               <div style="width: 7px; height: 7px; border-radius: 15px; background-color: ${p.series.userOptions.color}; display: inline-block; margin-right: 0.5rem"></div>
@@ -139,6 +142,7 @@ export default {
         },
         xAxis: [
           {
+            tickPositions,
             labels: {
               formatter() {
                 return formatUTCtoStrDate(this.value, 'DD. MMM');
@@ -146,6 +150,7 @@ export default {
               style: {
                 color: Highcharts.getOptions().colors[1],
               },
+              rotation: -45
             },
             crosshair: true,
           },
