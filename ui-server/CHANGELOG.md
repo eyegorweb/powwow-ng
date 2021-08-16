@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.470+20210816141055
+2021-08-16
+
+### Fixes
+
+- [2875] correction de la redirection du widget Acte de gestion pour les cartes sim standard (3dd84864bca83d5b6a731d9e7e590e8223e5f756)
+
 ## 1.17.0-master.469+20210816135144
 2021-08-16
 
