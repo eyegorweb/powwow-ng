@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.469+20210816135144
+2021-08-16
+
+### Fixes
+
+- [2871] ajouter le filtre partenaire à l'export état des services (b9234e5eeced40f7cf9ea565816046d045fdae8f)
+
 ## 1.17.0-master.468+20210816121201
 2021-08-16
 
