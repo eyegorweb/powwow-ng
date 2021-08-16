@@ -75,6 +75,11 @@ export default {
       orderBy: { key: 'creationDate', direction: 'DESC' },
       filters: [
         {
+          id: 'filters.category',
+          value: 'STANDARD',
+          hidden: true,
+        },
+        {
           id: 'filters.actStatus',
           values: [
             {
