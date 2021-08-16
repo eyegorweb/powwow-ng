@@ -154,6 +154,14 @@ export default {
         if (countryFilter && countryFilter.data) {
           locationCode = countryFilter.data.codeIso3;
         }
+
+        const partnerFilter = this.appliedFilters.find(p => p.id === 'getadmin.users.filters.partners');
+        let partnerId;
+
+
+        if (partnerFilter && partnerFilter.data) {
+          partnerId = partnerFilter.data.id;
+        }
         const queryParams = {
           supervisionType: this.supervisionType,
           params: {},
@@ -181,6 +189,10 @@ export default {
 
         if (locationCode) {
           queryParams.params.locationCode = locationCode;
+        }
+
+        if (partnerId) {
+          queryParams.params.partyIds = [partnerId];
         }
 
         return await supervisionExport(queryParams);
