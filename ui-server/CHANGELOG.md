@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.468+20210816121201
+2021-08-16
+
+### Fixes
+
+- [2871] Corriger les intervalles du graphe (be243a9316fa9127186a5fa8a3047aa9fa9d2013)
+
 ## 1.17.0-master.467+20210813122203
 2021-08-13
 
