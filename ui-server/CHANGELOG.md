@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.471+20210817080713
+2021-08-17
+
+### Fixes
+
+- [000] cacher les boutons de debug sur l'UAT (22e9a6f5a25e64d9e7d57d12bae0f5480d96681b)
+
 ## 1.17.0-master.470+20210816141055
 2021-08-16
 
