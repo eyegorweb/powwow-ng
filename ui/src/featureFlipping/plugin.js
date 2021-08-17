@@ -6,7 +6,7 @@ export const HIDE_MOCKS = '_ff_hide_mocks';
 export const DEBUG_MODE_ON = '_ff_debug_mode';
 
 export function isProdEnv() {
-  return location.hostname === 'm2m.by-docapost.com';
+  return !!['m2m-uat.by-docapost.com', 'm2m.by-docapost.com'].find((k) => location.hostname === k);
 }
 
 export function shouldFilterMocked() {
