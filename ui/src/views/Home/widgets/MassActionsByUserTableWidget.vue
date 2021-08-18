@@ -63,6 +63,14 @@ export default {
         },
       ];
 
+      const simCategoryFilter = [
+        {
+          id: 'filters.category',
+          value: 'STANDARD',
+          hidden: true,
+        },
+      ];
+
       const startDate = currentDateMinusMounts(3);
 
       const dateFilter = {
@@ -70,7 +78,7 @@ export default {
         startDate,
       };
 
-      return [...this.contextFilters, ...userFilter, dateFilter];
+      return [...this.contextFilters, ...userFilter, ...simCategoryFilter, dateFilter];
     },
   },
   data() {

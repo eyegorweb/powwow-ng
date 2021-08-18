@@ -57,6 +57,11 @@ export default {
   mounted() {
     const specificFilters = [
       {
+        id: 'filters.category',
+        value: 'STANDARD',
+        hidden: true,
+      },
+      {
         id: 'filters.actTypes',
         values: [
           {

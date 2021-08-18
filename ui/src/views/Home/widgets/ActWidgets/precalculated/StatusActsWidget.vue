@@ -63,6 +63,11 @@ export default {
         total: '-',
         filters: [
           {
+            id: 'filters.category',
+            value: 'STANDARD',
+            hidden: true,
+          },
+          {
             id: 'filters.actStatus',
             values: [
               {
@@ -92,6 +97,11 @@ export default {
         clickable: true,
         total: '-',
         filters: [
+          {
+            id: 'filters.category',
+            value: 'STANDARD',
+            hidden: true,
+          },
           {
             id: 'filters.actStatus',
             values: [
@@ -124,6 +134,11 @@ export default {
         clickable: true,
         total: '-',
         filters: [
+          {
+            id: 'filters.category',
+            value: 'STANDARD',
+            hidden: true,
+          },
           {
             id: 'filters.actStatus',
             values: [

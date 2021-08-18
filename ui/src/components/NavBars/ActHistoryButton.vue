@@ -74,7 +74,18 @@ export default {
   methods: {
     gotoHistoryPage() {
       this.showActs = false;
-      this.$router.push({ name: 'actHistory' });
+      this.$router.push({
+        name: 'actHistory.classic',
+        params: {
+          queryFilters: [
+            {
+              id: 'filters.category',
+              value: 'STANDARD',
+              hidden: true,
+            },
+          ],
+        },
+      });
     },
     async refreshHistory() {
       const startDate = currentDateMinusMounts(3);
