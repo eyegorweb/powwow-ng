@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.473+20210818141737
+2021-08-18
+
+### Fixes
+
+- [000] Désactiver temporairement la notification par mail (5f2303002a44c23906773bccca82570815e78d3e)
+
 ## 1.17.0-master.472+20210818073925
 2021-08-18
 
