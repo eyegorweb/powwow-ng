@@ -3,12 +3,14 @@
     <div class="overview-container m-3 bg-white">
       <slot></slot>
 
-      <div class="row mt-2">
-        <div class="col d-flex">
-          <UiCheckbox v-model="notificationCheck" />
-          <span>{{ $t('getparc.actCreation.NOTIFICATION_CHECK') }}</span>
+      <ff-wip>
+        <div class="row mt-2">
+          <div class="col d-flex">
+            <UiCheckbox v-model="notificationCheck" />
+            <span>{{ $t('getparc.actCreation.NOTIFICATION_CHECK') }}</span>
+          </div>
         </div>
-      </div>
+      </ff-wip>
 
       <div class="overview-item row">
         <div class="col">
@@ -65,13 +67,9 @@ export default {
   },
   mounted() {
     if (this.changeOffer && this.userIsBO && !this.userIsMVNO) {
-      this.actDate = moment()
-        .endOf('month')
-        .format('DD/MM/YYYY HH:mm:ss');
+      this.actDate = moment().endOf('month').format('DD/MM/YYYY HH:mm:ss');
     } else if (this.changeOffer && !this.userIsBO && !this.userIsMVNO) {
-      this.actDate = moment()
-        .endOf('month')
-        .format('DD/MM/YYYY HH:mm:ss');
+      this.actDate = moment().endOf('month').format('DD/MM/YYYY HH:mm:ss');
       this.disabledDate = true;
     } else {
       this.actDate = moment().format('DD/MM/YYYY HH:mm:ss');

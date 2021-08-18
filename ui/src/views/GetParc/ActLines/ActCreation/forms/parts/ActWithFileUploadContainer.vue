@@ -3,12 +3,15 @@
     <div class="card-body">
       <div class="row">
         <div class="col-7">
-          <div class="row">
-            <div class="col d-flex">
-              <UiCheckbox v-model="notificationCheck" />
-              <span>{{ $t('getparc.actCreation.NOTIFICATION_CHECK') }}</span>
+          <ff-wip>
+            <div class="row">
+              <div class="col d-flex">
+                <UiCheckbox v-model="notificationCheck" />
+                <span>{{ $t('getparc.actCreation.NOTIFICATION_CHECK') }}</span>
+              </div>
             </div>
-          </div>
+          </ff-wip>
+
           <div class="row">
             <div class="col">
               <UiDate
