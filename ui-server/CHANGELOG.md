@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.472+20210818073925
+2021-08-18
+
+### Fixes
+
+- [2794] correction des redirections vers les actes depuis la page d'accueil (02ab25619bf5ba0b4db531874a8839005330ff31)
+
 ## 1.17.0-master.471+20210817080713
 2021-08-17
 
