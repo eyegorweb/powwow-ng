@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.475+20210819080423
+2021-08-19
+
+### Features
+
+- [2850] configuration de la référence client pour l'acte d'activation/préactivation des lignes (23c6235dbf99f2ea09c850b4f6e8e187db63786c)
+
 ## 1.17.0-master.474+20210819074836
 2021-08-19
 
