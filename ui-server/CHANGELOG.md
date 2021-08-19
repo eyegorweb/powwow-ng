@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.474+20210819074836
+2021-08-19
+
+### Fixes
+
+- [2844] gestion de date dans la modification des alarmes (dfe6b0f4b8704af62d35dc2327b2ac9c3bf5f5fd)
+
 ## 1.17.0-master.473+20210818141737
 2021-08-18
 
