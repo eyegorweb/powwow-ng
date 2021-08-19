@@ -6,6 +6,16 @@
         <UiToggle label="Activation" v-model="activation" />
       </div>
 
+      <div v-if="isUserReferenceEnabled">
+        <label class="font-weight-bold"
+          >{{ $t('orders.detail.referenceClient') }}
+          <div class="text-danger" v-if="fieldErrors && fieldErrors.userReference">
+            {{ $t('required') }}
+          </div></label
+        >
+        <UiInput class="d-block mx-auto" v-model="userReferenceValue" />
+      </div>
+
       <template v-if="activation">
         <div>
           <label class="font-weight-bold">
@@ -73,6 +83,7 @@ import UiToggle from '@/components/ui/UiToggle';
 import OffersPart from '@/views/GetParc/ActLines/ActCreation/prerequisites/parts/OffersPart';
 import BillingAccountsPart from '@/views/GetParc/ActLines/ActCreation/prerequisites/parts/BillingAccountsPart';
 import PartnerFields from '@/components/PartnerFields';
+import UiInput from '@/components/ui/UiInput';
 
 import { mapState, mapGetters } from 'vuex';
 import { fetchCustomFields } from '@/api/customFields';
@@ -87,6 +98,7 @@ import ServicesBlock from '@/components/Services/ServicesBlock.vue';
 
 import { getMarketingOfferServices } from '@/components/Services/utils.js';
 import { searchLineById } from '@/api/linesActions';
+import { getPartyOptions } from '@/api/partners';
 
 export default {
   components: {
@@ -96,6 +108,7 @@ export default {
     BillingAccountsPart,
     PartnerFields,
     ServicesBlock,
+    UiInput,
   },
   computed: {
     ...mapState('actLines', ['selectedLinesForActCreation', 'actCreationPrerequisites']),
@@ -116,7 +129,6 @@ export default {
       }
       return this.billingAccount;
     },
-
     billingAccount() {
       if (this.actCreationPrerequisites.searchById) {
         if (this.singleLineFound) {
@@ -124,6 +136,16 @@ export default {
         }
       }
       return this.actCreationPrerequisites.billingAccount;
+    },
+    isUserReferenceEnabled() {
+      if (!this.actCreationPrerequisites) return false;
+      let userReference = false;
+
+      if (this.partnerOptions) {
+        userReference = this.partnerOptions.userReferenceEnabled;
+      }
+
+      return userReference;
     },
   },
   data() {
@@ -144,12 +166,15 @@ export default {
       chosenBillingAccount: undefined,
       singleLineFound: undefined,
       requestErrors: [],
+      partnerOptions: undefined,
+      userReferenceValue: undefined,
     };
   },
 
   async mounted() {
     await this.loadSingleLineInfo();
     this.loadCustomFields();
+    this.refreshOptions();
   },
 
   watch: {
@@ -208,6 +233,11 @@ export default {
         }
       }
 
+      if (this.isUserReferenceEnabled && !this.userReferenceValue) {
+        fieldErrors.userReference = true;
+        haveError = true;
+      }
+
       this.fieldErrors = fieldErrors;
       return haveError;
     },
@@ -229,6 +259,7 @@ export default {
           customerAccountID: billingAccountToUse.id,
           tempDataUuid: contextValues.tempDataUuid,
           allCustomFields: this.customFieldsValues,
+          userRef: this.userReferenceValue,
         };
 
         response = await preactivateAndActivateSImcardInstance(
@@ -246,6 +277,7 @@ export default {
               ? this.billingAccount.id
               : null,
           tempDataUuid: contextValues.tempDataUuid,
+          userRef: this.userReferenceValue,
         };
 
         response = await preactivateSimCardInstance(
@@ -292,16 +324,19 @@ export default {
     },
 
     async confirmValdation(containerValidationFn) {
-      if (!this.checkErrors()) {
-        this.isLoading = true;
-        const response = await containerValidationFn();
-        this.isLoading = false;
-        this.waitForReportConfirmation = false;
-        return response;
-      }
+      this.isLoading = true;
+      const response = await containerValidationFn();
+      this.isLoading = false;
       this.waitForReportConfirmation = false;
+      return response;
     },
-    checkErrors() {},
+    async refreshOptions() {
+      if (this.partner) {
+        this.partnerOptions = await getPartyOptions(this.partner.id);
+      } else {
+        this.partnerOptions = undefined;
+      }
+    },
 
     async loadCustomFields() {
       this.allCustomFields = await fetchCustomFields(this.partner.id);
