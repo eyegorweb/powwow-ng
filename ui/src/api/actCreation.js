@@ -728,6 +728,7 @@ export async function preactivateAndActivateSImcardInstance(filters, lines, para
       customerAccountID,
       workflowCode,
       allCustomFields,
+      userRef,
     } = params;
 
     let gqlTempDataUuid = '';
@@ -762,7 +763,8 @@ export async function preactivateAndActivateSImcardInstance(filters, lines, para
           workflowCode: "${workflowCode}",
           ${gqlTempDataUuid}
           ${changeServicesParamsGql}
-          ${customfields}
+          ${customfields},
+          userRef: "${userRef}"
         })
         {
           tempDataUuid
@@ -788,7 +790,7 @@ export async function preactivateAndActivateSImcardInstance(filters, lines, para
 
 export async function preactivateSimCardInstance(filters, lines, params) {
   return actCreationMutation(filters, lines, async (gqlFilter, gqlLines) => {
-    const { notifEmail, dueDate, partyId, tempDataUuid, customerAccountID } = params;
+    const { notifEmail, dueDate, partyId, tempDataUuid, customerAccountID, userRef } = params;
 
     let gqlTempDataUuid = '';
     if (tempDataUuid) {
@@ -805,6 +807,7 @@ export async function preactivateSimCardInstance(filters, lines, params) {
           notification: ${boolStr(notifEmail)},
           dueDate: "${dueDate}",
           customerAccountId: ${customerAccountID},
+          userRef: "${userRef}",
           ${gqlTempDataUuid}
         })
         {
