@@ -412,6 +412,9 @@ export async function createOrder(synthesis) {
     email = '';
   }
 
+  let smsNotification = get(synthesis, 'smsNotification');
+  let emailNotification = get(synthesis, 'emailNotification');
+
   let state = get(synthesis, 'delivery.value.detail.address.state', '');
   if (!state) {
     state = '';
@@ -432,9 +435,9 @@ export async function createOrder(synthesis) {
   }
 
   const orderReference = get(synthesis, 'orderReference.selection.orderReference');
-  let orderReferenceParam = ',externalId: ""'; // Fix temporaire : suite à un bug backend, on est obligé de passer une valeur
+  let orderReferenceParam = 'externalId: ""'; // Fix temporaire : suite à un bug backend, on est obligé de passer une valeur
   if (orderReference) {
-    orderReferenceParam = `,externalId: "${orderReference}"`;
+    orderReferenceParam = `externalId: "${orderReference}"`;
   }
 
   let gqlServicesParamGql = '';
@@ -485,8 +488,12 @@ export async function createOrder(synthesis) {
       simCardId: ${get(synthesis, 'product.value.id')},
       customFieldsDTO: ${customFieldsDTO}
       ${orderReferenceParam}${gqlWorkflowId}
+      smsNotification: ${smsNotification}
+      emailNotification: ${emailNotification}
     }${gqlServicesParamGql}) {
       id
+      smsNotification
+      emailNotification
     }
   }
   `;

@@ -2,6 +2,23 @@
   <CreateOrderStepContainer @done="done" @prev="prev" no-next-button :no-buttons="isOpen">
     <template v-if="!isOpen">
       <div class="main-content2">
+        <template v-if="!userIsMVNO">
+          <h3 class="font-weight-light text-center mt-4 mb-4">
+            {{ $t('orders.choose-delivery-notification') }}
+          </h3>
+          <div class="toggles-container">
+            <UiToggle
+              :label="$t('orders.by-sms')"
+              v-model="smsNotification"
+              :editable="canEditSmsNofication"
+            />
+            <UiToggle
+              :label="$t('orders.by-mail')"
+              v-model="emailNotification"
+              :editable="canEditEmailNofication"
+            />
+          </div>
+        </template>
         <CreateOrderAddOrderReference
           :value="referenceValue"
           @input="onReferenceSet"
@@ -62,6 +79,7 @@ import { fetchCustomFields, createCustomField, addItemToCustomFieldList } from '
 import get from 'lodash.get';
 import { mapMutations, mapGetters } from 'vuex';
 import CreateOrderStepContainer from '../CreateOrderStepContainer';
+import UiToggle from '@/components/ui/UiToggle';
 
 export default {
   components: {
@@ -70,6 +88,7 @@ export default {
     UiButton,
     PartnerFields,
     CreateOrderStepContainer,
+    UiToggle,
   },
 
   data() {
@@ -82,6 +101,10 @@ export default {
       isOrderNumberMandatory: false,
       panel: 'order',
       label: 'libre',
+      smsNotification: false,
+      emailNotification: false,
+      phoneValue: '',
+      emailValue: '',
     };
   },
 
@@ -108,6 +131,36 @@ export default {
   computed: {
     ...mapGetters('getsim', ['selectedPartnersValues']),
     ...mapGetters(['userIsMVNO']),
+    canEditSmsNofication() {
+      if (!this.isNotValidPhoneNumber) return false;
+      return true;
+    },
+    canEditEmailNofication() {
+      this.emailValue = get(this.synthesis, 'delivery.value.detail.contactInformation.email');
+      if (this.emailValue) return true;
+      return false;
+    },
+    isNotValidPhoneNumber() {
+      const exlcudedPrefixNumbers = [
+        '01',
+        '02',
+        '03',
+        '04',
+        '05',
+        '09',
+        '331',
+        '332',
+        '333',
+        '334',
+        '335',
+        '339',
+      ];
+      this.phoneValue = get(this.synthesis, 'delivery.value.detail.contactInformation.phone');
+      if (exlcudedPrefixNumbers.filter((p) => this.phoneValue.indexOf(p) === 0).length > 0) {
+        return true;
+      }
+      return false;
+    },
   },
 
   methods: {
@@ -128,6 +181,9 @@ export default {
     },
 
     preFill() {
+      this.synthesis.smsNotification = this.smsNotification;
+      this.synthesis.emailNotification = this.emailNotification;
+
       if (!this.synthesis.customFields && this.order) {
         for (let i = 1, max = this.allCustomFields.length; i <= max; i++) {
           const value = this.order.customFields['custom' + i];
@@ -273,12 +329,25 @@ export default {
       } else {
         synthesis.customFields = undefined;
       }
+
+      synthesis.smsNotification = this.smsNotification;
+      synthesis.emailNotification = this.emailNotification;
+
       return synthesis;
     },
 
     onReferenceSet(value) {
       this.referenceValue = value;
       this.done();
+    },
+  },
+
+  watch: {
+    smsNotification(newValue) {
+      if (newValue) this.done();
+    },
+    emailNotification(newValue) {
+      if (newValue) this.done();
     },
   },
 };
@@ -314,5 +383,20 @@ export default {
 .subcontainer {
   max-height: 24rem;
   overflow-y: auto;
+}
+
+.toggles-container {
+  flex-grow: 1;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 24px;
+
+  .toggle {
+    flex: 1 100%;
+    flex-grow: 1;
+    padding-right: 5px;
+  }
 }
 </style>
