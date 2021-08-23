@@ -35,11 +35,11 @@ export async function getAvailableOffer(partnerId, pagination) {
 }
 
 export async function updateOffers(partnerId, offerIds) {
-  const queryStr = `mutation{ updateOffers(partnerId: ${partnerId}, offerIds: [${offerIds.join(
+  const queryStr = `mutation{ updateOffersOnParty(partnerId: ${partnerId}, offerIds: [${offerIds.join(
     ', '
   )}]) }`;
   const response = await query(queryStr);
-  if (response.data) return response.data.updateOffers;
+  if (response.data) return response.data.updateOffersOnParty;
 }
 
 export async function disableOffer(partnerId, offerId) {
