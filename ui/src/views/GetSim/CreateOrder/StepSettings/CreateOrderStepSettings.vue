@@ -154,6 +154,18 @@ export default {
         '334',
         '335',
         '339',
+        '00331',
+        '00332',
+        '00333',
+        '00334',
+        '00335',
+        '00339',
+        '+331',
+        '+332',
+        '+333',
+        '+334',
+        '+335',
+        '+339',
       ];
       this.phoneValue = get(this.synthesis, 'delivery.value.detail.contactInformation.phone');
       if (exlcudedPrefixNumbers.filter((p) => this.phoneValue.indexOf(p) === 0).length > 0) {
