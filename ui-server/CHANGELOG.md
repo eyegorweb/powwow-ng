@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.477+20210823151635
+2021-08-23
+
+### Fixes
+
+- [2786] mise à jour de la mutation updateOffersOnParty (c702e8583c0823baa6ee7d320c24d53a0ec5b53e)
+
 ## 1.17.0-master.476+20210823115958
 2021-08-23
 
