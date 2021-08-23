@@ -106,8 +106,7 @@ export default {
         { in: [], out: [], traffics: [] }
       );
 
-      const tickPositions = formattedData.in.map(d => d.x);
-
+      const tickPositions = formattedData.in.map((d) => d.x);
 
       this.chartOptions = {
         credits: {
@@ -146,7 +145,7 @@ export default {
               style: {
                 color: Highcharts.getOptions().colors[1],
               },
-              rotation: -45
+              rotation: -45,
             },
             crosshair: true,
           },

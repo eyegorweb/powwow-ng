@@ -101,8 +101,7 @@ export default {
         { minIn: [], minOut: [], nbCallsIn: [], nbCallsOut: [], trafficSMS: [] }
       );
 
-      const tickPositions = formattedData.minIn.map(d => d.x);
-
+      const tickPositions = formattedData.minIn.map((d) => d.x);
 
       const pointFormatter = (p) => {
         return `
@@ -150,7 +149,7 @@ export default {
               style: {
                 color: Highcharts.getOptions().colors[1],
               },
-              rotation: -45
+              rotation: -45,
             },
             crosshair: true,
           },

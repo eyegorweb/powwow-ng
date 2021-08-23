@@ -155,9 +155,10 @@ export default {
           locationCode = countryFilter.data.codeIso3;
         }
 
-        const partnerFilter = this.appliedFilters.find(p => p.id === 'getadmin.users.filters.partners');
+        const partnerFilter = this.appliedFilters.find(
+          (p) => p.id === 'getadmin.users.filters.partners'
+        );
         let partnerId;
-
 
         if (partnerFilter && partnerFilter.data) {
           partnerId = partnerFilter.data.id;

@@ -67,9 +67,13 @@ export default {
   },
   mounted() {
     if (this.changeOffer && this.userIsBO && !this.userIsMVNO) {
-      this.actDate = moment().endOf('month').format('DD/MM/YYYY HH:mm:ss');
+      this.actDate = moment()
+        .endOf('month')
+        .format('DD/MM/YYYY HH:mm:ss');
     } else if (this.changeOffer && !this.userIsBO && !this.userIsMVNO) {
-      this.actDate = moment().endOf('month').format('DD/MM/YYYY HH:mm:ss');
+      this.actDate = moment()
+        .endOf('month')
+        .format('DD/MM/YYYY HH:mm:ss');
       this.disabledDate = true;
     } else {
       this.actDate = moment().format('DD/MM/YYYY HH:mm:ss');

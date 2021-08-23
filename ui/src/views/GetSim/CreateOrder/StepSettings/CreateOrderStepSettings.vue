@@ -103,8 +103,6 @@ export default {
       label: 'libre',
       smsNotification: false,
       emailNotification: false,
-      phoneValue: '',
-      emailValue: '',
     };
   },
 
@@ -136,8 +134,7 @@ export default {
       return true;
     },
     canEditEmailNofication() {
-      this.emailValue = get(this.synthesis, 'delivery.value.detail.contactInformation.email');
-      if (this.emailValue) return true;
+      if (get(this.synthesis, 'delivery.value.detail.contactInformation.email')) return true;
       return false;
     },
     isNotValidPhoneNumber() {
@@ -155,8 +152,8 @@ export default {
         '335',
         '339',
       ];
-      this.phoneValue = get(this.synthesis, 'delivery.value.detail.contactInformation.phone');
-      if (exlcudedPrefixNumbers.filter((p) => this.phoneValue.indexOf(p) === 0).length > 0) {
+      const phoneValue = get(this.synthesis, 'delivery.value.detail.contactInformation.phone');
+      if (exlcudedPrefixNumbers.filter((p) => phoneValue.indexOf(p) === 0).length > 0) {
         return true;
       }
       return false;

@@ -14,7 +14,7 @@
           <template #beforeSelectedFilters>
             <slot name="beforeSelectedFilters"></slot>
           </template>
-          <template #actions="{ hasAnyValue, onSearch }">
+          <template #actions="{ onSearch }">
             <div class="actions d-flex flex-column flex-md-row mb-2">
               <UiButton
                 variant="primary"

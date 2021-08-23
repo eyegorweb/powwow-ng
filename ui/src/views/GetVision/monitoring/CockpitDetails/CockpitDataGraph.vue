@@ -62,16 +62,19 @@ export default {
       const pointFormatter = (p) => {
         if (!p.series.userOptions.name.includes('Volume')) {
           return `
-              <div style="width: 7px; height: 7px; border-radius: 15px; background-color: ${p.series.userOptions.color
-            }; display: inline-block; margin-right: 0.5rem"></div>
+              <div style="width: 7px; height: 7px; border-radius: 15px; background-color: ${
+                p.series.userOptions.color
+              }; display: inline-block; margin-right: 0.5rem"></div>
               ${p.series.userOptions.name}
               :
               ${formatLargeNumber(p.y) || '0'} <br/>
               `;
         } else {
-          return `<div style="width: 7px; height: 7px; border-radius: 15px; background-color: ${p.series.userOptions.color
-            }; display: inline-block; margin-right: 0.5rem"></div>${p.series.userOptions.name
-            } : ${formatBytes(p.y)} <br/>`;
+          return `<div style="width: 7px; height: 7px; border-radius: 15px; background-color: ${
+            p.series.userOptions.color
+          }; display: inline-block; margin-right: 0.5rem"></div>${
+            p.series.userOptions.name
+          } : ${formatBytes(p.y)} <br/>`;
         }
       };
 
@@ -123,7 +126,7 @@ export default {
       );
       // console.log(formattedData.lastUpdateDate);
 
-      const tickPositions = formattedData.in.map(d => d.x);
+      const tickPositions = formattedData.in.map((d) => d.x);
       this.chartOptions = {
         credits: {
           enabled: false,
@@ -153,7 +156,7 @@ export default {
         },
         xAxis: [
           {
-            //tickInterval: 1,
+            // tickInterval: 1,
             tickPositions,
             labels: {
               formatter() {
@@ -162,7 +165,7 @@ export default {
               style: {
                 color: Highcharts.getOptions().colors[1],
               },
-              rotation: -45
+              rotation: -45,
             },
             // type: 'datetime',
             crosshair: true,

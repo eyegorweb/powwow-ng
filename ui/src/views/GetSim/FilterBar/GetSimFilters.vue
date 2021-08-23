@@ -7,7 +7,7 @@
         module-name="ORDER"
         can-show-selected-filter
         :current-filters="currentFilters"
-        :noSave="!filtersHaveValues"
+        :no-save="!filtersHaveValues"
         @applyFilters="applyFilters"
         @chooseFilter="chooseFilter"
         @clear="(filterId) => clearFilter(filterId)"
