@@ -2,7 +2,7 @@
   <CreateOrderStepContainer @done="done" @prev="prev" no-next-button :no-buttons="isOpen">
     <template v-if="!isOpen">
       <div class="main-content2">
-        <template v-if="!userIsMVNO">
+        <template v-if="!isPartnerMVNO">
           <h3 class="font-weight-light text-center mt-4 mb-4">
             {{ $t('orders.choose-delivery-notification') }}
           </h3>
@@ -76,7 +76,6 @@ import AddCustomField from './AddCustomField';
 import PartnerFields from '@/components/PartnerFields';
 import UiButton from '@/components/ui/Button';
 import { fetchCustomFields, createCustomField, addItemToCustomFieldList } from '@/api/customFields';
-import get from 'lodash.get';
 import { mapMutations, mapGetters } from 'vuex';
 import CreateOrderStepContainer from '../CreateOrderStepContainer';
 import UiToggle from '@/components/ui/UiToggle';
@@ -119,7 +118,7 @@ export default {
   async mounted() {
     await this.fetchCustomFieldsForPartner();
     this.preFill();
-    this.isOrderNumberMandatory = get(
+    this.isOrderNumberMandatory = this.$loGet(
       this.synthesis,
       'billingAccount.selection.partner.options.orderNumberRequired',
       false
@@ -129,12 +128,20 @@ export default {
   computed: {
     ...mapGetters('getsim', ['selectedPartnersValues']),
     ...mapGetters(['userIsMVNO']),
+    isPartnerMVNO() {
+      return (
+        this.$loGet(this.synthesis, 'billingAccount.selection.partner.partyType', false) === 'MVNO'
+      );
+    },
     canEditSmsNofication() {
-      if (!this.isNotValidPhoneNumber) return false;
-      return true;
+      return !this.isNotValidPhoneNumber;
     },
     canEditEmailNofication() {
-      if (get(this.synthesis, 'delivery.value.detail.contactInformation.email')) return true;
+      const emailValue = this.$loGet(
+        this.synthesis,
+        'delivery.value.detail.contactInformation.email'
+      );
+      if (emailValue) return true;
       return false;
     },
     isNotValidPhoneNumber() {
@@ -164,11 +171,12 @@ export default {
         '+335',
         '+339',
       ];
-      const phoneValue = get(this.synthesis, 'delivery.value.detail.contactInformation.phone');
-      if (exlcudedPrefixNumbers.filter((p) => phoneValue.indexOf(p) === 0).length > 0) {
-        return true;
-      }
-      return false;
+      const phoneValue = this.$loGet(
+        this.synthesis,
+        'delivery.value.detail.contactInformation.phone',
+        false
+      );
+      return exlcudedPrefixNumbers.filter((p) => phoneValue.indexOf(p) === 0).length > 0;
     },
   },
 
@@ -182,7 +190,7 @@ export default {
     },
 
     async addValueToList(newListItem, customField) {
-      const partnerId = get(this.synthesis, 'billingAccount.value.partnerId');
+      const partnerId = this.$loGet(this.synthesis, 'billingAccount.value.partnerId');
       if (!partnerId) return;
 
       await addItemToCustomFieldList(partnerId, newListItem, customField.code);
@@ -205,7 +213,7 @@ export default {
 
     async fetchCustomFieldsForPartner() {
       const partnerId = this.synthesis.billingAccount.value.partnerId;
-      const isActivationAsked = get(this.synthesis, 'services.selection.activation', false);
+      const isActivationAsked = this.$loGet(this.synthesis, 'services.selection.activation', false);
 
       const allCustomFields = await fetchCustomFields(partnerId);
       this.refreshCustomFieldsInFilterBar(allCustomFields.customFields);
@@ -239,7 +247,7 @@ export default {
       this.isOpen = false;
 
       await createCustomField({
-        partyId: get(this.synthesis, 'billingAccount.selection.partner.id'),
+        partyId: this.$loGet(this.synthesis, 'billingAccount.selection.partner.id'),
         label: fieldData.label,
         type: fieldData.type,
         values: fieldData.values,
