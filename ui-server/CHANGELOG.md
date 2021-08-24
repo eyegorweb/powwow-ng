@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.478+20210824140245
+2021-08-24
+
+### Features
+
+- [2878] gestion de la notification de livraison lors de la création de commande (da20e046b23aac5c1024c575b0f83a1805994590)
+
 ## 1.17.0-master.477+20210823151635
 2021-08-23
 
