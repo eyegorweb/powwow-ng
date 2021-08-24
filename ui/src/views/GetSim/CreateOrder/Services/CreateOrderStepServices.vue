@@ -52,7 +52,6 @@ import OffersChoice from './OffersChoice';
 import ServicesBlock from '@/components/Services/ServicesBlock.vue';
 import LoaderContainer from '@/components/LoaderContainer';
 import { fetchOrderState } from '@/api/partners';
-import get from 'lodash.get';
 import { fetchOffers } from '@/api/offers';
 
 import CreateOrderStepContainer from '../CreateOrderStepContainer';
@@ -99,7 +98,10 @@ export default {
     },
     isrcard() {
       const rCardValues = ['BACKUP', 'FULL_BACKUP'];
-      const currentCategory = get(this.synthesis, 'product.selection.product.simCard.family');
+      const currentCategory = this.$loGet(
+        this.synthesis,
+        'product.selection.product.simCard.family'
+      );
       const inrCardValues = rCardValues.indexOf(currentCategory) !== -1;
       return inrCardValues;
     },
@@ -113,14 +115,17 @@ export default {
     },
   },
   async mounted() {
-    this.partnerId = get(this.synthesis, 'billingAccount.selection.partner.id');
-    const billingAccountCode = get(this.synthesis, 'billingAccount.selection.billingAccount.code');
+    this.partnerId = this.$loGet(this.synthesis, 'billingAccount.selection.partner.id');
+    const billingAccountCode = this.$loGet(
+      this.synthesis,
+      'billingAccount.selection.billingAccount.code'
+    );
 
     const stateOrder = await fetchOrderState(this.partnerId);
 
     if (this.$loGet(this.synthesis, 'services.selection')) {
-      this.activation = get(this.synthesis, 'services.selection.activation', false);
-      this.preActivation = get(this.synthesis, 'services.selection.preActivation', false);
+      this.activation = this.$loGet(this.synthesis, 'services.selection.activation', false);
+      this.preActivation = this.$loGet(this.synthesis, 'services.selection.preActivation', false);
     } else {
       this.activation = stateOrder.orderActivationMandatory;
       this.preActivation = stateOrder.orderPreactivationMandatory;
@@ -146,10 +151,10 @@ export default {
     });
 
     const selectedOffer = this.offers.find(
-      (o) => o.initialOffer.code === get(this.synthesis, 'services.value.offerCode')
+      (o) => o.initialOffer.code === this.$loGet(this.synthesis, 'services.value.offerCode')
     );
 
-    const previouslyChosenServices = get(this.synthesis, 'services.value.servicesChoice');
+    const previouslyChosenServices = this.$loGet(this.synthesis, 'services.value.servicesChoice');
     if (previouslyChosenServices) {
       this.chosenServices = [
         ...previouslyChosenServices.services,

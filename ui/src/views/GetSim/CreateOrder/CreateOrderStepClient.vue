@@ -101,6 +101,7 @@ export default {
       return data.map((p) => ({
         id: p.id,
         label: p.name,
+        partyType: p.partyType,
       }));
     },
     async done() {

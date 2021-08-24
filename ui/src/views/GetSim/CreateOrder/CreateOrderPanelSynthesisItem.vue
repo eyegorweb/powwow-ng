@@ -13,8 +13,6 @@
 </template>
 
 <script>
-import get from 'lodash/get';
-
 export default {
   props: {
     item: {
@@ -23,7 +21,7 @@ export default {
   },
   computed: {
     content() {
-      return get(this.item, 'value.content');
+      return this.$loGet(this.item, 'value.content');
     },
     isContentArray() {
       return Array.isArray(this.content);
