@@ -252,7 +252,7 @@ $theme-colors: map-merge(
 }
 
 .fade-out-hide {
-  display: block;
+  display: none;
   animation: fade-out 0.3s;
   animation-fill-mode: forwards;
 }
