@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.479+20210825141757
+2021-08-25
+
+### Fixes
+
+- [2881] Problèmes de css sur les filtres dans supervision (c8fb6c7412218d32fbcdb09810f6768322eff443)
+
 ## 1.17.0-master.478+20210824140245
 2021-08-24
 
