@@ -23,6 +23,7 @@ const SpecificFields = () =>
 // Offers and Sim
 const OffersCards = () => import('@/views/GetAdmin/PartnerDetail/OffersTab/OffersCards.vue');
 const SimCards = () => import('@/views/GetAdmin/PartnerDetail/OffersTab/SimCards.vue');
+const SupervisionOptions = () => import('@/views/GetAdmin/PartnerDetail/OffersTab/SupervisionOptions.vue');
 // Account Detail
 const Options = () => import('@/views/GetAdmin/PartnerDetail/AccountDetail/PartnerOptions.vue');
 const Description = () =>
@@ -168,6 +169,11 @@ export default {
           name: 'partnerDetail.offersAndSim.simCards',
           path: 'simcards',
           component: SimCards,
+        },
+        {
+          name: 'partnerDetail.offersAndSim.supervisionOptions',
+          path: 'supervision',
+          component: SupervisionOptions,
         },
       ],
     },

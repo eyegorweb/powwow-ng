@@ -380,6 +380,33 @@ async function geoMap(filters) {
   }
 }
 
+export async function fetchSupervisionOptions(partnerId) {
+  const queryStr = `query {
+    getOfferSupervisionOptions(partyId: ${partnerId}){
+      workflowId
+      description    
+      workflowCode
+      autoDiagnosticEnabled
+      fleetEnabled
+      geolocalisationEnabled
+      requestConsoEnabled
+      imeiEnabled
+      reportAvaiPDPEnabled
+      dmdGeolocCPT
+      dmdGeolocLimit
+      dmdConsoLimit
+      dmdConsoCPT
+      rCard
+    }
+  }`
+
+  const response = await query(queryStr);
+  console.log(response)
+  if (response.data) {
+    return response.data.getOfferSupervisionOptions;
+  }
+}
+
 export async function fetchSupervisionGraphData(filters) {
   const queryStr = `query SupervisionDataGraph($supervisionType: SupervisionGraphType!, $params: GeoLocSearchParams!
     $beginDate: Date,

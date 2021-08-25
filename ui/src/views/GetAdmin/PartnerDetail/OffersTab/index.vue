@@ -44,6 +44,14 @@ export default {
         },
       });
     }
+    this.menuItems.push({
+      section: 'supervision',
+      title: 'getadmin.users.supervision',
+      to: {
+        name: 'partnerDetail.offersAndSim.supervisionOptions',
+        params: { partner: this.partner },
+      },
+    });
   },
 
   data() {
