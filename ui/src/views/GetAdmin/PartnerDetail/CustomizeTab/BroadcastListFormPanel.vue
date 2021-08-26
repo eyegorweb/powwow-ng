@@ -3,7 +3,21 @@
     <div class="m-3">
       <div class="entries-line">
         <div class="form-entry">
-          <FormControl label="getadmin.customize.listName" v-model="form.title" />
+          <FormControl
+            label="getadmin.customize.listName"
+            v-model="form.title"
+            :error="errors.title"
+          />
+        </div>
+
+        <div v-if="!checkForErrors" class="entries-line">
+          <div class="form-entry">
+            <ul class="list-unstyled">
+              <li :key="error" v-for="error in errors" class="error-text">
+                {{ $t(error) }}
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
 
@@ -70,6 +84,7 @@ export default {
       form: {
         title: undefined,
       },
+      errors: [],
     };
   },
 
@@ -107,8 +122,25 @@ export default {
   computed: {
     ...mapGetters(['userInfos']),
 
+    /**
+     * Return true when no error is found
+     */
+    checkForErrors() {
+      let errors = [];
+      if (
+        this.content.broadcastLists &&
+        this.content.broadcastLists.length > 0 &&
+        this.content.broadcastLists.filter((i) => i.name === this.form.title).length > 0
+      ) {
+        errors = ['existing value'];
+      } else {
+        errors = [];
+      }
+      return errors.length === 0;
+    },
+
     canSave() {
-      return this.tags.length > 0 && this.form.title;
+      return this.tags.length > 0 && this.form.title && this.checkForErrors;
     },
   },
 
@@ -117,6 +149,16 @@ export default {
       this.form.title = this.content.duplicateFrom.name;
       this.tags = this.content.duplicateFrom.emails.split(';').map((e) => ({ text: e }));
     }
+  },
+
+  watch: {
+    checkForErrors(isError) {
+      if (!isError) {
+        this.errors = ['errors.existingValue'];
+      } else {
+        this.errors = [];
+      }
+    },
   },
 };
 </script>
