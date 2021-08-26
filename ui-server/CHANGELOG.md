@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.480+20210826123142
+2021-08-26
+
+### Fixes
+
+- [2834] Problème dans la pagination avec un filtre login (10f430db5f904ab61a69b796ec1278010829fb00)
+
 ## 1.17.0-master.479+20210825141757
 2021-08-25
 
