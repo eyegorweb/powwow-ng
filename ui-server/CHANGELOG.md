@@ -2,12 +2,13 @@
 
 <!--- next entry here -->
 
-## 1.17.0-master.482+20210826150842
+## 1.17.0-master.483+20210826151938
 2021-08-26
 
 ### Fixes
 
 - [2885] contrôle sur les noms de liste de diffusion d'un partenaire (11f0982c6f0c95cc9ad3139007b1ec1c6d1a120d)
+- [2884] amélioration de la performance pour l'acte Changement d'offre (5c6545b77b54c8c873cc9528d4fb53f7f945832f)
 
 ## 1.17.0-master.481+20210826130434
 2021-08-26
