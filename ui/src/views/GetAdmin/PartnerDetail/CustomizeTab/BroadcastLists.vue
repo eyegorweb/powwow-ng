@@ -60,7 +60,7 @@ export default {
       this.openPanel({
         title: this.$t('getadmin.customize.addList'),
         panelId: 'getadmin.customize.addList',
-        payload: { partnerId: this.partnerid },
+        payload: { partnerId: this.partnerid, broadcastLists: this.broadcastLists },
         backdrop: true,
         width: '40rem',
         ignoreClickAway: true,

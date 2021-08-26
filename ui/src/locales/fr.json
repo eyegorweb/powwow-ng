@@ -286,7 +286,8 @@
       "number-error": "Le mot de passe doit contenir au moins un chiffre.",
       "email-error": "Veuillez saisir une adresse email valide"
     },
-    "limitAddress": "Adresse limitée à 35 caractères"
+    "limitAddress": "Adresse limitée à 35 caractères",
+    "existingValue": "Ce nom existe déjà dans la liste de diffusion. Veuillez saisir un titre différent."
   },
   "common": {
     "limitDateError": "Attention la période de recherche ne peut exéder une année",

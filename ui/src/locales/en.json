@@ -247,7 +247,8 @@
       "number-error": "The password must contain at least one number.",
       "email-error": "Please enter a valid email address"
     },
-    "limitAddress": "Address limited to 35 characters"
+    "limitAddress": "Address limited to 35 characters",
+    "existingValue": "This name already exists in the mailing list. Please enter a different title."
   },
   "common": {
     "billing": "Billing",
@@ -665,7 +666,7 @@
       "shippingAddress": "Shipping address",
       "addshippingAddress": "Add a shipping address",
       "modifyshippingAddress": "Modify a shipping address",
-      "listName": "Name of shipping address",
+      "listName": "Name of mailing list",
       "emails": "Emails",
       "addEmail": "Add an email",
       "addCustomField": "Add a custom field",
