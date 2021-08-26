@@ -121,10 +121,12 @@ export default {
 
     this.offers = await this.fetchOffers(this.pagination);
     this.visibleOffers = [...this.offers];
-    this.blocsHeight =
-      (parseFloat(getComputedStyle(this.$refs.checkboxBloc[1]).height.replace('px', '')) +
-        CHECKBOX_MARGIN) *
-      this.visibleOffers.length;
+    if (this.$refs.checkboxBloc) {
+      this.blocsHeight =
+        (parseFloat(getComputedStyle(this.$refs.checkboxBloc[1]).height.replace('px', '')) +
+          CHECKBOX_MARGIN) *
+        this.visibleOffers.length;
+    }
   },
 
   methods: {
