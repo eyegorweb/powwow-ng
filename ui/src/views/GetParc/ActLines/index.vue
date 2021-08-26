@@ -149,7 +149,7 @@ import ActionCarousel from './ActionCarousel';
 import Indicators from '@/components/Indicators';
 import DropZone from '@/components/ui/DropZone';
 import UiSelect from '@/components/ui/UiSelect';
-import { getAvailableOffer } from '@/api/offers.js';
+import { fetchOffers } from '@/api/offers.js';
 import { mapState, mapActions, mapMutations, mapGetters } from 'vuex';
 import { getPartyOptions } from '@/api/partners.js';
 import Toggle from '@/components/ui/UiToggle2';
@@ -428,14 +428,22 @@ export default {
       let response;
       let partnerFilter = this.appliedFilters.find((e) => e.id === 'filters.partners');
       if (this.singlePartner) {
-        response = getAvailableOffer(this.singlePartner.id, { page: 0, limit: 20 });
+        response = fetchOffers('', this.singlePartner.id, {
+          page: 0,
+          limit: 20,
+          customerAccountCode: this.actCreationPrerequisites.billingAccount.code,
+        });
       } else if (
         this.userIsBO &&
         partnerFilter &&
         partnerFilter.values &&
         partnerFilter.values.length === 1
       ) {
-        response = getAvailableOffer(partnerFilter.values[0].id, { page: 0, limit: 20 });
+        response = fetchOffers('', partnerFilter.values[0].id, {
+          page: 0,
+          limit: 20,
+          customerAccountCode: this.actCreationPrerequisites.billingAccount.code,
+        });
       }
 
       carouselInputItems.map((item) => {
