@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.481+20210826130434
+2021-08-26
+
+### Fixes
+
+- [2888] correction du scroll sur le panel Offres du détail partenaire (6d84a7cc9d956372b9dd3d2704047afcceb46147)
+
 ## 1.17.0-master.480+20210826123142
 2021-08-26
 
