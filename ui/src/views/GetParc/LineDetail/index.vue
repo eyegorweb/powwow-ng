@@ -213,7 +213,7 @@ export default {
           : undefined;
 
         if (this.lineData.party && this.lineData.party.partyType !== 'MVNO') {
-          const availableOffers = await fetchOffers('', this.lineData.party.id, {
+          const availableOffers = await fetchOffers('', [{ id: this.lineData.party.id }], {
             page: 0,
             limit: 20,
             customerAccountCode:
