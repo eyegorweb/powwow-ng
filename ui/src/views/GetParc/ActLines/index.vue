@@ -428,7 +428,7 @@ export default {
       let response;
       let partnerFilter = this.appliedFilters.find((e) => e.id === 'filters.partners');
       if (this.singlePartner) {
-        response = fetchOffers('', this.singlePartner.id, {
+        response = fetchOffers('', [{ id: this.singlePartner.id }], {
           page: 0,
           limit: 20,
           customerAccountCode:
@@ -444,7 +444,7 @@ export default {
         partnerFilter.values &&
         partnerFilter.values.length === 1
       ) {
-        response = fetchOffers('', partnerFilter.values[0].id, {
+        response = fetchOffers('', [{ id: partnerFilter.values[0].id }], {
           page: 0,
           limit: 20,
           customerAccountCode:
