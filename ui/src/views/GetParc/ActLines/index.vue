@@ -431,7 +431,12 @@ export default {
         response = fetchOffers('', this.singlePartner.id, {
           page: 0,
           limit: 20,
-          customerAccountCode: this.actCreationPrerequisites.billingAccount.code,
+          customerAccountCode:
+            this.actCreationPrerequisites &&
+            this.actCreationPrerequisites.billingAccount &&
+            this.actCreationPrerequisites.billingAccount.code
+              ? this.actCreationPrerequisites.billingAccount.code
+              : undefined,
         });
       } else if (
         this.userIsBO &&
@@ -442,7 +447,12 @@ export default {
         response = fetchOffers('', partnerFilter.values[0].id, {
           page: 0,
           limit: 20,
-          customerAccountCode: this.actCreationPrerequisites.billingAccount.code,
+          customerAccountCode:
+            this.actCreationPrerequisites &&
+            this.actCreationPrerequisites.billingAccount &&
+            this.actCreationPrerequisites.billingAccount.code
+              ? this.actCreationPrerequisites.billingAccount.code
+              : undefined,
         });
       }
 

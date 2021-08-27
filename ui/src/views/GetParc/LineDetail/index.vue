@@ -62,7 +62,7 @@ import get from 'lodash.get';
 import { excludeMocked } from '@/featureFlipping/plugin';
 import { getPartyOptions } from '@/api/partners.js';
 import { getFromLatestLineFromAccessPoint } from '@/utils/line.js';
-import { getAvailableOffer } from '@/api/offers.js';
+import { fetchOffers } from '@/api/offers.js';
 
 export default {
   components: {
@@ -213,9 +213,14 @@ export default {
           : undefined;
 
         if (this.lineData.party && this.lineData.party.partyType !== 'MVNO') {
-          const availableOffers = await getAvailableOffer(this.lineData.party.id, {
+          const availableOffers = await fetchOffers('', this.lineData.party.id, {
             page: 0,
             limit: 20,
+            customerAccountCode:
+              this.partnerOptions.defaultCustomerForActivation &&
+              this.partnerOptions.defaultCustomerForActivation.code
+                ? this.partnerOptions.defaultCustomerForActivation.code
+                : undefined,
           });
 
           this.carouselItems = excludeMocked([
