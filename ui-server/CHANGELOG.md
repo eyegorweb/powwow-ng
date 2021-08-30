@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.486+20210830100222
+2021-08-30
+
+### Fixes
+
+- [2895] nouvelle gestion des exports synchrones (c9f4a709a2a7087a4249aa9838a08d749b731163)
+
 ## 1.17.0-master.485+20210827140253
 2021-08-27
 
