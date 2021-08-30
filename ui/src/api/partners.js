@@ -932,8 +932,17 @@ export async function deleteDeliveryAddress(id) {
 
 export async function deleteBroadcastList(id) {
   const queryStr = `mutation {deletMailingListById(mailingListId:${id})}`;
-  const response = await query(queryStr);
-  return response.data.deleteBroadcastList;
+  try {
+    const response = await query(queryStr);
+    if (response.errors) {
+      return {
+        errors: response.errors,
+      };
+    }
+    return response.data.deletMailingListById;
+  } catch (e) {
+    console.error('API Error', e);
+  }
 }
 
 export async function updateBroadcastLists(params) {
