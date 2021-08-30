@@ -30,6 +30,7 @@
 import Card from '@/components/Card';
 import { fetchBroadcastLists, deleteBroadcastList } from '@/api/partners.js';
 import { mapGetters, mapMutations } from 'vuex';
+import { formatBackErrors } from '@/utils/errors';
 
 export default {
   components: {
@@ -44,7 +45,7 @@ export default {
   },
 
   methods: {
-    ...mapMutations(['openPanel', 'confirmAction']),
+    ...mapMutations(['openPanel', 'confirmAction', 'flashMessage']),
 
     getFormattedMails(emails) {
       if (!emails) return '';
@@ -98,8 +99,24 @@ export default {
       this.confirmAction({
         message: 'confirmAction',
         actionFn: async () => {
-          await deleteBroadcastList(id);
-          doReset();
+          const response = await deleteBroadcastList(id);
+          if (response) {
+            if (response.errors && response.errors.length) {
+              const formatted = formatBackErrors(response.errors)
+                .map((e) => e.errors)
+                .flat();
+              let errorMessage = '';
+              formatted.forEach((e) => {
+                errorMessage = `${'getadmin.partnerDetail.errors.'}${e.value}`;
+              });
+              this.flashMessage({ level: 'danger', message: `${this.$t(errorMessage)}` });
+            } else {
+              this.flashMessage({ level: 'success', message: this.$t('genericSuccessMessage') });
+              doReset();
+            }
+          } else {
+            this.flashMessage({ level: 'danger', message: this.$t('genericErrorMessage') });
+          }
         },
       });
     },
