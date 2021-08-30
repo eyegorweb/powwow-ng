@@ -152,6 +152,7 @@ export default {
       messageError: undefined,
       forceAsyncExport: false,
       toggleVersion: 0,
+      tooLongSyncExportsManagement: true,
     };
   },
 
@@ -179,6 +180,7 @@ export default {
       'flashMessage',
       'closeAndResetExportChoice',
       'startDownload',
+      'setPendingExportsStatus',
     ]),
 
     resetState() {
@@ -271,14 +273,21 @@ export default {
               this.isAsyncExportAlertOpen = true;
             }, 200);
           } else {
-            if (downloadResponse && downloadResponse.downloadUri) {
-              this.startDownload(getBaseURL() + downloadResponse.downloadUri);
+            if (this.tooLongSyncExportsManagement) {
+              this.setPendingExportsStatus(true);
+              this.closeAndResetExportChoice();
+              this.showLoader = false;
             } else {
-              this.showLoader = true;
-              this.haveError = true;
-              this.messageError = this.$t('noLinesToExport');
-              return this.messageError;
+              if (downloadResponse && downloadResponse.downloadUri) {
+                this.startDownload(getBaseURL() + downloadResponse.downloadUri);
+              } else {
+                this.showLoader = true;
+                this.haveError = true;
+                this.messageError = this.$t('noLinesToExport');
+                return this.messageError;
+              }
             }
+
             this.exportChoice = undefined;
             this.closeAndResetExportChoice();
           }

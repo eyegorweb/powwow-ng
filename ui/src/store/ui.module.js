@@ -29,6 +29,8 @@ export const state = {
   homeWidgets: undefined,
 
   downloadURI: undefined,
+
+  havePendingExports: false,
 };
 
 export const getters = {
@@ -73,6 +75,9 @@ function saveFormattedWidgets(widgets) {
 }
 
 export const mutations = {
+  async setPendingExportsStatus(s, havePendingExports) {
+    s.havePendingExports = havePendingExports;
+  },
   async changeAppLanguage(state, lang) {
     $i18n.locale = lang;
     if (lang === 'en') {
