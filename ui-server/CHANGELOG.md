@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.487+20210830134717
+2021-08-30
+
+### Fixes
+
+- [2887] ajout du contrôle sur la suppression de mailing liste (918e220d1610f2a387d646a1fbf1017b90fa4753)
+
 ## 1.17.0-master.486+20210830100222
 2021-08-30
 
