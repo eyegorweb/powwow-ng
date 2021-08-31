@@ -1,6 +1,7 @@
 <template>
   <div>
     <TableWithFilter
+      v-if="canShowTable"
       :filters="filters"
       :columns="columns"
       :rows="rows"
@@ -35,7 +36,7 @@
           :rows="selectedRows"
           :filters="lastUsedFilters"
           :total="total"
-          @success="applyFilters"
+          @success="onSuccess"
         />
       </div>
     </TableWithFilter>
@@ -134,7 +135,18 @@ export default {
         },
       ];
 
-      this.searchByIdValue = params.value;
+      if (params && params.value && params.value.length) {
+        this.searchByIdValue = params.value;
+        this.lastSearchByIdFilter = params;
+        this.saveLastUsedFilter(params);
+      } else {
+        this.lastSearchByIdFilter = undefined;
+        this.searchByIdValue = undefined;
+        this.saveLastUsedFilter({
+          id: params.id // passer juste l'id pour supprimer le filtre
+        });
+      }
+
 
       this.isLoading = true;
       const data = await fetchLinesBoundToAlarm(this.orderBy, { page: 0, limit: 10 }, [
@@ -159,6 +171,42 @@ export default {
         this.openDetailPanel(payload);
       }
     },
+
+    onSuccess() {
+      this.canShowTable = false;
+      this.searchByIdValue = undefined;
+      this.lastUsedFilters = [];
+      setTimeout(() => {
+        this.canShowTable = true;
+
+        this.applyFilters();
+
+      });
+    },
+
+    saveLastUsedFilter(filter) {
+      let lastUsedFilters = undefined;
+      if (this.lastUsedFilters) {
+        lastUsedFilters = [...this.lastUsedFilters];
+      }
+
+      if (lastUsedFilters && lastUsedFilters.length) {
+        const found = lastUsedFilters.find(f => f.id === filter.id);
+        if (found) {
+          lastUsedFilters = lastUsedFilters.filter(f => f.id !== filter.id);
+        }
+        if (filter && filter.value) {
+          lastUsedFilters.push(found);
+        }
+      } else {
+        if (filter && filter.value) {
+          lastUsedFilters = [filter];
+        }
+      }
+
+      this.lastUsedFilters = lastUsedFilters;
+    },
+
 
     async applyFilters(payload) {
       const { pagination, filters } = payload || {
@@ -191,6 +239,8 @@ export default {
 
   data() {
     return {
+      canShowTable: true,
+      lastSearchByIdFilter: undefined,
       selectedRows: [],
       filters: [
         {

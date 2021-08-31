@@ -5,7 +5,7 @@
         <button
           class="btn btn-primary pl-4 pr-4 pt-2 pb-2 disable-alarm-button"
           @click="firstAttemptAction"
-          :disabled="alarm.disabled"
+          :disabled="isLoading || alarm.disabled"
         >
           <em class="ic-Minus-Icon" />
           {{ $t('getvsion.alarm.disable_alarm_lines') }}
@@ -47,6 +47,12 @@ export default {
     filters: Array,
   },
 
+  data() {
+    return {
+      isLoading: false
+    }
+  },
+
   methods: {
     getApiCallConfig() {
       const alarmInput = {
@@ -71,7 +77,12 @@ export default {
 
       return {
         params: alarmInput,
-        apiFn: deleteAlarmInstance2,
+        apiFn: async (params) => {
+          this.isLoading = true;
+          const response = await deleteAlarmInstance2(params);
+          this.isLoading = false;
+          return response;
+        },
       };
     },
   },

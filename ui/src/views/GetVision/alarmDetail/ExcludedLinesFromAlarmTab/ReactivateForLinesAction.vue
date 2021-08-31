@@ -4,7 +4,7 @@
       <button
         class="reactivate-line-alarm btn btn-primary pl-4 pr-4 pt-2 pb-2"
         @click="firstAttemptAction"
-        :disabled="alarm.disabled"
+        :disabled="isLoading || alarm.disabled"
       >
         <em class="ic-Plus-Icon" />
         {{ $t('getvsion.alarm.react_alarm_lines') }}
@@ -21,6 +21,12 @@ import { createAlarmInstance2 } from '@/api/alarms.js';
 export default {
   components: {
     ChangeAlarmStatusContainer,
+  },
+
+  data() {
+    return {
+      isLoading: false
+    }
   },
 
   props: {
@@ -54,7 +60,12 @@ export default {
 
       return {
         params: alarmInput,
-        apiFn: createAlarmInstance2,
+        apiFn: async (params) => {
+          this.isLoading = true;
+          const response = await createAlarmInstance2(params);
+          this.isLoading = false;
+          return response;
+        },
       };
     },
   },

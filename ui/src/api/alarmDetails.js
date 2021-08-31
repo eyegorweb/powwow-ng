@@ -213,25 +213,25 @@ function addLineId(gqlFilters, selectedFilters) {
   const imei = selectedFilters.find((f) => f.id === 'filters.imei');
   const msisdnA = selectedFilters.find((f) => f.id === 'filters.msisdnA');
 
-  if (_id) {
+  if (_id && _id.value && _id.value.length) {
     idsFilters.push(`id: "${_id.value}"`);
   }
-  if (iccid) {
+  if (iccid && iccid.value && iccid.value.length) {
     idsFilters.push(`iccid: "${iccid.value}"`);
   }
-  if (imsi) {
+  if (imsi && imsi.value && imsi.value.length) {
     idsFilters.push(`imsi: "${imsi.value}"`);
   }
-  if (msisdn) {
+  if (msisdn && msisdn.value && msisdn.value.length) {
     idsFilters.push(`msisdn: "${msisdn.value}"`);
   }
-  if (imei) {
+  if (imei && imei.value && imei.value.length) {
     idsFilters.push(`imei: "${imei.value}"`);
   }
-  if (msisdnA) {
+  if (msisdnA && msisdnA.value && msisdnA.value.length) {
     idsFilters.push(`msisdnA: "${msisdnA.value}"`);
   }
-  if (accessPointId) {
+  if (accessPointId && accessPointId.value && accessPointId.value.length) {
     idsFilters.push(`accessPointId: "${accessPointId.value}"`);
   }
 
