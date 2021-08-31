@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.488+20210831090446
+2021-08-31
+
+### Features
+
+- [1185] Ajout du tableau options de supervision dans detail partner (4408c556ad8034128f0707e8f7913f3641287ca7)
+
 ## 1.17.0-master.487+20210830134717
 2021-08-30
 
