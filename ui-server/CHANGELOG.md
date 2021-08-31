@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.490+20210831150002
+2021-08-31
+
+### Fixes
+
+- [2904] Fix des problèmes de permissions sur les détails de partenaires (7df1caaa869776528e3e6dc38ab838883ab2dce5)
+
 ## 1.17.0-master.489+20210831143743
 2021-08-31
 
