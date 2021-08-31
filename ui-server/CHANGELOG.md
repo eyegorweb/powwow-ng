@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.489+20210831143743
+2021-08-31
+
+### Fixes
+
+- [2903] ajouter le filtre par id dans les réativation des alarmes (8e8706de89457276c362eaefa2f4e7c314796d26)
+
 ## 1.17.0-master.488+20210831090446
 2021-08-31
 
