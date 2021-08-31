@@ -88,7 +88,7 @@ export default {
     async doAction() {
       const response = await this.apiConfig.apiFn(this.apiConfig.params);
 
-      if (response.errors && response.errors.length) {
+      if (response && response.errors && response.errors.length) {
         this.formatErrors(response.errors);
         if (response.validated > 0) {
           this.shouldDoubleValidate = true;

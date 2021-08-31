@@ -1,6 +1,7 @@
 <template>
   <div>
     <TableWithFilter
+      v-if="canShowTable"
       :filters="filters"
       :columns="columns"
       :rows="rows"
@@ -31,7 +32,7 @@
           :rows="selectedRows"
           :filters="lastUsedFilters"
           :total="total"
-          @success="applyFilters"
+          @success="onSuccess"
         />
       </div>
     </TableWithFilter>
@@ -76,6 +77,7 @@ export default {
   data() {
     return {
       isLoading: false,
+      canShowTable: true,
       filters: [
         {
           title: 'common.billingAccount',
@@ -198,6 +200,7 @@ export default {
       ],
 
       searchByIdValue: undefined,
+      lastSearchByIdFilter: undefined,
       lastUsedFilters: [],
 
       orderBy: {
@@ -220,6 +223,18 @@ export default {
   methods: {
     ...mapMutations(['flashMessage']),
 
+    onSuccess() {
+      this.canShowTable = false;
+      this.searchByIdValue = undefined;
+      this.lastUsedFilters = [];
+      setTimeout(() => {
+        this.canShowTable = true;
+
+        this.applyFilters();
+
+      });
+    },
+
     onColEvent(payload) {
       if (payload.add) {
         this.selectedRows.push(payload.add);
@@ -227,6 +242,29 @@ export default {
       if (payload.remove) {
         this.selectedRows = this.selectedRows.filter((r) => r.id !== payload.remove.id);
       }
+    },
+
+    saveLastUsedFilter(filter) {
+      let lastUsedFilters = undefined;
+      if (this.lastUsedFilters) {
+        lastUsedFilters = [...this.lastUsedFilters];
+      }
+
+      if (lastUsedFilters && lastUsedFilters.length) {
+        const found = lastUsedFilters.find(f => f.id === filter.id);
+        if (found) {
+          lastUsedFilters = lastUsedFilters.filter(f => f.id !== filter.id);
+        }
+        if (filter && filter.value) {
+          lastUsedFilters.push(found);
+        }
+      } else {
+        if (filter && filter.value) {
+          lastUsedFilters = [filter];
+        }
+      }
+
+      this.lastUsedFilters = lastUsedFilters;
     },
 
     getExportFn() {
@@ -251,7 +289,19 @@ export default {
         },
       ];
 
-      this.searchByIdValue = params.value;
+
+      if (params && params.value && params.value.length) {
+        this.searchByIdValue = params.value;
+        this.lastSearchByIdFilter = params;
+        // this.lastUsedFilters = [params];
+        this.saveLastUsedFilter(params);
+      } else {
+        this.lastSearchByIdFilter = undefined;
+        this.searchByIdValue = undefined;
+        this.saveLastUsedFilter({
+          id: params.id // passer juste l'id pour supprimer le filtre
+        });
+      }
 
       this.isLoading = true;
 

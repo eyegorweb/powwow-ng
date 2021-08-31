@@ -382,6 +382,12 @@ export async function createAlarmInstance2(alarmInput) {
     }
 
     input.alarmFilterInput.alarmId = { eq: alarmInput.alarmId };
+
+    const lineIdentifier = getLineIdentifier(alarmInput.filters);
+
+    if (Object.keys(lineIdentifier).length) {
+      input.alarmFilterInput.lineIdentifier = lineIdentifier;
+    }
   }
 
   try {
@@ -393,6 +399,34 @@ export async function createAlarmInstance2(alarmInput) {
     console.log(e);
     return;
   }
+}
+
+function getLineIdentifier(selectedFilters) {
+  const iccid = selectedFilters.find((f) => f.id === 'filters.iccid');
+  const imsi = selectedFilters.find((f) => f.id === 'filters.imsi');
+  const msisdn = selectedFilters.find((f) => f.id === 'filters.msisdn');
+  const imei = selectedFilters.find((f) => f.id === 'filters.imei');
+  const msisdnA = selectedFilters.find((f) => f.id === 'filters.msisdnA');
+
+  const lineIdentifier = {};
+
+  if (iccid && iccid.value && iccid.value.length) {
+    lineIdentifier.iccid = iccid.value;
+  }
+  if (imsi && imsi.value && imsi.value.length) {
+    lineIdentifier.imsi = imsi.value;
+  }
+  if (msisdn && msisdn.value && msisdn.value.length) {
+    lineIdentifier.msisdn = msisdn.value;
+  }
+  if (imei && imei.value && imei.value.length) {
+    lineIdentifier.imei = imei.value;
+  }
+  if (msisdnA && msisdnA.value && msisdnA.value.length) {
+    lineIdentifier.amsisdn = msisdnA.value;
+  }
+
+  return lineIdentifier;
 }
 
 export async function enableAlarm(alarmId) {
@@ -472,6 +506,12 @@ export async function deleteAlarmInstance2(alarmInput) {
     }
 
     input.alarmFilterInput.alarmId = { eq: alarmInput.alarmId };
+
+    const lineIdentifier = getLineIdentifier(alarmInput.filters);
+
+    if (Object.keys(lineIdentifier).length) {
+      input.alarmFilterInput.lineIdentifier = lineIdentifier;
+    }
   }
 
   try {
