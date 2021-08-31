@@ -2,13 +2,6 @@
   <div class="accountdetail">
     <div
       class="accountdetail-generalInfos"
-      v-if="
-        havePermission('party', 'read_account_detail') &&
-          !(
-            havePermission('party', 'read_main_options') ||
-            havePermission('party', 'read_secondary_options')
-          )
-      "
     >
       <h3>{{ $t('getadmin.partnerDetail.generalInformations') }}</h3>
       <div class="accountdetail-generalInfos-bloc">
@@ -99,7 +92,7 @@
         </div>
       </div>
     </div>
-    <div class="accountdetail-legalInfos" v-if="!userIsPartner">
+    <div class="accountdetail-legalInfos" v-if="userIsBO">
       <h3>{{ $t('getadmin.partnerDetail.contract') }}</h3>
 
       <div class="accountdetail-bloc">
@@ -148,7 +141,7 @@
         </div>
       </div>
     </div>
-    <div class="accountdetail-contact" v-if="partner && partner.partyType !== 'MULTI_CUSTOMER'">
+    <div class="accountdetail-contact" v-if="canShowLegalInfos">
       <h3>{{ $t('getadmin.partnerDetail.contactDetail') }}</h3>
 
       <div class="accountdetail-bloc">
@@ -320,8 +313,8 @@ export default {
 
   methods: {
     ...mapMutations(['flashMessage', 'confirmAction']),
-    ...mapGetters(['userIsPartner']),
-
+    ...mapGetters(['userIsPartner', 'userIsBO']),
+    
     resetLogo() {
       this.imgToUpload = undefined;
       this.urlLogoPreview = undefined;
