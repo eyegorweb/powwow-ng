@@ -1,21 +1,72 @@
 <template>
-    <PaginatedDataTable
-        :columns="columns"
-        :order="defaultOrderBy"
-        :fetch-data-fn="getFetchFn()"
-        :size="5"
-    />
-</template>
+    <div>    
+        <table>
+            <thead>
+                <tr>
+                    <th>{{$t('col.offer')}}</th>
+                    <th>{{$t('col.autodiag')}}</th>
+                    <th>{{$t('col.supervision')}}</th>
+                    <th v-if="userIsBO">
+                        <tr class="headTitle">{{$t('col.dmdGeoloc')}}</tr>
+                        <tr>
+                            <td>
+                                <tr>
+                                    <th>{{$t('col.option')}}</th>
+                                    <th>{{$t('col.cpt')}}</th>
+                                    <th>{{$t('col.limit')}}</th>
+                                </tr>
+                            </td>
+                        </tr>
+                    </th>
+                    <th v-if="userIsBO">
+                        <tr class="headTitle">{{$t('col.requestConsoEnabled')}}</tr>
+                        <tr>
+                            <td>
+                                <tr>
+                                    <th>{{$t('col.option')}}</th>
+                                    <th>{{$t('col.cpt')}}</th>
+                                    <th>{{$t('col.limit')}}</th>
+                                </tr>
+                            </td>
+                        </tr>
+                    </th>
+                    <th v-if="!userIsBO">{{$t('col.requestConsoEnabled')}}</th>
+                    <th>IMEI</th>
+                    <th>{{$t('col.reportAvaiPDPEnabled')}}</th>
+                    <th>R-Card</th>
+                </tr>
+            </thead>
+            <tbody>
+                <SupervisionOptionsLine v-for="row in rows" :key="row.workflowId" :row="row"/>
+            </tbody>
+        </table>
+
+        <div class="modifyButton">
+            <UiButton
+                variant="primary"
+                block
+                @click="modify()"
+                >
+                    {{ $t('modify') }}
+            </UiButton>
+        </div>
+
+    </div>
+
+</template>  
 
 <script>
 import PaginatedDataTable from '@/components/DataTable/PaginatedDataTable.vue';
+import SupervisionOptionsLine from './SupervisionOptionsLine.vue';
 import { fetchSupervisionOptions } from '@/api/supervision.js';
+import UiButton from '@/components/ui/Button';
 import { mapGetters } from 'vuex';
-import get from 'lodash.get';
 
 export default {
     components: {
         PaginatedDataTable,
+        SupervisionOptionsLine,
+        UiButton,
     },
     data() {
         return {
@@ -25,7 +76,8 @@ export default {
             },
             supervisionOptions: [],
             columns: [
-            ]
+            ],
+            rows: []
         }
     },
     props: {
@@ -38,243 +90,48 @@ export default {
         'userIsBO',
         ]),
     },
-    mounted () {
-        if(this.userIsBO) {
-            this.columns = [
-                                {
-                    id: 1,
-                    label: this.$t('col.id'),
-                    name: 'workflowId',
-                    orderable: true,
-                    visible: true,
-                },
-                {
-                    id: 2,
-                    label: this.$t('col.description'),
-                    name: 'description',
-                    orderable: true,
-                    visible: true,
-                },  
-                {
-                    id: 3,
-                    label: this.$t('col.autodiag'),
-                    name: 'autoDiagnosticEnabled',
-                    orderable: true,
-                    visible: true,
-                    format: {
-                        type: 'Getter',
-                        getter: (row) => {
-                            return get(row, 'autoDiagnosticEnabled') ? this.$t('common.YES') : this.$t('common.NO');
-                        },
-                    },
-                },
-                {
-                    id: 4,
-                    label: this.$t('col.supervision'),
-                    name: 'fleetEnabled',
-                    orderable: true,
-                    visible: true,
-                    format: {
-                        type: 'Getter',
-                        getter: (row) => {
-                            return get(row, 'fleetEnabled') ? this.$t('common.YES') : this.$t('common.NO');
-                        },
-                    },
-                },
-                {
-                    id: 5,
-                    label: this.$t('col.geolocalisationEnabled'),
-                    name: 'geolocalisationEnabled',
-                    orderable: true,
-                    visible: true,
-                    format: {
-                        type: 'Getter',
-                        getter: (row) => {
-                            return get(row, 'fleetEnabled') ? this.$t('common.YES') : this.$t('common.NO');
-                        },
-                    },
-                },
-                {
-                    id: 6,
-                    label: this.$t('col.dmdGeolocCPT'),
-                    name: 'dmdGeolocCPT',
-                    orderable: true,
-                    visible: false,
-                },
-                {
-                    id: 7,
-                    label: this.$t('col.dmdGeolocLimit'),
-                    name: 'dmdGeolocLimit',
-                    orderable: true,
-                    visible: false,
-                },
-                {
-                    id: 8,
-                    label: this.$t('col.requestConsoEnabled'),
-                    name: 'requestConsoEnabled',
-                    orderable: true,
-                    visible: false,
-                    format: {
-                        type: 'Getter',
-                        getter: (row) => {
-                            return get(row, 'fleetEnabled') ? this.$t('common.YES') : this.$t('common.NO');
-                        },
-                    },
-                },
-                {
-                    id: 9,
-                    label: this.$t('col.dmdConsoCPT'),
-                    name: 'dmdConsoCPT',
-                    orderable: true,
-                    visible: false,
-                },
-                {
-                    id: 10,
-                    label: this.$t('col.dmdConsoLimit'),
-                    name: 'dmdConsoLimit',
-                    orderable: true,
-                    visible: false,
-                },
-                {
-                    id: 11,
-                    label: this.$t('col.supervision'),
-                    name: 'fleetEnabled',
-                    orderable: true,
-                    visible: false,
-                    format: {
-                        type: 'Getter',
-                        getter: (row) => {
-                            return get(row, 'fleetEnabled') ? this.$t('common.YES') : this.$t('common.NO');
-                        },
-                    },
-                },
-                {
-                    id: 12,
-                    label: this.$t('col.reportAvaiPDPEnabled'),
-                    name: 'reportAvaiPDPEnabled',
-                    orderable: true,
-                    visible: false,
-                    format: {
-                        type: 'Getter',
-                        getter: (row) => {
-                            return get(row, 'fleetEnabled') ? this.$t('common.YES') : this.$t('common.NO');
-                        },
-                    },
-                },
-                {
-                    id: 13,
-                    label: this.$t('col.rCard'),
-                    name: 'rCard',
-                    orderable: true,
-                    visible: false,
-                    format: {
-                        type: 'Getter',
-                        getter: (row) => {
-                            return get(row, 'fleetEnabled') ? this.$t('common.YES') : this.$t('common.NO');
-                        },
-                    },
-                },
-            ]
-        }
-        else {
-            this.columns = [
-                {
-                    id: 1,
-                    label: this.$t('col.id'),
-                    name: 'workflowId',
-                    orderable: true,
-                    visible: true,
-                },
-                {
-                    id: 2,
-                    label: this.$t('col.description'),
-                    name: 'description',
-                    orderable: true,
-                    visible: true,
-                },  
-                {
-                    id: 3,
-                    label: this.$t('col.autodiag'),
-                    name: 'autoDiagnosticEnabled',
-                    orderable: true,
-                    visible: true,
-                    format: {
-                        type: 'Getter',
-                        getter: (row) => {
-                            return get(row, 'autoDiagnosticEnabled') ? this.$t('common.YES') : this.$t('common.NO');
-                        },
-                    },
-                },
-                {
-                    id: 4,
-                    label: this.$t('col.supervision'),
-                    name: 'fleetEnabled',
-                    orderable: true,
-                    visible: true,
-                    format: {
-                        type: 'Getter',
-                        getter: (row) => {
-                            return get(row, 'fleetEnabled') ? this.$t('common.YES') : this.$t('common.NO');
-                        },
-                    },
-                },
-                {
-                    id: 5,
-                    label: this.$t('col.localisation'),
-                    name: 'geolocalisationEnabled',
-                    orderable: true,
-                    visible: true,
-                    format: {
-                        type: 'Getter',
-                        getter: (row) => {
-                            return get(row, 'geolocalisationEnabled') ? this.$t('common.YES') : this.$t('common.NO');
-                        },
-                    },
-                },
-                {
-                    id: 6,
-                    label: this.$t('col.consoEnabled'),
-                    name: 'requestConsoEnabled',
-                    orderable: true,
-                    visible: false,
-                    format: {
-                        type: 'Getter',
-                        getter: (row) => {
-                            return get(row, 'requestConsoEnabled') ? this.$t('common.YES') : this.$t('common.NO');
-                        },
-                    },
-                },
-                {
-                    id: 7,
-                    label: this.$t('col.imei'),
-                    name: 'imeiEnabled',
-                    orderable: true,
-                    visible: false,
-                    format: {
-                        type: 'Getter',
-                        getter: (row) => {
-                            return get(row, 'imeiEnabled') ? this.$t('common.YES') : this.$t('common.NO');
-                        },
-                    },
-                },
-            ]
-        }
+    async mounted () {
+        const response = await fetchSupervisionOptions(this.partner.id);
+        this.rows = response;
     },
     methods: {
-        getFetchFn() {
-        return async () => {
-            const response = await fetchSupervisionOptions(this.partner.id);
-            console.log(response);
-            return {
-            rows: response,
-            total: response.length,
-            };
-        };
-        },
+        modify() {
+            
+        }
     },
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
+    table {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 10px;
+        
+        thead {
+            tr {
 
+                &.headTitle {
+                    border-bottom: 1px solid white;
+                }
+                
+                th {
+                    background-color: #0055a4;
+                    color: white;
+                    font-size: 0.9rem;
+                    font-weight: normal;
+                    padding: 10px;
+                    text-align: center;
+                }
+            }
+        }
+        tbody {
+            background-color: #fff;
+        }
+    }
+    .modifyButton {
+        margin-top: 10px;
+        width: 250px;
+        float: right;
+    }
 </style>
