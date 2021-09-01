@@ -7,7 +7,7 @@
     {{ nextToDownloadIndex }}
     <DownloadOneFile
       v-for="(op, index) in filesReadyForDownload"
-      :canDownload="index === nextToDownloadIndex"
+      :can-download="index === nextToDownloadIndex"
       @finished="finishedOneDownload(op, index)"
       :key="op.downloadUri"
       :uri="op.downloadUri"

@@ -398,10 +398,9 @@ export async function fetchSupervisionOptions(partnerId) {
       dmdConsoCPT
       rCard
     }
-  }`
+  }`;
 
   const response = await query(queryStr);
-  console.log(response)
   if (response.data) {
     return response.data.getOfferSupervisionOptions;
   }
