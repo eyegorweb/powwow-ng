@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.491+20210901142250
+2021-09-01
+
+### Fixes
+
+- [2908] enlever les espace de l'adresse mail (4bbba5484a19ccb5f4fd9b517447bbf4074cf20a)
+
 ## 1.17.0-master.490+20210831150002
 2021-08-31
 
