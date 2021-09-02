@@ -5,7 +5,7 @@ import get from 'lodash.get';
 import store from '@/store';
 
 import { isOnDebugMode } from '@/featureFlipping/plugin';
-import { getBaseURL } from '@/utils.js';
+import { getBaseURL, truncateLabel } from '@/utils.js';
 
 export const api = axios.create();
 
@@ -395,4 +395,32 @@ export function fromHoursToDDHH(value) {
 export function formattedEnum24H(value) {
   const formattedValue = value / 3600;
   return formattedValue.toFixed(2) + ' H';
+}
+
+export function formattedLiteralTime(value) {
+  if (value === undefined) return '';
+
+  let initialSeconds = value;
+  let duration = initialSeconds;
+  let hours = parseInt(duration / 3600);
+  duration = duration % 3600;
+  let min = parseInt(duration / 60);
+  duration = duration % 60;
+  let sec = parseInt(duration);
+
+  if (initialSeconds === 0) {
+    return `0`;
+  } else if (initialSeconds < 60) {
+    return `${initialSeconds}s`;
+  } else if (initialSeconds > 60 && hours < 100) {
+    if (hours < 1) {
+      return `${min}min`;
+    } else {
+      return `${hours}h${min}`;
+    }
+  } else if (hours >= 100 && hours < 1000) {
+    return `${hours}h`;
+  } else {
+    return truncateLabel(`${hours}h`, 3);
+  }
 }
