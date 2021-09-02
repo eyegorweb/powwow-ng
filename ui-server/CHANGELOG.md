@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.493+20210902083013
+2021-09-02
+
+### Fixes
+
+- [2898] contrôle de l'affichage de digits pour les widgets de consommation (2ae60fcd22f651ce94446b1001c4a28802c51be0)
+
 ## 1.17.0-master.492+20210901144308
 2021-09-01
 
