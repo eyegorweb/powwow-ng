@@ -20,7 +20,7 @@ export default {
     openOrderDetailsPanel() {
       const openTrigger = () => {
         this.openPanel({
-          title: this.$t('getsim.reservasions.details.title', { id: this.row.id }),
+          title: this.$t('getsim.reservations.details.title', { id: this.row.id }),
           panelId: 'getsim.reservation.title',
           payload: this.row,
           wide: false,

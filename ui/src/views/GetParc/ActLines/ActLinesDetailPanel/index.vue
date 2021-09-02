@@ -4,12 +4,12 @@
       <ModalSkeleton :is-loading="isLoading" />
     </div>
     <BaseDetailPanelContent>
-      <div v-if="lineDetails">
+      <template v-if="lineDetails">
         <UpcomingChanges :content="lineDetails" />
         <GeneralInfos :content="lineDetails" />
         <AlarmsInfo :content="lineDetails" v-if="!partnerTypeMVNO" />
         <PartnerInfo :content="lineDetails" />
-      </div>
+      </template>
       <div slot="footer" class="action-buttons">
         <div>
           <UiButton variant="import" block>{{ $t('getparc.actLines.details.EXPORT') }}</UiButton>
