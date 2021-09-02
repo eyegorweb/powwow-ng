@@ -2,6 +2,15 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.495+20210902215517
+2021-09-02
+
+### Fixes
+
+- [2911] Gestion de la Limite sur l'api createAlarmInstance et deleteAlarmInstance (e8607aea86465f229da2cbee593c94a50524ce38)
+- [2909] correctif du padding pour le volet du détail de la ligne (60d7ea7cb35ffe506992e2b38ba313bd854d5f78)
+- [000] Correction des tests (9e291904a2981042f0c2bfde9bda82fcbd75d239)
+
 ## 1.17.0-master.494+20210902104210
 2021-09-02
 
