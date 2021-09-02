@@ -394,6 +394,7 @@ export async function createAlarmInstance2(alarmInput) {
     const response = await query(queryStr, {
       alarmInput: input,
     });
+
     if (response.errors) {
       return {
         errors: response.errors,

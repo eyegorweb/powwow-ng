@@ -11,7 +11,14 @@
           <div class="mt-4" v-if="requestErrors && requestErrors.length">
             <h6 class="text-danger">{{ $t('errors.all') }}</h6>
             <ul class="text-danger list-unstyled">
-              <li v-for="error in requestErrors" :key="error.message">{{ error.message }}</li>
+              <li v-for="error in requestErrors" :key="error.message">
+                <template v-if="$loGet(error, 'extensions.error') === 'ALARM_SET_LIMIT'">
+                  {{ $t('limiterror') }}
+                </template>
+                <template v-else>
+                  {{ error.message }}
+                </template>
+              </li>
             </ul>
           </div>
 
