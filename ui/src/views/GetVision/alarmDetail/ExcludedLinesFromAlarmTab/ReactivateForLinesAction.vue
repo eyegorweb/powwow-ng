@@ -17,6 +17,7 @@
 import ChangeAlarmStatusContainer from '@/views/GetVision/alarmDetail/ChangeAlarmStatusContainer.vue';
 import { formattedCurrentDate } from '@/utils/date';
 import { createAlarmInstance2 } from '@/api/alarms.js';
+import { mapMutations } from 'vuex';
 
 export default {
   components: {
@@ -37,6 +38,17 @@ export default {
   },
 
   methods: {
+    ...mapMutations(['flashMessage']),
+
+    manageErrors(errors) {
+      if (errors && errors.length) {
+        for (let i = 0; i < errors.length; i++) {
+          if (this.$loGet(errors[i], 'extensions.error')) {
+            this.flashMessage({ level: 'danger', message: this.$t('limiterror') });
+          }
+        }
+      }
+    },
     getApiCallConfig() {
       const alarmInput = {
         alarmId: this.alarm.id,
@@ -63,6 +75,9 @@ export default {
         apiFn: async (params) => {
           this.isLoading = true;
           const response = await createAlarmInstance2(params);
+          if (response.errors) {
+            this.manageErrors(response.errors);
+          }
           this.isLoading = false;
           return response;
         },

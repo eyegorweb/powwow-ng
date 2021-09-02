@@ -394,6 +394,11 @@ export async function createAlarmInstance2(alarmInput) {
     const response = await query(queryStr, {
       alarmInput: input,
     });
+    if (response.errors) {
+      return {
+        errors: response.errors,
+      };
+    }
     return response.data.createAlarmInstance;
   } catch (e) {
     console.log(e);
@@ -459,6 +464,11 @@ export async function deleteAlarmInstance(simCardInstanceIds, alarmId, partyId, 
   `;
 
   const response = await query(queryStr);
+  if (response.errors) {
+    return {
+      errors: response.errors,
+    };
+  }
   return response.data.deleteAlarmInstance;
 }
 
