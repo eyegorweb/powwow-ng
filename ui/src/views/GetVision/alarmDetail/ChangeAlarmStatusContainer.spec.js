@@ -2,7 +2,7 @@ import { mount } from '@vue/test-utils';
 import ChangeAlarmStatusContainer from './ChangeAlarmStatusContainer';
 
 import { Store } from 'vuex-mock-store';
-import { $t } from '@/../tests-utils';
+import { $t, $loGet } from '@/../tests-utils';
 
 describe(`ChangeAlarmStatusContainer`, () => {
   const storeParams = {
@@ -36,11 +36,12 @@ describe(`ChangeAlarmStatusContainer`, () => {
       };
     });
     const wrapper = mount(ChangeAlarmStatusContainer, {
-      mocks: { $t, $store: store },
+      mocks: { $t, $store: store, $loGet },
       propsData: {
         apiConfig,
       },
     });
+
     await wrapper.vm.doAction();
 
     expect(wrapper.findAll('li')).toHaveLength(1);
@@ -66,7 +67,7 @@ describe(`ChangeAlarmStatusContainer`, () => {
       };
     });
     const wrapper = mount(ChangeAlarmStatusContainer, {
-      mocks: { $t, $store: store },
+      mocks: { $t, $store: store, $loGet },
       propsData: {
         apiConfig,
       },
@@ -89,7 +90,7 @@ describe(`ChangeAlarmStatusContainer`, () => {
       };
     });
     const wrapper = mount(ChangeAlarmStatusContainer, {
-      mocks: { $t, $store: store },
+      mocks: { $t, $store: store, $loGet },
       propsData: {
         apiConfig,
       },
