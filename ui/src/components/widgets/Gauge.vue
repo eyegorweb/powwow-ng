@@ -3,7 +3,12 @@
     <div class="gauge_title" :style="gaugeTitleStyle">
       <slot />
     </div>
-    <div ref="gauge" class="GaugeMeter mx-auto" :style="mainGaugeStyle"></div>
+    <div
+      ref="gauge"
+      class="GaugeMeter mx-auto"
+      :style="mainGaugeStyle"
+      v-tooltip="useTooltip ? formattedtooltipMaxValue : undefined"
+    ></div>
     <div class="gauge_corners mx-auto" :style="cornersStyle">
       <div class="gauge_min">{{ minValue }}</div>
       <div class="gauge_max" :style="maxCornerStyle">{{ formattedMaxValue }}</div>
@@ -25,12 +30,14 @@ export default {
       type: Number,
       default: 0,
     },
+    useTooltip: Boolean,
     arcStyle: {
       type: String,
       default: 'success',
     },
     unit: String,
     formatValueFn: Function,
+    formatTooltipValueFn: Function,
     timeMaxValue: Boolean,
     minValue: {
       type: String,
@@ -60,6 +67,9 @@ export default {
     formattedMaxValue() {
       if (this.formatValueFn) return this.formatValueFn(parseInt(this.maxValue), this.maxValue);
       return this.maxValue;
+    },
+    formattedtooltipMaxValue() {
+      if (this.formatTooltipValueFn) return this.formatTooltipValueFn(parseInt(this.value));
     },
   },
   methods: {

@@ -28,6 +28,8 @@
           :max-value="maxVoice"
           font-size="1.25rem"
           :format-value-fn="getTimeFormatFn()"
+          :format-tooltip-value-fn="formattedTooltipFormatFn()"
+          use-tooltip
           >{{ $t('services.VOICE') }}</Gauge
         >
       </div>
@@ -43,7 +45,7 @@ import Gauge from '@/components/widgets/Gauge';
 import { fetMaxValuesFromOfferPackage } from '@/api/offers.js';
 import { fetchCurrentConsumption } from '@/api/linesActions';
 
-import { formatBytes, formattedValueFromSeconds } from '@/api/utils';
+import { formatBytes, resumeFormattedValueFromSeconds, formattedLiteralTime } from '@/api/utils';
 
 export default {
   components: {
@@ -83,7 +85,13 @@ export default {
         if (isNaN(valueToShow)) {
           return originalValue;
         }
-        return formattedValueFromSeconds(valueToShow);
+        return formattedLiteralTime(valueToShow);
+      };
+    },
+    formattedTooltipFormatFn() {
+      return (valueToShow) => {
+        let displayHours = resumeFormattedValueFromSeconds(valueToShow).split(' ')[0];
+        return displayHours;
       };
     },
     async fetchData() {
