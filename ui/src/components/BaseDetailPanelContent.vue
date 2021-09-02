@@ -33,7 +33,6 @@ $fontSize: 0.8rem;
 
 .panel-vertical-container {
   overflow-y: scroll;
-  padding-bottom: 100px;
 }
 
 .footer-panel-buttons {

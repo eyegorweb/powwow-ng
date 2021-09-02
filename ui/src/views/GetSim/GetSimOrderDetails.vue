@@ -214,7 +214,7 @@
         </div>
       </div>
 
-      <div class="overview-container m-3 bg-white">
+      <div class="overview-container m-3 bg-white bottom-space">
         <div class="overview-item">
           <h4 class="font-weight-normal text-uppercase">{{ $t('orders.new.settings') }}</h4>
         </div>
