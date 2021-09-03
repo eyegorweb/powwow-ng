@@ -159,6 +159,8 @@ export const mutations = {
     state.actionToConfirm = {
       message,
       noOkButton: true,
+      noTranslation: true,
+      customCloseLabel: 'close',
     };
   },
 

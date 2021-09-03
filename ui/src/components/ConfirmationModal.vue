@@ -4,9 +4,12 @@
       <div class="alert alert-warning" v-if="actionToConfirm.isWarning">
         {{ actionMessage }}
       </div>
+      <div v-else-if="actionToConfirm.noStyle">
+        {{ actionMessage }}
+      </div>
       <div v-else class="text-danger">
         <i class="ic-Alert-Icon"></i>
-        {{ actionMessage }}
+        <span v-html="actionMessage"></span>
       </div>
     </div>
     <div slot="footer">

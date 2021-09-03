@@ -3,7 +3,6 @@
     "title": "EVENEMENT:",
     "content": "Attention - Jeudi 24 juin de 19h00 à 21h00, le service sera indisponible en raison d'une opération de maintenance. Nous vous prions de bien vouloir nous excuser pour la gêne occasionnée."
   },
-  "limiterror": "La limite de lignes est atteinte",
   "searchOrderById": "Rechercher une commande par identifiant",
   "searchActById": "Rechercher un acte par identifiant",
   "searchLineById": "Rechercher une ligne par identifiant",
@@ -980,7 +979,7 @@
         "warning": "Les modifications seront perdues, voulez-vous continuer ?",
         "notification": "Notification des demandes de résiliation"
       },
-      "errors":{
+      "errors": {
         "MAILING_LIST_CANNOT_BE_DELETED": "Impossible de supprimer une liste de diffusion, si elle est utilisée autre part."
       }
     }
@@ -1351,6 +1350,7 @@
         "totalMinutes": "Minutes totales"
       },
       "alarms": {
+        "limiterror": "Cette opération est limitée à {limit} lignes.<br /> Pour traiter votre demande merci de contacter le Support Wholesale.",
         "trigger-history": "Historique de déclenchement",
         "id": "ID de l'alarme",
         "name": "Nom de l'alarme",

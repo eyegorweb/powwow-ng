@@ -50,18 +50,20 @@ export default {
 
   data() {
     return {
-      isLoading: false
-    }
+      isLoading: false,
+    };
   },
 
   methods: {
-    ...mapMutations(['flashMessage']),
+    ...mapMutations(['popupMessage']),
 
     manageErrors(errors) {
       if (errors && errors.length) {
         for (let i = 0; i < errors.length; i++) {
           if (this.$loGet(errors[i], 'extensions.error') === 'ALARM_SET_LIMIT') {
-            this.flashMessage({ level: 'danger', message: this.$t('limiterror') });
+            setTimeout(() => {
+              this.popupMessage(this.$t('limiterror'));
+            }, 500);
           }
         }
       }

@@ -13,7 +13,13 @@
             <ul class="text-danger list-unstyled">
               <li v-for="error in requestErrors" :key="error.message">
                 <template v-if="$loGet(error, 'extensions.error') === 'ALARM_SET_LIMIT'">
-                  {{ $t('limiterror') }}
+                  <span
+                    v-html="
+                      $t('getparc.lineDetail.alarms.limiterror', {
+                        limit: $loGet(error, 'extensions.limit'),
+                      })
+                    "
+                  ></span>
                 </template>
                 <template v-else>
                   {{ error.message }}
@@ -79,6 +85,7 @@ export default {
       this.requestErrors = errors.map((e) => {
         return {
           message: e.message,
+          extensions: e.extensions,
         };
       });
     },

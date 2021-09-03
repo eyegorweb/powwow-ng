@@ -835,7 +835,7 @@
         "warning": "The changes will be lost, do you want to continue?",
         "notification": "Terminations request notification"
       },
-      "errors":{
+      "errors": {
         "MAILING_LIST_CANNOT_BE_DELETED": "Cannot delete a mailing list, if it is used elsewhere."
       },
       "mb": {
@@ -1209,6 +1209,7 @@
         "label2": "Custom filed 2"
       },
       "alarms": {
+        "limiterror": "Cette opération est limitée à {limit} lignes.<br /> Pour traiter votre demande merci de contacter le Support Wholesale.",
         "trigger-history": "Trigger history",
         "id": "ID Alarm",
         "name": "Name of alarme",
