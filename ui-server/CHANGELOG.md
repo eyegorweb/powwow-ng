@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.498+20210903105507
+2021-09-03
+
+### Fixes
+
+- [2906] Ajout de l'adresse de la dernière communication dans le détail de la ligne (caa1fe2d05d54175ccc7e55c92ffff03c70bf184)
+
 ## 1.17.0-master.497+20210903101841
 2021-09-03
 
