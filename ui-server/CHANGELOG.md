@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.496+20210903090437
+2021-09-03
+
+### Fixes
+
+- [2911] modifier le message (9dd7cb2bdc82682deb517e3ba3e5972a68d2a9dc)
+- [2911] traduction anglaise (a16cdf0a521b96a8709010d2016b65a184f6c4a4)
+
 ## 1.17.0-master.495+20210902215517
 2021-09-02
 
