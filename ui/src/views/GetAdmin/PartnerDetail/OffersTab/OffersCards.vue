@@ -121,7 +121,7 @@ export default {
         const services = get(i, 'initialOffer.marketingServices', []);
         return {
           id: i.id,
-          name: i.name,
+          name: i.workflowDescription,
           code: i.code,
           checked: false,
           editableServices: services.filter((s) => s.editable).map((s) => s.labelService),
