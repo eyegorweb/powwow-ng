@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.500+20210903123420
+2021-09-03
+
+### Fixes
+
+- [000] Ajouter le filtre catalogOfferOnly (e35b642fc61d15190feb44d898629b9c17f6351d)
+
 ## 1.17.0-master.499+20210903120630
 2021-09-03
 
