@@ -12,7 +12,7 @@
     <template v-if="indicatorTotal < 500">
       <PaginatedDataTable
         storage-id="supervision.table"
-        storage-version="001"
+        storage-version="002"
         :key="version"
         :columns="columns"
         :fetch-data-fn="fetchDataFn()"
@@ -242,7 +242,7 @@ export default {
         },
         {
           id: '18',
-          label: this.$t('getadmin.partnerDetail.contactDetail'),
+          label: this.$t('getadmin.partnerDetail.address'),
           orderable: true,
           visible: false,
           name: 'address',

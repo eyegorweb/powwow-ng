@@ -5,14 +5,11 @@ export async function lastGeographicalLocation(simCardInstanceId) {
     `
   query {
     lastGeographicalLocation(simCardInstanceId: ${simCardInstanceId}) {
-      geographicalCoordinates
       celluleID
       lastCommunicationDate
       usageDetailsByDirection
       ticketGeneration
       ticketGenerationTranslated
-      latitude
-      longitude
       pdpConnectionStatus
       connectionClosingReason
       pdpConnectionStartDate
@@ -21,10 +18,19 @@ export async function lastGeographicalLocation(simCardInstanceId) {
       ipV4Address
       ipV6Address
       apn
+      geographicCoordinatesDTO {
+        label
+        address
+        latitude
+        longitude
+        zoomLevel
+        maxLevel
+      }
     }
   }
     `
   );
+
   return response.data.lastGeographicalLocation;
 }
 

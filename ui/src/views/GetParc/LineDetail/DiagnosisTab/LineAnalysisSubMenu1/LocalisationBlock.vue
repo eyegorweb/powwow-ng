@@ -66,7 +66,12 @@ export default {
       if (!this.data) {
         return;
       }
-      return [{ latitude: this.data.latitude, longitude: this.data.longitude }];
+      return [
+        {
+          latitude: parseFloat(this.$loGet(this.data, 'geographicCoordinatesDTO.latitude')),
+          longitude: parseFloat(this.$loGet(this.data, 'geographicCoordinatesDTO.longitude')),
+        },
+      ];
     },
   },
 };

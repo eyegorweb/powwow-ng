@@ -26,6 +26,25 @@ export default {
   },
   props: {
     markers: Array,
+    zoomControl: Boolean,
+    zoom: {
+      type: Number,
+      required: false,
+    },
+    maxZoom: {
+      type: Number,
+      required: false,
+    },
+    center: {
+      type: Object,
+      required: false,
+      default: () => {
+        return {
+          lat: 46.8989,
+          lng: 2.3522,
+        };
+      },
+    },
   },
   data() {
     return {
@@ -37,14 +56,27 @@ export default {
     setTimeout(() => {}, 500);
   },
   computed: {
+    mapCenter() {
+      if (!this.center.lat) {
+        return {
+          lat: this.center.latitude,
+          lng: this.center.longitude,
+        };
+      }
+
+      return this.center;
+    },
     mapConfig() {
-      return {
-        center: {
-          lat: 46.8989,
-          lng: 2.3522,
-        },
+      const config = {
+        center: this.mapCenter,
         zoom: this.zoomLevel,
+        zoomControl: this.zoomControl,
       };
+
+      if (this.maxZoom) {
+        config.maxZoom = this.maxZoom;
+      }
+      return config;
     },
     formattedMarkers() {
       if (!this.markers) return;
@@ -59,6 +91,12 @@ export default {
       });
     },
     zoomLevel() {
+      if (this.zoom) {
+        return this.zoom;
+      }
+      return this.defaultZoomLevel;
+    },
+    defaultZoomLevel() {
       if (window.innerWidth <= 1024) {
         return 4.6;
       }
