@@ -2,12 +2,13 @@
 
 <!--- next entry here -->
 
-## 1.17.0-master.501+20210903150051
+## 1.17.0-master.502+20210903151618
 2021-09-03
 
 ### Fixes
 
 - [000] corriger le message pour les alarmes (8bf18b082e5695332ad317772717e9e89ff0e854)
+- [000] Utiliser initialOffer pour le nom et code des offres dans le détail partenaire (d0d5bb66d1100f082c59b0cbbdd637c3c892ced5)
 
 ## 1.17.0-master.500+20210903123420
 2021-09-03
