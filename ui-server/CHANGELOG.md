@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.499+20210903120630
+2021-09-03
+
+### Fixes
+
+- [000] utiliser workflowDescription au lieu de name (1752e0aff6fdcaa004cb97da889e434a14f7bce9)
+
 ## 1.17.0-master.498+20210903105507
 2021-09-03
 
