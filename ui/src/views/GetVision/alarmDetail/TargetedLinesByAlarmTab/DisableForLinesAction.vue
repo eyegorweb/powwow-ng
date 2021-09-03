@@ -62,7 +62,11 @@ export default {
         for (let i = 0; i < errors.length; i++) {
           if (this.$loGet(errors[i], 'extensions.error') === 'ALARM_SET_LIMIT') {
             setTimeout(() => {
-              this.popupMessage(this.$t('limiterror'));
+              this.popupMessage(
+                this.$t('getparc.lineDetail.alarms.limiterror', {
+                  limit: this.$loGet(errors[i], 'extensions.limit'),
+                })
+              );
             }, 500);
           }
         }

@@ -529,6 +529,12 @@ export async function deleteAlarmInstance2(alarmInput) {
     const response = await query(queryStr, {
       alarmInput: input,
     });
+
+    if (response.errors) {
+      return {
+        errors: response.errors,
+      };
+    }
     return response.data.deleteAlarmInstance;
   } catch (e) {
     console.log(e);
