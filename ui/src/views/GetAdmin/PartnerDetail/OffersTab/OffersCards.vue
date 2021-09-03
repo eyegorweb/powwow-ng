@@ -116,7 +116,11 @@ export default {
     async refreshOffers() {
       this.isLoading = true;
       this.searchValue = undefined;
-      const items = await fetchOffers('', [this.partner], { page: 0, limit: 999 });
+      const items = await fetchOffers('', [this.partner], {
+        page: 0,
+        limit: 999,
+        catalogOfferOnly: true,
+      });
       this.offers = items.map((i) => {
         const services = get(i, 'initialOffer.marketingServices', []);
         return {

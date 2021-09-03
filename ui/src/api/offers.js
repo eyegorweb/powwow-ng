@@ -121,11 +121,12 @@ export async function fetchOffers2(filters, pagination, sorting) {
 export async function fetchOffers(
   q,
   partners,
-  { page, limit, partnerType, disabledOffer, customerAccountCode, haveLvOffers }
+  { page, limit, partnerType, disabledOffer, customerAccountCode, haveLvOffers, catalogOfferOnly }
 ) {
   let partnersIds,
     partnerGqlParam = '',
     rCardGqlParam = '',
+    catalogOfferOnlyParam = '',
     offersParam = '',
     customerAccountCodeParam = '';
 
@@ -137,6 +138,9 @@ export async function fetchOffers(
     customerAccountCodeParam = `, customerAccountCode: {in: ["${customerAccountCode}"]}`;
   }
 
+  if (catalogOfferOnly) {
+    catalogOfferOnlyParam = `, catalogOfferOnly: true`;
+  }
   if (partners && partners.length > 0) {
     partnersIds = partners.map((i) => `"${i.id}"`).join(',');
     partnerGqlParam = `, partyId:{in: [${partnersIds}]}`;
@@ -156,7 +160,7 @@ export async function fetchOffers(
 
   const queryStr = `
   query{
-    workflows(filter:{description: {startsWith: "${q}"} ${offersParam} ${partnerGqlParam} ${partnerTypeGqlFilter}${customerAccountCodeParam}${lvOffers}}, sorting: { description: DESC }, pagination: {limit: ${limit}, page: ${page}}) {
+    workflows(filter:{description: {startsWith: "${q}"} ${offersParam} ${catalogOfferOnlyParam}${partnerGqlParam} ${partnerTypeGqlFilter}${customerAccountCodeParam}${lvOffers}}, sorting: { description: DESC }, pagination: {limit: ${limit}, page: ${page}}) {
       total,
       items {
         id
