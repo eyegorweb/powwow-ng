@@ -958,8 +958,17 @@ export async function updateBroadcastLists(params) {
     }
 
   `;
-  const response = await query(queryStr);
-  return response.data.updateMailingList;
+  try {
+    const response = await query(queryStr);
+    if (response.errors) {
+      return {
+        errors: response.errors,
+      };
+    }
+    return response.data.updateMailingList;
+  } catch (e) {
+    console.error('API Error', e);
+  }
 }
 
 export async function fetchOrderState(id) {
@@ -994,9 +1003,17 @@ export async function createBroadcastLists(params) {
       }
     }
   `;
-
-  const response = await query(queryStr);
-  return response.data.createMailingList;
+  try {
+    const response = await query(queryStr);
+    if (response.errors) {
+      return {
+        errors: response.errors,
+      };
+    }
+    return response.data.createMailingList;
+  } catch (e) {
+    console.error('API Error', e);
+  }
 }
 
 export async function addPartyShippingAddress(formData, partnerId) {

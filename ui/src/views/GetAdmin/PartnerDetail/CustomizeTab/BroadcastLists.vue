@@ -82,7 +82,11 @@ export default {
       this.openPanel({
         title: this.$t('getadmin.customize.modifyList'),
         panelId: 'getadmin.customize.addList',
-        payload: { duplicateFrom: list, partnerId: this.partnerid },
+        payload: {
+          duplicateFrom: list,
+          partnerId: this.partnerid,
+          broadcastLists: this.broadcastLists,
+        },
         backdrop: true,
         width: '40rem',
         ignoreClickAway: true,
