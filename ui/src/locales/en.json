@@ -1209,7 +1209,7 @@
         "label2": "Custom filed 2"
       },
       "alarms": {
-        "limiterror": "Cette opération est limitée à {limit} lignes.<br /> Pour traiter votre demande merci de contacter le Support Wholesale.",
+        "limiterror": "This action is limited to {limit} lignes.<br /> Please contact the Wholesale support.",
         "trigger-history": "Trigger history",
         "id": "ID Alarm",
         "name": "Name of alarme",
