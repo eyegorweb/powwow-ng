@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.497+20210903101841
+2021-09-03
+
+### Fixes
+
+- [2885] ajout de contrôle sur les création, modification et suppression des listes de diffusion dans la gestion de partenaires (d60167942fce19748c8aeb36cb905b9c4fcd618c)
+
 ## 1.17.0-master.496+20210903090437
 2021-09-03
 
