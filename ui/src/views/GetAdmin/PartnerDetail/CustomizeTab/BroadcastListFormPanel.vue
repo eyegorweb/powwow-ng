@@ -58,6 +58,7 @@ import FormControl from '@/components/ui/FormControl';
 import { mapGetters, mapMutations } from 'vuex';
 import VueTagsInput from '@johmun/vue-tags-input';
 import { createBroadcastLists, updateBroadcastLists } from '@/api/partners.js';
+import { formatBackErrors } from '@/utils/errors';
 
 export default {
   components: {
@@ -110,11 +111,22 @@ export default {
         response = await createBroadcastLists(params);
       }
 
-      if (!response) {
-        this.flashMessage({ level: 'danger', message: this.$t('genericErrorMessage') });
+      if (response) {
+        if (response.errors && response.errors.length) {
+          const formatted = formatBackErrors(response.errors)
+            .map((e) => e.errors)
+            .flat();
+          let errorMessage = '';
+          formatted.forEach((e) => {
+            errorMessage = `${'getadmin.partnerDetail.errors.'}${e.value}`;
+          });
+          this.flashMessage({ level: 'danger', message: `${this.$t(errorMessage)}` });
+        } else {
+          this.flashMessage({ level: 'success', message: this.$t('genericSuccessMessage') });
+          this.closePanel();
+        }
       } else {
-        this.flashMessage({ level: 'success', message: this.$t('genericSuccessMessage') });
-        this.closePanel();
+        this.flashMessage({ level: 'danger', message: this.$t('genericErrorMessage') });
       }
     },
   },
@@ -128,8 +140,15 @@ export default {
     checkForErrors() {
       let errors = [];
       if (
+        !this.content.duplicateFrom &&
         this.content.broadcastLists &&
         this.content.broadcastLists.length > 0 &&
+        this.content.broadcastLists.filter((i) => i.name === this.form.title).length > 0
+      ) {
+        errors = ['existing value'];
+      } else if (
+        this.content.duplicateFrom &&
+        this.content.duplicateFrom.name !== this.form.title &&
         this.content.broadcastLists.filter((i) => i.name === this.form.title).length > 0
       ) {
         errors = ['existing value'];

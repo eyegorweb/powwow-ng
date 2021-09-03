@@ -979,8 +979,9 @@
         "warning": "Les modifications seront perdues, voulez-vous continuer ?",
         "notification": "Notification des demandes de résiliation"
       },
-      "errors": {
-        "MAILING_LIST_CANNOT_BE_DELETED": "Impossible de supprimer une liste de diffusion, si elle est utilisée autre part."
+      "errors":{
+        "MAILING_LIST_CANNOT_BE_DELETED": "Impossible de supprimer une liste de diffusion, si elle est utilisée autre part.",
+        "MAILING_LIST_ALREADY_EXIST": "Impossible de renommer une liste de diffusion avec un nom déjà utilisé."
       }
     }
   },

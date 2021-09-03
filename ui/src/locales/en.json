@@ -835,8 +835,9 @@
         "warning": "The changes will be lost, do you want to continue?",
         "notification": "Terminations request notification"
       },
-      "errors": {
-        "MAILING_LIST_CANNOT_BE_DELETED": "Cannot delete a mailing list, if it is used elsewhere."
+      "errors":{
+        "MAILING_LIST_CANNOT_BE_DELETED": "Cannot delete a mailing list, if it is used elsewhere.",
+        "MAILING_LIST_ALREADY_EXIST": "Cannot rename a mailing list with a name already used."
       },
       "mb": {
         "title": "{total} customer (s) (C.F.) found",
