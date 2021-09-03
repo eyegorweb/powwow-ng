@@ -85,7 +85,7 @@
               <h6>
                 {{ $t('getparc.lineDetail.tab2.lineAnalysisContent.geographicalCoordinates') }}:
               </h6>
-              <p>{{ getValue(geographicalLocation, 'geographicalCoordinates') }}</p>
+              <LineCoordinate :geographicalLocation="geographicalLocation" />
             </div>
             <div class="item">
               <h6>{{ $t('getparc.lineDetail.tab2.lineAnalysisContent.lastLocationDate') }}:</h6>
@@ -152,6 +152,8 @@ import get from 'lodash.get';
 import LocalisationBlock from './LocalisationBlock';
 import LineAnalysisSkeleton from './LineAnalysisSkeleton';
 
+import LineCoordinate from '@/views/GetParc/LineDetail/DiagnosisTab/LineAnalysisSubMenu1/LineCoordinate.vue';
+
 export default {
   components: {
     LocalisationBlock,
@@ -159,6 +161,7 @@ export default {
     AnalyzeTable,
     LoaderContainer,
     LineAnalysisSkeleton,
+    LineCoordinate,
   },
   data() {
     return {
