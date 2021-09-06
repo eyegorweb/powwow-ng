@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.503+20210906085315
+2021-09-06
+
+### Fixes
+
+- [2645] activer / désactiver une offre sur un partenaire (bc43f9772c50253786b68d34245f7635f0005f57)
+
 ## 1.17.0-master.502+20210903151618
 2021-09-03
 
