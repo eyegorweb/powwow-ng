@@ -250,6 +250,7 @@ export default {
       this.currentTab = 'graphs';
 
       if (this.currentUsage === 'COCKPIT') {
+        this.currentTab = 'alerts';
         this.refreshCockpitFilters();
         this.setupDefaultValues();
       } else {
@@ -500,6 +501,13 @@ export default {
             };
           },
         });
+
+        if (!this.appliedFilters.find((f) => f.id === 'getadmin.users.filters.partners')) {
+          const partnerFilter = currentVisibleFilters.find(
+            (c) => c.title === 'getadmin.users.filters.partners'
+          );
+          partnerFilter.isHidden = false;
+        }
       }
 
       return currentVisibleFilters;
