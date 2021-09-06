@@ -43,9 +43,15 @@ export async function updateOffers(partnerId, offerIds) {
 }
 
 export async function disableOffer(partnerId, offerId) {
-  const queryStr = `mutation{ disableOffer(partnerId: ${partnerId}, offerId: ${offerId}) }`;
+  const queryStr = `mutation{ disableOfferForParty(partnerId: ${partnerId}, offerId: ${offerId}) }`;
   const response = await query(queryStr);
-  if (response.data) return response.data.disableOffer;
+  if (response.data) return response.data.disableOfferForParty;
+}
+
+export async function enableOffer(partnerId, offerId) {
+  const queryStr = `mutation{ enableOfferForParty(partnerId: ${partnerId}, offerId: ${offerId}) }`;
+  const response = await query(queryStr);
+  if (response.data) return response.data.enableOfferForParty;
 }
 
 export async function fetchOffers2(filters, pagination, sorting) {
@@ -64,6 +70,7 @@ export async function fetchOffers2(filters, pagination, sorting) {
         name
         workflowDescription
         ${rCardGqlParam}
+        partyEnabled(partyId: ${partnerId})
         initialOffer {
           id
           code
@@ -128,7 +135,8 @@ export async function fetchOffers(
     rCardGqlParam = '',
     catalogOfferOnlyParam = '',
     offersParam = '',
-    customerAccountCodeParam = '';
+    customerAccountCodeParam = '',
+    partyEnabledParam = '';
 
   if (disabledOffer) {
     offersParam = `, disabledOffer: false`;
@@ -145,6 +153,9 @@ export async function fetchOffers(
     partnersIds = partners.map((i) => `"${i.id}"`).join(',');
     partnerGqlParam = `, partyId:{in: [${partnersIds}]}`;
     rCardGqlParam = `rCard(partyId: ${partners[0].id})`;
+    if (partners.length === 1) {
+      partyEnabledParam = `partyEnabled(partyId: ${partners[0].id})`;
+    }
   }
 
   let partnerTypeGqlFilter = '';
@@ -168,6 +179,7 @@ export async function fetchOffers(
         name
         workflowDescription
         ${rCardGqlParam}
+        ${partyEnabledParam}
         initialOffer {
           id
           code

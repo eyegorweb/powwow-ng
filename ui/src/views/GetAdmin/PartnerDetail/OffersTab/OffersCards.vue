@@ -44,14 +44,18 @@
             </div>
           </div>
           <div slot="buttons">
-            <Button
-              v-if="canShowActions"
-              class="button"
-              :variant="'import'"
-              @click="deleteOffer(offer)"
-            >
-              {{ $t('actions.DISABLE') }}
-            </Button>
+            <template v-if="canShowActions">
+              <template v-if="offer.partyEnabled">
+                <Button class="button" :variant="'import'" @click="deleteOffer(offer)">
+                  {{ $t('actions.DISABLE') }}
+                </Button>
+              </template>
+              <template v-else>
+                <Button class="button" :variant="'import'" @click="enableOffer(offer)">
+                  {{ $t('actions.ENABLE') }}
+                </Button>
+              </template>
+            </template>
           </div>
         </Card>
       </template>
@@ -69,7 +73,7 @@ import Button from '@/components/ui/Button';
 import get from 'lodash.get';
 import { mapMutations, mapGetters } from 'vuex';
 
-import { fetchOffers, disableOffer } from '@/api/offers.js';
+import { fetchOffers, disableOffer, enableOffer } from '@/api/offers.js';
 
 export default {
   components: {
@@ -128,6 +132,7 @@ export default {
           name: get(i, 'initialOffer.description'),
           code: get(i, 'initialOffer.code'),
           checked: false,
+          partyEnabled: i.partyEnabled,
           editableServices: services.filter((s) => s.editable).map((s) => s.labelService),
           defaultServices: services.filter((s) => !s.optional).map((s) => s.labelService),
         };
@@ -153,6 +158,20 @@ export default {
         },
       });
     },
+
+    enableOffer(offer) {
+      const doReset = () => {
+        this.refreshOffers();
+      };
+      this.confirmAction({
+        message: 'confirmAction',
+        actionFn: async () => {
+          await enableOffer(this.partner.id, offer.id);
+          doReset();
+        },
+      });
+    },
+
 
     deleteOffer(offer) {
       const doReset = () => {
