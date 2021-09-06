@@ -5,7 +5,8 @@
         <div class="d-flex">
           <div class="item">
             <h6>{{ $t('getadmin.partners.name') }}:</h6>
-            <p>{{ getFromContent('party.name') }}</p>
+            <p v-tooltip="partyName" v-if="showTooltip">{{ formattedLabel(partyName) }}</p>
+            <p v-else>{{ getFromContent('party.name') }}</p>
           </div>
           <div class="item">
             <h6>{{ $t('filters.lines.siren') }}:</h6>
@@ -84,6 +85,7 @@
 <script>
 import { formatLargeNumber } from '@/utils/numbers';
 import get from 'lodash.get';
+import { truncateLabel } from '@/utils';
 
 export default {
   props: {
@@ -96,6 +98,18 @@ export default {
     },
     billNumberFormatter(n) {
       return n ? formatLargeNumber(n) : '0';
+    },
+    formattedLabel(label) {
+      return truncateLabel(label);
+    },
+  },
+
+  computed: {
+    partyName() {
+      return this.getFromContent('party.name');
+    },
+    showTooltip() {
+      return this.formattedLabel(this.partyName).length > 13;
     },
   },
 };
