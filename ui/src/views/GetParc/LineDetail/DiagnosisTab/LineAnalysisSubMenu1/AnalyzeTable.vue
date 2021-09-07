@@ -24,7 +24,7 @@
         <DataTable
           v-if="orderBy"
           storage-id="getparc.analyze"
-          storage-version="11"
+          storage-version="12"
           :columns.sync="columns"
           :rows="rows || []"
           :page.sync="page"
@@ -351,7 +351,7 @@ export default {
             type: 'ObjectAttribute',
             path: 'cellAddress',
           },
-          { exportId: 'APN' }
+          { exportId: 'ADDRESS' }
         ),
       ],
       additionalFilters: [],
