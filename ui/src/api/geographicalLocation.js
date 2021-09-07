@@ -93,6 +93,7 @@ export async function accessPointsByLocalisation(filters, pagination, localisati
           ticketGenerationTranslated
           pdpConnectionStatus
           operator
+          cellAddress
         }
         deviceInstance {
           manufacturer

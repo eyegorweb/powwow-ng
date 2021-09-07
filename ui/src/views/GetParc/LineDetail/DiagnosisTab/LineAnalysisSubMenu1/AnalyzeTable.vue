@@ -2,7 +2,7 @@
   <div class="bg-white p-2 mt-2 analyze-container">
     <div class="row mb-3">
       <div class="col">
-        <h2 class="text-gray font-weight-light" style="font-size: 2rem;">
+        <h2 class="text-gray font-weight-light" style="font-size: 2rem">
           {{ $t('getparc.actLines.total', { total: formattedTotal }) }}
         </h2>
       </div>
@@ -24,7 +24,7 @@
         <DataTable
           v-if="orderBy"
           storage-id="getparc.analyze"
-          storage-version="10"
+          storage-version="11"
           :columns.sync="columns"
           :rows="rows || []"
           :page.sync="page"
@@ -342,6 +342,17 @@ export default {
           },
           { exportId: 'APN' }
         ),
+        col(
+          'Adresse',
+          'geolocation',
+          false,
+          false,
+          {
+            type: 'ObjectAttribute',
+            path: 'cellAddress',
+          },
+          { exportId: 'APN' }
+        ),
       ],
       additionalFilters: [],
       total: 0,
@@ -402,6 +413,7 @@ export default {
           filters,
           columnsParam,
           exportFormat,
+          false,
           this.localisationType
         );
       };
