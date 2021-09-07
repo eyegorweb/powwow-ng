@@ -39,12 +39,14 @@
                       :services="services"
                       :initial-services="initialServices"
                       :data-params-needed="isDataParamsError"
+                      :roamingExtendedOnOffer="true || $loGet(content, 'workflow.roamingExtended')"
                       @datachange="onDataServiceChange"
+                      @communityChange="onCommunityChange"
                     />
                   </LoaderContainer>
                 </div>
               </div>
-              <div class="row" v-if="havePermission('act', 'manage_main')">
+              <div class="row mt-2" v-if="havePermission('act', 'manage_main')">
                 <div class="col">
                   <button
                     v-if="!savingChanges"
@@ -147,6 +149,7 @@ export default {
       savingChanges: false,
       servicesVersion: 1,
       isDataParamsError: false,
+      newCommunityChange: undefined,
 
       optionalServices: undefined,
 
@@ -170,6 +173,10 @@ export default {
   },
   methods: {
     ...mapMutations(['flashMessage']),
+
+    onCommunityChange(value) {
+      this.newCommunityChange = value;
+    },
 
     canSave() {
       const { servicesToEnable, servicesToDisable, dataChanged, dataParams } = this.changes;
@@ -206,11 +213,12 @@ export default {
         this.savingChanges = true;
         const dataService = canSaveData
           ? {
-              checked: this.dataCheck,
-              parameters: this.lastDataParams,
-              code: 'DATA',
-            }
+            checked: this.dataCheck,
+            parameters: this.lastDataParams,
+            code: 'DATA',
+          }
           : undefined;
+
         const response = await changeService([], [this.content], {
           notifEmail: false,
           dueDate: formattedCurrentDate(true),
@@ -220,6 +228,7 @@ export default {
           servicesToDisable,
           dataService,
           offerCode,
+          newCommunityChange: this.newCommunityChange
         });
 
         this.savingChanges = false;

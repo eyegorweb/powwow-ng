@@ -591,6 +591,7 @@ export async function changeService(filters, lines, params) {
       servicesToDisable,
       dataService,
       offerCode,
+      newCommunityChange,
     } = params;
 
     let gqlTempDataUuid = '';
@@ -603,7 +604,20 @@ export async function changeService(filters, lines, params) {
     let dataCodeParams = '';
 
     if (servicesToEnable && servicesToEnable.length) {
-      codesToEnable = servicesToEnable.map((s) => `{serviceCode: "${s.code}", action: ADD}`);
+      codesToEnable = servicesToEnable.map((s) => {
+        let roamingParam = '';
+        if (s.code === 'ROAMING') {
+          if (newCommunityChange && newCommunityChange.id === 'europe') {
+            roamingParam = `, roamingValue: true`;
+          } else if (newCommunityChange && newCommunityChange.id === 'world') {
+            roamingParam = `, roamingValue: false`;
+          } else {
+            roamingParam = `, roamingValue: null`;
+          }
+        }
+
+        return `{serviceCode: "${s.code}", action: ADD${roamingParam}}`;
+      });
     }
 
     if (servicesToDisable && servicesToDisable.length) {
@@ -611,6 +625,7 @@ export async function changeService(filters, lines, params) {
     }
 
     let codesToaddToGqlQuery = [...codesToEnable, ...codesToDisable];
+    console.log('🚀 > servicesToEnable ', servicesToEnable);
 
     if (dataService) {
       if (dataService.checked) {

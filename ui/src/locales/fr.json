@@ -2119,7 +2119,12 @@
     "DATA": "Data",
     "compatibility": "-non compatible",
     "SMS": "SMS",
-    "VOICE": "Voix"
+    "VOICE": "Voix",
+    "roaming": {
+      "europe": "Europe",
+      "world": "Monde",
+      "title": "Type de roaming"
+    }
   },
 
   "filters": {

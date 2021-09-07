@@ -1912,7 +1912,12 @@
     "DATA": "Data",
     "compatibility": "-not compatible",
     "SMS": "SMS",
-    "VOICE": "Voice"
+    "VOICE": "Voice",
+    "roaming": {
+      "europe": "Europe",
+      "world": "World",
+      "title": "Roaming type"
+    }
   },
   "filters": {
     "idOrder": "Order ID",
