@@ -44,14 +44,28 @@
           </div>
         </div>
       </div>
-      <div v-if="dataService" class="col-md-4">
-        <DataServiceToggle
-          :service="dataService"
-          @change="onDataServiceChange"
-          :data-params-needed="dataParamsNeeded"
-          :bold-label="isChanged(dataService)"
-          :no-click="noClick"
-        />
+      <div class="col-md-4">
+        <template v-if="canChangeRoamingExtended || dataService">
+          <DataServiceToggle
+            v-if="dataService"
+            :service="dataService"
+            @change="onDataServiceChange"
+            :data-params-needed="dataParamsNeeded"
+            :bold-label="isChanged(dataService)"
+            :no-click="noClick"
+          />
+
+          <template v-if="canChangeRoamingExtended">
+            <b>{{ $t('services.roaming.title') }}</b>
+            <MultiToggle
+              v-if="roamingValues"
+              @update="onRoamingExtChange"
+              :values="roamingValues"
+              block
+              class="pl-2"
+            />
+          </template>
+        </template>
       </div>
     </div>
   </div>
@@ -95,11 +109,13 @@ import UiToggle from '@/components/ui/UiToggle';
 import DataServiceToggle from './DataServiceToggle';
 import { mapGetters, mapMutations } from 'vuex';
 import cloneDeep from 'lodash.clonedeep';
+import MultiToggle from '@/components/ui/UiToggle2';
 
 export default {
   components: {
     UiToggle,
     DataServiceToggle,
+    MultiToggle
   },
   props: {
     services: Array,
@@ -113,6 +129,7 @@ export default {
     noClick: Boolean,
     disabled: Boolean,
     readOnly: Boolean,
+    roamingExtendedOnOffer: Boolean
   },
   computed: {
     ...mapGetters(['userIsMVNO']),
@@ -139,6 +156,11 @@ export default {
   methods: {
     ...mapMutations(['popupMessage']),
 
+    onRoamingExtChange(newValue) {
+      this.extendedRoamingValue = newValue;
+      this.$emit('communityChange', newValue);
+    },
+
     isServiceEditable(service) {
       if (this.readOnly) return false;
 
@@ -151,6 +173,7 @@ export default {
         this.dataService = { ...dataService };
       }
       this.otherServices = [...this.services.filter((s) => s.code !== 'DATA')];
+      this.roamingService = this.services.find(s => s.code === 'ROAMING');
     },
     isChanged(service) {
       if (!this.initialServices || !this.initialServices.length) return false;
@@ -229,9 +252,36 @@ export default {
     return {
       otherServices: undefined,
       dataService: undefined,
+      extendedRoamingValue: undefined,
+      roamingService: undefined,
+      canChangeRoamingExtended: false,
+      roamingValues: [
+        {
+          id: 'none',
+          label: 'noneM',
+        },
+        {
+          id: 'europe',
+          label: 'services.roaming.europe',
+        },
+        {
+          id: 'world',
+          label: 'services.roaming.world',
+        },
+      ]
     };
   },
   watch: {
+    roamingService: {
+      handler(roamingService) {
+        if (roamingService && roamingService.checked && this.roamingExtendedOnOffer) {
+          this.canChangeRoamingExtended = true;
+        } else {
+          this.canChangeRoamingExtended = false;
+        }
+      },
+      deep: true
+    },
     services() {
       this.setup();
     },

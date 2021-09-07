@@ -303,6 +303,7 @@ export async function searchLines(orderBy, pagination, filters = []) {
     workflow {
       id
       workflowDescription
+      roamingExtended
     }
     id
     iccid
