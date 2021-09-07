@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.506+20210907124041
+2021-09-07
+
+### Fixes
+
+- [2906] Ajout de l'adresse de la dernière communication dans le détail de la ligne (04f8e55aac69bfc8e1c512c896c04d39fd846f6a)
+- [2906] ajouter l'addresse à l'export (be56ed68fbcd01edfc7808d45a340e23eaed70ce)
+
 ## 1.17.0-master.505+20210907121323
 2021-09-07
 
