@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.504+20210907075112
+2021-09-07
+
+### Fixes
+
+- [1526] correction dans le sommaire du détail de partenaire (8942d7e924da3b5c6495d6ef6bed8514c68ea11c)
+
 ## 1.17.0-master.503+20210906085315
 2021-09-06
 
