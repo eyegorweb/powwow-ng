@@ -39,7 +39,7 @@
                       :services="services"
                       :initial-services="initialServices"
                       :data-params-needed="isDataParamsError"
-                      :roamingExtendedOnOffer="true || $loGet(content, 'workflow.roamingExtended')"
+                      :roamingExtendedOnOffer="$loGet(content, 'workflow.roamingExtended')"
                       @datachange="onDataServiceChange"
                       @communityChange="onCommunityChange"
                     />
