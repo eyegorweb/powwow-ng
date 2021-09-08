@@ -331,14 +331,14 @@ export default {
           },
         },
         {
-          title: 'filters.orderCreator',
+          title: 'filters.userCreator',
           component: UsersMultiSelectFilter,
           getPageContext: () => {
             return { partners: this.currentPartners };
           },
           onChange(chosenValues) {
             return {
-              id: 'filters.orderCreator',
+              id: 'filters.userCreator',
               values: chosenValues,
             };
           },

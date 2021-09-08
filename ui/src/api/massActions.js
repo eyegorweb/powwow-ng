@@ -462,7 +462,7 @@ function addTransitionName(gqlFilters, selectedFilters) {
 }
 
 function addCreatorFilter(gqlFilters, selectedFilters) {
-  const creatorIds = getValuesIdsForInt(selectedFilters, 'filters.orderCreator');
+  const creatorIds = getValuesIdsForInt(selectedFilters, 'filters.userCreator');
   if (creatorIds) {
     gqlFilters.push(`creator: [${creatorIds}]`);
   }

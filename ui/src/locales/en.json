@@ -1932,6 +1932,7 @@
     "quantity": "Quantity",
     "customFields": "Free fields",
     "orderCreator": "Creator of the request",
+    "userCreator": "Order creator",
     "active": "Activated",
     "shippingCountry": "Delivery country",
     "postalCode": "ZIP Code",
