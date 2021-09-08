@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.507+20210908143658
+2021-09-08
+
+### Fixes
+
+- [2892] correction du filtre Catégorie de SIM (43a0e7579fc70e1b73fb5b0a1891356f8991c6f1)
+
 ## 1.17.0-master.506+20210907124041
 2021-09-07
 
