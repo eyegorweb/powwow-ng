@@ -570,7 +570,7 @@ function addEsimCategory(gqlFilters, selectedFilters) {
   const foundFilter = selectedFilters.find(
     (f) => f.id === 'indicators.getparc.lines.esim.category'
   );
-  if (foundFilter) {
+  if (foundFilter && foundFilter.meta && foundFilter.meta.value !== 'none') {
     gqlFilters.push(`simcardCategory: {eq: ${foundFilter.meta.value}}`);
   }
 }
