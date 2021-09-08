@@ -106,7 +106,7 @@ export default {
       this.setIfPresent(
         esimReservationInput,
         'externalId',
-        this.$loGet(synthesis, 'settingsStep.selection.orderReference')
+        this.$loGet(synthesis, 'settingsStep.orderReference.selection.orderReference')
       );
 
       this.setIfPresent(
