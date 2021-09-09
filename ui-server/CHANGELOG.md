@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.508+20210909145051
+2021-09-09
+
+### Fixes
+
+- [000] Rediriger correctement vers la page précédente après l'authentification (a55ca29c34c311e010a746d4ab6c8520ad8f9daa)
+
 ## 1.17.0-master.507+20210908143658
 2021-09-08
 
