@@ -64,3 +64,4 @@ mochawesome-report
 TestReport
 cypress-tests-report.json
 ui/cypress/dashboard/data
+logs

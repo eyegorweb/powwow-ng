@@ -65,13 +65,14 @@ async function doAndRetryHTTPQuery(callFn) {
     try {
       return await callFn();
     } catch (e) {
-      if (e.response.status === 503 || e.response.status === 500) {
-        throw e.response.status;
+      const responseStatus = get(e, 'response.status');
+      if (responseStatus === 503 || responseStatus === 500) {
+        throw responseStatus;
       }
-      if (e && e.response && e.response.status) {
+      if (e && e.response && responseStatus) {
         if (
-          e.response.status === 401 ||
-          e.response.status === 403 ||
+          responseStatus === 401 ||
+          responseStatus === 403 ||
           (e.response && e.response.error && e.response.error === 'invalid_token')
         ) {
           if (tries > 0) {
@@ -81,7 +82,7 @@ async function doAndRetryHTTPQuery(callFn) {
             return await singleTry();
           }
         }
-        if (e.response.status === 400) {
+        if (responseStatus === 400) {
           throw e.response;
         }
       }
