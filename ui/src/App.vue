@@ -6,7 +6,7 @@
       <NavBars v-if="appIsReady && $route.name !== 'catalog'" :is-backoffice-profile="userIsBO" />
       <router-view v-if="appIsReady" />
       <PanelSwitcher v-if="appIsReady" />
-      <PendingActionsIndicator v-if="appIsReady" />
+      <PendingActions v-if="appIsReady" />
     </div>
 
     <Authentication />
@@ -26,7 +26,7 @@ import ExportButtonModals from '@/components/ExportButtonModals';
 import PanelSwitcher from '@/components/PanelSwitcher';
 import ConfirmationModal from '@/components/ConfirmationModal';
 import FlashMessages from '@/components/ui/messages/FlashMessages';
-import PendingActionsIndicator from '@/components/ui/messages/PendingActions';
+import PendingActions from '@/components/ui/messages/PendingActions';
 import DownloadManager from '@/components/DownloadManager.vue';
 import AppVersion from '@/components/AppVersion.vue';
 import { mapMutations, mapGetters } from 'vuex';
@@ -45,7 +45,7 @@ export default {
     ExportButtonModals,
     DownloadManager,
     AppVersion,
-    PendingActionsIndicator,
+    PendingActions,
   },
   methods: {
     ...mapMutations(['closePanel']),

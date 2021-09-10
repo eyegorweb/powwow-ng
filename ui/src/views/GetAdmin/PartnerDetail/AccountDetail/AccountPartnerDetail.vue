@@ -1,8 +1,6 @@
 <template>
   <div class="accountdetail">
-    <div
-      class="accountdetail-generalInfos"
-    >
+    <div class="accountdetail-generalInfos">
       <h3>{{ $t('getadmin.partnerDetail.generalInformations') }}</h3>
       <div class="accountdetail-generalInfos-bloc">
         <div class="accountdetail-generalInfos-bloc-details">
@@ -314,7 +312,7 @@ export default {
   methods: {
     ...mapMutations(['flashMessage', 'confirmAction']),
     ...mapGetters(['userIsPartner', 'userIsBO']),
-    
+
     resetLogo() {
       this.imgToUpload = undefined;
       this.urlLogoPreview = undefined;

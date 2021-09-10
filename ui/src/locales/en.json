@@ -101,6 +101,11 @@
   "login": "Login",
   "password": "Password",
   "passwordConfirm": "Confirma password",
+  "pending-actions": {
+    "preparing": "Preparing exports ...",
+    "ready": "Export ready",
+    "expired": "Request expired"
+  },
   "actions": {
     "DUPLICATE": "Duplicate",
     "DISABLE": "Unselect",

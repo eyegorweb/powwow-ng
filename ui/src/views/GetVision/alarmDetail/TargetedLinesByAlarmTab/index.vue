@@ -143,10 +143,9 @@ export default {
         this.lastSearchByIdFilter = undefined;
         this.searchByIdValue = undefined;
         this.saveLastUsedFilter({
-          id: params.id // passer juste l'id pour supprimer le filtre
+          id: params.id, // passer juste l'id pour supprimer le filtre
         });
       }
-
 
       this.isLoading = true;
       const data = await fetchLinesBoundToAlarm(this.orderBy, { page: 0, limit: 10 }, [
@@ -180,7 +179,6 @@ export default {
         this.canShowTable = true;
 
         this.applyFilters();
-
       });
     },
 
@@ -191,9 +189,9 @@ export default {
       }
 
       if (lastUsedFilters && lastUsedFilters.length) {
-        const found = lastUsedFilters.find(f => f.id === filter.id);
+        const found = lastUsedFilters.find((f) => f.id === filter.id);
         if (found) {
-          lastUsedFilters = lastUsedFilters.filter(f => f.id !== filter.id);
+          lastUsedFilters = lastUsedFilters.filter((f) => f.id !== filter.id);
         }
         if (filter && filter.value) {
           lastUsedFilters.push(found);
@@ -206,7 +204,6 @@ export default {
 
       this.lastUsedFilters = lastUsedFilters;
     },
-
 
     async applyFilters(payload) {
       const { pagination, filters } = payload || {

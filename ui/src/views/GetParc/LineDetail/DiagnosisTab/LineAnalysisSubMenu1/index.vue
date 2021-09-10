@@ -85,7 +85,7 @@
               <h6>
                 {{ $t('getparc.lineDetail.tab2.lineAnalysisContent.geographicalCoordinates') }}:
               </h6>
-              <LineCoordinate :geographicalLocation="geographicalLocation" />
+              <LineCoordinate :geographical-location="geographicalLocation" />
             </div>
             <div class="item">
               <h6>{{ $t('getparc.lineDetail.tab2.lineAnalysisContent.lastLocationDate') }}:</h6>

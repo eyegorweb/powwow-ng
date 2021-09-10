@@ -126,6 +126,35 @@
   "card": "Carte",
   "days": "Jours",
   "specific": "spécifque",
+  "pending-actions": {
+    "title": "Actions en cours",
+    "preparing": "Préparation de l'export ...",
+    "ready": "Export prêt",
+    "expired": "Demande expirée"
+  },
+  "export-types": {
+    "EXPORT_ORDERS": "Export de commandes",
+    "EXPORT_SIMCARD_INSTANCES": "Export de lignes",
+    "EXPORT_ACCESSPOINTS_BY_LOCALISATION": "Export des points d'accès",
+    "EXPORT_MASSACTION": "Export des actes de gestions",
+    "EXPORT_MASSACTION_WITH_UNITS": "Export des actes de gestions",
+    "EXPORT_ALARMS_WITH_TRIGGERS": "Export d'alarmes",
+    "EXPORT_LINES_BOUND_TO_ALARM": "Export de lignes d'une alarme",
+    "EXPORT_DEVICES": "Export des équipements",
+    "EXPORT_ESIM_RESERVATION": "Export de réservations ESIM",
+    "EXPORT_ESIM_STOCK_PROFILES": "Export de stocks ESIM",
+    "EXPORT_USER": "Export des utilisateurs",
+    "EXPORT_CONSUMPTIONS": "Export de l'export de consommation",
+    "EXPORT_SUPERVISIONS": "Export de supervision",
+    "EXPORT_DATA_CONNECTION_HISTORY": "Export de l'historique DATA",
+    "EXPORT_SMS_CONNECTION_HISTORY": "Export de l'historique SMS",
+    "EXPORT_VOICE_CONNECTION_HISTORY": "Export de l'historique VOIX",
+    "EXPORT_CUSTOMER_ACCOUNTS": "Export de CF",
+    "EXPORT_PARC_STATUS_INFO": "Export de l'état de parc",
+    "EXPORT_LAST_VISITED_COUNTRY": "Export de l'historique des pays visités",
+    "EXPORT_CELL_HISTORY": "Export de l'historique des cellules de consommation",
+    "EXPORT_CURRENT_CONSUMPTION": "Export de l'encours de consommation"
+  },
   "map": {
     "world": "Monde",
     "countryFR": "France"

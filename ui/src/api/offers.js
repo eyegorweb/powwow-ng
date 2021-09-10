@@ -70,7 +70,6 @@ export async function fetchOffers2(filters, pagination, sorting) {
         name
         workflowDescription
         ${rCardGqlParam}
-        partyEnabled(partyId: ${partnerId})
         initialOffer {
           id
           code
