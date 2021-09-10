@@ -2,6 +2,17 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.509+20210910123456
+2021-09-10
+
+### Features
+
+- [2922] Gérer les exports en tache de fond (e9777800509139a48db27c0264f2f21c98d9d8b3)
+
+### Fixes
+
+- [2787] correction des filtres Créateur de la demande et Créateur de la commande (ccde1339a1b3053d1839afd0660b8a6ba6be24cb)
+
 ## 1.17.0-master.508+20210909145051
 2021-09-09
 
