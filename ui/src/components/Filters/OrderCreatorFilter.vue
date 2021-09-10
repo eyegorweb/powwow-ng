@@ -24,7 +24,15 @@ export default {
   methods: {
     async fetchApi(q, forPartners, contextPartnersType, pagination) {
       const orderBy = { key: 'fullname', direction: 'ASC' };
-      const data = await searchUsers(q, orderBy, pagination, []);
+      if (this.selectedPartnersValues && this.selectedPartnersValues.length) {
+        forPartners = [
+          {
+            id: 'getadmin.users.filters.partners',
+            values: [{ id: this.selectedPartnersValues.map((p) => p.id) }],
+          },
+        ];
+      }
+      const data = await searchUsers(q, orderBy, pagination, forPartners);
       if (data) {
         return data.items.map((p) => {
           const formattedUser = {

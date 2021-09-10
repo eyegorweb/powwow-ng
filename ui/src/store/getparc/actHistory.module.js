@@ -24,7 +24,7 @@ export const getters = {
   massActionsResponse: (state) => state.massActionsResponse,
   selectedPartnersValues: findFilterValuesById('filters.partners'),
   selectedOrderCreatorValues: (state) => {
-    return selectedFilterValuesById(state)('filters.orderCreator');
+    return selectedFilterValuesById(state)('filters.userCreator');
   },
   selectedTypesValues: (state) => {
     return selectedFilterValuesById(state)('filters.actTypes');
@@ -177,7 +177,7 @@ export const mutations = {
   },
   setOrderCreatorFilter(state, creators) {
     selectFilterValue(state, {
-      id: 'filters.orderCreator',
+      id: 'filters.userCreator',
       values: creators,
     });
   },

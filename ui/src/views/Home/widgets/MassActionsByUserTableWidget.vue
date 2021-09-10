@@ -53,7 +53,7 @@ export default {
     widgetFilters() {
       const userFilter = [
         {
-          id: 'filters.orderCreator',
+          id: 'filters.userCreator',
           values: [
             {
               id: this.userInfos.id,
