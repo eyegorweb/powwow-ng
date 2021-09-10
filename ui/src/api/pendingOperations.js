@@ -5,6 +5,10 @@ export async function fetchPendingOperations() {
   mapExports {
     downloadUri
     total
+    taskType
+    cached
+    exportFile
+
   }
 }`;
 

@@ -274,7 +274,6 @@ export default {
             }, 200);
           } else {
             if (this.tooLongSyncExportsManagement) {
-              
               this.setPendingExportsStatus(true);
               this.closeAndResetExportChoice();
               this.showLoader = false;

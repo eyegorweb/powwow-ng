@@ -115,7 +115,7 @@ export default {
   components: {
     UiToggle,
     DataServiceToggle,
-    MultiToggle
+    MultiToggle,
   },
   props: {
     services: Array,
@@ -129,7 +129,7 @@ export default {
     noClick: Boolean,
     disabled: Boolean,
     readOnly: Boolean,
-    roamingExtendedOnOffer: Boolean
+    roamingExtendedOnOffer: Boolean,
   },
   computed: {
     ...mapGetters(['userIsMVNO']),
@@ -173,7 +173,7 @@ export default {
         this.dataService = { ...dataService };
       }
       this.otherServices = [...this.services.filter((s) => s.code !== 'DATA')];
-      this.roamingService = this.services.find(s => s.code === 'ROAMING');
+      this.roamingService = this.services.find((s) => s.code === 'ROAMING');
     },
     isChanged(service) {
       if (!this.initialServices || !this.initialServices.length) return false;
@@ -268,7 +268,7 @@ export default {
           id: 'world',
           label: 'services.roaming.world',
         },
-      ]
+      ],
     };
   },
   watch: {
@@ -280,7 +280,7 @@ export default {
           this.canChangeRoamingExtended = false;
         }
       },
-      deep: true
+      deep: true,
     },
     services() {
       this.setup();

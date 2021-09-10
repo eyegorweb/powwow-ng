@@ -172,7 +172,6 @@ export default {
       });
     },
 
-
     deleteOffer(offer) {
       const doReset = () => {
         this.refreshOffers();

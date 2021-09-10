@@ -406,8 +406,8 @@ export function formattedLiteralTime(value) {
   let hours = parseInt(duration / 3600);
   duration = duration % 3600;
   let min = parseInt(duration / 60);
-  duration = duration % 60;
-  let sec = parseInt(duration);
+  // duration = duration % 60;
+  // let sec = parseInt(duration);
 
   if (initialSeconds === 0) {
     return `0`;

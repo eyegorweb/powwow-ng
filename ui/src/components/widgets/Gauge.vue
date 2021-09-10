@@ -70,6 +70,8 @@ export default {
     },
     formattedtooltipMaxValue() {
       if (this.formatTooltipValueFn) return this.formatTooltipValueFn(parseInt(this.value));
+
+      return '';
     },
   },
   methods: {

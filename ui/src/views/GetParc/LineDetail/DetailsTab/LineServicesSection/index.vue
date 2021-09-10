@@ -39,7 +39,7 @@
                       :services="services"
                       :initial-services="initialServices"
                       :data-params-needed="isDataParamsError"
-                      :roamingExtendedOnOffer="$loGet(content, 'workflow.roamingExtended')"
+                      :roaming-extended-on-offer="$loGet(content, 'workflow.roamingExtended')"
                       @datachange="onDataServiceChange"
                       @communityChange="onCommunityChange"
                     />
@@ -213,10 +213,10 @@ export default {
         this.savingChanges = true;
         const dataService = canSaveData
           ? {
-            checked: this.dataCheck,
-            parameters: this.lastDataParams,
-            code: 'DATA',
-          }
+              checked: this.dataCheck,
+              parameters: this.lastDataParams,
+              code: 'DATA',
+            }
           : undefined;
 
         const response = await changeService([], [this.content], {
@@ -228,7 +228,7 @@ export default {
           servicesToDisable,
           dataService,
           offerCode,
-          newCommunityChange: this.newCommunityChange
+          newCommunityChange: this.newCommunityChange,
         });
 
         this.savingChanges = false;

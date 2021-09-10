@@ -14,6 +14,7 @@ export default {
       const hashParts = this.$route.hash.split('=');
       this.setAuthToken(hashParts[1].split('&')[0]);
       await this.fetchUserInfos();
+      console.log(this.$route);
       const nextRoute = this.$loGet(this.$route, 'query.prev');
       this.redirectTo(nextRoute || '/');
       this.appIsReady();

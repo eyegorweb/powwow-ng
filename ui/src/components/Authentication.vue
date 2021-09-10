@@ -34,7 +34,7 @@ export default {
         location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '');
 
       let urlToSave = window.location.href.replace(sameUrl, '');
-      //urlToSave = urlToSave.replace(process.env.VUE_APP_BASE_URL, '');
+      // urlToSave = urlToSave.replace(process.env.VUE_APP_BASE_URL, '');
       const targetUrl = `${this.authUrl}/oauth/authorize?response_type=token&client_id=${process.env.VUE_APP_CLIENT_ID}&redirect_uri=${window.location.origin}${process.env.VUE_APP_BASE_URL}/callback&prev=${urlToSave}`;
       redirectTo(targetUrl);
     },
