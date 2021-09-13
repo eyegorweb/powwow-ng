@@ -35,7 +35,7 @@
     </div>
     <div class="row">
       <div class="col d-flex">
-        <UiCheckbox v-model="shouldChangeData" :disabled="!(dataService && dataService.editable)" />
+        <UiCheckbox v-model="shouldChangeData" :disabled="!(dataService && dataService.checked)" />
         <span>{{ $t('getparc.actCreation.changeService.shouldChangeData') }}</span>
       </div>
     </div>
@@ -105,7 +105,6 @@ export default {
     this.dataService = getMarketingOfferServices(this.selectedOffer.initialOffer).find(
       (s) => s.code === 'DATA'
     );
-    this.shouldChangeData = this.dataService && this.dataService.checked;
   },
   methods: {
     checkErrors() {
