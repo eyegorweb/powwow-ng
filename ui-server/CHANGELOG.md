@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.511+20210913072904
+2021-09-13
+
+### Fixes
+
+- [2894] gestion des erreurs des actes de gestion Policy rules et Réservation eSim (e94e74b6fc5f4166020d24470fb8c3ee82b48ac6)
+
 ## 1.17.0-master.510+20210913070838
 2021-09-13
 
