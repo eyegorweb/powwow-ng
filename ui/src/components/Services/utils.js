@@ -25,7 +25,6 @@ function formatServices(s) {
     service.parameters = s.parameters
       .filter((ps) => !!ps)
       .map((p) => {
-        console.log('parameter', p)
         return {
           active: p.activated,
           label: p.name || p.code,
@@ -35,7 +34,6 @@ function formatServices(s) {
         };
       });
   }
-  console.log('get marketing offer service', service)
   return service;
 }
 
