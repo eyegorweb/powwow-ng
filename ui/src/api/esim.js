@@ -21,6 +21,16 @@ export async function updatePolicyRules(
     }
   }`;
   const response = await query(queryStr);
+  if (!response) {
+    return {
+      errors: ['unknown'],
+    };
+  }
+  if (response.errors) {
+    return {
+      errors: response.errors,
+    };
+  }
   return response.data.policyRulesUpdate;
 }
 export async function exportEsimReservations(columns, orderBy, exportFormat, filters = []) {
@@ -327,6 +337,16 @@ export async function esimLiberationProfil(
     }
   }`;
   const response = await query(queryStr, { partnerId, simCardInstanceIds, tempDataUuid, dueDate });
+  if (!response) {
+    return {
+      errors: ['unknown'],
+    };
+  }
+  if (response.errors) {
+    return {
+      errors: response.errors,
+    };
+  }
   return response.data.esimLiberationProfil;
 }
 
