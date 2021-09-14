@@ -10,7 +10,7 @@
       <div class="row">
         <div class="col-5">
           <div class="bg-white p-2">
-            <SimpleMap :markers="markers" zoom draggable />
+            <SimpleMap :markers="markers" draggable />
           </div>
         </div>
         <div class="col-7">

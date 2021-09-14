@@ -82,7 +82,7 @@ export default {
                   name: 'lineDetail.diagnosis.analysis',
                   params: { lineId: this.$route.params.lineId, analyzeLocation: true },
                 })
-                .catch(() => {});
+                .catch(() => { });
             },
           },
         },
@@ -98,7 +98,7 @@ export default {
                   name: 'lineDetail.diagnosis.analysis',
                   params: { lineId: this.$route.params.lineId, cellAnalysis: true },
                 })
-                .catch(() => {});
+                .catch(() => { });
             },
           },
         },
@@ -114,7 +114,7 @@ export default {
                   name: 'lineDetail.diagnosis.supervision',
                   params: { lineId: this.$route.params.lineId },
                 })
-                .catch(() => {});
+                .catch(() => { });
             },
           },
         },
@@ -130,7 +130,7 @@ export default {
                   name: 'lineDetail.diagnosis.analysis',
                   params: { lineId: this.$route.params.lineId },
                 })
-                .catch(() => {});
+                .catch(() => { });
             },
           },
         },
@@ -234,6 +234,9 @@ export default {
         {
           id: 'i_4',
           title: 'coach.indicators.testData',
+          showActionFn: () => {
+            return this.havePermission('getVision', 'read');
+          },
           action: {
             title: 'coach.indicators.traceConso',
             onClick: () => {
@@ -242,7 +245,7 @@ export default {
                   name: 'lineDetail.diagnosis.networkTestControl',
                   params: { lineId: this.$route.params.lineId, createTestRequest: true },
                 })
-                .catch(() => {});
+                .catch(() => { });
             },
           },
         },
@@ -261,6 +264,9 @@ export default {
         {
           id: 'i_10',
           title: 'coach.indicators.isTraced',
+          showActionFn: () => {
+            return this.havePermission('getVision', 'read');
+          },
           action: {
             title: 'coach.indicators.linePing',
             onClick: () => {
@@ -269,7 +275,7 @@ export default {
                   name: 'lineDetail.diagnosis.networkStatus',
                   params: { lineId: this.$route.params.lineId, createPingRequest: true },
                 })
-                .catch(() => {});
+                .catch(() => { });
             },
           },
         },

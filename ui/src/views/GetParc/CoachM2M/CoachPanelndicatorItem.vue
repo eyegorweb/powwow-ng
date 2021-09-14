@@ -11,13 +11,18 @@
           <p>{{ indicator.subTitle }} &nbsp;</p>
         </div>
       </div>
-      <div v-if="indicator.action" class="action-section d-flex justify-content-end">
-        <div class="d-flex align-items-center">
-          <AnimatedButton @click="indicator.action.onClick" :tooltip="$t(indicator.action.tooltip)">
-            {{ $t(indicator.action.title) }}
-          </AnimatedButton>
+      <template v-if="!indicator.showActionFn || indicator.showActionFn()">
+        <div v-if="indicator.action" class="action-section d-flex justify-content-end">
+          <div class="d-flex align-items-center">
+            <AnimatedButton
+              @click="indicator.action.onClick"
+              :tooltip="$t(indicator.action.tooltip)"
+            >
+              {{ $t(indicator.action.title) }}
+            </AnimatedButton>
+          </div>
         </div>
-      </div>
+      </template>
     </div>
   </li>
 </template>
