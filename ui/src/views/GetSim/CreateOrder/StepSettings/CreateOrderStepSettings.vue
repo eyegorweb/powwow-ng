@@ -2,7 +2,7 @@
   <CreateOrderStepContainer @done="done" @prev="prev" no-next-button :no-buttons="isOpen">
     <template v-if="!isOpen">
       <div class="main-content2">
-        <template v-if="!isPartnerMVNO">
+        <!-- <template v-if="!isPartnerMVNO">
           <h3 class="font-weight-light text-center mt-4 mb-4">
             {{ $t('orders.choose-delivery-notification') }}
           </h3>
@@ -18,7 +18,7 @@
               :editable="canEditEmailNofication"
             />
           </div>
-        </template>
+        </template> -->
         <CreateOrderAddOrderReference
           :value="referenceValue"
           @input="onReferenceSet"
@@ -347,8 +347,8 @@ export default {
         synthesis.customFields = undefined;
       }
 
-      synthesis.smsNotification = this.smsNotification;
-      synthesis.emailNotification = this.emailNotification;
+      // synthesis.smsNotification = this.smsNotification;
+      // synthesis.emailNotification = this.emailNotification;
 
       return synthesis;
     },
