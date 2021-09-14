@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.513+20210914095517
+2021-09-14
+
+### Fixes
+
+- [2929]  Coach M2M standard avec des fonction supervision (2a197e441939d054e2464a0ca0f4edba3ba195d5)
+
 ## 1.17.0-master.512+20210913101203
 2021-09-13
 
