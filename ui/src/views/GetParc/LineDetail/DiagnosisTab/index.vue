@@ -176,18 +176,26 @@ export default {
         });
       }
     },
+    shouldIgnoreRedirect() {
+      if (this.$loGet(this.$route, 'params.createTestRequest')) return true;
+      if (this.$loGet(this.$route, 'params.createPingRequest')) return true;
+
+      return false;
+    },
     initializeSection() {
       const typeForPartner = this.$loGet(this.content, 'party.partyType');
 
-      if (typeForPartner === 'MVNO') {
-        this.gotoRoute('lineDetail.diagnosis.networkHistory');
-      } else {
-        if (this.havePermission('getVision', 'read') && this.autoDiagnosticEnabled) {
-          this.gotoRoute('lineDetail.diagnosis.analysis');
-        } else if (this.havePermission('getParc', 'manage_coach')) {
-          this.gotoRoute('lineDetail.diagnosis.last_tests');
-        } else {
+      if (!this.shouldIgnoreRedirect()) {
+        if (typeForPartner === 'MVNO') {
           this.gotoRoute('lineDetail.diagnosis.networkHistory');
+        } else {
+          if (this.havePermission('getVision', 'read') && this.autoDiagnosticEnabled) {
+            this.gotoRoute('lineDetail.diagnosis.analysis');
+          } else if (this.havePermission('getParc', 'manage_coach')) {
+            this.gotoRoute('lineDetail.diagnosis.last_tests');
+          } else {
+            this.gotoRoute('lineDetail.diagnosis.networkHistory');
+          }
         }
       }
     },
