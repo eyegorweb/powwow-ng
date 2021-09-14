@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.514+20210914153621
+2021-09-14
+
+### Fixes
+
+- [2931] ajout temporaire pour masquer les notifications mail et sms lors de la création d'une commande (77c020fa9f510fac7c3fae01070cdf3b1909879b)
+
 ## 1.17.0-master.513+20210914095517
 2021-09-14
 
