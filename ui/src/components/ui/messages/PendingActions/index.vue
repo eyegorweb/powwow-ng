@@ -25,15 +25,17 @@
       <div slot="body">
         <h4>{{ $t('pending-actions.title') }}</h4>
 
-        <ul class="list-group">
-          <SingleOperation
-            :key="op.downloadUri"
-            v-for="op in pendingOperations"
-            :operation="op"
-            @download="(op) => downloadFile(op.downloadUri)"
-            :is-downloaded="isDownloaded(op.downloadUri)"
-          />
-        </ul>
+        <div class="scrollable-content">
+          <ul class="list-group">
+            <SingleOperation
+              :key="op.downloadUri"
+              v-for="op in pendingOperations"
+              :operation="op"
+              @download="(op) => downloadFile(op.downloadUri)"
+              :is-downloaded="isDownloaded(op.downloadUri)"
+            />
+          </ul>
+        </div>
       </div>
       <div slot="footer">
         <button class="modal-default-button btn btn-danger btn-sm" @click.stop="closeModal">
@@ -231,6 +233,11 @@ export default {
   &:hover {
     cursor: pointer;
   }
+}
+
+.scrollable-content {
+  max-height: 17rem;
+  overflow-y: scroll;
 }
 
 @keyframes slide-up {

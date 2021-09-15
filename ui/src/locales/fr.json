@@ -135,7 +135,7 @@
   "export-types": {
     "EXPORT_ORDERS": "Export de commandes",
     "EXPORT_SIMCARD_INSTANCES": "Export de lignes",
-    "EXPORT_ACCESSPOINTS_BY_LOCALISATION": "Export des points d'accès",
+    "EXPORT_ACCESSPOINTS_BY_LOCALISATION": "Export de lignes par localisation",
     "EXPORT_MASSACTION": "Export des actes de gestions",
     "EXPORT_MASSACTION_WITH_UNITS": "Export des actes de gestions",
     "EXPORT_ALARMS_WITH_TRIGGERS": "Export d'alarmes",
@@ -169,6 +169,7 @@
     "ENABLE": "Activer",
     "DELETE": "Supprimer",
     "DOWNLOAD": "Télécharger",
+    "DOWNLOADED": "Téléchargé",
     "MODIFY": "Modifier"
   },
   "frequencies": {

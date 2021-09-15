@@ -11,7 +11,9 @@
         :class="{ downloaded: isDownloaded }"
         @click.prevent="$emit('download', operation)"
       >
-        <span> {{ $t('actions.DOWNLOAD') }} </span>
+        <span v-if="isDownloaded"> {{ $t('actions.DOWNLOADED') }} </span>
+        <span v-else> {{ $t('actions.DOWNLOAD') }} </span>
+
         <em v-if="isDownloaded" class="ic-Check-Icon" />
       </a>
     </span>

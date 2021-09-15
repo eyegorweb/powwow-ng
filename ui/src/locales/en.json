@@ -109,7 +109,7 @@
   "export-types": {
     "EXPORT_ORDERS": "Orders export",
     "EXPORT_SIMCARD_INSTANCES": "Lines export",
-    "EXPORT_ACCESSPOINTS_BY_LOCALISATION": "APN export",
+    "EXPORT_ACCESSPOINTS_BY_LOCALISATION": "Lines by position export",
     "EXPORT_MASSACTION": "Mass Acts export",
     "EXPORT_MASSACTION_WITH_UNITS": "Acts export",
     "EXPORT_ALARMS_WITH_TRIGGERS": "Alarms export",
@@ -139,6 +139,7 @@
     "ENABLE": "Activate",
     "DELETE": "Delete",
     "DOWNLOAD": "Download",
+    "DOWNLOADED": "Downloaded",
     "MODIFY": "Modify"
   },
   "frequencies": {
