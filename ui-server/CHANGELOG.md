@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.516+20210915092126
+2021-09-15
+
+### Fixes
+
+- [2815] reset des modifications de l'acte de gestion de modification des services (7cbaadd96e47e7cbc52293caabcab328e6dbe918)
+
 ## 1.17.0-master.515+20210915073848
 2021-09-15
 
