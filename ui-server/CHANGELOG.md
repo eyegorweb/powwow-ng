@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.517+20210915122002
+2021-09-15
+
+### Fixes
+
+- [000] ajout de clés de traduction (75f48bdd242bd3b5c12240b39281c8e68c2152a9)
+
 ## 1.17.0-master.516+20210915092126
 2021-09-15
 
