@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.515+20210915073848
+2021-09-15
+
+### Fixes
+
+- [2815] correction de la modification de services data dans l'acte de gestion Modifier les services (a63aee7afa93e7243284b7f3dbf9077c33106fd0)
+
 ## 1.17.0-master.514+20210914153621
 2021-09-14
 
