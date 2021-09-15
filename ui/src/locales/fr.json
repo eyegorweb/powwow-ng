@@ -144,7 +144,6 @@
     "EXPORT_ESIM_RESERVATION": "Export de réservations ESIM",
     "EXPORT_ESIM_STOCK_PROFILES": "Export de stocks ESIM",
     "EXPORT_USER": "Export des utilisateurs",
-    "EXPORT_CONSUMPTIONS": "Export de l'export de consommation",
     "EXPORT_SUPERVISIONS": "Export de supervision",
     "EXPORT_DATA_CONNECTION_HISTORY": "Export de l'historique DATA",
     "EXPORT_SMS_CONNECTION_HISTORY": "Export de l'historique SMS",
@@ -156,7 +155,7 @@
     "EXPORT_CURRENT_CONSUMPTION": "Export de l'encours de consommation",
     "EXPORT_FULL": "Export complet",
     "EXPORT_LAST_USAGE": "Export dernier usage",
-    "EXPORT_COMSUMPTION": "Export conso",
+    "EXPORT_CONSUMPTION": "Export conso",
     "EXPORT_BACKOFFICE": "Export BO"
   },
   "map": {
