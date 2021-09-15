@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.518+20210915130607
+2021-09-15
+
+### Fixes
+
+- [000] Corriger les clés de traduction + scroll (ca945f30e60a3b5fe4ff274b2ba0a6c1a9d6506e)
+
 ## 1.17.0-master.517+20210915122002
 2021-09-15
 
