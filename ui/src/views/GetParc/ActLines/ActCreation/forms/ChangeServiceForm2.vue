@@ -105,6 +105,7 @@ export default {
     this.dataService = getMarketingOfferServices(this.selectedOffer.initialOffer).find(
       (s) => s.code === 'DATA'
     );
+    this.shouldChangeData = this.dataService && this.dataService.editable;
   },
   methods: {
     checkErrors() {
