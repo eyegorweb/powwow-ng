@@ -153,7 +153,11 @@
     "EXPORT_PARC_STATUS_INFO": "Export de l'état de parc",
     "EXPORT_LAST_VISITED_COUNTRY": "Export de l'historique des pays visités",
     "EXPORT_CELL_HISTORY": "Export de l'historique des cellules de consommation",
-    "EXPORT_CURRENT_CONSUMPTION": "Export de l'encours de consommation"
+    "EXPORT_CURRENT_CONSUMPTION": "Export de l'encours de consommation",
+    "EXPORT_FULL": "Export complet",
+    "EXPORT_LAST_USAGE": "Export dernier usage",
+    "EXPORT_COMSUMPTION": "Export conso",
+    "EXPORT_BACKOFFICE": "Export BO"
   },
   "map": {
     "world": "Monde",
