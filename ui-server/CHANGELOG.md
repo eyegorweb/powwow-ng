@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.519+20210915153022
+2021-09-15
+
+### Fixes
+
+- [000] Modification des libellées des exports (58600e0a8a9a649cc8e97085ab434fe23f5ceae8)
+
 ## 1.17.0-master.518+20210915130607
 2021-09-15
 
