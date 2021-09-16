@@ -130,7 +130,9 @@
     "EXPORT_FULL": "Full export",
     "EXPORT_LAST_USAGE": "Last usage export",
     "EXPORT_CONSUMPTION": "Consumption export",
-    "EXPORT_BACKOFFICE": "Backoffice export"
+    "EXPORT_BACKOFFICE": "Backoffice export",
+    "EXPORT_SERVICES": "Services export"
+
   },
   "actions": {
     "DUPLICATE": "Duplicate",
