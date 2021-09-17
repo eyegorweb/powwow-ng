@@ -35,8 +35,7 @@
     </div>
     <div class="row">
       <div class="col d-flex">
-        <!-- <UiCheckbox v-model="shouldChangeData" :disabled="!(dataService && dataService.checked)" /> -->
-        <UiCheckbox v-model="shouldChangeData" :disabled="!(dataService && dataService.editable)" />
+        <UiCheckbox v-model="shouldChangeData" :disabled="isDisabled" />
         <span>{{ $t('getparc.actCreation.changeService.shouldChangeData') }}</span>
       </div>
     </div>
@@ -85,6 +84,7 @@ export default {
       dataService: undefined,
       isDataParamsError: false,
       requestErrors: [],
+      isDisabled: undefined,
     };
   },
   computed: {
@@ -96,17 +96,18 @@ export default {
     },
     canSend() {
       return (
-        this.shouldChangeData ||
+        (this.shouldChangeData && !this.checkErrors()) ||
         (this.servicesToEnable && this.servicesToEnable.length) ||
         (this.servicesToDisable && this.servicesToDisable.length)
       );
     },
   },
   mounted() {
-    this.dataService = getMarketingOfferServices(this.selectedOffer.initialOffer).find(
-      (s) => s.code === 'DATA'
-    );
-    // this.shouldChangeData = this.dataService && this.dataService.editable;
+    this.dataService = getMarketingOfferServices(this.selectedOffer.initialOffer).find((s) => {
+      return s.code === 'DATA';
+    });
+    this.shouldChangeData = this.dataService.checked;
+    this.isDisabled = !this.dataService.editable;
   },
   methods: {
     checkErrors() {
