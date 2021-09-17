@@ -59,6 +59,7 @@
             <b>{{ $t('services.roaming.title') }}</b>
             <MultiToggle
               v-if="roamingValues"
+              noDefault
               @update="onRoamingExtChange"
               :values="roamingValues"
               block
@@ -256,10 +257,6 @@ export default {
       roamingService: undefined,
       canChangeRoamingExtended: false,
       roamingValues: [
-        {
-          id: 'none',
-          label: 'noneM',
-        },
         {
           id: 'europe',
           label: 'services.roaming.europe',

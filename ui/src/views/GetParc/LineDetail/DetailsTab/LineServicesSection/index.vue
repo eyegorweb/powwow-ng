@@ -141,6 +141,7 @@ export default {
   },
   data() {
     return {
+      communityHaveChanged: false,
       justSaved: false,
       services: undefined,
       initialServices: undefined,
@@ -157,6 +158,7 @@ export default {
       lastDataParams: undefined,
       initDataCheck: false,
       dataCheck: false,
+      componentInitialized: false,
     };
   },
   async mounted() {
@@ -170,12 +172,20 @@ export default {
       this.services = offerServices;
       this.apnServices = getApnServices(services);
     }
+
+    setTimeout(() => {
+      this.componentInitialized = true;
+    })
   },
   methods: {
     ...mapMutations(['flashMessage']),
 
     onCommunityChange(value) {
-      this.newCommunityChange = value;
+      // cette fonction est appelée durant le mount du composant ServiceBlocks, on veux ignorer la première valeur
+      // envoyée par cet evenement car non saisie par l'utilisateur
+      if (this.componentInitialized) {
+        this.newCommunityChange = value;
+      }
     },
 
     canSave() {
@@ -185,7 +195,8 @@ export default {
         (servicesToEnable && servicesToEnable.length) ||
         (servicesToDisable && servicesToDisable.length) ||
         (dataParams && dataParams.length) ||
-        dataChanged
+        dataChanged ||
+        this.newCommunityChange
       );
     },
 
@@ -213,10 +224,10 @@ export default {
         this.savingChanges = true;
         const dataService = canSaveData
           ? {
-              checked: this.dataCheck,
-              parameters: this.lastDataParams,
-              code: 'DATA',
-            }
+            checked: this.dataCheck,
+            parameters: this.lastDataParams,
+            code: 'DATA',
+          }
           : undefined;
 
         const response = await changeService([], [this.content], {
