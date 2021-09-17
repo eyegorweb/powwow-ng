@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.522+20210917145640
+2021-09-17
+
+### Fixes
+
+- [000] Toggle communauté (dd29b96c770362c951dbad0deabb113724bf60f2)
+
 ## 1.17.0-master.521+20210917100847
 2021-09-17
 
