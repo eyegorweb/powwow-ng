@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.521+20210917095844
+2021-09-17
+
+### Fixes
+
+- [000] Corriger la modification d'alarmes (0d55a6f909a6789df91dc34f3f0f8aecd8c7ce72)
+- [2815] corrections de l'acte de gestion Modifier Services (85b5f59eee495f82c8d74696ecb143e200629a72)
+
 ## 1.17.0-master.520+20210916070837
 2021-09-16
 
