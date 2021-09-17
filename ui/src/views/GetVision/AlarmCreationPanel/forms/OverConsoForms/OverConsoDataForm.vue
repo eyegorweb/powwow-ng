@@ -13,6 +13,7 @@
 <script>
 import OverConsoGenericForm from './OverConsoGenericForm';
 import { propWithSync } from '@/mixins';
+import moment from 'moment';
 
 export default {
   components: {
@@ -46,9 +47,10 @@ export default {
   mounted() {
     if (this.duplicateFrom) {
       if (this.duplicateFrom && this.duplicateFrom.levelDataMax) {
+        const lastDay = parseInt(moment().endOf('month').format('DD'));
         this.lines[0] = {
           value: this.duplicateFrom.levelDataMax,
-          limit: this.duplicateFrom.dateLevelDataMax,
+          limit: lastDay,
           id: 1,
         };
       }
