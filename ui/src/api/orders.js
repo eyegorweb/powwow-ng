@@ -407,10 +407,8 @@ export async function createOrder(synthesis) {
   const lastName = get(synthesis, 'delivery.value.detail.name.lastName', '');
   const title = get(synthesis, 'delivery.value.detail.name.title', '');
 
-  let email = get(synthesis, 'delivery.value.detail.contactInformation.email', '').trim();
-  if (!email) {
-    email = '';
-  }
+  let email = get(synthesis, 'delivery.value.detail.contactInformation.email', '') || '';
+  email = email.trim();
 
   let smsNotification = get(synthesis, 'smsNotification');
   let emailNotification = get(synthesis, 'emailNotification');
