@@ -131,8 +131,21 @@
     "EXPORT_LAST_USAGE": "Last usage export",
     "EXPORT_CONSUMPTION": "Consumption export",
     "EXPORT_BACKOFFICE": "Backoffice export",
-    "EXPORT_SERVICES": "Services export"
-
+    "EXPORT_SERVICES": "Services export",
+    "EXPORT_BILLING_AMOUNT_INFO": "Dashboard export",
+    "EXPORT_RAW_CONSUPTION": "Balance export",
+    "EXPORT_CONSUMPTIONS":"Dashboard export",
+    "EXPORT_BILLING_LINES_AND_AMOUNT_INFOS":"Dashboard export",
+    "EXPORT_AVERAGE_BILLING": "Dashboard export",
+    "EXPORT_BILLED_LINE_AND_CONSO_BY_ZONE": "Dashboard export",
+    "EXPOR_BILLED_AMOUNT_AND_CONSO_BY_ZONE": "Dashboard export",
+    "EXPORT_BILLED_LINES_BY_STEP": "Dashboard export",
+    "EXPORT_BILLING_AMOUNT_INFOS": "Dashboard export",
+    "EXPORT_PLMN_FR_INFOS": "Dashboard export",
+    "EXPORT_OFFER_DISTRIBUTION_INFO": "Dashboard export",
+    "EXPORT_AREA_DISTRIBUTION_INFO": "Dashboard export",
+    "EXPORT_NOT_COMPATIBLE_LINES": "Not compatible lines export",
+    "EXPOR_TEMPDATA_ERRORS": "error export"
   },
   "actions": {
     "DUPLICATE": "Duplicate",

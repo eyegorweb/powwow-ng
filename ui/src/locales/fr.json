@@ -157,8 +157,22 @@
     "EXPORT_LAST_USAGE": "Export dernier usage",
     "EXPORT_CONSUMPTION": "Export conso",
     "EXPORT_BACKOFFICE": "Export BO",
-    "EXPORT_SERVICES": "Export des services"
-  },
+    "EXPORT_SERVICES": "Export des services",
+    "EXPORT_BILLING_AMOUNT_INFO": "Export du tableau de bord",
+    "EXPORT_RAW_CONSUPTION": "Export des encours non valorisés",
+    "EXPORT_CONSUMPTIONS":"Export du tableau de bord",
+    "EXPORT_BILLING_LINES_AND_AMOUNT_INFOS":"Export du tableau de bord",
+    "EXPORT_AVERAGE_BILLING": "Export du tableau de bord",
+    "EXPORT_BILLED_LINE_AND_CONSO_BY_ZONE": "Export du tableau de bord",
+    "EXPOR_BILLED_AMOUNT_AND_CONSO_BY_ZONE": "Export du tableau de bord",
+    "EXPORT_BILLED_LINES_BY_STEP": "Export du tableau de bord",
+    "EXPORT_BILLING_AMOUNT_INFOS": "Export du tableau de bord",
+    "EXPORT_PLMN_FR_INFOS": "Export du tableau de bord",
+    "EXPORT_OFFER_DISTRIBUTION_INFO": "Export du tableau de bord",
+    "EXPORT_AREA_DISTRIBUTION_INFO": "Export du tableau de bord",
+    "EXPORT_NOT_COMPATIBLE_LINES": "Export des lignes non comptatibles",
+    "EXPOR_TEMPDATA_ERRORS": "Export CR"
+    },
   "map": {
     "world": "Monde",
     "countryFR": "France"
