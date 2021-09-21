@@ -134,8 +134,8 @@
     "EXPORT_SERVICES": "Services export",
     "EXPORT_BILLING_AMOUNT_INFO": "Dashboard export",
     "EXPORT_RAW_CONSUPTION": "Balance export",
-    "EXPORT_CONSUMPTIONS":"Dashboard export",
-    "EXPORT_BILLING_LINES_AND_AMOUNT_INFOS":"Dashboard export",
+    "EXPORT_CONSUMPTIONS": "Dashboard export",
+    "EXPORT_BILLING_LINES_AND_AMOUNT_INFOS": "Dashboard export",
     "EXPORT_AVERAGE_BILLING": "Dashboard export",
     "EXPORT_BILLED_LINE_AND_CONSO_BY_ZONE": "Dashboard export",
     "EXPOR_BILLED_AMOUNT_AND_CONSO_BY_ZONE": "Dashboard export",
@@ -145,7 +145,9 @@
     "EXPORT_OFFER_DISTRIBUTION_INFO": "Dashboard export",
     "EXPORT_AREA_DISTRIBUTION_INFO": "Dashboard export",
     "EXPORT_NOT_COMPATIBLE_LINES": "Not compatible lines export",
-    "EXPOR_TEMPDATA_ERRORS": "error export"
+    "EXPOR_TEMPDATA_ERRORS": "Error export",
+    "EXPORT_GEOLOC_LIST": "Supervision export",
+    "EXPORT_COUNTER": "Counter supervision export"
   },
   "actions": {
     "DUPLICATE": "Duplicate",
@@ -882,7 +884,7 @@
         "warning": "The changes will be lost, do you want to continue?",
         "notification": "Terminations request notification"
       },
-      "errors":{
+      "errors": {
         "MAILING_LIST_CANNOT_BE_DELETED": "Cannot delete a mailing list, if it is used elsewhere.",
         "MAILING_LIST_ALREADY_EXIST": "Cannot rename a mailing list with a name already used."
       },
