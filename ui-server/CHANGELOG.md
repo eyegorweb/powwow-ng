@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.524+20210921094342
+2021-09-21
+
+### Fixes
+
+- [2943] Téléchargement des exports de la supervision (1fcf2dd8edde37cc6849ba77256b07226ee0e15f)
+
 ## 1.17.0-master.523+20210920130512
 2021-09-20
 
