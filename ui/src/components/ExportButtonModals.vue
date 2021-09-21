@@ -152,7 +152,6 @@ export default {
       messageError: undefined,
       forceAsyncExport: false,
       toggleVersion: 0,
-      tooLongSyncExportsManagement: true,
     };
   },
 
@@ -273,21 +272,13 @@ export default {
               this.isAsyncExportAlertOpen = true;
             }, 200);
           } else {
-            if (this.tooLongSyncExportsManagement) {
+            if (downloadResponse && downloadResponse.downloadUri) {
+              this.startDownload(getBaseURL() + downloadResponse.downloadUri);
+            } else {
               this.setPendingExportsStatus(true);
               this.closeAndResetExportChoice();
               this.showLoader = false;
-            } else {
-              if (downloadResponse && downloadResponse.downloadUri) {
-                this.startDownload(getBaseURL() + downloadResponse.downloadUri);
-              } else {
-                this.showLoader = true;
-                this.haveError = true;
-                this.messageError = this.$t('noLinesToExport');
-                return this.messageError;
-              }
             }
-
             this.exportChoice = undefined;
             this.closeAndResetExportChoice();
           }
