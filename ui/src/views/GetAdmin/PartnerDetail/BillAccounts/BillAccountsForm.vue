@@ -196,11 +196,10 @@ export default {
 
   async mounted() {
     await this.refreshCountries();
+    await this.refreshCountriesForAreaTax();
     if (this.$route.params && this.$route.params.customerAccountCode) {
       this.creationMode = false;
       await this.fillForm();
-    } else {
-      await this.refreshCountriesForAreaTax();
     }
   },
 

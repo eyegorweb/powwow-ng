@@ -12,11 +12,15 @@
     </div>
 
     <div class="mt-4">
-      <PaginatedDataTable
+      <TableWithFilter
+        v-if="filters"
+        :filters="filters"
         :columns="columns"
-        :order="defaultOrderBy"
-        :fetch-data-fn="getFetchFn()"
-        :size="8"
+        :rows="rows"
+        :total="total"
+        :order-by.sync="defaultOrderBy"
+        :is-loading="isLoading"
+        @applyFilters="applyFilters"
       />
     </div>
   </div>
@@ -26,13 +30,17 @@
 import PaginatedDataTable from '@/components/DataTable/PaginatedDataTable.vue';
 import BillAccountStatusCell from './BillAccountStatusCell';
 import UiButton from '@/components/ui/Button';
+import TableWithFilter from '@/components/Filters/TableWithFilter';
+import TextFilter from '@/components/Filters/TextFilter.vue';
 
 import { fetchCustomerAccountsByPartnerId } from '@/api/partners.js';
+import { fetchAllCustomerAccounts } from '@/api/customerAccounts';
 
 export default {
   components: {
     PaginatedDataTable,
     UiButton,
+    TableWithFilter
   },
   props: {
     partner: {
@@ -40,9 +48,55 @@ export default {
     },
   },
 
+
   data() {
     return {
+      filters: [
+        {
+          title: 'getadmin.cf.label',
+          component: TextFilter,
+          onChange(chosenValue) {
+            return {
+              id: 'getadmin.cf.label',
+              value: chosenValue,
+            };
+          },
+        },
+        {
+          title: this.$t('getadmin.cf.marketLine'),
+          component: TextFilter,
+          onChange(chosenValue) {
+            return {
+              id: 'getadmin.cf.filters.marketLine',
+              value: chosenValue,
+            };
+          },
+        },
+        {
+          title: 'Siren',
+          component: TextFilter,
+          onChange(chosenValue) {
+            return {
+              id: 'getadmin.cf.filters.siren',
+              value: chosenValue,
+            };
+          },
+        },
+        {
+          title: 'Siret',
+          component: TextFilter,
+          onChange(chosenValue) {
+            return {
+              id: 'getadmin.cf.filters.siret',
+              value: chosenValue,
+            };
+          },
+        },
+      ],
+      rows: [],
+      total: 0,
       account: undefined,
+      isLoading: false,
 
       defaultOrderBy: {
         key: 'code',
@@ -101,19 +155,30 @@ export default {
     };
   },
 
+  mounted() {
+    this.applyFilters();
+  },
+
   methods: {
-    getFetchFn() {
-      return async (pageInfo, orderInfo) => {
-        const response = await fetchCustomerAccountsByPartnerId(
-          this.partner.id,
-          orderInfo,
-          pageInfo
-        );
-        return {
-          rows: response.items,
-          total: response.total,
-        };
+    async applyFilters(payload) {
+      const { pagination, filters } = payload || {
+        pagination: { page: 0, limit: 20 },
+        filters: [],
       };
+
+      this.isLoading = true;
+      const allFilters = [{
+        id: 'partner.id',
+        value: this.partner.id
+      },
+      ...filters
+      ];
+
+      const data = await fetchAllCustomerAccounts(allFilters, pagination, this.defaultOrderBy);
+      this.isLoading = false;
+      this.total = data.total;
+      this.rows = data.items;
+
     },
     createCustomerAccount() {
       this.$router.push({
