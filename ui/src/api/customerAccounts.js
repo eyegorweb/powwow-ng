@@ -52,6 +52,8 @@ export async function fetchAllCustomerAccounts(
 export function formatFilters(filters) {
   let formattedFilters = [];
 
+  addPartnerFilter(formattedFilters, filters);
+
   // Recherche unitaire
   addContainsFilter(formattedFilters, filters, 'code', 'getadmin.cf.filters.code');
   addContainsFilter(formattedFilters, filters, 'name', 'getadmin.cf.label');
@@ -66,6 +68,13 @@ export function formatFilters(filters) {
 
     if (filter) {
       formatted.push(`${filterName}: {contains: "${filter}"}`);
+    }
+  }
+
+  function addPartnerFilter(formatted, filters) {
+    const _id = filters.find((f) => f.id === 'partner.id');
+    if (_id && _id.value) {
+      formatted.push(`partyId: {eq: "${_id.value}"}`);
     }
   }
 }
