@@ -2,8 +2,13 @@
 
 <!--- next entry here -->
 
-## 1.17.0-master.524+20210921094342
+## 1.17.0-master.525+20210921095952
 2021-09-21
+
+### Features
+
+- [2943] export surpervision impossible tache de fond (24ba21aaf02e051483e16084d78aa2391d34f033)
+- [2640] filtres CF (03e2f992a84e8bff86b8cce85eb56b67e46b364f)
 
 ### Fixes
 
