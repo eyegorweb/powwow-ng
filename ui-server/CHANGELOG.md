@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.526+20210922085041
+2021-09-22
+
+### Fixes
+
+- [2945] Activer et désactiver une alarme flotte (259b4f52a7c2c34d4297868adec6bf73bd574b3a)
+
 ## 1.17.0-master.525+20210921095952
 2021-09-21
 
