@@ -4,7 +4,13 @@
 
 <script>
 import ActionButtons from '@/components/DataTable/ActionButtons.vue';
-import { enableAlarm, disableAlarm, deleteAlarm } from '@/api/alarms';
+import {
+  enableAlarm,
+  disableAlarm,
+  deleteAlarm,
+  disableSharedConsumptionAlarm,
+  enableSharedConsumptionAlarm,
+} from '@/api/alarms';
 import { mapMutations } from 'vuex';
 
 export default {
@@ -65,13 +71,22 @@ export default {
 
       if (action === 'actions.ENABLE') {
         this.canDoAsyncAction = false;
-        response = await enableAlarm(this.alarm.id);
+        if (this.alarm.type === 'OVER_CONSUMPTION_VOLUME_FLOTTE') {
+          response = await enableSharedConsumptionAlarm(this.alarm.id);
+        } else {
+          response = await enableAlarm(this.alarm.id);
+        }
+
         this.canDoAsyncAction = true;
       }
 
       if (action === 'actions.DISABLE') {
         this.canDoAsyncAction = false;
-        response = await disableAlarm(this.alarm.id);
+        if (this.alarm.type === 'OVER_CONSUMPTION_VOLUME_FLOTTE') {
+          response = await disableSharedConsumptionAlarm(this.alarm.id);
+        } else {
+          response = await disableAlarm(this.alarm.id);
+        }
         this.canDoAsyncAction = true;
       }
 

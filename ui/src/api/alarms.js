@@ -694,3 +694,17 @@ function formatDateForGql(inDate) {
     }
   }
 }
+
+export async function enableSharedConsumptionAlarm(alarmId) {
+  const response = await query(
+    `mutation{activateSharedConsumptionAlarm (sharedConsumptionAlarmId : ${alarmId})}`
+  );
+  return response.data.activateSharedConsumptionAlarm;
+}
+
+export async function disableSharedConsumptionAlarm(alarmId) {
+  const response = await query(
+    `mutation{deactivateSharedConsumptionAlarm (sharedConsumptionAlarmId : ${alarmId})}`
+  );
+  return response.data.deactivateSharedConsumptionAlarm;
+}
