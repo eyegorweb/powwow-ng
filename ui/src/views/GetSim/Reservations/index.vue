@@ -114,6 +114,9 @@ export default {
 
   async mounted() {
     this.initFilters();
+    if (this.userIsPartner) {
+      this.getVisibleFilters('filters.partners');
+    }
     this.initIndicators();
     await this.initColumns();
 
@@ -130,6 +133,7 @@ export default {
 
   computed: {
     ...mapGetters(['userIsPartner', 'singlePartner', 'userName']),
+    ...mapGetters('getsim', ['appliedFilters']),
     formattedTotal() {
       return formatLargeNumber(this.total);
     },
@@ -291,7 +295,7 @@ export default {
     async applyFilters(payload) {
       this.lastPayload = payload;
 
-      const { pagination, filters } = payload || {
+      let { pagination, filters } = payload || {
         pagination: { page: 0, limit: 20 },
         filters: [],
       };
@@ -301,6 +305,10 @@ export default {
       if (payload && payload.orderBy) {
         sorting = {};
         sorting[payload.orderBy.key] = payload.orderBy.direction;
+      }
+
+      if (this.appliedFilters && this.appliedFilters.length) {
+        filters = [...filters, ...this.appliedFilters];
       }
 
       this.isLoading = true;
@@ -686,6 +694,10 @@ export default {
       } else {
         this.columns = [...commonColumns, ...defaultCustomFieldsColumns];
       }
+    },
+
+    getVisibleFilters(partnerFilterID) {
+      this.filters = this.filters.filter((f) => f.title !== partnerFilterID);
     },
 
     openCreateReservationPanel() {
