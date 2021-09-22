@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.527+20210922141945
+2021-09-22
+
+### Fixes
+
+- [2940] gestion du filtre partenaire selon le contexte utilisateur pour la réservation de cartes esim (6b9f46c3de875a22d21512fc1d05ed7fc8b07615)
+
 ## 1.17.0-master.526+20210922085041
 2021-09-22
 
