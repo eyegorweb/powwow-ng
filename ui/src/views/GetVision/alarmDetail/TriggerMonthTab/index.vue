@@ -113,7 +113,7 @@ export default {
 
       this.isLoading = true;
 
-      const data = await fetchAlarmTriggersFor2Months(this.orderBy, { page: 0, limit: 10 }, [
+      const data = await fetchAlarmTriggersFor2Months(this.orderBy, { page: 0, limit: 20 }, [
         ...mandatoryFilters,
         params,
       ]);
@@ -126,7 +126,7 @@ export default {
 
     async applyFilters(payload) {
       const { pagination, filters } = payload || {
-        pagination: { page: 0, limit: 10 },
+        pagination: { page: 0, limit: 20 },
         filters: [],
       };
 

@@ -207,6 +207,10 @@ export default {
         key: 'id',
         direction: 'DESC',
       },
+      pageInfo: {
+        page: 0,
+        limit: 20,
+      },
 
       total: 10,
       rows: [],
@@ -303,7 +307,7 @@ export default {
 
       this.isLoading = true;
 
-      const data = await fetchLinesBoundToAlarm(this.orderBy, { page: 0, limit: 10 }, [
+      const data = await fetchLinesBoundToAlarm(this.orderBy, this.pageInfo, [
         ...mandatoryFilters,
         params,
       ]);
@@ -316,7 +320,7 @@ export default {
 
     async applyFilters(payload) {
       const { pagination, filters } = payload || {
-        pagination: { page: 0, limit: 10 },
+        pagination: this.pageInfo,
         filters: [],
       };
 
