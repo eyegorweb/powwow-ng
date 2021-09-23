@@ -156,7 +156,7 @@ export default {
         undefined,
         {
           page: 0,
-          limit: 10,
+          limit: 20,
         },
         mandatoryFilters
       );
@@ -165,7 +165,7 @@ export default {
         undefined,
         {
           page: 0,
-          limit: 10,
+          limit: 20,
         },
         mandatoryFilters
       );
@@ -174,7 +174,7 @@ export default {
         undefined,
         {
           page: 0,
-          limit: 10,
+          limit: 20,
         },
         [
           {
