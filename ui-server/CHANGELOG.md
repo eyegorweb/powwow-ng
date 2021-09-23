@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.528+20210923090030
+2021-09-23
+
+### Fixes
+
+- [2926] configuration de la pagination des tables du détail des alarmes (9cec20cfc6c4140dcffa13c67c58f2c14d2bf84a)
+
 ## 1.17.0-master.527+20210922141945
 2021-09-22
 
