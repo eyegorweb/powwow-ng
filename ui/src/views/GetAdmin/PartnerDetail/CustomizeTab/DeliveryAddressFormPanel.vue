@@ -185,8 +185,10 @@ export default {
         response = await addPartyShippingAddress(this.form, this.partnerId);
       }
 
-      if (!response) {
-        this.flashMessage({ level: 'danger', message: this.$t('genericErrorMessage') });
+      if (response && response.errors && response.errors.length) {
+        response.errors.forEach((e) => {
+          this.flashMessage({ level: 'danger', message: e.message });
+        });
       } else {
         this.flashMessage({ level: 'success', message: this.$t('genericSuccessMessage') });
         this.closePanel();

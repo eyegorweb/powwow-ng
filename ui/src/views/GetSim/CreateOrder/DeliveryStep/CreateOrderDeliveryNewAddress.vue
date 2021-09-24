@@ -89,7 +89,7 @@
                   <UiApiAutocomplete
                     :items="countries"
                     v-model="form.country"
-                    :error="errors.city"
+                    :error="errors.country"
                     display-results-while-empty
                   />
                 </div>
@@ -169,7 +169,7 @@ export default {
         address: '',
         zipCode: '',
         city: '',
-        country: { label: '' },
+        country: '',
         extraInfos: '',
         extraInfos2: '',
         title: '',
@@ -197,6 +197,11 @@ export default {
         if (f === 'address') {
           if (typeof this.form.address === 'object') {
             return !this.form.address.label;
+          }
+        }
+        if (f === 'country') {
+          if (typeof this.form.country === 'object') {
+            return !this.form.country.label;
           }
         }
         return !this.form[f];
