@@ -602,21 +602,11 @@ export async function changeService(filters, lines, params) {
     let codesToEnable = [];
     let codesToDisable = [];
     let dataCodeParams = '';
+    let roamingCodeParams = '';
 
     if (servicesToEnable && servicesToEnable.length) {
       codesToEnable = servicesToEnable.map((s) => {
-        let roamingParam = '';
-        if (s.code === 'ROAMING') {
-          if (newCommunityChange && newCommunityChange.id === 'europe') {
-            roamingParam = `, roamingValue: true`;
-          } else if (newCommunityChange && newCommunityChange.id === 'world') {
-            roamingParam = `, roamingValue: false`;
-          } else {
-            roamingParam = `, roamingValue: null`;
-          }
-        }
-
-        return `{serviceCode: "${s.code}", action: ADD${roamingParam}}`;
+        return `{serviceCode: "${s.code}", action: ADD}`;
       });
     }
 
@@ -638,10 +628,24 @@ export async function changeService(filters, lines, params) {
 
       codesToaddToGqlQuery.push(dataCodeParams);
     }
+
+    if (newCommunityChange) {
+      let roamingParam = '';
+      if (newCommunityChange.id === 'europe') {
+        roamingParam = `, roamingValue: true`;
+      } else if (newCommunityChange.id === 'world') {
+        roamingParam = `, roamingValue: false`;
+      } else {
+        roamingParam = '';
+      }
+      roamingCodeParams = `{serviceCode: "ROAMING", action: ADD${roamingParam}}`;
+      codesToaddToGqlQuery.push(roamingCodeParams);
+    }
+
     let changeServicesParamsGql = '';
 
     if (codesToaddToGqlQuery && codesToaddToGqlQuery.length) {
-      changeServicesParamsGql = `, changeServices: [${codesToaddToGqlQuery.join(',')}]`;
+      changeServicesParamsGql = `changeServices: [${codesToaddToGqlQuery.join(',')}]`;
     }
 
     const queryStr = `

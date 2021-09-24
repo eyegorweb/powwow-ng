@@ -39,7 +39,7 @@
                       :services="services"
                       :initial-services="initialServices"
                       :data-params-needed="isDataParamsError"
-                      :roaming-extended-on-offer="$loGet(content, 'workflow.roamingExtended')"
+                      :roaming-extended-on-offer="isRoamingExtended"
                       @datachange="onDataServiceChange"
                       @communityChange="onCommunityChange"
                     />
@@ -172,10 +172,6 @@ export default {
       this.services = offerServices;
       this.apnServices = getApnServices(services);
     }
-
-    setTimeout(() => {
-      this.componentInitialized = true;
-    })
   },
   methods: {
     ...mapMutations(['flashMessage']),
@@ -191,6 +187,24 @@ export default {
     canSave() {
       const { servicesToEnable, servicesToDisable, dataChanged, dataParams } = this.changes;
       this.justSaved = false;
+      if (this.isRoamingExtended && this.isTypeRoamingChanged) {
+        return (
+          (!!this.newCommunityChange &&
+            !!(
+              (servicesToEnable && servicesToEnable.length) ||
+              (servicesToDisable && servicesToDisable.length) ||
+              (dataParams && dataParams.length) ||
+              dataChanged
+            )) ||
+          (!!this.newCommunityChange &&
+            !(
+              (servicesToEnable && servicesToEnable.length) ||
+              (servicesToDisable && servicesToDisable.length) ||
+              (dataParams && dataParams.length) ||
+              dataChanged
+            ))
+        );
+      }
       return !!(
         (servicesToEnable && servicesToEnable.length) ||
         (servicesToDisable && servicesToDisable.length) ||
@@ -224,10 +238,10 @@ export default {
         this.savingChanges = true;
         const dataService = canSaveData
           ? {
-            checked: this.dataCheck,
-            parameters: this.lastDataParams,
-            code: 'DATA',
-          }
+              checked: this.dataCheck,
+              parameters: this.lastDataParams,
+              code: 'DATA',
+            }
           : undefined;
 
         const response = await changeService([], [this.content], {
@@ -239,7 +253,7 @@ export default {
           servicesToDisable,
           dataService,
           offerCode,
-          newCommunityChange: this.newCommunityChange,
+          newCommunityChange: this.isTypeRoamingChanged ? this.newCommunityChange : undefined,
         });
 
         this.savingChanges = false;
@@ -255,6 +269,7 @@ export default {
         console.log(e);
       }
       this.justSaved = true;
+      console.log('just saved', this.justSaved);
     },
     revertServices() {
       this.services = cloneDeep(this.initialServices);
@@ -298,11 +313,45 @@ export default {
   computed: {
     ...mapGetters(['userIsMVNO', 'havePermission']),
 
+    isRoamingExtended() {
+      return this.$loGet(this.content, 'workflow.roamingExtended');
+    },
+
     canCancel() {
       return (
-        (this.isDataParamChanged() || (this.changedServices && this.changedServices.length)) &&
+        (this.isDataParamChanged() ||
+          (this.changedServices && this.changedServices.length) ||
+          this.isTypeRoamingChanged) &&
         !this.justSaved
       );
+    },
+
+    isTypeRoamingChanged() {
+      let initialTypeRoaming;
+      const foundTypeRoaming = this.initialServices.find((s) => s.code === 'ROAMING');
+      if (foundTypeRoaming) {
+        if (foundTypeRoaming.roamingType === 'MONDE') {
+          initialTypeRoaming = {
+            id: 'world',
+            label: 'services.roaming.world',
+            default: true,
+          };
+        } else if (foundTypeRoaming.roamingType === 'EUROPE') {
+          initialTypeRoaming = {
+            id: 'europe',
+            label: 'services.roaming.europe',
+            default: true,
+          };
+        } else {
+          initialTypeRoaming = undefined;
+        }
+      }
+      if (!this.newCommunityChange || (this.newCommunityChange && !initialTypeRoaming))
+        return false;
+      if (initialTypeRoaming.id !== this.newCommunityChange.id) {
+        return true;
+      }
+      return false;
     },
 
     canShowTable() {
@@ -339,7 +388,7 @@ export default {
       return {
         servicesToEnable,
         servicesToDisable,
-        dataChanged: this.dataCheck != this.initDataCheck,
+        dataChanged: this.dataCheck !== this.initDataCheck,
         dataParams,
       };
     },

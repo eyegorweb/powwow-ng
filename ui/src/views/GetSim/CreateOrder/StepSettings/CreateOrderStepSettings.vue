@@ -78,7 +78,7 @@ import UiButton from '@/components/ui/Button';
 import { fetchCustomFields, createCustomField, addItemToCustomFieldList } from '@/api/customFields';
 import { mapMutations, mapGetters } from 'vuex';
 import CreateOrderStepContainer from '../CreateOrderStepContainer';
-import UiToggle from '@/components/ui/UiToggle';
+// import UiToggle from '@/components/ui/UiToggle';
 
 export default {
   components: {
@@ -87,7 +87,7 @@ export default {
     UiButton,
     PartnerFields,
     CreateOrderStepContainer,
-    UiToggle,
+    // UiToggle,
   },
 
   data() {
@@ -128,11 +128,11 @@ export default {
   computed: {
     ...mapGetters('getsim', ['selectedPartnersValues']),
     ...mapGetters(['userIsMVNO']),
-    isPartnerMVNO() {
-      return (
-        this.$loGet(this.synthesis, 'billingAccount.selection.partner.partyType', false) === 'MVNO'
-      );
-    },
+    // isPartnerMVNO() {
+    //   return (
+    //     this.$loGet(this.synthesis, 'billingAccount.selection.partner.partyType', false) === 'MVNO'
+    //   );
+    // },
     canEditSmsNofication() {
       return !this.isNotValidPhoneNumber;
     },

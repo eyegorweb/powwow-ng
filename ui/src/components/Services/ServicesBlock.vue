@@ -45,7 +45,7 @@
         </div>
       </div>
       <div class="col-md-4">
-        <template v-if="canChangeRoamingExtended || dataService">
+        <template v-if="dataService">
           <DataServiceToggle
             v-if="dataService"
             :service="dataService"
@@ -54,18 +54,18 @@
             :bold-label="isChanged(dataService)"
             :no-click="noClick"
           />
+        </template>
 
-          <template v-if="canChangeRoamingExtended">
-            <b>{{ $t('services.roaming.title') }}</b>
-            <MultiToggle
-              v-if="roamingValues"
-              noDefault
-              @update="onRoamingExtChange"
-              :values="roamingValues"
-              block
-              class="pl-2"
-            />
-          </template>
+        <template v-if="canChangeRoamingExtended">
+          <b>{{ $t('services.roaming.title') }}</b>
+          <MultiToggle
+            v-if="roamingValues"
+            @update="onRoamingExtChange"
+            :values="roamingValues"
+            :disabled="canShowTypes"
+            block
+            class="pl-2"
+          />
         </template>
       </div>
     </div>
@@ -152,6 +152,29 @@ export default {
       }
 
       return this.otherServices;
+    },
+    roamingType() {
+      if (!this.roamingService) return;
+      return this.roamingService && this.roamingService.roamingType;
+    },
+    roamingValues() {
+      return [
+        {
+          id: 'europe',
+          label: 'services.roaming.europe',
+          default: this.roamingType === 'EUROPE',
+          value: 'EUROPE',
+        },
+        {
+          id: 'world',
+          label: 'services.roaming.world',
+          default: this.roamingType === 'MONDE',
+          value: 'MONDE',
+        },
+      ];
+    },
+    canShowTypes() {
+      return !this.roamingExtendedOnOffer;
     },
   },
   methods: {
@@ -271,7 +294,7 @@ export default {
   watch: {
     roamingService: {
       handler(roamingService) {
-        if (roamingService && roamingService.checked && this.roamingExtendedOnOffer) {
+        if (roamingService && roamingService.checked) {
           this.canChangeRoamingExtended = true;
         } else {
           this.canChangeRoamingExtended = false;
