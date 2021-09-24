@@ -167,12 +167,14 @@ export default {
         {
           id: 8,
           label: this.$t('col.partner'),
-          name: 'party',
+          name: 'partyName',
           orderable: true,
           visible: false,
           format: {
-            type: 'ObjectAttribute',
-            path: 'name',
+            type: 'Getter',
+            getter: (row) => {
+              return this.$loGet(row, 'party.name');
+            },
           },
         },
         {
