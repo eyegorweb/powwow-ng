@@ -12,7 +12,7 @@
         v-for="item in values"
         :key="item.id"
         @click="chosenValue = item"
-        :class="{ active: item === chosenValue, disabled: disabled && item != chosenValue }"
+        :class="{ active: item === chosenValue, disabled: disabled && item !== chosenValue }"
         :disabled="disabled"
       >
         <template v-if="noTranslation">
@@ -35,7 +35,7 @@ export default {
     };
   },
   mounted() {
-    this.chosenValue = this.values.find((i) => i.default == true);
+    this.chosenValue = this.values.find((i) => i.default === true);
     if (!this.noDefault && !this.chosenValue) {
       this.chosenValue = this.values[0];
     }
