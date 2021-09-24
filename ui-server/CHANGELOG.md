@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.530+20210924085957
+2021-09-24
+
+### Fixes
+
+- [2918] correction du tri par partenaire de la table alarme (8393976926048eb8b2d2dd0c331d782a2e1ab14e)
+
 ## 1.17.0-master.529+20210924080938
 2021-09-24
 
