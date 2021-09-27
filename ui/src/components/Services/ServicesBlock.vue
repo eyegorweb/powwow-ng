@@ -279,16 +279,6 @@ export default {
       extendedRoamingValue: undefined,
       roamingService: undefined,
       canChangeRoamingExtended: false,
-      roamingValues: [
-        {
-          id: 'europe',
-          label: 'services.roaming.europe',
-        },
-        {
-          id: 'world',
-          label: 'services.roaming.world',
-        },
-      ],
     };
   },
   watch: {

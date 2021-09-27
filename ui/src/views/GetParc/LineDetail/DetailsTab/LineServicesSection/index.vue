@@ -172,6 +172,9 @@ export default {
       this.services = offerServices;
       this.apnServices = getApnServices(services);
     }
+    setTimeout(() => {
+      this.componentInitialized = true;
+    });
   },
   methods: {
     ...mapMutations(['flashMessage']),
