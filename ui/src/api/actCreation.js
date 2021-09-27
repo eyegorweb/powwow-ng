@@ -615,7 +615,7 @@ export async function changeService(filters, lines, params) {
     }
 
     let codesToaddToGqlQuery = [...codesToEnable, ...codesToDisable];
-    console.log('🚀 > servicesToEnable ', servicesToEnable);
+    // console.log('🚀 > servicesToEnable ', servicesToEnable);
 
     if (dataService) {
       if (dataService.checked) {
