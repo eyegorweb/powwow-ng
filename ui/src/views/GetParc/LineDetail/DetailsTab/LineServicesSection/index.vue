@@ -62,7 +62,7 @@
                     <CircleLoader />
                   </button>
                   <button
-                    v-if="canCancel"
+                    v-if="canCancel && !justSaved"
                     class="btn btn-outline-primary float-right mr-3"
                     @click="revertServices"
                   >
@@ -189,18 +189,17 @@ export default {
 
     canSave() {
       const { servicesToEnable, servicesToDisable, dataChanged, dataParams } = this.changes;
-      this.justSaved = false;
-      if (this.isRoamingExtended && this.isTypeRoamingChanged) {
+      if (this.isRoamingExtended) {
         return (
-          (!!this.newCommunityChange &&
+          this.isTypeRoamingChanged ||
+          !!(
+            (servicesToEnable && servicesToEnable.length) ||
+            (servicesToDisable && servicesToDisable.length) ||
+            (dataParams && dataParams.length) ||
+            dataChanged
+          ) ||
+          (!this.isTypeRoamingChanged &&
             !!(
-              (servicesToEnable && servicesToEnable.length) ||
-              (servicesToDisable && servicesToDisable.length) ||
-              (dataParams && dataParams.length) ||
-              dataChanged
-            )) ||
-          (!!this.newCommunityChange &&
-            !(
               (servicesToEnable && servicesToEnable.length) ||
               (servicesToDisable && servicesToDisable.length) ||
               (dataParams && dataParams.length) ||
@@ -212,8 +211,7 @@ export default {
         (servicesToEnable && servicesToEnable.length) ||
         (servicesToDisable && servicesToDisable.length) ||
         (dataParams && dataParams.length) ||
-        dataChanged ||
-        this.newCommunityChange
+        dataChanged
       );
     },
 
@@ -256,13 +254,22 @@ export default {
           servicesToDisable,
           dataService,
           offerCode,
-          newCommunityChange: this.isTypeRoamingChanged ? this.newCommunityChange : undefined,
+          newCommunityChange: this.newCommunityChange ? this.newCommunityChange : undefined,
         });
 
         this.savingChanges = false;
         if (response && response.errors && response.errors.length) {
+          // TEMP: send OK, waiting for update ChangeServices api
           response.errors.forEach((e) => {
-            this.flashMessage({ level: 'danger', message: e.message });
+            if (
+              e.extensions &&
+              e.extensions.selectedServices &&
+              e.extensions.selectedServices === 'EmptyList'
+            ) {
+              this.flashMessage({ level: 'success', message: this.$t('genericSuccessMessage') });
+            } else {
+              this.flashMessage({ level: 'danger', message: e.message });
+            }
           });
         } else {
           this.flashMessage({ level: 'success', message: this.$t('genericSuccessMessage') });
@@ -272,10 +279,13 @@ export default {
         console.log(e);
       }
       this.justSaved = true;
-      console.log('just saved', this.justSaved);
     },
     revertServices() {
       this.services = cloneDeep(this.initialServices);
+      setTimeout(() => {
+        this.componentInitialized = true;
+        this.newCommunityChange = undefined;
+      });
       this.servicesVersion += 1;
     },
     onDataServiceChange(selectedServices) {
