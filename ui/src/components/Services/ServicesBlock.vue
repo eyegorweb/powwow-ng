@@ -43,6 +43,23 @@
             </div>
           </div>
         </div>
+        <template v-if="canChangeRoamingExtended">
+          <div class="row">
+            <div class="pl-4">
+              <p class="label_before_toggle">{{ $t('services.roaming.title') }}</p>
+            </div>
+            <div class="pl-4">
+              <MultiToggle
+                v-if="roamingValues"
+                @update="onRoamingExtChange"
+                :values="roamingValues"
+                :disabled="canShowTypes"
+                block
+                class="pl-2"
+              />
+            </div>
+          </div>
+        </template>
       </div>
       <div class="col-md-4">
         <template v-if="dataService">
@@ -53,18 +70,6 @@
             :data-params-needed="dataParamsNeeded"
             :bold-label="isChanged(dataService)"
             :no-click="noClick"
-          />
-        </template>
-
-        <template v-if="canChangeRoamingExtended">
-          <b>{{ $t('services.roaming.title') }}</b>
-          <MultiToggle
-            v-if="roamingValues"
-            @update="onRoamingExtChange"
-            :values="roamingValues"
-            :disabled="canShowTypes"
-            block
-            class="pl-2"
           />
         </template>
       </div>
@@ -311,6 +316,12 @@ export default {
 .service {
   flex-basis: 45%;
   margin-bottom: 1.5rem;
+}
+
+.label_before_toggle {
+  color: #454545;
+  margin: 0;
+  font-size: 0.9rem;
 }
 
 .quarter-size {
