@@ -89,7 +89,7 @@
                   <UiApiAutocomplete
                     :items="countries"
                     v-model="form.country"
-                    :error="errors.country"
+                    :error="errors.city"
                     display-results-while-empty
                   />
                 </div>
@@ -169,7 +169,7 @@ export default {
         address: '',
         zipCode: '',
         city: '',
-        country: '',
+        country: { label: '' },
         extraInfos: '',
         extraInfos2: '',
         title: '',
@@ -199,11 +199,11 @@ export default {
             return !this.form.address.label;
           }
         }
-        if (f === 'country') {
-          if (typeof this.form.country === 'object') {
-            return !this.form.country.label;
-          }
-        }
+        // if (f === 'country') {
+        //   if (typeof this.form.country === 'object') {
+        //     return !this.form.country.label;
+        //   }
+        // }
         return !this.form[f];
       });
     },
