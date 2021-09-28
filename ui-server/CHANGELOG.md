@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.534+20210928121202
+2021-09-28
+
+### Fixes
+
+- [2870] Configuration du changement de communauté pour une ligne donnée (1898d0539ff132b5b6a21dea05f3984f8b73a062)
+
 ## 1.17.0-master.533+20210928050833
 2021-09-28
 
