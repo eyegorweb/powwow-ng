@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.533+20210928050833
+2021-09-28
+
+### Fixes
+
+- [2936] ajout du contrôle du pays lors de la création d'adresses (275a30dbf32f77f56dbde8e091207012b7ab7672)
+
 ## 1.17.0-master.532+20210927092023
 2021-09-27
 
