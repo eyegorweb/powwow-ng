@@ -43,7 +43,7 @@
             </div>
           </div>
         </div>
-        <template v-if="canChangeRoamingExtended">
+        <template v-if="canShowRoamingTypes">
           <div class="row">
             <div class="pl-4">
               <p class="label_before_toggle">{{ $t('services.roaming.title') }}</p>
@@ -53,7 +53,7 @@
                 v-if="roamingValues"
                 @update="onRoamingExtChange"
                 :values="roamingValues"
-                :disabled="canShowTypes"
+                :disabled="!canChangeRoamingExtended"
                 block
                 class="pl-2"
               />
@@ -178,8 +178,8 @@ export default {
         },
       ];
     },
-    canShowTypes() {
-      return !this.roamingExtendedOnOffer;
+    canShowRoamingTypes() {
+      return this.roamingExtendedOnOffer;
     },
   },
   methods: {
