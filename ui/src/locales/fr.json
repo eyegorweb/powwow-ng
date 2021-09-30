@@ -2144,7 +2144,7 @@
         "ipFixe": "IP Fixe",
         "traffic": "Lignes trafiquantes M",
         "validation": "Validation transfert",
-        "inprogressTwoDays": "Actes en cours > 48 h",
+        "inprogressTwoDays": "Actes en cours > 6 h",
         "esim": {
           "id": "Id de la réservation",
           "family": "Famille de SIM",

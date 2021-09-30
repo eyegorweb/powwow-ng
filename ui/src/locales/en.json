@@ -1936,7 +1936,7 @@
         "suspended": "Suspended lines",
         "traffic": "Trafficking lines M",
         "validation": "Transfer validation",
-        "inprogressTwoDays": "Actions in progress> 48 h",
+        "inprogressTwoDays": "Actions in progress> 6 h",
         "esim": {
           "id": "Reservation Id",
           "family": "SIM family",
