@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.537+20210930093757
+2021-09-30
+
+### Fixes
+
+- [2959] Changement du seuil des indicateurs actes de gestion de 48h à 6h (b725b1ba601b2604ec28f34d5e3888f7fba598d5)
+
 ## 1.17.0-master.536+20210929083209
 2021-09-29
 
