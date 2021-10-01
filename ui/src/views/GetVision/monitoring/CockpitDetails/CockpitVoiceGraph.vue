@@ -230,7 +230,7 @@ export default {
             data: formattedData.minIn,
           },
           {
-            name: 'Minutes emies',
+            name: 'Minutes Emises',
             type: 'column',
             stack: 'vol',
             color: '#3498db',
