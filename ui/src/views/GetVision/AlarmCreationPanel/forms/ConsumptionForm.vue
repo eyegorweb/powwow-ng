@@ -84,7 +84,7 @@
           class="value-input"
           :input-style="inputStyle"
           input-type="number"
-          v-model="VoiceOut"
+          v-model="voiceOut"
           positive-number
         />
       </div>
@@ -153,7 +153,7 @@ export default {
       this.smsOut = this.duplicateFrom.level2Up;
       this.smsIn = this.duplicateFrom.level2Down;
       this.voiceES = this.duplicateFrom.level3 / 60;
-      this.VoiceOut = this.duplicateFrom.level3Up / 60;
+      this.voiceOut = this.duplicateFrom.level3Up / 60;
       this.voiceIn = this.duplicateFrom.level3Down / 60;
       this.currentPeriod = this.duplicateFrom.observationCycle;
       this.toggleValues = this.toggleValues.map((t) => {
@@ -192,7 +192,7 @@ export default {
 
       voiceES: undefined,
       voiceIn: undefined,
-      VoiceOut: undefined,
+      voiceOut: undefined,
 
       smsES: undefined,
       smsIn: undefined,
@@ -239,7 +239,7 @@ export default {
         smsOut: this.smsOut,
         voiceES: this.voiceES,
         voiceIn: this.voiceIn,
-        VoiceOut: this.VoiceOut,
+        voiceOut: this.voiceOut,
         period: this.currentPeriod,
         customPeriodValue: this.customPeriodValue,
       });
@@ -248,12 +248,13 @@ export default {
 
   watch: {
     isAdvanced(newValue) {
+      console.log('new value', newValue);
       if (!newValue) {
         this.dataOut = undefined;
         this.dataIn = undefined;
         this.smsES = undefined;
         this.smsIn = undefined;
-        this.voiceES = undefined;
+        this.voiceOut = undefined;
         this.voiceIn = undefined;
       }
     },
@@ -273,7 +274,7 @@ export default {
     voiceIn() {
       this.emitChange();
     },
-    VoiceOut() {
+    voiceOut() {
       this.emitChange();
     },
     smsES() {

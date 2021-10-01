@@ -11,7 +11,7 @@
     :no-suspension="true"
     :is-loading="isLoading"
     :no-wsnotification="true"
-    :check-errors-fn="isFormValid"
+    :check-errors-fn="isFormValidFn"
     :shared-alarm="true"
   >
     <template #default="{ scopeIndex }">
@@ -73,11 +73,13 @@ import OverConsoDataForm from './OverConsoForms/OverConsoDataForm';
 import OverConsoSMSForm from './OverConsoForms/OverConsoSMSForm';
 import OverConsoVoiceForm from './OverConsoForms/OverConsoVoiceForm';
 import OfferBillingAccountChoice from './ScopeChoice/OfferBillingAccountChoice.vue';
-import get from 'lodash.get';
+
 import { createSharedConsumptionAlarm } from '@/api/alarmCreation.js';
-import { mapMutations } from 'vuex';
 import { fetchUsageLimits } from '@/api/offers';
 import { updateSharedConsumptionAlarm } from '@/api/alarmsModifications';
+
+import { mapMutations } from 'vuex';
+import get from 'lodash.get';
 
 export default {
   components: {
@@ -101,6 +103,7 @@ export default {
         this.levelsData = {
           basePercent: this.duplicateFrom.levelDataMax,
         };
+        this.includeDataLimits = true;
       }
       if (this.duplicateFrom.levelData1) {
         this.levelsData = {
@@ -132,6 +135,7 @@ export default {
         this.levelsSms = {
           basePercent: this.duplicateFrom.levelSmsMax,
         };
+        this.includeSMSLimits = true;
       }
       if (this.duplicateFrom.levelSms1) {
         this.levelsSms = {
@@ -163,6 +167,7 @@ export default {
         this.levelsVoice = {
           basePercent: this.duplicateFrom.levelVoiceMax,
         };
+        this.includeVoiceLimits = true;
       }
       if (this.duplicateFrom.levelVoice1) {
         this.levelsVoice = {
@@ -276,79 +281,81 @@ export default {
       let levelsData = undefined;
       let levelsSms = undefined;
       let levelsVoice = undefined;
-
-      if (this.includeDataLimits && this.levelsData) {
-        levelsData = {};
-        levelsData.levelMax = { level: parseInt(this.levelsData.basePercent) };
-        if (this.levelsData.levels.length == 1) {
-          levelsData.level1 = {
-            level: this.levelsData.levels[0].value,
-            dayOfMonth: this.levelsData.levels[0].limit,
-          };
-        }
-
-        if (this.levelsData.levels.length == 2) {
-          levelsData.level1 = {
-            level: this.levelsData.levels[0].value,
-            dayOfMonth: this.levelsData.levels[0].limit,
-          };
-
-          levelsData.level2 = {
-            level: this.levelsData.levels[1].value,
-            dayOfMonth: this.levelsData.levels[1].limit,
-          };
-        }
-      }
-
-      if (this.includeSMSLimits && this.levelsSms) {
-        levelsSms = {};
-        levelsSms.levelMax = { level: parseInt(this.levelsSms.basePercent) };
-        if (this.levelsSms.levels.length == 1) {
-          levelsSms.level1 = {
-            level: this.levelsSms.levels[0].value,
-            dayOfMonth: this.levelsSms.levels[0].limit,
-          };
-        }
-
-        if (this.levelsSms.levels.length == 2) {
-          levelsSms.level1 = {
-            level: this.levelsSms.levels[0].value,
-            dayOfMonth: this.levelsSms.levels[0].limit,
-          };
-
-          levelsSms.level2 = {
-            level: this.levelsSms.levels[1].value,
-            dayOfMonth: this.levelsSms.levels[1].limit,
-          };
-        }
-      }
-
-      if (this.includeVoiceLimits && this.levelsVoice) {
-        levelsVoice = {};
-        levelsVoice.levelMax = { level: parseInt(this.levelsVoice.basePercent) };
-        if (this.levelsVoice.levels.length == 1) {
-          levelsVoice.level1 = {
-            level: this.levelsVoice.levels[0].value,
-            dayOfMonth: this.levelsVoice.levels[0].limit,
-          };
-        }
-
-        if (this.levelsVoice.levels.length == 2) {
-          levelsVoice.level1 = {
-            level: this.levelsVoice.levels[0].value,
-            dayOfMonth: this.levelsVoice.levels[0].limit,
-          };
-
-          levelsVoice.level2 = {
-            level: this.levelsVoice.levels[1].value,
-            dayOfMonth: this.levelsVoice.levels[1].limit,
-          };
-        }
-      }
-
       let params;
 
       if (!this.editMode) {
+        // DATA
+        if (this.includeDataLimits && this.levelsData) {
+          levelsData = {};
+          levelsData.levelMax = { level: parseInt(this.levelsData.basePercent) };
+          if (this.levelsData.levels.length == 1) {
+            levelsData.level1 = {
+              level: this.levelsData.levels[0].value,
+              dayOfMonth: this.levelsData.levels[0].limit,
+            };
+          }
+
+          if (this.levelsData.levels.length == 2) {
+            levelsData.level1 = {
+              level: this.levelsData.levels[0].value,
+              dayOfMonth: this.levelsData.levels[0].limit,
+            };
+
+            levelsData.level2 = {
+              level: this.levelsData.levels[1].value,
+              dayOfMonth: this.levelsData.levels[1].limit,
+            };
+          }
+        }
+
+        // SMS
+        if (this.includeSMSLimits && this.levelsSms) {
+          levelsSms = {};
+          levelsSms.levelMax = { level: parseInt(this.levelsSms.basePercent) };
+          if (this.levelsSms.levels.length == 1) {
+            levelsSms.level1 = {
+              level: this.levelsSms.levels[0].value,
+              dayOfMonth: this.levelsSms.levels[0].limit,
+            };
+          }
+
+          if (this.levelsSms.levels.length == 2) {
+            levelsSms.level1 = {
+              level: this.levelsSms.levels[0].value,
+              dayOfMonth: this.levelsSms.levels[0].limit,
+            };
+
+            levelsSms.level2 = {
+              level: this.levelsSms.levels[1].value,
+              dayOfMonth: this.levelsSms.levels[1].limit,
+            };
+          }
+        }
+
+        // VOICE
+        if (this.includeVoiceLimits && this.levelsVoice) {
+          levelsVoice = {};
+          levelsVoice.levelMax = { level: parseInt(this.levelsVoice.basePercent) };
+          if (this.levelsVoice.levels.length == 1) {
+            levelsVoice.level1 = {
+              level: this.levelsVoice.levels[0].value,
+              dayOfMonth: this.levelsVoice.levels[0].limit,
+            };
+          }
+
+          if (this.levelsVoice.levels.length == 2) {
+            levelsVoice.level1 = {
+              level: this.levelsVoice.levels[0].value,
+              dayOfMonth: this.levelsVoice.levels[0].limit,
+            };
+
+            levelsVoice.level2 = {
+              level: this.levelsVoice.levels[1].value,
+              dayOfMonth: this.levelsVoice.levels[1].limit,
+            };
+          }
+        }
+
         params = {
           alarmName: payload.alarmName,
           marketingOfferId,
@@ -363,6 +370,80 @@ export default {
           partyId: payload.partner.id,
         };
       } else {
+        // DATA
+        if (this.includeDataLimits && this.levelsData) {
+          levelsData = {};
+          levelsData.levelMax = { level: parseInt(this.levelsData.basePercent) };
+
+          if (this.levelsData.levels.length == 2) {
+            levelsData.level1 = {
+              level: this.levelsData.levels[1].value,
+              dayOfMonth: this.levelsData.levels[1].limit,
+            };
+          }
+
+          if (this.levelsData.levels.length == 3) {
+            levelsData.level1 = {
+              level: this.levelsData.levels[1].value,
+              dayOfMonth: this.levelsData.levels[1].limit,
+            };
+
+            levelsData.level2 = {
+              level: this.levelsData.levels[2].value,
+              dayOfMonth: this.levelsData.levels[2].limit,
+            };
+          }
+        }
+
+        // SMS
+        if (this.includeSMSLimits && this.levelsSms) {
+          levelsSms = {};
+          levelsSms.levelMax = { level: parseInt(this.levelsSms.basePercent) };
+
+          if (this.levelsSms.levels.length == 2) {
+            levelsSms.level1 = {
+              level: this.levelsSms.levels[1].value,
+              dayOfMonth: this.levelsSms.levels[1].limit,
+            };
+          }
+
+          if (this.levelsSms.levels.length == 3) {
+            levelsSms.level1 = {
+              level: this.levelsSms.levels[1].value,
+              dayOfMonth: this.levelsSms.levels[1].limit,
+            };
+
+            levelsSms.level2 = {
+              level: this.levelsSms.levels[2].value,
+              dayOfMonth: this.levelsSms.levels[2].limit,
+            };
+          }
+        }
+
+        // VOICE
+        if (this.includeVoiceLimits && this.levelsVoice) {
+          levelsVoice = {};
+          levelsVoice.levelMax = { level: parseInt(this.levelsVoice.basePercent) };
+          if (this.levelsVoice.levels.length == 2) {
+            levelsVoice.level1 = {
+              level: this.levelsVoice.levels[1].value,
+              dayOfMonth: this.levelsVoice.levels[1].limit,
+            };
+          }
+
+          if (this.levelsVoice.levels.length == 3) {
+            levelsVoice.level1 = {
+              level: this.levelsVoice.levels[1].value,
+              dayOfMonth: this.levelsVoice.levels[1].limit,
+            };
+
+            levelsVoice.level2 = {
+              level: this.levelsVoice.levels[2].value,
+              dayOfMonth: this.levelsVoice.levels[2].limit,
+            };
+          }
+        }
+
         params = {
           sharedAlarmId: this.duplicateFrom.id,
           alarmName: payload.alarmName,
@@ -376,7 +457,6 @@ export default {
 
       try {
         let response;
-
         if (this.duplicateFrom && this.duplicateFrom.toModify) {
           response = await updateSharedConsumptionAlarm({ ...params });
         } else {
@@ -390,41 +470,51 @@ export default {
         console.log('Erreur ', e);
       }
     },
-    isFormValid() {
+
+    isFormValidFn() {
       let isFormValid;
       isFormValid = !this.editMode ? !!this.filterForCreation : this.editMode;
+      // DATA
       if (this.levelsData) {
-        isFormValid &= !!this.levelsData.basePercent;
         if (this.levelsData.levels && this.levelsData.levels.length) {
-          if (this.levelsData.levels.length > 0) {
-            isFormValid &= !!this.levelsData.levels[0].value && !!this.levelsData.levels[0].limit;
+          if (this.levelsData.levels.length === 1) {
+            isFormValid &= !!this.levelsData.levels[0].value;
           }
           if (this.levelsData.levels.length === 2) {
             isFormValid &= !!this.levelsData.levels[1].value && !!this.levelsData.levels[1].limit;
           }
+          if (this.levelsData.levels.length === 3) {
+            isFormValid &= !!this.levelsData.levels[2].value && !!this.levelsData.levels[2].limit;
+          }
         }
       }
 
+      // SMS
       if (this.levelsSms) {
-        isFormValid &= !!this.levelsSms.basePercent;
         if (this.levelsSms.levels && this.levelsSms.levels.length) {
-          if (this.levelsSms.levels.length > 0) {
-            isFormValid &= !!this.levelsSms.levels[0].value && !!this.levelsSms.levels[0].limit;
+          if (this.levelsSms.levels.length === 1) {
+            isFormValid &= !!this.levelsSms.levels[0].value;
           }
           if (this.levelsSms.levels.length === 2) {
             isFormValid &= !!this.levelsSms.levels[1].value && !!this.levelsSms.levels[1].limit;
           }
+          if (this.levelsSms.levels.length === 3) {
+            isFormValid &= !!this.levelsSms.levels[2].value && !!this.levelsSms.levels[2].limit;
+          }
         }
       }
 
+      // VOICE
       if (this.levelsVoice) {
-        isFormValid &= !!this.levelsVoice.basePercent;
         if (this.levelsVoice.levels && this.levelsVoice.levels.length) {
-          if (this.levelsVoice.levels.length > 0) {
-            isFormValid &= !!this.levelsVoice.levels[0].value && !!this.levelsVoice.levels[0].limit;
+          if (this.levelsVoice.levels.length === 1) {
+            isFormValid &= !!this.levelsVoice.levels[0].value;
           }
           if (this.levelsVoice.levels.length === 2) {
             isFormValid &= !!this.levelsVoice.levels[1].value && !!this.levelsVoice.levels[1].limit;
+          }
+          if (this.levelsVoice.levels.length === 3) {
+            isFormValid &= !!this.levelsVoice.levels[2].value && !!this.levelsVoice.levels[2].limit;
           }
         }
       }
@@ -434,6 +524,7 @@ export default {
       }
       return isFormValid;
     },
+
     onClose(response, key) {
       if (
         response.errors &&
