@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.541+20211005132101
+2021-10-05
+
+### Fixes
+
+- [2958] correction des modifications des seuils des alarmes flottes (2fe189b069cc98bdd7b95f69aa45b60f366fce11)
+
 ## 1.17.0-master.540+20211005090402
 2021-10-05
 
