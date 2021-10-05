@@ -11,7 +11,7 @@ export default {
   inProgress: {
     openInProgress() {
       cy.waitGet(
-        '#main-sliding-panel > div > div > div > div > div > div.data-detail-container.main-content > div > div:nth-child(2) > div:nth-child(8) > div > div > button'
+        '#main-sliding-panel button.btn.btn-outline-primary.btn.btn-light'
       ).click();
     },
     getTable() {
@@ -219,7 +219,7 @@ export default {
       },
       newCF(cf) {
         cy.waitGet(
-          'div.data-detail-container.main-content > div > div.data-detail-container.main-content > div > div:nth-child(2) > p > div > fieldset > input'
+          '#main-sliding-panel fieldset > input'
         )
           .click()
           .type(cf);

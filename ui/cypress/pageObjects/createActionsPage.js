@@ -80,24 +80,30 @@ export default {
     },
   },
   actions: {
+    inMass() {
+      cy.waitGet('.item > :nth-child(1)').click();
+    },
+    selectPartner(PartnerName) {
+      cy.waitGet('.partner-prereq input')
+        .click()
+        .type(PartnerName);
+      cy.wait(200);
+      cy.waitGet('.partner-prereq .autocomplete-result').click();
+    },
+    selectBillingAccount(billingAccountName) {
+      cy.waitGet('.billing-account-prereq input')
+        .click()
+        .type(billingAccountName)
+        .wait(400)
+        .waitGet(
+          '.billing-account-prereq .autocomplete-result'
+        )
+        .click();
+    },
+    apply() {
+      cy.waitGet('.pl-1 > .btn').click();
+    },
     activate: {
-      selectPartner(PartnerName) {
-        cy.waitGet('.partner-prereq > .position-relative > .form-group > .form-control')
-          .click()
-          .type(PartnerName);
-        cy.wait(200);
-        cy.waitGet('.autocomplete-results > :nth-child(1)').click();
-      },
-      selectBillingAccount(billingAccountName) {
-        cy.waitGet('.row > :nth-child(2) > .position-relative > .form-group > .form-control')
-          .click()
-          .type(billingAccountName)
-          .wait(400)
-          .waitGet(
-            '.row > :nth-child(2) > .position-relative > .form-group > .autocomplete-results > .autocomplete-result'
-          )
-          .click();
-      },
       activation() {
         cy.waitGet(':nth-child(2) > label > .state--on').click();
       },
@@ -109,16 +115,13 @@ export default {
           .waitGet('.cmp-offers-part .form-group > .autocomplete-results > :nth-child(1)')
           .click();
       },
-      apply() {
-        cy.waitGet('.pl-1 > .btn').click();
+      clientReference(clientReference) {
+        cy.waitGet('.col-7 > div:nth-child(2) > label:last-child > input').type(clientReference);
       },
       validate() {
         cy.waitGet(
-          '.col-7 > div:nth-child(7) > div:nth-child(2) > div:nth-child(2) > button'
+          '.col-7 > div:nth-child(8) > div:nth-child(2) > div:nth-child(2) > button'
         ).click();
-      },
-      inMass() {
-        cy.waitGet('.item > :nth-child(1)').click();
       },
       selectSecondLine() {
         cy.waitGet(
@@ -154,32 +157,12 @@ export default {
       },
     },
     changeBillingAccount: {
-      selectPartner(partnerName) {
-        cy.waitGet('.item > :nth-child(1)')
-          .click()
-          .waitGet('.partner-prereq > .position-relative > .form-group > .form-control')
-          .click()
-          .type(partnerName)
-          .wait(400)
-          .waitGet('.autocomplete-result')
-          .click();
-      },
-      selectBillingAccount(billingAccountName) {
-        cy.waitGet('.row > :nth-child(2) > .position-relative > .form-group > .form-control')
-          .click()
-          .type(billingAccountName)
-          .wait(400)
-          .waitGet(
-            '.row > :nth-child(2) > .position-relative > .form-group > .autocomplete-results > .autocomplete-result'
-          )
-          .click();
-      },
       selectoffer(offreName) {
         cy.waitGet('.cmp-offers-part .form-control')
           .click()
           .type(offreName)
           .wait(200)
-          .waitGet('.cmp-offers-part .form-group > .autocomplete-results > :nth-child(1)')
+          .waitGet('.cmp-offers-part .form-group > .autocomplete-results > :nth-child(2)')
           .click();
       },
       selectNewBillingAccount(billingAccountName) {
@@ -197,24 +180,20 @@ export default {
           '.col-7 > div:nth-child(2) > div:nth-child(2) > div:nth-child(2) > button'
         ).click();
       },
-      apply() {
-        cy.waitGet('.pl-1 > .btn').click();
-      },
     },
     editFreeFields: {
       fillFirstFreeField(freeField) {
         cy.waitGet(
-          '.col-7 > div:nth-child(1) > div > div:nth-child(2) > div:nth-child(1) > div > label > input[type=text]'
+          '.col-7 input'
         )
-          .click()
+          .first()
           .type(freeField);
       },
       fillSecondFreeField(freeField) {
         cy.waitGet(
-          '.col-7 > div:nth-child(1) > div > div:nth-child(2) > div:nth-child(2) > div > label > input[type=text]'
+          '.col-7 select'
         )
-          .click()
-          .type(freeField);
+          .select(freeField)
       },
       validate() {
         cy.waitGet(

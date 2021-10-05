@@ -223,7 +223,9 @@ export default {
               '.data-detail-container.main-content > div > div:nth-child(9) > div:nth-child(3) > div > div > div > fieldset > input'
             )
               .click({ force: true })
-              .type(country);
+              .type(country)
+              .wait(400)
+              .waitGet('.autocomplete-result').click();
           },
         },
       },

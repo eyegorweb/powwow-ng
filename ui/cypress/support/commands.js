@@ -39,7 +39,7 @@ Cypress.Commands.add('startAsPartner', () => {
 });
 
 Cypress.Commands.add('startAsGroupAccount', () => {
-  if (cy.currentUserType !== 'groupAccount') {
+  /*if (cy.currentUserType !== 'groupAccount') {
     cy.userIsMonoPartner = false;
     cy.visit(
       Cypress.env('APP_URL') + 'p/callback#access_token=' + Cypress.env('GROUP_ACCOUNT_TOKEN')
@@ -48,10 +48,20 @@ Cypress.Commands.add('startAsGroupAccount', () => {
     cy.url().should('eq', Cypress.env('APP_URL') + 'p/');
     cy.currentUserType = 'groupAccount';
   } else {
-    cy.get('.logoPart > a').click({
+    cy.get('.logo').click({
       force: true,
     });
-  }
+    cy.wait(400);
+    //quickfix temporaire
+    cy.login('userPartyGroup', 'admin');
+  }*/
+  cy.userIsMonoPartner = false;
+    cy.visit(
+      Cypress.env('APP_URL') + 'p/callback#access_token=' + Cypress.env('GROUP_ACCOUNT_TOKEN')
+    );
+    cy.get('#app-loader').should('not.be.visible');
+    cy.url().should('eq', Cypress.env('APP_URL') + 'p/');
+    cy.currentUserType = 'groupAccount';
 });
 
 Cypress.Commands.add('waitGet', (path) => {

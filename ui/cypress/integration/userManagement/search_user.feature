@@ -42,9 +42,9 @@ Feature: recherche d'utilisateur
   Scenario: je veux rechercher par filtre rôle
     Given en tant que BO
     And je suis sur la page de recherche d'utilisateurs
-    And je choisis le filtre rôle "Administrateur demo"
+    And je choisis le filtre rôle "Administrateur"
     When je lance la recherche
-    Then la table contient 0 resultat
+    Then la table contient 14 resultat
     And Je supprime les filtres
 
   Scenario: je veux rechercher par statut actif

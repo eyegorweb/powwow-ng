@@ -43,7 +43,7 @@ Feature: Détail d'une alarme
     And je valide la création
     And je suis sur la page détail de l'alarme créée
     And je choisis les alarmes "LIGNES EXCLUES"
-    And je filtre par compte de facturation "6.42661"
+    And je filtre par compte de facturation "6.42"
     When je filtre par offre "Parc 2 forfait"
     Then la table contient "5" résultats
 

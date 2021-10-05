@@ -19,6 +19,8 @@ Given(`je regarde le nombre d'actes de gestions`, () => {
       totalMassAction = get(response, 'body.data.massActionsV2.total');
     });
   });
+
+  layout.menu.lines();
 });
 
 Given(`je choisis l'acte de suspension par défaut`, () => {
@@ -32,11 +34,12 @@ Given(`je choisis l'acte de suspension par défaut`, () => {
 Given(`je choisis l'acte d'activation par défaut`, () => {
   typeMassAction = 'Pré-activation et Activation';
   createActionsPage.actionsPannel.activate();
-  createActionsPage.actions.activate.inMass();
-  createActionsPage.actions.activate.selectPartner('Lyra');
-  createActionsPage.actions.activate.selectBillingAccount('6.42661 - LYRA');
-  createActionsPage.actions.activate.apply();
+  createActionsPage.actions.inMass();
+  createActionsPage.actions.selectPartner('Lyra');
+  createActionsPage.actions.selectBillingAccount('6.42661');
+  createActionsPage.actions.apply();
   createActionsPage.actions.activate.activation();
+  createActionsPage.actions.activate.clientReference('001');
   createActionsPage.actions.activate.selectOffre('Parc 2 forfait');
   createActionsPage.actions.activate.validate();
 });
@@ -45,10 +48,11 @@ Given(`je choisis l'acte de changement de CF par défaut`, () => {
   typeMassAction = 'Changement du compte de fac ...';
   createActionsPage.actionsPannel.nextSlider();
   createActionsPage.actionsPannel.changeBillingAccount();
-  createActionsPage.actions.changeBillingAccount.selectPartner('Lyra');
-  createActionsPage.actions.changeBillingAccount.selectBillingAccount('6.42661 - LYRA');
+  createActionsPage.actions.inMass();
+  createActionsPage.actions.selectPartner('Lyra');
+  createActionsPage.actions.selectBillingAccount('6.42661');
   createActionsPage.actions.changeBillingAccount.selectoffer('Parc 2 forfait');
-  createActionsPage.actions.changeBillingAccount.apply();
+  createActionsPage.actions.apply();
 
   createActionsPage.actions.changeBillingAccount.selectNewBillingAccount('6.42662');
   createActionsPage.actions.changeBillingAccount.validate();
@@ -58,9 +62,10 @@ Given(`je choisis l'acte de modification des champs libres par défaut`, () => {
   typeMassAction = 'Changement des champs custom';
   createActionsPage.actionsPannel.editFreeFields();
   createActionsPage.actions.editFreeFields.inMass();
-  createActionsPage.filters.massByPartner('INGENICO');
-  createActionsPage.actions.editFreeFields.fillFirstFreeField('first field');
-  createActionsPage.actions.editFreeFields.fillSecondFreeField('second field');
+  createActionsPage.filters.massByPartner('Lyra');
+  cy.wait(500);
+  createActionsPage.actions.editFreeFields.fillFirstFreeField('new field');
+  createActionsPage.actions.editFreeFields.fillSecondFreeField('test Lyra text');
   createActionsPage.actions.editFreeFields.validate();
 });
 
