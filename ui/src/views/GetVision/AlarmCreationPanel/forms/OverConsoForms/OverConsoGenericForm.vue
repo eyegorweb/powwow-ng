@@ -62,15 +62,10 @@
 
       <div class="d-flex justify-content-between">
         <div>
-          <div v-if="lines.length < 2 && !editMode" class="deleteButton">
-            <UiButton variant="outline-info" @click="addNewLine()">
-              <span class="btn-label">
-                <i class="ic-Plus-Icon"></i>
-                {{ $t('getvsion.alarm-creation.addLimit') }}
-              </span>
-            </UiButton>
-          </div>
-          <div v-else-if="lines.length < 3 && editMode">
+          <div
+            v-if="(lines.length < 2 && !editMode) || (lines.length < 3 && editMode)"
+            class="deleteButton"
+          >
             <UiButton variant="outline-info" @click="addNewLine()">
               <span class="btn-label">
                 <i class="ic-Plus-Icon"></i>
@@ -217,13 +212,7 @@ export default {
       this.onValueUpdate();
     },
     addNewLine() {
-      if (this.lines.length < 2 && !this.editMode) {
-        this.lines.push({
-          id: uuid(),
-          value: undefined,
-          limit: undefined,
-        });
-      } else if (this.lines.length < 3 && this.editMode) {
+      if ((this.lines.length < 2 && !this.editMode) || (this.lines.length < 3 && this.editMode)) {
         this.lines.push({
           id: uuid(),
           value: undefined,

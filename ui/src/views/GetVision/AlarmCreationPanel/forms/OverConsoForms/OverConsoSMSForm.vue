@@ -36,7 +36,11 @@ export default {
   mounted() {
     if (this.duplicateFrom) {
       if (this.duplicateFrom && this.duplicateFrom.levelSmsMax) {
-        const lastDay = parseInt(moment().endOf('month').format('DD'));
+        const lastDay = parseInt(
+          moment()
+            .endOf('month')
+            .format('DD')
+        );
 
         this.lines[0] = {
           value: this.duplicateFrom.levelSmsMax,
@@ -55,7 +59,7 @@ export default {
         this.lines[2] = {
           value: this.duplicateFrom.levelSms2,
           limit: this.duplicateFrom.dateLevelSms2,
-          id: 2,
+          id: 3,
         };
       }
       this.hasLimits = !!this.lines.length;
