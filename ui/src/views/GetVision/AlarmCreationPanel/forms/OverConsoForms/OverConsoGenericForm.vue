@@ -214,7 +214,7 @@ export default {
     },
     addNewLine() {
       if ((this.lines.length < 2 && !this.editMode) || (this.lines.length < 3 && this.editMode)) {
-        if (!this.lines.length) {
+        if (!this.lines.length && this.editMode) {
           const lastDay = parseInt(
             moment()
               .endOf('month')
