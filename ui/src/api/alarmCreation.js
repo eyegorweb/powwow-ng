@@ -151,10 +151,11 @@ export async function createSharedConsumptionAlarm(params) {
     offerAlarmCreationInput: params,
   });
 
-  if (response.data) {
-    return response.data.createSharedConsumptionAlarm;
+  if (response.errors) {
+    return { errors: response.errors };
   }
-  return { errors: response.errors };
+
+  return response.data.createSharedConsumptionAlarm;
 }
 
 export async function alarmOnOverConso(params) {
