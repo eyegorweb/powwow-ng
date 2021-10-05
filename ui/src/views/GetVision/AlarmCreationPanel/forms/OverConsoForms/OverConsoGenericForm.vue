@@ -104,6 +104,7 @@ import UiInput from '@/components/ui/UiInput';
 import UiSelect from '@/components/ui/UiSelect';
 import UiButton from '@/components/ui/Button';
 import uuid from 'uuid/v1';
+import moment from 'moment';
 
 import OverConsoVolumeFlotteGraph from './OverConsoVolumeFlotteGraph';
 
@@ -213,11 +214,24 @@ export default {
     },
     addNewLine() {
       if ((this.lines.length < 2 && !this.editMode) || (this.lines.length < 3 && this.editMode)) {
-        this.lines.push({
-          id: uuid(),
-          value: undefined,
-          limit: undefined,
-        });
+        if (!this.lines.length) {
+          const lastDay = parseInt(
+            moment()
+              .endOf('month')
+              .format('DD')
+          );
+          this.lines.push({
+            id: uuid(),
+            value: undefined,
+            limit: lastDay,
+          });
+        } else {
+          this.lines.push({
+            id: uuid(),
+            value: undefined,
+            limit: undefined,
+          });
+        }
       }
     },
   },
