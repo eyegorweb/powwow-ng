@@ -2,7 +2,7 @@ Feature: Recherche de commandes
 
   Je veux chercher des commandes avec des filtres globaux
 
-  Scenario: Recherche par partenaire
+  Scenario: Je fais une recherche par partenaire
     Given en tant que BO
     And je suis sur la page recherche de commandes
     And je choisis le filtre partenaire "lyra"
@@ -10,7 +10,7 @@ Feature: Recherche de commandes
     Then la table contient plus de 0 resultat
     And Je supprime les filtres
 
-  Scenario: recherche par compte de facturation
+  Scenario: Je fais une recherche par compte de facturation
     Given en tant que BO
     And je suis sur la page recherche de commandes
     And je choisis le filtre compte de facturation "TEST"
@@ -18,7 +18,7 @@ Feature: Recherche de commandes
     Then la table contient plus de 0 resultat
     And Je supprime les filtres
 
-  Scenario: Recherche par statut de commande
+  Scenario: Je fais une recherche par statut de commande
     Given en tant que BO
     And je suis sur la page recherche de commandes
     And je choisis le filtre statut "Confirmée"
@@ -26,7 +26,7 @@ Feature: Recherche de commandes
     Then la table contient plus de 0 resultat
     And Je supprime les filtres
 
-  Scenario: Recherche par type de carte SIM
+  Scenario: Je fais une recherche par type de carte SIM
     Given en tant que BO
     And je suis sur la page recherche de commandes
     And je choisis le filtre type "M2M sim antivol avec code pin bobine"
@@ -34,7 +34,7 @@ Feature: Recherche de commandes
     Then la table contient plus de 0 resultat
     And Je supprime les filtres
 
-  Scenario: Recherche par offre
+  Scenario: Je fais une recherche par offre
     Given en tant que BO
     And je suis sur la page recherche de commandes
     And je choisis le filtre offre "offre TimerBV"
@@ -42,15 +42,15 @@ Feature: Recherche de commandes
     Then la table contient plus de 0 resultat
     And Je supprime les filtres
 
-  Scenario: je lance une recherche par id
+  Scenario: Je fais une recherche par ID
     Given en tant que BO
     And je suis sur la page recherche de commandes
     When je lance la recherche par ID "33698014672"
     Then la table contient 1 resultat
 
-#Erreur lors du téléchargement
-#Scenario: Export des commandes
-#  Given en tant que BO
-#  And je suis sur la page recherche de commandes
-#  When je lance un Export
-#  Then le fichier est bien téléchargé
+  @ignore
+  Scenario: Je fais un export des commandes
+    Given en tant que BO
+    And je suis sur la page recherche de commandes
+    When je lance un Export
+    Then le fichier est bien téléchargé

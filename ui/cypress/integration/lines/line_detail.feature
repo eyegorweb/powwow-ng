@@ -2,7 +2,7 @@ Feature: detail des lignes
 
   Je veux tester le detail des lignes
 
-  Scenario: je veux verifier l'en cours d'une ligne activée
+  Scenario: Je veux vérifier l'en cours d'une ligne activée
     Given en tant que BO
     And Je suis sur la page de gestion de lignes
     And je lance la recherche par ID "33669497435"
@@ -11,7 +11,7 @@ Feature: detail des lignes
     Then la table de l'en-cours existe
     And Je clique sur le bouton "Retour"
 
-  Scenario: je veux verifier l'en cours d'une ligne non-activée
+  Scenario: Je veux vérifier l'en cours d'une ligne non-activée
     Given en tant que BO
     And Je suis sur la page de gestion de lignes
     And je lance la recherche par ID "8933209512007559906"
@@ -20,7 +20,7 @@ Feature: detail des lignes
     Then la table de l'en-cours n'existe pas
     And Je clique sur le bouton "Retour"
 
-  Scenario: Verification de la navigation entre les differents onglets dans le detail d'une ligne
+  Scenario: Je veux vérifier la navigation entre les differents onglets dans le détail d'une ligne
     Given en tant que BO
     And Je suis sur la page de gestion de lignes
     And je lance la recherche par ID "33669497435"
@@ -29,7 +29,7 @@ Feature: detail des lignes
     Then Je peux naviguer entre les differents onglets
     And Je clique sur le bouton "Retour"
 
-  Scenario: Verification du clickable des boutons dans le detail d'une ligne activee
+  Scenario: Je veux vérifier le clickable des boutons dans le détail d'une ligne activée
     Given en tant que BO
     And Je suis sur la page de gestion de lignes
     And je lance la recherche par ID "8933203494859102801"
@@ -38,7 +38,7 @@ Feature: detail des lignes
     Then Je peux cliquer sur les boutons et les panneaux s'ouvrent
     And Je clique sur le bouton "Retour"
 
-  Scenario: Verification du non clickable des boutons dans le detail d'une ligne non activee
+  Scenario: Je veux vérifier le non clickable des boutons dans le détail d'une ligne non activée
     Given en tant que BO
     And Je suis sur la page de gestion de lignes
     And je lance la recherche par ID "8933209512007559906"
@@ -47,7 +47,7 @@ Feature: detail des lignes
     Then Je verifie que les boutons ne sont pas clickable
     And Je clique sur le bouton "Retour"
 
-  Scenario: Verification de la presence du tableau de consommation dans le detail d'une ligne activee
+  Scenario: Je veux vérifier la presence du tableau de consommation dans le détail d'une ligne activée
     Given en tant que BO
     And Je suis sur la page de gestion de lignes
     And je lance la recherche par ID "33669497435"
@@ -56,7 +56,7 @@ Feature: detail des lignes
     Then Le tableau de consommation est present dans l'onglet "EN COURS DE CONSOMMATION"
     And Je clique sur le bouton "Retour"
 
-  Scenario: Verification de la navigation entre les differents menus dans l'onglet d'analyse d'une ligne activee
+  Scenario: Je veux vérifier la navigation entre les différents menus dans l'onglet d'analyse d'une ligne activée
     Given en tant que BO
     And Je suis sur la page de gestion de lignes
     And je lance la recherche par ID "33669497435"
@@ -65,7 +65,7 @@ Feature: detail des lignes
     Then Je peux cliquer sur les differents menus de l'onglet d'analyse
     And Je clique sur le bouton "Retour"
 
-  Scenario: Verification de la presence du message d'avertissement dans les onglets de consommation et d'analyse dans le detail d'une ligne non activee
+  Scenario: Je veux vérifier la présence du message d'avertissement dans les onglets de consommation et d'analyse dans le détail d'une ligne non activée
     Given en tant que BO
     And Je suis sur la page de gestion de lignes
     And je lance la recherche par ID "8933209512007559906"
@@ -74,7 +74,7 @@ Feature: detail des lignes
     Then Le message d'avertissement est present dans les onglets de consommation et d'analyse
     And Je clique sur le bouton "Retour"
 
-  Scenario: Verification du changement de carte SIM
+  Scenario: Je veux vérifier le changement de carte SIM
     Given en tant que BO
     And Je suis sur la page de gestion de lignes
     And je lance la recherche par ID "8933203494859102801"
@@ -86,7 +86,7 @@ Feature: detail des lignes
     Then Je confirme le changement
     And Je clique sur le bouton "Retour"
 
-  Scenario: Verification du changement de MSISDN
+  Scenario: Je veux vérifier le changement de MSISDN
     Given en tant que BO
     And Je suis sur la page de gestion de lignes
     And je lance la recherche par ID "8933203494859102801"
@@ -98,7 +98,7 @@ Feature: detail des lignes
     Then Je confirme le changement
     And Je clique sur le bouton "Retour"
 
-  Scenario: Verification du changement de CF
+  Scenario: Je veux vérifier le changement de CF
     Given en tant que BO
     And Je suis sur la page de gestion de lignes
     And je lance la recherche par ID "8933203494859102801"
@@ -110,19 +110,20 @@ Feature: detail des lignes
     Then Je confirme le changement
     And Je clique sur le bouton "Retour"
 
+  @ignore
   # Bouton Changer d'offre désactivé
-  #Scenario: Verification du changement d'offre
-  #  Given en tant que BO
-  #  And Je suis sur la page de gestion de lignes
-  #  And je lance la recherche par ID "8933203494859102801"
-  #  And j'ouvre le panneau de détail de la ligne
-  #  And Je clique sur "Voir le detail de la ligne"
-  #  And Je clique sur le bouton "Changer d'offre"
-  #  And Je selectionne l'offre "Parc 2 forfait"
-  #  When Je clique sur le bouton "Appliquer"
-  #  Then Je confirme le changement
+  Scenario: Je veux vérifier le changement d'offre
+    Given en tant que BO
+    And Je suis sur la page de gestion de lignes
+    And je lance la recherche par ID "8933203494859102801"
+    And j'ouvre le panneau de détail de la ligne
+    And Je clique sur "Voir le detail de la ligne"
+    And Je clique sur le bouton "Changer d'offre"
+    And Je selectionne l'offre "Parc 2 forfait"
+    When Je clique sur le bouton "Appliquer"
+    Then Je confirme le changement
 
-  Scenario: Ouverture de l'historique de declenchement d'une alarme activee
+  Scenario: Je veux ouvrir l'historique de déclenchement d'une alarme activée
     Given en tant que BO
     And Je suis sur la page de gestion de lignes
     And je lance la recherche par ID "33669497435"
@@ -133,7 +134,7 @@ Feature: detail des lignes
     Then Le panneau s'est ouvert
     And Je clique sur le bouton "Retour"
 
-  Scenario: Ouverture de la modification d'alarme en cliquant sur l'ID d'une alarme
+  Scenario: Je veux ouvrir la modification d'alarme en cliquant sur l'ID d'une alarme
     Given en tant que BO
     And Je suis sur la page de gestion de lignes
     And je lance la recherche par ID "33669497435"
@@ -144,7 +145,7 @@ Feature: detail des lignes
     Then Le panneau s'est ouvert
     And Je clique sur le bouton "Retour"
 
-  Scenario: Ouverture de la creation d'alarme
+  Scenario: Je veux ouvrir la création d'alarme
     Given en tant que BO
     And Je suis sur la page de gestion de lignes
     And je lance la recherche par ID "33669497435"
@@ -155,7 +156,7 @@ Feature: detail des lignes
     Then Le panneau s'est ouvert
     And Je clique sur le bouton "Retour"
 
-  Scenario: Ouverture de l'acte de masse d'un acte de gestion
+  Scenario: Je veux ouvrir l'acte de masse d'un acte de gestion
     Given en tant que BO
     And Je suis sur la page de gestion de lignes
     And je lance la recherche par ID "8933203494859102801"
@@ -166,7 +167,7 @@ Feature: detail des lignes
     Then Le panneau s'est ouvert
     And Je clique sur le bouton "Retour"
 
-  Scenario: Ouverture de la page de l'acte de gestion en cliquant sur "Voir le resultat de l'acte" dans le panneau
+  Scenario: Je veux ouvrir la page de l'acte de gestion en cliquant sur "Voir le résultat de l'acte" dans le panneau
     Given en tant que BO
     And Je suis sur la page de gestion de lignes
     And je lance la recherche par ID "8933203494859102801"
@@ -178,7 +179,7 @@ Feature: detail des lignes
     Then La page de l'acte de gestion s'est ouverte
     And Je clique sur le bouton "Retour"
 
-  Scenario: Ouverture de la page de détail d'un acte de gestion puis retour sur le détail de ligne après avoir cliquer sur le bouton retour
+  Scenario: Je veux ouvrir la page de détail d'un acte de gestion puis retour sur le détail de ligne après avoir cliquer sur le bouton retour
     Given en tant que BO
     And Je suis sur la page de gestion de lignes
     And je lance la recherche par ID "33698014672"

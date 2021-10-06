@@ -2,7 +2,7 @@ Feature: Recherche d'actes de gestion
 
   Je veux chercher des alarmes avec des filtres
 
-  Scenario: Recherche par date de création
+  Scenario: Je fais une recherche par date de création
     Given en tant que BO
     And je suis sur l'historique des actes de gestion
     And je choisis le filtre par date de création
@@ -10,7 +10,7 @@ Feature: Recherche d'actes de gestion
     Then je peux appliquer le filtre
     And Je supprime les filtres
 
-  Scenario: recherche partenaire
+  Scenario: Je fais une recherche par partenaire
     Given en tant que BO
     And je suis sur l'historique des actes de gestion
     And je choisis le filtre partenaire "lyra"
@@ -18,7 +18,7 @@ Feature: Recherche d'actes de gestion
     Then la table contient plus de 0 resultat
     And Je supprime les filtres
 
-  Scenario: recherche createur de la demande
+  Scenario: Je fais une recherche par créateur de la demande
     Given en tant que BO
     And je suis sur l'historique des actes de gestion
     And je choisis le filtre createur de la demande "bruce"
@@ -26,7 +26,7 @@ Feature: Recherche d'actes de gestion
     Then la table contient plus de 0 resultat
     And Je supprime les filtres
 
-  Scenario: recherche type d'acte
+  Scenario: Je fais une recherche par type d'acte
     Given en tant que BO
     And je suis sur l'historique des actes de gestion
     And j'enlève le filtre par défaut
@@ -35,25 +35,27 @@ Feature: Recherche d'actes de gestion
     Then la table contient plus de 0 resultat
     And Je supprime les filtres
 
-  Scenario: je lance une recherche par id
+  Scenario: Je fais une recherche par ID
     Given en tant que BO
     And je suis sur l'historique des actes de gestion
     When je lance la recherche par ID "33698014672"
     Then la table contient 1 resultat
 
-  Scenario: Voir l'historique des actes depuis la page d'accueil en cliquant sur la pendule
+  Scenario: Je veux voir l'historique des actes depuis la page d'accueil en cliquant sur la pendule
     Given en tant que BO
     And Je clique sur la pendule
     When Je clique sur "Voir l'historique complet"
     Then Je suis sur l'historique des actes de gestion
 
-  Scenario: Export des actes de gestion (Classique)
+  @ignore
+  Scenario: Je fais un export des actes de gestion (Classique)
     Given en tant que BO
     And je suis sur l'historique des actes de gestion
     When je lance un Export Classique
-    Then le fichier est bien téléchargé
+    Then le fichJe fais un exportier est bien téléchargé
 
-  Scenario: Export des actes de gestion (Complet)
+  @ignore
+  Scenario: Je fais un export des actes de gestion (Complet)
     Given en tant que BO
     And je suis sur l'historique des actes de gestion
     When je lance un Export Complet

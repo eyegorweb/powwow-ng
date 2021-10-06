@@ -2,7 +2,7 @@ Feature: Détails des actes de gestion
 
   Vérification de la page de détail d'un acte de gestion
 
-  Scenario: Page de détails d'un acte de gestion, je reviens sur la liste des actes après avoir cliquer sur le bouton retour
+  Scenario: Je reviens sur la liste des actes après avoir cliquer sur le bouton retour sur la page de détails d'un acte de gestion
     Given en tant que BO
     And Je vais sur la page des actes de gestion
     And Je recherche par ID "1"

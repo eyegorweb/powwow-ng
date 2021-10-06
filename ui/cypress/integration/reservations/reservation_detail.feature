@@ -2,7 +2,7 @@ Feature: Detail d'une reservation
 
   Je veux verifier les details d'une reservation
 
-  Scenario: Verification de l'ouverture du panneau de detail d'une reservation et de la presence de donnees
+  Scenario: Je vérifie l'ouverture du panneau de détail d'une réservation et de la présence de données
     Given en tant que BO
     And Je suis sur la page des reservations
     And Je lance la recherche par ID "67"
