@@ -35,7 +35,7 @@ Feature: test des rapports
     When Je clique sur "Enregistrer"
     Then Je verifie la création du rapport
 
-  Scenario: Je veux faire un rapport personnalise
+  Scenario: Je veux faire un rapport personnalisé
     Given en tant que BO
     And Je suis sur la page de gestion des rapports
     And Je clique sur "Créer un rapport"
@@ -53,14 +53,14 @@ Feature: test des rapports
     When Je clique sur "Enregistrer"
     Then Je verifie la création du rapport
 
-  Scenario: Je veux desactiver un rapport
+  Scenario: Je veux désactiver un rapport
     Given en tant que BO
     And Je suis sur la page de gestion des rapports
     And Je cree un rapport classique
     When Je desactive le rapport
     Then Je verifie que le rapport est bien desactive
 
-  Scenario: Je verifie l'apparition du panneau des details du rapport en cliquant sur le nom
+  Scenario: Je vérifie l'apparition du panneau des détails du rapport en cliquant sur le nom
     Given en tant que BO
     And Je suis sur la page de gestion des rapports
     And Je cree un rapport classique
@@ -68,7 +68,7 @@ Feature: test des rapports
     Then Le panneau de detail est visible
     And Je ferme le panneau
 
-  Scenario: Je verifie l'apparition du panneau des details du rapport en cliquant sur "Voir le detail" dans les actions
+  Scenario: Je vérifie l'apparition du panneau des détails du rapport en cliquant sur "Voir le détail" dans les actions
     Given en tant que BO
     And Je suis sur la page de gestion des rapports
     And Je cree un rapport classique

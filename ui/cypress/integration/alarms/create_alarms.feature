@@ -2,7 +2,7 @@ Feature: Création d'alarmes
 
   Je veux créer des alarmes
 
-  Scenario: créer une alarme de changement d'operateur par défaut
+  Scenario: Je crée une alarme de changement d'opérateur par défaut
     Given en tant que BO
     And je suis sur la page de création d'alarmes
     And j'enregistre le nombre d'alarmes
@@ -10,7 +10,7 @@ Feature: Création d'alarmes
     When je valide la création
     Then je vérifie que mon alarme a été créé
 
-  Scenario: créer une alarme de changement de statut par défaut
+  Scenario: Je crée une alarme de changement de statut par défaut
     Given en tant que BO
     And je suis sur la page de création d'alarmes
     And j'enregistre le nombre d'alarmes
@@ -18,7 +18,7 @@ Feature: Création d'alarmes
     When je valide la création
     Then je vérifie que mon alarme a été créé
 
-  Scenario: créer une alarme de changement d'equipement par défaut
+  Scenario: Je crée une alarme de changement d'équipement par défaut
     Given en tant que BO
     And je suis sur la page de création d'alarmes
     And j'enregistre le nombre d'alarmes
@@ -26,7 +26,7 @@ Feature: Création d'alarmes
     When je valide la création
     Then je vérifie que mon alarme a été créé
 
-  Scenario: Créer une alarme de changement de module par défaut
+  Scenario: Je crée une alarme de changement de module par défaut
     Given en tant que BO
     And je suis sur la page de création d'alarmes
     And j'enregistre le nombre d'alarmes
@@ -34,7 +34,7 @@ Feature: Création d'alarmes
     When je valide la création
     Then je vérifie que mon alarme a été créé
 
-  Scenario: créer une alarme de changement de pays par défaut
+  Scenario: Je crée une alarme de changement de pays par défaut
     Given en tant que BO
     And je suis sur la page de création d'alarmes
     And j'enregistre le nombre d'alarmes
@@ -42,7 +42,7 @@ Feature: Création d'alarmes
     When je valide la création
     Then je vérifie que mon alarme a été créé
 
-  Scenario: Créer une alarme de sur-consommation par défaut
+  Scenario: Je crée une alarme de sur-consommation par défaut
     Given en tant que BO
     And je suis sur la page de création d'alarmes
     And j'enregistre le nombre d'alarmes
@@ -50,7 +50,7 @@ Feature: Création d'alarmes
     When je valide la création
     Then je vérifie que mon alarme a été créé
 
-  Scenario: Créer une alarme de sous-consommation par défaut
+  Scenario: Je crée une alarme de sous-consommation par défaut
     Given en tant que BO
     And je suis sur la page de création d'alarmes
     And j'enregistre le nombre d'alarmes
@@ -58,7 +58,7 @@ Feature: Création d'alarmes
     When je valide la création
     Then je vérifie que mon alarme a été créé
 
-  Scenario: Créer une alarme de sur-consommation de la flotte par défaut
+  Scenario: Je crée une alarme de sur-consommation de la flotte par défaut
     Given en tant que BO
     And je suis sur la page de création d'alarmes
     And je vais sur l'onglet des alarmes mutualisées

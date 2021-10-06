@@ -2,7 +2,7 @@ Feature: Recherche d'alarmes
 
   Je veux chercher des alarmes avec des filtres
 
-  Scenario: Recherche par partenaire
+  Scenario: Je fais une recherche par partenaire
     Given en tant que BO
     And je suis sur la page recherche d'alarmes
     And je choisis le filtre partenaire "INGENICO"
@@ -10,7 +10,7 @@ Feature: Recherche d'alarmes
     Then la table contient plus de 0 resultat
     And Je supprime les filtres
 
-  Scenario: Recherche par compte de facturation
+  Scenario: Je fais une recherche par compte de facturation
     Given en tant que BO
     And je suis sur la page recherche d'alarmes
     And je choisis le filtre compte de facturation "INGENICO1"
@@ -18,7 +18,7 @@ Feature: Recherche d'alarmes
     Then la table contient plus de 0 resultat
     And Je supprime les filtres
 
-  Scenario: Recherche par offre associée
+  Scenario: Je fais une recherche par offre associée
     Given en tant que BO
     And je suis sur la page recherche d'alarmes
     And je choisis le filtre offre "Parc 2"
@@ -26,7 +26,7 @@ Feature: Recherche d'alarmes
     Then la table contient plus de 0 resultat
     And Je supprime les filtres
 
-  Scenario: recherche par portée d'alarmes
+  Scenario: Je fais une recherche par portée d'alarme
     Given en tant que BO
     And je suis sur la page recherche d'alarmes
     And je choisis le filtre portée de l'alarme "partenaire"
@@ -34,7 +34,7 @@ Feature: Recherche d'alarmes
     Then la table contient plus de 0 resultat
     And Je supprime les filtres
 
-  Scenario: Recherche par type d'alarme
+  Scenario: Je fais une recherche par type d'alarme
     Given en tant que BO
     And je suis sur la page recherche d'alarmes
     And je choisis le filtre type d'alarme "Sur-consommation"
@@ -42,13 +42,13 @@ Feature: Recherche d'alarmes
     Then la table contient plus de 0 resultat
     And Je supprime les filtres
 
-  Scenario: rechercher une alarme par ID
+  Scenario: Je fais une recherche par ID
     Given en tant que BO
     And je suis sur la page recherche d'alarmes
     When je lance la recherche par ID "86"
     Then la table contient 1 resultat
 
-  Scenario: Recherche par plusieurs filtres
+  Scenario: Je fais une recherche avec plusieurs filtres
     Given en tant que BO
     And je suis sur la page recherche d'alarmes
     And je choisis le filtre partenaire "lyra"
@@ -56,7 +56,7 @@ Feature: Recherche d'alarmes
     When je lance la recherche
     Then la table contient plus de 0 resultat
 
-  Scenario: Onglet alarmes mutualisées, recherche par partenaire
+  Scenario: Je fais une recherche par partenaire dans l'onglet des alarmes mutualisées
     Given en tant que BO
     And je suis sur la page recherche d'alarmes
     And je vais sur l'onglet alarmes mutualisées
@@ -66,7 +66,7 @@ Feature: Recherche d'alarmes
     When je lance la recherche
     Then la table contient plus de 0 resultat
 
-  Scenario: Onglet alarmes mutualisées, recherche par compte de facturation
+  Scenario: Je fais une recherche par compte de facturation dans l'onglet des alarmes mutualisées
     Given en tant que BO
     And je suis sur la page recherche d'alarmes
     And je vais sur l'onglet alarmes mutualisées
@@ -76,12 +76,13 @@ Feature: Recherche d'alarmes
     When je lance la recherche
     Then la table contient plus de 0 resultat
 
-#pas de données
-#Scenario: Onglet alarmes mutualisées, recherche par offres
-#  Given en tant que BO
-#  And je suis sur la page recherche d'alarmes
-#  And je vais sur l'onglet alarmes mutualisées
-#  And je créé une alarme de sur-consommation de la flotte par défaut "TEST sur-consommation de la flotte"
-#  And je choisis le filtre offre ""
-#  When je lance la recherche
-#  Then la table contient plus de 0 resultat
+  @ignore
+  #pas de données
+  Scenario: Je fais une recherche par offre dans l'onglet des alarmes mutualisées
+    Given en tant que BO
+    And je suis sur la page recherche d'alarmes
+    And je vais sur l'onglet alarmes mutualisées
+    And je créé une alarme de sur-consommation de la flotte par défaut "TEST sur-consommation de la flotte"
+    And je choisis le filtre offre ""
+    When je lance la recherche
+    Then la table contient plus de 0 resultat

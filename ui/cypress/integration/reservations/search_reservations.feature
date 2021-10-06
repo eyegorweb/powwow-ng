@@ -2,7 +2,7 @@ Feature: Recherche de reservations
 
   Je veux chercher des reservations avec des filtres
 
-  Scenario: Recherche avec tous les filtres actives
+  Scenario: Je fais une recherche avec tous les filtres activés
     Given en tant que BO
     And Je suis sur la page des reservations
     #And J'ouvre tous les filtres
