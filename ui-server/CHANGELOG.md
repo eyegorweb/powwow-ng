@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.544+20211006132253
+2021-10-06
+
+### Features
+
+- [000] Réparation des tests Cypress v2 (9d66fe33597700e0dd00d6eb456783892cea2273)
+
 ## 1.17.0-master.543+20211006111500
 2021-10-06
 
