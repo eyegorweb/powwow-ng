@@ -11,7 +11,7 @@ let login = '';
 
 Given('Je suis sur la page de gestion des utilisateurs', () => {
   layout.menu.userManagement();
-  cy.wait(400);
+  cy.wait(500);
 });
 
 Given('Je rentre le prénom {string}', (firstname) => {
@@ -26,6 +26,7 @@ When("J'enregistre l'utilisateur", () => {
 // Création utilisateur
 
 Given('Je clique sur "Ajouter un utilisateur"', () => {
+  cy.wait(400);
   getTotal();
   userPage.addUser();
 });
@@ -108,7 +109,6 @@ Given('Je créé un utilisateur de type {string} par défaut ETQU BO', (index) =
   });
   userCreationPage.typeLogin(login);
   userCreationPage.typePassword('*TestCypress01*');
-  userCreationPage.checkRole(1);
   userCreationPage.save();
 });
 
@@ -198,7 +198,7 @@ function getFirstname() {
 
 function strRandom(o) {
   var a = 10,
-    b = 'abcdefghijklmnopqrstuvwxyz',
+    b = 'azertyuiopqsdfghjklmwxcvbn',
     c = '',
     d = 0,
     e = '' + b;

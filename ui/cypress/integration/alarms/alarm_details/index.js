@@ -44,6 +44,7 @@ When("je suis sur la page de détail de l'alarme créée", () => {
 Given('je filtre par compte de facturation {string}', (cf) => {
   alarmsDetailPage.excludedLines.filterBar.billingAccount.toggle();
   alarmsDetailPage.excludedLines.filterBar.billingAccount.filter(cf);
+  cy.wait(400);
   alarmsDetailPage.excludedLines.filterBar.billingAccount.choose(1);
   alarmsDetailPage.excludedLines.filterBar.billingAccount.toggle();
 });

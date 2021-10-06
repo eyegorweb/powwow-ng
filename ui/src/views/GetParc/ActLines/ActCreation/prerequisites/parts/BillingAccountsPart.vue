@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="billing-account-prereq">
     <BillingAccountAutocomplete
       v-model="selectedBillingAccount"
       :selected-partner="partner"

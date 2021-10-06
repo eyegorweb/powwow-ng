@@ -105,7 +105,7 @@ Feature: detail des lignes
     And j'ouvre le panneau de détail de la ligne
     And Je clique sur "Voir le detail de la ligne"
     And Je clique sur le bouton "Changer de CF"
-    And Je selectionne le compte "TEST - 6.42661"
+    And Je selectionne le compte "TEST"
     When Je clique sur le bouton "Appliquer"
     Then Je confirme le changement
     And Je clique sur le bouton "Retour"
