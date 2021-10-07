@@ -8,14 +8,13 @@
             :label="$t('col.preActivationAsked')"
             v-model="preActivation"
             :editable="canEditPreactivation"
-            :no-click="activation || preActivationValue"
+            :no-click="activation"
           />
           <UiToggle
             :label="$t('col.activationAsked')"
             v-model="activation"
             disabled
             :editable="canEditActivation"
-            :no-click="activation"
           />
         </div>
       </div>
