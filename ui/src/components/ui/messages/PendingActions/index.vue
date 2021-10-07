@@ -1,6 +1,10 @@
 <template>
   <div>
-    <div class="pending-messages" v-if="pendingOperations.length" @click="showModal = true">
+    <div
+      class="pending-messages"
+      v-if="pendingOperations && pendingOperations.length"
+      @click="showModal = true"
+    >
       <div class="peding-download">
         <div class="alert alert-dark" role="alert">
           <template v-if="!interrupted">
@@ -10,7 +14,7 @@
             <template v-if="pendingOperations.length && allFinished">
               {{ $t('pending-actions.ready') }}
             </template>
-            <template v-if="pendingOperations.length > 1">
+            <template v-if="pendingOperations.length">
               {{ finishedOperations.length }}/{{ pendingOperations.length }}
             </template>
           </template>
@@ -28,11 +32,12 @@
         <div class="scrollable-content">
           <ul class="list-group">
             <SingleOperation
-              :key="op.downloadUri"
+              :key="op.requestId"
               v-for="op in pendingOperations"
               :operation="op"
-              @download="(op) => downloadFile(op.downloadUri)"
-              :is-downloaded="isDownloaded(op.downloadUri)"
+              @download="(op) => downloadFile(op.successMessage)"
+              @dismissed="(op) => dismissBackgroundOperation(op.requestId)"
+              :is-downloaded="isDownloaded(op.successMessage)"
             />
           </ul>
         </div>
@@ -47,7 +52,7 @@
 </template>
 
 <script>
-import { fetchPendingOperations } from '@/api/pendingOperations.js';
+import { fetchPendingOperations, deleteBackgroundOperation } from '@/api/pendingOperations.js';
 import Modal from '@/components/Modal';
 import { mapState, mapMutations } from 'vuex';
 import { getBaseURL } from '@/utils.js';
@@ -78,11 +83,12 @@ export default {
     };
   },
   methods: {
-    ...mapMutations(['startDownload', 'setPendingExportsStatus']),
+    ...mapMutations(['startDownload', 'setPendingExportsStatus', 'setPendingActsStatus']),
 
     async refreshOperations() {
       this.pendingOperations = await fetchPendingOperations();
 
+      
       if (this.pendingOperations.length === 0) {
         this.stopWatching();
       }
@@ -129,19 +135,18 @@ export default {
       }
     },
     async onFinished() {
-      console.log('onFinished');
+      
       this.stopWatching();
 
-      if (this.pendingOperations.length === 1 && this.allFinished) {
-        this.downloadFile(this.pendingOperations[0].downloadUri);
-        this.pendingOperations = [];
-        this.alreadyDownloaded = [];
-        this.setPendingExportsStatus(false);
-      }
+     
     },
-
+    async dismissBackgroundOperation(requestId) {
+      this.resumeWatch;
+      await deleteBackgroundOperation(requestId);
+    },
     downloadFile(downloadUri) {
       this.alreadyDownloaded.push(downloadUri);
+      
       this.startDownload(getBaseURL() + downloadUri);
     },
 
@@ -169,9 +174,10 @@ export default {
       havePendingExports: (state) => state.ui.havePendingExports,
     }),
     finishedOperations() {
-      return this.pendingOperations.filter((p) => !!p.downloadUri);
+      return this.pendingOperations.filter((p) => p.finished);
     },
     allFinished() {
+      
       return (
         !!this.pendingOperations.length &&
         this.pendingOperations.length === this.finishedOperations.length
@@ -180,6 +186,11 @@ export default {
   },
   watch: {
     havePendingExports(newValue, oldValue) {
+      
+      if (newValue && !oldValue || !newValue && oldValue) {
+        this.refreshOperations();
+      }
+
       if (newValue && !oldValue) {
         this.refreshOperations();
 
@@ -194,11 +205,7 @@ export default {
         this.startWatching();
       }
     },
-    allFinished(newValue) {
-      if (newValue) {
-        this.onFinished();
-      }
-    },
+ 
   },
 };
 </script>

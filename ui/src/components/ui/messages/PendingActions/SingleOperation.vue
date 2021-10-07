@@ -1,27 +1,38 @@
 <template>
   <li class="list-group-item finished-op">
-    <span class="pending">
-      <span class="label">
-        {{ $t('export-types.' + operation.taskType) }}
-      </span>
-      <span v-if="!operation.downloadUri" class="op-status"> En cours </span>
-      <a
-        v-else
-        href="#"
-        :class="{ downloaded: isDownloaded }"
-        @click.prevent="$emit('download', operation)"
-      >
-        <span v-if="isDownloaded"> {{ $t('actions.DOWNLOADED') }} </span>
-        <span v-else> {{ $t('actions.DOWNLOAD') }} </span>
+    <div>
+      <span class="pending">
+        <span class="label">
+          {{ $t('export-types.' + operation.taskType) }}
+        </span>
+        <span v-if="!operation.finished" class="op-status">
+          {{ $t('getreport.report_statut.RUNNING') }}
+        </span>
 
-        <em v-if="isDownloaded" class="ic-Check-Icon" />
-      </a>
-    </span>
+        <OperationBtn
+          v-else
+          :isDownloaded="isDownloaded"
+          :operation="operation"
+          @dismissed="$emit('dismissed', $event)"
+          @download="$emit('download', $event)"
+        />
+      </span>
+    </div>
+    <div>
+      <OperationMessage :operation="operation" />
+    </div>
   </li>
 </template>
 
 <script>
+import OperationBtn from './OperationBtn.vue';
+import OperationMessage from './OperationMessage.vue';
+
 export default {
+  components: {
+    OperationBtn,
+    OperationMessage
+  },
   props: {
     isDownloaded: Boolean,
     operation: Object,
@@ -39,21 +50,6 @@ export default {
   & .op-status {
     font-weight: 700;
     color: $secondary;
-  }
-}
-
-.downloaded {
-  &:hover,
-  &:active,
-  &:focus {
-    text-decoration: none;
-  }
-  span {
-    font-weight: bold;
-  }
-
-  em {
-    padding-left: 0.6rem;
   }
 }
 

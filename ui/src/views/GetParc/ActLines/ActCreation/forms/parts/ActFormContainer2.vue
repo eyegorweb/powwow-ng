@@ -185,7 +185,7 @@ export default {
   },
 
   methods: {
-    ...mapMutations(['flashMessage', 'confirmAction']),
+    ...mapMutations(['flashMessage', 'confirmAction', 'setPendingExportsStatus']),
     ...mapMutations('actLines', ['resetState']),
 
     onActDateChange(value) {
@@ -202,6 +202,7 @@ export default {
         });
 
         if (response) {
+            console.log("réponse pour un acte de gestion", response)
           if (response.errors && response.errors.length) {
             this.validationErrors = {
               errors: response.errors,
@@ -209,6 +210,7 @@ export default {
             };
             this.tempDataUuid = response.validationError.tempDataUuid;
           } else {
+            console.log("success", response)
             this.onSuccess();
           }
         } else {
@@ -257,6 +259,9 @@ export default {
         ? this.$t(this.successMessage)
         : this.$t('genericSuccessMessage');
       this.flashMessage({ level: 'success', message: successMessage });
+
+      // ajouter l'acte à la liste des opérations en cours du module PendingActions
+      this.setPendingExportsStatus(true);
 
       // sortir du mode création acte
       this.resetState();
