@@ -723,6 +723,7 @@
       "configureForUsage": "Configurer pour cet usage",
       "addLimit": "Ajouter un seuil",
       "beforeEndOfMonth": "Avant la fin du mois",
+      "whatDayInmonth": "{whatDayInmonth} du mois",
       "thresholdIsOver": "Le seuil dépasse",
       "chooseNotification": "Choisir un moyen de notification",
       "defineThreshold": "DÉFINIR UN SEUIL DE DÉCLENCHEMENT PAR USAGE",

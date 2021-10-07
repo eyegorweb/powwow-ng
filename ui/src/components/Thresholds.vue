@@ -54,7 +54,9 @@ export default {
               value:
                 this.alarm.levelData1 +
                 '% ' +
-                this.$t('date-over', { date: this.alarm.dateLevelData1 }),
+                (this.alarm.dateLevelData1 === null
+                  ? this.$t('getvsion.alarm-creation.beforeEndOfMonth')
+                  : this.$t('date-over', { date: this.alarm.dateLevelData1 })),
               className: this.alarm.dateData1Triggered ? 'text-danger' : 'threshold-default',
             });
           }
@@ -63,7 +65,9 @@ export default {
               value:
                 this.alarm.levelData2 +
                 '% ' +
-                this.$t('date-over', { date: this.alarm.dateLevelData2 }),
+                (this.alarm.dateLevelData2 === null
+                  ? this.$t('getvsion.alarm-creation.beforeEndOfMonth')
+                  : this.$t('date-over', { date: this.alarm.dateLevelData2 })),
               className: this.alarm.dateData2Triggered ? 'text-danger' : 'threshold-default',
             });
           }
@@ -83,7 +87,9 @@ export default {
               value:
                 this.alarm.levelVoice1 +
                 '% ' +
-                this.$t('date-over', { date: this.alarm.dateLevelVoice1 }),
+                (this.alarm.dateLevelVoice1 === null
+                  ? this.$t('getvsion.alarm-creation.beforeEndOfMonth')
+                  : this.$t('date-over', { date: this.alarm.dateLevelVoice1 })),
               className: this.alarm.dateVoice1Triggered ? 'text-danger' : 'threshold-default',
             });
           }
@@ -92,7 +98,9 @@ export default {
               value:
                 this.alarm.levelVoice2 +
                 '% ' +
-                this.$t('date-over', { date: this.alarm.dateLevelVoice2 }),
+                (this.alarm.dateLevelVoice2 === null
+                  ? this.$t('getvsion.alarm-creation.beforeEndOfMonth')
+                  : this.$t('date-over', { date: this.alarm.dateLevelVoice2 })),
               className: this.alarm.dateVoice2Triggered ? 'text-danger' : 'threshold-default',
             });
           }
@@ -111,7 +119,9 @@ export default {
               value:
                 this.alarm.levelSms1 +
                 '% ' +
-                this.$t('date-over', { date: this.alarm.dateLevelSms1 }),
+                (this.alarm.dateLevelSms1 === null
+                  ? this.$t('getvsion.alarm-creation.beforeEndOfMonth')
+                  : this.$t('date-over', { date: this.alarm.dateLevelSms1 })),
               className: this.alarm.dateSms1Triggered ? 'text-danger' : 'threshold-default',
             });
           }
@@ -120,7 +130,9 @@ export default {
               value:
                 this.alarm.levelSms2 +
                 '% ' +
-                this.$t('date-over', { date: this.alarm.dateLevelSms2 }),
+                (this.alarm.dateLevelSms2 === null
+                  ? this.$t('getvsion.alarm-creation.beforeEndOfMonth')
+                  : this.$t('date-over', { date: this.alarm.dateLevelSms2 })),
               className: this.alarm.dateSms2Triggered ? 'text-danger' : 'threshold-default',
             });
           }

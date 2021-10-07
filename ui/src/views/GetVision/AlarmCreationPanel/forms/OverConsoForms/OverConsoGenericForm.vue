@@ -173,10 +173,16 @@ export default {
     }
 
     const options = [];
-
     for (let i = 1; i < 31; i++) {
-      options.push({ value: i, label: i + ' du mois' });
+      options.push({
+        value: i,
+        label: this.$t('getvsion.alarm-creation.whatDayInmonth', { whatDayInmonth: i }),
+      });
     }
+    options.push({
+      value: 'endOfMonth',
+      label: this.$t('getvsion.alarm-creation.beforeEndOfMonth'),
+    });
 
     this.options = options;
   },

@@ -147,6 +147,9 @@ export async function createSharedConsumptionAlarm(params) {
   const queryStr = `mutation CreateSharedConsumptionAlarm($offerAlarmCreationInput: OfferAlarmCreationInput!){
     createSharedConsumptionAlarm(offerAlarmCreationInput: $offerAlarmCreationInput)
   }`;
+
+  // remplacer 'endOfMonth' with null
+  getSharedAlarmParamsFormatted(params);
   const response = await query(queryStr, {
     offerAlarmCreationInput: params,
   });
@@ -333,5 +336,35 @@ function getScopeGQLParams(params) {
 
   if (tempDataUuid) {
     return `tempDataUuid: "${tempDataUuid}"`;
+  }
+}
+
+// remplacer 'endOfMonth' with null
+function getSharedAlarmParamsFormatted(params) {
+  if (params.levelsData) {
+    if (params.levelsData.level1 && params.levelsData.level1.dayOfMonth === 'endOfMonth') {
+      params.levelsData.level1.dayOfMonth = null;
+    }
+    if (params.levelsData.level2 && params.levelsData.level2.dayOfMonth === 'endOfMonth') {
+      params.levelsData.level2.dayOfMonth = null;
+    }
+  }
+
+  if (params.levelsSms) {
+    if (params.levelsSms.level1 && params.levelsSms.level1.dayOfMonth === 'endOfMonth') {
+      params.levelsSms.level1.dayOfMonth = null;
+    }
+    if (params.levelsSms.level2 && params.levelsSms.level2.dayOfMonth === 'endOfMonth') {
+      params.levelsSms.level1.dayOfMonth = null;
+    }
+  }
+
+  if (params.levelsVoice) {
+    if (params.levelsVoice.level1 && params.levelsVoice.level1.dayOfMonth === 'endOfMonth') {
+      params.levelsVoice.level1.dayOfMonth = null;
+    }
+    if (params.levelsVoice.level2 && params.levelsVoice.level2.dayOfMonth === 'endOfMonth') {
+      params.levelsVoice.level2.dayOfMonth = null;
+    }
   }
 }

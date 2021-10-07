@@ -646,6 +646,7 @@
       "configureForUsage": "Configure for this use",
       "addLimit": "Add a threshold",
       "beforeEndOfMonth": "Before the end of the month",
+      "whatDayInmonth": "{whatDayInmonth} of the month",
       "thresholdIsOver": "Threshold exceeds",
       "dataIsOver": "The data exceeds",
       "smsIsOver": "Number of SMS exceeds",
