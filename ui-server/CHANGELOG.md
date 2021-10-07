@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.545+20211007092033
+2021-10-07
+
+### Features
+
+- [2896] ajout du module tâche de fond (cca199359eeaab2318e18c50fd75ee872ff04dec)
+
 ## 1.17.0-master.544+20211006132253
 2021-10-06
 
