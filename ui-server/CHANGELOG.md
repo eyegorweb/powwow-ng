@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.547+20211007145142
+2021-10-07
+
+### Fixes
+
+- [2962] ajout des seuils en fin du mois (6af4556da20e5dcd5b488a7c71a766e0cd3f6405)
+- [2981] déselectionner la préactivation / activation dans la commande (e0c3e09555c618d69bef88bff737f70102bdb0a6)
+
 ## 1.17.0-master.546+20211007140137
 2021-10-07
 
