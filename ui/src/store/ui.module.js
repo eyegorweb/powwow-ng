@@ -31,6 +31,7 @@ export const state = {
   downloadURI: undefined,
 
   havePendingExports: false,
+  havePendingActs: false,
 };
 
 export const getters = {
@@ -78,6 +79,10 @@ export const mutations = {
   async setPendingExportsStatus(s, havePendingExports) {
     s.havePendingExports = havePendingExports;
   },
+  async setPendingActsStatus(s, havePendingActs) {
+    s.havePendingActs = havePendingActs;
+  },
+
   async changeAppLanguage(state, lang) {
     $i18n.locale = lang;
     if (lang === 'en') {

@@ -429,9 +429,6 @@ $fontSize: 0.8rem;
     .overview-item {
       padding: 7px 10px 7px 0;
       border-bottom: 1px dashed $medium-gray;
-      &:first-child {
-        // border-bottom: none;
-      }
       &:last-child {
         border-bottom: none;
       }
