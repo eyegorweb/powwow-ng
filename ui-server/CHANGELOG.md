@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.546+20211007140137
+2021-10-07
+
+### Fixes
+
+- [2965] correction du rafraîchissement de la table des alarmes après l'activion/désactivion des alarmes (3d91f0b5381b124d48c1e11beac8052d4dd4eef8)
+
 ## 1.17.0-master.545+20211007092033
 2021-10-07
 
