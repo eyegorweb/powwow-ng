@@ -4,7 +4,7 @@ import moment from 'moment';
 export async function searchSharedConsumptionAlarm(orderBy, pagination, filters) {
   const paginationInfo = pagination
     ? `, pagination: {page: ${pagination.page}, limit: ${pagination.limit}}`
-    : '';
+    : ',pagination: {page: 0, limit: 10}';
   const orderingInfo = orderBy ? `, sorting: {${orderBy.key}: ${orderBy.direction}}` : '';
   const queryStr = `
   {
