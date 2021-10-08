@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.548+20211008092527
+2021-10-08
+
+### Fixes
+
+- [2976] corriger la création d'une alarme de sur-conso (5c9d75ce2fc6619aa26975d41d3d55ff47a4a291)
+
 ## 1.17.0-master.547+20211007145142
 2021-10-07
 
