@@ -288,7 +288,7 @@ function getScope(params) {
   }
 
   const offer = get(params, 'scope.offer.id');
-  const billingAccount = get(params, 'scope.billingAccount.value');
+  const billingAccount = get(params, 'scope.billingAccount.id');
 
   if (offer || billingAccount) {
     return 'OFFER';
@@ -316,7 +316,7 @@ function getScopeGQLParams(params) {
   }
 
   const offer = get(params, 'scope.offer.id');
-  const billingAccount = get(params, 'scope.billingAccount.value');
+  const billingAccount = get(params, 'scope.billingAccount.id');
 
   if (offer) {
     const offerGqlParams = [`idParty: {eq: ${params.scope.partnerId}}`];
