@@ -18,6 +18,8 @@
       :default-values="defaultFilterValues"
       @resetSearch="resetFilters"
       :init-page-limit="lastPagination ? lastPagination.limit : 10"
+      @update:page="onUpdatePage"
+      @update:limit="onUpdateLimit"
     >
       <div slot="title" class="mt-2 table-total" v-if="!searchError">
         {{ $t('getvsion.table.total', { total: formattedTotal }) }}
@@ -108,7 +110,7 @@ export default {
       defaultFilterValues: undefined,
       currentFilters: undefined,
       lastOrderBy: undefined,
-      lastPagination: undefined,
+      lastPagination: { page: 0, limit: 10 },
       orderBy: {
         key: 'id',
         direction: 'DESC',
@@ -413,7 +415,7 @@ export default {
     async refreshAlarms() {
       this.isLoading = true;
       try {
-        const data = await this.apiFn(this.lastOrderBy, this.lastPagination, this.currentFilters);
+        const data = await this.apiFn(this.orderBy, this.lastPagination, this.currentFilters);
         this.searchError = false;
         this.isLoading = false;
         this.total = data.total;
@@ -423,6 +425,20 @@ export default {
         this.isLoading = false;
         this.total = undefined;
         this.rows = undefined;
+      }
+    },
+    onUpdatePage(payload) {
+      if (payload) {
+        this.lastPagination.page = payload.page;
+      } else {
+        this.lastPagination.page = 0;
+      }
+    },
+    onUpdateLimit(payload) {
+      if (payload) {
+        this.lastPagination.limit = payload.limit;
+      } else {
+        this.lastPagination.limit = 10;
       }
     },
     async indicatorClick(filters) {
