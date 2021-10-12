@@ -84,7 +84,7 @@ export default {
       dataService: undefined,
       isDataParamsError: false,
       requestErrors: [],
-      isDisabled: undefined,
+      isDisabled: false,
     };
   },
   computed: {
@@ -106,8 +106,7 @@ export default {
     this.dataService = getMarketingOfferServices(this.selectedOffer.initialOffer).find((s) => {
       return s.code === 'DATA';
     });
-    this.shouldChangeData = this.dataService.checked;
-    this.isDisabled = !this.dataService.editable;
+    this.isDisabled = this.dataService && !this.dataService.editable;
   },
   methods: {
     checkErrors() {
