@@ -32,6 +32,7 @@ export const state = {
 
   havePendingExports: false,
   havePendingActs: false,
+  pendingInit: false,
 };
 
 export const getters = {
@@ -78,6 +79,11 @@ function saveFormattedWidgets(widgets) {
 export const mutations = {
   async setPendingExportsStatus(s, havePendingExports) {
     s.havePendingExports = havePendingExports;
+    s.pendingInit = true;
+  },
+  async sePtendingInit(s, pendingInit) {
+    s.pendingInit = pendingInit;
+
   },
   async setPendingActsStatus(s, havePendingActs) {
     s.havePendingActs = havePendingActs;
