@@ -173,7 +173,8 @@ export default {
   },
 
   watch: {
-    page() {
+    page(newPage) {
+      this.$emit('update:page', { page: newPage - 1 });
       this.refreshTable(this.lastSelectedFilters, this.currentOrderBy);
     },
 
@@ -181,7 +182,8 @@ export default {
       this.page = 1;
       this.refreshTable(this.lastSelectedFilters, orderBy);
     },
-    pageLimit() {
+    pageLimit(newLimit) {
+      this.$emit('update:limit', { limit: newLimit });
       this.page = 1;
       this.refreshTable(this.lastSelectedFilters, this.currentOrderBy);
     },
