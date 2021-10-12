@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.550+20211012124630
+2021-10-12
+
+### Fixes
+
+- [2988] gestion du changement de services des actes en masse (b5b50b907dcc44566738c1f12b1317f1b7de40af)
+
 ## 1.17.0-master.549+20211012093222
 2021-10-12
 
