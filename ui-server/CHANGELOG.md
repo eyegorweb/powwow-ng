@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.549+20211012093222
+2021-10-12
+
+### Fixes
+
+- [2965] corriger le tri et la pagination dans GetAlarm (8dfbc00926e1a218b61ba247f758e8c3cc782e28)
+
 ## 1.17.0-master.548+20211008092527
 2021-10-08
 
