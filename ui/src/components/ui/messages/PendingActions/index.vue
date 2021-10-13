@@ -83,12 +83,16 @@ export default {
     };
   },
   methods: {
-    ...mapMutations(['startDownload', 'setPendingExportsStatus', 'setPendingActsStatus']),
+    ...mapMutations([
+      'startDownload',
+      'setPendingExportsStatus',
+      'setPendingActsStatus',
+      'sePtendingInit',
+    ]),
 
     async refreshOperations() {
       this.pendingOperations = await fetchPendingOperations();
 
-      
       if (this.pendingOperations.length === 0) {
         this.stopWatching();
       }
@@ -99,14 +103,15 @@ export default {
           clearInterval(this.intervalCheck);
         }
 
-        let watchInterval = 5 * 1000;
-        if (this.pingCounter >= 10 && this.pingCounter < 20) {
+        let watchInterval = 2 * 1000;
+        if (this.pingCounter >= 20 && this.pingCounter <= 30) {
           watchInterval = 30 * 1000;
         }
 
-        if (this.pingCounter > 20) {
+        if (this.pingCounter > 30) {
           if (this.intervalCheck) {
             clearInterval(this.intervalCheck);
+            // annuler tous les act pendings qui ne sont pas finished => true
           }
           this.interrupted = true;
         }
@@ -119,6 +124,7 @@ export default {
           }, watchInterval);
         }
       };
+      console.log('test indentation');
 
       reevaluateIntervalAndWatch();
     },
@@ -135,10 +141,7 @@ export default {
       }
     },
     async onFinished() {
-      
       this.stopWatching();
-
-     
     },
     async dismissBackgroundOperation(requestId) {
       this.resumeWatch;
@@ -146,7 +149,6 @@ export default {
     },
     downloadFile(downloadUri) {
       this.alreadyDownloaded.push(downloadUri);
-      
       this.startDownload(getBaseURL() + downloadUri);
     },
 
@@ -172,12 +174,12 @@ export default {
   computed: {
     ...mapState({
       havePendingExports: (state) => state.ui.havePendingExports,
+      pendingInit: (state) => state.ui.pendingInit,
     }),
     finishedOperations() {
       return this.pendingOperations.filter((p) => p.finished);
     },
     allFinished() {
-      
       return (
         !!this.pendingOperations.length &&
         this.pendingOperations.length === this.finishedOperations.length
@@ -186,8 +188,8 @@ export default {
   },
   watch: {
     havePendingExports(newValue, oldValue) {
-      
-      if (newValue && !oldValue || !newValue && oldValue) {
+      console.log('havePendingExports', newValue, oldValue);
+      if ((newValue && !oldValue) || (!newValue && oldValue)) {
         this.refreshOperations();
       }
 
@@ -205,7 +207,19 @@ export default {
         this.startWatching();
       }
     },
- 
+
+    pendingInit(newValue, oldValue) {
+      console.log('pendingInit', newValue, oldValue);
+      if (newValue) {
+        this.resumeWatch();
+        this.sePtendingInit(false);
+      }
+    },
+
+    pendingOperations(newValue) {
+      console.log('pendingOperations ', newValue);
+      if (this.allFinished) this.onFinished();
+    },
   },
 };
 </script>
