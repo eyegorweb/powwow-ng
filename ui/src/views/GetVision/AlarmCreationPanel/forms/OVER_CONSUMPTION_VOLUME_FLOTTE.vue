@@ -99,6 +99,31 @@ export default {
 
   mounted() {
     if (this.duplicateFrom) {
+      if (this.duplicateFrom.levelData1 && this.duplicateFrom.dateLevelData1 == null) {
+        this.duplicateFrom.dateLevelData1 = 'endOfMonth';
+      }
+      if (this.duplicateFrom.levelData2 && this.duplicateFrom.dateLevelData2 == null) {
+        this.duplicateFrom.dateLevelData2 = 'endOfMonth';
+      }
+
+      // SMS
+      if (this.duplicateFrom.levelSms1 && this.duplicateFrom.dateLevelSms1 == null) {
+        this.duplicateFrom.dateLevelSms1 = 'endOfMonth';
+      }
+      if (this.duplicateFrom.levelSms2 && this.duplicateFrom.dateLevelSms2 == null) {
+        this.duplicateFrom.dateLevelSms2 = 'endOfMonth';
+      }
+
+      // VOICE
+      if (this.duplicateFrom.levelVoice1 && this.duplicateFrom.dateLevelVoice1 == null) {
+        this.duplicateFrom.dateLevelVoice1 = 'endOfMonth';
+      }
+      if (this.duplicateFrom.levelVoice2 && this.duplicateFrom.dateLevelVoice2 == null) {
+        this.duplicateFrom.dateLevelVoice2 = 'endOfMonth';
+      }
+    }
+
+    if (this.duplicateFrom) {
       if (this.duplicateFrom.levelDataMax) {
         this.levelsData = {
           levelMax: {

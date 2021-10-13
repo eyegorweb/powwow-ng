@@ -51,14 +51,20 @@ export default {
       if (this.duplicateFrom && this.duplicateFrom.levelSms1) {
         this.lines[1] = {
           value: this.duplicateFrom.levelSms1,
-          limit: this.duplicateFrom.dateLevelSms1,
+          limit:
+            this.duplicateFrom.levelSms1 && this.duplicateFrom.dateLevelSms1 == null
+              ? 'endOfMonth'
+              : this.duplicateFrom.dateLevelSms1,
           id: 2,
         };
       }
       if (this.duplicateFrom && this.duplicateFrom.levelSms2) {
         this.lines[2] = {
           value: this.duplicateFrom.levelSms2,
-          limit: this.duplicateFrom.dateLevelSms2,
+          limit:
+            this.duplicateFrom.levelSms2 && this.duplicateFrom.dateLevelSms2 == null
+              ? 'endOfMonth'
+              : this.duplicateFrom.dateLevelSms2,
           id: 3,
         };
       }

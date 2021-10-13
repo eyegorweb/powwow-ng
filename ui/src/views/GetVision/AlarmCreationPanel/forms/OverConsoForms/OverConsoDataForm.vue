@@ -47,7 +47,11 @@ export default {
   mounted() {
     if (this.duplicateFrom) {
       if (this.duplicateFrom && this.duplicateFrom.levelDataMax) {
-        const lastDay = parseInt(moment().endOf('month').format('DD'));
+        const lastDay = parseInt(
+          moment()
+            .endOf('month')
+            .format('DD')
+        );
         this.lines[0] = {
           value: this.duplicateFrom.levelDataMax,
           limit: lastDay,
@@ -57,14 +61,20 @@ export default {
       if (this.duplicateFrom && this.duplicateFrom.levelData1) {
         this.lines[1] = {
           value: this.duplicateFrom.levelData1,
-          limit: this.duplicateFrom.dateLevelData1,
+          limit:
+            this.duplicateFrom.dateLevelData1 == null && this.duplicateFrom.levelData1
+              ? 'endOfMonth'
+              : this.duplicateFrom.dateLevelData1,
           id: 2,
         };
       }
       if (this.duplicateFrom && this.duplicateFrom.levelData2) {
         this.lines[2] = {
           value: this.duplicateFrom.levelData2,
-          limit: this.duplicateFrom.dateLevelData2,
+          limit:
+            this.duplicateFrom.levelData2 && this.duplicateFrom.dateLevelData2 == null
+              ? 'endOfMonth'
+              : this.duplicateFrom.dateLevelData2,
           id: 3,
         };
       }
