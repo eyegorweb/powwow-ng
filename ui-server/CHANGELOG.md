@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.552+20211013150041
+2021-10-13
+
+### Fixes
+
+- [2896] intégration des actes manquants et suppression des actes en échec dans le cache (d5ee75fe39688bdd1bcd9560b38574f8f5456a22)
+- [2976] corriger la modification d'une alarmeFlotte (f01bd27afdbefa4ef14c555daa7de310647e84cf)
+
 ## 1.17.0-master.551+20211013073327
 2021-10-13
 
