@@ -5,13 +5,8 @@
         <span class="label">
           {{ $t('export-types.' + operation.taskType) }}
         </span>
-        <span v-if="!operation.finished" class="op-status">
-          {{ $t('getreport.report_statut.RUNNING') }}
-        </span>
-
         <OperationBtn
-          v-else
-          :isDownloaded="isDownloaded"
+          :is-downloaded="isDownloaded"
           :operation="operation"
           @dismissed="$emit('dismissed', $event)"
           @download="$emit('download', $event)"
@@ -31,7 +26,7 @@ import OperationMessage from './OperationMessage.vue';
 export default {
   components: {
     OperationBtn,
-    OperationMessage
+    OperationMessage,
   },
   props: {
     isDownloaded: Boolean,

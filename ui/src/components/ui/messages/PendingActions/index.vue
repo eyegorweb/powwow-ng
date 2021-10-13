@@ -77,7 +77,6 @@ export default {
       alreadyDownloaded: [],
       showModal: false,
       pingCounter: 0,
-
       intervalCheck: undefined,
       interrupted: false,
     };
@@ -87,7 +86,7 @@ export default {
       'startDownload',
       'setPendingExportsStatus',
       'setPendingActsStatus',
-      'sePtendingInit',
+      'setPendingInit',
     ]),
 
     async refreshOperations() {
@@ -111,7 +110,6 @@ export default {
         if (this.pingCounter > 30) {
           if (this.intervalCheck) {
             clearInterval(this.intervalCheck);
-            // annuler tous les act pendings qui ne sont pas finished => true
           }
           this.interrupted = true;
         }
@@ -124,7 +122,6 @@ export default {
           }, watchInterval);
         }
       };
-      console.log('test indentation');
 
       reevaluateIntervalAndWatch();
     },
@@ -140,13 +137,16 @@ export default {
         this.interrupted = false;
       }
     },
+
     async onFinished() {
       this.stopWatching();
     },
+
     async dismissBackgroundOperation(requestId) {
       this.resumeWatch;
       await deleteBackgroundOperation(requestId);
     },
+
     downloadFile(downloadUri) {
       this.alreadyDownloaded.push(downloadUri);
       this.startDownload(getBaseURL() + downloadUri);
@@ -188,7 +188,6 @@ export default {
   },
   watch: {
     havePendingExports(newValue, oldValue) {
-      console.log('havePendingExports', newValue, oldValue);
       if ((newValue && !oldValue) || (!newValue && oldValue)) {
         this.refreshOperations();
       }
@@ -208,16 +207,14 @@ export default {
       }
     },
 
-    pendingInit(newValue, oldValue) {
-      console.log('pendingInit', newValue, oldValue);
+    pendingInit(newValue) {
       if (newValue) {
         this.resumeWatch();
-        this.sePtendingInit(false);
+        this.setPendingInit(false);
       }
     },
 
-    pendingOperations(newValue) {
-      console.log('pendingOperations ', newValue);
+    pendingOperations() {
       if (this.allFinished) this.onFinished();
     },
   },

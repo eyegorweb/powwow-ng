@@ -106,7 +106,8 @@
     "ready": "operation ready",
     "expired": "Request expired",
     "acquit": "Acquit",
-    "actId": "Act id: {id}" 
+    "acquited": "Acquitted",
+    "actId": "Act id: {id}"
   },
   "export-types": {
     "EXPORT_ORDERS": "Orders export",
@@ -147,7 +148,7 @@
     "EXPORT_OFFER_DISTRIBUTION_INFO": "Dashboard export",
     "EXPORT_AREA_DISTRIBUTION_INFO": "Dashboard export",
     "EXPORT_NOT_COMPATIBLE_LINES": "Not compatible lines export",
-    "EXPOR_TEMPDATA_ERRORS": "Error export",
+    "EXPORT_TEMPDATA_ERRORS": "Error export",
     "EXPORT_GEOLOC_LIST": "Supervision export",
     "EXPORT_COUNTER": "Counter supervision export",
 
@@ -177,7 +178,8 @@
 
     "ACT_CREATE_GEOLOCATION":  "ACT_CREATE_GEOLOCATION",
     "ACT_UNTHROTTLELINE":  "ACT_UNTHROTTLELINE",
-    "ACT_CHANGE_COMMUNITY":  "ACT_CHANGE_COMMUNITY"
+    "ACT_CHANGE_COMMUNITY":  "ACT_CHANGE_COMMUNITY",
+    "ACT_VALIDATE_TRANSFERT": "Validate transfers"
 
   },
   "actions": {
@@ -1073,7 +1075,8 @@
       "FAILED": "Failed",
       "CLOSED": "Finished",
       "OK": "OK",
-      "DISABLED": "Disabled"
+      "DISABLED": "Disabled",
+      "CANCELED": "Canceled"
     },
     "dashboard": {
       "highConso": "Consumption in progress",

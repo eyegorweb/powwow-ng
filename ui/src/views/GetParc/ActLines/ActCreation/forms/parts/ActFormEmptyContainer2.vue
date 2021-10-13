@@ -58,7 +58,7 @@ export default {
   },
 
   methods: {
-    ...mapMutations(['flashMessage', 'confirmAction']),
+    ...mapMutations(['flashMessage', 'confirmAction', 'setPendingExportsStatus']),
     ...mapMutations('actLines', [
       'setActToCreate',
       'setActCreationPrerequisites',
@@ -98,6 +98,9 @@ export default {
         ? this.$t(this.successMessage)
         : this.$t('genericSuccessMessage');
       this.flashMessage({ level: 'success', message: successMessage });
+
+      // ajouter l'acte à la liste des opérations en cours du module PendingActions
+      this.setPendingExportsStatus(true);
 
       // sortir du mode création acte
       this.resetState();
