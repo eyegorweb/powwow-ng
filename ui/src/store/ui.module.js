@@ -81,9 +81,8 @@ export const mutations = {
     s.havePendingExports = havePendingExports;
     s.pendingInit = true;
   },
-  async sePtendingInit(s, pendingInit) {
+  async setPendingInit(s, pendingInit) {
     s.pendingInit = pendingInit;
-
   },
   async setPendingActsStatus(s, havePendingActs) {
     s.havePendingActs = havePendingActs;

@@ -132,7 +132,9 @@
     "ready": "Opération prête",
     "expired": "Demande expirée",
     "acquit": "Acquitter",
-    "actId": "Id Acte de gestion: {id}"
+    "acquited": "Acquitté",
+    "actId": "Id Acte de gestion: {id}",
+    "cancelQuestion": "Voulez-vous l'annuler ?"
   },
   "export-types": {
     "EXPORT_ORDERS": "Export de commandes",
@@ -173,10 +175,10 @@
     "EXPORT_OFFER_DISTRIBUTION_INFO": "Export du tableau de bord",
     "EXPORT_AREA_DISTRIBUTION_INFO": "Export du tableau de bord",
     "EXPORT_NOT_COMPATIBLE_LINES": "Export des lignes non comptatibles",
-    "EXPOR_TEMPDATA_ERRORS": "Export CR",
+    "EXPORT_TEMPDATA_ERRORS": "Export CR",
     "EXPORT_GEOLOC_LIST": "Export supervision",
     "EXPORT_COUNTER": "Export des compteurs supervision",
-    
+
     "ACT_CHANGE_SERVICES":  "Modifier services",
     "ACT_CHANGE_ICCID":  "Modifier Iccid",
     "ACT_CHANGE_MSISDN":  "Changer de MSISDN",
@@ -203,8 +205,8 @@
 
     "ACT_CREATE_GEOLOCATION":  "ACT_CREATE_GEOLOCATION",
     "ACT_UNTHROTTLELINE":  "ACT_UNTHROTTLELINE",
-    "ACT_CHANGE_COMMUNITY":  "ACT_CHANGE_COMMUNITY"
-    
+    "ACT_CHANGE_COMMUNITY":  "ACT_CHANGE_COMMUNITY",
+    "ACT_VALIDATE_TRANSFERT": "Valider les transferts"
   },
 
 
@@ -1092,7 +1094,9 @@
       "FAILED": "En erreur",
       "CLOSED": "Terminé",
       "OK": "OK",
-      "DISABLED": "Désactivé"
+      "DISABLED": "Désactivé",
+      "CANCEL": "Annuler",
+      "CANCELED": "Annulé"
     },
 
     "creation": {
