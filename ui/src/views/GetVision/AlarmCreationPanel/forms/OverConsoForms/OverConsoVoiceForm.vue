@@ -35,7 +35,11 @@ export default {
   mounted() {
     if (this.duplicateFrom) {
       if (this.duplicateFrom && this.duplicateFrom.levelVoiceMax) {
-        const lastDay = parseInt(moment().endOf('month').format('DD'));
+        const lastDay = parseInt(
+          moment()
+            .endOf('month')
+            .format('DD')
+        );
 
         this.lines[0] = {
           value: this.duplicateFrom.levelVoiceMax,
@@ -46,14 +50,20 @@ export default {
       if (this.duplicateFrom && this.duplicateFrom.levelVoice1) {
         this.lines[1] = {
           value: this.duplicateFrom.levelVoice1,
-          limit: this.duplicateFrom.dateLevelVoice1,
+          limit:
+            this.duplicateFrom.levelVoice1 && this.duplicateFrom.dateLevelVoice1 == null
+              ? 'endOfMonth'
+              : this.duplicateFrom.dateLevelVoice1,
           id: 2,
         };
       }
       if (this.duplicateFrom && this.duplicateFrom.levelVoice2) {
         this.lines[2] = {
           value: this.duplicateFrom.levelVoice2,
-          limit: this.duplicateFrom.dateLevelVoice2,
+          limit:
+            this.duplicateFrom.levelVoice2 && this.duplicateFrom.dateLevelVoice2 == null
+              ? 'endOfMonth'
+              : this.duplicateFrom.dateLevelVoice2,
           id: 3,
         };
       }

@@ -1,4 +1,5 @@
 import { query } from './utils';
+import { getSharedAlarmParamsFormatted } from './alarms';
 
 export async function updateCountryChangeAlarm(params) {
   const gqlParams = getGqlParams(params);
@@ -145,6 +146,7 @@ async function consoQuery(queryName, params) {
 }
 
 export async function updateSharedConsumptionAlarm(params) {
+  params = await getSharedAlarmParamsFormatted(params);
   const gqlParams = getSharedAlarmGqlParams(params);
 
   const queryStr = `
