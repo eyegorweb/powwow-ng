@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.551+20211013073327
+2021-10-13
+
+### Fixes
+
+- [2896] gestion timer tache de fond (a8d03dbc221168a116c5e67431928d3989267eaf)
+
 ## 1.17.0-master.550+20211012124630
 2021-10-12
 
