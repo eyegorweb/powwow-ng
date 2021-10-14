@@ -21,23 +21,9 @@
         <em v-if="clicked" class="ic-Check-Icon" />
       </a>
       <span v-else>
-        <span v-if="!canCancel" class="op-status"
-          >{{ $t('getreport.report_statut.RUNNING') }}.&nbsp;{{
-            $t('pending-actions.cancelQuestion')
-          }}
-          <a href="#" @click.prevent="canCancel = true">{{ $t('common.YES') }}</a>
-        </span>
-
-        <a
-          v-if="canCancel"
-          href="#"
-          :class="{ downloaded: isDownloaded }"
-          @click.prevent="dismissOperation"
-        >
-          <span v-if="clicked">
-            {{ $t('getreport.report_statut.CANCELED') }}
-          </span>
-          <span v-else>{{ $t('getreport.report_statut.CANCEL') }}</span>
+        <a href="#" :class="{ downloaded: isDownloaded }" @click.prevent="dismissOperation">
+          <span v-if="clicked"> {{ $t('pending-actions.acquited') }} </span>
+          <span v-else>{{ $t('pending-actions.acquit') }}</span>
 
           <em v-if="clicked" class="ic-Check-Icon" />
         </a>

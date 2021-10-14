@@ -4,6 +4,9 @@
       {{ $t('pending-actions.actId', { id: operation.successMessage }) }}
     </div>
     <div v-if="isError" class="alert-message-ko" role="alert">KO: {{ operation.errorMessage }}</div>
+    <div v-if="isPending" class="alert-message-success" role="alert">
+      {{ $t('pending-actions.title') }}
+    </div>
   </div>
 </template>
 
@@ -19,6 +22,10 @@ export default {
     },
     isError() {
       return this.operation.finished && !!this.operation.errorMessage;
+    },
+    isPending() {
+      const isExport = this.operation.taskType.startsWith('EXPORT_');
+      return !isExport && !this.operation.finished && !this.operation.errorMessage;
     },
   },
 };
