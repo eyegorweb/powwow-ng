@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.554+20211014105508
+2021-10-14
+
+### Fixes
+
+- [2896] affichage de télecharger uniquement si url (2122d88e184d0d804666c85ecd9280de44317866)
+
 ## 1.17.0-master.553+20211014091758
 2021-10-14
 
