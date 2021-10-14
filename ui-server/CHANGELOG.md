@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.553+20211014091758
+2021-10-14
+
+### Fixes
+
+- [2896] message for pending operation (d81d7299a11edd2329bd82712d0157f0ad4c80bc)
+
 ## 1.17.0-master.552+20211013150041
 2021-10-13
 
