@@ -1,33 +1,26 @@
 <template>
   <div>
     <template v-if="isExport">
-      <a href="#" :class="{ downloaded: isDownloaded }" @click.prevent="dismissOperation">
-        <span v-if="isDownloaded"> {{ $t('actions.DOWNLOADED') }} </span>
-        <span v-else> {{ $t('actions.DOWNLOAD') }} </span>
+      <template v-if="isFinished">
+        <a href="#" :class="{ downloaded: isDownloaded }" @click.prevent="dismissOperation">
+          <span v-if="isDownloaded"> {{ $t('actions.DOWNLOADED') }} </span>
+          <span v-else> {{ $t('actions.DOWNLOAD') }} </span>
 
-        <em v-if="isDownloaded" class="ic-Check-Icon" />
-      </a>
+          <em v-if="isDownloaded" class="ic-Check-Icon" />
+        </a>
+      </template>
+      <template v-else>
+        <span> {{ $t('pending-actions.pending') }} </span>
+      </template>
     </template>
+
     <template v-else>
-      <a
-        v-if="operation.finished"
-        href="#"
-        :class="{ downloaded: isDownloaded }"
-        @click.prevent="dismissOperation"
-      >
+      <a href="#" :class="{ downloaded: clicked }" @click.prevent="dismissOperation">
         <span v-if="clicked"> {{ $t('pending-actions.acquited') }} </span>
         <span v-else>{{ $t('pending-actions.acquit') }}</span>
 
         <em v-if="clicked" class="ic-Check-Icon" />
       </a>
-      <span v-else>
-        <a href="#" :class="{ downloaded: isDownloaded }" @click.prevent="dismissOperation">
-          <span v-if="clicked"> {{ $t('pending-actions.acquited') }} </span>
-          <span v-else>{{ $t('pending-actions.acquit') }}</span>
-
-          <em v-if="clicked" class="ic-Check-Icon" />
-        </a>
-      </span>
     </template>
   </div>
 </template>
@@ -52,6 +45,9 @@ export default {
     },
     isAct() {
       return this.operation.taskType.startsWith('ACT_');
+    },
+    isFinished() {
+      return this.operation.finished;
     },
   },
 

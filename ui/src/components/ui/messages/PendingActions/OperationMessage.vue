@@ -5,7 +5,7 @@
     </div>
     <div v-if="isError" class="alert-message-ko" role="alert">KO: {{ operation.errorMessage }}</div>
     <div v-if="isPending" class="alert-message-success" role="alert">
-      {{ $t('pending-actions.title') }}
+      {{ $t('pending-actions.pending') }}
     </div>
   </div>
 </template>

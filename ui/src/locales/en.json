@@ -107,7 +107,8 @@
     "expired": "Request expired",
     "acquit": "Acquit",
     "acquited": "Acquitted",
-    "actId": "Act id: {id}"
+    "actId": "Act id: {id}",
+    "pending": "In progress"
   },
   "export-types": {
     "EXPORT_ORDERS": "Orders export",
@@ -152,35 +153,33 @@
     "EXPORT_GEOLOC_LIST": "Supervision export",
     "EXPORT_COUNTER": "Counter supervision export",
 
-    "ACT_CHANGE_SERVICES":  "Modifier services",
-    "ACT_CHANGE_ICCID":  "Modifier Iccid",
-    "ACT_CHANGE_MSISDN":  "Changer de MSISDN",
+    "ACT_CHANGE_SERVICES": "Modifier services",
+    "ACT_CHANGE_ICCID": "Modifier Iccid",
+    "ACT_CHANGE_MSISDN": "Changer de MSISDN",
 
-    "ACT_CHANGE_CUSTOMER_ACCOUNT":  "changer compte facturation",
-    "ACT_TERMINATE_LINES":  "Terminer les lignes",
-    "ACT_TEMINATE_TESTS":  "Terminer une phase de test",
-    "ACT_SEND_SMS":  "Envoyer SMS",
-    "ACT_TRANSFER_SIMCARDS":  "Transferer simcards",
-    "ACT_CHANGE_CUSTOM_FIELDS":  "Modifier les champs libres",
-    "ACT_CUSTOM":  "Modifier les champs libres",
-    "ACT_SPECIFIC":  "Modifier les champs libres",
-    "ACT_CUSTOM_AND_SPECIFIC":  "Modifier les champs libres",
-    "ACT_PREACTIVATE_SIMCARD_INSTANCE":  "Préactiver simcard",
+    "ACT_CHANGE_CUSTOMER_ACCOUNT": "changer compte facturation",
+    "ACT_TERMINATE_LINES": "Terminer les lignes",
+    "ACT_TEMINATE_TESTS": "Terminer une phase de test",
+    "ACT_SEND_SMS": "Envoyer SMS",
+    "ACT_TRANSFER_SIMCARDS": "Transferer simcards",
+    "ACT_CHANGE_CUSTOM_FIELDS": "Modifier les champs libres",
+    "ACT_CUSTOM": "Modifier les champs libres",
+    "ACT_SPECIFIC": "Modifier les champs libres",
+    "ACT_CUSTOM_AND_SPECIFIC": "Modifier les champs libres",
+    "ACT_PREACTIVATE_SIMCARD_INSTANCE": "Préactiver simcard",
 
-    "ACT_VALIDATE_RESILIATION":  "Résilier",
-    "ACT_REFUSE_RESILIATION":  "Refuser résiliation",
+    "ACT_VALIDATE_RESILIATION": "Résilier",
+    "ACT_REFUSE_RESILIATION": "Refuser résiliation",
 
-    "ACT_PREACTIVATE_AND_ACTIVATE":  "Préactiver et activer",
-    "ACT_CHANGE_OFFER":  "Changer d'offre",
+    "ACT_PREACTIVATE_AND_ACTIVATE": "Préactiver et activer",
+    "ACT_CHANGE_OFFER": "Changer d'offre",
 
+    "ACT_SUSPEND_REACTIVATE_LINES": "Suspendre des lignes",
 
-    "ACT_SUSPEND_REACTIVATE_LINES":  "Suspendre des lignes",
-
-    "ACT_CREATE_GEOLOCATION":  "ACT_CREATE_GEOLOCATION",
-    "ACT_UNTHROTTLELINE":  "ACT_UNTHROTTLELINE",
-    "ACT_CHANGE_COMMUNITY":  "ACT_CHANGE_COMMUNITY",
+    "ACT_CREATE_GEOLOCATION": "ACT_CREATE_GEOLOCATION",
+    "ACT_UNTHROTTLELINE": "ACT_UNTHROTTLELINE",
+    "ACT_CHANGE_COMMUNITY": "ACT_CHANGE_COMMUNITY",
     "ACT_VALIDATE_TRANSFERT": "Validate transfers"
-
   },
   "actions": {
     "DUPLICATE": "Duplicate",
