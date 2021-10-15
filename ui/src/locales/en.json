@@ -183,7 +183,7 @@
   },
   "actions": {
     "DUPLICATE": "Duplicate",
-    "DISABLE": "Unselect",
+    "DISABLE": "Disable",
     "ENABLE": "Activate",
     "DELETE": "Delete",
     "DOWNLOAD": "Download",
