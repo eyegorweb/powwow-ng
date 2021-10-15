@@ -84,7 +84,7 @@ export default {
   },
   mounted() {
     const data = {
-      checked: false,
+      checked: this.service.checked,
       editable: this.service.editable,
       apns: this.service.parameters.map((s) => ({
         ...s,
