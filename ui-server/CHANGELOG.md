@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.556+20211015083118
+2021-10-15
+
+### Fixes
+
+- [2993] correction du contrôle des services code DATA (b941d0ecb81eef6014d890dfc6842d8f45741df6)
+
 ## 1.17.0-master.555+20211013144459
 2021-10-14
 
