@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.557+20211015090044
+2021-10-15
+
+### Fixes
+
+- [2994] Changement de libellé (89a870e7b4299c4e516e94e0be28aef7c1228d8c)
+
 ## 1.17.0-master.556+20211015083118
 2021-10-15
 
