@@ -202,6 +202,12 @@
 
     "ACT_SUSPEND_REACTIVATE_LINES": "Suspendre des lignes",
 
+    "ACT_ESIM_POLICY_RULES_UPDATE": "Mise à jour les règles de politique",
+    "ACT_ESIM_DOWNLOAD_PROFIL": "Télécharger profil",
+    "ACT_ESIM_LIBERATION_PROFIL": "Liberer profil",
+    "ACT_ESIM_STATUS_CHANGE_PROFIL": "Changement de statut",
+    "ACT_ESIM_PAIRING": "Appariement act esim",
+
     "ACT_CREATE_GEOLOCATION": "ACT_CREATE_GEOLOCATION",
     "ACT_UNTHROTTLELINE": "ACT_UNTHROTTLELINE",
     "ACT_CHANGE_COMMUNITY": "ACT_CHANGE_COMMUNITY",
