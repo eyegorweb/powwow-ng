@@ -176,6 +176,12 @@
 
     "ACT_SUSPEND_REACTIVATE_LINES": "Suspendre des lignes",
 
+    "ACT_ESIM_POLICY_RULES_UPDATE": "Act esim policy rules update",
+    "ACT_ESIM_DOWNLOAD_PROFIL": "Act esim download profil",
+    "ACT_ESIM_LIBERATION_PROFIL": "Profil de libération act esim",
+    "ACT_ESIM_STATUS_CHANGE_PROFIL": "Act esim status change profile",
+    "ACT_ESIM_PAIRING": "Act esim pairing",
+
     "ACT_CREATE_GEOLOCATION": "ACT_CREATE_GEOLOCATION",
     "ACT_UNTHROTTLELINE": "ACT_UNTHROTTLELINE",
     "ACT_CHANGE_COMMUNITY": "ACT_CHANGE_COMMUNITY",
