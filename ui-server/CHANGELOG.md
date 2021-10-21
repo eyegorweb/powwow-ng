@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.559+20211021100331
+2021-10-21
+
+### Fixes
+
+- [2896] traduction suspendreactivateline (fb2c3c97a12c80a9f0fb6cef0afb0ab15f5eab8a)
+
 ## 1.17.0-master.558+20211018130759
 2021-10-18
 
