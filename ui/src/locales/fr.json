@@ -202,6 +202,9 @@
 
     "ACT_SUSPEND_REACTIVATE_LINES": "Suspendre des lignes",
 
+    "ACT_SUSPEND_LINES": "Suspendre des lignes",
+    "ACT_REACTIVATE_LINES": "Reactiver des lignes",
+
     "ACT_ESIM_POLICY_RULES_UPDATE": "Mise à jour les règles de politique",
     "ACT_ESIM_DOWNLOAD_PROFIL": "Télécharger profil",
     "ACT_ESIM_LIBERATION_PROFIL": "Liberer profil",
