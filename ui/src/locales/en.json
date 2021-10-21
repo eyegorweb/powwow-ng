@@ -175,6 +175,8 @@
     "ACT_CHANGE_OFFER": "Changer d'offre",
 
     "ACT_SUSPEND_REACTIVATE_LINES": "Suspendre des lignes",
+    "ACT_SUSPEND_LINES": "Suspend lines",
+    "ACT_REACTIVATE_LINES": "Reactivate lines",
 
     "ACT_ESIM_POLICY_RULES_UPDATE": "Act esim policy rules update",
     "ACT_ESIM_DOWNLOAD_PROFIL": "Act esim download profil",
