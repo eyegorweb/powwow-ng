@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.561+20211027093747
+2021-10-27
+
+### Fixes
+
+- [3018] configuration de la modification permise pour modifier une adresse de livraison (90e4e4b02cd1d4846da521a4fedf15dabcbaa2a0)
+
 ## 1.17.0-master.560+20211027074406
 2021-10-27
 
