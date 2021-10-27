@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.563+20211027110456
+2021-10-27
+
+### Features
+
+- [2915] création de compte lors de la première commande (87641d66fce537cc2c097d5265753941da499c06)
+
 ## 1.17.0-master.562+20211027101147
 2021-10-27
 
