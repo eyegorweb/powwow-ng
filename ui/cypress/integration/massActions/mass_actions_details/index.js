@@ -1,11 +1,5 @@
-import { Given, When, Then } from 'cypress-cucumber-preprocessor/steps';
+import { Given, Then } from 'cypress-cucumber-preprocessor/steps';
 import massActionsPage from '../../../pageObjects/massActionsPage';
-import massActionsDetailsPage from '../../../pageObjects/massActionsDetailsPage';
-
-Given('Je vais sur la page des actes de gestion', () => {
-  massActionsPage.init();
-  cy.wait(2000);
-});
 
 Given('Je recherche par ID {string}', (id) => {
   massActionsPage.idSearch.typeId(id);
@@ -14,18 +8,12 @@ Given('Je recherche par ID {string}', (id) => {
 
 Given("Je clique sur l'ID de l'acte de gestion trouvé", () => {
   massActionsPage.clickFirstId();
-});
-
-Given('Je clique sur "Voir le résultat de l\'acte"', () => {
-  massActionsPage.detailPanel.gotoDetail();
+  cy.wait(500);
 });
 
 Given("Je vérifie que l'url contient {string}", (url) => {
   massActionsPage.verifyUrl(url);
-});
-
-When('Je clique sur le bouton "Retour"', () => {
-  massActionsDetailsPage.clickBackButton();
+  cy.wait(500);
 });
 
 Then("Je vérifie que l'url contient {string}", (url) => {

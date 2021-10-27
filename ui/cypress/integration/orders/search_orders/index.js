@@ -91,12 +91,6 @@ Then(`la table contient moins de {int} resultat`, (nbrResult) => {
   });
 });
 
-Then(`la table contient moins de {int} resultat`, (nbrResult) => {
-  orderPage.getTotal((total) => {
-    expect(total).to.be.below(nbrResult);
-  });
-});
-
 Then('Je supprime les filtres', () => {
   orderPage.filterBar.deleteFilter();
 });

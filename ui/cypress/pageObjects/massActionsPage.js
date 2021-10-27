@@ -8,10 +8,7 @@ export default {
     layout.menu.massActions();
   },
   clickClock() {
-    cy.waitGet('.icon.ic-Clock-Icon.nb-acts').click();
-  },
-  showFullHistory() {
-    cy.waitGet('.popover-content > .action-container > button').click();
+    cy.waitGet('.icon.ic-Clock-Icon.nb-acts').click({ force: true });
   },
   openDetailPanel(id) {
     cy.get('.id-cell').each(($el) => {
@@ -21,7 +18,7 @@ export default {
     });
   },
   clickFirstId() {
-    cy.waitGet('table > tbody > tr > td:first-child > div > button').click();
+    cy.waitGet('table > tbody > tr > td:first-child > div > button').click({ force: true });
   },
   verifyUrl(url) {
     cy.url().should('include', url);
@@ -29,22 +26,16 @@ export default {
   tableIsVisible() {
     cy.waitGet('table').should('be.visible');
   },
-  detailPanel: {
-    gotoDetail() {
-      cy.get('.goto-detail-button button').click();
-      cy.wait(400);
-    },
-  },
   exportFile: layout.exportFile,
   setCompleteExport() {
-    cy.get('.checkbox-container').click();
+    cy.get('.checkbox-container').click({ force: true });
   },
   idSearch: {
     typeId(id) {
       cy.waitGet('.flex-grow-1 > input').type(id);
     },
     applySearch() {
-      cy.waitGet('.col-md-3 > .btn').click();
+      cy.waitGet('.col-md-3 > .btn').click({ force: true });
     },
   },
   filterBar: {
@@ -62,12 +53,12 @@ export default {
       });
     },
     removeDefaultFilter() {
-      cy.waitGet('.card.filter-bar .close').click();
+      cy.waitGet('.card.filter-bar .close').click({ force: true });
     },
     deleteFilter() {
       cy.waitGet('div.selected-filter button')
         .last()
-        .click();
+        .click({ force: true });
     },
     creationDate: {
       toggle() {
@@ -75,13 +66,13 @@ export default {
       },
 
       openChoices() {
-        cy.waitGet('.foldable-block.is-open > .pt-3 > div > div > div').click();
+        cy.waitGet('.foldable-block.is-open > .pt-3 > div > div > div').click({ force: true });
       },
 
       preselect(choice) {
         cy.waitGet(`body > .daterangepicker > .ranges > ul > li:nth-child(${choice})`)
           .wait(500)
-          .click();
+          .click({ force: true });
       },
     },
   },

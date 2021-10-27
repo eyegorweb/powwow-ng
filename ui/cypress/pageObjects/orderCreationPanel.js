@@ -12,9 +12,9 @@ export default {
   },
   saveOrder() {
     cy.waitGet('.checkmark')
-      .click()
+      .click({ force: true })
       .waitGet('.footer > .btn')
-      .click();
+      .click({ force: true });
     cy.wait(1000);
   },
   close() {
@@ -52,12 +52,12 @@ export default {
         .type(num);
     },
     displayAllSimTypes() {
-      cy.waitGet('.productChoices > div.text-right > .show-all-types').click();
+      cy.waitGet('.productChoices > div.text-right > .show-all-types').click({ force: true });
     },
     selectSimType(indexSim) {
       cy.wait(800)
         .waitGet(`:nth-child(${indexSim}) > .d-flex > .checkbox-container > .filled > .checkmark`)
-        .click();
+        .click({ force: true });
     },
   },
   services: {
@@ -70,7 +70,7 @@ export default {
       ).select(offerName);
     },
     togglePreactivation() {
-      cy.waitGet(':nth-child(1) > label > .state--on').click();
+      cy.waitGet(':nth-child(1) > label > .state--on').click({ force: true });
     },
   },
   getServicesNames(onServicesFound) {

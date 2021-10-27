@@ -1,11 +1,6 @@
 import { Given, When, Then } from 'cypress-cucumber-preprocessor/steps';
-import layout from '../../../pageObjects/layout';
 import userSearchPage from '../../../pageObjects/userSearchPage';
 import userPage from '../../../pageObjects/userPage';
-
-Given(`je suis sur la page de recherche d'utilisateurs`, () => {
-  layout.menu.userManagement();
-});
 
 Given(`je choisis le filtre nom {string}`, (name) => {
   userSearchPage.filterBar.name.toggle();
@@ -60,12 +55,6 @@ When(`je lance la recherche`, () => {
 Then(`la table contient {int} resultat`, (nbrResult) => {
   userPage.getTotal().then((total) => {
     expect(total).to.be.equal(nbrResult);
-  });
-});
-
-Then(`la table contient plus de {int} resultat`, (nbrResult) => {
-  userPage.getTotal().then((total) => {
-    expect(total).to.be.above(nbrResult);
   });
 });
 

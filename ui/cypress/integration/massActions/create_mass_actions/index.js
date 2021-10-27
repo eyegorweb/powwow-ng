@@ -7,10 +7,6 @@ import moment from 'moment';
 let totalMassAction = 0;
 let typeMassAction = '';
 
-Given(`je suis sur la page de création d'actes de gestion`, () => {
-  layout.menu.lines();
-});
-
 Given(`je regarde le nombre d'actes de gestions`, () => {
   layout.menu.massActions(true);
 
@@ -64,6 +60,7 @@ Given(`je choisis l'acte de modification des champs libres par défaut`, () => {
   createActionsPage.actions.editFreeFields.inMass();
   createActionsPage.filters.massByPartner('Lyra');
   cy.wait(500);
+  createActionsPage.actions.editFreeFields.checkFirstLine();
   createActionsPage.actions.editFreeFields.fillFirstFreeField('new field');
   createActionsPage.actions.editFreeFields.fillSecondFreeField('test Lyra text');
   createActionsPage.actions.editFreeFields.validate();
@@ -116,7 +113,7 @@ When(`je confirme la création de l'acte`, () => {
 });
 
 When('je refuse les résiliations', () => {
-  createActionsPage.actions.activate.selectFifthLine();
+  createActionsPage.actions.activate.selectSecondLine();
   createActionsPage.actions.manageCancellation.chooseDelay('3');
   createActionsPage.actions.manageCancellation.refuseCancellation();
 });

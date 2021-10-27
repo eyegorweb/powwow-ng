@@ -1,10 +1,10 @@
-Feature: Recherche de reservations
+Feature: Recherche de réservations
 
   Je veux chercher des reservations avec des filtres
 
   Scenario: Je fais une recherche avec tous les filtres activés
     Given en tant que BO
-    And Je suis sur la page des reservations
+    And Je vais sur la page des réservations
     #And J'ouvre tous les filtres
     And Je choisis le filtre partenaire "LYRA"
     And Je ferme le filtre partenaire

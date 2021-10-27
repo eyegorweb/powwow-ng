@@ -9,9 +9,6 @@ export default {
     cy.wait(1000);
     cy.waitGet('#app > div.container > div.mt-4 > div.tabs > ol > li:nth-child(2) > a').click();
   },
-  reserveESIM() {
-    cy.waitGet('button.btn.btn-accent.btn-block').click();
-  },
   filterBar: {
     apply: filterBarSelectors.applySearch,
 
@@ -37,7 +34,7 @@ export default {
       cy.waitGet('.flex-grow-1 > input').type(id);
     },
     applySearch() {
-      cy.waitGet('.form-row > .col-md-3 > .btn').click();
+      cy.waitGet('.form-row > .col-md-3 > .btn').click({ force: true });
     },
   },
   getTotal(callbackFn) {

@@ -1,12 +1,6 @@
 import { Given, When, Then } from 'cypress-cucumber-preprocessor/steps';
 import lineDetailPage from '../../../pageObjects/lineDetailPage';
 import linesPage from '../../../pageObjects/linesPage';
-import massActionsDetailsPage from '../../../pageObjects/massActionsDetailsPage';
-
-Given(`Je suis sur la page de gestion de lignes`, () => {
-  linesPage.init();
-  cy.wait(2000);
-});
 
 Given(`je lance la recherche par ID {string}`, (id) => {
   linesPage.idSearch.typeId(id);
@@ -17,10 +11,6 @@ Given(`j'ouvre le panneau de détail de la ligne`, () => {
   lineDetailPage.openDetailPannel();
 });
 
-Given('Je clique sur "Voir le detail de la ligne"', () => {
-  lineDetailPage.openDetailLine();
-});
-
 Given('Je clique sur le bouton "Changer de carte SIM"', () => {
   lineDetailPage.buttons.changerCarteSIM.click();
 });
@@ -29,7 +19,7 @@ Given('Je clique sur le bouton "Changer de MSISDN"', () => {
   lineDetailPage.buttons.changerMSISDN.click();
 });
 
-Given('Je clique sur le bouton "Changer de CF"', () => {
+Given('Je clique sur le bouton "Changement de C.F."', () => {
   lineDetailPage.buttons.changementCF.click();
 });
 
@@ -65,20 +55,8 @@ Given("Je clique sur l'acte de masse de la premiere ligne", () => {
   lineDetailPage.tab.detailsOptions.actsDetails.openMassAction();
 });
 
-Given('Je clique sur "Voir le resultat de l\'acte"', () => {
-  lineDetailPage.tab.detailsOptions.actsDetails.showActResultClick();
-});
-
 Given("Je vérifie que l'url contient {string}", (url) => {
   lineDetailPage.tab.detailsOptions.actsDetails.verifyUrl(url);
-});
-
-When(`je clique sur voir l'en-cours`, () => {
-  lineDetailPage.inProgress.openInProgress();
-});
-
-When('Je clique sur "Voir le detail de la ligne"', () => {
-  lineDetailPage.openDetailLine();
 });
 
 When('Je clique sur le bouton "Appliquer"', () => {
@@ -93,27 +71,12 @@ When("Je clique sur l'ID de la premiere alarme", () => {
   lineDetailPage.tab.detailsOptions.alarmsDetails.openAlarmModification();
 });
 
-When('Je clique sur "Creer une alarme"', () => {
-  lineDetailPage.tab.detailsOptions.alarmsDetails.openAlarmCreation();
-});
-
 When("Je clique sur l'acte de masse de la premiere ligne", () => {
   lineDetailPage.tab.detailsOptions.actsDetails.openMassAction();
 });
 
-When('Je clique sur "Voir le detail du resultat"', () => {
-  lineDetailPage.tab.detailsOptions.actsDetails.showResultDetailsClick();
-});
-
-When('Je clique sur "Voir le resultat de l\'acte"', () => {
-  lineDetailPage.tab.detailsOptions.actsDetails.showActResultClick();
-});
-
-When('Je clique sur le bouton "Retour"', () => {
-  massActionsDetailsPage.clickBackButton();
-});
-
 Then(`la table de l'en-cours existe`, () => {
+  cy.wait(1000);
   lineDetailPage.inProgress.getTable().should('exist');
 });
 
@@ -151,6 +114,8 @@ Then("Je peux cliquer sur les boutons et les panneaux s'ouvrent", () => {
   lineDetailPage.panel.closePanel();
   lineDetailPage.buttons.changerOffre.clickable();
   lineDetailPage.buttons.changerOffre.click();
+  lineDetailPage.panel.isVisible();
+  lineDetailPage.panel.closePanel();
 });
 
 Then('Le tableau de consommation est present dans l\'onglet "EN COURS DE CONSOMMATION"', () => {
@@ -184,6 +149,7 @@ Then('Je verifie que les boutons ne sont pas clickable', () => {
 
 Then('Je confirme le changement', () => {
   lineDetailPage.buttons.save();
+  lineDetailPage.panel.closePanel();
 });
 
 Then("Le panneau s'est ouvert", () => {
@@ -193,10 +159,6 @@ Then("Le panneau s'est ouvert", () => {
 
 Then("La page de l'acte de gestion s'est ouverte", () => {
   lineDetailPage.tab.detailsOptions.actsDetails.verifyUrlActDetail();
-});
-
-Then('Je clique sur le bouton "Retour"', () => {
-  lineDetailPage.goBack();
 });
 
 Then("Je vérifie que l'url contient {string}", (url) => {

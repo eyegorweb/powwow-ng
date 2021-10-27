@@ -1,4 +1,4 @@
-Feature: Détail d'un acte de gestion
+Feature: Détails d'un acte de gestion
 
 @ignore
 Scenario: Je fais un export des actes de gestion

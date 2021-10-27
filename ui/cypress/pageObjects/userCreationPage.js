@@ -3,7 +3,7 @@ export default {
     cy.waitGet('.user-types > div.item > button:nth-child(' + index + ')').click({ force: true });
   },
   selectGender(index) {
-    cy.waitGet('.gender > label:nth-child(' + index + ') > span').click();
+    cy.waitGet('.gender > label:nth-child(' + index + ') > span').click({ force: true });
   },
   selectLanguage(value) {
     cy.waitGet('.language > div > div > select').select(value);
@@ -11,7 +11,7 @@ export default {
   typePartner(partner) {
     cy.waitGet('.partner > fieldset > input').type(partner);
     cy.wait(400);
-    cy.waitGet('.autocomplete-result:first-child').click();
+    cy.waitGet('.autocomplete-result:first-child').click({ force: true });
   },
   typePartnerGroup(partnerGroup) {
     cy.waitGet('.partner-group > fieldset > input').type(partnerGroup);
@@ -43,9 +43,11 @@ export default {
     cy.waitGet('.password-confirm > input').type(password);
   },
   checkRole(index) {
-    cy.waitGet('.roles > div.checkboxes > div:nth-child(' + index + ') > label > span').click();
+    cy.waitGet('.roles > div.checkboxes > div:nth-child(' + index + ') > label > span').click({
+      force: true,
+    });
   },
   save() {
-    cy.waitGet('.footer-panel-buttons > div > div:last-child > button').click();
+    cy.waitGet('.footer-panel-buttons > div > div:last-child > button').click({ force: true });
   },
 };

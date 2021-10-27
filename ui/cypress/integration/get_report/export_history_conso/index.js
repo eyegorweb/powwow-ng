@@ -1,11 +1,6 @@
-import { Given, When, Then, And } from 'cypress-cucumber-preprocessor/steps';
-import layout from '../../../pageObjects/layout';
+import { Given, When, Then } from 'cypress-cucumber-preprocessor/steps';
 import dashboardExport from '../../../pageObjects/dashboardExport';
 import getReportPage from '../../../pageObjects/getReportPage';
-
-Given(`je suis sur la page du dashboard getReport`, () => {
-  layout.menu.dashboard();
-});
 
 Given(`j'export l'historique de conso`, () => {
   dashboardExport.export.historyConsoExport();

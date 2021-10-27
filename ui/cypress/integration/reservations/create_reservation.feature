@@ -1,12 +1,12 @@
-Feature: Création de réservation
+Feature: Création de réservations
 
   Tests permettant de vérifier la création de réservation
 
   @ignore
   Scenario: Je veux créer une réservation sans appairage
     Given en tant que BO
-    And Je suis sur la page des réservations
-    And Je clique sur "Réserver des eSIM"
+    And Je vais sur la page des réservations
+    And je clique sur le bouton "Réserver des eSIM"
     And Je choisis le partenaire "lyra"
     And Je choisis le compte de facturation "6.42661"
     And Je passe à l'étape suivante

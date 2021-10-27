@@ -27,11 +27,6 @@ Given(`je choisis l'activation et une offre`, () => {
   orderCreationPanel.services.chooseOffer('AUCHAN_OFFRE_DATA2');
 });
 
-Given(`je choisis le partenaire de commande {string}`, (orderPartner) => {
-  orderCreationPanel.client.choosePartner(orderPartner);
-  orderCreationPanel.next();
-});
-
 Given(`je choisis la commande par défaut`, () => {
   orderCreationPanel.client.choosePartner('Auchan');
   orderCreationPanel.next();

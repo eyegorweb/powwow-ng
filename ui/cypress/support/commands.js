@@ -24,13 +24,27 @@ Cypress.Commands.add('startAsBO', () => {
   }
 });
 
-Cypress.Commands.add('startAsPartner', () => {
-  if (cy.currentUserType !== 'partner') {
+Cypress.Commands.add('startAsPartnerLyra', () => {
+  if (cy.currentUserType !== 'partnerLyra') {
     cy.userIsMonoPartner = false;
-    cy.visit(Cypress.env('APP_URL') + 'p/callback#access_token=' + Cypress.env('PARTNER_TOKEN'));
+    cy.visit(Cypress.env('APP_URL') + 'p/callback#access_token=' + Cypress.env('PARTNER_LYRA_TOKEN'));
     cy.get('#app-loader').should('not.be.visible');
     cy.url().should('eq', Cypress.env('APP_URL') + 'p/');
-    cy.currentUserType = 'partner';
+    cy.currentUserType = 'partnerLyra';
+  } else {
+    cy.get('.logoPart > a').click({
+      force: true,
+    });
+  }
+});
+
+Cypress.Commands.add('startAsPartnerAuchan', () => {
+  if (cy.currentUserType !== 'partnerAuchan') {
+    cy.userIsMonoPartner = false;
+    cy.visit(Cypress.env('APP_URL') + 'p/callback#access_token=' + Cypress.env('PARTNER_AUCHAN_TOKEN'));
+    cy.get('#app-loader').should('not.be.visible');
+    cy.url().should('eq', Cypress.env('APP_URL') + 'p/');
+    cy.currentUserType = 'partnerAuchan';
   } else {
     cy.get('.logoPart > a').click({
       force: true,

@@ -1,9 +1,9 @@
-Feature: Je teste la page de gestion des documents
+Feature: Gestion des documents
 
-Je veux tester la page de gestion des documents
+  Je veux tester la page de gestion des documents
 
-#Apparition des documents trop aléatoire pour des tests rapides
-#Les tests fonctionnent (testé manuellement en changeant les noms, etc...)
+  #Apparition des documents trop aléatoire pour des tests rapides
+  #Les tests fonctionnent (testé manuellement en changeant les noms, etc...)
 
   @ignore
   Scenario: Je veux télécharger un document

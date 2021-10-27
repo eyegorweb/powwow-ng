@@ -1,14 +1,7 @@
-/* eslint-disable prettier/prettier */
 import { Given, When, Then } from 'cypress-cucumber-preprocessor/steps';
 
 import reservations from '../../../pageObjects/reservationsPage';
 import reservationDetail from '../../../pageObjects/reservationDetailPage';
-
-Given('Je suis sur la page des reservations', () => {
-  reservations.init();
-
-  cy.wait(1000);
-});
 
 Given('Je lance la recherche par ID {string}', (id) => {
   reservations.idSearch.selectIdType();

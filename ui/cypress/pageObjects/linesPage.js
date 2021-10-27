@@ -19,7 +19,7 @@ export default {
   chooseExportType(exportType) {
     cy.get('.exportTypes button').each(($el) => {
       if ($el.text().trim() === exportType) {
-        cy.wrap($el).click();
+        cy.wrap($el).click({ force: true });
       }
     });
   },
@@ -28,14 +28,14 @@ export default {
     cy.get('.exportTypes .dropdown-toggle').click();
     cy.get('.dropdown-item').each(($el) => {
       if ($el.text().trim() === exportType) {
-        cy.wrap($el).click();
+        cy.wrap($el).click({ force: true });
       }
     });
   },
 
   showAllLines() {
     cy.waitGet('.search-id-button')
-      .click()
+      .click({ force: true })
       .wait(500);
   },
 
@@ -58,7 +58,7 @@ export default {
         .type(id);
     },
     applySearch() {
-      cy.waitGet('.form-row > .col-md-3 > .btn').click();
+      cy.waitGet('.form-row > .col-md-3 > .btn').click({ force: true });
     },
   },
   modal: {
@@ -66,13 +66,13 @@ export default {
       cy.waitGet('.modal-footer > div > button').click({ force: true });
     },
     save() {
-      cy.waitGet('div.modal-footer button.btn-success').click();
+      cy.waitGet('div.modal-footer button.btn-success').click({ force: true });
     },
   },
   filterBar: {
     apply: filterBarSelectors.applySearch,
     showAllTypes() {
-      cy.waitGet('.show-all-types').click();
+      cy.waitGet('.show-all-types').click({ force: true });
     },
     partner: new MultiSelectFilter(1),
     billingAccount: new MultiSelectFilter(2),
@@ -82,30 +82,32 @@ export default {
     lineStatus: new MultiSelectFilter(8),
     billingStatus: new MultiSelectFilter(10),
     close() {
-      cy.waitGet(`.ic-Arrow-Up-Icon`).click();
+      cy.waitGet(`.ic-Arrow-Up-Icon`).click({ force: true });
     },
     saveFilter(filterName) {
-      cy.waitGet('button.save-filter-btn').click();
+      cy.waitGet('button.save-filter-btn').click({ force: true });
       cy.waitGet('label.filter-name > input').type(filterName);
-      cy.waitGet('button.save-new-filter-btn').click();
+      cy.waitGet('button.save-new-filter-btn').click({ force: true });
     },
     deleteFilter() {
       cy.waitGet('div.selected-filter button')
         .first()
-        .click();
+        .click({ force: true });
     },
     openSavedFilter() {
-      cy.waitGet('div.card-body > div:nth-child(2) > div.pt-3 > div:first-child > a').click();
+      cy.waitGet('div.card-body > div:nth-child(2) > div.pt-3 > div:first-child > a').click({
+        force: true,
+      });
     },
     clickFirstSavedFilter() {
       cy.waitGet(
         'div.card-body > div:nth-child(2) > div.pt-3 > div.pt-3 > div > div > span'
-      ).click();
+      ).click({ force: true });
     },
     deleteSavedFilter() {
       cy.waitGet(
         'div.card-body > div:nth-child(2) > div.pt-3 > div.pt-3 > div > div > button'
-      ).click();
+      ).click({ force: true });
     },
     checkFilters(partner, billingAccount) {
       cy.waitGet('div.selected-filter span.detail')

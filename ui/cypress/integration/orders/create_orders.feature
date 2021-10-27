@@ -1,4 +1,4 @@
-Feature: Création de commande
+Feature: Création de commandes
 
   Je veux pouvoir créer des commandes
 

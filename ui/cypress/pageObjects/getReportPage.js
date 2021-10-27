@@ -5,16 +5,16 @@ export default {
         '#app > div.container > div.mt-4 > div.filters-container > div.filter-item-large > div > fieldset > input'
       )
         .first()
-        .click()
+        .click({ force: true })
         .type(partner)
         .wait(800)
         .waitGet(
           '#app > div.container > div.mt-4 > div.filters-container > div.filter-item-large > div > fieldset > ul > li:nth-child(1)'
         )
-        .click();
+        .click({ force: true });
     },
     applyFilter() {
-      cy.waitGet(':nth-child(4) > .btn').click();
+      cy.waitGet(':nth-child(4) > .btn').click({ force: true });
     },
     getHistoryConsoGraph() {
       return cy.waitGet('.cmp-conso-history-data-graph .highcharts-container');
@@ -22,19 +22,21 @@ export default {
   },
   report: {
     create() {
-      cy.waitGet('#app > div.container > div.mt-4 > div.row.mb-4 > div.col-md-3 > button').click();
+      cy.waitGet('#app > div.container > div.mt-4 > div.row.mb-4 > div.col-md-3 > button').click({
+        force: true,
+      });
     },
     creation: {
       choosePartner(partner) {
         cy.waitGet(
           '#main-sliding-panel > div > div > div > div > div.panelContent > div.checkBoxesContainer > div.position-relative > fieldset > input'
         )
-          .click()
+          .click({ force: true })
           .type(partner)
           .waitGet(
             '#main-sliding-panel > div > div > div > div > div.panelContent > div.checkBoxesContainer > div.position-relative > fieldset > ul > li:nth-child(1)'
           )
-          .click();
+          .click({ force: true });
       },
       selectReportModel(reportModel) {
         cy.waitGet(
@@ -45,7 +47,7 @@ export default {
         cy.waitGet(
           '#main-sliding-panel > div > div > div > div > div.fileInfo > div > div:nth-child(1) > label > input[type=text]'
         )
-          .click()
+          .click({ force: true })
           .type(rapportName);
       },
       selectFormat(format) {
@@ -57,7 +59,7 @@ export default {
     validateCreation(reportName) {
       cy.waitGet(
         '#main-sliding-panel > div > div > div > div > div.fileInfo > div > div:nth-child(3) > button > span'
-      ).click();
+      ).click({ force: true });
     },
     changeNameIfDoesExist(reportName) {
       if (

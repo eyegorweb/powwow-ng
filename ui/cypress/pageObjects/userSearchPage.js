@@ -7,14 +7,14 @@ export default {
       cy.get(
         '#app > div.container > div.mt-4 > div:nth-child(2) > div > div.col-md-9 > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div > div > form > div > div.form-group.mb-0.col-md-8 > label > input[type=text]'
       )
-        .click()
+        .click({ force: true })
         .clear({ force: true })
         .type(user);
     },
     launchSearch() {
       cy.get(
         '#app > div.container > div.mt-4 > div:nth-child(2) > div > div.col-md-9 > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div > div > form > div > div.form-group.col-md-3.mb-0 > button'
-      ).click();
+      ).click({ force: true });
     },
     reinit() {
       cy.waitGet('div.col-md-9 > div:nth-child(2) > div > div:nth-child(1) > button').click({
@@ -31,13 +31,15 @@ export default {
     partner: new MultiSelectFilter(6),
     status: {
       toggle() {
-        cy.waitGet('span > .foldable-block:nth-child(4) > .d-flex > .p-0 > i').click();
+        cy.waitGet('span > .foldable-block:nth-child(4) > .d-flex > .p-0 > i').click({
+          force: true,
+        });
       },
       selectStatus(status) {
         let path;
         if (status == 'Actif') path = '.item > :nth-child(1)';
         else if (status == 'Non actif') path = '.item > :nth-child(2)';
-        cy.waitGet(path).click();
+        cy.waitGet(path).click({ force: true });
       },
     },
     getSelectedFilters(onFilterFoundFn) {
@@ -52,7 +54,7 @@ export default {
     deleteFilter() {
       cy.waitGet('div.selected-filter button')
         .first()
-        .click();
+        .click({ force: true });
     },
   },
 };

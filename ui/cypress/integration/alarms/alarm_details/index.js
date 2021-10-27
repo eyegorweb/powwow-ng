@@ -1,7 +1,6 @@
 import { Given, When, Then } from 'cypress-cucumber-preprocessor/steps';
 import get from 'lodash.get';
 
-import layout from '../../../pageObjects/layout';
 import alarmsPage from '../../../pageObjects/alarmsPage';
 import alarmsDetailPage from '../../../pageObjects/alarmsDetailPage';
 import createAlarmsPage from '../../../pageObjects/createAlarmsPage';
@@ -9,11 +8,6 @@ import createAlarmsPage from '../../../pageObjects/createAlarmsPage';
 let idAlarm = '';
 
 // Instructions communes à plusieurs tests
-
-Given(`je suis sur la page de création d'alarmes`, () => {
-  layout.menu.alarms();
-  cy.wait(400);
-});
 
 Given(`je suis sur la page détail de l'alarme créée`, () => {
   alarmsPage.clickFirstId();
