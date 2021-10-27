@@ -110,6 +110,23 @@
     "actId": "Act id: {id}",
     "pending": "In progress"
   },
+  "digitalOffer": {
+    "accountCreation": "Account creation",
+    "simType": "SIM",
+    "offer": "Offer",
+    "delivery": "Delivery",
+    "step1": {
+      "company": "Company name",
+      "siren": "Siren",
+      "lastName": "Name of the responsible",
+      "firstName": "First name of the responsible",
+      "phone": "Phone"
+    },
+    "synthesis": {
+      "title": "Order Summary",
+      "company": "Society"
+    }
+  },
   "export-types": {
     "EXPORT_ORDERS": "Orders export",
     "EXPORT_SIMCARD_INSTANCES": "Lines export",

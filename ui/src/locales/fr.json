@@ -136,6 +136,25 @@
     "actId": "Id Acte de gestion: {id}",
     "pending": "En cours"
   },
+  "digitalOffer": {
+    "accountCreation": "Création de compte",
+    "simType": "SIM",
+    "offer": "Offre",
+    "delivery": "Livraison",
+    "step1": {
+      "company": "Nom de la société",
+      "siren": "Siren",
+      "lastName": "Nom du responsable",
+      "firstName": "Prénom du responsable",
+      "phone": "Téléphone"
+    },
+    "synthesis": {
+      "title": "Récapitulatif de la commande",
+      "company": "Société",
+      "billingAddress": "Adresse de facturation",
+      "price": "Prix unitaire"
+    }
+  },
   "export-types": {
     "EXPORT_ORDERS": "Export de commandes",
     "EXPORT_SIMCARD_INSTANCES": "Export de lignes",

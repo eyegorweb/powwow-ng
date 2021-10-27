@@ -60,7 +60,6 @@ export default {
 <style scoped lang="scss">
 .step-label {
   display: block;
-  flex-basis: 91px;
 
   &.is-current {
     font-weight: bold;
