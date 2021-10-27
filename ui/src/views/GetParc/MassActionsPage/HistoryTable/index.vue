@@ -161,7 +161,7 @@ export default {
           label: this.$t('getparc.history.col.target'),
           name: 'targetActionNumber',
           sortingName: 'TARGET_ACTION_NUMBER',
-          orderable: true,
+          orderable: false,
           visible: true,
         },
         {
@@ -179,7 +179,7 @@ export default {
           label: this.$t('getparc.history.col.rate'),
           name: 'rateActionNumber',
           sortingName: 'UNIT_ACTIONS_FAILED',
-          orderable: true,
+          orderable: false,
           visible: true,
           format: {
             component: RateCell,
