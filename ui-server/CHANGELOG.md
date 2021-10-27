@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.562+20211027101147
+2021-10-27
+
+### Fixes
+
+- [3019] gestion du tri des actes de gestion (e8daa4fb25b73f146829d48b4be602329050441d)
+
 ## 1.17.0-master.561+20211027093747
 2021-10-27
 
