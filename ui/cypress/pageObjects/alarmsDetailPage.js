@@ -14,23 +14,23 @@ export default {
             .toLowerCase()
             .includes(labelToChoose.toLowerCase())
         ) {
-          cy.wrap($el).click();
+          cy.wrap($el).click({ force: true });
         }
       });
     },
   },
   modal: {
     confirm() {
-      cy.waitGet('.modal-footer > div > .btn-success').click();
+      cy.waitGet('.modal-footer > div > .btn-success').click({ force: true });
     },
   },
   selectFirstLine() {
-    cy.waitGet(
-      'table > tbody > tr:first-child > td:first-child > div > div > label > span'
-    ).click();
+    cy.waitGet('table > tbody > tr:first-child > td:first-child > div > div > label > span').click({
+      force: true,
+    });
   },
   clickReactivateLineAlarm() {
-    cy.waitGet('.reactivate-line-alarm').click();
+    cy.waitGet('.reactivate-line-alarm').click({ force: true });
   },
   verifyUrl(id) {
     cy.url().should('include', '/alarm/' + id);

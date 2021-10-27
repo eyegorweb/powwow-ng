@@ -4,19 +4,10 @@ import partnerDetailPage from '../../../pageObjects/partnerDetailPage';
 
 /* Instructions utilisees par plusieurs tests */
 
-Given('Je suis sur la page de gestion des partenaires', () => {
-  partnerPage.init();
-  cy.wait(1000); // changer a 400, 2000 ou 3000 uniquement pour connexion lente et chargement long de la page
-});
-
 Given('Je vais sur la page de detail du partenaire LYRA', () => {
   partnerPage.init();
-  cy.wait(400); // changer a 400, 2000 ou 3000 uniquement pour connexion lente et chargement long de la page
+  cy.wait(800); // changer a 400, 2000 ou 3000 uniquement pour connexion lente et chargement long de la page
   partnerDetailPage.goToPartnerDetail();
-});
-
-Given('Je clique sur le bouton "Enregistrer"', () => {
-  partnerDetailPage.panel.save();
 });
 
 Given("Le panneau s'ouvre et est visible", () => {
@@ -27,70 +18,18 @@ Given('Je ferme le panneau', () => {
   partnerDetailPage.panel.closePanel();
 });
 
-When('Je clique sur le bouton "Enregistrer"', () => {
-  partnerDetailPage.panel.save();
-});
-
 Then("Le panneau s'ouvre et est visible", () => {
   partnerDetailPage.panel.isVisible();
 });
 
 /* Navigation */
 
-Given('Je vais sur l\'onglet "Gestionnaire des utilisateurs"', () => {
-  partnerDetailPage.tabs.userManagement.goTo();
+Given("Je vais sur l'onglet {string} et vérifie l'URL {string}", (tabName, tabUrl) => {
+  partnerDetailPage.tabs.goToTab(tabName, tabUrl);
 });
 
-Given('Je vais sur l\'onglet "Personnalisation"', () => {
-  partnerDetailPage.tabs.customization.goTo();
-});
-
-Given('Je vais sur l\'onglet "Comptes de facturation"', () => {
-  partnerDetailPage.tabs.billingAccount.goTo();
-});
-
-Given('Je vais sur l\'onglet "Offres et cartes SIM"', () => {
-  partnerDetailPage.tabs.offersAndSimCards.goTo();
-});
-
-Given('Je vais sur l\'onglet "Detail du compte"', () => {
-  partnerDetailPage.tabs.accountDetails.goTo();
-});
-
-Given('Je vais dans la section "Administrateurs"', () => {
-  partnerDetailPage.tabs.userManagement.administrators.goTo();
-});
-
-Given('Je vais dans la section "Utilisateurs"', () => {
-  partnerDetailPage.tabs.userManagement.users.goTo();
-});
-
-Given('Je vais dans la section "Listes de diffusion"', () => {
-  partnerDetailPage.tabs.customization.mailingList.goTo();
-});
-
-Given('Je vais dans la section "Adresses de livraison"', () => {
-  partnerDetailPage.tabs.customization.deliveryAddresses.goTo();
-});
-
-Given('Je vais dans la section "Champs libres"', () => {
-  partnerDetailPage.tabs.customization.customFields.goTo();
-});
-
-Given('Je vais dans la section "Champs specifiques"', () => {
-  partnerDetailPage.tabs.customization.specificFields.goTo();
-});
-
-Given('Je vais dans la section "Cartes SIM"', () => {
-  partnerDetailPage.tabs.offersAndSimCards.simCards.goTo();
-});
-
-Given('Je vais dans la section "Offres"', () => {
-  partnerDetailPage.tabs.offersAndSimCards.offers.goTo();
-});
-
-Given('Je vais dans la section "Options du partenaire"', () => {
-  partnerDetailPage.tabs.accountDetails.partnerOptions.goTo();
+Given("Je vais dans la section {string} et vérifie l'URL {string}", (sectionName, sectionUrl) => {
+  partnerDetailPage.tabs.goToSection(sectionName, sectionUrl);
 });
 
 /* Je peux naviguer entre tous les differents onglets de la page de detail d'un partenaire */
@@ -149,7 +88,7 @@ Then("Le prenom de l'utilisateur a bien ete modifie par {string}", (newFirstname
 /* Le panneau s'ouvre lorsque je clique sur le bouton "Ajouter un utilisateur", onglet "Gestion des utilisateurs",
 section "Utilisateurs" */
 
-When('Je clique sur bouton "Ajouter un utilisateur"', () => {
+When('Je clique sur le bouton "Ajouter un utilisateur"', () => {
   partnerDetailPage.tabs.userManagement.users.clickAddNewUserButton();
 });
 
@@ -208,10 +147,6 @@ Given("Je rentre les informations necessaire a la creation d'une adresse de livr
   partnerDetailPage.tabs.customization.deliveryAddresses.edit.postalCode('75000');
   partnerDetailPage.tabs.customization.deliveryAddresses.edit.city('Paris');
   partnerDetailPage.tabs.customization.deliveryAddresses.edit.country('France');
-});
-
-When('Je clique sur le bouton "Enregistrer" Adresses de livraison', () => {
-  partnerDetailPage.tabs.customization.deliveryAddresses.save();
 });
 
 Then("L'adresse de livraison a correctement ete cree", () => {
@@ -277,10 +212,6 @@ Given('Je modifie la zone de taxe a {string}', (taxArea) => {
   partnerDetailPage.tabs.billingAccount.edit.taxArea(taxArea);
 });
 
-Given('Je clique sur le bouton "Mettre a jour" Comptes de facturation', () => {
-  partnerDetailPage.tabs.billingAccount.edit.save();
-});
-
 When('Je clique sur le bouton "Retour a la liste des C.F."', () => {
   partnerDetailPage.tabs.billingAccount.edit.return();
 });
@@ -295,7 +226,7 @@ Given('Je clique sur le bouton de gestion', () => {
   partnerDetailPage.tabs.offersAndSimCards.manageButton();
 });
 
-When('Je clique sur le bouton "Desactiver"', () => {
+When('Je clique sur le bouton "Désactiver"', () => {
   partnerDetailPage.tabs.offersAndSimCards.unselectButtonFirstCard();
 });
 
@@ -305,10 +236,6 @@ Then("Le message de confirmation apparait et je peux confirmer l'action", () => 
 });
 
 /* La confirmation de modification apparait sur l'ecran apres l'enregistrement des options du partenaire, onglet "Detail du compte", section "Options du partenaire" */
-
-When('Je clique sur le bouton "Enregistrer" Options du partenaire', () => {
-  partnerDetailPage.tabs.accountDetails.partnerOptions.save();
-});
 
 Then('Le message de confirmation apparait et je peux fermer le message', () => {
   partnerDetailPage.modal.isVisible();

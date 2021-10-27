@@ -1,5 +1,4 @@
 import { Given, When, Then } from 'cypress-cucumber-preprocessor/steps';
-import layout from '../../../pageObjects/layout';
 import userCreationPage from '../../../pageObjects/userCreationPage';
 import userPage from '../../../pageObjects/userPage';
 
@@ -8,11 +7,6 @@ let firstname = '';
 let login = '';
 
 // Instructions communes
-
-Given('Je suis sur la page de gestion des utilisateurs', () => {
-  layout.menu.userManagement();
-  cy.wait(500);
-});
 
 Given('Je rentre le prénom {string}', (firstname) => {
   userCreationPage.typeFirstname(firstname);
@@ -25,10 +19,8 @@ When("J'enregistre l'utilisateur", () => {
 
 // Création utilisateur
 
-Given('Je clique sur "Ajouter un utilisateur"', () => {
-  cy.wait(400);
+Given('Je récupère le nombre d\'utilisateur', () => {
   getTotal();
-  userPage.addUser();
 });
 
 Given("Je choisis le type d'utilisateur {string}", (index) => {
@@ -163,8 +155,8 @@ Given('Je récupère le prénom', () => {
   getFirstname();
 });
 
-When("Je recherche l'utilisateur {string}", (userLogin) => {
-  userPage.searchUserByLogin(userLogin);
+When("Je recherche l'utilisateur", () => {
+  userPage.searchUserByLogin(login);
 });
 
 Then("Je vérifie la modification de l'utilisateur", () => {

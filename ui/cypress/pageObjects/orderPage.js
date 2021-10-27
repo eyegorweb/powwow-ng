@@ -35,7 +35,7 @@ export default {
     deleteFilter() {
       cy.waitGet('div.selected-filter button')
         .first()
-        .click();
+        .click({ force: true });
     },
   },
   idSearch: {

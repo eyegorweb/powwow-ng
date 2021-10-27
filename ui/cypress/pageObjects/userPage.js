@@ -1,25 +1,25 @@
 export default {
   addUser() {
-    cy.waitGet('button.btn-accent').click();
+    cy.waitGet('button.btn-accent').click({ force: true });
   },
   searchUserByLogin(userLogin) {
     cy.get('.d-block > input')
-      .click()
+      .click({ force: true })
       .clear()
       .type(userLogin)
       .wait(200)
       .get('.form-row > .col-md-3 > .btn')
-      .click()
+      .click({ force: true })
       .wait(400);
   },
   clickModifyButton() {
     cy.waitGet(
       'table > tbody > tr:nth-child(1) > td:nth-child(9) > div > div > div > button'
-    ).click();
+    ).click({ force: true });
     cy.wait(400);
     cy.waitGet(
       'table > tbody > tr:nth-child(1) > td:nth-child(9) > div > div > div > div > div > div > button:nth-child(3)'
-    ).click();
+    ).click({ force: true });
   },
   getTotal() {
     return new Promise((resolve) => {

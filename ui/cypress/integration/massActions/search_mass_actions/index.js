@@ -3,10 +3,6 @@ import massActionsPage from '../../../pageObjects/massActionsPage';
 import moment from 'moment';
 import get from 'lodash.get';
 
-Given(`je suis sur l'historique des actes de gestion`, () => {
-  massActionsPage.init();
-});
-
 Given(`j'enlève le filtre par défaut`, () => {
   massActionsPage.filterBar.removeDefaultFilter();
 });
@@ -68,10 +64,6 @@ When(`je lance un Export Complet`, () => {
   massActionsPage.setCompleteExport();
   massActionsPage.exportFile.chooseFormat('csv');
   massActionsPage.exportFile.confirmExport();
-});
-
-When('Je clique sur "Voir l\'historique complet"', () => {
-  massActionsPage.showFullHistory();
 });
 
 Then("Je suis sur l'historique des actes de gestion", () => {

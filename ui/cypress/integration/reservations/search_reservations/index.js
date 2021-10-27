@@ -2,12 +2,6 @@ import { Given, When, Then } from 'cypress-cucumber-preprocessor/steps';
 
 import reservations from '../../../pageObjects/reservationsPage';
 
-Given('Je suis sur la page des reservations', () => {
-  reservations.init();
-
-  cy.wait(1000);
-});
-
 Given("J'ouvre tous les filtres", () => {
   reservations.filterBar.showAllTypes();
 });

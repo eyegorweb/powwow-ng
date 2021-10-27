@@ -1,30 +1,9 @@
 import { Given, When, Then } from 'cypress-cucumber-preprocessor/steps';
 import indicators from '../../../pageObjects/indicatorsPage';
-import layout from '../../../pageObjects/layout';
-
-Given('Je suis sur la page de gestion des commandes', () => {
-  layout.menu.getSim();
-  cy.wait(2000);
-});
-
-Given('Je suis sur la page de gestion des lignes', () => {
-  layout.menu.lines();
-  cy.wait(2000);
-});
-
-Given('Je suis sur la page des actes de gestion', () => {
-  layout.menu.massActions();
-  cy.wait(2000);
-});
 
 Given('Je selectionne le partenaire {string} dans la barre de contexte', (partner) => {
   indicators.contextBar.writePartner(partner);
   indicators.contextBar.choosePartner();
-});
-
-Given('Je clique sur le bouton "Appliquer"', () => {
-  indicators.contextBar.apply();
-  cy.wait(400);
 });
 
 Given('Je supprime le partenaire B de la barre de contexte', () => {
@@ -38,12 +17,7 @@ Given('Je selectionne le partenaire {string} dans les filtres', (partner) => {
   indicators.filterBar.partner.toggle();
 });
 
-When('Je clique sur le bouton "Appliquer"', () => {
-  indicators.contextBar.apply();
-  cy.wait(400);
-});
-
-When('Je clique sur le bouton "Appliquer un filtre"', () => {
+When("J'applique les filtres", () => {
   indicators.filterBar.apply();
   cy.wait(400);
 });

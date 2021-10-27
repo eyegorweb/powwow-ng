@@ -1,19 +1,8 @@
 import { Given, When, Then } from 'cypress-cucumber-preprocessor/steps';
 
-import reservations from '../../../pageObjects/reservationsPage';
 import createReservations from '../../../pageObjects/createReservationPage';
 
 let totalReservation = 0;
-
-Given('Je suis sur la page des réservations', () => {
-  reservations.init();
-  cy.wait(1000);
-});
-
-Given('Je clique sur "Réserver des eSIM"', () => {
-  getTotalReservation();
-  reservations.reserveESIM();
-});
 
 Given('Je choisis le partenaire {string}', (partner) => {
   createReservations.clientChoiceStep.choosePartner(partner);

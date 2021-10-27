@@ -5,12 +5,6 @@ import get from 'lodash/get';
 
 let totalLines = 0;
 
-Given(`je suis sur la page recherche de lignes`, () => {
-  cy.resetGQLCache();
-  linesPage.init();
-  cy.wait(2000);
-});
-
 Given(`j'ouvre le détail d'une ligne`, () => {
   linesPage.showAllLines();
   linesPage.panel.openForLine(1);

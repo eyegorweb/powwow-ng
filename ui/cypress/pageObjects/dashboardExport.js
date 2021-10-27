@@ -5,21 +5,21 @@ export default {
     historyConsoExport() {
       cy.wait(500)
         .get('.cy-export-history-conso button')
-        .click()
+        .click({ force: true })
         .wait(100)
         .get('.export-button span')
         .first()
-        .click();
+        .click({ force: true });
     },
 
     parcStateExport() {
       cy.wait(500)
         .get('.cy-export-parcState button')
-        .click()
+        .click({ force: true })
         .wait(100)
         .get('.export-button span')
         .first()
-        .click();
+        .click({ force: true });
     },
 
     controlExportFile() {

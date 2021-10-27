@@ -64,7 +64,7 @@
         <div>
           <div
             v-if="(lines.length < 2 && !editMode) || (lines.length < 3 && editMode)"
-            class="deleteButton"
+            class="deleteButton addThresholdButton"
           >
             <UiButton variant="outline-info" @click="addNewLine()">
               <span class="btn-label">

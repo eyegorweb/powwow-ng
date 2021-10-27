@@ -10,18 +10,18 @@ export default {
     category: new MultiSelectFilter(3),
     reportModel: new MultiSelectFilter(4),
     refresh() {
-      cy.waitGet('div.col-md-3.pl-0 > div > div > div.mb-3 > div:nth-child(2) > button').click();
+      cy.waitGet('div.col-md-3.pl-0 > div > div > div.mb-3 > div:nth-child(2) > button').click({ force: true });
     },
   },
   export: {
     downloadFirstDocument() {
       cy.waitGet(
         'table > tbody > tr:first-child > td:nth-child(7) > div > div > div > button'
-      ).click();
+      ).click({ force: true });
       cy.wait(400);
       cy.waitGet(
         'table > tbody > tr:first-child > td:nth-child(7) > div > div > div > div > div > div > button:nth-child(1)'
-      ).click();
+      ).click({ force: true });
     },
     controlExportFile() {
       cy.wait(500);
@@ -36,11 +36,11 @@ export default {
   deleteFirstDocument() {
     cy.waitGet(
       'table > tbody > tr:first-child > td:nth-child(7) > div > div > div > button'
-    ).click();
+    ).click({ force: true });
     cy.wait(400);
     cy.waitGet(
       'table > tbody > tr:first-child > td:nth-child(7) > div > div > div > div > div > div > button:nth-child(2)'
-    ).click();
+    ).click({ force: true });
   },
   getTotal() {
     return new Cypress.Promise((resolve) => {

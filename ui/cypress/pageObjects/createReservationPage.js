@@ -1,6 +1,6 @@
 export default {
   nextStep() {
-    cy.waitGet('div.orderStepButtons > div:last-child > button').click();
+    cy.waitGet('div.orderStepButtons > div:last-child > button').click({ force: true });
   },
   clientChoiceStep: {
     choosePartner(partner) {
@@ -10,7 +10,7 @@ export default {
       cy.wait(400);
       cy.waitGet('.autocomplete-results > li')
         .first()
-        .click();
+        .click({ force: true });
     },
     chooseBillingAccount(billingAccount) {
       cy.waitGet('div.creation-panel fieldset.form-group > input')
@@ -19,14 +19,14 @@ export default {
       cy.wait(400);
       cy.waitGet('.autocomplete-results > li')
         .last()
-        .click();
+        .click({ force: true });
     },
   },
   productChoiceStep: {
     selectFirstSIMCardType() {
       cy.waitGet('div.simtype span.checkmark')
         .first()
-        .click();
+        .click({ force: true });
     },
     selectSIMQuantity(quantity) {
       cy.waitGet('div.choose-amount input')
@@ -38,22 +38,22 @@ export default {
     clickPreActivation() {
       cy.waitGet('div.toggle span.slider')
         .first()
-        .click();
+        .click({ force: true });
     },
     clickActivation() {
       cy.waitGet('div.toggle span.slider')
         .last()
-        .click();
+        .click({ force: true });
     },
     selectOffer(offer) {
       cy.waitGet('div.offerChoice select').select(offer);
     },
   },
   acceptContactualConditions() {
-    cy.waitGet('div.wizard-synthesis span.checkmark').click();
+    cy.waitGet('div.wizard-synthesis span.checkmark').click({ force: true });
   },
   saveReservation() {
-    cy.waitGet('div.wizard-synthesis button.btn-accent').click();
+    cy.waitGet('div.wizard-synthesis button.btn-accent').click({ force: true });
     cy.wait(400);
   },
   verifyCreation(totalReservationBeforeCreation) {

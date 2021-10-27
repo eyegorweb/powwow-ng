@@ -4,14 +4,16 @@ export default {
   init() {
     layout.menu.getSim();
     cy.wait(1000);
-    cy.waitGet('#app > div.container > div.mt-4 > div.tabs > ol > li:nth-child(2) > a').click();
+    cy.waitGet('#app > div.container > div.mt-4 > div.tabs > ol > li:nth-child(2) > a').click({
+      force: true,
+    });
   },
   openDetailPanel() {
     cy.waitGet(
       '#app > div.container > div.mt-4 > div.pt-4.pl-4 > div > div:nth-child(2) > div > div.col-md-9 > div:nth-child(2) > div:nth-child(2) > div > table > tbody > tr > td:nth-child(1) > div > button'
     )
       .first()
-      .click();
+      .click({ force: true });
   },
   getDetailPanel() {
     cy.waitGet('.cd-panel__container').should('be.visible');

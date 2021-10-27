@@ -1,19 +1,9 @@
 import { Given, When, Then } from 'cypress-cucumber-preprocessor/steps';
-import layout from '../../../pageObjects/layout';
 import report from '../../../pageObjects/reportManagementPage';
 
 //Instructions communes à plusieurs tests
 
 let reportName = '';
-
-Given('Je suis sur la page de gestion des rapports', () => {
-  layout.menu.report();
-  cy.wait(400);
-});
-
-Given('Je clique sur "Créer un rapport"', () => {
-  report.createReport();
-});
 
 Given('Je choisis le partenaire {string}', (partner) => {
   report.panel.partner.selectPartner(partner);
@@ -45,10 +35,6 @@ Given('Je cree un rapport classique', () => {
   report.panel.chooseInformation.selectFromAReportTemplate('M2M');
   report.panel.reportName(reportName);
   report.panel.fileFormat('CSV');
-  report.panel.save();
-});
-
-When('Je clique sur "Enregistrer"', () => {
   report.panel.save();
   cy.wait(400);
 });

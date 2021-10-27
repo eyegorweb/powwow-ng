@@ -3,17 +3,6 @@ import { Given, When, Then } from 'cypress-cucumber-preprocessor/steps';
 import alarmsPage from '../../../pageObjects/alarmsPage';
 import createAlarmsPage from '../../../pageObjects/createAlarmsPage';
 
-Given(`je suis sur la page recherche d'alarmes`, () => {
-  alarmsPage.init();
-
-  cy.wait(500);
-});
-
-Given("je vais sur l'onglet alarmes mutualisées", () => {
-  alarmsPage.sharedAlarms.goTo();
-  cy.wait(400);
-});
-
 Given(`je choisis le filtre partenaire {string}`, (partnerName) => {
   alarmsPage.filterBar.partner.toggle();
   alarmsPage.filterBar.partner.filter(partnerName);

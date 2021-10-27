@@ -15,7 +15,7 @@ export default {
       .type(partner)
       .wait(500)
       .waitGet('.autocomplete-result:nth-child(1)')
-      .click();
+      .click({ force: true });
   },
   getSelectedFilters() {
     return cy.waitGet('.selected-filter');

@@ -1,4 +1,4 @@
-Feature: Creation et modification d'utilisateurs
+Feature: Création et modification d'utilisateurs
 
   Je veux creer et modifier des utilisateurs en tant que BO, partenaire et compte groupe
 
@@ -6,8 +6,9 @@ Feature: Creation et modification d'utilisateurs
 
   Scenario: Je veux créer un utilisateur interne en tant que BO
     Given en tant que BO
-    And Je suis sur la page de gestion des utilisateurs
-    And Je clique sur "Ajouter un utilisateur"
+    And Je vais sur la page des utilisateurs
+    And Je récupère le nombre d'utilisateur
+    And je clique sur le bouton "Ajouter un utilisateur"
     And Je choisis le type d'utilisateur "1"
     And Je choisis le genre "1"
     And Je sélectionne le language "Français"
@@ -22,8 +23,9 @@ Feature: Creation et modification d'utilisateurs
 
   Scenario: Je veux créer un utilisateur partenaire en tant que BO
     Given en tant que BO
-    And Je suis sur la page de gestion des utilisateurs
-    And Je clique sur "Ajouter un utilisateur"
+    And Je vais sur la page des utilisateurs
+    And Je récupère le nombre d'utilisateur
+    And je clique sur le bouton "Ajouter un utilisateur"
     And Je choisis le type d'utilisateur "2"
     And Je choisis le genre "1"
     And Je sélectionne le language "Français"
@@ -39,8 +41,9 @@ Feature: Creation et modification d'utilisateurs
 
   Scenario: Je veux créer un utilisateur compte groupe en tant que BO
     Given en tant que BO
-    And Je suis sur la page de gestion des utilisateurs
-    And Je clique sur "Ajouter un utilisateur"
+    And Je vais sur la page des utilisateurs
+    And Je récupère le nombre d'utilisateur
+    And je clique sur le bouton "Ajouter un utilisateur"
     And Je choisis le type d'utilisateur "3"
     And Je choisis le genre "1"
     And Je sélectionne le language "Français"
@@ -55,7 +58,7 @@ Feature: Creation et modification d'utilisateurs
 
   Scenario: Je veux modifier un utilisateur interne en tant que BO
     Given en tant que BO
-    And Je suis sur la page de gestion des utilisateurs
+    And Je vais sur la page des utilisateurs
     And Je créé un utilisateur de type "1" par défaut ETQU BO
     And Je recherche l'utilisateur
     And Je récupère le prénom
@@ -67,7 +70,7 @@ Feature: Creation et modification d'utilisateurs
 
   Scenario: Je veux modifier un utilisateur partenaire en tant que BO
     Given en tant que BO
-    And Je suis sur la page de gestion des utilisateurs
+    And Je vais sur la page des utilisateurs
     And Je créé un utilisateur de type "2" par défaut ETQU BO
     And Je recherche l'utilisateur
     And Je récupère le prénom
@@ -79,7 +82,7 @@ Feature: Creation et modification d'utilisateurs
 
   Scenario: Je veux modifier un utilisateur compte groupe en tant que BO
     Given en tant que BO
-    And Je suis sur la page de gestion des utilisateurs
+    And Je vais sur la page des utilisateurs
     And Je créé un utilisateur de type "3" par défaut ETQU BO
     And Je recherche l'utilisateur
     And Je récupère le prénom
@@ -93,8 +96,9 @@ Feature: Creation et modification d'utilisateurs
 
   Scenario: Je veux créer un utilisateur partenaire en tant que partenaire
     Given en tant que partenaire lyra
-    And Je suis sur la page de gestion des utilisateurs
-    And Je clique sur "Ajouter un utilisateur"
+    And Je vais sur la page des utilisateurs
+    And Je récupère le nombre d'utilisateur
+    And je clique sur le bouton "Ajouter un utilisateur"
     And Je choisis le genre "1"
     And Je sélectionne le language "Français"
     And Je rentre le prénom "Test"
@@ -108,7 +112,7 @@ Feature: Creation et modification d'utilisateurs
 
   Scenario: Je veux modifier un utilisateur partenaire en tant que partenaire
     Given en tant que partenaire lyra
-    And Je suis sur la page de gestion des utilisateurs
+    And Je vais sur la page des utilisateurs
     And Je créé un utilisateur partenaire par défaut ETQU partenaire
     And Je recherche l'utilisateur
     And Je récupère le prénom
@@ -122,8 +126,9 @@ Feature: Creation et modification d'utilisateurs
 
   Scenario: Je veux créer un utilisateur partenaire en tant que compte groupe
     Given en tant que compte groupe
-    And Je suis sur la page de gestion des utilisateurs
-    And Je clique sur "Ajouter un utilisateur"
+    And Je vais sur la page des utilisateurs
+    And Je récupère le nombre d'utilisateur
+    And je clique sur le bouton "Ajouter un utilisateur"
     And Je choisis le genre "1"
     And Je sélectionne le language "Français"
     And Je sélectionne le partenaire "lyra"
@@ -138,7 +143,7 @@ Feature: Creation et modification d'utilisateurs
 
   Scenario: Je veux modifier un utilisateur partenaire en tant que compte groupe
     Given en tant que compte groupe
-    And Je suis sur la page de gestion des utilisateurs
+    And Je vais sur la page des utilisateurs
     And Je créé un utilisateur partenaire par défaut ETQU compte groupe
     And Je recherche l'utilisateur
     And Je récupère le prénom

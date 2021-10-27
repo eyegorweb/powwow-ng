@@ -1,22 +1,12 @@
 import { Given, When, Then } from 'cypress-cucumber-preprocessor/steps';
 import createAlarmsPage from '../../../pageObjects/createAlarmsPage';
 import alarmsPage from '../../../pageObjects/alarmsPage';
-import layout from '../../../pageObjects/layout';
 
 let totalAlarms = 0;
-
-Given(`je suis sur la page de création d'alarmes`, () => {
-  layout.menu.alarms();
-  cy.wait(2000);
-});
 
 Given(`j'enregistre le nombre d'alarmes`, () => {
   getTotalAlarms();
   cy.wait(500);
-});
-
-Given("je vais sur l'onglet des alarmes mutualisées", () => {
-  alarmsPage.sharedAlarms.goTo();
 });
 
 When(`je valide la création`, () => {
