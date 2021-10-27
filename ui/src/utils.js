@@ -100,3 +100,36 @@ function highlightTxt(input, search) {
 
   return `${leftPart}<b>${found}</b>${rightPart}`;
 }
+
+export function checkPasswordErrors(password, passwordConfirm) {
+  const errors = [];
+
+  // Le mot de passe doit faire plus de 8 caractères.
+  if (password.length <= 8) {
+    errors.push('errors.password.length-error');
+  }
+
+  // Le mot de passe doit contenir au moins une minuscule et une majuscule.
+  if (!/[A-Z]/.test(password)) {
+    errors.push('errors.password.uppercase-error');
+  }
+  if (!/[a-z]/.test(password)) {
+    errors.push('errors.password.lowercase-error');
+  }
+  // Le mot de passe doit contenir au moins un chiffre, une lettre avec accent ou un caractère spécial.
+
+  if (!/[!"#$%&'()*+,-./:;<=>?@£µ§²éè\\çàù°¨[\]^_`{|}~]/.test(password)) {
+    errors.push('errors.password.special-error');
+  }
+
+  if (!/[0-9]+/.test(password)) {
+    errors.push('errors.password.number-error');
+  }
+
+  // correspond
+  if (password && password != passwordConfirm) {
+    errors.push('errors.password.confirm-error');
+  }
+
+  return errors;
+}

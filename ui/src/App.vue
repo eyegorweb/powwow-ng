@@ -3,13 +3,14 @@
     <div :class="{ container: appIsReady }">
       <router-view v-if="$route.name === 'callback'" />
 
-      <NavBars v-if="appIsReady && $route.name !== 'catalog'" :is-backoffice-profile="userIsBO" />
+      <NavBars v-if="appIsReady && !isAnonymousPage" :is-backoffice-profile="userIsBO" />
       <router-view v-if="appIsReady" />
       <PanelSwitcher v-if="appIsReady" />
-      <PendingActions v-if="appIsReady" />
+      <PendingActions v-if="appIsReady && !isAnonymousPage" />
     </div>
 
     <Authentication />
+
     <FlashMessages />
     <ConfirmationModal />
     <ff-toggle />
@@ -59,6 +60,31 @@ export default {
       'userIsPartner',
       'userIsMultiPartner',
     ]),
+
+    isAnonymousPage() {
+      if (this.currentUrl.includes('create-account')) {
+        return true;
+      }
+
+      return false;
+    },
+
+    canShowNavbarForCurrentRoute() {
+      return ![
+        'catalog',
+        'createAccount',
+        'createAccount.partner',
+        'createAccount.offer',
+        'createAccount.simChoice',
+        'createAccount.delivery',
+      ].find((k) => k === this.$route.name);
+    },
+    currentUrl() {
+      const sameUrl =
+        location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '');
+
+      return window.location.href.replace(sameUrl, '');
+    },
   },
   watch: {
     $route() {

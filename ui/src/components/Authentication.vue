@@ -20,8 +20,28 @@ export default {
     ...mapMutations(['stopRefreshingToken', 'startRefreshingToken', 'appIsReady']),
 
     ensureUserIsAuthentified() {
-      if (this.$route.name === 'callback' || this.$route.name === 'refresh') {
+      const ignoredNames = [
+        'callback',
+        'refresh',
+        'createAccount',
+        'createAccount.partner',
+        'createAccount.offer',
+        'createAccount.simChoice',
+        'createAccount.delivery',
+      ];
+      const shouldIgnore = ignoredNames.find((e) => e === this.$route.name);
+
+      if (this.isAnonymous) {
+        console.log('Anonymous');
+        this.imReady();
         return;
+      }
+
+      if (shouldIgnore) {
+        console.log('Ignore auth');
+        return;
+      } else {
+        console.log('Not ignoring :', this.$route.name);
       }
       if (!this.token) {
         this.startRefreshingToken();
@@ -29,13 +49,7 @@ export default {
     },
 
     redirectToLogin() {
-      // _ = route avant la redirection
-      const sameUrl =
-        location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '');
-
-      let urlToSave = window.location.href.replace(sameUrl, '');
-      // urlToSave = urlToSave.replace(process.env.VUE_APP_BASE_URL, '');
-      const targetUrl = `${this.authUrl}/oauth/authorize?response_type=token&client_id=${process.env.VUE_APP_CLIENT_ID}&redirect_uri=${window.location.origin}${process.env.VUE_APP_BASE_URL}/callback&prev=${urlToSave}`;
+      const targetUrl = `${this.authUrl}/oauth/authorize?response_type=token&client_id=${process.env.VUE_APP_CLIENT_ID}&redirect_uri=${window.location.origin}${process.env.VUE_APP_BASE_URL}/callback&prev=${this.currentUrl}`;
       redirectTo(targetUrl);
     },
 
@@ -67,12 +81,26 @@ export default {
     },
 
     async imReady() {
-      await this.fetchUserInfos();
+      if (!this.isAnonymous) {
+        await this.fetchUserInfos();
+      }
       this.appIsReady();
     },
   },
   computed: {
     ...mapGetters(['refreshingToken', 'token']),
+    isAnonymous() {
+      if (this.currentUrl.includes('create-account')) {
+        return true;
+      }
+      return false;
+    },
+    currentUrl() {
+      const sameUrl =
+        location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '');
+
+      return window.location.href.replace(sameUrl, '');
+    },
     authUrl() {
       return getBaseURL();
     },

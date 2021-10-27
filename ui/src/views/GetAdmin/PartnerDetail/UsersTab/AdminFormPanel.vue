@@ -79,7 +79,7 @@
 
         <div class="entries-line">
           <div class="form-entry">
-            <h5>Adresse</h5>
+            <h5>{{ $t('getadmin.partnerDetail.address') }}</h5>
             <AdressComponent v-model="selectedAddress" />
           </div>
         </div>

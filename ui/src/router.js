@@ -24,6 +24,7 @@ const RolesManagement = () => import('@/views/GetAdmin/RolesManagement/index.vue
 
 import lineDetailRoute from '@/views/GetParc/LineDetail/routes.js';
 import partnerDetailRoute from '@/views/GetAdmin/PartnerDetail/routes.js';
+import accountCreationRoute from '@/views/AccountCreation/routes.js';
 
 import getSimRoutes from '@/views/GetSim/routes.js';
 
@@ -41,6 +42,7 @@ export default new Router({
     partnerDetailRoute,
     getSimRoutes,
     getParcRoutes,
+    accountCreationRoute,
     {
       path: '/',
       name: 'home',
