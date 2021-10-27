@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.560+20211027074406
+2021-10-27
+
+### Features
+
+- [000] Mise à jour des tests Cypress et Refactoring du code des tests (d48ab1d3ec9ae0a403e470e1e3641a4faaee0ee1)
+
 ## 1.17.0-master.559+20211021100331
 2021-10-21
 
