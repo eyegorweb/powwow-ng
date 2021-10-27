@@ -12,6 +12,7 @@
       @modify="modifyList($event)"
       @delete="deleteAddress($event)"
       :no-edit="!havePermission('party', 'update_delivery_address')"
+      :can-modify="havePermission('party', 'update_delivery_address')"
     >
       <template #default="{ item }">
         <div v-if="item.company" class="cardBloc-infos-name">
