@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.564+20211028063814
+2021-10-28
+
+### Features
+
+- [2921] ajout de l'étape d'adresse de livraison lors de la création de compte (b12c1f60e2f75638371234b14291e74f3be1a928)
+
 ## 1.17.0-master.563+20211027110456
 2021-10-27
 
