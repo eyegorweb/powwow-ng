@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.565+20211028085244
+2021-10-28
+
+### Fixes
+
+- [2931] ajout des notifications sms et mail dans la création de commande en environnement de recette (85fab5ef7f1b9c5c168ace1358d97ce3a62bd5f4)
+
 ## 1.17.0-master.564+20211028063814
 2021-10-28
 
