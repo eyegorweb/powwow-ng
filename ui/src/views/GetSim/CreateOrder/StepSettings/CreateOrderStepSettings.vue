@@ -2,23 +2,25 @@
   <CreateOrderStepContainer @done="done" @prev="prev" no-next-button :no-buttons="isOpen">
     <template v-if="!isOpen">
       <div class="main-content2">
-        <!-- <template v-if="!isPartnerMVNO">
-          <h3 class="font-weight-light text-center mt-4 mb-4">
-            {{ $t('orders.choose-delivery-notification') }}
-          </h3>
-          <div class="toggles-container">
-            <UiToggle
-              :label="$t('orders.by-sms')"
-              v-model="smsNotification"
-              :editable="canEditSmsNofication"
-            />
-            <UiToggle
-              :label="$t('orders.by-mail')"
-              v-model="emailNotification"
-              :editable="canEditEmailNofication"
-            />
-          </div>
-        </template> -->
+        <ff-wip>
+          <template v-if="!isPartnerMVNO">
+            <h3 class="font-weight-light text-center mt-4 mb-4">
+              {{ $t('orders.choose-delivery-notification') }}
+            </h3>
+            <div class="toggles-container">
+              <UiToggle
+                :label="$t('orders.by-sms')"
+                v-model="smsNotification"
+                :editable="canEditSmsNofication"
+              />
+              <UiToggle
+                :label="$t('orders.by-mail')"
+                v-model="emailNotification"
+                :editable="canEditEmailNofication"
+              />
+            </div>
+          </template>
+        </ff-wip>
         <CreateOrderAddOrderReference
           :value="referenceValue"
           @input="onReferenceSet"
@@ -78,7 +80,7 @@ import UiButton from '@/components/ui/Button';
 import { fetchCustomFields, createCustomField, addItemToCustomFieldList } from '@/api/customFields';
 import { mapMutations, mapGetters } from 'vuex';
 import CreateOrderStepContainer from '../CreateOrderStepContainer';
-// import UiToggle from '@/components/ui/UiToggle';
+import UiToggle from '@/components/ui/UiToggle';
 
 export default {
   components: {
@@ -87,7 +89,7 @@ export default {
     UiButton,
     PartnerFields,
     CreateOrderStepContainer,
-    // UiToggle,
+    UiToggle,
   },
 
   data() {
@@ -128,11 +130,11 @@ export default {
   computed: {
     ...mapGetters('getsim', ['selectedPartnersValues']),
     ...mapGetters(['userIsMVNO']),
-    // isPartnerMVNO() {
-    //   return (
-    //     this.$loGet(this.synthesis, 'billingAccount.selection.partner.partyType', false) === 'MVNO'
-    //   );
-    // },
+    isPartnerMVNO() {
+      return (
+        this.$loGet(this.synthesis, 'billingAccount.selection.partner.partyType', false) === 'MVNO'
+      );
+    },
     canEditSmsNofication() {
       return !this.isNotValidPhoneNumber;
     },
@@ -347,8 +349,8 @@ export default {
         synthesis.customFields = undefined;
       }
 
-      // synthesis.smsNotification = this.smsNotification;
-      // synthesis.emailNotification = this.emailNotification;
+      synthesis.smsNotification = this.smsNotification;
+      synthesis.emailNotification = this.emailNotification;
 
       return synthesis;
     },
