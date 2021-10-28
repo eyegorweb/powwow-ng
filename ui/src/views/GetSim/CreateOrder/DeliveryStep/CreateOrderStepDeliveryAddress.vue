@@ -12,9 +12,7 @@
         <p v-if="item.company" class="adress__name m-0 flex-fixed">
           {{ item.company }}
         </p>
-        <p class="adress__name m-0 flex-fixed">
-          {{ item.name.firstName }} {{ item.name.lastName }}
-        </p>
+        <p class="adress__name m-0 flex-fixed">{{ firstName }} {{ lastName }}</p>
         <p class="adress__format m-0 flex-fill">
           {{ item.address.address1 }}
           <span v-if="item.address.address2 && item.address.address2 !== 'null'">
@@ -61,6 +59,20 @@ export default {
       set(newSelected) {
         this.$emit('update:defaultSelectedItem', newSelected);
       },
+    },
+    firstName() {
+      return this.item.name && this.item.name.firstName
+        ? this.item.name.firstName
+        : this.item && this.item.firstName
+        ? this.item.firstName
+        : '';
+    },
+    lastName() {
+      return this.item.name && this.item.name.lastName
+        ? this.item.name.lastName
+        : this.item && this.item.lastName
+        ? this.item.lastName
+        : '';
     },
   },
   components: {

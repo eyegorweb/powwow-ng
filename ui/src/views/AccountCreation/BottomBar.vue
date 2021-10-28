@@ -1,34 +1,46 @@
 <template>
-  <div class="d-flex flex-row-reverse">
+  <div class="d-flex flex-row-reverse btn-container">
     <slot name="nextBtn">
-      <button class="btn btn-primary" v-if="!noNext" :disabled="!canNext" @click="$emit('next')">
-        Next
-      </button>
+      <UiButton
+        v-if="!noNext"
+        variant="round-button"
+        @click="$emit('next')"
+        :disabled="!canNext"
+        class="ic-Arrow-Next-Icon next-btn"
+      />
     </slot>
     <slot name="prevBtn">
-      <button
-        class="btn btn-primary mr-1"
+      <UiButton
         v-if="!noPrev"
-        :disabled="!canPrev"
+        variant="round-button"
         @click="$emit('prev')"
-      >
-        Prev
-      </button>
+        :disabled="!canPrev"
+        class="ic-Arrow-Previous-Icon prev-btn"
+      />
     </slot>
   </div>
 </template>
 
 <script>
+import UiButton from '@/components/ui/Button';
+
 export default {
+  components: {
+    UiButton,
+  },
+
   props: {
     noPrev: Boolean,
     canPrev: Boolean,
     canNext: Boolean,
-    noNext: Boolean
+    noNext: Boolean,
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>
-
+.btn-container {
+  flex-basis: 4rem;
+  justify-content: space-between;
+}
 </style>
