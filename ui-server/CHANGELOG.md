@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.566+20211029135313
+2021-10-29
+
+### Features
+
+- [2921] ajout de l'adresse de livraison pour une première commande d'offre digitale (065cb94285f6429ccb0a2c75bdcb392053161680)
+
 ## 1.17.0-master.565+20211028085244
 2021-10-28
 
