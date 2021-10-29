@@ -1,14 +1,5 @@
 <template>
-  <div class="d-flex flex-row-reverse btn-container">
-    <slot name="nextBtn">
-      <UiButton
-        v-if="!noNext"
-        variant="round-button"
-        @click="$emit('next')"
-        :disabled="!canNext"
-        class="ic-Arrow-Next-Icon next-btn"
-      />
-    </slot>
+  <div class="btn-container" :class="{ reverse: noPrev }">
     <slot name="prevBtn">
       <UiButton
         v-if="!noPrev"
@@ -16,6 +7,15 @@
         @click="$emit('prev')"
         :disabled="!canPrev"
         class="ic-Arrow-Previous-Icon prev-btn"
+      />
+    </slot>
+    <slot name="nextBtn">
+      <UiButton
+        v-if="!noNext"
+        variant="round-button"
+        @click="$emit('next')"
+        :disabled="!canNext"
+        class="ic-Arrow-Next-Icon next-btn"
       />
     </slot>
   </div>
@@ -41,6 +41,11 @@ export default {
 <style lang="scss" scoped>
 .btn-container {
   flex-basis: 4rem;
+  display: flex;
+  flex-direction: row;
   justify-content: space-between;
+  &.reverse {
+    flex-direction: row-reverse !important;
+  }
 }
 </style>

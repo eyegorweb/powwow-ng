@@ -133,8 +133,7 @@ import FormControl from '@/components/ui/FormControl';
 import UiApiAutocomplete from '@/components/ui/UiApiAutocomplete';
 import LoaderContainer from '@/components/LoaderContainer';
 import ModalSkeleton from '@/components/ui/skeletons/ModalSkeleton';
-import { searchAddress } from '@/api/address';
-import { fetchDeliveryCountries } from '@/api/filters';
+import { searchAddress, fetchCountries } from '@/api/address';
 
 export default {
   components: {
@@ -235,8 +234,7 @@ export default {
   },
 
   async mounted() {
-    const countries = await fetchDeliveryCountries('fr');
-    console.log('countries', countries);
+    const countries = await fetchCountries();
     this.countries = countries.map((c) => ({
       id: c.codeIso3,
       label: c.name,

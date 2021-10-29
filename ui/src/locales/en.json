@@ -124,7 +124,11 @@
     },
     "synthesis": {
       "title": "Order Summary",
-      "company": "Society"
+      "company": "Society",
+      "email": "Email",
+      "phone": "Phone",
+      "billingAddress": "Billing address",
+      "price": "Price"
     }
   },
   "export-types": {

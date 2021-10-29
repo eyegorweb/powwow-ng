@@ -151,6 +151,8 @@
     "synthesis": {
       "title": "Récapitulatif de la commande",
       "company": "Société",
+      "email": "Email",
+      "phone": "Téléphone",
       "billingAddress": "Adresse de facturation",
       "price": "Prix unitaire"
     }

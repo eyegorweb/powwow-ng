@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="step-container">
     <div class="row mb-3">
       <div class="col">
         <div class="d-flex">
@@ -43,7 +43,12 @@
 
     <div>
       <FormControl label="getadmin.partners.name" v-model="form.companyName" />
-      <FormControl label="getadmin.cf.filters.siret" v-model="form.siretValue" :max-size="14" />
+      <FormControl
+        label="getadmin.cf.filters.siret"
+        input-type="number"
+        v-model="form.siretValue"
+        :max-size="14"
+      />
     </div>
 
     <div class="entries-line">
@@ -124,8 +129,7 @@ import FormControl from '@/components/ui/FormControl';
 import UiApiAutocomplete from '@/components/ui/UiApiAutocomplete';
 import UiInput from '@/components/ui/UiInput';
 
-import { searchAddress } from '@/api/address';
-// import { fetchDeliveryCountries } from '@/api/filters';
+import { searchAddress, fetchCountries } from '@/api/address';
 import { checkPasswordErrors } from '@/utils.js';
 
 export default {
@@ -143,12 +147,12 @@ export default {
     // si utilisateur connecté aller directement vers le choix SIM sinon aller à la
     // création de partenaire
     // this.$router.push({ name: 'createAccount.partner' });
-    // const countries = await fetchDeliveryCountries(this.$i18n.locale);
-    // this.countries = countries.map((c) => ({
-    //   ...c,
-    //   label: c.name,
-    //   value: c.code,
-    // }));
+    const countries = await fetchCountries();
+    this.countries = countries.map((c) => ({
+      ...c,
+      label: c.name,
+      value: c.code,
+    }));
   },
 
   data() {
