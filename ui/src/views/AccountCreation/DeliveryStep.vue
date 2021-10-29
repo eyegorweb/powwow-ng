@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="step-container">
     <template v-if="inEditMode">
       <CreateAccountNewDeliveryAddress
         @cancel="inEditMode = false"
@@ -39,11 +39,7 @@
           </template>
         </BlocList>
       </div>
-      <BottomBar no-next :can-prev="true" @prev="gotoPrev">
-        <template #nextBtn>
-          <button class="btn btn-primary" @click="saveQuery">{{ $t('save') }}</button>
-        </template>
-      </BottomBar>
+      <BottomBar no-next :can-prev="true" @prev="gotoPrev" />
     </template>
   </div>
 </template>

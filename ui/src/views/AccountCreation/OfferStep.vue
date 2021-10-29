@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="step-container">
     <div>
       <div class="row">
         <div class="col-4">

@@ -8,6 +8,16 @@
         :item="item"
       />
     </div>
+    <div class="footer pt-3" v-if="canSave">
+      <button
+        type="button"
+        class="btn btn-accent btn-lg btn-block mt-1"
+        :disabled="!canSave"
+        @click="$emit('save')"
+      >
+        {{ $t('orders.new.save') }}
+      </button>
+    </div>
   </div>
 </template>
 
@@ -23,6 +33,7 @@ export default {
       type: Object,
       required: true,
     },
+    canSave: Boolean,
   },
 
   computed: {
@@ -42,7 +53,11 @@ export default {
             formatted.push({
               label: 'digitalOffer.synthesis.billingAddress',
               value: {
-                content: this.$loGet(this.synthesis, 'creationAccountStep.address'),
+                content: [
+                  `${this.$loGet(this.synthesis, 'creationAccountStep.address', ' -')}`,
+                  `${this.$loGet(this.synthesis, 'creationAccountStep.email', '-')}`,
+                  `${this.$loGet(this.synthesis, 'creationAccountStep.phone', '-')}`,
+                ],
               },
             });
           }
