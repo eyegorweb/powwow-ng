@@ -57,6 +57,7 @@
 import BottomBar from './BottomBar.vue';
 import GetSimTypeOption from '@/views/GetSim/CreateOrder/GetSimTypeOption.vue';
 import UiInput from '@/components/ui/UiInput';
+import { fetchSimTypes } from '@/api/digital.js';
 
 export default {
   components: {
@@ -69,64 +70,8 @@ export default {
   },
   data() {
     return {
-      simTypes: [
-        {
-          orderDate: null,
-          simCard: {
-            id: 76,
-            code: '3526350029494',
-            name: 'M2M sim avec code pin',
-            format: null,
-            licence: null,
-            type: 'SIM',
-            number: null,
-            family: null,
-          },
-          disabled: null,
-        },
-        {
-          orderDate: null,
-          simCard: {
-            id: 78,
-            code: '3526350037871',
-            name: 'M2M sim antivol avec code pin bobine',
-            format: null,
-            licence: null,
-            type: 'TAPE',
-            number: 100,
-            family: null,
-          },
-          disabled: null,
-        },
-        {
-          orderDate: null,
-          simCard: {
-            id: 79,
-            code: '3526350037888',
-            name: 'M2M sim antivol sans code pin',
-            format: null,
-            licence: null,
-            type: 'TAPE',
-            number: 150,
-            family: null,
-          },
-          disabled: null,
-        },
-        {
-          orderDate: null,
-          simCard: {
-            id: 77,
-            code: '3526350037765',
-            name: 'M2M sim sans code pin',
-            format: null,
-            licence: null,
-            type: 'SIM',
-            number: null,
-            family: null,
-          },
-          disabled: null,
-        },
-      ],
+      simTypes: [],
+
       limit: 3,
       selectedSimTypeValue: {},
       selectedNumberOfSims: 0,
@@ -134,11 +79,15 @@ export default {
       selectedSimIsOfTapeType: false,
     };
   },
-  mounted() {
+
+  async mounted() {
+    this.simTypes = await fetchSimTypes();
+
     if (!this.synthesis) {
       this.$router.push({ name: 'createAccount.partner' });
     }
   },
+
   computed: {
     filteredSimTypes() {
       return this.simTypes.slice(0, this.limit).filter((s) => !!s.simCard);
