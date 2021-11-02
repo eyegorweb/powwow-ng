@@ -5,7 +5,7 @@ Feature: Recherche d'alarmes
   Scenario: Je fais une recherche par partenaire
     Given en tant que BO
     And Je vais sur la page des alarmes
-    And je choisis le filtre partenaire "INGENICO"
+    And Je filtre par "Partenaires" nommé "INGENICO"
     When je lance la recherche
     Then la table contient plus de 0 resultat
     And Je supprime les filtres
@@ -13,7 +13,7 @@ Feature: Recherche d'alarmes
   Scenario: Je fais une recherche par compte de facturation
     Given en tant que BO
     And Je vais sur la page des alarmes
-    And je choisis le filtre compte de facturation "INGENICO1"
+    And Je filtre par "Compte de facturation" nommé "Auchan1 - Auchan1"
     When je lance la recherche
     Then la table contient plus de 0 resultat
     And Je supprime les filtres
@@ -21,7 +21,7 @@ Feature: Recherche d'alarmes
   Scenario: Je fais une recherche par offre associée
     Given en tant que BO
     And Je vais sur la page des alarmes
-    And je choisis le filtre offre "Parc 2"
+    And Je filtre par "Offres" nommé "offre Transics"
     When je lance la recherche
     Then la table contient plus de 0 resultat
     And Je supprime les filtres
@@ -29,7 +29,7 @@ Feature: Recherche d'alarmes
   Scenario: Je fais une recherche par portée d'alarme
     Given en tant que BO
     And Je vais sur la page des alarmes
-    And je choisis le filtre portée de l'alarme "partenaire"
+    And Je filtre par "Portée de l'alarme" nommé "Ligne"
     When je lance la recherche
     Then la table contient plus de 0 resultat
     And Je supprime les filtres
@@ -37,7 +37,7 @@ Feature: Recherche d'alarmes
   Scenario: Je fais une recherche par type d'alarme
     Given en tant que BO
     And Je vais sur la page des alarmes
-    And je choisis le filtre type d'alarme "Sur-consommation"
+    And Je filtre par sélection "Type d'alarme" nommé "Sur-consommation"
     When je lance la recherche
     Then la table contient plus de 0 resultat
     And Je supprime les filtres
@@ -51,8 +51,8 @@ Feature: Recherche d'alarmes
   Scenario: Je fais une recherche avec plusieurs filtres
     Given en tant que BO
     And Je vais sur la page des alarmes
-    And je choisis le filtre partenaire "lyra"
-    And je choisis le filtre offre "Parc 2"
+    And Je filtre par "Partenaires" nommé "LYRA NETWORK"
+    And Je filtre par "Offres" nommé "Parc 2 forfait"
     When je lance la recherche
     Then la table contient plus de 0 resultat
 
@@ -62,7 +62,7 @@ Feature: Recherche d'alarmes
     And Je vais sur la page des alarmes mutualisées
     And je créé une alarme de sur-consommation de la flotte par défaut "TEST sur-consommation de la flotte"
     And je valide la création
-    And je choisis le filtre partenaire "auchan"
+    And Je filtre par "Partenaires" nommé "AUCHAN"
     When je lance la recherche
     Then la table contient plus de 0 resultat
 
@@ -72,7 +72,7 @@ Feature: Recherche d'alarmes
     And Je vais sur la page des alarmes mutualisées
     And je créé une alarme de sur-consommation de la flotte par défaut "TEST sur-consommation de la flotte"
     And je valide la création
-    And je choisis le filtre compte de facturation "auchan1"
+    And Je filtre par "Compte de facturation" nommé "Auchan1 - Auchan1"
     When je lance la recherche
     Then la table contient plus de 0 resultat
 

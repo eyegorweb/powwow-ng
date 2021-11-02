@@ -2,46 +2,6 @@ Feature: Recherche de lignes
 
   Je veux chercher des lignes avec des filtres globaux
 
-  Scenario: Je fais une recherche par partenaire
-    Given en tant que BO
-    And Je vais sur la page des lignes
-    And je choisis le filtre partenaire "lyra"
-    When je lance la recherche
-    Then la table contient plus de 0 resultat
-    And Je supprime les filtres
-
-  Scenario: Je fais une recherche par statut de facturation
-    Given en tant que BO
-    And Je vais sur la page des lignes
-    And je choisis le filtre statut de facturation "Activé"
-    When je lance la recherche
-    Then la table contient plus de 0 resultat
-    And Je supprime les filtres
-
-  Scenario: Je fais une recherche par compte de facturation
-    Given en tant que BO
-    And Je vais sur la page des lignes
-    And je choisis le filtre compte de facturation "TEST"
-    When je lance la recherche
-    Then la table contient plus de 0 resultat
-    And Je supprime les filtres
-
-  Scenario: Je fais une recherche par type de carte SIM
-    Given en tant que BO
-    And Je vais sur la page des lignes
-    And je choisis le filtre type "M2M sim sans code pin"
-    When je lance la recherche
-    Then la table contient plus de 0 resultat
-    And Je supprime les filtres
-
-  Scenario: Je fais une recherche par offre associée
-    Given en tant que BO
-    And Je vais sur la page des lignes
-    And je choisis le filtre offre "Parc 1 forfait"
-    When je lance la recherche
-    Then la table contient plus de 0 resultat
-    And Je supprime les filtres
-
   Scenario: Je fais une recherche par MSISDN
     Given en tant que BO
     And Je vais sur la page des lignes
@@ -57,7 +17,7 @@ Feature: Recherche de lignes
   Scenario: Je fais une recherche par ID de commande
     Given en tant que BO
     And Je vais sur la page des lignes
-    And je choisis le filtre id "2"
+    And Je filtre par insertion "Id de la commande" avec une valeur de "2"
     When je lance la recherche
     Then la table contient 1 resultat
     And Je supprime les filtres
@@ -65,24 +25,23 @@ Feature: Recherche de lignes
   Scenario: Je fais une recherche avec plusieurs filtres
     Given en tant que BO
     And Je vais sur la page des lignes
-    And j'affiche tous les filtres
-    And je choisis le filtre partenaire "lyra"
-    And je choisis le filtre compte de facturation "6.42661"
-    And je choisis le filtre type "M2M sim sans code pin"
-    And je choisis le filtre offre "Parc 1 compteur"
-    And je choisis le filtre statut de la ligne "Activée"
+    And Je filtre par "Partenaires" nommé "AUCHAN"
+    And Je filtre par "Comptes de facturation" nommé "Auchan1 - Auchan1"
+    And Je filtre par "Type de carte SIM" nommé "M2M sim sans code pin"
+    And Je filtre par "Offre associée" nommé "AUCHAN_OFFRE_DATA2"
+    And Je filtre par "Statut de facturation" nommé "Activée"
     When je lance la recherche
-    Then la table contient 11 resultat
+    Then la table contient 0 resultat
 
   Scenario: Vérification de l'enregistrement des filtres
     Given en tant que BO
     And Je vais sur la page des lignes
-    And je choisis le filtre partenaire "lyra"
-    And je choisis le filtre compte de facturation "6.42661"
+    And Je filtre par "Partenaires" nommé "AUCHAN"
+    And Je filtre par "Comptes de facturation" nommé "Auchan1 - Auchan1"
     And J'enregistre les filtres sous le nom de "Test Cypress"
     And Je supprime les filtres
     When Je clique sur le filtre enregistré
-    Then Les filtres "LYRA NETWORK" et "6.42661 - LYRA" sont activés
+    Then Les filtres "AUCHAN" et "Auchan1 - Auchan1" sont activés
 
   @ignore
   Scenario: Je fais un export des lignes (Classique)

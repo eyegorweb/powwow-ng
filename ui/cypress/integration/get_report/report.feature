@@ -60,6 +60,7 @@ Feature: Rapports
     When Je desactive le rapport
     Then Je verifie que le rapport est bien desactive
 
+  @focus
   Scenario: Je vérifie l'apparition du panneau des détails du rapport en cliquant sur le nom
     Given en tant que BO
     And Je vais sur la page des rapports
@@ -68,6 +69,7 @@ Feature: Rapports
     Then Le panneau de detail est visible
     And Je ferme le panneau
 
+  @focus
   Scenario: Je vérifie l'apparition du panneau des détails du rapport en cliquant sur "Voir le détail" dans les actions
     Given en tant que BO
     And Je vais sur la page des rapports

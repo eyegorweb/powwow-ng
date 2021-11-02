@@ -1,6 +1,7 @@
 import { Given, When, Then } from 'cypress-cucumber-preprocessor/steps';
 
 import orderPage from '../../../pageObjects/orderPage';
+import orderCreationPanel from '../../../pageObjects/orderCreationPanel';
 import get from 'lodash.get';
 
 Given(`je suis sur la page recherche de commandes`, () => {
@@ -9,39 +10,19 @@ Given(`je suis sur la page recherche de commandes`, () => {
   cy.wait(400);
 });
 
-Given(`je choisis le filtre partenaire {string}`, (partnerName) => {
-  orderPage.filterBar.partner.toggle();
-  orderPage.filterBar.partner.filter(partnerName);
-  orderPage.filterBar.partner.choose(1);
-  orderPage.filterBar.partner.chosenItems().should('have.length', 1);
-  orderPage.filterBar.partner.toggle();
-});
-
-Given(`je choisis le filtre offre {string}`, (offer) => {
-  orderPage.filterBar.offer.toggle();
-  orderPage.filterBar.offer.filter(offer);
-  orderPage.filterBar.offer.choose(1);
-  orderPage.filterBar.offer.toggle();
-});
-
-Given(`je choisis le filtre statut {string}`, (orderStatus) => {
-  orderPage.filterBar.status.toggle();
-  orderPage.filterBar.status.choose(orderStatus);
-  orderPage.filterBar.status.toggle();
-});
-
-Given(`je choisis le filtre type {string}`, (simType) => {
-  orderPage.filterBar.type.toggle();
-  orderPage.filterBar.type.filter(simType);
-  orderPage.filterBar.type.choose(1);
-  orderPage.filterBar.type.toggle();
-});
-
-Given(`je choisis le filtre compte de facturation {string}`, (billingAccount) => {
-  orderPage.filterBar.billingAccount.toggle();
-  orderPage.filterBar.billingAccount.filter(billingAccount);
-  orderPage.filterBar.billingAccount.choose(1);
-  orderPage.filterBar.billingAccount.toggle();
+Given('Je créé une commande par défaut pour le partenaire AUCHAN', () => {
+  orderCreationPanel.init();
+  orderCreationPanel.client.choosePartner('Auchan');
+  orderCreationPanel.next();
+  orderCreationPanel.product.selectSimType(1);
+  orderCreationPanel.product.setProductQuantity(1);
+  orderCreationPanel.next();
+  orderCreationPanel.services.toggleActivation();
+  orderCreationPanel.services.chooseOffer('AUCHAN_OFFRE_DATA2');
+  orderCreationPanel.next();
+  orderCreationPanel.shipping.selectLastShippingAdress();
+  orderCreationPanel.next();
+  orderCreationPanel.saveOrder();
 });
 
 When(`je lance un Export`, () => {

@@ -5,15 +5,15 @@ Feature: Recherche d'actes de gestion
   Scenario: Je fais une recherche par date de création
     Given en tant que BO
     And Je vais sur la page des actes de gestion
-    And je choisis le filtre par date de création
-    When je clique sur 1 mois
+    And Je filtre par date "Date de création de l’acte" avec une période "1"
+    When je lance la recherche
     Then je peux appliquer le filtre
     And Je supprime les filtres
 
   Scenario: Je fais une recherche par partenaire
     Given en tant que BO
     And Je vais sur la page des actes de gestion
-    And je choisis le filtre partenaire "lyra"
+    And Je filtre par "Partenaires" nommé "LYRA NETWORK"
     When je lance la recherche
     Then la table contient plus de 0 resultat
     And Je supprime les filtres
@@ -21,7 +21,7 @@ Feature: Recherche d'actes de gestion
   Scenario: Je fais une recherche par créateur de la demande
     Given en tant que BO
     And Je vais sur la page des actes de gestion
-    And je choisis le filtre createur de la demande "bruce"
+    And Je filtre par "Créateur de la demande" nommé "Bruce Lee"
     When je lance la recherche
     Then la table contient plus de 0 resultat
     And Je supprime les filtres
@@ -30,7 +30,7 @@ Feature: Recherche d'actes de gestion
     Given en tant que BO
     And Je vais sur la page des actes de gestion
     And j'enlève le filtre par défaut
-    And je choisis le filtre type d'acte "activation"
+    And Je filtre par "Type d'actes de gestion" nommé "Activation"
     When je lance la recherche
     Then la table contient plus de 0 resultat
     And Je supprime les filtres

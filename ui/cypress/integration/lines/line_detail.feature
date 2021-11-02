@@ -27,7 +27,6 @@ Feature: Détails d'une ligne
     And j'ouvre le panneau de détail de la ligne
     When je clique sur le bouton "Voir le détail de la ligne"
     Then Je peux naviguer entre les differents onglets
-    And je clique sur le bouton "Retour"
 
   Scenario: Je veux vérifier le clickable des boutons dans le détail d'une ligne activée
     Given en tant que BO

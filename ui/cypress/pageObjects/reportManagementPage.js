@@ -76,8 +76,10 @@ export default {
     },
     partner: {
       selectPartner(partner) {
-        cy.waitGet('div.partner-select > fieldset > input').type(partner);
-        cy.wait(400);
+        cy.waitGet('div.partner-select > fieldset > input')
+          .clear()
+          .type(partner);
+        cy.wait(400); 
         cy.waitGet('.autocomplete-results > li:nth-child(1)').click({ force: true });
         cy.wait(400);
       },
