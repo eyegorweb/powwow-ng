@@ -9,13 +9,10 @@ export async function fetchPendingOperations() {
       exportFile
       taskType
       errorMessage
-  
     }
 }`;
 
   const response = await query(queryStr);
-
-
   if (response && response.errors) {
     return { errors: response.errors };
   }

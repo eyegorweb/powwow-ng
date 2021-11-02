@@ -49,6 +49,9 @@
         v-model="form.siretValue"
         :max-size="14"
       />
+      <span v-if="reachedMaxLength" class="error-text">
+        {{ $t('errors.maxlength') }}
+      </span>
     </div>
 
     <div class="entries-line">
@@ -209,16 +212,22 @@ export default {
 
     passwordConfirmationErrors() {
       if (!this.form.password) return [];
-
       const errors = checkPasswordErrors(this.form.password, this.form.passwordConfirm);
-
-      console.log('check pwd errors', errors);
-
       return errors;
     },
 
+    reachedMaxLength() {
+      const numberValue = this.form && this.form.siretValue ? this.form.siretValue : undefined;
+      if (!numberValue) return false;
+      return numberValue.toString().length > 14;
+    },
+
     canNext() {
-      return this.requiredFields.length === 0 && this.passwordConfirmationErrors.length === 0;
+      return (
+        this.requiredFields.length === 0 &&
+        this.passwordConfirmationErrors.length === 0 &&
+        !this.reachedMaxLength
+      );
     },
   },
 
