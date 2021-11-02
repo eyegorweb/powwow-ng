@@ -400,7 +400,8 @@
       "email-error": "Veuillez saisir une adresse email valide"
     },
     "limitAddress": "Adresse limitée à 35 caractères",
-    "existingValue": "Ce nom existe déjà dans la liste de diffusion. Veuillez saisir un titre différent."
+    "existingValue": "Ce nom existe déjà dans la liste de diffusion. Veuillez saisir un titre différent.",
+    "maxlength": "Numéro SIRET limité à 14 chiffres"
   },
   "common": {
     "limitDateError": "Attention la période de recherche ne peut exéder une année",
