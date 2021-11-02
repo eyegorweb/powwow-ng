@@ -1,11 +1,5 @@
-import { Given, When, Then } from 'cypress-cucumber-preprocessor/steps';
+import { When, Then } from 'cypress-cucumber-preprocessor/steps';
 import partnerPage from '../../../pageObjects/partnerPage';
-
-Given('Je choisis le filtre Raison sociale {string}', (partnerName) => {
-  partnerPage.filterBar.socialReason.toggle();
-  partnerPage.filterBar.socialReason.filter(partnerName);
-  partnerPage.filterBar.socialReason.choose(1);
-});
 
 When('Je lance la recherche', () => {
   partnerPage.filterBar.apply();

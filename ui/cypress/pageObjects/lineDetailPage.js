@@ -142,7 +142,7 @@ export default {
         );
       },
       click() {
-        cy.waitGet('.slick-slide:nth-child(1)').click({ force: true });
+        cy.waitGet('.slick-slide:nth-child(1)').click();
       },
       newICCID(iccid) {
         cy.waitGet(
@@ -164,7 +164,7 @@ export default {
         );
       },
       click() {
-        cy.waitGet('.slick-slide:nth-child(2)').click({ force: true });
+        cy.waitGet('.slick-slide:nth-child(2)').click();
       },
       newMSISDN(msisdn) {
         cy.waitGet(
@@ -186,7 +186,7 @@ export default {
         );
       },
       click() {
-        cy.waitGet('.slick-slide:nth-child(3)').click({ force: true });
+        cy.waitGet('.slick-slide:nth-child(3)').click();
       },
     },
     changementCF: {
@@ -203,7 +203,7 @@ export default {
         );
       },
       click() {
-        cy.waitGet('.slick-slide:nth-child(4)').click({ force: true });
+        cy.waitGet('.slick-slide:nth-child(4)').click();
       },
       newCF(cf) {
         cy.waitGet('#main-sliding-panel fieldset > input')
@@ -227,7 +227,7 @@ export default {
         );
       },
       click() {
-        cy.waitGet('.slick-slide:nth-child(5)').click({ force: true });
+        cy.waitGet('.slick-slide:nth-child(5)').click();
       },
       newOffre(offre) {
         cy.waitGet(

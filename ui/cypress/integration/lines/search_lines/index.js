@@ -39,55 +39,6 @@ Then(`la table contient les résultats de la page précédente`, () => {
   });
 });
 
-Given(`je choisis le filtre partenaire {string}`, (partnerName) => {
-  linesPage.filterBar.partner.toggle();
-  linesPage.filterBar.partner.filter(partnerName);
-  linesPage.filterBar.partner.choose(1);
-  linesPage.filterBar.partner.toggle();
-});
-
-Given(`je choisis le filtre compte de facturation {string}`, (billingAccount) => {
-  linesPage.filterBar.billingAccount.toggle();
-  linesPage.filterBar.billingAccount.filter(billingAccount);
-  linesPage.filterBar.billingAccount.choose(1);
-  linesPage.filterBar.billingAccount.toggle();
-});
-
-Given(`je choisis le filtre type {string}`, (simType) => {
-  linesPage.filterBar.type.toggle();
-  linesPage.filterBar.type.filter(simType);
-  linesPage.filterBar.type.choose(1);
-  linesPage.filterBar.type.toggle();
-});
-
-Given(`je choisis le filtre offre {string}`, (offer) => {
-  linesPage.filterBar.offer.toggle();
-  linesPage.filterBar.offer.filter(offer);
-  linesPage.filterBar.offer.choose(1);
-  linesPage.filterBar.offer.toggle();
-});
-
-Given(`je choisis le filtre statut de facturation {string}`, (billingStatus) => {
-  linesPage.filterBar.showAllTypes();
-  linesPage.filterBar.billingStatus.toggle();
-  linesPage.filterBar.billingStatus.filter(billingStatus);
-  linesPage.filterBar.billingStatus.choose(1);
-  linesPage.filterBar.billingStatus.toggle();
-});
-
-Given('je choisis le filtre statut de la ligne {string}', (lineStatus) => {
-  linesPage.filterBar.lineStatus.toggle();
-  linesPage.filterBar.lineStatus.filter(lineStatus);
-  linesPage.filterBar.lineStatus.choose(1);
-  linesPage.filterBar.lineStatus.toggle();
-});
-
-Given(`je choisis le filtre id {string}`, (offer) => {
-  linesPage.filterBar.id.toggle();
-  linesPage.filterBar.id.filter(offer);
-  linesPage.filterBar.id.toggle();
-});
-
 Given(`j'affiche toutes les lignes`, () => {
   linesPage.showAllLines();
 });

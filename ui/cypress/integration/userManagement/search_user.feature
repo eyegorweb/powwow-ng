@@ -18,7 +18,7 @@ Feature: Recherche d'utilisateurs
   Scenario: Je fais une recherche par nom et prénom
     Given en tant que BO
     And Je vais sur la page des utilisateurs
-    And je choisis le filtre nom "lee"
+    And Je filtre par insertion "Nom ou prénom" avec une valeur de "lee"
     When je lance la recherche
     Then la table contient 1 resultat
     And Je supprime les filtres
@@ -26,7 +26,7 @@ Feature: Recherche d'utilisateurs
   Scenario: Je fais une recherche par email
     Given en tant que BO
     And Je vais sur la page des utilisateurs
-    And je choisis le filtre email "lyra@lyra.fr"
+    And Je filtre par insertion "Email" avec une valeur de "lyra@lyra.fr"
     When je lance la recherche
     Then la table contient 1 resultat
     And Je supprime les filtres
@@ -34,7 +34,7 @@ Feature: Recherche d'utilisateurs
   Scenario: Je fais une recherche par partenaire
     Given en tant que BO
     And Je vais sur la page des utilisateurs
-    And je choisis le filtre partenaire "lyra"
+    And Je filtre par "Partenaires" nommé "AUCHAN"
     When je lance la recherche
     Then la table contient plus de 0 resultat
     And Je supprime les filtres
@@ -42,7 +42,7 @@ Feature: Recherche d'utilisateurs
   Scenario: Je fais une recherche par rôle
     Given en tant que BO
     And Je vais sur la page des utilisateurs
-    And je choisis le filtre rôle "Administrateur"
+    And Je filtre par "Rôles" nommé "Administrateur"
     When je lance la recherche
     Then la table contient 14 resultat
     And Je supprime les filtres
@@ -50,7 +50,7 @@ Feature: Recherche d'utilisateurs
   Scenario: Je fais une recherche par statut actif
     Given en tant que BO
     And Je vais sur la page des utilisateurs
-    And je choisis le filtre statut "Actif"
+    And Je filtre par item "Statut" valant "Actif"
     When je lance la recherche
     Then la table contient plus de 0 resultat
     And Je supprime les filtres
@@ -58,7 +58,7 @@ Feature: Recherche d'utilisateurs
   Scenario: Je fais une recherche par statut non actif
     Given en tant que BO
     And Je vais sur la page des utilisateurs
-    And je choisis le filtre statut "Non actif"
+    And Je filtre par item "Statut" valant "Non actif"
     When je lance la recherche
     Then la table contient 0 resultat
     And Je supprime les filtres
@@ -66,7 +66,7 @@ Feature: Recherche d'utilisateurs
   Scenario: Je fais une recherche par groupe de partenaires
     Given en tant que BO
     And Je vais sur la page des utilisateurs
-    And je choisis le filtre groupe de partenaires "PARTY"
+    And Je filtre par "Groupe de partenaire" nommé "PARTY groupe 1"
     When je lance la recherche
     Then la table contient plus de 0 resultat
     And Je supprime les filtres

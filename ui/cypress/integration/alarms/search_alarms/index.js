@@ -3,40 +3,6 @@ import { Given, When, Then } from 'cypress-cucumber-preprocessor/steps';
 import alarmsPage from '../../../pageObjects/alarmsPage';
 import createAlarmsPage from '../../../pageObjects/createAlarmsPage';
 
-Given(`je choisis le filtre partenaire {string}`, (partnerName) => {
-  alarmsPage.filterBar.partner.toggle();
-  alarmsPage.filterBar.partner.filter(partnerName);
-  alarmsPage.filterBar.partner.choose(1);
-  alarmsPage.filterBar.partner.toggle();
-});
-
-Given(`je choisis le filtre compte de facturation {string}`, (cf) => {
-  alarmsPage.filterBar.billingAccount.toggle();
-  alarmsPage.filterBar.billingAccount.filter(cf);
-  alarmsPage.filterBar.billingAccount.choose(1);
-  alarmsPage.filterBar.billingAccount.toggle();
-});
-
-Given(`je choisis le filtre offre {string}`, (offer) => {
-  alarmsPage.filterBar.offer.toggle();
-  alarmsPage.filterBar.offer.filter(offer);
-  alarmsPage.filterBar.offer.choose(1);
-  alarmsPage.filterBar.offer.toggle();
-});
-
-Given(`je choisis le filtre portée de l'alarme {string}`, (alarmRange) => {
-  alarmsPage.filterBar.alarmRange.toggle();
-  alarmsPage.filterBar.alarmRange.filter(alarmRange);
-  alarmsPage.filterBar.alarmRange.choose(1);
-  alarmsPage.filterBar.alarmRange.toggle();
-});
-
-Given("je choisis le filtre type d'alarme {string}", (value) => {
-  alarmsPage.filterBar.alarmType.toggle();
-  alarmsPage.filterBar.alarmType.select(value);
-  alarmsPage.filterBar.alarmType.toggle();
-});
-
 Given(`je valide la création`, () => {
   createAlarmsPage.saveAlarm();
   cy.wait(400);
