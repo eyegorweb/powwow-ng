@@ -2,6 +2,18 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.567+20211102140645
+2021-11-02
+
+### Features
+
+- [2919] sim light (1ffa9229ee6d78a063cb12aba9e885cf1be5d75f)
+- [000] Refactoring des tests sur les filtres + maintenance de tests Cypress (dd8cb15801065de9ca21b583dd792dd80bb069a7)
+
+### Fixes
+
+- [2916] gestion du contrôle du numéro SIRET (2e5392799dc334fd821eb5f1583bdeb3be89018b)
+
 ## 1.17.0-master.566+20211029135313
 2021-10-29
 
