@@ -27,27 +27,22 @@
 </template>
 
 <script>
-import PaginatedDataTable from '@/components/DataTable/PaginatedDataTable.vue';
 import BillAccountStatusCell from './BillAccountStatusCell';
 import UiButton from '@/components/ui/Button';
 import TableWithFilter from '@/components/Filters/TableWithFilter';
 import TextFilter from '@/components/Filters/TextFilter.vue';
-
-import { fetchCustomerAccountsByPartnerId } from '@/api/partners.js';
 import { fetchAllCustomerAccounts } from '@/api/customerAccounts';
 
 export default {
   components: {
-    PaginatedDataTable,
     UiButton,
-    TableWithFilter
+    TableWithFilter,
   },
   props: {
     partner: {
       type: Object,
     },
   },
-
 
   data() {
     return {
@@ -167,18 +162,18 @@ export default {
       };
 
       this.isLoading = true;
-      const allFilters = [{
-        id: 'partner.id',
-        value: this.partner.id
-      },
-      ...filters
+      const allFilters = [
+        {
+          id: 'partner.id',
+          value: this.partner.id,
+        },
+        ...filters,
       ];
 
       const data = await fetchAllCustomerAccounts(allFilters, pagination, this.defaultOrderBy);
       this.isLoading = false;
       this.total = data.total;
       this.rows = data.items;
-
     },
     createCustomerAccount() {
       this.$router.push({
