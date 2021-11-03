@@ -49,7 +49,7 @@ import BottomBar from './BottomBar.vue';
 import BlocList from '@/components/BlocList';
 import UiButton from '@/components/ui/Button';
 import CreateAccountDeliveryAddress from '@/views/GetSim/CreateOrder/DeliveryStep/CreateOrderStepDeliveryAddress.vue';
-import CreateAccountNewDeliveryAddress from './createAccountNewDeliveryAddress.vue';
+import CreateAccountNewDeliveryAddress from './NewDeliveryAddressStep.vue';
 
 export default {
   components: {
@@ -104,7 +104,7 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin: auto;
+  // margin: auto;
   &:hover {
     cursor: pointer;
   }

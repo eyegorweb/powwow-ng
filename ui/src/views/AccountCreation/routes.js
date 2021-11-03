@@ -1,7 +1,7 @@
 import SimStep from './SimStep.vue';
 import OfferStep from './OfferStep.vue';
 import DeliveryStep from './DeliveryStep.vue';
-import creationAccountStep from './creationAccountStep.vue';
+import PartnerStep from './PartnerStep.vue';
 import SuccessPage from './SuccessPage.vue';
 import ErrorPage from './ErrorPage.vue';
 
@@ -12,7 +12,7 @@ export default {
     {
       path: 'partner',
       name: 'createAccount.partner',
-      component: creationAccountStep,
+      component: PartnerStep,
     },
     {
       path: 'offer',

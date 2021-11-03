@@ -1017,7 +1017,9 @@ export async function createBroadcastLists(params) {
 }
 
 export async function addPartyShippingAddress(formData, partnerId) {
-  const countryCode = get(formData, 'country.label') ? `country: "${get(formData, 'country.code')}"` : `country: null`;
+  const countryCode = get(formData, 'country.label')
+    ? `country: "${get(formData, 'country.code')}"`
+    : `country: null`;
   const queryStr = `
     mutation {
       addPartyShippingAddress (shippingAddress: {
@@ -1055,7 +1057,9 @@ export async function addPartyShippingAddress(formData, partnerId) {
 }
 
 export async function updatePartyShippingAddress(formData, shippingAddressId) {
-  const countryCode = get(formData, 'country.label') ? `country: "${get(formData, 'country.code')}"` : `country: null`;
+  const countryCode = get(formData, 'country.label')
+    ? `country: "${get(formData, 'country.code')}"`
+    : `country: null`;
   const queryStr = `
     mutation {
       updatePartyShippingAddress (shippingAddress: {
