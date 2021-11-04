@@ -32,7 +32,7 @@
           <template slot-scope="{ item }">
             <CreateAccountDeliveryAddress
               :item="item"
-              :default-selected-item="selectedAdress"
+              :default-selected-item="selectedAddress"
               can-edit
               name="address"
             />
@@ -74,16 +74,27 @@ export default {
       address: [],
       inEditMode: false,
       addressToEdit: undefined,
-      selectedAdress: undefined,
+      selectedAddress: undefined,
     };
+  },
+
+  computed: {
+    steps: {
+      get() {
+        return this.synthesis;
+      },
+      set(synthesis) {
+        this.$emit('done', synthesis);
+      },
+    },
   },
 
   methods: {
     addnewAddress(form) {
-      console.log('add new address', form);
       this.inEditMode = false;
       this.address.push(form);
-      this.selectedAdress = form;
+      this.selectedAddress = form;
+      this.steps = { ...this.steps, deliveryStep: form };
     },
 
     gotoPrev() {

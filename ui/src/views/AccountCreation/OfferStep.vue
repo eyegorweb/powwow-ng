@@ -76,7 +76,6 @@ export default {
   },
   mounted() {
     if (!this.synthesis) {
-      console.log('pas de synthese', this.$router);
       this.$router.push({ name: 'createAccount.partner' });
     }
   },

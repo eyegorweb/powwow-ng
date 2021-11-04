@@ -93,7 +93,11 @@ export default {
       return this.simTypes.slice(0, this.limit).filter((s) => !!s.simCard);
     },
     canNext() {
-      return !!this.selectedSimTypeValue && !!parseInt(this.selectedNumberOfSims);
+      return !!(
+        this.selectedSimTypeValue &&
+        this.selectedSimTypeValue.simCard &&
+        parseInt(this.selectedNumberOfSims)
+      );
     },
   },
   methods: {
