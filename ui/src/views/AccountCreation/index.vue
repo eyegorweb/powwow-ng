@@ -8,7 +8,11 @@
               <Stepper :key="$i18n.locale" :steps="steps" :selected-index="currentStep" />
               <div class="p-4">
                 <keep-alive>
-                  <router-view :key="$route.fullPath" :synthesis="synthesis"></router-view>
+                  <router-view
+                    :key="$route.fullPath"
+                    :synthesis="synthesis"
+                    @done="done"
+                  ></router-view>
                 </keep-alive>
               </div>
             </div>
@@ -16,7 +20,7 @@
         </div>
         <CreateAccountPanelSynthesis
           :synthesis="synthesis"
-          :can-save="currentStep === steps.length - 1"
+          :can-save="currentStep === steps.length - 1 && canSave"
           @save="saveAccount"
         />
       </div>
@@ -53,6 +57,7 @@ export default {
       const index = this.steps.findIndex((s) => s.route === this.$route.name);
       return index !== -1 ? index : 0;
     },
+
     steps() {
       return [
         {
@@ -73,11 +78,22 @@ export default {
         },
       ];
     },
+
+    canSave() {
+      return !!(this.synthesis && this.synthesis.deliveryStep);
+    },
   },
 
   methods: {
     saveAccount() {
       console.log('appel api save account here');
+    },
+
+    done(steps) {
+      this.synthesis = {
+        ...this.synthesis,
+        ...steps,
+      };
     },
   },
 
