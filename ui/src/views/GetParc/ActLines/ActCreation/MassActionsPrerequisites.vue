@@ -30,7 +30,7 @@
       :user-partner="userPartner"
     />
     <OfferPrerequisite
-      :all-offers="act.title === 'getparc.actCreation.carouselItem.CHANGE_SERVICES'"
+      :all-offers="true"
       v-if="
         [
           'getparc.actCreation.carouselItem.CHANGE_SERVICES',
