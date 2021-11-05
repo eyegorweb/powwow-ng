@@ -6,7 +6,7 @@
           <div class="account-creation-stepper">
             <div class="card">
               <Stepper :key="$i18n.locale" :steps="steps" :selected-index="currentStep" />
-              <div class="p-4">
+              <div class="p-4 pb8">
                 <keep-alive>
                   <router-view
                     :key="$route.fullPath"
@@ -134,6 +134,10 @@ export default {
     display: flex;
     flex-flow: column nowrap;
     height: 100%;
+
+    .pb8 {
+      padding-bottom: 8rem !important;
+    }
 
     .account-creation-stepper {
       height: 100%;

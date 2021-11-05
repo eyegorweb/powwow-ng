@@ -111,6 +111,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.box__item {
+  display: flex;
+  justify-content: center;
+}
 .add-new {
   display: flex;
   flex-direction: column;
