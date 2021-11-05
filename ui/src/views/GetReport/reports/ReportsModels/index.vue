@@ -22,8 +22,8 @@
         </div>
         <DataTable
           storage-id="getreport.models"
-          storage-version="1"
-          :columns.sync="columns"
+          storage-version="001"
+          :columns="columns"
           :rows="rows || []"
           :page.sync="page"
           :page-limit.sync="pageLimit"
