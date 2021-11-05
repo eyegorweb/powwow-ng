@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.572+20211105160110
+2021-11-05
+
+### Fixes
+
+- [2915] fix progress button bar + center new delivery (d26c1e2ddce2ec505d8a10ad83d12face25077ec)
+
 ## 1.17.0-master.571+20211105113646
 2021-11-05
 
