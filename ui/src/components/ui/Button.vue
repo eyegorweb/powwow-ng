@@ -32,6 +32,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+
+
 .btn-round-button {
   display: block;
   width: 5rem;
@@ -44,6 +47,13 @@ export default {
   background: $primary;
   padding: 0 !important;
   cursor: pointer;
+
+  &.creationAccountBtn {
+    width: 3rem;
+    height: 3rem;
+    font-size: 1.5rem;
+  }
+  
   &.span {
     cursor: pointer;
   }
