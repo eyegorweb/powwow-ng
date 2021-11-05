@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.571+20211105113646
+2021-11-05
+
+### Fixes
+
+- [1185] Disable btn modify on partner detail supervision options (a94790bba103480b77a14bd1f265848fdcfb250a)
+- [2790] ajout de la sync local ordre des colonnes (c2ca16aa0c43cbde0fdc7ea4ab4616960efd34b6)
+
 ## 1.17.0-master.570+20211104143733
 2021-11-04
 
