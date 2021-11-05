@@ -57,7 +57,7 @@
       </tbody>
     </table>
 
-    <div class="modifyButton">
+    <div class="modifyButton" v-if="userIsBO">
       <UiButton variant="primary" :disabled="!canModify" block @click="modify()">
         {{ $t('modify') }}
       </UiButton>
