@@ -32,7 +32,7 @@ version:
     - >
       if [[ $CI_COMMIT_REF_NAME == \hotfix* ]]; then
         echo "Calculating version for hotfix branch"
-        sed 's/_\(.*\)//' version.txt | sed '$s/$/'"_$CI_COMMIT_REF_SLUG"'/' > .next-version
+        sed 's/_\(.*\)//' ui-server/version.txt | sed '$s/$/'"_$CI_COMMIT_REF_SLUG"'/' > .next-version
       else
         echo "Calculating version for branch $CI_COMMIT_REF_NAME"
         release next-version --allow-current > .next-version
