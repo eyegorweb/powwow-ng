@@ -7,6 +7,13 @@
         v-for="item in formattedItems"
         :item="item"
       />
+      <hr class="separator" />
+      <div v-if="total">
+        <div class="total">
+          <span class="flex-grow-1">{{ formattedTotal }}</span>
+          <span>{{ total }} €</span>
+        </div>
+      </div>
     </div>
     <div class="footer pt-3" v-if="canSave">
       <button
@@ -118,11 +125,23 @@ export default {
 
       return formatted;
     },
+
+    total() {
+      const quantity = this.$loGet(this.synthesis, 'simStep.selectedNumberOfSims', 0);
+      const price = this.$loGet(this.synthesis, 'offerStep.price', 0);
+      if (!quantity) return false;
+      return price * quantity;
+    },
+
+    formattedTotal() {
+      return this.$t('total').toUpperCase();
+    },
   },
 };
 </script>
 
 <style scoped lang="scss">
+$fontSize: 0.8rem;
 .new-digital-offer-synthesis {
   padding: 1em !important;
   display: flex;
@@ -136,10 +155,17 @@ export default {
     margin-bottom: 2em;
   }
   .footer {
-    border-top: 1px solid $gray-400;
     button {
       font-size: 1rem;
     }
+  }
+  .separator {
+    border: 1px solid #000;
+  }
+  div.total {
+    font-size: $fontSize;
+    display: flex;
+    flex-direction: row;
   }
 }
 
