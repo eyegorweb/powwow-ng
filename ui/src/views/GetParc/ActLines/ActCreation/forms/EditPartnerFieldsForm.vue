@@ -21,10 +21,16 @@
       </button>
       <Modal v-if="waitForConfirmation">
         <div slot="body">
-          <div class="text-danger">
-            <i class="ic-Alert-Icon"></i>
-            {{ $t('getparc.actCreation.editCustomFields.confirmationWarning') }}
-          </div>
+          <LoaderContainer :is-loading="isLoading">
+            <div slot="on-loading">
+              <ModalSkeleton :is-loading="isLoading" />
+            </div>
+            <div class="text-danger">
+              <i class="ic-Alert-Icon"></i>
+              {{ $t('getparc.actCreation.editCustomFields.confirmationWarning') }}
+            </div>
+          </LoaderContainer>
+
         </div>
         <div slot="footer">
           <button
@@ -77,12 +83,16 @@ import { updateCustomFields, updateCustomAndSpecificFieldsByFile } from '@/api/a
 import Modal from '@/components/Modal';
 import { searchLineById, uploadSearchFile } from '@/api/linesActions';
 import * as fileUtils from '@/utils/file.js';
+import LoaderContainer from '@/components/LoaderContainer';
+import ModalSkeleton from '@/components/ui/skeletons/ModalSkeleton';
 
 export default {
   components: {
     ActFormContainer,
     PartnerFields,
     Modal,
+    LoaderContainer,
+    ModalSkeleton,
   },
   props: {
     useFileImportAsInput: Boolean,
@@ -103,6 +113,7 @@ export default {
       canSend: false,
       singleLineFound: undefined,
       requestErrors: [],
+      isLoading: false,
     };
   },
   computed: {
@@ -276,6 +287,7 @@ export default {
         params
       );
       if (response.errors && response.errors.length) {
+        this.waitForConfirmation = false;
         response.errors.forEach((r) => {
           if (r.extensions && r.extensions.error) {
             if (r.extensions.error === 'MassActionLimit') {
@@ -313,11 +325,13 @@ export default {
       }
     },
     async confirmValdation(containerValidationFn) {
+      this.isLoading = true;
       const response = await containerValidationFn();
       this.waitForConfirmation = false;
       return response;
     },
-    chekcForErrors() {
+    chekcForErrors() {      
+      this.waitForConfirmation = false;
       const getCustomFieldValue = (code) => {
         const found = this.allFieldsValues.filter((c) => c.code === code);
         if (found && found.length) {
