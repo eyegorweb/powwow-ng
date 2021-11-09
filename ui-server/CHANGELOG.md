@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.574+20211109144459
+2021-11-09
+
+### Fixes
+
+- [2919] Si un seul choix, coché par default dans order sim (4a9fc21c91c138cd56249a9131fb07c22692fe29)
+
 ## 1.17.0-master.573+20211109141650
 2021-11-09
 
