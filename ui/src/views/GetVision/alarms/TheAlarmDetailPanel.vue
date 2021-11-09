@@ -20,7 +20,7 @@
         <h6>{{ $t('getparc.lineDetail.alarms.type') }}:</h6>
         <p>{{ $t('alarms.' + content.type) }}</p>
       </div>
-      <div v-if="content.alarmScope" class="overview-item mr-5">
+      <div v-if="content.alarmScope" class="overview-item mr-5 alarm-range">
         <h6>{{ $t('getvsion.filters.ALARMS_SCOPE') }}:</h6>
         <p>{{ $t(scopeTradKey) }}</p>
       </div>
@@ -71,7 +71,7 @@
       <div class="overview-item">
         <h4 class="font-weight-normal text-uppercase">{{ $t('getvsion.account-info') }}</h4>
       </div>
-      <div class="overview-item mr-5">
+      <div class="overview-item mr-5 alarm-partner">
         <h6>{{ $t('alarms.alarmScope.PARTY') }}:</h6>
         <p>{{ partner }}</p>
       </div>

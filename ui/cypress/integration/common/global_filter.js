@@ -33,6 +33,25 @@ Given(
   }
 );
 
+Given('je vérifie que les filtres obligatoires {string} sont actifs', (filters) => {
+  const filtersList = filters.split(',');
+  filtersList.forEach((filter) => {
+    cy.log(filter);
+    const filterName = filter.split(':')[0];
+    cy.log(filterName);
+    const value = filter.split(':')[1];
+    cy.log(value);
+    checkActiveFilter(filterName, value);
+  });
+});
+
+Given('Je vérifie que les filtres {string} sont grisés', (filters) => {
+  const filtersList = filters.split(',');
+  filtersList.forEach((filter) => {
+    checkNonActiveFilter(filter);
+  });
+});
+
 /* Fonctions */
 
 // Exécute l'instruction
@@ -104,6 +123,7 @@ function select(value) {
 function date(period) {
   cy.waitGet('.is-open > div.pt-3 > div > div > div').click({ force: true });
   cy.waitGet(`body > .daterangepicker > .ranges > ul > li:nth-child(${period})`)
+    .first()
     .wait(500)
     .click({ force: true });
 }
@@ -112,4 +132,23 @@ function date(period) {
 function quantity(min, max) {
   cy.waitGet('.is-open input.form-control.border-right-0.h-100').type(min);
   cy.waitGet('.is-open input.form-control.border-left-0.h-100').type(max);
+}
+
+function checkActiveFilter(filterName, value) {
+  cy.waitGet('.filter-bar .selected-filter')
+    .contains(filterName)
+    .parent()
+    .then(($filter) => {
+      let text = $filter.find('div > span').text();
+      text = text.trim();
+      expect(text).to.eq(value);
+    });
+}
+
+function checkNonActiveFilter(filter) {
+  cy.waitGet('.filter-bar > div > div:last-child > span > div.foldable-block span')
+    .contains(filter)
+    .parent()
+    .parent()
+    .should('have.class', 'disabled');
 }

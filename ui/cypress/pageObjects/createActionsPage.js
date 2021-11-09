@@ -32,6 +32,46 @@ export default {
   isPageLoaded() {
     cy.get('#app > div.container > div.mt-4 > div.row.mb-5 > div > div > div > div');
   },
+  clickActByName(actName) {
+    cy.waitGet('.slick-slide')
+      .contains(actName)
+      .click({ force: true });
+    cy.wait(500);
+  },
+  clickMassToggle() {
+    cy.waitGet('.item.toggle > button:first-child').click({ force: true });
+  },
+  clickApplyButton() {
+    cy.waitGet('.btn-validate').click({ force: true });
+  },
+  requireInformations: {
+    partner(partner) {
+      cy.waitGet('.partner-prereq input').type(partner);
+      cy.wait(400);
+      cy.waitGet('.partner-prereq .autocomplete-result:first-child').click({ force: true });
+      cy.wait(400);
+    },
+    cf(cf) {
+      cy.waitGet('.billing-account-prereq input').type(cf);
+      cy.wait(400);
+      cy.waitGet('.billing-account-prereq .autocomplete-result:first-child').click({ force: true });
+      cy.wait(400);
+    },
+    simType(simType) {
+      cy.waitGet('.sim-type-prereq input').type(simType);
+      cy.wait(400);
+      cy.waitGet('.sim-type-prereq .autocomplete-result:first-child').click({ force: true });
+      cy.wait(400);
+    },
+  },
+  togglePairingESim: {
+    auto() {
+      cy.waitGet('.item.toggle > button:first-child').click({ force: true });
+    },
+    file() {
+      cy.waitGet('.item.toggle > button:nth-child(2)').click({ force: true });
+    },
+  },
   table: {
     setPageLimit(nb) {
       cy.get('.datatable-pagination select').select('' + nb);

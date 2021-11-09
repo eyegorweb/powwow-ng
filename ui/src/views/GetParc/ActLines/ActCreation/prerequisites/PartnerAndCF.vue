@@ -17,7 +17,7 @@
         <button
           @click="validatePrerequisites"
           :disabled="!canValidate"
-          class="btn btn-primary pl-4 pr-4 pt-2 pb-2"
+          class="btn btn-primary pl-4 pr-4 pt-2 pb-2 btn-validate"
         >
           {{ $t('set') }}
         </button>

@@ -9,6 +9,7 @@
   },
   "testFiles": "**/*.feature",
   "projectId": "powwow-ng",
+  "retries": 2,
   "reporter": "../node_modules/mochawesome/src/mochawesome.js",
   "reporterOptions": {
     "overwrite": false,

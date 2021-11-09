@@ -20,6 +20,19 @@ Given("je modifie le nom de l'alarme par {string}", (alarmName) => {
   createAlarmsPage.fillAlarmName(alarmName);
 });
 
+Given('je vérifie que je ne peux pas modifier le partenaire et la portée', () => {
+  createAlarmsPage.profileStatutChangement.cantModifyPartner();
+  createAlarmsPage.profileStatutChangement.cantModifyRange();
+});
+
+Given(
+  'je vérifie que les données Partenaire {string} et Portée {string} sont correctement préremplies',
+  (partner, range) => {
+    createAlarmsPage.profileStatutChangement.verifyPrefilledPartner(partner);
+    createAlarmsPage.profileStatutChangement.verifyPrefilledRange(range);
+  }
+);
+
 When(`je valide la création`, () => {
   createAlarmsPage.saveAlarm();
 });
