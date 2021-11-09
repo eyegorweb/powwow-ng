@@ -9,12 +9,13 @@
               @update:defaultSelectedItem="checkForCurrentSimType"
               v-for="item in filteredSimTypes"
               :key="item.id"
+              :isAlone="filteredSimTypes.length === 1"
               :item="item"
               :default-selected-item.sync="selectedSimTypeValue"
               :is-active="
                 selectedSimTypeValue &&
-                  selectedSimTypeValue.simCard &&
-                  selectedSimTypeValue.simCard.id === item.simCard.id
+                selectedSimTypeValue.simCard &&
+                selectedSimTypeValue.simCard.id === item.simCard.id
               "
               last-action-key="getsim.sim-type-labels.orderDate"
               no-action-key="getsim.never-ordered"
