@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.575+20211109155608
+2021-11-09
+
+### Features
+
+- [000] Cypress tests automatiques pour eSIM et maintenance des tests (e524e00b61480feca67710645268b5a2ee43c1d4)
+
 ## 1.17.0-master.574+20211109144459
 2021-11-09
 
