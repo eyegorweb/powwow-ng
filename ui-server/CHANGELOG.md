@@ -2,6 +2,17 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.573+20211109141650
+2021-11-09
+
+### Features
+
+- [000] refactoring de l'enregistrement de la création d'un compte (71d531e2ead75ab8c27cd7882ca9239611ea49f4)
+
+### Fixes
+
+- [3004] loader + hide modal when errors (efbcb8d0d30cfdb8d2538a3126c141a37f1cd0ed)
+
 ## 1.17.0-master.572+20211105160110
 2021-11-05
 
