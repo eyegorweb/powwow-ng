@@ -42,6 +42,9 @@ export default {
     item: {
       type: Object,
     },
+    isAlone: {
+      type: Boolean,
+    },
     defaultSelectedItem: {
       type: [String, Array, Object],
     },
@@ -57,7 +60,7 @@ export default {
     },
     selectedItem: {
       get() {
-        return this.defaultSelectedItem;
+        return !this.defaultSelectedItem && this.isAlone ? this.item : this.defaultSelectedItem;
       },
       set(newSelected) {
         this.$emit('update:defaultSelectedItem', newSelected);
