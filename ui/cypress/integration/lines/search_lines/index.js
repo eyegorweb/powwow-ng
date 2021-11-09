@@ -4,6 +4,8 @@ import lineDetailPage from '../../../pageObjects/lineDetailPage';
 import get from 'lodash/get';
 
 let totalLines = 0;
+let lengthFilterSimType = 0;
+let lengthFilterSimTypeBeforeEsim = 0;
 
 Given(`j'ouvre le détail d'une ligne`, () => {
   linesPage.showAllLines();
@@ -50,6 +52,22 @@ Given("J'enregistre les filtres sous le nom de {string}", (filterName) => {
 Given('Je supprime les filtres', () => {
   linesPage.filterBar.deleteFilter();
 });
+
+Given('je récupère la longueur de la liste du filtre "Type de carte SIM"', () => {
+  getLengthFilterSimType();
+  lengthFilterSimTypeBeforeEsim = lengthFilterSimType;
+});
+
+When('je récupère la longueur de la liste du filtre "Type de carte SIM"', () => {
+  getLengthFilterSimType();
+});
+
+Then(
+  'je vérifie que la liste compte moins d\'éléments lorsque le filtre "Catégorie de SIM" est actif à "ESIM"',
+  () => {
+    expect(lengthFilterSimType).to.be.below(lengthFilterSimTypeBeforeEsim);
+  }
+);
 
 When('Je clique sur le filtre enregistré', () => {
   linesPage.filterBar.openSavedFilter();
@@ -115,4 +133,23 @@ function getTotalLines() {
     const value = parseInt(parts[0]);
     totalLines = value;
   });
+}
+
+function getLengthFilterSimType() {
+  toggleFilterSimType();
+  cy.waitGet('.is-open > .pt-3 .checkbox-container').then((checkboxes) => {
+    lengthFilterSimType = Cypress.$(checkboxes).length;
+  });
+  toggleFilterSimType();
+}
+
+function toggleFilterSimType() {
+  cy.waitGet('.filter-bar > div > div:last-child > span > div.foldable-block span')
+    .contains('Type de carte SIM')
+    .parent()
+    .then(($parent) => {
+      cy.wrap($parent)
+        .find('a.p-0')
+        .click({ force: true });
+    });
 }

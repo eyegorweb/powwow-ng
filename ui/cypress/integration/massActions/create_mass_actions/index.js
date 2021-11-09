@@ -88,6 +88,63 @@ Given(`je choisis l'acte de gestion de résiliation`, () => {
   gotoResiliationAct();
 });
 
+Given("je choisis l'acte {string}", (actName) => {
+  createActionsPage.clickActByName(actName);
+});
+
+Given("je sélectionne l'acte en masse", () => {
+  createActionsPage.clickMassToggle();
+});
+
+Given(
+  'je rentre les informations prérequises Partenaire {string} et CF {string}',
+  (partner, cf) => {
+    createActionsPage.requireInformations.partner(partner);
+    createActionsPage.requireInformations.cf(cf);
+  }
+);
+
+Given('je rentre les informations prérequises Partenaire {string}', (partner) => {
+  createActionsPage.requireInformations.partner(partner);
+});
+
+Given(
+  'je rentre les informations prérequises Partenaire {string}, CF {string} et Type de carte SIM {string}',
+  (partner, cf, simType) => {
+    createActionsPage.requireInformations.partner(partner);
+    createActionsPage.requireInformations.cf(cf);
+    createActionsPage.requireInformations.simType(simType);
+  }
+);
+
+Given("je choisis l'appairage automatique", () => {
+  createActionsPage.togglePairingESim.auto();
+});
+
+Given("je choisis l'appairage par fichier", () => {
+  createActionsPage.togglePairingESim.file();
+});
+
+Given('Je clique sur le bouton "Appliquer"', () => {
+  createActionsPage.clickApplyButton();
+});
+
+Given("je vérifie que l'input Sujet a la valeur {string} et est non modifiable", (value) => {});
+
+Given(
+  'je vérifie que Action est un toggle et a les valeurs {string} et {string}',
+  (fValue, sValue) => {}
+);
+
+Given(
+  'je vérifie que Qualification est un toggle et a les valeurs {string} et {string}',
+  (fValue, sValue) => {}
+);
+
+When('Je clique sur le bouton "Appliquer"', () => {
+  createActionsPage.clickApplyButton();
+});
+
 When('Je créé la validation avec un délai de 3 mois', () => {
   createActionsPage.actions.activate.selectSecondLine();
   createActionsPage.actions.manageCancellation.chooseDelay('3');
@@ -143,3 +200,16 @@ Then(`je verifie que mon acte a été créé`, () => {
     });
   });
 });
+
+Then('Le bouton "Valider" est présent', () => {});
+
+Then('un message de confirmation apparait', () => {});
+
+Then('Le bouton "Appliquer" apparait sous la table des résultats', () => {});
+
+Then(
+  'Une zone d\'upload et le bouton "Appliquer" appairaissent sous la table des résultats',
+  () => {}
+);
+
+Then('un formulaire avec la liste des statuts du profil apparait', () => {});

@@ -98,4 +98,18 @@ export default {
       ).click({ force: true });
     },
   },
+  profileStatutChangement: {
+    cantModifyPartner() {
+      cy.waitGet('.creationContainer div.col-md-6 input').should('not.exist');
+    },
+    cantModifyRange() {
+      cy.waitGet('.creationContainer div.mb-4 select').should('not.exist');
+    },
+    verifyPrefilledPartner(partner) {
+      cy.waitGet('.panel-vertical-container .alarm-partner > p').should('have.text', partner);
+    },
+    verifyPrefilledRange(range) {
+      cy.waitGet('.panel-vertical-container .alarm-range > p').should('have.text', range);
+    },
+  },
 };

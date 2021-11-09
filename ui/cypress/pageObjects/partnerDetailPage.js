@@ -255,6 +255,13 @@ export default {
               expect(titleText, 'Title').to.equal(title);
             });
         },
+        save() {
+          cy.waitGet('div.footer-panel-buttons > div > div:nth-child(2) > button')
+            .click({
+              force: true,
+            })
+            .wait(400);
+        },
       },
       specificFields: {
         goTo() {
@@ -378,6 +385,17 @@ export default {
         goTo() {
           cy.waitGet('ul.list-group > li:nth-child(2) > a').click({ force: true });
           cy.url().should('include', '/accountDetail/options');
+        },
+        clickEsimToggle() {
+          cy.waitGet(
+            'div.col-md-9 > div > div:nth-child(1) > div:nth-child(2) > div > div:nth-child(3) > div:nth-child(1) > div > label > span.slider'
+          ).click({ force: true });
+        },
+        save() {
+          cy.wait(800);
+          cy.waitGet(
+            '#app > div.container > div.mt-4 > div.mt-4.mb-4.bottom-space > div.pt-4.pl-4 > div > div.col-md-9 > div > div.d-flex > div > button'
+          ).click({ force: true });
         },
       },
     },

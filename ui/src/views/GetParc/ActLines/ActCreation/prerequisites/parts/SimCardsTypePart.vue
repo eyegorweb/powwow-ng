@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="sim-type-prereq">
     <UiApiAutocomplete
       :api-method="fetchApi"
       v-model="selectedTypeSimCard"

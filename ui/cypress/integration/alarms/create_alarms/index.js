@@ -6,6 +6,7 @@ let totalAlarms = 0;
 
 Given(`j'enregistre le nombre d'alarmes`, () => {
   getTotalAlarms();
+  cy.log(totalAlarms);
   cy.wait(500);
 });
 

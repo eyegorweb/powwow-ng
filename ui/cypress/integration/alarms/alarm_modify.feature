@@ -63,15 +63,17 @@ Feature: Modification d'alarmes
     When je valide la création
     Then je vérifie la modification du nom de l'alarme
 
-  Scenario: Je modifie une alarme de changement d'equipement par défaut
+  Scenario: Je modifie une alarme de changement de changement de statut de profil par défaut
     Given en tant que BO
     And Je vais sur la page des alarmes
-    And j'enregistre le nom de l'alarme "TEST POUR MODIF changement d'equipement"
-    And je créé une alarme de changement d'equipement par défaut "TEST POUR MODIF changement d'equipement"
+    And j'enregistre le nom de l'alarme "TEST POUR MODIF changement de statut de profil"
+    And je créé une alarme de changement de statut de profil par défaut "TEST POUR MODIF changement de statut de profil"
     And je valide la création
     And je clique sur l'ID de cette alarme
+    And je vérifie que les données Partenaire "LYRA NETWORK" et Portée "Partenaire" sont correctement préremplies
     And je clique sur le bouton "Modifier l’alarme"
-    And je modifie le nom de l'alarme par "TEST MODIF changement d'equipement"
+    And je vérifie que je ne peux pas modifier le partenaire et la portée
+    And je modifie le nom de l'alarme par "TEST MODIF changement de statut de profil"
     When je valide la création
     Then je vérifie la modification du nom de l'alarme
 

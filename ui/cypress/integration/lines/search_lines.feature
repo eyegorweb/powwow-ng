@@ -43,6 +43,28 @@ Feature: Recherche de lignes
     When Je clique sur le filtre enregistré
     Then Les filtres "AUCHAN" et "Auchan1 - Auchan1" sont activés
 
+  Scenario: J'initialise le filtre Type de carte SIM selon le filtre Catégorie de SIM
+    Given en tant que BO
+    And Je vais sur la page des lignes
+    And je récupère la longueur de la liste du filtre "Type de carte SIM"
+    And j'affiche tous les filtres
+    And Je filtre par sélection "Catégorie de SIM" nommé "ESIM"
+    When je récupère la longueur de la liste du filtre "Type de carte SIM"
+    Then je vérifie que la liste compte moins d'éléments lorsque le filtre "Catégorie de SIM" est actif à "ESIM"
+
+  Scenario: Je fais une recherche avec des filtres eSIM
+    Given en tant que BO
+    And Je vais sur la page des lignes
+    And j'affiche tous les filtres
+    And Je vérifie que les filtres "Type de Step,Statut de téléchargement,Ligne Appairée,SMSRID" sont grisés
+    And Je filtre par sélection "Catégorie de SIM" nommé "ESIM"
+    And Je filtre par "Type de carte SIM" nommé "ESIM CARTE 2 ESIMM2M002"
+    And Je filtre par sélection "Type de Step" nommé "STEP2"
+    And Je filtre par sélection "Statut de téléchargement" nommé "ENABLED"
+    And Je filtre par sélection "Ligne Appairée" nommé "YES"
+    When je lance la recherche
+    Then la table contient 0 resultat
+
   @ignore
   Scenario: Je fais un export des lignes (Classique)
     Given en tant que BO

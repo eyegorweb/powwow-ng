@@ -18,11 +18,12 @@ Feature: Création d'alarmes
     When je valide la création
     Then je vérifie que mon alarme a été créé
 
-  Scenario: Je crée une alarme de changement d'équipement par défaut
+  @focus
+  Scenario: Je crée une alarme de changement de statut de profil par défaut
     Given en tant que BO
     And Je vais sur la page des alarmes
     And j'enregistre le nombre d'alarmes
-    And je créé une alarme de changement d'equipement par défaut "TEST changement d'equipement"
+    And je créé une alarme de changement de statut de profil par défaut "TEST changement de statut de profil"
     When je valide la création
     Then je vérifie que mon alarme a été créé
 

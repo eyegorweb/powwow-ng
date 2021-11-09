@@ -31,7 +31,7 @@ Given(`je créé une alarme de changement de statut par défaut {string}`, (alar
   createAlarmsPage.fillAlarmName(alarmName);
 });
 
-Given(`je créé une alarme de changement d'equipement par défaut {string}`, (alarmName) => {
+Given(`je créé une alarme de changement de statut de profil par défaut {string}`, (alarmName) => {
   createAlarmsPage.startCreation();
   createAlarmsPage.create(6);
   createAlarmsPage.selectPartner('lyra');

@@ -78,7 +78,7 @@ Feature: Détails d'un partenaire
     And Je verifie la creation du nouveau champ libre "TestCypress"
     And Je clique sur le bouton "Modifier" de ce nouveau champ
     And Je rentre le titre "TestCypressV2"
-    When Je clique sur le bouton "Mettre a jour"
+    When je clique sur le bouton "Mettre a jour"
     Then Je verifie la modification du champ libre a "TestCypressV2"
 
   Scenario: Je vérifie l'ouverture du panneau lors de la création et de la modification d'un champ spécifique, onglet "Personnalisation, section "Champs specifique"
@@ -133,5 +133,14 @@ Feature: Détails d'un partenaire
     And Je vais sur la page de detail du partenaire LYRA
     And Je vais sur l'onglet "DÉTAIL DU COMPTE" et vérifie l'URL "/accountDetail"
     And Je vais dans la section "Options du partenaire" et vérifie l'URL "/accountDetail/options"
-    When je clique sur le bouton "Enregistrer"
+    When Je clique sur le bouton "Enregistrer"
     Then Le message de confirmation apparait et je peux fermer le message
+
+  Scenario: Je peux modifier l'option Esim pour le partenaire d'un partenaire M2M
+    Given en tant que BO
+    And Je vais sur la page de detail du partenaire LYRA
+    And Je vais sur l'onglet "DÉTAIL DU COMPTE" et vérifie l'URL "/accountDetail"
+    And Je vais dans la section "Options du partenaire" et vérifie l'URL "/accountDetail/options"
+    And Je clique sur l'option "Esim pour le partenaire"
+    When je clique sur le bouton "Enregistrer"
+    Then La modification a été enregistrée

@@ -21,26 +21,26 @@ export default {
   typeFirstname(firstname) {
     cy.waitGet('.firstname > input')
       .clear()
-      .type(firstname);
+      .type(firstname, { force: true });
   },
   typeLastname(lastname) {
     cy.waitGet('.lastname > input')
       .clear({ force: true })
-      .type(lastname);
+      .type(lastname, { force: true });
   },
   typeEmail(email) {
     cy.waitGet('.email > input')
       .clear()
-      .type(email);
+      .type(email, { force: true });
   },
   typeLogin(login) {
     cy.waitGet('.login > input')
       .clear()
-      .type(login);
+      .type(login, { force: true });
   },
   typePassword(password) {
-    cy.waitGet('.password > input').type(password);
-    cy.waitGet('.password-confirm > input').type(password);
+    cy.waitGet('.password > input').type(password), { force: true };
+    cy.waitGet('.password-confirm > input').type(password, { force: true });
   },
   checkRole(index) {
     cy.waitGet('.roles > div.checkboxes > div:nth-child(' + index + ') > label > span').click({

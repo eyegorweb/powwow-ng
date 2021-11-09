@@ -194,6 +194,10 @@ When('Je clique sur le bouton "Mettre a jour"', () => {
   partnerDetailPage.tabs.customization.fields.edit.save();
 });
 
+When('je clique sur le bouton "Mettre a jour"', () => {
+  partnerDetailPage.tabs.customization.customFields.save();
+});
+
 Then('Je verifie la modification du champ libre a {string}', (title) => {
   partnerDetailPage.tabs.customization.customFields.verifyNewCustomFieldTitle(title);
 });
@@ -237,7 +241,23 @@ Then("Le message de confirmation apparait et je peux confirmer l'action", () => 
 
 /* La confirmation de modification apparait sur l'ecran apres l'enregistrement des options du partenaire, onglet "Detail du compte", section "Options du partenaire" */
 
+When('Je clique sur le bouton "Enregistrer"', () => {
+  partnerDetailPage.tabs.accountDetails.partnerOptions.save();
+});
+
 Then('Le message de confirmation apparait et je peux fermer le message', () => {
   partnerDetailPage.modal.isVisible();
   partnerDetailPage.modal.cancelButton();
+});
+
+/* Je peux modifier l'option Esim pour le partenaire d'un partenaire M2M */
+
+Given('Je clique sur l\'option "Esim pour le partenaire"', () => {
+  partnerDetailPage.tabs.accountDetails.partnerOptions.clickEsimToggle();
+  cy.wait(400);
+});
+
+Then('La modification a été enregistrée', () => {
+  partnerDetailPage.modal.cancelButton();
+  cy.wait(400);
 });
