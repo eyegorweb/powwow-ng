@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.577+20211115135828
+2021-11-15
+
+### Fixes
+
+- [3037] supprimer colonnesDate Et Creator From ExportError (fe709023f527c9e21179bb1c504d7457fc209e1f)
+
 ## 1.17.0-master.576+20211115123948
 2021-11-15
 
