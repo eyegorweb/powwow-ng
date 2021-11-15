@@ -12,3 +12,7 @@ const publicApiSimTypes = axios.create({
 export function fetchSimTypes() {
   return publicApiSimTypes.get('/api/public/digital-offer/sim').then((res) => res.data.items);
 }
+
+export function fetchWorkflows() {
+  return publicApiSimTypes.get('/api/public/digital-offer/workflows').then((res) => res.data.items);
+}
