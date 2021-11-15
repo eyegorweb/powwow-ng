@@ -270,8 +270,8 @@ function getFormGQLParams(params) {
   if (get(params, 'scope.offer.meta.id')) {
     gqlParams.push(`workflowId:${get(params, 'scope.offer.meta.id')}`);
   }
-  if (get(params, 'scope.billingAccount.meta.id')) {
-    gqlParams.push(`customerAccountId:${get(params, 'scope.billingAccount.meta.id')}`);
+  if (get(params, 'scope.billingAccount.data.id')) {
+    gqlParams.push(`customerAccountId:${get(params, 'scope.billingAccount.data.id')}`);
   }
 
   return gqlParams;

@@ -116,6 +116,15 @@ export default {
       } else if (
         response.errors &&
         response.errors.length &&
+        response.errors.find((err) => err.extensions.alarm === 'ALARMS_D_MAX_ALARM_PER_AP_REACHED')
+      ) {
+        this.flashMessage({
+          level: 'danger',
+          message: this.$t('alarms.errors.ALARMS_D_MAX_ALARM_PER_AP_REACHED'),
+        });
+      } else if (
+        response.errors &&
+        response.errors.length &&
         !response.errors.find((err) => err.key === key)
       ) {
         this.flashMessage({ level: 'danger', message: this.$t('genericErrorMessage') });
