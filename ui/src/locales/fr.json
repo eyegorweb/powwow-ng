@@ -625,7 +625,10 @@
       "PARTY": "Partenaire",
       "CUSTOM_FIELDS": "Champ libres"
     },
-    "offer_cf": "CF / Offre"
+    "offer_cf": "CF / Offre",
+    "errors": {
+      "ALARMS_D_MAX_ALARM_PER_AP_REACHED": "le nombre maximum des alarmes sur le scope cf/offre est atteint"
+    }
   },
   "getdevice": {
     "title": "Gestion de mes équipements",
