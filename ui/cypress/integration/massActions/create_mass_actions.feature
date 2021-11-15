@@ -26,6 +26,7 @@ Feature: Création d'actes de gestion
     When je confirme la création de l'acte
     Then je verifie que mon acte a été créé
 
+  @focus
   Scenario: Je veux créer un acte de modification de champs libres
     Given en tant que BO
     And Je vais sur la page des lignes
