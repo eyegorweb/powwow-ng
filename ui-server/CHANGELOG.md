@@ -2,6 +2,19 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.576+20211115123948
+2021-11-15
+
+### Features
+
+- [2920] brancher api workflows pour pouvoir choisir un offre une commande M2MLight (f39408b23035ff84e30ccc2f0c5ba06c95ba4a4b)
+- [000] Cypress maintenance (20c1da437648c05cf8735e586e0a89b24c3c286a)
+
+### Fixes
+
+- [3034] export des lignes de la table supervision (def9d48f1dc2d55dfb91e684e7a0aa544258dea0)
+- [3037] Export des lignes non compatibles vide (962b9ced734359753e2c6f4a020903c3ce55bc9a)
+
 ## 1.17.0-master.575+20211109155608
 2021-11-09
 
