@@ -1,14 +1,5 @@
 <template>
   <div>
-    <div class="row">
-      <div v-if="filtersForExport && total > 0" class="col">
-        <ExportButton :export-fn="getExportFn()" :columns="columns" :order-by="orderBy">
-          <span slot="title">{{
-            $t('getparc.actLines.export', { total: $formatLargeNumber(total) })
-          }}</span>
-        </ExportButton>
-      </div>
-    </div>
     <template v-if="indicatorTotal < 500">
       <PaginatedDataTable
         storage-id="supervision.table"
@@ -24,27 +15,27 @@
             <i class="ic-Pin-Icon"></i>
             {{ $t('getparc.lineDetail.tab2.supervisionContent.mapView') }}
           </UiButton>
+          <ExportButton :export-fn="getExportFn()" :columns="columns" :order-by="orderBy">
+            <span slot="title">{{ $t('getparc.actLines.export', { total: indicatorTotal }) }}</span>
+          </ExportButton>
         </template>
         <template slot="noResult">
-          <UiButton variant="outline-primary" @click="$emit('gotomap')">
-            <i class="ic-Pin-Icon"></i>
-            {{ $t('getparc.lineDetail.tab2.supervisionContent.mapView') }}
-          </UiButton>
-
           <div class="mt-2 alert alert-light m-0" role="alert">
             {{ $t('noResult') }}
           </div>
         </template>
       </PaginatedDataTable>
     </template>
-    <template v-else-if="indicatorTotal >= 500 && total <= 100000">
+    <template v-else-if="indicatorTotal >= 500 && indicatorTotal <= 100000">
       <div class="d-flex justify-content-between">
         <UiButton variant="outline-primary" @click="$emit('gotomap')">
           <i class="ic-Pin-Icon"></i>
           {{ $t('getparc.lineDetail.tab2.supervisionContent.mapView') }}
         </UiButton>
         <ExportButton :export-fn="getExportFn()" :columns="columns" :order-by="orderBy">
-          <span slot="title">{{ $t('getparc.actLines.export', { total: indicatorTotal }) }}</span>
+          <span slot="title">{{
+            $t('getparc.actLines.export', { total: $formatLargeNumber(indicatorTotal) })
+          }}</span>
         </ExportButton>
       </div>
       <div class="alert alert-warning mt-2">{{ $t('getvsion.msgSynchronousExport') }}.</div>
@@ -56,7 +47,9 @@
           {{ $t('getparc.lineDetail.tab2.supervisionContent.mapView') }}
         </UiButton>
         <ExportButton :export-fn="getExportFn()" :columns="columns" :order-by="orderBy">
-          <span slot="title">{{ $t('getparc.actLines.export', { total: indicatorTotal }) }}</span>
+          <span slot="title">{{
+            $t('getparc.actLines.export', { total: $formatLargeNumber(indicatorTotal) })
+          }}</span>
         </ExportButton>
       </div>
       <div class="alert alert-warning mt-2">{{ $t('getvsion.msgDeferExport') }}.</div>
