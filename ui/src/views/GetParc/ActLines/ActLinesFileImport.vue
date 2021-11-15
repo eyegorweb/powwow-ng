@@ -150,15 +150,7 @@ export default {
     getExportFn() {
       return async (columnsParam, orderBy, exportFormat) => {
         return await exportLinesFromFileFilter(
-          [
-            'UPLOAD_ID',
-            'UPLOAD_CREATOR',
-            'UPLOAD_DATE',
-            'UPLOAD_TYPE',
-            'DATA',
-            'NEW_DATA',
-            'STATUS',
-          ],
+          ['UPLOAD_CREATOR', 'UPLOAD_DATE', 'DATA', 'NEW_DATA', 'STATUS'],
           '',
           exportFormat,
           this.fileMeta.tempDataUuid
