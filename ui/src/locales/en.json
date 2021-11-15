@@ -129,6 +129,14 @@
       "phone": "Phone",
       "billingAddress": "Billing address",
       "price": "Price"
+    },
+    "offerPackages": {
+      "DATA": "Data {value} {unit}",
+      "SMS": "Sms {value}",
+      "VOICE": "Voix {value} {unit}"
+    },
+    "offerStep": {
+      "subscribe": "Subscribe"
     }
   },
   "export-types": {
