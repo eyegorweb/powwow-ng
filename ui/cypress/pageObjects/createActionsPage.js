@@ -224,7 +224,7 @@ export default {
     editFreeFields: {
       checkFirstLine() {
         cy.waitGet(
-          'table > tbody > tr:nth-child(1) > td:nth-child(1) > div > div > label > span'
+          'table > tbody > tr:nth-child(4) > td:nth-child(1) > div > div > label > span'
         ).click({ force: true });
       },
       fillFirstFreeField(freeField) {
