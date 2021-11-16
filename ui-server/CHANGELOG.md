@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.580+20211116133949
+2021-11-16
+
+### Fixes
+
+- [3034] export des supervisions (b79ce7ddcc6917c0a02b03073b09f1e5d994300c)
+
 ## 1.17.0-master.579+20211116113004
 2021-11-16
 
