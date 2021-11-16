@@ -30,7 +30,6 @@
               {{ $t('getparc.actCreation.editCustomFields.confirmationWarning') }}
             </div>
           </LoaderContainer>
-
         </div>
         <div slot="footer">
           <button
@@ -330,7 +329,7 @@ export default {
       this.waitForConfirmation = false;
       return response;
     },
-    chekcForErrors() {      
+    chekcForErrors() {
       this.waitForConfirmation = false;
       const getCustomFieldValue = (code) => {
         const found = this.allFieldsValues.filter((c) => c.code === code);

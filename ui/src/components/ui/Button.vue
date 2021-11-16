@@ -32,9 +32,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
-
-
 .btn-round-button {
   display: block;
   width: 5rem;
@@ -53,7 +50,7 @@ export default {
     height: 3rem;
     font-size: 1.5rem;
   }
-  
+
   &.span {
     cursor: pointer;
   }
