@@ -28,19 +28,26 @@
           </div>
         </template>
         <template slot="businessError">
-          <div class="mb-2 d-flex justify-content-between">
-            <UiButton variant="outline-primary" @click="$emit('gotomap')">
-              <i class="ic-Pin-Icon"></i>
-              {{ $t('getparc.lineDetail.tab2.supervisionContent.mapView') }}
-            </UiButton>
-            <ExportButton :export-fn="getExportFn()" :columns="columns" :order-by="orderBy">
-              <span slot="title">{{
-                $t('getparc.actLines.export', { total: $formatLargeNumber(indicatorTotal) })
-              }}</span>
-            </ExportButton>
+          <div v-if="indicatorTotal">
+            <div class="mb-2 d-flex justify-content-between">
+              <UiButton variant="outline-primary" @click="$emit('gotomap')">
+                <i class="ic-Pin-Icon"></i>
+                {{ $t('getparc.lineDetail.tab2.supervisionContent.mapView') }}
+              </UiButton>
+              <ExportButton :export-fn="getExportFn()" :columns="columns" :order-by="orderBy">
+                <span slot="title">{{
+                  $t('getparc.actLines.export', { total: $formatLargeNumber(indicatorTotal) })
+                }}</span>
+              </ExportButton>
+            </div>
+            <div class="alert alert-warning" role="alert">
+              {{ $t('getvsion.msgGlobalParcExport') }}
+            </div>
           </div>
-          <div class="alert alert-warning" role="alert">
-            {{ $t('getvsion.msgGlobalParcExport') }}
+          <div v-else>
+            <div class="mt-2 alert alert-light m-0" role="alert">
+              {{ $t('noResult') }}
+            </div>
           </div>
         </template>
       </PaginatedDataTable>
