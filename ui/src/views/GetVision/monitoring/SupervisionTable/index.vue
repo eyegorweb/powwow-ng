@@ -21,9 +21,6 @@
             <i class="ic-Pin-Icon"></i>
             {{ $t('getparc.lineDetail.tab2.supervisionContent.mapView') }}
           </UiButton>
-          <ExportButton :export-fn="getExportFn()" :columns="columns" :order-by="orderBy">
-            <span slot="title">{{ $t('getparc.actLines.export', { total: indicatorTotal }) }}</span>
-          </ExportButton>
         </template>
         <template slot="noResult">
           <div class="mt-2 alert alert-light m-0" role="alert">
@@ -42,7 +39,7 @@
               }}</span>
             </ExportButton>
           </div>
-          <div class="alert alert-light" role="alert">
+          <div class="alert alert-warning" role="alert">
             {{ $t('getvsion.msgGlobalParcExport') }}
           </div>
         </template>
