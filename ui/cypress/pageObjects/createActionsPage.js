@@ -228,7 +228,9 @@ export default {
         ).click({ force: true });
       },
       fillFirstFreeField(freeField) {
-        cy.waitGet('.col-7 input')
+        cy.waitGet(
+          '.col-7 > div:nth-child(1) > div > div:nth-child(1) > div:nth-child(2) > div > label > input'
+        )
           .first()
           .type(freeField);
       },

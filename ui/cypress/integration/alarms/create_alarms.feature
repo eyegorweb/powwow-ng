@@ -18,7 +18,6 @@ Feature: Création d'alarmes
     When je valide la création
     Then je vérifie que mon alarme a été créé
 
-  @focus
   Scenario: Je crée une alarme de changement de statut de profil par défaut
     Given en tant que BO
     And Je vais sur la page des alarmes
