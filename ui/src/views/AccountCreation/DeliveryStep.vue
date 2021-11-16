@@ -1,9 +1,10 @@
 <template>
   <div class="step-container">
     <template v-if="inEditMode">
-      <CreateAccountNewDeliveryAddress
-        @cancel="inEditMode = false"
-        @saved="addnewAddress"
+      <NewDeliveryAddress
+        @cancel="(inEditMode = false), (addressToEdit = undefined)"
+        @saved="refreshList"
+        @add="addNewAddress"
         :address-edit="addressToEdit"
       />
     </template>
@@ -11,11 +12,11 @@
       <div class="row mb-3 add-new">
         <BlocList :items="address">
           <template slot="firstElement" slot-scope="{ className }">
-            <div :class="`${className}`" @click="inEditMode = true">
+            <div :class="`${className}`" @click="(inEditMode = true), (addressToEdit = undefined)">
               <div class="add-new">
                 <UiButton
                   variant="round-button"
-                  @click="inEditMode = true"
+                  @click="(inEditMode = true), (addressToEdit = undefined)"
                   class="ic-Plus-Icon test"
                   style="
                 margin: auto;
@@ -35,6 +36,7 @@
               :default-selected-item="selectedAddress"
               can-edit
               name="address"
+              @modify="editAddress"
             />
           </template>
         </BlocList>
@@ -48,8 +50,8 @@
 import BottomBar from './BottomBar.vue';
 import BlocList from '@/components/BlocList';
 import UiButton from '@/components/ui/Button';
-import CreateAccountDeliveryAddress from '@/views/GetSim/CreateOrder/DeliveryStep/CreateOrderStepDeliveryAddress.vue';
-import CreateAccountNewDeliveryAddress from './NewDeliveryAddressStep.vue';
+import CreateAccountDeliveryAddress from './CreateAccountDeliveryAddress.vue';
+import NewDeliveryAddress from './NewDeliveryAddressStep.vue';
 
 export default {
   components: {
@@ -57,7 +59,7 @@ export default {
     BlocList,
     UiButton,
     CreateAccountDeliveryAddress,
-    CreateAccountNewDeliveryAddress,
+    NewDeliveryAddress,
   },
   props: {
     synthesis: Object,
@@ -67,6 +69,7 @@ export default {
     if (!this.synthesis) {
       this.$router.push({ name: 'createAccount.partner' });
     }
+    this.refreshList();
   },
 
   data() {
@@ -90,21 +93,33 @@ export default {
   },
 
   methods: {
-    addnewAddress(form) {
+    addNewAddress(form) {
       this.inEditMode = false;
       this.address.push(form);
       this.selectedAddress = form;
       this.steps = { ...this.steps, deliveryStep: form };
     },
 
+    editAddress(item) {
+      this.inEditMode = true;
+      this.addressToEdit = item;
+    },
+
+    refreshList(form) {
+      this.inEditMode = false;
+      if (form && form.id) {
+        const addressIndex = this.address.findIndex((f) => f.id === form.id);
+        this.address.splice(addressIndex, 1, form);
+        this.selectedAddress = form;
+
+        this.steps = { ...this.steps, deliveryStep: form };
+      }
+    },
+
     gotoPrev() {
       this.$router.push({
         name: 'createAccount.simChoice',
       });
-    },
-
-    async saveQuery() {
-      console.log('Appel api ici');
     },
   },
 };

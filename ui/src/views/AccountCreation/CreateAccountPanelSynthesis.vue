@@ -1,12 +1,26 @@
 <template>
   <div class="new-digital-offer-synthesis">
-    <h6>{{ $t('digitalOffer.synthesis.title') }}</h6>
+    <h6 class="title">{{ $t('digitalOffer.synthesis.title') }}</h6>
     <div class="synthesis-content">
       <CreateAccountPanelSynthesisItem
         :key="item.label"
         v-for="item in formattedItems"
         :item="item"
       />
+      <div class="synthesis-item table-price d-flex flex-row">
+        <div class="flex-grow-1" v-if="$loGet(formattedPrice[0], 'label')">
+          <h6 class="subtitle">
+            {{ $loGet(formattedPrice[0], 'label') }}
+          </h6>
+          <p>{{ $loGet(formattedPrice[0], 'value.content', '-') }}</p>
+        </div>
+        <div v-if="$loGet(formattedPrice[1], 'label')">
+          <h6 class="subtitle">
+            {{ $loGet(formattedPrice[1], 'label') }}
+          </h6>
+          <p class="text-right">{{ $loGet(formattedPrice[1], 'value.content', '-') }}</p>
+        </div>
+      </div>
       <hr class="separator" />
       <div v-if="total">
         <div class="total">
@@ -16,13 +30,19 @@
       </div>
     </div>
     <div class="footer pt-3" v-if="canSave">
+      <slot name="errors"></slot>
       <button
+        v-if="!isLoading"
         type="button"
         class="btn btn-accent btn-lg btn-block mt-1"
-        :disabled="!canSave"
+        :disabled="!canSave || isError"
         @click="$emit('save')"
       >
         {{ $t('orders.new.save') }}
+      </button>
+      <button class="btn btn-accent btn-lg btn-block mt-1" disabled v-if="isLoading">
+        {{ $t('processing') }}...
+        <CircleLoader />
       </button>
     </div>
   </div>
@@ -30,10 +50,12 @@
 
 <script>
 import CreateAccountPanelSynthesisItem from '@/views/GetSim/CreateOrder/CreateOrderPanelSynthesisItem.vue';
+import CircleLoader from '@/components/ui/CircleLoader';
 
 export default {
   components: {
     CreateAccountPanelSynthesisItem,
+    CircleLoader,
   },
   props: {
     synthesis: {
@@ -41,12 +63,13 @@ export default {
       required: true,
     },
     canSave: Boolean,
+    isLoading: Boolean,
+    isError: Boolean,
   },
 
   computed: {
     formattedItems() {
       const formatted = [];
-
       if (this.$loGet(this.synthesis, 'creationAccountStep')) {
         if (this.$loGet(this.synthesis, 'creationAccountStep.companyName')) {
           formatted.push({
@@ -80,14 +103,6 @@ export default {
             },
           });
         }
-        // if (this.$loGet(this.synthesis, 'offerStep.price')) {
-        //   formatted.push({
-        //     label: 'digitalOffer.synthesis.price',
-        //     value: {
-        //       content: this.$loGet(this.synthesis, 'offerStep.price'),
-        //     },
-        //   });
-        // }
       }
 
       if (this.$loGet(this.synthesis, 'simStep')) {
@@ -100,24 +115,28 @@ export default {
           });
         }
       }
+      return formatted;
+    },
 
-      if (this.$loGet(this.synthesis, 'offerStep')) {
-        if (this.$loGet(this.synthesis, 'offerStep.price')) {
+    formattedPrice() {
+      const formatted = [];
+      if (this.$loGet(this.synthesis, 'simStep')) {
+        if (this.$loGet(this.synthesis, 'simStep.selectedNumberOfSims')) {
           formatted.push({
-            label: 'digitalOffer.synthesis.price',
+            label: this.$t('common.quantity'),
             value: {
-              content: this.$loGet(this.synthesis, 'offerStep.price') + ' €',
+              content: this.$loGet(this.synthesis, 'simStep.selectedNumberOfSims'),
             },
           });
         }
       }
 
-      if (this.$loGet(this.synthesis, 'simStep')) {
-        if (this.$loGet(this.synthesis, 'simStep.selectedNumberOfSims')) {
+      if (this.$loGet(this.synthesis, 'offerStep')) {
+        if (this.$loGet(this.synthesis, 'offerStep.price')) {
           formatted.push({
-            label: 'common.quantity',
+            label: this.$t('digitalOffer.synthesis.price'),
             value: {
-              content: this.$loGet(this.synthesis, 'simStep.selectedNumberOfSims'),
+              content: this.$loGet(this.synthesis, 'offerStep.price') + ' €',
             },
           });
         }
@@ -152,7 +171,14 @@ $fontSize: 0.8rem;
     flex-grow: 1;
   }
   h6 {
-    margin-bottom: 2em;
+    &.title {
+      margin-bottom: 2em;
+    }
+    &.subtitle {
+      color: $gray-680;
+      font-size: $fontSize;
+      font-weight: 500;
+    }
   }
   .footer {
     button {

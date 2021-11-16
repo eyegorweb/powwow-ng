@@ -22,7 +22,17 @@
           :synthesis="synthesis"
           :can-save="currentStep === steps.length - 1 && canSave"
           @save="saveAccount"
-        />
+          :is-loading="isLoading"
+          :is-error="isError"
+        >
+          <template slot="errors">
+            <div v-if="requestErrors || businessErrors" class="alert alert-danger" role="alert">
+              <ul>
+                <li v-for="e in businessErrors" :key="e">{{ $t('digitalOffer.errors.' + e) }}</li>
+              </ul>
+            </div>
+          </template>
+        </CreateAccountPanelSynthesis>
       </div>
     </div>
   </div>
@@ -30,6 +40,7 @@
 
 <script>
 import Stepper from '@/components/ui/Stepper';
+import { createAccount, validateAccount } from '@/api/digital.js';
 import CreateAccountPanelSynthesis from './CreateAccountPanelSynthesis';
 
 export default {
@@ -49,6 +60,48 @@ export default {
   data() {
     return {
       synthesis: {},
+      formattedData: {
+        customerAccountId: null,
+        user: {
+          username: null,
+          password: null,
+          language: null,
+        },
+        shippingAddressId: null,
+        simCardQuantity: null,
+        simCardId: null,
+        workflowId: null,
+        siret: null,
+        partyId: null,
+        userId: null,
+        shippingAddress: {
+          company: null,
+          address: {
+            address1: null,
+            address2: null,
+            address3: null,
+            zipCode: null,
+            city: null,
+            country: null,
+            state: null,
+          },
+          contactInformation: {
+            email: null,
+            phone: null,
+            mobile: null,
+          },
+          name: {
+            title: null,
+            firstName: null,
+            lastName: null,
+          },
+        },
+      },
+      isLoading: false,
+      requestErrors: undefined,
+      businessErrors: undefined,
+      report: undefined,
+      isError: false,
     };
   },
 
@@ -82,11 +135,62 @@ export default {
     canSave() {
       return !!(this.synthesis && this.synthesis.deliveryStep);
     },
+
+    localeNavigatorLanguage() {
+      return this.$loGet(navigator, 'language').split('-')[0];
+    },
   },
 
   methods: {
-    saveAccount() {
-      console.log('appel api save account here');
+    async saveAccount() {
+      this.formattedData = {
+        customerAccountId: null,
+        user: {
+          username: this.$loGet(this.synthesis, 'creationAccountStep.login'),
+          password: this.$loGet(this.synthesis, 'creationAccountStep.password'),
+          language: this.localeNavigatorLanguage,
+        },
+        shippingAddressId: null,
+        simCardQuantity: this.$loGet(this.synthesis, 'simStep.selectedNumberOfSims'),
+        simCardId: this.$loGet(this.synthesis, 'simStep.selectedSimTypeValue.simCard.id'),
+        workflowId: this.$loGet(this.synthesis, 'offerStep.id'),
+        siret: this.$loGet(this.synthesis, 'creationAccountStep.siretValue'),
+        partyId: null,
+        userId: null,
+        shippingAddress: {
+          company: this.$loGet(this.synthesis, 'deliveryStep.company'),
+          address: {
+            address1: this.$loGet(this.synthesis, 'deliveryStep.address'),
+            address2: null,
+            address3: null,
+            zipCode: this.$loGet(this.synthesis, 'deliveryStep.zipCode'),
+            city: this.$loGet(this.synthesis, 'deliveryStep.city'),
+            country: this.$loGet(this.synthesis, 'deliveryStep.country.data.code'),
+            state: null,
+          },
+          contactInformation: {
+            email: this.$loGet(this.synthesis, 'deliveryStep.email'),
+            phone: this.$loGet(this.synthesis, 'deliveryStep.phone'),
+            mobile: null,
+          },
+          name: {
+            title: this.$loGet(this.synthesis, 'deliveryStep.title'),
+            firstName: this.$loGet(this.synthesis, 'deliveryStep.firstName'),
+            lastName: this.$loGet(this.synthesis, 'deliveryStep.lastName'),
+          },
+        },
+      };
+      this.isLoading = true;
+      try {
+        const response = await createAccount(this.formattedData);
+        this.isLoading = false;
+        console.log('response >>>>>>>>>>', response);
+        this.checkErrors(response);
+        this.validateSubscription(response);
+      } catch (e) {
+        this.isLoading = false;
+        console.error('request error from API REST /api/public/digital-offer/create', e);
+      }
     },
 
     done(steps) {
@@ -94,6 +198,25 @@ export default {
         ...this.synthesis,
         ...steps,
       };
+    },
+
+    checkErrors(response) {
+      if (response && response.errors) {
+        this.businessErrors = response.errors;
+        this.isError = true;
+      }
+      if (response && response.inputErrors) {
+        this.requestErrors = response.inputErrors;
+        this.isError = true;
+      }
+      return this.isError;
+    },
+
+    async validateSubscription(response) {
+      if (this.isError) return;
+      if (response && response.paymentId) {
+        return await validateAccount(response.paymentId);
+      }
     },
   },
 

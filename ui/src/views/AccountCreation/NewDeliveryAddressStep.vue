@@ -89,7 +89,7 @@
                   <UiApiAutocomplete
                     :items="countries"
                     v-model="form.country"
-                    :error="errors.city"
+                    :error="errors.country"
                     display-results-while-empty
                   />
                 </div>
@@ -134,6 +134,7 @@ import UiApiAutocomplete from '@/components/ui/UiApiAutocomplete';
 import LoaderContainer from '@/components/LoaderContainer';
 import ModalSkeleton from '@/components/ui/skeletons/ModalSkeleton';
 import { searchAddress, fetchCountries } from '@/api/address';
+import uuid from 'uuid/v1';
 
 export default {
   components: {
@@ -154,7 +155,7 @@ export default {
       selectedAddress: {},
       countries: [],
       form: {
-        id: 1,
+        id: uuid(),
         firstName: '',
         lastName: '',
         phone: '',
@@ -163,7 +164,7 @@ export default {
         address: '',
         zipCode: '',
         city: '',
-        country: { label: '' },
+        country: '',
         extraInfos: '',
         extraInfos2: '',
         title: '',
@@ -193,6 +194,11 @@ export default {
             return !this.form.address.label;
           }
         }
+        if (f === 'country') {
+          if (typeof this.form.country === 'object') {
+            return !this.form.country.label;
+          }
+        }
         return !this.form[f];
       });
     },
@@ -206,17 +212,13 @@ export default {
 
   methods: {
     searchAddress,
-    async onSubmitAddress() {
-      // let savedId;
+    onSubmitAddress() {
       this.isLoading = true;
-      this.address = this.form;
-
-      // if (this.addressEdit) {
-      //   savedId = await updatePartyShippingAddress(this.form, this.addressEdit.id);
-      // } else {
-      //   savedId = await addPartyShippingAddress(this.form, this.partnerId);
-      // }
-      this.$emit('saved', this.form);
+      if (this.addressEdit) {
+        this.$emit('saved', this.form);
+      } else {
+        this.$emit('add', this.form);
+      }
       this.isLoading = false;
     },
     /**
@@ -242,28 +244,24 @@ export default {
     }));
 
     if (this.addressEdit) {
-      this.form.firstName = this.addressEdit.name.firstName;
-      this.form.lastName = this.addressEdit.name.lastName;
-      this.form.title = this.addressEdit.name.title;
-      this.form.phone = this.addressEdit.contactInformation.phone;
-      this.form.email = this.addressEdit.contactInformation.email
-        ? this.addressEdit.contactInformation.email
-        : '';
+      this.form.id = this.addressEdit.id;
+      this.form.firstName = this.addressEdit.firstName;
+      this.form.lastName = this.addressEdit.lastName;
+      this.form.title = this.addressEdit.title;
+      this.form.phone = this.addressEdit.phone;
+      this.form.email = this.addressEdit.email ? this.addressEdit.email : '';
       this.form.company = this.addressEdit.company;
-      this.form.address = this.addressEdit.address.address1;
-      this.selectedAddress = { label: this.addressEdit.address.address1 };
-      this.form.zipCode = this.addressEdit.address.zipCode;
-      this.form.city = this.addressEdit.address.city;
+      this.form.address = this.addressEdit.address;
+      this.selectedAddress = { label: this.addressEdit.address };
+      this.form.zipCode = this.addressEdit.zipCode;
+      this.form.city = this.addressEdit.city;
       this.form.country = this.countries.find(
         (c) =>
-          c.name === this.addressEdit.address.country || c.code === this.addressEdit.address.country
+          c.label === this.addressEdit.country.label ||
+          c.data.code === this.addressEdit.country.data.code
       );
-      this.form.extraInfos = this.addressEdit.address.address2
-        ? this.addressEdit.address.address2
-        : '';
-      this.form.extraInfos2 = this.addressEdit.address.address3
-        ? this.addressEdit.address.address3
-        : '';
+      this.form.extraInfos = this.addressEdit.extraInfos ? this.addressEdit.extraInfos : '';
+      this.form.extraInfos2 = this.addressEdit.extraInfos2 ? this.addressEdit.extraInfos2 : '';
     }
   },
 
@@ -280,7 +278,7 @@ export default {
         this.form.address = address.label;
         this.form.zipCode = address.postcode;
         this.form.city = address.city;
-        this.form.country = this.countries.find((c) => c.code === 'fr');
+        this.form.country = this.countries.find((c) => c.data.code === 'fr');
       } else {
         if (address.label) {
           this.form.address = address.label;
