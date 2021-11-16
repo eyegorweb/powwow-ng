@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.582+20211116142624
+2021-11-16
+
+### Fixes
+
+- [3034] export des lignes de la table supervision (c90e5ca5572982e4ef18dbc111ab4aa20479cbc3)
+
 ## 1.17.0-master.581+20211116140113
 2021-11-16
 
