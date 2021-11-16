@@ -17,9 +17,16 @@
       :size="size"
       :show-extra-columns.sync="showExtraCells"
       @colEvent="$emit('colEvent', $event)"
+      :business-error="businessError"
     >
       <template slot="topLeftCorner">
         <slot name="topLeftCorner" />
+      </template>
+      <template slot="topRightCorner">
+        <slot name="topRightCorner" />
+      </template>
+      <template slot="businessError">
+        <slot name="businessError" />
       </template>
       <template slot="noResult">
         <slot name="noResult" />
@@ -68,6 +75,7 @@ export default {
       type: Number,
       default: 3,
     },
+    businessError: Boolean,
   },
   components: {
     DataTable,
@@ -117,9 +125,12 @@ export default {
           this.orderBy,
           this.additionalFilters
         );
-
         this.isLoading = false;
-        this.rows = response.rows;
+        if (response.errors) {
+          console.error('Business exception while fetching data');
+        } else {
+          this.rows = response.rows;
+        }
         this.total = response.total;
         this.$emit('total', this.total);
       } catch (e) {

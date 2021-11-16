@@ -677,6 +677,7 @@
     "supervisionType": "Type de supervision",
     "msgSynchronousExport": "Plus de 500 lignes sélectionnées, la liste est disponible par export",
     "msgDeferExport": "Seule la demande d'export différée est disponible. La demande sera disponible sous 24h dans la gestion documentaire avec un bouton demande d'export différé. Attention, il faut appeler l'api d'export en mode asynchrone",
+    "msgGlobalParcExport": "Seul l'export est disponible depuis cet indicateur",
 
     "supervisionTypes": {
       "INTRA_DAY": "6h",

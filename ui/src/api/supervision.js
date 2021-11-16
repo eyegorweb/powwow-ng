@@ -143,6 +143,12 @@ export async function fetchLinesForCounter(filters, pagination = { limit: 10, pa
     sorting,
   });
 
+  if (response.errors) {
+    return {
+      errors: response.errors,
+    };
+  }
+
   return response.data.geoCounterList;
 }
 
@@ -384,7 +390,7 @@ export async function fetchSupervisionOptions(partnerId) {
   const queryStr = `query {
     getOfferSupervisionOptions(partyId: ${partnerId}){
       workflowId
-      description    
+      description
       workflowCode
       autoDiagnosticEnabled
       fleetEnabled
