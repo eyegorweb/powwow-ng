@@ -622,6 +622,9 @@ export default {
       setTimeout(() => {
         this.refreshLinesFn = async (pagination, sorting) => {
           const items = await fetchLinesForCounter(this.filtersForExport, pagination, sorting);
+          if (items && items.errors) {
+            return { errors: items.errors };
+          }
           return {
             items,
           };

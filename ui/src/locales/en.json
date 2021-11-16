@@ -616,6 +616,7 @@
     "dataUsage": "DATA Usage",
     "m2mCockpit": "Cockpit M2M",
     "exportGraph": "Export from graphs",
+    "msgGlobalParcExport": "Only the export is available from this counter",
     "supervisionTypes": {
       "INTRA_DAY": "6h",
       "INTRADAY_CUMUL": "Cumulated 6h",

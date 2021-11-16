@@ -1,10 +1,13 @@
 <template>
-  <div v-if="!rows || !rows.length">
+  <div v-if="!businessError && (!rows || !rows.length)">
     <slot name="noResult">
       <div class="alert alert-light m-0" role="alert">
         {{ $t('noResult') }}
       </div>
     </slot>
+  </div>
+  <div v-else-if="businessError">
+    <slot name="businessError" />
   </div>
   <div v-else>
     <DataTableConfiguration
@@ -15,6 +18,9 @@
       :max-columns-number="size"
     />
     <div class="row">
+      <div class="col-md-12">
+        <slot name="topRightCorner" />
+      </div>
       <div class="col-md-6">
         <slot name="topLeftCorner" />
       </div>
@@ -187,6 +193,7 @@ export default {
       type: Boolean,
       required: false,
     },
+    businessError: Boolean,
   },
 
   data() {

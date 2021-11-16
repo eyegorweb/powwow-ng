@@ -9,7 +9,13 @@
         :fetch-data-fn="fetchDataFn()"
         :size="7"
         :order="orderBy"
+        :business-error="businessError"
       >
+        <template slot="topRightCorner">
+          <ExportButton :export-fn="getExportFn()" :columns="columns" :order-by="orderBy">
+            <span slot="title">{{ $t('getparc.actLines.export', { total: indicatorTotal }) }}</span>
+          </ExportButton>
+        </template>
         <template slot="topLeftCorner">
           <UiButton variant="outline-primary" @click="$emit('gotomap')">
             <i class="ic-Pin-Icon"></i>
@@ -22,6 +28,22 @@
         <template slot="noResult">
           <div class="mt-2 alert alert-light m-0" role="alert">
             {{ $t('noResult') }}
+          </div>
+        </template>
+        <template slot="businessError">
+          <div class="mb-2 d-flex justify-content-between">
+            <UiButton variant="outline-primary" @click="$emit('gotomap')">
+              <i class="ic-Pin-Icon"></i>
+              {{ $t('getparc.lineDetail.tab2.supervisionContent.mapView') }}
+            </UiButton>
+            <ExportButton :export-fn="getExportFn()" :columns="columns" :order-by="orderBy">
+              <span slot="title">{{
+                $t('getparc.actLines.export', { total: $formatLargeNumber(indicatorTotal) })
+              }}</span>
+            </ExportButton>
+          </div>
+          <div class="alert alert-light" role="alert">
+            {{ $t('getvsion.msgGlobalParcExport') }}
           </div>
         </template>
       </PaginatedDataTable>
@@ -83,6 +105,7 @@ export default {
       rows: undefined,
       total: 0,
       searchError: false,
+      businessError: false,
 
       columns: [
         {
@@ -343,6 +366,14 @@ export default {
         try {
           this.searchError = false;
           const response = await this.refreshLinesFn(pageInfo, sorting);
+          if (response && response.errors) {
+            this.businessError = !!response.errors;
+            return {
+              rows: undefined,
+              total: response.total || this.indicatorTotal,
+              errors: response.errors,
+            };
+          }
           this.total = response.total;
           return {
             rows: response.items,

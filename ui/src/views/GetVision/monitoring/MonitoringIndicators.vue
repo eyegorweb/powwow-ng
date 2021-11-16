@@ -191,7 +191,9 @@ export default {
 
   methods: {
     onIndicatorClick(indicator, total) {
-      this.$emit('click', { indicator, total });
+      if (!isNaN(total)) {
+        this.$emit('click', { indicator, total });
+      }
     },
 
     formatFilters() {
