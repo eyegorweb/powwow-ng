@@ -148,11 +148,13 @@ export default {
       }
 
       if (this.$loGet(this.synthesis, 'offerStep')) {
-        if (this.$loGet(this.synthesis, 'offerStep.price')) {
+        if (this.$loGet(this.synthesis, 'offerStep.initialOffer')) {
           formatted.push({
             label: this.$t('digitalOffer.synthesis.price'),
             value: {
-              content: this.$loGet(this.synthesis, 'offerStep.price') + ' €',
+              content:
+                this.$loGet(this.synthesis, 'offerStep.initialOffer.buyingPriceInEuroCentTTC') +
+                ' €',
             },
           });
         }
@@ -163,7 +165,11 @@ export default {
 
     total() {
       const quantity = this.$loGet(this.synthesis, 'simStep.selectedNumberOfSims', 0);
-      const price = this.$loGet(this.synthesis, 'offerStep.price', 0);
+      const price = this.$loGet(
+        this.synthesis,
+        'offerStep.initialOffer.buyingPriceInEuroCentTTC',
+        0
+      );
       if (!quantity) return false;
       return price * quantity;
     },
