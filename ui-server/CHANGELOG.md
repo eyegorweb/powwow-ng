@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.587+20211117150103
+2021-11-17
+
+### Fixes
+
+- [3039] add creationAddress to deliveryAddress (b7cd788ca9919323391594a83388210aa4ada754)
+
 ## 1.17.0-master.586+20211117143711
 2021-11-17
 
