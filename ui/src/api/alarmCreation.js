@@ -107,10 +107,10 @@ export async function createStatusChangeAlarm(params) {
 
   const response = await query(queryStr);
 
-  if (response.data) {
-    return response.data.createStatusChangeAlarm;
+  if (response.errors) {
+    return { errors: response.errors };
   }
-  return { errors: response.errors };
+  return response.data.createStatusChangeAlarm;
 }
 
 export async function createStatusChangeProfileAlarm(params) {

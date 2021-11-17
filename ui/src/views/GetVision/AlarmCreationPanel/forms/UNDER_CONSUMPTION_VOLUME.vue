@@ -78,15 +78,14 @@ export default {
         response = await alarmOnUnderConso(params);
         this.isLoading = false;
       }
-
-      const key = 'MAX_ALARM_INSTANCE_TO_CATCH_UP';
-      this.onClose(response, key);
+      this.onClose(response);
     },
-    onClose(response, key) {
+    onClose(response) {
+      const errorKeys = ['MAX_ALARM_INSTANCE_TO_CATCH_UP', 'ALARMS_D_MAX_ALARM_PER_AP_REACHED'];
       if (
         response.errors &&
         response.errors.length &&
-        response.errors.find((err) => err.key === key)
+        response.errors.find((err) => err.key === errorKeys[0])
       ) {
         setTimeout(() => {
           this.confirmAction({
@@ -99,7 +98,7 @@ export default {
       } else if (
         response.errors &&
         response.errors.length &&
-        response.errors.find((err) => err.extensions.alarm === 'ALARMS_D_MAX_ALARM_PER_AP_REACHED')
+        response.errors.find((err) => err.extensions.alarm === errorKeys[1])
       ) {
         this.flashMessage({
           level: 'danger',
@@ -108,7 +107,7 @@ export default {
       } else if (
         response.errors &&
         response.errors.length &&
-        !response.errors.find((err) => err.key === key)
+        !response.errors.find((err) => err.key === errorKeys[0])
       ) {
         this.flashMessage({ level: 'danger', message: this.$t('genericErrorMessage') });
       } else {
