@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.586+20211117143711
+2021-11-17
+
+### Fixes
+
+- [2916] correction css de l'écran Partenaires dans la création de compte (8ed7276872f8d1fdf770e49cda3241d61a8ff823)
+
 ## 1.17.0-master.585+20211117133948
 2021-11-17
 
