@@ -40,17 +40,21 @@
         </div>
       </div>
 
-      <div class="formLine">
-        <FormControl label="getadmin.partners.name" v-model="form.companyName" />
-        <FormControl
-          label="getadmin.cf.filters.siret"
-          input-type="number"
-          v-model="form.siretValue"
-          :max-size="14"
-        />
-        <span v-if="reachedMaxLength" class="error-text">
-          {{ $t('errors.maxlength') }}
-        </span>
+      <div class="entries-line formLine">
+        <div class="form-entry">
+          <FormControl label="getadmin.partners.name" v-model="form.companyName" />
+        </div>
+        <div class="form-entry">
+          <FormControl
+            label="getadmin.cf.filters.siret"
+            input-type="number"
+            v-model="form.siretValue"
+            :max-size="14"
+          />
+          <span v-if="reachedMaxLength" class="error-text">
+            {{ $t('errors.maxlength') }}
+          </span>
+        </div>
       </div>
 
       <div class="entries-line">

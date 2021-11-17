@@ -97,6 +97,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '@/theme/scss/overrides/_inputs.scss';
+
 .form-group {
   &.error input {
     border: 1px solid $orange;
