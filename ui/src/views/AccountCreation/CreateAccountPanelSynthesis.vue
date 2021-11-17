@@ -80,11 +80,27 @@ export default {
           });
 
           if (this.$loGet(this.synthesis, 'creationAccountStep.address')) {
+            const assembledCivility = `${this.$loGet(
+              this.synthesis,
+              'creationAccountStep.civility',
+              ''
+            )} ${this.$loGet(this.synthesis, 'creationAccountStep.firstName', '')} ${this.$loGet(
+              this.synthesis,
+              'creationAccountStep.lastName',
+              ''
+            )}`;
+            const assembledCityAddress = `${this.$loGet(
+              this.synthesis,
+              'creationAccountStep.zipCode',
+              '-'
+            )} - ${this.$loGet(this.synthesis, 'creationAccountStep.city', '-')}`;
             formatted.push({
               label: 'digitalOffer.synthesis.billingAddress',
               value: {
                 content: [
-                  `${this.$loGet(this.synthesis, 'creationAccountStep.address', ' -')}`,
+                  assembledCivility,
+                  `${this.$loGet(this.synthesis, 'creationAccountStep.address', '-')}`,
+                  assembledCityAddress,
                   `${this.$loGet(this.synthesis, 'creationAccountStep.email', '-')}`,
                   `${this.$loGet(this.synthesis, 'creationAccountStep.phone', '-')}`,
                 ],

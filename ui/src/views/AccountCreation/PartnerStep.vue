@@ -240,8 +240,7 @@ export default {
     },
 
     isEmailValid(email) {
-      var re =
-        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       return re.test(email);
     },
   },
@@ -256,7 +255,7 @@ export default {
         return;
       }
       if (address.city) {
-        this.form.address = address.label;
+        this.form.address = address.name;
         this.form.zipCode = address.postcode;
         this.form.city = address.city;
         this.form.country = this.countries.find((c) => c.code === 'fr');
