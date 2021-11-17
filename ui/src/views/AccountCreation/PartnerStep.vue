@@ -1,124 +1,123 @@
 <template>
   <div class="step-container">
-    <div class="row mb-3">
-      <div class="col">
-        <div class="d-flex">
-          <label class="radio-container mr-3">
-            {{ $t('common.MRS') }}
-            <input name="civility" type="radio" value="MRS" v-model="form.civility" />
-            <span class="checkmark" />
-          </label>
-          <label class="radio-container">
-            {{ $t('common.MR') }}
-            <input name="civility" type="radio" value="MR" v-model="form.civility" />
-            <span class="checkmark" />
-          </label>
-        </div>
-      </div>
-    </div>
-
-    <div class="entries-line">
-      <div class="form-entry">
-        <FormControl label="digitalOffer.step1.lastName" v-model="form.lastName" />
-      </div>
-      <div class="form-entry">
-        <FormControl label="digitalOffer.step1.firstName" v-model="form.firstName" />
-      </div>
-    </div>
-
-    <div class="entries-line">
-      <div class="form-entry">
-        <FormControl label="common.email" v-model="form.email" />
-        <span v-if="form.email && !isEmailValid(form.email)" class="error-text">
-          {{ $t('errors.password.email-error') }}
-        </span>
-      </div>
-    </div>
-
-    <div class="entries-line">
-      <div class="form-entry">
-        <FormControl label="digitalOffer.step1.phone" v-model="form.phone" />
-      </div>
-    </div>
-
-    <div>
-      <FormControl label="getadmin.partners.name" v-model="form.companyName" />
-      <FormControl
-        label="getadmin.cf.filters.siret"
-        input-type="number"
-        v-model="form.siretValue"
-        :max-size="14"
-      />
-      <span v-if="reachedMaxLength" class="error-text">
-        {{ $t('errors.maxlength') }}
-      </span>
-    </div>
-
-    <div class="entries-line">
-      <div class="form-entry">
-        <label>{{ $t('getadmin.partnerDetail.address') }}</label>
-        <UiApiAutocomplete :api-method="searchAddress" v-model="selectedAddress" no-icon />
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col">
-        <FormControl
-          label="orders.new.deliveryStep.form.zipcode"
-          input-type="number"
-          v-model="form.zipCode"
-        />
-      </div>
-      <div class="col">
-        <FormControl label="filters.city" v-model="form.city" />
-      </div>
-      <div class="col">
-        <div class="form-group">
-          <label>{{ $t('orders.new.deliveryStep.form.country') }}</label>
-          <div>
-            <UiApiAutocomplete
-              :items="countries"
-              v-model="form.country"
-              display-results-while-empty
-            />
+    <div class="form-container">
+      <div class="row mb-3">
+        <div class="col">
+          <div class="d-flex">
+            <label class="radio-container mr-3">
+              {{ $t('common.MRS') }}
+              <input name="civility" type="radio" value="MRS" v-model="form.civility" />
+              <span class="checkmark" />
+            </label>
+            <label class="radio-container">
+              {{ $t('common.MR') }}
+              <input name="civility" type="radio" value="MR" v-model="form.civility" />
+              <span class="checkmark" />
+            </label>
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="form-group">
-      <label class="small-label">{{ $t('login') }}</label>
-      <UiInput v-model="form.login" block />
-      <!-- <small v-if="fieldErrors && errors.login" class="form-text error-text">{{
-        $t('required')
-      }}</small> -->
-    </div>
+      <div class="entries-line formLine">
+        <div class="form-entry">
+          <FormControl label="digitalOffer.step1.lastName" v-model="form.lastName" />
+        </div>
+        <div class="form-entry">
+          <FormControl label="digitalOffer.step1.firstName" v-model="form.firstName" />
+        </div>
+      </div>
 
-    <div class="form-entry">
-      <input type="password" name="password" class="hidden" autocomplete="off" />
-      <FormControl
-        class="password"
-        label="password"
-        input-type="password"
-        v-model="form.password"
-      />
-    </div>
-    <div class="form-entry">
-      <FormControl
-        class="password-confirm"
-        label="passwordConfirm"
-        input-type="password"
-        v-model="form.passwordConfirm"
-      />
-    </div>
+      <div class="entries-line formLine">
+        <div class="form-entry">
+          <FormControl label="common.email" v-model="form.email" />
+          <span v-if="form.email && !isEmailValid(form.email)" class="error-text">
+            {{ $t('errors.password.email-error') }}
+          </span>
+        </div>
 
-    <div v-if="passwordConfirmationErrors" class="entries-line">
-      <div class="form-entry">
-        <ul class="list-unstyled">
-          <li :key="error" v-for="error in passwordConfirmationErrors" class="error-text">
-            {{ $t(error) }}
-          </li>
-        </ul>
+        <div class="form-entry">
+          <FormControl label="digitalOffer.step1.phone" v-model="form.phone" />
+        </div>
+      </div>
+
+      <div class="formLine">
+        <FormControl label="getadmin.partners.name" v-model="form.companyName" />
+        <FormControl
+          label="getadmin.cf.filters.siret"
+          input-type="number"
+          v-model="form.siretValue"
+          :max-size="14"
+        />
+        <span v-if="reachedMaxLength" class="error-text">
+          {{ $t('errors.maxlength') }}
+        </span>
+      </div>
+
+      <div class="entries-line">
+        <div class="form-entry">
+          <label>{{ $t('getadmin.partnerDetail.address') }}</label>
+          <UiApiAutocomplete :api-method="searchAddress" v-model="selectedAddress" no-icon />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <FormControl
+            label="orders.new.deliveryStep.form.zipcode"
+            input-type="number"
+            v-model="form.zipCode"
+          />
+        </div>
+        <div class="col">
+          <FormControl label="filters.city" v-model="form.city" />
+        </div>
+        <div class="col">
+          <div class="form-group">
+            <label>{{ $t('orders.new.deliveryStep.form.country') }}</label>
+            <div>
+              <UiApiAutocomplete
+                :items="countries"
+                v-model="form.country"
+                display-results-while-empty
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="small-label">{{ $t('login') }}</label>
+        <UiInput v-model="form.login" block />
+        <!-- <small v-if="fieldErrors && errors.login" class="form-text error-text">{{
+          $t('required')
+        }}</small> -->
+      </div>
+
+      <div class="form-entry"></div>
+      <div class="form-entry formLine">
+        <input type="password" name="password" class="hidden" autocomplete="off" />
+        <FormControl
+          class="password"
+          label="password"
+          input-type="password"
+          v-model="form.password"
+        />
+        <FormControl
+          class="password-confirm"
+          label="passwordConfirm"
+          input-type="password"
+          v-model="form.passwordConfirm"
+        />
+      </div>
+
+      <div v-if="passwordConfirmationErrors" class="entries-line">
+        <div class="form-entry">
+          <ul class="list-unstyled">
+            <li :key="error" v-for="error in passwordConfirmationErrors" class="error-text">
+              {{ $t(error) }}
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
 
@@ -241,7 +240,8 @@ export default {
     },
 
     isEmailValid(email) {
-      var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      var re =
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       return re.test(email);
     },
   },
@@ -272,4 +272,18 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.formLine {
+  display: flex;
+  justify-content: space-between;
+
+  > div {
+    width: 48%;
+  }
+}
+
+.form-container {
+  width: 70%;
+  margin: 0 auto;
+}
+</style>

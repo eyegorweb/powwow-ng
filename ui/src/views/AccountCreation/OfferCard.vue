@@ -1,6 +1,6 @@
 <template>
   <div class="pricing-table" :class="isActive ? 'active' : ''">
-    <div class="package-title">
+    <div class="package-title" :class="isActive ? 'active' : ''">
       <span>{{ offer.name }}</span>
     </div>
     <div class="package-layout">
@@ -11,7 +11,7 @@
     </div>
     <div class="divider"></div>
     <div class="terms">
-      <div class="term">
+      <div class="term details">
         {{
           $t('digitalOffer.offerPackages.DATA', {
             value: offer.initialOffer.offerPackages.filter((o) => o.usageType === 'DATA')[0]
@@ -93,28 +93,28 @@ $box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14),
   background-color: #fff;
   border-radius: 3px;
   overflow: hidden;
-
-  will-change: box-shadow;
-  transition: box-shadow 0.2s cubic-bezier(0.4, 0, 1, 1),
-    background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1), color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  -webkit-tap-highlight-color: transparent;
-  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
-  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12),
-    0 3px 1px -2px rgba(0, 0, 0, 0.2);
+  border: 3px solid $title-bg-color;
   &:hover,
   &:focus,
   &.active {
-    box-shadow: 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12),
-      0 5px 5px -3px rgba(0, 0, 0, 0.4);
+    border: 3px solid $blue;
+
+    .package-title {
+      background-color: $blue;
+    }
   }
   .package-title {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     padding: 16px 24px;
     background-color: $title-bg-color;
     font-size: 1.125rem;
     color: #fff;
     text-transform: uppercase;
+
+    &.active {
+      background-color: $blue;
+    }
 
     .sale {
       padding: 0 0.5rem;
@@ -145,14 +145,14 @@ $box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14),
 
       .value {
         font-size: 4.5rem;
-        font-weight: 300;
+        font-weight: 600;
         line-height: 1;
       }
 
       .period {
         padding: 0 0 5px 4px;
         font-size: 1.125rem;
-        font-weight: 300;
+        font-weight: 500;
         color: $muted;
       }
     }
@@ -165,9 +165,13 @@ $box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14),
     font-size: 0.9125rem;
     text-align: center;
 
+    .details {
+      font-weight: 600;
+    }
+
     .term {
       span {
-        font-weight: 500;
+        font-weight: 600;
       }
     }
   }
@@ -180,31 +184,26 @@ $box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14),
     padding: 2px 18px;
     min-width: 128px;
     border: none;
-    border-radius: 3px;
-    background-color: $blue;
+    border-radius: 30px;
     font-family: $font-family;
     font-size: 0.875rem;
-    font-weight: 500;
-    color: #fff;
-    line-height: 39px;
+    line-height: 30px;
     text-transform: uppercase;
     overflow: hidden;
-    will-change: box-shadow;
-    transition: box-shadow 0.2s cubic-bezier(0.4, 0, 1, 1),
-      background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1), color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     outline: none;
     cursor: pointer;
     text-decoration: none;
     text-align: center;
     vertical-align: middle;
-    -webkit-tap-highlight-color: transparent;
-    -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
-    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12),
-      0 3px 1px -2px rgba(0, 0, 0, 0.2);
+    background: white;
+    font-weight: 600;
+    color: black;
+    border: 2px solid $blue;
     &:hover,
     &:focus {
-      box-shadow: 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12),
-        0 5px 5px -3px rgba(0, 0, 0, 0.4);
+      background-color: $blue;
+      border: 2px solid $blue;
+      color: #fff;
     }
   }
 

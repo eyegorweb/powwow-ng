@@ -1,6 +1,6 @@
 <template>
   <div class="step-container">
-    <div>
+    <div class="simContainer">
       <div class="productChoices">
         <form>
           <GetSimTypeOption
@@ -11,8 +11,8 @@
             :default-selected-item.sync="selectedSimTypeValue"
             :is-active="
               selectedSimTypeValue &&
-                selectedSimTypeValue.simCard &&
-                selectedSimTypeValue.simCard.id === item.simCard.id
+              selectedSimTypeValue.simCard &&
+              selectedSimTypeValue.simCard.id === item.simCard.id
             "
             last-action-key="getsim.sim-type-labels.orderDate"
             no-action-key="getsim.never-ordered"
@@ -132,4 +132,9 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.simContainer {
+  width: 70%;
+  margin: 0 auto;
+}
+</style>
