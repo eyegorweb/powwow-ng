@@ -1,48 +1,50 @@
 <template>
   <div class="step-container">
-    <template v-if="inEditMode">
-      <NewDeliveryAddress
-        @cancel="(inEditMode = false), (addressToEdit = undefined)"
-        @saved="refreshList"
-        @add="addNewAddress"
-        :address-edit="addressToEdit"
-      />
-    </template>
-    <template v-if="!inEditMode">
-      <div class="row mb-3 add-new">
-        <BlocList :items="address">
-          <template slot="firstElement" slot-scope="{ className }">
-            <div :class="`${className}`" @click="(inEditMode = true), (addressToEdit = undefined)">
-              <div class="add-new">
-                <UiButton
-                  variant="round-button"
-                  @click="(inEditMode = true), (addressToEdit = undefined)"
-                  class="ic-Plus-Icon test"
-                  style="
-                margin: auto;
-                background: #009dcc;
-                width: 3rem;
-                height: 3rem;
-                font-size: 1.5rem;
-              "
-                />
-                <span>{{ $t('orders.new.deliveryStep.new') }}</span>
+    <div class="deliveryContainer">
+      <template v-if="inEditMode">
+        <NewDeliveryAddress
+          @cancel="(inEditMode = false), (addressToEdit = undefined)"
+          @saved="refreshList"
+          @add="addNewAddress"
+          :address-edit="addressToEdit"
+        />
+      </template>
+      <template v-if="!inEditMode">
+        <div class="row mb-3 add-new">
+          <BlocList :items="address">
+            <template slot="firstElement" slot-scope="{ className }">
+              <div :class="`${className}`" @click="(inEditMode = true), (addressToEdit = undefined)">
+                <div class="add-new">
+                  <UiButton
+                    variant="round-button"
+                    @click="(inEditMode = true), (addressToEdit = undefined)"
+                    class="ic-Plus-Icon test"
+                    style="
+                  margin: auto;
+                  background: #009dcc;
+                  width: 3rem;
+                  height: 3rem;
+                  font-size: 1.5rem;
+                "
+                  />
+                  <span>{{ $t('orders.new.deliveryStep.new') }}</span>
+                </div>
               </div>
-            </div>
-          </template>
-          <template slot-scope="{ item }">
-            <CreateAccountDeliveryAddress
-              :item="item"
-              :default-selected-item="selectedAddress"
-              can-edit
-              name="address"
-              @modify="editAddress"
-            />
-          </template>
-        </BlocList>
-      </div>
-      <BottomBar no-next :can-prev="true" @prev="gotoPrev" />
-    </template>
+            </template>
+            <template slot-scope="{ item }">
+              <CreateAccountDeliveryAddress
+                :item="item"
+                :default-selected-item="selectedAddress"
+                can-edit
+                name="address"
+                @modify="editAddress"
+              />
+            </template>
+          </BlocList>
+        </div>
+      </template>
+    </div>
+    <BottomBar no-next :can-prev="true" @prev="gotoPrev" />
   </div>
 </template>
 
@@ -126,6 +128,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.deliveryContainer {
+  width: 70%;
+  margin: 0 auto;
+}
 .box__item {
   display: flex;
   justify-content: center;

@@ -1,6 +1,6 @@
 <template>
   <div class="step-container">
-    <div>
+    <div class="offerContainer">
       <div class="row">
         <div class="col-4" v-for="offer in offers" :key="offer.id">
           <OfferCard
@@ -63,3 +63,13 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.offerContainer {
+  width: 80%;
+  margin: 0 auto;
+  .row {
+    justify-content: space-between;
+  }
+}
+</style>
