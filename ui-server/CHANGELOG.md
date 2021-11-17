@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.583+20211117061136
+2021-11-17
+
+### Fixes
+
+- [3035] gestion des erreurs pour la création d'une alarme (cfaf542e891419432c1e9d3afcd1346368789a67)
+
 ## 1.17.0-master.582+20211116142624
 2021-11-16
 
