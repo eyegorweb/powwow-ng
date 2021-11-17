@@ -40,6 +40,15 @@
                 @modify="editAddress"
               />
             </template>
+            <template slot="defaultElement" slot-scope="{ className }">
+              <CreateAccountDeliveryAddress
+                :item="synthesis.creationAccountStep"
+                :default-selected-item="selectedAddress"
+                can-edit
+                name="Acccountaddress"
+                @modify="editAddress"
+              />
+            </template>
           </BlocList>
         </div>
       </template>

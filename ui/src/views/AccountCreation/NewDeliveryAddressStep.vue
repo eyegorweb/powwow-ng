@@ -247,18 +247,17 @@ export default {
       this.form.id = this.addressEdit.id;
       this.form.firstName = this.addressEdit.firstName;
       this.form.lastName = this.addressEdit.lastName;
-      this.form.title = this.addressEdit.title;
+      this.form.title = this.addressEdit.title || this.addressEdit.civility;
       this.form.phone = this.addressEdit.phone;
       this.form.email = this.addressEdit.email ? this.addressEdit.email : '';
-      this.form.company = this.addressEdit.company;
+      this.form.company = this.addressEdit.company || this.addressEdit.companyName;
       this.form.address = this.addressEdit.address;
       this.selectedAddress = { label: this.addressEdit.address };
       this.form.zipCode = this.addressEdit.zipCode;
       this.form.city = this.addressEdit.city;
       this.form.country = this.countries.find(
-        (c) =>
-          c.label === this.addressEdit.country.label ||
-          c.data.code === this.addressEdit.country.data.code
+        c =>
+          c.label === this.addressEdit.country.label
       );
       this.form.extraInfos = this.addressEdit.extraInfos ? this.addressEdit.extraInfos : '';
       this.form.extraInfos2 = this.addressEdit.extraInfos2 ? this.addressEdit.extraInfos2 : '';
