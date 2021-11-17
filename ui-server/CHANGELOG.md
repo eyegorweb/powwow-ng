@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.584+20211117092049
+2021-11-17
+
+### Fixes
+
+- [3040] Modification du style de la commande en creation de compte (a5254b3144b124510fb5e75efa8443b42d9217e1)
+
 ## 1.17.0-master.583+20211117061136
 2021-11-17
 
