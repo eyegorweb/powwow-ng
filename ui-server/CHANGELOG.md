@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.588+20211117152737
+2021-11-17
+
+### Fixes
+
+- [2954] refactorisation du calcul de l'offre lors de la création de compte (27970d0e036ba378ed0c01d9981fac7251ad2c50)
+
 ## 1.17.0-master.587+20211117150103
 2021-11-17
 
