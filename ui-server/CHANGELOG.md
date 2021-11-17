@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.585+20211117133948
+2021-11-17
+
+### Fixes
+
+- [2954] correction de la mise en forme de l'adresse de facturation dans la synthèse de création de compte (27e474991ff28073c02ca53cd5ae1ae216a1ac58)
+
 ## 1.17.0-master.584+20211117092049
 2021-11-17
 
