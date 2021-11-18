@@ -49,9 +49,9 @@
             label="getadmin.cf.filters.siret"
             input-type="number"
             v-model="form.siretValue"
-            :max-size="14"
+            :max-size="siretLimit"
           />
-          <span v-if="reachedMaxLength" class="error-text">
+          <span v-if="reachedMaxLength > siretLimit" class="error-text">
             {{ $t('errors.maxlength') }}
           </span>
         </div>
@@ -164,6 +164,7 @@ export default {
   data() {
     return {
       form: {
+        id: 1,
         civility: undefined,
         companyName: undefined,
         siretValue: undefined,
@@ -181,6 +182,7 @@ export default {
       },
       selectedAddress: {},
       countries: [],
+      siretLimit: 14,
     };
   },
 
@@ -221,15 +223,15 @@ export default {
 
     reachedMaxLength() {
       const numberValue = this.form && this.form.siretValue ? this.form.siretValue : undefined;
-      if (!numberValue) return false;
-      return numberValue.toString().length > 14;
+      if (!numberValue) return 0;
+      return numberValue.length;
     },
 
     canNext() {
       return (
         this.requiredFields.length === 0 &&
         this.passwordConfirmationErrors.length === 0 &&
-        !this.reachedMaxLength
+        this.reachedMaxLength === this.siretLimit
       );
     },
   },
@@ -244,8 +246,7 @@ export default {
     },
 
     isEmailValid(email) {
-      var re =
-        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       return re.test(email);
     },
   },
