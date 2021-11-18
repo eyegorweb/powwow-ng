@@ -647,7 +647,7 @@
     },
     "offer_cf": "CF / Offre",
     "errors": {
-      "ALARMS_D_MAX_ALARM_PER_AP_REACHED": "le nombre maximum des alarmes sur le scope cf/offre est atteint"
+      "ALARMS_D_MAX_ALARM_PER_AP_REACHED": "Le nombre maximum d'alarmes sur le scope cf/offre est atteint"
     }
   },
   "getdevice": {
