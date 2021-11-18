@@ -13,7 +13,10 @@
         <div class="row mb-3 add-new">
           <BlocList :items="address">
             <template slot="firstElement" slot-scope="{ className }">
-              <div :class="`${className}`" @click="(inEditMode = true), (addressToEdit = undefined)">
+              <div
+                :class="`${className}`"
+                @click="(inEditMode = true), (addressToEdit = undefined)"
+              >
                 <div class="add-new">
                   <UiButton
                     variant="round-button"
@@ -38,15 +41,17 @@
                 can-edit
                 name="address"
                 @modify="editAddress"
+                @update:defaultSelectedItem="selectAdress"
               />
             </template>
-            <template slot="defaultElement" slot-scope="{ className }">
+            <template v-if="lastSelectedAdress" slot="defaultElement">
               <CreateAccountDeliveryAddress
-                :item="synthesis.creationAccountStep"
+                :item="lastSelectedAdress"
                 :default-selected-item="selectedAddress"
                 can-edit
                 name="Acccountaddress"
                 @modify="editAddress"
+                @update:defaultSelectedItem="selectAdress"
               />
             </template>
           </BlocList>
@@ -89,6 +94,7 @@ export default {
       inEditMode: false,
       addressToEdit: undefined,
       selectedAddress: undefined,
+      lastSelectedAdress: undefined,
     };
   },
 
@@ -108,7 +114,6 @@ export default {
       this.inEditMode = false;
       this.address.push(form);
       this.selectedAddress = form;
-      this.steps = { ...this.steps, deliveryStep: form };
     },
 
     editAddress(item) {
@@ -118,19 +123,31 @@ export default {
 
     refreshList(form) {
       this.inEditMode = false;
+      if (this.synthesis.creationAccountStep && !form) {
+        this.lastSelectedAdress = this.synthesis.creationAccountStep;
+      }
       if (form && form.id) {
         const addressIndex = this.address.findIndex((f) => f.id === form.id);
         this.address.splice(addressIndex, 1, form);
+        this.lastSelectedAdress = undefined;
         this.selectedAddress = form;
-
-        this.steps = { ...this.steps, deliveryStep: form };
       }
+    },
+
+    selectAdress(a) {
+      this.selectedAddress = a;
     },
 
     gotoPrev() {
       this.$router.push({
         name: 'createAccount.simChoice',
       });
+    },
+  },
+
+  watch: {
+    selectedAddress(newAddress) {
+      this.steps = { ...this.steps, deliveryStep: newAddress };
     },
   },
 };
