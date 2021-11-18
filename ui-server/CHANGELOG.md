@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.589+20211118125626
+2021-11-18
+
+### Fixes
+
+- [3031] Change api updatedetailparty on null date (4db8bda0c531367dcbb6073d3e38536567f5c82e)
+- [3035] modifer le message d'erreur et ajouter sa traduction en anglais (25ead5d21cbb7c8ed5e18036c06959e4eb86a3aa)
+
 ## 1.17.0-master.588+20211117152737
 2021-11-17
 
