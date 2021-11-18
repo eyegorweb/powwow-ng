@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.590+20211118131453
+2021-11-18
+
+### Fixes
+
+- [2954] mise à jour de l'adresse par défaut lors de la création de compte (4fa4fa32b4b501bf3b1362aa61236af102b92361)
+
 ## 1.17.0-master.589+20211118125626
 2021-11-18
 
