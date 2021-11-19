@@ -85,9 +85,6 @@ export default {
     createChart() {
       const series = this.getSeries();
       this.chartOptions = {
-        credits: {
-          enabled: false,
-        },
         chart: {
           zoomType: 'xy',
         },

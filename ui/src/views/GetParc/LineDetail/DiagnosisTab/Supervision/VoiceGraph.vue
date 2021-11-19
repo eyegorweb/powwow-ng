@@ -74,9 +74,6 @@ export default {
   methods: {
     createChart(data) {
       this.chartOptions = {
-        credits: {
-          enabled: false,
-        },
         chart: {
           zoomType: 'xy',
         },

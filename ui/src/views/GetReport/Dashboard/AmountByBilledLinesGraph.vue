@@ -174,9 +174,6 @@ export default {
       );
       const usage = this.currentUsage;
       this.chartOptions = {
-        credits: {
-          enabled: false,
-        },
         chart: {
           zoomType: 'xy',
         },

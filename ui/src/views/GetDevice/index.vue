@@ -540,9 +540,6 @@ export default {
             data: formatedData,
           },
         ],
-        credits: {
-          enabled: false,
-        },
       };
     },
     async refreshDataTechnoRepartition(partnerIds) {
@@ -594,9 +591,6 @@ export default {
             data: formatedData,
           },
         ],
-        credits: {
-          enabled: false,
-        },
       };
     },
     async refreshDataTop5References(partnerIds) {
@@ -652,9 +646,6 @@ export default {
             data: formatedData,
           },
         ],
-        credits: {
-          enabled: false,
-        },
       };
     },
     // formattedLabel(label) {

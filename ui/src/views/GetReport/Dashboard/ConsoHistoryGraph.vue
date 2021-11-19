@@ -192,9 +192,6 @@ export default {
       // transformer les données
       const currentUsage = this.currentUsage;
       this.chartOptions = {
-        credits: {
-          enabled: false,
-        },
         chart: {
           type: 'column',
         },

@@ -94,9 +94,6 @@ export default {
       formatedData.push(['fr_gui', 0]);
 
       this.chartOptions = {
-        credits: {
-          enabled: false,
-        },
         chart: {
           map: 'custom/world',
         },

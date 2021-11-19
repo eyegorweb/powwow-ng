@@ -131,9 +131,6 @@ export default {
             },
           },
         },
-        credits: {
-          enabled: false,
-        },
 
         title: {
           text: '',
@@ -159,7 +156,7 @@ export default {
             endOnTick: true,
           },
         ],
-
+        // exemple events click function for highcharts
         plotOptions: {
           series: {
             point: {

@@ -109,9 +109,6 @@ export default {
       const tickPositions = formattedData.in.map((d) => d.x);
 
       this.chartOptions = {
-        credits: {
-          enabled: false,
-        },
         chart: {
           zoomType: 'xy',
         },

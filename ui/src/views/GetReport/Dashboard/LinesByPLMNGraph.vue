@@ -100,9 +100,6 @@ export default {
       if (!formateddata.length) return;
 
       this.chartOptions = {
-        credits: {
-          enabled: false,
-        },
         chart: {
           type: 'variablepie',
         },
