@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.591+20211119131450
+2021-11-19
+
+### Fixes
+
+- [2992] corriger l'export dans les détails des alarmes (fb21dfcadc8e644bea04766026b05e18202e8b88)
+
 ## 1.17.0-master.590+20211118131453
 2021-11-18
 
