@@ -278,7 +278,8 @@ export default {
           this.alarm.id,
           exportFormat,
           'ne',
-          asyncExportRequest
+          asyncExportRequest,
+          this.lastUsedFilters
         );
       };
     },

@@ -71,8 +71,36 @@ export default {
 
     getExportFn() {
       return async (columnsParam, orderBy, exportFormat, asyncExportRequest) => {
-        return await alarmsWithTriggersExport(this.alarm.id, exportFormat, asyncExportRequest);
+        return await alarmsWithTriggersExport(
+          this.alarm.id,
+          exportFormat,
+          asyncExportRequest,
+          this.lastUsedFilters
+        );
       };
+    },
+
+    saveLastUsedFilter(filter) {
+      let lastUsedFilters = undefined;
+      if (this.lastUsedFilters) {
+        lastUsedFilters = [...this.lastUsedFilters];
+      }
+
+      if (lastUsedFilters && lastUsedFilters.length) {
+        const found = lastUsedFilters.find((f) => f.id === filter.id);
+        if (found) {
+          lastUsedFilters = lastUsedFilters.filter((f) => f.id !== filter.id);
+        }
+        if (filter && filter.value) {
+          lastUsedFilters.push(found);
+        }
+      } else {
+        if (filter && filter.value) {
+          lastUsedFilters = [filter];
+        }
+      }
+
+      this.lastUsedFilters = lastUsedFilters;
     },
 
     openDetailPanel(payload) {
@@ -109,7 +137,17 @@ export default {
         },
       ];
 
-      this.searchByIdValue = params.value;
+      if (params && params.value && params.value.length) {
+        this.searchByIdValue = params.value;
+        this.lastSearchByIdFilter = params;
+        this.saveLastUsedFilter(params);
+      } else {
+        this.lastSearchByIdFilter = undefined;
+        this.searchByIdValue = undefined;
+        this.saveLastUsedFilter({
+          id: params.id, // passer juste l'id pour supprimer le filtre
+        });
+      }
 
       this.isLoading = true;
 

@@ -43,7 +43,8 @@ export async function exportlinesBoundTable(
   alarmId,
   exportFormat,
   operator,
-  asyncExportRequest = false
+  asyncExportRequest = false,
+  lastUsedFilters
 ) {
   const columnsParam = columns.join(',');
   const orderingInfo = orderBy ? `, sorting: {${orderBy.key}: ${orderBy.direction}}` : '';
@@ -56,7 +57,10 @@ export async function exportlinesBoundTable(
   const queryStr = `
   {
     linesBoundToAlarmExport(
-      alarmsToLinesFilterInput: { alarmId: { ${operator}: ${alarmId}} }
+      alarmsToLinesFilterInput: {
+        alarmId: { ${operator}: ${alarmId}}
+        ${formatFilters(lastUsedFilters)}
+       }
       columns: [${columnsParam}]${orderingInfo}
       exportFormat: ${exportFormat}
       ${asyncExportRequestParam}
@@ -135,17 +139,20 @@ export async function fetchLinesBoundToAlarm(orderBy, pagination, filters = []) 
 }
 
 function formatFilters(selectedFilters) {
-  const gqlFilters = [];
-  addPartyId(gqlFilters, selectedFilters);
-  addAlarmId(gqlFilters, selectedFilters);
-  addThreshold(gqlFilters, selectedFilters);
-  addLineId(gqlFilters, selectedFilters);
-  addDateFilter(gqlFilters, selectedFilters, 'lastTriggerDate', 'getvsion.alarm.trigger_date');
-  addBillingAccount(gqlFilters, selectedFilters);
-  addOffer(gqlFilters, selectedFilters);
-  addFileFilter(gqlFilters, selectedFilters);
+  if (selectedFilters) {
+    const gqlFilters = [];
+    addPartyId(gqlFilters, selectedFilters);
+    addAlarmId(gqlFilters, selectedFilters);
+    addThreshold(gqlFilters, selectedFilters);
+    addLineId(gqlFilters, selectedFilters);
+    addDateFilter(gqlFilters, selectedFilters, 'lastTriggerDate', 'getvsion.alarm.trigger_date');
+    addBillingAccount(gqlFilters, selectedFilters);
+    addOffer(gqlFilters, selectedFilters);
+    addFileFilter(gqlFilters, selectedFilters);
 
-  return gqlFilters.join(',');
+    return gqlFilters.join(',');
+  }
+  return '';
 }
 
 function addFileFilter(gqlFilters, selectedFilters) {
@@ -202,7 +209,7 @@ function addThreshold(gqlFilters, selectedFilters) {
   }
 }
 
-function addLineId(gqlFilters, selectedFilters) {
+export function addLineId(gqlFilters, selectedFilters) {
   const idsFilters = [];
 
   const _id = selectedFilters.find((f) => f.id === 'filters.id');
