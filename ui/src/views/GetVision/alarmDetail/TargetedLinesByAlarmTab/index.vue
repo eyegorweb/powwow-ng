@@ -122,7 +122,8 @@ export default {
           this.alarm.id,
           exportFormat,
           'eq',
-          asyncExportRequest
+          asyncExportRequest,
+          this.lastUsedFilters
         );
       };
     },

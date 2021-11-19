@@ -1,4 +1,5 @@
 import { query, getValuesIdsWithoutQuotes, getFilterValue } from './utils';
+import { addLineId } from './alarmDetails';
 import moment from 'moment';
 
 export async function searchSharedConsumptionAlarm(orderBy, pagination, filters) {
@@ -572,7 +573,12 @@ export async function fetchAlarmInstancesIndicators(keys, historyDepth, partners
   return response.data.indicatorsHistory;
 }
 
-export async function alarmsWithTriggersExport(alarmId, exportFormat, asyncExportRequest = false) {
+export async function alarmsWithTriggersExport(
+  alarmId,
+  exportFormat,
+  asyncExportRequest = false,
+  lastUsedFilters
+) {
   let asyncExportRequestParam = '';
 
   if (asyncExportRequest) {
@@ -582,7 +588,9 @@ export async function alarmsWithTriggersExport(alarmId, exportFormat, asyncExpor
   const queryStr = `
   query {
     alarmsWithTriggersExport(
-      linesWithTriggersFilterInput: { alarmId: { eq: ${alarmId} } }
+      linesWithTriggersFilterInput: { alarmId: { eq: ${alarmId} }
+      ${formatFilters(lastUsedFilters)}
+    }
       exportFormat:${exportFormat}
       ${asyncExportRequestParam}
     ) {
@@ -606,6 +614,7 @@ function formatFilters(selectedFilters) {
     addAlarmType(gqlFilters, selectedFilters);
     addDateTriggerAlarm(gqlFilters, selectedFilters);
     addId(gqlFilters, selectedFilters);
+    addLineId(gqlFilters, selectedFilters);
   }
 
   return gqlFilters.join(',');
