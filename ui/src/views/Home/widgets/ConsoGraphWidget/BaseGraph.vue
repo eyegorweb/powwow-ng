@@ -86,9 +86,6 @@ export default {
             text: '',
           },
         },
-        credits: {
-          enabled: false,
-        },
 
         plotOptions: {
           series: {

@@ -8,10 +8,11 @@
 import Highcharts from 'highcharts';
 import { Chart } from 'highcharts-vue';
 
-import { fetchSupervisionGraphData } from '@/api/supervision.js';
+import { fetchSupervisionGraphData, exportRequestFleetSupervision } from '@/api/supervision.js';
 import { formatBytes } from '@/api/utils.js';
 import { formatLargeNumber } from '@/utils/numbers';
 import { formatUTCtoStrDate } from '@/utils/date.js';
+import { mapMutations } from 'vuex';
 
 export default {
   components: {
@@ -21,6 +22,7 @@ export default {
   data() {
     return {
       chartOptions: undefined,
+      exportParams: undefined,
     };
   },
 
@@ -40,6 +42,7 @@ export default {
   },
 
   methods: {
+    ...mapMutations(['openExportChoice']),
     sumAllData(dataOut, dataIn) {
       return dataOut.map((n) => {
         const corresponding = dataIn.find((c) => c.x == n.x);
@@ -49,6 +52,19 @@ export default {
           y: sum,
           myData: n.myData,
         };
+      });
+    },
+    chooseExportFormat(params) {
+      this.params = params;
+      this.openExportChoice({
+        exportFn: async (params, orderBy, exportFormat, asyncExportRequest) => {
+          return await exportRequestFleetSupervision(
+            this.params,
+            orderBy,
+            exportFormat,
+            asyncExportRequest
+          );
+        },
       });
     },
     async refreshData() {
@@ -124,15 +140,26 @@ export default {
         },
         { in: [], out: [], pdp: [], openings: [], traffics: [] }
       );
-      // console.log(formattedData.lastUpdateDate);
 
       const tickPositions = formattedData.in.map((d) => d.x);
+      var that = this;
       this.chartOptions = {
-        credits: {
-          enabled: false,
-        },
         chart: {
           zoomType: 'xy',
+          events: {
+            click: function(e) {
+              const chart = this;
+              if (chart.lbl) {
+                chart.lbl.hide();
+                if (e.stopPropagation) {
+                  e.stopPropagation();
+                }
+                if (e.preventDefault) {
+                  e.preventDefault();
+                }
+              }
+            },
+          },
         },
         title: {
           text: 'Data par Tranches',
@@ -153,10 +180,79 @@ export default {
               },
             },
           },
+          series: {
+            // allowPointSelect: true,
+            events: {
+              click: function() {
+                const chart = this.chart;
+                if (chart.lbl) {
+                  chart.lbl.hide();
+                }
+              },
+              // mouseOut: function() {
+              //   const chart = this.chart;
+              //   if (chart.lbl) {
+              //     chart.lbl.hide();
+              //   }
+              // },
+            },
+            point: {
+              events: {
+                contextmenu: function(e) {
+                  if(that.filters.params.partyIds) {
+                    const chart = this.series.chart;
+                    const text = `<button class="btn btn-primary btn-block py-1 small-text">Export</button>`
+                    if (!chart.lbl) {
+                      chart.lbl = chart.renderer
+                        .label(text, undefined, undefined, undefined, undefined, undefined, true) // true for useHTML 
+                        .css({
+                          fontSize: '12px',
+                        })
+                        .add();
+                    }
+                    chart.lbl.show().attr({
+                      x: e.offsetX,
+                      y: e.offsetY - 40,
+                    });
+                    chart.lbl.on('click', (evt) => {
+                      let regex = /(([1-2][0-9])|([1-9])|(3[0-1])).((1[0-2])|([1-9])).[0-9]{4}/g;
+                      const tooltipText = chart.tooltip.label.text.textStr
+                      const date = tooltipText.match(regex)
+                      const params = {
+                        date : date,
+                        partyId : that.filters.params.partyIds[0],
+                        country: that.filters.params.locationCode
+                      }                      
+
+                      that.chooseExportFormat(params);
+                      if (evt.stopPropagation) {
+                        evt.stopPropagation();
+                      }
+                      if (evt.preventDefault) {
+                        evt.preventDefault();
+                      }
+                      this.series.chart.lbl.hide();
+                    });
+                    // chart.lbl.on('mouseout', (evt) => {
+                    //   const chart = this.series.chart;
+                    //   if (chart.lbl) {
+                    //     chart.lbl.hide();
+                    //   }
+                    // });
+                  }
+                },
+                click: function() {
+                  const chart = this.series.chart;
+                  if (chart.lbl) {
+                    chart.lbl.hide();
+                  }
+                },
+              },
+            },
+          },
         },
         xAxis: [
           {
-            // tickInterval: 1,
             tickPositions,
             labels: {
               formatter() {

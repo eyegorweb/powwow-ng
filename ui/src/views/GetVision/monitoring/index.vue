@@ -276,7 +276,7 @@ export default {
           id: 'DATA',
           label: 'getvsion.dataUsage',
           default: this.value === 'DATA',
-        }
+        },
       );
     }
 

@@ -190,9 +190,6 @@ export default {
 
     buildDataChartOptions(chartData) {
       this.dataChartOptions = {
-        credits: {
-          enabled: false,
-        },
         chart: {
           // type: 'Combination chart',
         },
@@ -292,9 +289,6 @@ export default {
     },
     buildVoiceChartOptions(chartData) {
       this.voiceChartOptions = {
-        credits: {
-          enabled: false,
-        },
         chart: {
           // type: 'Combination chart',
         },
@@ -394,9 +388,6 @@ export default {
     },
     buildSMSChartOptions(chartData) {
       this.smsChartOptions = {
-        credits: {
-          enabled: false,
-        },
         chart: {
           // type: 'Combination chart',
         },

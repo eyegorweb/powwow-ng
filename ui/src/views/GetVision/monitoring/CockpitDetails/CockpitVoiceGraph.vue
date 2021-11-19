@@ -113,9 +113,6 @@ export default {
       };
 
       this.chartOptions = {
-        credits: {
-          enabled: false,
-        },
         chart: {
           zoomType: 'xy',
         },

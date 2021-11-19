@@ -31,9 +31,6 @@ export default {
   methods: {
     createGraph() {
       this.chartOptions = {
-        credits: {
-          enabled: false,
-        },
         chart: {
           type: 'Combination chart',
         },

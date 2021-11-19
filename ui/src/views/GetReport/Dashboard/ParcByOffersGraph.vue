@@ -133,9 +133,6 @@ export default {
             data: formateddata,
           },
         ],
-        credits: {
-          enabled: false,
-        },
       };
     },
   },

@@ -169,9 +169,6 @@ export default {
       // if (!dataSeries) return;
 
       this.chartOptions = {
-        credits: {
-          enabled: false,
-        },
         chart: {
           type: 'column',
         },

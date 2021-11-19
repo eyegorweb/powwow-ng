@@ -68,9 +68,6 @@ export default {
     createChart(data) {
       const nbCnxPdpLabel = this.$t('getparc.lineDetail.supervision.nbCnxPdp');
       this.chartOptions = {
-        credits: {
-          enabled: false,
-        },
         chart: {
           zoomType: 'xy',
         },

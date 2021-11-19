@@ -95,6 +95,24 @@ export async function fetchCockpitMarkers(filters) {
   }
 }
 
+export async function exportRequestFleetSupervision(params, orderBy, exportFormat) {
+  const queryStr = `mutation {
+    addExportRequestFleetSupervision(
+      filter: {partyId: ${params.partyId}, usageType:DATA, selectedDate:"${params.date}", sliceType:SIX_HOUR, country:"${params.country}"}, exportFormat:${exportFormat}){
+      downloadUri
+      total
+      asyncRequired
+    }
+  }
+  `;
+
+  const response = await query(queryStr);
+
+  if (response.data) {
+    return response.data;
+  }
+}
+
 export async function fetchLinesForCounter(filters, pagination = { limit: 10, page: 0 }, sorting) {
   const queryStr = `query GeoCounterList($filter: GeolocCounterFilterInput!, $pagination: Pagination!, $sorting: GeolocListSorting!) {
     geoCounterList(filter: $filter, pagination: $pagination, sorting: $sorting) {

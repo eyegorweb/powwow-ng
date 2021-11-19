@@ -87,8 +87,42 @@ export default function configureHighcharts(lang) {
     mapInit(Highcharts);
     variablepie(Highcharts);
 
+    Highcharts.setOptions({
+      credits: {
+        enabled: false,
+      },
+    });
+
     highchartsIsReady = true;
   }
 
   Highcharts.maps['custom/world'] = window.WORLD_MAP_DATA;
+
+  Highcharts.wrap(Highcharts.Chart.prototype, 'firstRender', function (proceed) {
+    // Run original proceed method
+    proceed.call(this);
+    let chart = this, container = this.container, pointer = this.pointer;
+    container.oncontextmenu = function(e) {
+      let hoverPoint = chart.hoverPoint;
+      e = pointer.normalize(e);
+
+        e.cancelBubble = true; // IE specific
+        e.returnValue = false; // IE 8 specific
+        if (e.stopPropagation) {
+            e.stopPropagation();
+        }
+        if (e.preventDefault) {
+          e.preventDefault();
+        }
+
+        if (!pointer.hasDragged) {
+          if (hoverPoint && pointer.inClass(e.target, 'highcharts-tracker')) {
+            // the point click event
+            hoverPoint.firePointEvent('contextmenu', e);
+          }
+        }
+    }
+});
+
+
 }
