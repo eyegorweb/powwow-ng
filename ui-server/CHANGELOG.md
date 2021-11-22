@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.594+20211122104056
+2021-11-22
+
+### Features
+
+- [2967] validation du compte - redirection callback paynum (998b308b4e929788054692ad4a55c4783b96dc5e)
+
 ## 1.17.0-master.593+20211122094414
 2021-11-22
 
