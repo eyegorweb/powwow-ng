@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.593+20211122094414
+2021-11-22
+
+### Features
+
+- [2967] validation du compte - redirection process paynum (ed0ba1895d88553964421de6384715648ade5048)
+
 ## 1.17.0-master.592+20211119140852
 2021-11-19
 
