@@ -42,6 +42,7 @@
 import Stepper from '@/components/ui/Stepper';
 import { createAccount, validateAccount } from '@/api/digital.js';
 import CreateAccountPanelSynthesis from './CreateAccountPanelSynthesis';
+import { redirectTo } from '@/utils';
 
 export default {
   components: {
@@ -165,7 +166,7 @@ export default {
             address3: null,
             zipCode: this.$loGet(this.synthesis, 'deliveryStep.zipCode'),
             city: this.$loGet(this.synthesis, 'deliveryStep.city'),
-            country: this.$loGet(this.synthesis, 'deliveryStep.country.data.code'),
+            country: this.$loGet(this.synthesis, 'deliveryStep.country.code'),
             state: null,
           },
           contactInformation: {
@@ -184,12 +185,20 @@ export default {
       try {
         const response = await createAccount(this.formattedData);
         this.isLoading = false;
-        console.log('response >>>>>>>>>>', response);
+        console.log('response create account >>>>>>>>>>', response);
         this.checkErrors(response);
-        this.validateSubscription(response);
+        // redirection paynum
+        if (response && response.url) {
+          this.redirectToPaynum(response.url);
+        }
+
+        // validation de la création de compte après paiement
+        // if (response && response.paymentId) {
+        //   this.validate(response.paymentId);
+        // }
       } catch (e) {
         this.isLoading = false;
-        console.error('request error from API REST /api/public/digital-offer/create', e);
+        console.error('request error from API REST "digital offer create"', e);
       }
     },
 
@@ -212,10 +221,15 @@ export default {
       return this.isError;
     },
 
-    async validateSubscription(response) {
+    redirectToPaynum(paynumUrl) {
+      // const targetUrl = `${this.authUrl}/oauth/authorize?response_type=token&client_id=${process.env.VUE_APP_CLIENT_ID}&redirect_uri=${window.location.origin}${process.env.VUE_APP_BASE_URL}/callback&prev=${this.currentUrl}`;
+      redirectTo(paynumUrl);
+    },
+
+    async validate(paymentId) {
       if (this.isError) return;
-      if (response && response.paymentId) {
-        return await validateAccount(response.paymentId);
+      if (paymentId) {
+        return await validateAccount(paymentId);
       }
     },
   },

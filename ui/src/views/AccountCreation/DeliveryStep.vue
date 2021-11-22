@@ -125,6 +125,7 @@ export default {
       this.inEditMode = false;
       if (this.synthesis.creationAccountStep && !form) {
         this.lastSelectedAdress = this.synthesis.creationAccountStep;
+        this.selectedAddress = this.lastSelectedAdress;
       }
       if (form && form.id) {
         const addressIndex = this.address.findIndex((f) => f.id === form.id);

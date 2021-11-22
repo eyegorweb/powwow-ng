@@ -29,11 +29,8 @@ export function createAccount(formData) {
 
 export function validateAccount(paymentId) {
   const dynamicValidURL = '/api/public/digital-offer/validate/' + paymentId;
-  // const dynamicValidURL = `"/api/public/digital-offer/validate/"${JSON.stringify(paymentId)}`;
-  // console.log('url >>>>>>>>', dynamicValidURL);
   try {
     const response = publicApiRoute.post(dynamicValidURL).then((res) => res.data);
-    console.log('response validate payment >>>>>>>>', response);
     return response;
   } catch (e) {
     console.error(e);

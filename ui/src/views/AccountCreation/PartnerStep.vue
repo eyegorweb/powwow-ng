@@ -6,12 +6,12 @@
           <div class="d-flex">
             <label class="radio-container mr-3">
               {{ $t('common.MRS') }}
-              <input name="civility" type="radio" value="MRS" v-model="form.civility" />
+              <input name="title" type="radio" value="MRS" v-model="form.title" />
               <span class="checkmark" />
             </label>
             <label class="radio-container">
               {{ $t('common.MR') }}
-              <input name="civility" type="radio" value="MR" v-model="form.civility" />
+              <input name="title" type="radio" value="MR" v-model="form.title" />
               <span class="checkmark" />
             </label>
           </div>
@@ -42,7 +42,7 @@
 
       <div class="entries-line formLine">
         <div class="form-entry">
-          <FormControl label="getadmin.partners.name" v-model="form.companyName" />
+          <FormControl label="getadmin.partners.name" v-model="form.company" />
         </div>
         <div class="form-entry">
           <FormControl
@@ -165,8 +165,8 @@ export default {
     return {
       form: {
         id: 1,
-        civility: undefined,
-        companyName: undefined,
+        title: undefined,
+        company: undefined,
         siretValue: undefined,
         firstName: undefined,
         lastName: undefined,
@@ -189,8 +189,8 @@ export default {
   computed: {
     requiredFields() {
       const requiredFields = [
-        'civility',
-        'companyName',
+        'title',
+        'company',
         'siretValue',
         'firstName',
         'lastName',

@@ -14,12 +14,12 @@
             <div class="d-flex">
               <label class="radio-container mr-3">
                 {{ $t('common.MR') }}
-                <input name="civility" type="radio" value="MR" v-model="form.title" />
+                <input name="title" type="radio" value="MR" v-model="form.title" />
                 <span class="checkmark" />
               </label>
               <label class="radio-container">
                 {{ $t('common.MRS') }}
-                <input name="civility" type="radio" value="MRS" v-model="form.title" />
+                <input name="title" type="radio" value="MRS" v-model="form.title" />
                 <span class="checkmark" />
               </label>
             </div>
@@ -247,7 +247,7 @@ export default {
       this.form.id = this.addressEdit.id;
       this.form.firstName = this.addressEdit.firstName;
       this.form.lastName = this.addressEdit.lastName;
-      this.form.title = this.addressEdit.title || this.addressEdit.civility;
+      this.form.title = this.addressEdit.title;
       this.form.phone = this.addressEdit.phone;
       this.form.email = this.addressEdit.email ? this.addressEdit.email : '';
       this.form.company = this.addressEdit.company || this.addressEdit.companyName;
@@ -255,10 +255,7 @@ export default {
       this.selectedAddress = { label: this.addressEdit.address };
       this.form.zipCode = this.addressEdit.zipCode;
       this.form.city = this.addressEdit.city;
-      this.form.country = this.countries.find(
-        c =>
-          c.label === this.addressEdit.country.label
-      );
+      this.form.country = this.countries.find((c) => c.label === this.addressEdit.country.label);
       this.form.extraInfos = this.addressEdit.extraInfos ? this.addressEdit.extraInfos : '';
       this.form.extraInfos2 = this.addressEdit.extraInfos2 ? this.addressEdit.extraInfos2 : '';
     }

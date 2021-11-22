@@ -7,7 +7,7 @@
         v-for="item in formattedItems"
         :item="item"
       />
-      <div class="synthesis-item table-price d-flex flex-row">
+      <div class="synthesis-item table-price d-flex flex-row" v-if="displayTotal">
         <div class="flex-grow-1" v-if="$loGet(formattedPrice[0], 'label')">
           <h6 class="subtitle">
             {{ $loGet(formattedPrice[0], 'label') }}
@@ -18,7 +18,7 @@
           <h6 class="subtitle">
             {{ $loGet(formattedPrice[1], 'label') }}
           </h6>
-          <p class="text-right">{{ $loGet(formattedPrice[1], 'value.content', '-') }}</p>
+          <p class="text-right">{{ $loGet(formattedPrice[1], 'value.content', '-') }} €</p>
         </div>
       </div>
       <hr class="separator" />
@@ -44,6 +44,13 @@
         {{ $t('processing') }}...
         <CircleLoader />
       </button>
+      <!-- <button
+        v-if="isSuccess && !isLoading"
+        @click="$emit('confirm')"
+        class="btn btn-block btn-success"
+      >
+        <span>{{ $t('confirm') }}</span>
+      </button> -->
     </div>
   </div>
 </template>
@@ -65,24 +72,25 @@ export default {
     canSave: Boolean,
     isLoading: Boolean,
     isError: Boolean,
+    // isSuccess: Boolean,
   },
 
   computed: {
     formattedItems() {
       const formatted = [];
       if (this.$loGet(this.synthesis, 'creationAccountStep')) {
-        if (this.$loGet(this.synthesis, 'creationAccountStep.companyName')) {
+        if (this.$loGet(this.synthesis, 'creationAccountStep.company')) {
           formatted.push({
             label: 'digitalOffer.synthesis.company',
             value: {
-              content: this.$loGet(this.synthesis, 'creationAccountStep.companyName'),
+              content: this.$loGet(this.synthesis, 'creationAccountStep.company'),
             },
           });
 
           if (this.$loGet(this.synthesis, 'creationAccountStep.address')) {
             const assembledCivility = `${this.$loGet(
               this.synthesis,
-              'creationAccountStep.civility',
+              'creationAccountStep.title',
               ''
             )} ${this.$loGet(this.synthesis, 'creationAccountStep.firstName', '')} ${this.$loGet(
               this.synthesis,
@@ -152,9 +160,10 @@ export default {
           formatted.push({
             label: this.$t('digitalOffer.synthesis.price'),
             value: {
-              content:
-                this.$loGet(this.synthesis, 'offerStep.initialOffer.buyingPriceInEuroCentTTC') +
-                ' €',
+              content: this.$loGet(
+                this.synthesis,
+                'offerStep.initialOffer.buyingPriceInEuroCentTTC'
+              ),
             },
           });
         }
@@ -176,6 +185,10 @@ export default {
 
     formattedTotal() {
       return this.$t('total').toUpperCase();
+    },
+
+    displayTotal() {
+      return this.formattedPrice[0] && this.formattedPrice[0].label === this.$t('common.quantity');
     },
   },
 };
