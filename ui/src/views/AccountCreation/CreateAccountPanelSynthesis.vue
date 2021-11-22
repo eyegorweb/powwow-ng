@@ -160,16 +160,22 @@ export default {
           formatted.push({
             label: this.$t('digitalOffer.synthesis.price'),
             value: {
-              content: this.$loGet(
-                this.synthesis,
-                'offerStep.initialOffer.buyingPriceInEuroCentTTC'
-              ),
+              content: this.price,
             },
           });
         }
       }
 
       return formatted;
+    },
+
+    price() {
+      const price = this.$loGet(
+        this.synthesis,
+        'offerStep.initialOffer.buyingPriceInEuroCentTTC',
+        0
+      );
+      return price / 100;
     },
 
     total() {
@@ -180,7 +186,7 @@ export default {
         0
       );
       if (!quantity) return false;
-      return price * quantity;
+      return (price * quantity) / 100;
     },
 
     formattedTotal() {
