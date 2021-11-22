@@ -1,5 +1,5 @@
 <template>
-  <div>MESSAGE OK</div>
+  <div>Paynum effectué</div>
 </template>
 
 <script>
