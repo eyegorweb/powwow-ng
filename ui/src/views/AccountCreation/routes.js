@@ -31,7 +31,7 @@ export default {
     },
     {
       path: 'ok',
-      name: 'createAccount.ok',
+      name: 'createAccount.ok/:paymentId',
       component: SuccessPage,
     },
     {
