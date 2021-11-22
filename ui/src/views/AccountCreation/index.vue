@@ -55,7 +55,11 @@ export default {
     // si utilisateur connecté aller directement vers le choix Offre
     // this.$router.push({ name: 'createAccount.offer' });
     // sinon aller à la création de partenaire
-    this.$router.push({ name: 'createAccount.partner' });
+    if (window.location.href.includes('ok')) {
+      this.$router.push({ name: 'createAccount.ok' });
+    } else {
+      this.$router.push({ name: 'createAccount.partner' });
+    }
   },
 
   data() {
@@ -222,7 +226,6 @@ export default {
     },
 
     redirectToPaynum(paynumUrl) {
-      // const targetUrl = `${this.authUrl}/oauth/authorize?response_type=token&client_id=${process.env.VUE_APP_CLIENT_ID}&redirect_uri=${window.location.origin}${process.env.VUE_APP_BASE_URL}/callback&prev=${this.currentUrl}`;
       redirectTo(paynumUrl);
     },
 

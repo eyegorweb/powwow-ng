@@ -28,6 +28,8 @@ export default {
         'createAccount.offer',
         'createAccount.simChoice',
         'createAccount.delivery',
+        'createAccount.ok',
+        'createAccount.ko',
       ];
       const shouldIgnore = ignoredNames.find((e) => e === this.$route.name);
 
