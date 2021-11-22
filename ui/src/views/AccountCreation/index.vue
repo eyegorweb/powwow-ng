@@ -1,7 +1,7 @@
 <template>
   <div class="cd-panel__container">
     <div class="cd-panel__content">
-      <div class="creation-panel">
+      <div v-if="!isSuccess" class="creation-panel">
         <div class="stepper-container">
           <div class="account-creation-stepper">
             <div class="card">
@@ -34,6 +34,10 @@
           </template>
         </CreateAccountPanelSynthesis>
       </div>
+
+      <div v-else>
+        <SuccessPage />
+      </div>
     </div>
   </div>
 </template>
@@ -42,12 +46,14 @@
 import Stepper from '@/components/ui/Stepper';
 import { createAccount, validateAccount } from '@/api/digital.js';
 import CreateAccountPanelSynthesis from './CreateAccountPanelSynthesis';
+import SuccessPage from './SuccessPage';
 import { redirectTo } from '@/utils';
 
 export default {
   components: {
     Stepper,
     CreateAccountPanelSynthesis,
+    SuccessPage,
   },
 
   mounted() {
@@ -56,6 +62,7 @@ export default {
     // this.$router.push({ name: 'createAccount.offer' });
     // sinon aller à la création de partenaire
     if (window.location.href.includes('ok')) {
+      this.isSuccess = true;
       this.$router.push({ name: 'createAccount.ok' });
     } else {
       this.$router.push({ name: 'createAccount.partner' });
@@ -107,6 +114,7 @@ export default {
       businessErrors: undefined,
       report: undefined,
       isError: false,
+      isSuccess: false,
     };
   },
 
