@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.595+20211122144228
+2021-11-22
+
+### Fixes
+
+- [2967] redirection callback paynum (39bf96639dfd8fe5ebfb5697f1b13f9921ece0f8)
+- [2967] configuration route paymentId (a4f9a8b8a283766a7e6b6fce22846473b11046eb)
+
 ## 1.17.0-master.594+20211122104056
 2021-11-22
 
