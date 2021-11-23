@@ -45,14 +45,14 @@ export default {
   idSearch: {
     typeId(id) {
       cy.waitGet(
-        '#app > div.container > div.mt-4 > div.mt-4.mb-4 > div > div > div > div > div > div > div.col-md-9 > div:nth-child(3) > div:nth-child(1) > div:nth-child(1) > div > form > div > div.form-group.mb-0.col-md-8 > label > input'
+        'div.col-md-9 > div:nth-child(3) > div:nth-child(1) > div:nth-child(2) > div > form > div > div.form-group.mb-0.col-md-8 > label > input'
       )
         .wait(500)
         .type(id);
     },
     applySearch() {
       cy.waitGet(
-        '#app > div.container > div.mt-4 > div.mt-4.mb-4 > div > div > div > div > div > div > div.col-md-9 > div:nth-child(3) > div:nth-child(1) > div:nth-child(1) > div > form > div > div.form-group.col-md-3.mb-0 > button'
+        'div.col-md-9 > div:nth-child(3) > div:nth-child(1) > div:nth-child(2) > div > form > div > div.form-group.col-md-3.mb-0 > button'
       ).click({ force: true });
     },
   },
