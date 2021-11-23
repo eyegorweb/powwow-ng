@@ -1785,6 +1785,7 @@
         "SUSPEND": "Suspendre des lignes",
         "SUSPEND_BILLS": "Suspendre la facturation",
         "MANAGE_ALARMS": "Gérer des alarmes",
+        "RECHARGE_LINES": "Recharger offre digitale",
         "EXPORT_LAST_USAGE": "Export dernier usage",
         "CHANGE_CF": "Changement de C.F.",
         "CHANGE_OFFER": "Changer d'offre",

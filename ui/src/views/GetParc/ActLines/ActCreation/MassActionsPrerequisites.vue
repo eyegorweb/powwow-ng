@@ -5,7 +5,12 @@
       @set:preprequisites="setPrerequisites"
     />
     <PartnerAndCFTransfertSim
-      v-if="['getparc.actCreation.carouselItem.TRANSFERT_LINES'].find((a) => a === act.title)"
+      v-if="
+        [
+          'getparc.actCreation.carouselItem.TRANSFERT_LINES',
+          'getparc.actCreation.carouselItem.RECHARGE_LINES',
+        ].find((a) => a === act.title)
+      "
       @set:preprequisites="setPrerequisites"
       :user-partner="userPartner"
     />
@@ -43,10 +48,13 @@
       :partner="userPartner"
       :can-select-billing-account="
         act.title === 'getparc.actCreation.carouselItem.CHANGE_OFFER' ||
-          act.title === 'getparc.actCreation.carouselItem.CHANGE_CF' ||
-          act.title === 'getparc.actCreation.carouselItem.esim.CHARGE_LV_LINES'
+        act.title === 'getparc.actCreation.carouselItem.CHANGE_CF' ||
+        act.title === 'getparc.actCreation.carouselItem.esim.CHARGE_LV_LINES'
       "
-      :have-lv-offers="act.title === 'getparc.actCreation.carouselItem.esim.CHARGE_LV_LINES'"
+      :have-lv-offers="
+        act.title === 'getparc.actCreation.carouselItem.esim.CHARGE_LV_LINES' ||
+        act.title === 'getparc.actCreation.carouselItem.RECHARGE_LINES'
+      "
     />
   </div>
 </template>
