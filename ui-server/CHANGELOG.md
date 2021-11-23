@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.597+20211123125814
+2021-11-23
+
+### Fixes
+
+- [2954] traduction de la civilité (4abc27c3277050d63b4904e26fac81b8c76deb54)
+
 ## 1.17.0-master.596+20211123104326
 2021-11-23
 
