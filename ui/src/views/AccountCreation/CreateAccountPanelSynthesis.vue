@@ -88,15 +88,12 @@ export default {
           });
 
           if (this.$loGet(this.synthesis, 'creationAccountStep.address')) {
-            const assembledCivility = `${this.$loGet(
+            const civility = `${this.$loGet(this.synthesis, 'creationAccountStep.title', '')}`;
+            const assembledCivility = `${this.$t('common.' + civility)} ${this.$loGet(
               this.synthesis,
-              'creationAccountStep.title',
+              'creationAccountStep.firstName',
               ''
-            )} ${this.$loGet(this.synthesis, 'creationAccountStep.firstName', '')} ${this.$loGet(
-              this.synthesis,
-              'creationAccountStep.lastName',
-              ''
-            )}`;
+            )} ${this.$loGet(this.synthesis, 'creationAccountStep.lastName', '')}`;
             const assembledCityAddress = `${this.$loGet(
               this.synthesis,
               'creationAccountStep.zipCode',
