@@ -44,6 +44,11 @@ export default new Router({
     getParcRoutes,
     accountCreationRoute,
     {
+      path: '/create-account/ok/:paymentId',
+      name: 'createAccount.ok',
+      component: () => import('@/views/AccountCreation/SuccessPage.vue'),
+    },
+    {
       path: '/',
       name: 'home',
       component: Home,
