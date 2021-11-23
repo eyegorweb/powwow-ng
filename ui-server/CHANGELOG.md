@@ -2,6 +2,19 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.596+20211123104326
+2021-11-23
+
+### Features
+
+- [2967] process paynum et redirection vers page login (820e209b5f3b09003a4ac1d94a2ae0795738029d)
+- [3024] Add to caroussel reload digital offer (c61e1eb04c857347cc353322217b55fb33b37978)
+
+### Fixes
+
+- [000] gitlab-ci change to proxyace2 (403028d1d10fb1144840e6feb435b95b9c5865d0)
+- [000] gitlab-ci change to proxyace2 (d6e07a03a04158c6ea604368a2e842d42330ac2b)
+
 ## 1.17.0-master.595+20211122144228
 2021-11-22
 
