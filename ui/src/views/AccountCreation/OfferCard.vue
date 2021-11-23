@@ -5,7 +5,7 @@
     </div>
     <div class="package-layout">
       <div class="package-value">
-        <div class="value">{{ offer.initialOffer.buyingPriceInEuroCentTTC }}</div>
+        <div class="value">{{ offer.initialOffer.buyingPriceInEuroCentTTC || 0 }}</div>
         <div class="period">€</div>
       </div>
     </div>

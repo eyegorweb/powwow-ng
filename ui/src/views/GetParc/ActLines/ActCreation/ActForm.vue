@@ -55,7 +55,7 @@
       <EsimChangeProfile
         v-if="
           act.title === 'getparc.actCreation.carouselItem.esim.CHANGE_STATUS_PROFIL_ESIM' &&
-            !isLoading
+          !isLoading
         "
       />
       <EsimDownloadProfile
@@ -68,6 +68,9 @@
       />
       <ChargeLVOffers
         v-if="act.title === 'getparc.actCreation.carouselItem.esim.CHARGE_LV_LINES' && !isLoading"
+      />
+      <RechargeLinesOD
+        v-if="act.title === 'getparc.actCreation.carouselItem.RECHARGE_LINES' && !isLoading"
       />
     </div>
   </div>
@@ -98,6 +101,9 @@ import EsimDownloadProfile from './forms/EsimDownloadProfile';
 const ChargeLVOffers = () =>
   import('@/views/GetParc/ActLines/ActCreation/forms/ChargeLVOffers.vue');
 
+const RechargeLinesOD = () =>
+  import('@/views/GetParc/ActLines/ActCreation/forms/RechargeLinesOD.vue');
+
 import { mapGetters } from 'vuex';
 
 export default {
@@ -122,6 +128,7 @@ export default {
     EsimChangeProfile,
     EsimDownloadProfile,
     ChargeLVOffers,
+    RechargeLinesOD,
     EsimPolicyRules,
   },
   props: {

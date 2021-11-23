@@ -423,6 +423,23 @@ export default excludeMocked([
   },
   {
     icon: 'ic-Refresh-Icon',
+    title: 'getparc.actCreation.carouselItem.RECHARGE_LINES',
+    id: 'RECHARGE_LINES',
+    stepTitle: 'getparc.actCreation.step2Titles.configure',
+    selected: false,
+    esimAct: true,
+    filters: [
+      {
+        id: 'filters.lines.SIMCardStatus',
+        values: [
+          { id: 'ACTIVATED', label: 'Activée' },
+          { id: 'SUSPENDED', label: 'Suspendue' },
+        ],
+      },
+    ],
+  },
+  {
+    icon: 'ic-Refresh-Icon',
     title: 'getparc.actCreation.carouselItem.esim.CHARGE_LV_LINES',
     id: 'CHARGE_LV_LINES',
     stepTitle: 'getparc.actCreation.step2Titles.configure',
