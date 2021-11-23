@@ -5,7 +5,7 @@ export default {
   search: {
     typeUser(user) {
       cy.get(
-        '#app > div.container > div.mt-4 > div:nth-child(2) > div > div.col-md-9 > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div > div > form > div > div.form-group.mb-0.col-md-8 > label > input[type=text]'
+        'div.col-md-9 > div:nth-child(2) > div:nth-child(1) > div:nth-child(2) > div > div > form > div > div.form-group.mb-0.col-md-8 > label > input'
       )
         .click({ force: true })
         .clear({ force: true })
@@ -13,7 +13,7 @@ export default {
     },
     launchSearch() {
       cy.get(
-        '#app > div.container > div.mt-4 > div:nth-child(2) > div > div.col-md-9 > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div > div > form > div > div.form-group.col-md-3.mb-0 > button'
+        'div.col-md-9 > div:nth-child(2) > div:nth-child(1) > div:nth-child(2) > div > div > form > div > div.form-group.col-md-3.mb-0 > button'
       ).click({ force: true });
     },
     reinit() {

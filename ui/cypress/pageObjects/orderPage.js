@@ -41,7 +41,7 @@ export default {
   idSearch: {
     typeId(id) {
       cy.waitGet(
-        '#app > div.container > div.mt-4 > div.pt-4.pl-4 > div > div:nth-child(2) > div.col-md-9 > div > div > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > form > div > div.form-group.mb-0.col-md-8 > div > label > input'
+        'div.col-md-9 > div > div > div:nth-child(2) > div:nth-child(1) > div:nth-child(2) > form > div > div.form-group.mb-0.col-md-8 > div > label > input'
       ).type(id);
     },
     applySearch() {
