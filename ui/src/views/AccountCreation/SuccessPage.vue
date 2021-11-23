@@ -1,9 +1,81 @@
 <template>
-  <div>Paynum effectué</div>
+  <div class="cd-panel__container">
+    <div class="cd-panel__content">
+      <div class="creation-panel">
+        <div class="stepper-container">
+          <CircleLoader />
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
-export default {};
+import CircleLoader from '@/components/ui/CircleLoader';
+import { validateAccount } from '@/api/digital.js';
+import { redirectTo, getBaseURL } from '@/utils';
+
+export default {
+  components: {
+    CircleLoader,
+  },
+
+  mounted() {
+    if (this.$route.params && this.$route.params.paymentId) {
+      this.validate(this.$route.params.paymentId);
+      setTimeout(() => {
+        this.routeToLogin();
+      }, 3000);
+    }
+  },
+
+  computed: {
+    authUrl() {
+      return getBaseURL();
+    },
+    refreshUrl() {
+      return `${this.authUrl}/oauth/authorize?response_type=token&client_id=${process.env.VUE_APP_CLIENT_ID}&redirect_uri=${window.location.origin}/refresh.html`;
+    },
+    currentUrl() {
+      const sameUrl =
+        location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '');
+
+      return window.location.href.replace(sameUrl, '');
+    },
+  },
+
+  methods: {
+    async validate(paymentId) {
+      if (paymentId) {
+        return await validateAccount(paymentId);
+      }
+    },
+
+    routeToLogin() {
+      // this.$router.push({ name: 'orders.search' });
+      // const targetUrl = `${this.authUrl}/oauth/authorize?response_type=token&client_id=${process.env.VUE_APP_CLIENT_ID}&redirect_uri=${window.location.origin}${process.env.VUE_APP_BASE_URL}/callback&prev=${this.currentUrl}`;
+      redirectTo(this.refreshUrl);
+    },
+  },
+};
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.creation-panel {
+  display: flex;
+  flex-flow: row nowrap;
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+
+  .stepper-container {
+    width: 70%;
+    background: white;
+    overflow: auto;
+    padding: 1rem;
+    display: flex;
+    flex-flow: column nowrap;
+    height: 100%;
+  }
+}
+</style>

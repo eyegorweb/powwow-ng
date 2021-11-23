@@ -40,7 +40,7 @@
 
 <script>
 import Stepper from '@/components/ui/Stepper';
-import { createAccount, validateAccount } from '@/api/digital.js';
+import { createAccount } from '@/api/digital.js';
 import CreateAccountPanelSynthesis from './CreateAccountPanelSynthesis';
 import { redirectTo } from '@/utils';
 
@@ -55,9 +55,9 @@ export default {
     // si utilisateur connecté aller directement vers le choix Offre
     // this.$router.push({ name: 'createAccount.offer' });
     // sinon aller à la création de partenaire
-    console.log('url', window.location.href);
     if (window.location.href.includes('ok')) {
-      this.$router.push({ name: 'createAccount.ok', params: { paymentId: this.paymentId } });
+      const hashParts = window.location.href.split('/ok/');
+      this.$router.push({ name: 'createAccount.ok', params: { paymentId: hashParts[1] } });
     } else {
       this.$router.push({ name: 'createAccount.partner' });
     }
@@ -228,13 +228,6 @@ export default {
 
     redirectToPaynum(paynumUrl) {
       redirectTo(paynumUrl);
-    },
-
-    async validate(paymentId) {
-      if (this.isError) return;
-      if (paymentId) {
-        return await validateAccount(paymentId);
-      }
     },
   },
 

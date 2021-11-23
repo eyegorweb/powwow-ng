@@ -77,8 +77,6 @@ export default {
         'createAccount.offer',
         'createAccount.simChoice',
         'createAccount.delivery',
-        'createAccount.ok',
-        'createAccount.ko',
       ].find((k) => k === this.$route.name);
     },
     currentUrl() {
