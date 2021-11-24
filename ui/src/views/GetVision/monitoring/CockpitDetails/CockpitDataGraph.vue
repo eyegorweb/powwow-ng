@@ -147,7 +147,7 @@ export default {
         chart: {
           zoomType: 'xy',
           events: {
-            click: function(e) {
+            click(e) {
               const chart = this;
               if (chart.lbl) {
                 chart.lbl.hide();
@@ -183,7 +183,7 @@ export default {
           series: {
             // allowPointSelect: true,
             events: {
-              click: function() {
+              click() {
                 const chart = this.chart;
                 if (chart.lbl) {
                   chart.lbl.hide();
@@ -198,13 +198,13 @@ export default {
             },
             point: {
               events: {
-                contextmenu: function(e) {
-                  if(that.filters.params.partyIds) {
+                contextmenu(e) {
+                  if (that.filters.params.partyIds) {
                     const chart = this.series.chart;
-                    const text = `<button class="btn btn-primary btn-block py-1 small-text">Export</button>`
+                    const text = `<button class="btn btn-primary btn-block py-1 small-text">Export</button>`;
                     if (!chart.lbl) {
                       chart.lbl = chart.renderer
-                        .label(text, undefined, undefined, undefined, undefined, undefined, true) // true for useHTML 
+                        .label(text, undefined, undefined, undefined, undefined, undefined, true) // true for useHTML
                         .css({
                           fontSize: '12px',
                         })
@@ -216,13 +216,13 @@ export default {
                     });
                     chart.lbl.on('click', (evt) => {
                       let regex = /(([1-2][0-9])|([1-9])|(3[0-1])).((1[0-2])|([1-9])).[0-9]{4}/g;
-                      const tooltipText = chart.tooltip.label.text.textStr
-                      const date = tooltipText.match(regex)
+                      const tooltipText = chart.tooltip.label.text.textStr;
+                      const date = tooltipText.match(regex);
                       const params = {
-                        date : date,
-                        partyId : that.filters.params.partyIds[0],
-                        country: that.filters.params.locationCode
-                      }                      
+                        date,
+                        partyId: that.filters.params.partyIds[0],
+                        country: that.filters.params.locationCode,
+                      };
 
                       that.chooseExportFormat(params);
                       if (evt.stopPropagation) {
@@ -241,7 +241,7 @@ export default {
                     // });
                   }
                 },
-                click: function() {
+                click() {
                   const chart = this.series.chart;
                   if (chart.lbl) {
                     chart.lbl.hide();

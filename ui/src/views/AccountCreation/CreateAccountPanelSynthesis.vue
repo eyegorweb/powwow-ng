@@ -187,7 +187,7 @@ export default {
     },
 
     formattedTotal() {
-      return this.$t('total').toUpperCase();
+      return `${this.$t('total').toUpperCase()} TTC`;
     },
 
     displayTotal() {

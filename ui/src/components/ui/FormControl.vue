@@ -11,6 +11,8 @@
         type="number"
         class="form-control"
         :class="{ 'big-input': big }"
+        @focus="$emit('focus', $event)"
+        @blur="$emit('blur', $event)"
       />
       <input
         v-else
@@ -23,6 +25,8 @@
         :required="required"
         class="form-control"
         :class="{ 'big-input': big }"
+        @focus="$emit('focus', $event)"
+        @blur="$emit('blur', $event)"
       />
       <small v-if="error" class="form-text error-text">{{ $t(error) }}</small>
       <small v-if="required" class="form-text error-text">{{ $t('required') }}</small>
@@ -72,6 +76,7 @@ export default {
       type: Number,
       required: false,
     },
+    focus: Function,
   },
 
   data() {

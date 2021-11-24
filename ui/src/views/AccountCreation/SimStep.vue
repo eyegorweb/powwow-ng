@@ -11,8 +11,8 @@
             :default-selected-item.sync="selectedSimTypeValue"
             :is-active="
               selectedSimTypeValue &&
-              selectedSimTypeValue.simCard &&
-              selectedSimTypeValue.simCard.id === item.simCard.id
+                selectedSimTypeValue.simCard &&
+                selectedSimTypeValue.simCard.id === item.simCard.id
             "
             last-action-key="getsim.sim-type-labels.orderDate"
             no-action-key="getsim.never-ordered"

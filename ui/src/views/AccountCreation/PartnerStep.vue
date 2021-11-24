@@ -46,29 +46,24 @@
         </div>
       </div>
 
-      <div class="entries-line formLine">
+      <div class="entries-line">
         <div class="form-group">
-          <UiToggle :label="$t('siret-number')" :editable="true" v-model="siretType" />
-        </div>
-        <div class="form-group">
-          <UiInput
-            v-model="form.siretValue"
-            input-type="number"
-            @update:value="onChange"
-            :disabled="!siretType"
+          <Toggle
+            v-if="toggleValues"
+            @update="siretType = $event.id"
+            :values="toggleValues"
+            no-default
           />
-          <span v-if="!reachedMaxLength && siretType" class="error-text">
+          <FormControl
+            v-model="form.siretValue"
+            @update:value="onChange"
+            @focus="onInputFocus"
+            @blur="onInputBlur"
+            input-type="number"
+          />
+          <span v-if="!hide && !reachedMaxLength && siretType === 'siret'" class="error-text">
             {{ $t('errors.maxlength') }}
           </span>
-        </div>
-      </div>
-
-      <div class="entries-line formLine">
-        <div class="form-group">
-          <UiToggle :label="$t('tva-number')" :editable="true" v-model="tvaType" />
-        </div>
-        <div class="form-group">
-          <UiInput v-model="form.tvaValue" input-type="number" :disabled="!tvaType" />
         </div>
       </div>
 
@@ -149,7 +144,7 @@ import BottomBar from './BottomBar.vue';
 import FormControl from '@/components/ui/FormControl';
 import UiApiAutocomplete from '@/components/ui/UiApiAutocomplete';
 import UiInput from '@/components/ui/UiInput';
-import UiToggle from '@/components/ui/UiToggle';
+import Toggle from '@/components/ui/UiToggle2';
 
 import { searchAddress, fetchCountries } from '@/api/address';
 import { checkPasswordErrors } from '@/utils.js';
@@ -160,7 +155,7 @@ export default {
     FormControl,
     UiApiAutocomplete,
     UiInput,
-    UiToggle,
+    Toggle,
   },
   props: {
     synthesis: Object,
@@ -185,7 +180,6 @@ export default {
         title: undefined,
         company: undefined,
         siretValue: undefined,
-        tvaValue: undefined,
         firstName: undefined,
         lastName: undefined,
         zipCode: undefined,
@@ -196,13 +190,26 @@ export default {
         phone: undefined,
         login: undefined,
         password: undefined,
+        passwordConfirm: undefined,
       },
       selectedAddress: {},
       countries: [],
       siretLimit: 14,
       reachedMaxLength: false,
-      siretType: false,
-      tvaType: false,
+      siretType: 'siret',
+      toggleValues: [
+        {
+          id: 'siret',
+          label: 'siret-number',
+          default: true,
+        },
+        {
+          id: 'tva',
+          label: 'tva-number',
+          default: false,
+        },
+      ],
+      hide: true,
     };
   },
 
@@ -223,15 +230,6 @@ export default {
         'password',
       ];
 
-      const optionalFields = ['siretValue', 'tvaValue'];
-
-      const optionalControl = optionalFields.filter((f) => {
-        if (f === 'siretValue' || f === 'tvaValue') {
-          console.log('correspond à ', f, ' avec la valeur ', this.form[f]);
-          return this.form[f];
-        }
-      });
-
       return requiredFields.filter((f) => {
         // cas spécial pour l'autocomplete, il renvoi un objet {label: ''} si l'input est vide
         if (f === 'address') {
@@ -239,7 +237,7 @@ export default {
             return !this.form.address.label;
           }
         }
-        return !this.form[f] && optionalControl.length;
+        return !this.form[f];
       });
     },
 
@@ -249,21 +247,18 @@ export default {
       return errors;
     },
 
-    hasSiretID() {
-      if (this.siretType) {
-        return this.siretType && this.reachedMaxLength;
-      } else if (this.tvaType) {
-        return this.tvaType && !!this.form.tvaValue;
-      } else {
-        return false;
+    hasSiretValue() {
+      if (this.siretType === 'siret') {
+        return this.reachedMaxLength;
       }
+      return true;
     },
 
     canNext() {
       return (
         this.requiredFields.length === 0 &&
         this.passwordConfirmationErrors.length === 0 &&
-        this.hasSiretID
+        this.hasSiretValue
       );
     },
   },
@@ -288,6 +283,17 @@ export default {
       } else {
         this.reachedMaxLength = false;
       }
+    },
+
+    onInputBlur() {
+      if (this.hasSiretValue) {
+        this.hide = true;
+      } else {
+        this.hide = false;
+      }
+    },
+    onInputFocus() {
+      this.hide = false;
     },
   },
 
