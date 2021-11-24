@@ -2285,6 +2285,8 @@
   "noneM": "None",
   "applyFilters": "Apply / Refresh",
   "chooseOnePartner": "Please choose a partner",
+  "shippingCost": "Shipping cost",
+  "shippingOfferedCost": "Free delivery",
   "siret-number": "Siret number",
   "tva-number": "Intra-community VAT number",
   "population": "Population",
