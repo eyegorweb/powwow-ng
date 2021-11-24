@@ -27,7 +27,7 @@
         <p v-else class="last-order mt-1">{{ $t(noActionKey) }}</p>
       </div>
     </div>
-    <div class="simtype__item">
+    <div class="simtype__item simtype__img">
       <img src="@/assets/simtype.png" />
     </div>
   </div>
@@ -85,8 +85,13 @@ export default {
   margin-bottom: 10px;
   min-height: 90px;
 
-  @media screen and (max-height: 900px) {
-    max-height: 97px;
+
+  &__item {
+    width: 85%;
+  }
+
+  &__img {
+    width: 60px;
   }
 
   &.active {
