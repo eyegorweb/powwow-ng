@@ -5,8 +5,19 @@
     </div>
     <div class="package-layout">
       <div class="package-value">
-        <div class="value">{{ offer.initialOffer.buyingPriceInEuroCentTTC || 0 }}</div>
-        <div class="period">€</div>
+        <div class="euro-value">
+          {{ offerPrice('EURO_PART') }}
+        </div>
+        <div class="cent-with-period">
+          <div class="cent-value">€{{ offerPrice('CENT_PART') }}</div>
+          <div class="period">
+            {{
+              $t('digitalOffer.offerStep.offerPeriod', {
+                period: period,
+              })
+            }}
+          </div>
+        </div>
       </div>
     </div>
     <div class="divider"></div>
@@ -53,16 +64,50 @@ export default {
   data() {
     return {
       selectedOffer: undefined,
+      price: undefined,
     };
   },
   props: {
     offer: Object,
     isActive: Boolean,
   },
+  mounted() {
+    this.price =
+      this.offer && this.offer.initialOffer && this.offer.initialOffer.buyingPriceInEuroCentTTC
+        ? this.offer.initialOffer.buyingPriceInEuroCentTTC
+        : 0;
+  },
   methods: {
     onClick() {
       this.$emit('select:offer', { selectedOffer: this.offer });
       this.selectedOffer = this.offer;
+    },
+    offerPrice(part) {
+      var floatPrice = this.price / 100;
+      floatPrice = floatPrice.toFixed(2);
+      let splittedPrice = (floatPrice + '').split('.');
+      switch (part) {
+        case 'EURO_PART':
+          return splittedPrice[0];
+        case 'CENT_PART':
+          if (splittedPrice[1] === '00') {
+            return '';
+          }
+          return splittedPrice[1];
+        default:
+          console.log(`Sorry, we are out of ${part}.`);
+          return '';
+      }
+    },
+  },
+  computed: {
+    period() {
+      return this.offer &&
+        this.offer.initialOffer &&
+        this.offer.initialOffer.offerPackages[0] &&
+        this.offer.initialOffer.offerPackages[0].duration
+        ? this.offer.initialOffer.offerPackages[0].duration
+        : 0;
     },
   },
 };
@@ -141,9 +186,9 @@ $box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14),
 
     .package-value {
       display: flex;
-      align-items: flex-end;
+      align-items: center;
 
-      .value {
+      .euro-value {
         font-size: 4.5rem;
         font-weight: 600;
         line-height: 1;
@@ -151,9 +196,12 @@ $box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14),
 
       .period {
         padding: 0 0 5px 4px;
-        font-size: 1.125rem;
-        font-weight: 500;
+        font-size: 0.8rem;
+        font-weight: 400;
         color: $muted;
+      }
+      .cent-value {
+        font-size: 1.5rem;
       }
     }
   }
