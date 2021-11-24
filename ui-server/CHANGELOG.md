@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.600+20211124113837
+2021-11-24
+
+### Fixes
+
+- [3047] Change style on simcard bloc for OD (7dc09cb43e5bca3951e32171f3a8ceeb35963f14)
+
 ## 1.17.0-master.599+20211124091339
 2021-11-24
 
