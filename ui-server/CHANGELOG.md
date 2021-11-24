@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.601+20211124150917
+2021-11-24
+
+### Fixes
+
+- [3046] ajout du contrôle sur le siret//tva du partenaire (f60568b1796f143a0f0ebca82566dc72092dc675)
+
 ## 1.17.0-master.600+20211124113837
 2021-11-24
 
