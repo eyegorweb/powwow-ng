@@ -126,6 +126,8 @@
   "card": "Carte",
   "days": "Jours",
   "specific": "spécifque",
+  "siret-number": "N° Siret",
+  "tva-number": "N° TVA intra communautaire",
   "pending-actions": {
     "title": "Opérations en cours",
     "preparing": "Préparation de l'opération ...",
