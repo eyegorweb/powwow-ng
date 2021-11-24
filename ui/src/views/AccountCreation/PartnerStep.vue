@@ -40,20 +40,35 @@
         </div>
       </div>
 
-      <div class="entries-line formLine">
+      <div class="entries-line">
         <div class="form-entry">
           <FormControl label="getadmin.partners.name" v-model="form.company" />
         </div>
-        <div class="form-entry">
-          <FormControl
-            label="getadmin.cf.filters.siret"
-            input-type="number"
+      </div>
+
+      <div class="entries-line formLine">
+        <div class="form-group">
+          <UiToggle :label="$t('siret-number')" :editable="true" v-model="siretType" />
+        </div>
+        <div class="form-group">
+          <UiInput
             v-model="form.siretValue"
-            :max-size="siretLimit"
+            input-type="number"
+            @update:value="onChange"
+            :disabled="!siretType"
           />
-          <span v-if="reachedMaxLength > siretLimit" class="error-text">
+          <span v-if="!reachedMaxLength && siretType" class="error-text">
             {{ $t('errors.maxlength') }}
           </span>
+        </div>
+      </div>
+
+      <div class="entries-line formLine">
+        <div class="form-group">
+          <UiToggle :label="$t('tva-number')" :editable="true" v-model="tvaType" />
+        </div>
+        <div class="form-group">
+          <UiInput v-model="form.tvaValue" input-type="number" :disabled="!tvaType" />
         </div>
       </div>
 
@@ -134,6 +149,7 @@ import BottomBar from './BottomBar.vue';
 import FormControl from '@/components/ui/FormControl';
 import UiApiAutocomplete from '@/components/ui/UiApiAutocomplete';
 import UiInput from '@/components/ui/UiInput';
+import UiToggle from '@/components/ui/UiToggle';
 
 import { searchAddress, fetchCountries } from '@/api/address';
 import { checkPasswordErrors } from '@/utils.js';
@@ -144,6 +160,7 @@ export default {
     FormControl,
     UiApiAutocomplete,
     UiInput,
+    UiToggle,
   },
   props: {
     synthesis: Object,
@@ -168,6 +185,7 @@ export default {
         title: undefined,
         company: undefined,
         siretValue: undefined,
+        tvaValue: undefined,
         firstName: undefined,
         lastName: undefined,
         zipCode: undefined,
@@ -178,11 +196,13 @@ export default {
         phone: undefined,
         login: undefined,
         password: undefined,
-        // passwordConfirm: undefined,
       },
       selectedAddress: {},
       countries: [],
       siretLimit: 14,
+      reachedMaxLength: false,
+      siretType: false,
+      tvaType: false,
     };
   },
 
@@ -191,7 +211,6 @@ export default {
       const requiredFields = [
         'title',
         'company',
-        'siretValue',
         'firstName',
         'lastName',
         'address',
@@ -204,6 +223,15 @@ export default {
         'password',
       ];
 
+      const optionalFields = ['siretValue', 'tvaValue'];
+
+      const optionalControl = optionalFields.filter((f) => {
+        if (f === 'siretValue' || f === 'tvaValue') {
+          console.log('correspond à ', f, ' avec la valeur ', this.form[f]);
+          return this.form[f];
+        }
+      });
+
       return requiredFields.filter((f) => {
         // cas spécial pour l'autocomplete, il renvoi un objet {label: ''} si l'input est vide
         if (f === 'address') {
@@ -211,7 +239,7 @@ export default {
             return !this.form.address.label;
           }
         }
-        return !this.form[f];
+        return !this.form[f] && optionalControl.length;
       });
     },
 
@@ -221,17 +249,21 @@ export default {
       return errors;
     },
 
-    reachedMaxLength() {
-      const numberValue = this.form && this.form.siretValue ? this.form.siretValue : undefined;
-      if (!numberValue) return 0;
-      return numberValue.length;
+    hasSiretID() {
+      if (this.siretType) {
+        return this.siretType && this.reachedMaxLength;
+      } else if (this.tvaType) {
+        return this.tvaType && !!this.form.tvaValue;
+      } else {
+        return false;
+      }
     },
 
     canNext() {
       return (
         this.requiredFields.length === 0 &&
         this.passwordConfirmationErrors.length === 0 &&
-        this.reachedMaxLength === this.siretLimit
+        this.hasSiretID
       );
     },
   },
@@ -248,6 +280,14 @@ export default {
     isEmailValid(email) {
       var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       return re.test(email);
+    },
+
+    onChange(value) {
+      if (value.length === this.siretLimit) {
+        this.reachedMaxLength = true;
+      } else {
+        this.reachedMaxLength = false;
+      }
     },
   },
 
@@ -281,9 +321,13 @@ export default {
 .formLine {
   display: flex;
   justify-content: space-between;
+  align-items: baseline;
 
   > div {
     width: 48%;
+    .cmp-ui-input {
+      width: 100%;
+    }
   }
 }
 
