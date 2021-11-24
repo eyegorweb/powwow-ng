@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.599+20211124091339
+2021-11-24
+
+### Fixes
+
+- [3046] gestion du siret et tva pour la création de compte partenaire (87a30f329ea9d9d1f321eddf06a52eafa8340039)
+
 ## 1.17.0-master.598+20211123154421
 2021-11-23
 
