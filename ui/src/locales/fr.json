@@ -184,7 +184,8 @@
       "VOICE": "Voix {value} {unit}"
     },
     "offerStep": {
-      "subscribe": "Souscrire"
+      "subscribe": "Souscrire",
+      "offerPeriod": "pour {period} mois"
     }
   },
   "export-types": {
