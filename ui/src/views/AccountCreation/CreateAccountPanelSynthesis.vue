@@ -7,26 +7,39 @@
         v-for="item in formattedItems"
         :item="item"
       />
-      <div class="synthesis-item table-price d-flex flex-row" v-if="displayTotal">
-        <div class="flex-grow-1">
-          <h6 class="subtitle">{{ $t('designation') }}</h6>
-          <p>SIM</p>
+      <template v-if="displayTotal">
+        <div class="synthesis-item table-price d-flex flex-row">
+          <div class="flex-grow-1">
+            <h6 class="subtitle">{{ $t('digitalOffer.synthesis.designation') }}</h6>
+            <p>SIM</p>
+          </div>
+          <div class="flex-grow-1" v-if="$loGet(formattedPrice[0], 'label')">
+            <h6 class="subtitle">
+              {{ $loGet(formattedPrice[0], 'label') }}
+            </h6>
+            <p>{{ $loGet(formattedPrice[0], 'value.content', '-') }}</p>
+          </div>
+          <div v-if="$loGet(formattedPrice[1], 'label')">
+            <h6 class="subtitle">
+              {{ $loGet(formattedPrice[1], 'label') }}
+            </h6>
+            <p class="text-right">
+              {{ formatCurrency($loGet(formattedPrice[1], 'value.content')) }} €
+            </p>
+          </div>
         </div>
-        <div class="flex-grow-1" v-if="$loGet(formattedPrice[0], 'label')">
-          <h6 class="subtitle">
-            {{ $loGet(formattedPrice[0], 'label') }}
-          </h6>
-          <p>{{ $loGet(formattedPrice[0], 'value.content', '-') }}</p>
+        <div class="synthesis-item table-price d-flex flex-row">
+          <div class="flex-grow-1">
+            <p>{{ $t('digitalOffer.synthesis.topup') }}</p>
+          </div>
+          <div class="flex-grow-1" v-if="$loGet(formattedPrice[0], 'label')">
+            <p>{{ $loGet(formattedPrice[0], 'value.content', '-') }}</p>
+          </div>
+          <div v-if="$loGet(formattedPrice[1], 'label')">
+            <p class="text-right">{{ formatCurrency(formattedOfferPackagePrice) }} €</p>
+          </div>
         </div>
-        <div v-if="$loGet(formattedPrice[1], 'label')">
-          <h6 class="subtitle">
-            {{ $loGet(formattedPrice[1], 'label') }}
-          </h6>
-          <p class="text-right">
-            {{ formatCurrency($loGet(formattedPrice[1], 'value.content', '-')) }} €
-          </p>
-        </div>
-      </div>
+      </template>
       <hr class="separator" />
       <div v-if="total">
         <div class="total">
@@ -143,10 +156,29 @@ export default {
 
       if (this.$loGet(this.synthesis, 'simStep')) {
         if (this.$loGet(this.synthesis, 'simStep.selectedSimTypeValue')) {
+          const licence = this.$loGet(
+            this.synthesis,
+            'simStep.selectedSimTypeValue.simCard.licence'
+          )
+            ? `${this.$t('getsim.sim-type-labels.licence')}: ${this.$loGet(
+                this.synthesis,
+                'simStep.selectedSimTypeValue.simCard.licence'
+              )}`
+            : '';
+          const format = this.$loGet(this.synthesis, 'simStep.selectedSimTypeValue.simCard.format')
+            ? `${this.$t('getsim.sim-type-labels.format')}: ${this.$loGet(
+                this.synthesis,
+                'simStep.selectedSimTypeValue.simCard.format'
+              )}`
+            : '';
           formatted.push({
             label: 'digitalOffer.simType',
             value: {
-              content: this.$loGet(this.synthesis, 'simStep.selectedSimTypeValue.simCard.name'),
+              content: [
+                this.$loGet(this.synthesis, 'simStep.selectedSimTypeValue.simCard.name'),
+                format,
+                licence,
+              ],
             },
           });
         }
@@ -167,18 +199,29 @@ export default {
         }
       }
 
-      if (this.$loGet(this.synthesis, 'offerStep')) {
-        if (this.$loGet(this.synthesis, 'offerStep.offerPackage[0].buyingPriceInEuroCentHT')) {
-          formatted.push({
-            label: this.$t('digitalOffer.synthesis.price'),
-            value: {
-              content: this.priceHT,
-            },
-          });
-        }
+      if (this.$loGet(this.synthesis, 'simStep')) {
+        formatted.push({
+          label: this.$t('digitalOffer.synthesis.price'),
+          value: {
+            content: this.$loGet(
+              this.synthesis,
+              'simStep.selectedSimTypeValue.buyingPriceInEuroCentHT',
+              0
+            ),
+          },
+        });
       }
 
       return formatted;
+    },
+
+    formattedOfferPackagePrice() {
+      const price = this.$loGet(
+        this.synthesis,
+        'offerStep.offerPackage[0].buyingPriceInEuroCentHT',
+        0
+      );
+      return price / 100;
     },
 
     priceTTC() {
