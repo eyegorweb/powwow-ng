@@ -73,8 +73,8 @@ export default {
   },
   mounted() {
     this.price =
-      this.offer && this.offer.initialOffer && this.offer.initialOffer.buyingPriceInEuroCentTTC
-        ? this.offer.initialOffer.buyingPriceInEuroCentTTC
+      this.offer && this.offer.offerPackage[0] && this.offer.offerPackage[0].buyingPriceInEuroCentHT
+        ? this.offer.offerPackage[0].buyingPriceInEuroCentHT
         : 0;
   },
   methods: {
