@@ -131,6 +131,7 @@
   "siret-number": "N° Siret",
   "tva-number": "N° TVA intra communautaire",
   "price": "Prix",
+  "designation": "Désignation",
   "pending-actions": {
     "title": "Opérations en cours",
     "preparing": "Préparation de l'opération ...",

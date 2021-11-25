@@ -8,6 +8,10 @@
         :item="item"
       />
       <div class="synthesis-item table-price d-flex flex-row" v-if="displayTotal">
+        <div class="flex-grow-1">
+          <h6 class="subtitle">{{ $t('designation') }}</h6>
+          <p>SIM</p>
+        </div>
         <div class="flex-grow-1" v-if="$loGet(formattedPrice[0], 'label')">
           <h6 class="subtitle">
             {{ $loGet(formattedPrice[0], 'label') }}
@@ -18,30 +22,32 @@
           <h6 class="subtitle">
             {{ $loGet(formattedPrice[1], 'label') }}
           </h6>
-          <p class="text-right">{{ $loGet(formattedPrice[1], 'value.content', '-') }} €</p>
+          <p class="text-right">
+            {{ formatCurrency($loGet(formattedPrice[1], 'value.content', '-')) }} €
+          </p>
         </div>
       </div>
       <hr class="separator" />
       <div v-if="total">
         <div class="total">
           <span class="flex-grow-1">{{ formattedTotalHT }}</span>
-          <span>{{ totalHT }} €</span>
+          <span>{{ formatCurrency(totalHT) }} €</span>
         </div>
         <div class="total">
           <span class="flex-grow-1">{{ formattedTotalTVA }}</span>
-          <span>{{ totalTVA }} €</span>
+          <span>{{ formatCurrency(totalTVA) }} €</span>
         </div>
         <div class="total">
           <span class="flex-grow-1">{{ $t('shippingCost') }}</span>
-          <span>10 €</span>
+          <span>{{ formatCurrency(10) }} €</span>
         </div>
         <div class="total">
           <span class="flex-grow-1">{{ $t('shippingOfferedCost') }}</span>
-          <span>- 10 €</span>
+          <span>- {{ formatCurrency(10) }} €</span>
         </div>
         <div class="total">
           <span class="flex-grow-1">{{ formattedTotalTTC }}</span>
-          <span>{{ total }} €</span>
+          <span>{{ formatCurrency(total) }} €</span>
         </div>
       </div>
     </div>
@@ -67,6 +73,7 @@
 <script>
 import CreateAccountPanelSynthesisItem from '@/views/GetSim/CreateOrder/CreateOrderPanelSynthesisItem.vue';
 import CircleLoader from '@/components/ui/CircleLoader';
+import { formatCurrency } from '@/utils/numbers.js';
 
 export default {
   components: {
@@ -234,6 +241,12 @@ export default {
 
     displayTotal() {
       return this.formattedPrice[0] && this.formattedPrice[0].label === this.$t('common.quantity');
+    },
+  },
+
+  methods: {
+    formatCurrency(value) {
+      return formatCurrency(value);
     },
   },
 };
