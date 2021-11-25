@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.602+20211125101944
+2021-11-25
+
+### Fixes
+
+- [2915] mise à jour de l'api REST workflows (5e345d9adcec7775ffc68bd4a809a118e1a1267f)
+
 ## 1.17.0-master.601+20211124150917
 2021-11-24
 
