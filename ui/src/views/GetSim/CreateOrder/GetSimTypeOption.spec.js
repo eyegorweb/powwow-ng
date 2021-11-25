@@ -1,8 +1,8 @@
 import { mount } from '@vue/test-utils';
-import { $t, $i18n } from '@/../tests-utils';
+import { $t, $i18n, $loGet } from '@/../tests-utils';
 import GetSimTypeOption from './GetSimTypeOption';
 
-const mocks = { $i18n, $t };
+const mocks = { $i18n, $t, $loGet };
 
 const simType = {
   simCard: {

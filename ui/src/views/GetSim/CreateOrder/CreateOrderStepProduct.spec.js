@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import { $t, $i18n } from '@/../tests-utils';
+import { $t, $i18n, $loGet } from '@/../tests-utils';
 import CreateOrderStepProduct from './CreateOrderStepProduct';
 import { fetchSim } from '@/api/products';
 
@@ -7,7 +7,7 @@ jest.mock('@/api/products', () => ({
   fetchSim: jest.fn(),
 }));
 
-const mocks = { $i18n, $t };
+const mocks = { $i18n, $t, $loGet };
 
 const products = [
   {

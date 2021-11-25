@@ -21,6 +21,9 @@
         <p class="simtype__info m-0">
           {{ $t('getsim.sim-type-labels.licence') }}: {{ item.simCard.licence }}
         </p>
+        <p class="simtype__info m-0" v-if="formattedPriceHT">
+          {{ $t('price') }}: {{ formattedPriceHT }} €
+        </p>
         <p v-if="item.orderDate" class="last-order mt-1">
           {{ $t(lastActionKey) }}: {{ formattedDate }}
         </p>
@@ -66,6 +69,9 @@ export default {
         this.$emit('update:defaultSelectedItem', newSelected);
       },
     },
+    formattedPriceHT() {
+      return this.$loGet(this.item, 'buyingPriceInEuroCentHT', 0);
+    },
   },
   components: {
     UiCheckbox,
@@ -84,7 +90,6 @@ export default {
   padding: 10px 20px 10px 15px;
   margin-bottom: 10px;
   min-height: 90px;
-
 
   &__item {
     width: 85%;
