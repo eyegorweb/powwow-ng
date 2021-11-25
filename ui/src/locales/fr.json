@@ -130,6 +130,7 @@
   "specific": "spécifque",
   "siret-number": "N° Siret",
   "tva-number": "N° TVA intra communautaire",
+  "price": "Prix",
   "pending-actions": {
     "title": "Opérations en cours",
     "preparing": "Préparation de l'opération ...",

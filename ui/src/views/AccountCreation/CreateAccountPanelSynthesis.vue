@@ -24,7 +24,23 @@
       <hr class="separator" />
       <div v-if="total">
         <div class="total">
-          <span class="flex-grow-1">{{ formattedTotal }}</span>
+          <span class="flex-grow-1">{{ formattedTotalHT }}</span>
+          <span>{{ totalHT }} €</span>
+        </div>
+        <div class="total">
+          <span class="flex-grow-1">{{ formattedTotalTVA }}</span>
+          <span>{{ totalTVA }} €</span>
+        </div>
+        <div class="total">
+          <span class="flex-grow-1">{{ $t('shippingCost') }}</span>
+          <span>10 €</span>
+        </div>
+        <div class="total">
+          <span class="flex-grow-1">{{ $t('shippingOfferedCost') }}</span>
+          <span>- 10 €</span>
+        </div>
+        <div class="total">
+          <span class="flex-grow-1">{{ formattedTotalTTC }}</span>
           <span>{{ total }} €</span>
         </div>
       </div>
@@ -44,13 +60,6 @@
         {{ $t('processing') }}...
         <CircleLoader />
       </button>
-      <!-- <button
-        v-if="isSuccess && !isLoading"
-        @click="$emit('confirm')"
-        class="btn btn-block btn-success"
-      >
-        <span>{{ $t('confirm') }}</span>
-      </button> -->
     </div>
   </div>
 </template>
@@ -72,7 +81,6 @@ export default {
     canSave: Boolean,
     isLoading: Boolean,
     isError: Boolean,
-    // isSuccess: Boolean,
   },
 
   computed: {
@@ -153,11 +161,11 @@ export default {
       }
 
       if (this.$loGet(this.synthesis, 'offerStep')) {
-        if (this.$loGet(this.synthesis, 'offerStep.initialOffer')) {
+        if (this.$loGet(this.synthesis, 'offerStep.offerPackage[0].buyingPriceInEuroCentHT')) {
           formatted.push({
             label: this.$t('digitalOffer.synthesis.price'),
             value: {
-              content: this.price,
+              content: this.priceHT,
             },
           });
         }
@@ -166,28 +174,62 @@ export default {
       return formatted;
     },
 
-    price() {
+    priceTTC() {
       const price = this.$loGet(
         this.synthesis,
-        'offerStep.initialOffer.buyingPriceInEuroCentTTC',
+        'offerStep.offerPackage[0].buyingPriceInEuroCentTTC',
+        0
+      );
+      return price / 100;
+    },
+
+    priceHT() {
+      const price = this.$loGet(
+        this.synthesis,
+        'offerStep.offerPackage[0].buyingPriceInEuroCentHT',
         0
       );
       return price / 100;
     },
 
     total() {
+      // total TTC : nb SIM * (prix SIM TTC + prix enveloppe TTC)
       const quantity = this.$loGet(this.synthesis, 'simStep.selectedNumberOfSims', 0);
-      const price = this.$loGet(
+      const simPriceTTC = this.$loGet(
         this.synthesis,
-        'offerStep.initialOffer.buyingPriceInEuroCentTTC',
+        'simStep.selectedSimTypeValue.buyingPriceInEuroCentTTC',
         0
       );
-      if (!quantity) return false;
-      return (price * quantity) / 100;
+      if (!quantity) return 0;
+      return quantity * (this.priceTTC + simPriceTTC);
     },
 
-    formattedTotal() {
+    totalHT() {
+      // total HT : nb SIM * (prix SIM HT + prix enveloppe HT)
+      const quantity = this.$loGet(this.synthesis, 'simStep.selectedNumberOfSims', 0);
+      const simPriceHT = this.$loGet(
+        this.synthesis,
+        'simStep.selectedSimTypeValue.buyingPriceInEuroCentHT',
+        0
+      );
+      if (!quantity) return 0;
+      return quantity * (this.priceHT + simPriceHT);
+    },
+
+    totalTVA() {
+      return this.total - this.totalHT;
+    },
+
+    formattedTotalTTC() {
       return `${this.$t('total').toUpperCase()} TTC`;
+    },
+
+    formattedTotalHT() {
+      return `${this.$t('total').toUpperCase()} HT`;
+    },
+
+    formattedTotalTVA() {
+      return `${this.$t('bills.amount')} TVA`;
     },
 
     displayTotal() {
