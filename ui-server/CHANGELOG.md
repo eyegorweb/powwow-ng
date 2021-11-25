@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.604+20211125120716
+2021-11-25
+
+### Fixes
+
+- [3046] mise à jour des règles de calcul de l'offre sélectionnée (87199fbd47d196576d72054acbf802fafa85b98a)
+
 ## 1.17.0-master.603+20211125104401
 2021-11-25
 
