@@ -25,22 +25,22 @@
       <div class="term details">
         {{
           $t('digitalOffer.offerPackages.DATA', {
-            value: offer.initialOffer.offerPackages.filter((o) => o.usageType === 'DATA')[0]
+            value: offer.offerPackage[0].usage.filter((o) => o.usageType === 'DATA')[0]
               .envelopeValue,
-            unit: offer.initialOffer.offerPackages.filter((o) => o.usageType === 'DATA')[0].unit,
+            unit: offer.offerPackage[0].usage.filter((o) => o.usageType === 'DATA')[0].unit,
           })
         }},
         {{
           $t('digitalOffer.offerPackages.SMS', {
-            value: offer.initialOffer.offerPackages.filter((o) => o.usageType === 'SMS')[0]
+            value: offer.offerPackage[0].usage.filter((o) => o.usageType === 'SMS')[0]
               .envelopeValue,
           })
         }},
         {{
           $t('digitalOffer.offerPackages.VOICE', {
-            value: offer.initialOffer.offerPackages.filter((o) => o.usageType === 'VOICE')[0]
+            value: offer.offerPackage[0].usage.filter((o) => o.usageType === 'VOICE')[0]
               .envelopeValue,
-            unit: offer.initialOffer.offerPackages.filter((o) => o.usageType === 'VOICE')[0].unit,
+            unit: offer.offerPackage[0].usage.filter((o) => o.usageType === 'VOICE')[0].unit,
           })
         }}
       </div>
@@ -103,10 +103,9 @@ export default {
   computed: {
     period() {
       return this.offer &&
-        this.offer.initialOffer &&
-        this.offer.initialOffer.offerPackages[0] &&
-        this.offer.initialOffer.offerPackages[0].duration
-        ? this.offer.initialOffer.offerPackages[0].duration
+        this.offer.offerPackage[0].usage[0] &&
+        this.offer.offerPackage[0].usage[0].duration
+        ? this.offer.offerPackage[0].usage[0].duration
         : 0;
     },
   },
