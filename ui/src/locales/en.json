@@ -128,7 +128,9 @@
       "email": "Email",
       "phone": "Phone",
       "billingAddress": "Billing address",
-      "price": "Price"
+      "price": "Price",
+      "designation": "Designation",
+      "topup": "Topup"
     },
     "errors": {
       "CUSTOMER_ACCOUNT_MANDATORY": "CUSTOMER_ACCOUNT_MANDATORY",

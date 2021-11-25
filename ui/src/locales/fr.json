@@ -160,7 +160,9 @@
       "email": "Email",
       "phone": "Téléphone",
       "billingAddress": "Adresse de facturation",
-      "price": "Prix unitaire"
+      "price": "Prix unitaire",
+      "designation": "Désignation",
+      "topup": "Recharge"
     },
     "errors": {
       "CUSTOMER_ACCOUNT_MANDATORY": "CUSTOMER_ACCOUNT_MANDATORY",
