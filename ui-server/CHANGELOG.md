@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.606+20211125223433
+2021-11-25
+
+### Fixes
+
+- [3046] ajout des infos sim dans la synthèse de la première commande (d6b1ef6668867967fab753421045f1f1e810d7a9)
+
 ## 1.17.0-master.605+20211125140433
 2021-11-25
 
