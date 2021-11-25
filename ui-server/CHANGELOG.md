@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.605+20211125140433
+2021-11-25
+
+### Fixes
+
+- [3046] formattage des prix de la première commande M2M_Light (2dceb3cb30d15762c1c1ba7294c063ef5bf2b089)
+
 ## 1.17.0-master.604+20211125120716
 2021-11-25
 
