@@ -9,7 +9,7 @@
       />
       <template v-if="displayTotal">
         <div class="synthesis-item table-price d-flex flex-row">
-          <div class="flex-grow-1">
+          <div style="flex-basis: 42%">
             <h6 class="subtitle">{{ $t('digitalOffer.synthesis.designation') }}</h6>
             <p>SIM</p>
           </div>
@@ -17,7 +17,7 @@
             <h6 class="subtitle">
               {{ $loGet(formattedPrice[0], 'label') }}
             </h6>
-            <p>{{ $loGet(formattedPrice[0], 'value.content', '-') }}</p>
+            <p class="pl-4">{{ $loGet(formattedPrice[0], 'value.content', '-') }}</p>
           </div>
           <div v-if="$loGet(formattedPrice[1], 'label')">
             <h6 class="subtitle">
@@ -29,11 +29,11 @@
           </div>
         </div>
         <div class="synthesis-item table-price d-flex flex-row">
-          <div class="flex-grow-1">
+          <div style="flex-basis: 42%">
             <p>{{ $t('digitalOffer.synthesis.topup') }}</p>
           </div>
           <div class="flex-grow-1" v-if="$loGet(formattedPrice[0], 'label')">
-            <p>{{ $loGet(formattedPrice[0], 'value.content', '-') }}</p>
+            <p class="pl-4">{{ $loGet(formattedPrice[0], 'value.content', '-') }}</p>
           </div>
           <div v-if="$loGet(formattedPrice[1], 'label')">
             <p class="text-right">{{ formatCurrency(formattedOfferPackagePrice) }} €</p>
@@ -87,6 +87,7 @@
 import CreateAccountPanelSynthesisItem from '@/views/GetSim/CreateOrder/CreateOrderPanelSynthesisItem.vue';
 import CircleLoader from '@/components/ui/CircleLoader';
 import { formatCurrency } from '@/utils/numbers.js';
+import { getOfferServices, getApnServices } from '@/components/Services/utils.js';
 
 export default {
   components: {
@@ -145,10 +146,21 @@ export default {
 
       if (this.$loGet(this.synthesis, 'offerStep')) {
         if (this.$loGet(this.synthesis, 'offerStep.name')) {
+          const services = getOfferServices(
+            this.$loGet(this.synthesis, 'offerStep.initialOffer.marketingService')
+          )
+            .map((s) => ` ${s.labelService}`)
+            .toString();
+          const apn = getApnServices(
+            this.$loGet(this.synthesis, 'offerStep.initialOffer.marketingService')
+          )
+            .map((s) => ` ${s.name}`)
+            .toString();
+          // console.log('apn', apn);
           formatted.push({
             label: 'digitalOffer.offer',
             value: {
-              content: this.$loGet(this.synthesis, 'offerStep.name'),
+              content: [this.$loGet(this.synthesis, 'offerStep.name'), services, apn],
             },
           });
         }
