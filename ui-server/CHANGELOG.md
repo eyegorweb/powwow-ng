@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.607+20211126090602
+2021-11-26
+
+### Features
+
+- Add all services to offerCard (9db2ed4936c777dad3b0b7d6a2dd8f8042da66fe)
+
 ## 1.17.0-master.606+20211125223433
 2021-11-25
 
