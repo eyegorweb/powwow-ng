@@ -187,7 +187,8 @@
     "offerPackages": {
       "DATA": "Data {value} {unit}",
       "SMS": "Sms {value}",
-      "VOICE": "Voix {value} {unit}"
+      "VOICE": "Voix {value} {unit}",
+      "infoMessage": "La communication est à l'initiative du boitier"
     },
     "offerStep": {
       "subscribe": "Souscrire",

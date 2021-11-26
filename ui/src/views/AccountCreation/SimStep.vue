@@ -14,6 +14,7 @@
                 selectedSimTypeValue.simCard &&
                 selectedSimTypeValue.simCard.id === item.simCard.id
             "
+            :is-alone="filteredSimTypes.length === 1"
             last-action-key="getsim.sim-type-labels.orderDate"
             no-action-key="getsim.never-ordered"
           />
@@ -82,6 +83,9 @@ export default {
 
   async mounted() {
     this.simTypes = await fetchSimTypes();
+    if (this.simTypes.length > 1) {
+      this.selectedSimTypeValue = this.simTypes[0];
+    }
 
     if (!this.synthesis) {
       this.$router.push({ name: 'createAccount.partner' });
