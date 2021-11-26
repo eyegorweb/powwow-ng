@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.609+20211126201321
+2021-11-26
+
+### Fixes
+
+- [3046] correction des étapes Sim et Offre de la première commande (41400d2838b0113dd410ff4c96e8228943699cb7)
+
 ## 1.17.0-master.608+20211126145337
 2021-11-26
 
