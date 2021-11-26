@@ -82,6 +82,7 @@ export default {
   computed: {
     period() {
       return this.offer &&
+        this.offer.offerPackage[0] &&
         this.offer.offerPackage[0].usage[0] &&
         this.offer.offerPackage[0].usage[0].duration
         ? this.offer.offerPackage[0].usage[0].duration

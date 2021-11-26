@@ -83,7 +83,7 @@ export default {
 
   async mounted() {
     this.simTypes = await fetchSimTypes();
-    if (this.simTypes.length > 1) {
+    if (this.simTypes.length) {
       this.selectedSimTypeValue = this.simTypes[0];
     }
 
