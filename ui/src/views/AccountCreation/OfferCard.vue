@@ -45,12 +45,10 @@
         }}
       </div>
       <div
-        v-for="service in offer.initialOffer.marketingService.filter(
-          (s) => s.code === 'ROAMING' || s.code === '4G'
-        )"
+        v-for="(service, index) in offer.initialOffer.marketingService"
         :key="service.id"
       >
-        <div class="term">{{ service.labelService }}</div>
+        <div class="term" v-if="index < maxServicesShow">{{ service.labelService }}</div>
       </div>
     </div>
     <button class="subscribe-btn" @click="onClick()">
@@ -65,6 +63,7 @@ export default {
     return {
       selectedOffer: undefined,
       price: undefined,
+      maxServices: 3,
     };
   },
   props: {
@@ -109,6 +108,12 @@ export default {
         : 0;
     },
   },
+
+  computed: {
+    maxServicesShow() {      
+      return this.maxServices === 3 && this.isActive ? 99 : 3;
+    }
+  }
 };
 </script>
 
@@ -221,6 +226,11 @@ $box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14),
         font-weight: 600;
       }
     }
+  }
+
+  .seeMore {
+    font-weight: bold;
+    cursor: pointer;
   }
 
   .subscribe-btn {
