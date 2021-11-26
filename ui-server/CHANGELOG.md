@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.608+20211126145337
+2021-11-26
+
+### Fixes
+
+- [3046] gestion des services lors de la première commande (a50b803f419f3644e241a549a5112c9661a37403)
+
 ## 1.17.0-master.607+20211126090602
 2021-11-26
 
