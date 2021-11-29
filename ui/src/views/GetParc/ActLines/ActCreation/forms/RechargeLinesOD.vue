@@ -6,20 +6,10 @@
   >
     <div slot="main" slot-scope="{ containerValidationFn }">
       <div class="pricing">
-        <div v-if="packages && onPackageCLick" class="pricing-container">
+        <div v-if="packages" class="pricing-container">
           <div class="card" v-for="offer in packages">
-            <OfferCard
-              :offer="offer"
-              @select:offer="onPackageCLick(offer, containerValidationFn)"
-            />
+            <OfferCard :offer="offer" :recharge="true" />
           </div>
-
-          <!-- <PackageCardComponent
-            v-for="p in packages"
-            :key="p.label"
-            :pack="p"
-            :on-click="() => onPackageCLick(p, containerValidationFn)"
-          /> -->
         </div>
       </div>
     </div>
@@ -37,6 +27,11 @@
           >
             <em slot="icon" class="select-icon ic-Flag-Icon" />
           </UiDate>
+        </div>
+        <div class="col-md-4">
+          <Button @click="" variant="primary">{{
+            $t('getparc.actCreation.carouselItem.RECHARGE_LINES_BTN')
+          }}</Button>
         </div>
       </div>
     </div>
@@ -56,49 +51,18 @@ import OfferCard from '@/views/AccountCreation/OfferCard.vue';
 import UiDate from '@/components/ui/UiDate';
 import moment from 'moment';
 
-import { fetchLVOffers } from '@/api/offers.js';
+import { fetchODOffers } from '@/api/offers.js';
 import { mapState, mapGetters } from 'vuex';
 import { createRechargeLVOffer } from '@/api/actCreation.js';
 import { formattedCurrentDateExtended } from '@/utils/date.js';
-
-const PackageCardComponent = {
-  functional: true,
-  props: {
-    pack: Object,
-    onClick: Function,
-  },
-  render(h, context) {
-    return (
-      <div class="entry p-2">
-        <div class="card text-xs-center">
-          <div class="card-block text-center">
-            <h5 class="card-title pt-2">{context.props.pack.label}</h5>
-            <ul class="list-group">
-              {context.parent.$loGet(context.props, 'pack.usage', []).map((u) => {
-                return (
-                  <li class="list-group-item">
-                    {u.type}: {u.value} {u.unit}
-                  </li>
-                );
-              })}
-            </ul>
-            <button class="btn btn-gradient mt-2" onClick={context.props.onClick}>
-              <em class="ic-Check-Icon" />
-              {context.parent.$t('confirm')}
-            </button>
-          </div>
-        </div>
-      </div>
-    );
-  },
-};
+import Button from '@/components/ui/Button';
 
 export default {
   components: {
     VerticalEmptyContainer,
-    PackageCardComponent,
     UiDate,
     OfferCard,
+    Button,
   },
   data() {
     return {
@@ -126,19 +90,11 @@ export default {
     },
   },
   async mounted() {
-    const response = await fetchLVOffers(this.actCreationPrerequisites.partner.id);
-    if (response.packages && response.packages.length) {
-      this.packages = response.packages.reduce((all, item) => {
-        all.push({
-          label: item.label,
-          usage: item.usage.map((i) => ({
-            type: i.usageType,
-            value: i.envelopeValue,
-            unit: i.usageType !== 'SMS' ? i.unit : '',
-          })),
-        });
-        return all;
-      }, []);
+    const response = await fetchODOffers(this.actCreationPrerequisites.partner.id);
+
+    if (response.items && response.items.length) {
+      console.log(response);
+      this.packages = response.items;
     }
 
     this.actDate = formattedCurrentDateExtended();
@@ -146,10 +102,6 @@ export default {
   methods: {
     onActDateChange(value) {
       this.actDate = value;
-    },
-    onPackageCLick(pack, validationCallback) {
-      this.chosenPackage = pack;
-      validationCallback();
     },
     async validate(contextValues) {
       const params = {
@@ -195,61 +147,10 @@ $primary-color: #57e2b2;
       min-height: 6rem;
     }
   }
-  .entry > .card {
-    border: 1px solid rgba(0, 0, 0, 0.125);
-    border-radius: 0.25rem;
-    border-bottom: none;
-  }
-
   .card {
-    border: 0;
-    border-radius: 0px;
-    -webkit-box-shadow: 0 3px 0px 0 rgba(0, 0, 0, 0.08);
-    box-shadow: 0 3px 0px 0 rgba(0, 0, 0, 0.08);
-    transition: all 0.3s ease-in-out;
-    padding: 0 0 2.25rem 0;
-    position: relative;
-    will-change: transform;
-
-    &:after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 0%;
-      height: 5px;
-      background-color: $primary;
-      transition: 0.5s;
-    }
-
-    &:hover {
-      transform: scale(1.05);
-      -webkit-box-shadow: 0 20px 35px 0 rgba(0, 0, 0, 0.08);
-      box-shadow: 0 20px 35px 0 rgba(0, 0, 0, 0.08);
-
-      &:after {
-        width: 100%;
-      }
-    }
-    & .card-header {
-      background-color: white;
-      padding-left: 1rem;
-      border-bottom: 0px;
-    }
-    & .card-title {
-      margin-bottom: 1rem;
-    }
-    & .card-block {
-      padding-top: 0;
-    }
-    & .list-group-item {
-      border: 0px;
-      padding: 0.25rem;
-      color: $main-font-color;
-      font-weight: $main-font-weight;
-    }
+    border: none;
+    margin-right: 10px;
   }
-
   // Price
   .display-2 {
     font-size: 2rem;

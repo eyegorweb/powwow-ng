@@ -53,7 +53,7 @@
       "
       :have-lv-offers="
         act.title === 'getparc.actCreation.carouselItem.esim.CHARGE_LV_LINES' ||
-          act.title === 'getparc.actCreation.carouselItem.RECHARGE_LINES'
+        act.title === 'getparc.actCreation.carouselItem.RECHARGE_LINES'
       "
     />
   </div>

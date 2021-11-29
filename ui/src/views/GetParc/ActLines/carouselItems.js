@@ -427,7 +427,7 @@ export default excludeMocked([
     id: 'RECHARGE_LINES',
     stepTitle: 'getparc.actCreation.step2Titles.configure',
     selected: false,
-    esimAct: true,
+    permission: { domain: 'act', action: 'manage_main' },
     filters: [
       {
         id: 'filters.lines.SIMCardStatus',
