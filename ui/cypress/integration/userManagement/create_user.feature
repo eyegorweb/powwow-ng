@@ -4,6 +4,7 @@ Feature: Création et modification d'utilisateurs
 
   #ETQU BO => Création / Modification d'un utilisateur interne - Création / Modification d'un utilisateur partenaire - Création / Modification d'un utilisateur compte groupe
 
+  @users @create_user
   Scenario: Je veux créer un utilisateur interne en tant que BO
     Given en tant que BO
     And Je vais sur la page des utilisateurs
@@ -21,6 +22,7 @@ Feature: Création et modification d'utilisateurs
     When J'enregistre l'utilisateur
     Then Je vérifie la création du nouvel utilisateur
 
+  @users @create_user
   Scenario: Je veux créer un utilisateur partenaire en tant que BO
     Given en tant que BO
     And Je vais sur la page des utilisateurs
@@ -39,6 +41,7 @@ Feature: Création et modification d'utilisateurs
     When J'enregistre l'utilisateur
     Then Je vérifie la création du nouvel utilisateur
 
+  @users @create_user
   Scenario: Je veux créer un utilisateur compte groupe en tant que BO
     Given en tant que BO
     And Je vais sur la page des utilisateurs
@@ -56,6 +59,7 @@ Feature: Création et modification d'utilisateurs
     When J'enregistre l'utilisateur
     Then Je vérifie la création du nouvel utilisateur
 
+  @users @create_user
   Scenario: Je veux modifier un utilisateur interne en tant que BO
     Given en tant que BO
     And Je vais sur la page des utilisateurs
@@ -68,6 +72,7 @@ Feature: Création et modification d'utilisateurs
     And Je recherche l'utilisateur
     Then Je vérifie la modification de l'utilisateur
 
+  @users @create_user
   Scenario: Je veux modifier un utilisateur partenaire en tant que BO
     Given en tant que BO
     And Je vais sur la page des utilisateurs
@@ -80,6 +85,7 @@ Feature: Création et modification d'utilisateurs
     And Je recherche l'utilisateur
     Then Je vérifie la modification de l'utilisateur
 
+  @users @create_user
   Scenario: Je veux modifier un utilisateur compte groupe en tant que BO
     Given en tant que BO
     And Je vais sur la page des utilisateurs
@@ -94,6 +100,7 @@ Feature: Création et modification d'utilisateurs
 
   #ETQU partenaire => Création / Modification d'un utilisateur partenaire
 
+  @users @create_user
   Scenario: Je veux créer un utilisateur partenaire en tant que partenaire
     Given en tant que partenaire lyra
     And Je vais sur la page des utilisateurs
@@ -110,6 +117,7 @@ Feature: Création et modification d'utilisateurs
     When J'enregistre l'utilisateur
     Then Je vérifie la création du nouvel utilisateur
 
+  @users @create_user
   Scenario: Je veux modifier un utilisateur partenaire en tant que partenaire
     Given en tant que partenaire lyra
     And Je vais sur la page des utilisateurs
@@ -124,6 +132,7 @@ Feature: Création et modification d'utilisateurs
 
   #ETQU compte groupe => Création / Modification d'un utilisateur partenaire
 
+  @users @create_user
   Scenario: Je veux créer un utilisateur partenaire en tant que compte groupe
     Given en tant que compte groupe
     And Je vais sur la page des utilisateurs
@@ -141,6 +150,7 @@ Feature: Création et modification d'utilisateurs
     When J'enregistre l'utilisateur
     Then Je vérifie la création du nouvel utilisateur
 
+  @users @create_user
   Scenario: Je veux modifier un utilisateur partenaire en tant que compte groupe
     Given en tant que compte groupe
     And Je vais sur la page des utilisateurs

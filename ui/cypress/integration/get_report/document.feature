@@ -5,7 +5,7 @@ Feature: Gestion des documents
   #Apparition des documents trop aléatoire pour des tests rapides
   #Les tests fonctionnent (testé manuellement en changeant les noms, etc...)
 
-  @ignore
+  @get_report @documents @ignore
   Scenario: Je veux télécharger un document
     Given en tant que BO
     And Je cree le rapport "TestCypress" avec le partenaire "lyra"
@@ -15,7 +15,7 @@ Feature: Gestion des documents
     When Je clique sur le bouton "Télécharger"
     Then Le document a bien été téléchargé
 
-  @ignore
+  @get_report @documents @ignore
   Scenario: Je veux supprimer un document
     Given en tant que BO
     And Je cree le rapport "TestCypressDelete" avec le partenaire "lyra"

@@ -2,6 +2,7 @@ Feature: Dashboard
 
   je veux tester le dashboard de gerReport
 
+  @get_report @dashboard
   Scenario: Je vérifie que le graphe s'affiche
     Given en tant que BO
     And Je vais sur la page du dashboard

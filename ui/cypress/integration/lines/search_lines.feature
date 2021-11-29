@@ -2,18 +2,21 @@ Feature: Recherche de lignes
 
   Je veux chercher des lignes avec des filtres globaux
 
+  @lines @search_lines
   Scenario: Je fais une recherche par MSISDN
     Given en tant que BO
     And Je vais sur la page des lignes
     When je lance la recherche par ID "33698014672"
     Then la table contient 1 resultat
 
+  @lines @search_lines
   Scenario: Je fais une recherche par AP_ID
     Given en tant que BO
     And Je vais sur la page des lignes
     When je lance la recherche par ID "288"
     Then la table contient 1 resultat
 
+  @lines @search_lines
   Scenario: Je fais une recherche par ID de commande
     Given en tant que BO
     And Je vais sur la page des lignes
@@ -22,6 +25,7 @@ Feature: Recherche de lignes
     Then la table contient 1 resultat
     And Je supprime les filtres
 
+  @lines @search_lines
   Scenario: Je fais une recherche avec plusieurs filtres
     Given en tant que BO
     And Je vais sur la page des lignes
@@ -33,6 +37,7 @@ Feature: Recherche de lignes
     When je lance la recherche
     Then la table contient 0 resultat
 
+  @lines @search_lines
   Scenario: Vérification de l'enregistrement des filtres
     Given en tant que BO
     And Je vais sur la page des lignes
@@ -43,6 +48,7 @@ Feature: Recherche de lignes
     When Je clique sur le filtre enregistré
     Then Les filtres "AUCHAN" et "Auchan1 - Auchan1" sont activés
 
+  @lines @search_lines
   Scenario: J'initialise le filtre Type de carte SIM selon le filtre Catégorie de SIM
     Given en tant que BO
     And Je vais sur la page des lignes
@@ -52,6 +58,7 @@ Feature: Recherche de lignes
     When je récupère la longueur de la liste du filtre "Type de carte SIM"
     Then je vérifie que la liste compte moins d'éléments lorsque le filtre "Catégorie de SIM" est actif à "ESIM"
 
+  @lines @search_lines
   Scenario: Je fais une recherche avec des filtres eSIM
     Given en tant que BO
     And Je vais sur la page des lignes
@@ -65,21 +72,21 @@ Feature: Recherche de lignes
     When je lance la recherche
     Then la table contient 0 resultat
 
-  @ignore
+  @lines @search_lines @ignore
   Scenario: Je fais un export des lignes (Classique)
     Given en tant que BO
     And Je vais sur la page des lignes
     When je lance un Export "Classique"
     Then le fichier est bien téléchargé
 
-  @ignore
+  @lines @search_lines @ignore
   Scenario: Je fais un export des lignes (Complet)
     Given en tant que BO
     And Je vais sur la page des lignes
     When je lance un Export "Complet"
     Then le fichier est bien téléchargé
 
-  @ignore
+  @lines @search_lines @ignore
   Scenario: Je fais un export des lignes (Dernier usage)
     Given en tant que BO
     And Je vais sur la page des lignes
@@ -87,7 +94,7 @@ Feature: Recherche de lignes
     Then le fichier est bien téléchargé
     And Je ferme le message
 
-  @ignore
+  @lines @search_lines @ignore
   Scenario: Je fais un export des lignes (Services)
     Given en tant que BO
     And Je vais sur la page des lignes

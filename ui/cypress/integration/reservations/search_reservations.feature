@@ -2,6 +2,7 @@ Feature: Recherche de réservations
 
   Je veux chercher des reservations avec des filtres
 
+  @reservations @search_reservations
   Scenario: Je fais une recherche avec tous les filtres activés
     Given en tant que BO
     And Je vais sur la page des réservations

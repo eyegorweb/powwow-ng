@@ -2,6 +2,7 @@ Feature: Création de commandes
 
   Je veux pouvoir créer des commandes
 
+  @orders @create_orders
   Scenario: Je vérifie que les services sont bien chargés
     Given en tant que BO
     And je suis sur la page de choix d'une offre dans la création de commande
@@ -9,6 +10,7 @@ Feature: Création de commandes
     When quand les services s'affichent
     Then les noms doivent apparaitre en regard des toggles
 
+  @orders @create_orders
   Scenario: Je veux créer une nouvelle commande par défaut
     Given en tant que BO
     And je crée une nouvelle commande
@@ -16,6 +18,7 @@ Feature: Création de commandes
     When j'enregistre la commande
     Then ma commande a été enregistrée
 
+  @orders @create_orders
   Scenario: Je veux créer une commande personnalisée
     Given en tant que BO
     And je crée une nouvelle commande

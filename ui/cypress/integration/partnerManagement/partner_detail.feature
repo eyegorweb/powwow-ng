@@ -2,12 +2,14 @@ Feature: Détails d'un partenaire
 
   Je veux tester la page de detail d'un partenaire
 
+  @partner @partner_detail
   Scenario: Je peux naviguer entre tous les différents onglets de la page de détail d'un partenaire
     Given en tant que BO
     And Je vais sur la page des partenaires
     When Je vais sur la page de detail du partenaire LYRA
     Then Je peux naviguer entre tous les differents onglets
 
+  @partner @partner_detail
   Scenario: Je peux modifier le prénom d'un administrateur, onglet "Gestion des utilisateurs", section "Administrateurs"
     Given en tant que BO
     And Je vais sur la page de detail du partenaire LYRA
@@ -18,6 +20,7 @@ Feature: Détails d'un partenaire
     And je clique sur le bouton "Enregistrer"
     Then Le prenom de l'administrateur a bien ete modifie par "LYRA"
 
+  @partner @partner_detail
   Scenario: Je peux modifier le prénom d'un utilisateur, onglet "Gestion des utilisateurs", section "Utilisateurs"
     Given en tant que BO
     And Je vais sur la page de detail du partenaire LYRA
@@ -28,6 +31,7 @@ Feature: Détails d'un partenaire
     And je clique sur le bouton "Enregistrer"
     Then Le prenom de l'utilisateur a bien ete modifie par "LYRA"
 
+  @partner @partner_detail
   Scenario: Je vérifie que le panneau s'ouvre lorsque je clique sur le bouton "Ajouter un utilisateur", onglet "Gestion des utilisateurs", section "Utilisateurs"
     Given en tant que BO
     And Je vais sur la page de detail du partenaire LYRA
@@ -36,6 +40,7 @@ Feature: Détails d'un partenaire
     When Je clique sur le bouton "Ajouter un utilisateur"
     Then Le panneau s'ouvre et est visible
 
+  @partner @partner_detail
   Scenario: Je veux créer une nouvelle liste de diffusion puis modifier le nom et ajouter une nouvelle adresse mail à cette liste puis la supprimer, onglet "Personnalisation", section "Listes de diffusion"
     Given en tant que BO
     And Je vais sur la page de detail du partenaire LYRA
@@ -55,6 +60,7 @@ Feature: Détails d'un partenaire
     And Je confirme la suppression de la liste de diffusion
     Then La liste de diffusion "TestCypressV2" n'existe plus
 
+  @partner @partner_detail
   Scenario: Je veux créer une nouvelle adresse de livraison, onglet "Personnalisation", section "Adresses de livraison"
     Given en tant que BO
     And Je vais sur la page de detail du partenaire LYRA
@@ -65,6 +71,7 @@ Feature: Détails d'un partenaire
     When je clique sur le bouton "Enregistrer"
     Then L'adresse de livraison a correctement ete cree
 
+  @partner @partner_detail
   Scenario: Je veux créer un nouveau champ libre puis le modifier, onglet "Personnalisation, section "Champs libres"
     Given en tant que BO
     And Je vais sur la page de detail du partenaire LYRA
@@ -81,6 +88,7 @@ Feature: Détails d'un partenaire
     When je clique sur le bouton "Mettre a jour"
     Then Je verifie la modification du champ libre a "TestCypressV2"
 
+  @partner @partner_detail
   Scenario: Je vérifie l'ouverture du panneau lors de la création et de la modification d'un champ spécifique, onglet "Personnalisation, section "Champs specifique"
     Given en tant que BO
     And Je vais sur la page de detail du partenaire LYRA
@@ -95,6 +103,7 @@ Feature: Détails d'un partenaire
     When Je clique sur le bouton "Modifier" de ce nouveau champ
     Then Le panneau s'ouvre et est visible
 
+  @partner @partner_detail
   Scenario: Je peux modifier un compte de facturation, onglet "Comptes de facturation"
     Given en tant que BO
     And Je vais sur la page de detail du partenaire LYRA
@@ -106,6 +115,7 @@ Feature: Détails d'un partenaire
     When Je clique sur le bouton "Retour a la liste des C.F."
     Then Le libelle est correctement modifie a "TEST"
 
+  @partner @partner_detail
   Scenario: Je peux ouvrir le panneau de gestion des cartes SIM et désactiver l'une d'elle, onglet "Offres et cartes SIM", section "Cartes SIM"
     Given en tant que BO
     And Je vais sur la page de detail du partenaire LYRA
@@ -117,6 +127,7 @@ Feature: Détails d'un partenaire
     When Je clique sur le bouton "Désactiver"
     Then Le message de confirmation apparait et je peux confirmer l'action
 
+  @partner @partner_detail
   Scenario: Je peux ouvrir le panneau de gestion des offres et désactiver l'une d'elle, onglet "Offres et cartes SIM", section "Offres"
     Given en tant que BO
     And Je vais sur la page de detail du partenaire LYRA
@@ -128,6 +139,7 @@ Feature: Détails d'un partenaire
     When Je clique sur le bouton "Désactiver"
     Then Le message de confirmation apparait et je peux confirmer l'action
 
+  @partner @partner_detail
   Scenario: Je vérifie que la confirmation de modification apparait sur l'écran après l'enregistrement des options du partenaire, onglet "Detail du compte", section "Options du partenaire"
     Given en tant que BO
     And Je vais sur la page de detail du partenaire LYRA
@@ -136,6 +148,7 @@ Feature: Détails d'un partenaire
     When Je clique sur le bouton "Enregistrer"
     Then Le message de confirmation apparait et je peux fermer le message
 
+  @partner @partner_detail
   Scenario: Je peux modifier l'option Esim pour le partenaire d'un partenaire M2M
     Given en tant que BO
     And Je vais sur la page de detail du partenaire LYRA

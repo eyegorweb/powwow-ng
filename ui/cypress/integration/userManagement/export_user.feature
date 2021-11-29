@@ -2,7 +2,7 @@ Feature: Export d'utilisateurs
 
   je veux exporter les utilisateurs
 
-  @ignore
+  @users @export_user @ignore
   Scenario: Je veux exporter les utilisateurs
     Given en tant que BO
     And Je vais sur la page des utilisateurs
