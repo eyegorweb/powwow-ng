@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.610+20211129145509
+2021-11-29
+
+### Features
+
+- [3024] WIP Ajout de la recharge OD (2d7768fd895a494c2931e891330247799c9b932a)
+
 ## 1.17.0-master.609+20211126201321
 2021-11-26
 
