@@ -2,7 +2,7 @@ Feature: Création de réservations
 
   Tests permettant de vérifier la création de réservation
 
-  @ignore
+  @reservations @create_reservation @ignore
   Scenario: Je veux créer une réservation sans appairage
     Given en tant que BO
     And Je vais sur la page des réservations

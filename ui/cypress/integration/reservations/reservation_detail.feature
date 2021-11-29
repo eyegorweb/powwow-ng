@@ -2,6 +2,7 @@ Feature: Détails d'une reservation
 
   Je veux verifier les details d'une reservation
 
+  @reservations @reservation_detail
   Scenario: Je veux ouvrir le panneau de détail d'une réservation et vérifier la présence de données
     Given en tant que BO
     And Je vais sur la page des réservations

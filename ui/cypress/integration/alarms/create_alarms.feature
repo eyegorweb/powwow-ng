@@ -2,6 +2,7 @@ Feature: Création d'alarmes
 
   Je veux créer des alarmes
 
+  @alarms @create_alarms
   Scenario: Je crée une alarme de changement d'opérateur par défaut
     Given en tant que BO
     And Je vais sur la page des alarmes
@@ -10,6 +11,7 @@ Feature: Création d'alarmes
     When je valide la création
     Then je vérifie que mon alarme a été créé
 
+  @alarms @create_alarms
   Scenario: Je crée une alarme de changement de statut par défaut
     Given en tant que BO
     And Je vais sur la page des alarmes
@@ -18,6 +20,7 @@ Feature: Création d'alarmes
     When je valide la création
     Then je vérifie que mon alarme a été créé
 
+  @alarms @create_alarms
   Scenario: Je crée une alarme de changement de statut de profil par défaut
     Given en tant que BO
     And Je vais sur la page des alarmes
@@ -26,6 +29,7 @@ Feature: Création d'alarmes
     When je valide la création
     Then je vérifie que mon alarme a été créé
 
+  @alarms @create_alarms
   Scenario: Je crée une alarme de changement de module par défaut
     Given en tant que BO
     And Je vais sur la page des alarmes
@@ -34,6 +38,7 @@ Feature: Création d'alarmes
     When je valide la création
     Then je vérifie que mon alarme a été créé
 
+  @alarms @create_alarms
   Scenario: Je crée une alarme de changement de pays par défaut
     Given en tant que BO
     And Je vais sur la page des alarmes
@@ -42,6 +47,7 @@ Feature: Création d'alarmes
     When je valide la création
     Then je vérifie que mon alarme a été créé
 
+  @alarms @create_alarms
   Scenario: Je crée une alarme de sur-consommation par défaut
     Given en tant que BO
     And Je vais sur la page des alarmes
@@ -50,6 +56,7 @@ Feature: Création d'alarmes
     When je valide la création
     Then je vérifie que mon alarme a été créé
 
+  @alarms @create_alarms
   Scenario: Je crée une alarme de sous-consommation par défaut
     Given en tant que BO
     And Je vais sur la page des alarmes
@@ -58,6 +65,7 @@ Feature: Création d'alarmes
     When je valide la création
     Then je vérifie que mon alarme a été créé
 
+  @alarms @create_alarms
   Scenario: Je crée une alarme de sur-consommation de la flotte par défaut
     Given en tant que BO
     And Je vais sur la page des alarmes

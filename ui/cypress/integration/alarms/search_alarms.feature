@@ -2,6 +2,7 @@ Feature: Recherche d'alarmes
 
   Je veux chercher des alarmes avec des filtres
 
+  @alarms @search_alarms
   Scenario: Je fais une recherche par partenaire
     Given en tant que BO
     And Je vais sur la page des alarmes
@@ -10,6 +11,7 @@ Feature: Recherche d'alarmes
     Then la table contient plus de 0 resultat
     And Je supprime les filtres
 
+  @alarms @search_alarms
   Scenario: Je fais une recherche par compte de facturation
     Given en tant que BO
     And Je vais sur la page des alarmes
@@ -18,6 +20,7 @@ Feature: Recherche d'alarmes
     Then la table contient plus de 0 resultat
     And Je supprime les filtres
 
+  @alarms @search_alarms
   Scenario: Je fais une recherche par offre associée
     Given en tant que BO
     And Je vais sur la page des alarmes
@@ -26,6 +29,7 @@ Feature: Recherche d'alarmes
     Then la table contient plus de 0 resultat
     And Je supprime les filtres
 
+  @alarms @search_alarms
   Scenario: Je fais une recherche par portée d'alarme
     Given en tant que BO
     And Je vais sur la page des alarmes
@@ -34,6 +38,7 @@ Feature: Recherche d'alarmes
     Then la table contient plus de 0 resultat
     And Je supprime les filtres
 
+  @alarms @search_alarms
   Scenario: Je fais une recherche par type d'alarme
     Given en tant que BO
     And Je vais sur la page des alarmes
@@ -42,12 +47,14 @@ Feature: Recherche d'alarmes
     Then la table contient plus de 0 resultat
     And Je supprime les filtres
 
+  @alarms @search_alarms
   Scenario: Je fais une recherche par ID
     Given en tant que BO
     And Je vais sur la page des alarmes
     When je lance la recherche par ID "86"
     Then la table contient 1 resultat
 
+  @alarms @search_alarms
   Scenario: Je fais une recherche avec plusieurs filtres
     Given en tant que BO
     And Je vais sur la page des alarmes
@@ -56,6 +63,7 @@ Feature: Recherche d'alarmes
     When je lance la recherche
     Then la table contient plus de 0 resultat
 
+  @alarms @search_alarms
   Scenario: Je fais une recherche par partenaire dans l'onglet des alarmes mutualisées
     Given en tant que BO
     And Je vais sur la page des alarmes
@@ -66,6 +74,7 @@ Feature: Recherche d'alarmes
     When je lance la recherche
     Then la table contient plus de 0 resultat
 
+  @alarms @search_alarms
   Scenario: Je fais une recherche par compte de facturation dans l'onglet des alarmes mutualisées
     Given en tant que BO
     And Je vais sur la page des alarmes
@@ -76,7 +85,7 @@ Feature: Recherche d'alarmes
     When je lance la recherche
     Then la table contient plus de 0 resultat
 
-  @ignore
+  @alarms @search_alarms @ignore
   #pas de données
   Scenario: Je fais une recherche par offre dans l'onglet des alarmes mutualisées
     Given en tant que BO

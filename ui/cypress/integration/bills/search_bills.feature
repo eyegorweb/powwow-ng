@@ -2,6 +2,7 @@ Feature: Recherche de factures
 
   je veux pouvoir rechercher des factures
 
+  @bills @search_bills
   Scenario: Je fais une recherche par partenaire
     Given en tant que BO
     And Je vais sur la page des factures

@@ -4,7 +4,7 @@ Feature: Indicateurs
 
   # Gestion des commandes
 
-  @ignore
+  @indicators
   Scenario: GetSIM - Gestion des commandes : Je sélectionne trois partenaires A, B et C dans la barre de contexte, je visualise les indicateurs des partenaires A, B et C
     Given en tant que BO
     And Je vais sur la page des commandes
@@ -14,7 +14,7 @@ Feature: Indicateurs
     When je clique sur le bouton "Appliquer"
     Then Je visualise les indicateurs commandes des trois partenaires
 
-  @ignore
+  @indicators @ignore
   Scenario: GetSIM - Gestion des commandes : Je sélectionne le partenaire A dans la barre des filtres, je visualise les indicateurs du partenaire A
     Given en tant que BO
     And Je vais sur la page des commandes
@@ -22,7 +22,7 @@ Feature: Indicateurs
     When J'applique les filtres
     Then Je visualise les indicateurs commandes du partenaire A uniquement
 
-  @ignore
+  @indicators @ignore
   Scenario: GetSIM - Gestion des commandes : Je supprime le partenaire B dans la barre de contexte, les indicateurs ne changent pas,  je visualise les indicateurs du partenaire A
     Given en tant que BO
     And Je vais sur la page des commandes
@@ -32,7 +32,7 @@ Feature: Indicateurs
 
   # Gestion des lignes
 
-  @ignore
+  @indicators @ignore
   Scenario: GetParc - Gestion des lignes : Je sélectionne trois partenaires A, B et C dans la barre de contexte, je visualise les indicateurs des partenaires A, B et C
     Given en tant que BO
     And Je vais sur la page des lignes
@@ -40,7 +40,7 @@ Feature: Indicateurs
     When je clique sur le bouton "Appliquer"
     Then Je visualise les indicateurs lignes des trois partenaires
 
-  @ignore
+  @indicators @ignore
   Scenario: GetParc - Gestion des lignes : Je sélectionne le partenaire A dans la barre des filtres, je visualise les indicateurs du partenaire A
     Given en tant que BO
     And Je vais sur la page des lignes
@@ -48,7 +48,7 @@ Feature: Indicateurs
     When J'applique les filtres
     Then Je visualise les indicateurs lignes du partenaire A uniquement
 
-  @ignore
+  @indicators @ignore
   Scenario: GetParc - Gestion des lignes : Je supprime le partenaire B dans la barre de contexte, les indicateurs ne changent pas,  je visualise les indicateurs du partenaire A
     Given en tant que BO
     And Je vais sur la page des lignes
@@ -58,7 +58,7 @@ Feature: Indicateurs
 
   # Suivi/pilotage des actes de gestion
 
-  @ignore
+  @indicators @ignore
   Scenario: GetParc - Suivi/pilotage des actes de gestion : Je sélectionne trois partenaires A, B et C dans la barre de contexte, je visualise les indicateurs des partenaires A, B et C
     Given en tant que BO
     And Je vais sur la page des actes de gestion
@@ -66,7 +66,7 @@ Feature: Indicateurs
     When je clique sur le bouton "Appliquer"
     Then Je visualise les indicateurs actes de gestion des trois partenaires
 
-  @ignore
+  @indicators @ignore
   Scenario: GetParc - Suivi/pilotage des actes de gestion : Je sélectionne le partenaire A dans la barre des filtres, je visualise les indicateurs du partenaire A
     Given en tant que BO
     And Je vais sur la page des actes de gestion
@@ -74,7 +74,7 @@ Feature: Indicateurs
     When J'applique les filtres
     Then Je visualise les indicateurs actes de gestion du partenaire A uniquement
 
-  @ignore
+  @indicators @ignore
   Scenario: GetParc - Suivi/pilotage des actes de gestion : Je supprime le partenaire B dans la barre de contexte, les indicateurs ne changent pas,  je visualise les indicateurs du partenaire A
     Given en tant que BO
     And Je vais sur la page des actes de gestion

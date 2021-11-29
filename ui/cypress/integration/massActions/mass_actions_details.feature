@@ -2,6 +2,7 @@ Feature: Détails d'un acte de gestion
 
   Vérification de la page de détail d'un acte de gestion
 
+  @massActions @mass_actions_details
   Scenario: Je reviens sur la liste des actes après avoir cliquer sur le bouton retour sur la page de détails d'un acte de gestion
     Given en tant que BO
     And Je vais sur la page des actes de gestion

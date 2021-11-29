@@ -2,6 +2,7 @@ Feature: Recherche d'utilisateurs
 
   je veux faire des tests sur la recherche d'utilisateur
 
+  @users @search_user
   Scenario: Je fais une recherche d'un utilisateur non existant
     Given en tant que BO
     And Je vais sur la page des utilisateurs
@@ -9,12 +10,14 @@ Feature: Recherche d'utilisateurs
     Then la table contient 0 resultat
     And Je réinitialise la recherche
 
+  @users @search_user
   Scenario: Je fais une recherche d'un utilisateur déjà existant
     Given en tant que BO
     And Je vais sur la page des utilisateurs
     When je recherche l'utilisateur "richard"
     Then la table contient 1 resultat
 
+  @users @search_user
   Scenario: Je fais une recherche par nom et prénom
     Given en tant que BO
     And Je vais sur la page des utilisateurs
@@ -23,6 +26,7 @@ Feature: Recherche d'utilisateurs
     Then la table contient 1 resultat
     And Je supprime les filtres
 
+  @users @search_user
   Scenario: Je fais une recherche par email
     Given en tant que BO
     And Je vais sur la page des utilisateurs
@@ -31,6 +35,7 @@ Feature: Recherche d'utilisateurs
     Then la table contient 1 resultat
     And Je supprime les filtres
 
+  @users @search_user
   Scenario: Je fais une recherche par partenaire
     Given en tant que BO
     And Je vais sur la page des utilisateurs
@@ -39,6 +44,7 @@ Feature: Recherche d'utilisateurs
     Then la table contient plus de 0 resultat
     And Je supprime les filtres
 
+  @users @search_user
   Scenario: Je fais une recherche par rôle
     Given en tant que BO
     And Je vais sur la page des utilisateurs
@@ -47,6 +53,7 @@ Feature: Recherche d'utilisateurs
     Then la table contient 14 resultat
     And Je supprime les filtres
 
+  @users @search_user
   Scenario: Je fais une recherche par statut actif
     Given en tant que BO
     And Je vais sur la page des utilisateurs
@@ -55,6 +62,7 @@ Feature: Recherche d'utilisateurs
     Then la table contient plus de 0 resultat
     And Je supprime les filtres
 
+  @users @search_user
   Scenario: Je fais une recherche par statut non actif
     Given en tant que BO
     And Je vais sur la page des utilisateurs
@@ -63,6 +71,7 @@ Feature: Recherche d'utilisateurs
     Then la table contient 0 resultat
     And Je supprime les filtres
 
+  @users @search_user
   Scenario: Je fais une recherche par groupe de partenaires
     Given en tant que BO
     And Je vais sur la page des utilisateurs

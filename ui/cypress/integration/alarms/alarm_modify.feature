@@ -2,6 +2,7 @@ Feature: Modification d'alarmes
 
   Je veux créer puis modifier des alarmes
 
+  @alarms @alarm_modify
   Scenario: Je modifie une alarme de sur-consommation de la flotte
     Given en tant que BO
     And Je vais sur la page des alarmes
@@ -15,6 +16,7 @@ Feature: Modification d'alarmes
     When je valide la création
     Then je vérifie la modification du nom de l'alarme mutualisée
 
+  @alarms @alarm_modify
   Scenario: Je modifie une alarme de sur-consommation par défaut
     Given en tant que BO
     And Je vais sur la page des alarmes
@@ -27,6 +29,7 @@ Feature: Modification d'alarmes
     When je valide la création
     Then je vérifie la modification du nom de l'alarme
 
+  @alarms @alarm_modify
   Scenario: Je modifie une alarme de sous-consommation par défaut
     Given en tant que BO
     And Je vais sur la page des alarmes
@@ -39,6 +42,7 @@ Feature: Modification d'alarmes
     When je valide la création
     Then je vérifie la modification du nom de l'alarme
 
+  @alarms @alarm_modify
   Scenario: Je modifie une alarme de changement d'opérateur par défaut
     Given en tant que BO
     And Je vais sur la page des alarmes
@@ -51,6 +55,7 @@ Feature: Modification d'alarmes
     When je valide la création
     Then je vérifie la modification du nom de l'alarme
 
+  @alarms @alarm_modify
   Scenario: Je modifie une alarme de changement de statut par défaut
     Given en tant que BO
     And Je vais sur la page des alarmes
@@ -63,6 +68,7 @@ Feature: Modification d'alarmes
     When je valide la création
     Then je vérifie la modification du nom de l'alarme
 
+  @alarms @alarm_modify
   Scenario: Je modifie une alarme de changement de changement de statut de profil par défaut
     Given en tant que BO
     And Je vais sur la page des alarmes
@@ -77,6 +83,7 @@ Feature: Modification d'alarmes
     When je valide la création
     Then je vérifie la modification du nom de l'alarme
 
+  @alarms @alarm_modify
   Scenario: Je modifie une alarme de changement de module par défaut
     Given en tant que BO
     And Je vais sur la page des alarmes
@@ -89,6 +96,7 @@ Feature: Modification d'alarmes
     When je valide la création
     Then je vérifie la modification du nom de l'alarme
 
+  @alarms @alarm_modify
   Scenario: Je modifie une alarme de changement de pays par défaut
     Given en tant que BO
     And Je vais sur la page des alarmes
