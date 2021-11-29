@@ -102,11 +102,9 @@ export default {
   },
   methods: {
     rCardModify(data) {
-      console.log(`rcard ${data.id} ${data.value}`);
       this.canModify = true;
     },
     reportingModify(data) {
-      console.log(`reporting ${data.id} ${data.value}`);
       this.canModify = true;
     },
   },

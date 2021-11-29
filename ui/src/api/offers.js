@@ -532,6 +532,39 @@ query LongLifeOffer($partyId: Long, $offerCode: String){
   const response = await query(queryStr, { partyId, offerCode });
   return response.data.longLifeOffer;
 }
+export async function fetchODOffers(partyId) {
+  const queryStr = `
+  query{
+    workflows(filter: {partyId:{eq:${partyId}}}){
+      total
+      items {
+        code
+        initialOffer {
+          code
+          id
+        }
+        workflowDescription
+        name
+        offerPackages(defaultPackage:true) {
+        label
+        buyingPriceInEuroCentHT
+        buyingPriceInEuroCentTTC
+        validityDuration
+          usage {
+            envelopeValue
+            envelopeLabel
+            unit
+            usageType
+            envelopeValueOctets
+          }
+        }
+      }
+      }
+    };`
+
+  const response = await query(queryStr, { partyId });
+  return response.data.workflows;
+}
 
 function formatDateForGql(inDate) {
   if (!inDate) return '';
