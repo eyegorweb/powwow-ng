@@ -26,9 +26,18 @@
           :is-error="isError"
         >
           <template slot="errors">
-            <div v-if="requestErrors || businessErrors" class="alert alert-danger" role="alert">
+            <div v-if="isError" class="alert alert-danger" role="alert">
               <ul>
-                <li v-for="e in businessErrors" :key="e">{{ $t('digitalOffer.errors.' + e) }}</li>
+                <li v-for="(value, name) in businessErrors" :key="name">
+                  <span v-for="(val, nom) in value" :key="nom">
+                    {{ $t('digitalOffer.errors.' + nom) }}
+                  </span>
+                </li>
+              </ul>
+            </div>
+            <div v-if="inputErrors" class="alert alert-danger" role="alert">
+              <ul>
+                <li v-for="e in inputErrors" :key="e">{{ $t('digitalOffer.errors.' + e) }}</li>
               </ul>
             </div>
           </template>
@@ -104,7 +113,7 @@ export default {
         },
       },
       isLoading: false,
-      requestErrors: undefined,
+      inputErrors: undefined,
       businessErrors: undefined,
       report: undefined,
       isError: false,
@@ -216,11 +225,36 @@ export default {
 
     checkErrors(response) {
       if (response && response.errors) {
-        this.businessErrors = response.errors;
+        this.businessErrors = response.errors.map((e) => {
+          let errors = {};
+          switch (e) {
+            case 'USER_NAME_ALREADY_EXIST':
+              errors['USER_NAME_ALREADY_EXIST'] = this.synthesis.creationAccountStep.login;
+              break;
+            case 'SIRET_ALREADY_EXIST':
+              errors['SIRET_ALREADY_EXIST'] = this.synthesis.creationAccountStep.siretValue;
+              break;
+            case 'PARTY_NAME_ALREADY_EXIST':
+              errors['PARTY_NAME_ALREADY_EXIST'] = this.synthesis.creationAccountStep.company;
+              break;
+            default:
+              break;
+          }
+          return errors;
+        });
+        this.synthesis = {
+          ...this.synthesis,
+          businessErrors: this.businessErrors,
+        };
         this.isError = true;
       }
+
       if (response && response.inputErrors) {
-        this.requestErrors = response.inputErrors;
+        this.inputErrors = response.inputErrors;
+        this.synthesis = {
+          ...this.synthesis,
+          inputErrors: this.inputErrors,
+        };
         this.isError = true;
       }
       return this.isError;
@@ -242,6 +276,30 @@ export default {
           ...this.synthesis,
           ...stepData,
         };
+      }
+    },
+
+    synthesis(stepData) {
+      if (stepData && stepData.businessErrors && stepData.businessErrors.length) {
+        let previousForm = [];
+        const currentForm = [
+          stepData.creationAccountStep.company,
+          stepData.creationAccountStep.siretValue,
+          stepData.creationAccountStep.login,
+        ];
+
+        stepData.businessErrors.map((error) => {
+          for (const key in error) {
+            previousForm.push(error[key]);
+          }
+        });
+
+        let foundErrors = previousForm.filter((pf) => currentForm.find((cf) => cf === pf));
+        if (foundErrors.length) {
+          this.isError = true;
+        } else {
+          this.isError = false;
+        }
       }
     },
   },
