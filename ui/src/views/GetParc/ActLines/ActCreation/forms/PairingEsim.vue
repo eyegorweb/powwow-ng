@@ -1,9 +1,5 @@
 <template>
   <div>
-    <div class="mb-2">
-      <DropZone v-model="selectedFile" class="dropZone" />
-    </div>
-
     <ActFormContainer
       :validate-fn="onValidate"
       disabled-notification-check
@@ -24,11 +20,6 @@ export default {
   components: {
     ActFormContainer,
     DropZone,
-  },
-  data() {
-    return {
-      selectedFile: undefined,
-    };
   },
   computed: {
     ...mapState('actLines', ['selectedLinesForActCreation', 'actCreationPrerequisites']),
