@@ -23,33 +23,16 @@
     <div class="divider"></div>
     <div class="terms">
       <div class="term details">
-        {{
-          $t('digitalOffer.offerPackages.DATA', {
-            value: offer.offerPackages[0].usage.filter((o) => o.usageType === 'DATA')[0]
-              .envelopeValue,
-            unit: offer.offerPackages[0].usage.filter((o) => o.usageType === 'DATA')[0].unit,
-          })
-        }},
-        {{
-          $t('digitalOffer.offerPackages.SMS', {
-            value: offer.offerPackages[0].usage.filter((o) => o.usageType === 'SMS')[0]
-              .envelopeValue,
-          })
-        }},
-        {{
-          $t('digitalOffer.offerPackages.VOICE', {
-            value: offer.offerPackages[0].usage.filter((o) => o.usageType === 'VOICE')[0]
-              .envelopeValue,
-            unit: offer.offerPackages[0].usage.filter((o) => o.usageType === 'VOICE')[0].unit,
-          })
-        }}
+        <template v-if="dataUsage"> {{ dataUsage }}, </template>
+        <template v-if="smsUsage"> {{ smsUsage }}, </template>
+        <template v-if="voiceUsage"> {{ voiceUsage }}</template>
       </div>
       <div v-for="(service, index) in offer.initialOffer.marketingService" :key="service.id">
         <div class="term" v-if="index < maxServicesShow">{{ service.labelService }}</div>
       </div>
     </div>
     <button class="subscribe-btn" @click="onClick()">
-      <span> {{ this.recharge ? $t('select') : $t('digitalOffer.offerStep.subscribe') }}</span>
+      <span> {{ recharge ? $t('select') : $t('digitalOffer.offerStep.subscribe') }}</span>
     </button>
   </div>
 </template>
@@ -104,44 +87,42 @@ export default {
     maxServicesShow() {
       return this.maxServices === 3 && this.isActive ? 99 : 3;
     },
-    maxServicesShow() {
-      return this.maxServices === 3 && this.isActive ? 99 : 3;
-    },
     dataUsage() {
       const value =
-        this.offer && this.offer.offerPackage[0] && this.offer.offerPackage[0].usage
-          ? this.offer.offerPackage[0].usage.filter((o) => o.usageType === 'DATA')[0].envelopeValue
+        this.offer && this.offer.offerPackages[0] && this.offer.offerPackages[0].usage
+          ? this.offer.offerPackages[0].usage.filter((o) => o.usageType === 'DATA')[0].envelopeValue
           : 0;
       if (value) {
         return this.$t('digitalOffer.offerPackages.DATA', {
           value,
-          unit: this.offer.offerPackage[0].usage.filter((o) => o.usageType === 'DATA')[0].unit,
+          unit: this.offer.offerPackages[0].usage.filter((o) => o.usageType === 'DATA')[0].unit,
         });
       }
       return 0;
     },
     smsUsage() {
       const value =
-        this.offer && this.offer.offerPackage[0] && this.offer.offerPackage[0].usage
-          ? this.offer.offerPackage[0].usage.filter((o) => o.usageType === 'SMS')[0].envelopeValue
+        this.offer && this.offer.offerPackages[0] && this.offer.offerPackages[0].usage
+          ? this.offer.offerPackages[0].usage.filter((o) => o.usageType === 'SMS')[0].envelopeValue
           : 0;
       if (value) {
         return this.$t('digitalOffer.offerPackages.SMS', {
           value,
-          unit: this.offer.offerPackage[0].usage.filter((o) => o.usageType === 'SMS')[0].unit,
+          unit: this.offer.offerPackages[0].usage.filter((o) => o.usageType === 'SMS')[0].unit,
         });
       }
       return 0;
     },
     voiceUsage() {
       const value =
-        this.offer && this.offer.offerPackage[0] && this.offer.offerPackage[0].usage
-          ? this.offer.offerPackage[0].usage.filter((o) => o.usageType === 'VOICE')[0].envelopeValue
+        this.offer && this.offer.offerPackages[0] && this.offer.offerPackages[0].usage
+          ? this.offer.offerPackages[0].usage.filter((o) => o.usageType === 'VOICE')[0]
+              .envelopeValue
           : 0;
       if (value) {
         return this.$t('digitalOffer.offerPackages.VOICE', {
           value,
-          unit: this.offer.offerPackage[0].usage.filter((o) => o.usageType === 'VOICE')[0].unit,
+          unit: this.offer.offerPackages[0].usage.filter((o) => o.usageType === 'VOICE')[0].unit,
         });
       }
       return 0;

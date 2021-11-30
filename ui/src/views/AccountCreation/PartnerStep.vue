@@ -42,7 +42,11 @@
 
       <div class="entries-line">
         <div class="form-entry">
-          <FormControl label="getadmin.partners.name" v-model="form.company" />
+          <FormControl
+            label="getadmin.partners.name"
+            v-model="form.company"
+            :error="businessErrors['PARTY_NAME_ALREADY_EXIST']"
+          />
         </div>
       </div>
 
@@ -60,6 +64,7 @@
             @focus="onInputFocus"
             @blur="onInputBlur"
             input-type="number"
+            :error="businessErrors['SIRET_ALREADY_EXIST']"
           />
           <span v-if="!hide && !reachedMaxLength && siretType === 'siret'" class="error-text">
             {{ $t('errors.maxlength') }}
@@ -101,7 +106,7 @@
 
       <div class="form-group">
         <label class="small-label">{{ $t('login') }}</label>
-        <UiInput v-model="form.login" block />
+        <UiInput v-model="form.login" block :error="businessErrors['USER_NAME_ALREADY_EXIST']" />
         <!-- <small v-if="fieldErrors && errors.login" class="form-text error-text">{{
           $t('required')
         }}</small> -->
@@ -258,8 +263,55 @@ export default {
       return (
         this.requiredFields.length === 0 &&
         this.passwordConfirmationErrors.length === 0 &&
-        this.hasSiretValue
+        this.hasSiretValue &&
+        !!this.businessErrors &&
+        !this.businessErrors['PARTY_NAME_ALREADY_EXIST'] &&
+        !this.businessErrors['SIRET_ALREADY_EXIST'] &&
+        !this.businessErrors['USER_NAME_ALREADY_EXIST']
       );
+    },
+
+    businessErrors() {
+      let errors = [
+        'PARTY_NAME_ALREADY_EXIST', // company
+        'SIRET_ALREADY_EXIST',
+        'USER_NAME_ALREADY_EXIST', // login
+      ];
+      let foundErrors = {};
+      let previousForm = [];
+      if (this.synthesis && this.synthesis.businessErrors) {
+        this.synthesis.businessErrors.map((error) => {
+          for (const key in error) {
+            previousForm.push(error[key]);
+          }
+        });
+      }
+      const currentForm = [this.form.company, this.form.siretValue, this.form.login];
+
+      if (this.synthesis && this.synthesis.businessErrors) {
+        foundErrors = this.synthesis.businessErrors.reduce(
+          (all, e, index) => {
+            for (const key in e) {
+              if (
+                errors.map((err) => err === e[key]) &&
+                !!currentForm.find((f) => f === previousForm[index])
+              ) {
+                all[key] = this.$t('digitalOffer.errors.' + key);
+              } else {
+                all[key] = '';
+              }
+            }
+            return all;
+          },
+          {
+            USER_NAME_ALREADY_EXIST: '',
+            SIRET_ALREADY_EXIST: '',
+            PARTY_NAME_ALREADY_EXIST: '',
+          }
+        );
+      }
+
+      return foundErrors;
     },
   },
 

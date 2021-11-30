@@ -64,21 +64,25 @@
         </div>
       </div>
     </div>
-    <div class="footer pt-3" v-if="canSave">
-      <slot name="errors"></slot>
-      <button
-        v-if="!isLoading"
-        type="button"
-        class="btn btn-accent btn-lg btn-block mt-1"
-        :disabled="!canSave || isError"
-        @click="$emit('save')"
-      >
-        {{ $t('orders.new.save') }}
-      </button>
-      <button class="btn btn-accent btn-lg btn-block mt-1" disabled v-if="isLoading">
-        {{ $t('processing') }}...
-        <CircleLoader />
-      </button>
+    <div class="footer pt-3">
+      <template v-if="isError">
+        <slot name="errors"></slot>
+      </template>
+      <template v-if="canSave">
+        <button
+          v-if="!isLoading"
+          type="button"
+          class="btn btn-accent btn-lg btn-block mt-1"
+          :disabled="!canSave || isError"
+          @click="$emit('save')"
+        >
+          {{ $t('orders.new.save') }}
+        </button>
+        <button class="btn btn-accent btn-lg btn-block mt-1" disabled v-if="isLoading">
+          {{ $t('processing') }}...
+          <CircleLoader />
+        </button>
+      </template>
     </div>
   </div>
 </template>
@@ -230,7 +234,7 @@ export default {
     formattedOfferPackagePrice() {
       const price = this.$loGet(
         this.synthesis,
-        'offerStep.offerPackage[0].buyingPriceInEuroCentHT',
+        'offerStep.offerPackages[0].buyingPriceInEuroCentHT',
         0
       );
       return price / 100;
@@ -239,7 +243,7 @@ export default {
     priceTTC() {
       const price = this.$loGet(
         this.synthesis,
-        'offerStep.offerPackage[0].buyingPriceInEuroCentTTC',
+        'offerStep.offerPackages[0].buyingPriceInEuroCentTTC',
         0
       );
       return price / 100;
@@ -248,7 +252,7 @@ export default {
     priceHT() {
       const price = this.$loGet(
         this.synthesis,
-        'offerStep.offerPackage[0].buyingPriceInEuroCentHT',
+        'offerStep.offerPackages[0].buyingPriceInEuroCentHT',
         0
       );
       return price / 100;
@@ -314,6 +318,7 @@ $fontSize: 0.8rem;
   display: flex;
   flex-direction: column;
   height: 100%;
+  max-width: 30%;
   .synthesis-content {
     overflow-y: auto;
     flex-grow: 1;
