@@ -14,12 +14,10 @@
 import ActFormContainer from './parts/ActFormContainer2';
 import { mapState, mapGetters } from 'vuex';
 import { pairingByStockedEid } from '@/api/esim.js';
-import DropZone from '@/components/ui/DropZone';
 
 export default {
   components: {
     ActFormContainer,
-    DropZone,
   },
   computed: {
     ...mapState('actLines', ['selectedLinesForActCreation', 'actCreationPrerequisites']),
