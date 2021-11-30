@@ -4,7 +4,7 @@ Feature: Indicateurs
 
   # Gestion des commandes
 
-  @indicators
+  @indicators @ignore
   Scenario: GetSIM - Gestion des commandes : Je sélectionne trois partenaires A, B et C dans la barre de contexte, je visualise les indicateurs des partenaires A, B et C
     Given en tant que BO
     And Je vais sur la page des commandes
