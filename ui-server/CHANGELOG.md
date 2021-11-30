@@ -2,6 +2,15 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.612+20211130135527
+2021-11-30
+
+### Fixes
+
+- [3027] Delete dropzone on sim pairing act (f6fafc7bd1a08dbb6fbf8fc14da872ec3f2a0b31)
+- [3027] Delete dropzone on sim pairing act (0dfeb37539abe4b719d34ed24ea3d76d9a958537)
+- [3046] gestion des erreurs de création de compte (b1ab47bc652fb33d6e40c0bb51ec2649a43810ab)
+
 ## 1.17.0-master.611+20211129153605
 2021-11-29
 
