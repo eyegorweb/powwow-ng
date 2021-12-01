@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.613+20211201170150
+2021-12-01
+
+### Fixes
+
+- [3056] correction des paramètres à passer dans les apis de supervision cockpit (cdd873349748948c423d8db0b304348f9a92e925)
+
 ## 1.17.0-master.612+20211130135527
 2021-11-30
 
