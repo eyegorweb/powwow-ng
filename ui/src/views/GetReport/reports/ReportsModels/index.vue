@@ -105,7 +105,7 @@ export default {
         },
         {
           id: 3,
-          label: 'Date de création',
+          label: this.$t('report.creationDate'),
           orderable: false,
           visible: true,
           name: 'generationDate',
@@ -120,7 +120,7 @@ export default {
         },
         {
           id: 4,
-          label: 'Partenaire',
+          label: this.$t('report.partenaire'),
           orderable: false,
           visible: true,
           name: 'partner',
@@ -135,7 +135,7 @@ export default {
         },
         {
           id: 5,
-          label: 'Fréquence',
+          label: this.$t('report.frequency'),
           orderable: true,
           visible: true,
           name: 'frequency',
@@ -154,7 +154,7 @@ export default {
         },
         {
           id: 6,
-          label: 'Rapports générés',
+          label: this.$t('report.generatedReports'),
           orderable: true,
           visible: true,
           name: 'generatedReports',
@@ -166,7 +166,7 @@ export default {
         },
         {
           id: 7,
-          label: 'Créé par',
+          label: this.$t('report.creator'),
           orderable: false,
           visible: true,
           name: 'creator',
@@ -178,7 +178,7 @@ export default {
         },
         {
           id: 8,
-          label: 'Champs',
+          label: this.$t('report.fields'),
           orderable: true,
           visible: false,
           name: 'fields',
@@ -194,7 +194,7 @@ export default {
 
         {
           id: 10,
-          label: 'Statut',
+          label: this.$t('report.generationStatus'),
           orderable: false,
           visible: false,
           name: 'generationStatus',
