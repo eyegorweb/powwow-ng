@@ -51,7 +51,11 @@ export default {
   },
   computed: {
     address() {
-      return this.item.address.replace(this.item.city, '').replace(this.item.zipCode, '');
+      if (typeof this.item.address === 'object') {
+        return this.item.address.address1;
+      } else {
+        return this.item.address.replace(this.item.city, '').replace(this.item.zipCode, '');
+      }
     },
     selectedItem: {
       get() {

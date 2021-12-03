@@ -1,6 +1,6 @@
 <template>
   <div class="pricing-table" :class="isActive ? 'active' : ''" v-if="offerUse">
-    <div class="package-title" v-if="offerUse && offerUse.name" :class="isActive ? 'active' : ''" >
+    <div class="package-title" v-if="offerUse && offerUse.name" :class="isActive ? 'active' : ''">
       <span>{{ offerUse.name || '-' }}</span>
     </div>
     <div class="package-layout">
@@ -27,13 +27,10 @@
         <template v-if="allUsage('SMS')"> {{ allUsage('SMS') }}, </template>
         <template v-if="allUsage('VOICE')"> {{ allUsage('VOICE') }}</template>
       </div>
-      <div v-if="offer.initialOffer">      
-        <div
-          v-for="(service, index) in offer.initialOffer.marketingService"
-          :key="service.id"
-        >
+      <div v-if="offer.initialOffer">
+        <div v-for="(service, index) in offer.initialOffer.marketingService" :key="service.id">
           <div class="term" v-if="index < maxServicesShow">{{ service.labelService }}</div>
-        </div>  
+        </div>
       </div>
     </div>
     <button class="subscribe-btn" @click="onClick()">
@@ -58,25 +55,24 @@ export default {
     recharge: Boolean,
   },
   mounted() {
-    this.offerUse = this.offer.offerPackages ? this.offer.offerPackages[0] : this.offer ;
+    this.offerUse = this.offer.offerPackages ? this.offer.offerPackages[0] : this.offer;
     this.price =
-      this.offerUse &&
-      this.offerUse.buyingPriceInEuroCentHT
+      this.offerUse && this.offerUse.buyingPriceInEuroCentHT
         ? this.offerUse.buyingPriceInEuroCentHT
         : 0;
   },
   methods: {
     onClick() {
-      this.$emit('select:offer', { selectedOffer: this.offerUse });
-      this.selectedOffer = this.offerUse;
+      this.$emit('select:offer', { selectedOffer: this.offer });
+      this.selectedOffer = this.offer;
     },
 
     allUsage(type) {
       const usage = this.offerUse && this.offerUse.usage ? this.offerUse.usage : null;
       const value =
         this.offerUse && usage && usage[0].envelopeValue
-        ? usage.filter((o) => o.usageType === type)[0].envelopeValue
-        : 0;
+          ? usage.filter((o) => o.usageType === type)[0].envelopeValue
+          : 0;
       if (value) {
         return this.$t(`digitalOffer.offerPackages.${type}`, {
           value,
@@ -109,7 +105,7 @@ export default {
     maxServicesShow() {
       return this.maxServices === 3 && this.isActive ? 99 : 3;
     },
-  }
+  },
 };
 </script>
 

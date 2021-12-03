@@ -13,7 +13,7 @@ export function fetchSimTypes() {
   return publicApiRoute.get('/api/public/digital-offer/sim').then((res) => res.data.items);
 }
 
-export function createAccount(formData) {
+export function createDigitalOffer(formData) {
   try {
     const response = publicApiRoute
       .post('/api/public/digital-offer/create', formData)

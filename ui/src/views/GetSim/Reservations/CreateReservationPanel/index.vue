@@ -1,6 +1,6 @@
 <template>
-  <WizardPanel :steps="steps">
-    <template #content="{ currentStep, stepisDone, previousStep, saveSynthesis, synthesis }">
+  <WizardPanel :steps="steps" :synthesis="synthesis" :current-step="currentStep">
+    <template slot="content">
       <ClientChoiceStep
         v-if="currentStep === 0"
         :synthesis="synthesis"
@@ -38,7 +38,7 @@
         @saveSynthesis="saveSynthesis"
       />
     </template>
-    <template #synthesis="{ currentStep, synthesis }">
+    <template slot="synthesis">
       <WizardSynthesis
         title="getsim.reservations.synthesis"
         :synthesis="synthesis"
@@ -79,11 +79,35 @@ export default {
         { label: this.$t('getsim.reservations.creation.pairing') },
         { label: this.$t('orders.new.settings') },
       ],
+      synthesis: {},
+      currentStep: 0,
     };
   },
 
   methods: {
     ...mapMutations(['flashMessage', 'closePanel']),
+
+    reset() {
+      this.currentStep = 0;
+      this.synthesis = {};
+    },
+
+    previousStep(payload) {
+      this.saveSynthesis(payload);
+      this.currentStep--;
+    },
+    stepisDone(payload) {
+      this.saveSynthesis(payload);
+      if (this.currentStep < this.steps.length - 1) {
+        this.currentStep++;
+      }
+    },
+    saveSynthesis(payload) {
+      this.synthesis = {
+        ...this.synthesis,
+        ...payload,
+      };
+    },
 
     setIfPresent(targetobj, key, value) {
       if (value) {
