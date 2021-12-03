@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.615+20211203130044
+2021-12-03
+
+### Fixes
+
+- [3050] Correctifs sur l'alarme flotte (4c651c1f88df249b384f97f0b59e3dcc7e682f44)
+
 ## 1.17.0-master.614+20211203092810
 2021-12-03
 
