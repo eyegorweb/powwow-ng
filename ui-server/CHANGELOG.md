@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.619+20211203165002
+2021-12-03
+
+### Features
+
+- [2915] création des commandes M2M_LIGHT (6392a6e4fd56304e87d8237794f57f262d7ba58b)
+
 ## 1.17.0-master.618+20211203155416
 2021-12-03
 
