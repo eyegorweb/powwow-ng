@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.617+20211203154631
+2021-12-03
+
+### Fixes
+
+- [0000] create account synthesis size (adf219d1d334aa6c5ae73554dba99a7e3d8dc5dc)
+
 ## 1.17.0-master.616+20211203131313
 2021-12-03
 
