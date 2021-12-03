@@ -8,7 +8,6 @@
       v-if="
         [
           'getparc.actCreation.carouselItem.TRANSFERT_LINES',
-          'getparc.actCreation.carouselItem.RECHARGE_LINES',
         ].find((a) => a === act.title)
       "
       @set:preprequisites="setPrerequisites"
@@ -42,6 +41,7 @@
           'getparc.actCreation.carouselItem.CHANGE_OFFER',
           'getparc.actCreation.carouselItem.CHANGE_CF',
           'getparc.actCreation.carouselItem.esim.CHARGE_LV_LINES',
+          'getparc.actCreation.carouselItem.RECHARGE_LINES',
         ].find((a) => a === act.title)
       "
       @set:preprequisites="setPrerequisites"

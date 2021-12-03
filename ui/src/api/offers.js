@@ -532,20 +532,49 @@ query LongLifeOffer($partyId: Long, $offerCode: String){
   const response = await query(queryStr, { partyId, offerCode });
   return response.data.longLifeOffer;
 }
-export async function fetchODOffers(partyId) {
+export async function rechargeLineOD(partyId, date, workflowId, label, simCardIds, type) {
+  const mutationStr = `
+  mutation{
+    topUpOffer(input: {
+      partyId: ${partyId}
+      dueDate:"${date}"
+      workflowId: ${workflowId}
+      packageLabel:"${label}"
+      simCardInstanceIds:[${simCardIds}]
+      type: ${type}
+    }){
+      tempDataUuid
+      validated
+      url
+      errors{
+        key
+        number
+        message
+        
+      }
+    }
+  }
+  `
+  
+  const response = await query(mutationStr, { partyId, date, workflowId, label, simCardIds, type });
+  return response.data.topUpOffer;
+}
+
+export async function fetchODOffers(partyId, offer) {
   const queryStr = `
   query{
-    workflows(filter: {partyId:{eq:${partyId}}}){
+    workflows(filter: {partyId:{eq:${partyId}}, description: {eq: "${offer}"}}){
       total
       items {
+        id
         code
         initialOffer {
           code
-          id
+          id      
         }
         workflowDescription
         name
-        offerPackages(defaultPackage:true) {
+        offerPackages(defaultPackage:false) {
         label
         buyingPriceInEuroCentHT
         buyingPriceInEuroCentTTC
@@ -562,7 +591,7 @@ export async function fetchODOffers(partyId) {
       }
     };`
 
-  const response = await query(queryStr, { partyId });
+  const response = await query(queryStr, { partyId, offer });
   return response.data.workflows;
 }
 

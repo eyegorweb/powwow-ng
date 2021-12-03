@@ -1,7 +1,7 @@
 <template>
-  <div class="pricing-table" :class="isActive ? 'active' : ''">
-    <div class="package-title" :class="isActive ? 'active' : ''">
-      <span>{{ offer.name }}</span>
+  <div class="pricing-table" :class="isActive ? 'active' : ''" v-if="offerUse">
+    <div class="package-title" v-if="offerUse && offerUse.name" :class="isActive ? 'active' : ''" >
+      <span>{{ offerUse.name || '-' }}</span>
     </div>
     <div class="package-layout">
       <div class="package-value">
@@ -13,7 +13,7 @@
           <div class="period">
             {{
               $t('digitalOffer.offerStep.offerPeriod', {
-                period: offer.offerPackages[0].validityDuration,
+                period: offerUse.validityDuration,
               })
             }}
           </div>
@@ -23,12 +23,17 @@
     <div class="divider"></div>
     <div class="terms">
       <div class="term details">
-        <template v-if="dataUsage"> {{ dataUsage }}, </template>
-        <template v-if="smsUsage"> {{ smsUsage }}, </template>
-        <template v-if="voiceUsage"> {{ voiceUsage }}</template>
+        <template v-if="allUsage('DATA')"> {{ allUsage('DATA') }}, </template>
+        <template v-if="allUsage('SMS')"> {{ allUsage('SMS') }}, </template>
+        <template v-if="allUsage('VOICE')"> {{ allUsage('VOICE') }}</template>
       </div>
-      <div v-for="(service, index) in offer.initialOffer.marketingService" :key="service.id">
-        <div class="term" v-if="index < maxServicesShow">{{ service.labelService }}</div>
+      <div v-if="offer.initialOffer">      
+        <div
+          v-for="(service, index) in offer.initialOffer.marketingService"
+          :key="service.id"
+        >
+          <div class="term" v-if="index < maxServicesShow">{{ service.labelService }}</div>
+        </div>  
       </div>
     </div>
     <button class="subscribe-btn" @click="onClick()">
@@ -44,6 +49,7 @@ export default {
       selectedOffer: undefined,
       price: undefined,
       maxServices: 3,
+      offerUse: undefined,
     };
   },
   props: {
@@ -52,18 +58,34 @@ export default {
     recharge: Boolean,
   },
   mounted() {
+    this.offerUse = this.offer.offerPackages ? this.offer.offerPackages[0] : this.offer ;
     this.price =
-      this.offer &&
-      this.offer.offerPackages[0] &&
-      this.offer.offerPackages[0].buyingPriceInEuroCentHT
-        ? this.offer.offerPackages[0].buyingPriceInEuroCentHT
+      this.offerUse &&
+      this.offerUse.buyingPriceInEuroCentHT
+        ? this.offerUse.buyingPriceInEuroCentHT
         : 0;
   },
   methods: {
     onClick() {
-      this.$emit('select:offer', { selectedOffer: this.offer });
-      this.selectedOffer = this.offer;
+      this.$emit('select:offer', { selectedOffer: this.offerUse });
+      this.selectedOffer = this.offerUse;
     },
+
+    allUsage(type) {
+      const usage = this.offerUse && this.offerUse.usage ? this.offerUse.usage : null;
+      const value =
+        this.offerUse && usage && usage[0].envelopeValue
+        ? usage.filter((o) => o.usageType === type)[0].envelopeValue
+        : 0;
+      if (value) {
+        return this.$t(`digitalOffer.offerPackages.${type}`, {
+          value,
+          unit: usage.filter((o) => o.usageType === type)[0].unit,
+        });
+      }
+      return 0;
+    },
+
     offerPrice(part) {
       var floatPrice = this.price / 100;
       floatPrice = floatPrice.toFixed(2);
@@ -87,47 +109,7 @@ export default {
     maxServicesShow() {
       return this.maxServices === 3 && this.isActive ? 99 : 3;
     },
-    dataUsage() {
-      const value =
-        this.offer && this.offer.offerPackages[0] && this.offer.offerPackages[0].usage
-          ? this.offer.offerPackages[0].usage.filter((o) => o.usageType === 'DATA')[0].envelopeValue
-          : 0;
-      if (value) {
-        return this.$t('digitalOffer.offerPackages.DATA', {
-          value,
-          unit: this.offer.offerPackages[0].usage.filter((o) => o.usageType === 'DATA')[0].unit,
-        });
-      }
-      return 0;
-    },
-    smsUsage() {
-      const value =
-        this.offer && this.offer.offerPackages[0] && this.offer.offerPackages[0].usage
-          ? this.offer.offerPackages[0].usage.filter((o) => o.usageType === 'SMS')[0].envelopeValue
-          : 0;
-      if (value) {
-        return this.$t('digitalOffer.offerPackages.SMS', {
-          value,
-          unit: this.offer.offerPackages[0].usage.filter((o) => o.usageType === 'SMS')[0].unit,
-        });
-      }
-      return 0;
-    },
-    voiceUsage() {
-      const value =
-        this.offer && this.offer.offerPackages[0] && this.offer.offerPackages[0].usage
-          ? this.offer.offerPackages[0].usage.filter((o) => o.usageType === 'VOICE')[0]
-              .envelopeValue
-          : 0;
-      if (value) {
-        return this.$t('digitalOffer.offerPackages.VOICE', {
-          value,
-          unit: this.offer.offerPackages[0].usage.filter((o) => o.usageType === 'VOICE')[0].unit,
-        });
-      }
-      return 0;
-    },
-  },
+  }
 };
 </script>
 

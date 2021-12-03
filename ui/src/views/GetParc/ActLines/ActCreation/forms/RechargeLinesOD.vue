@@ -8,7 +8,12 @@
       <div class="pricing">
         <div v-if="packages" class="pricing-container">
           <div class="card" v-for="offer in packages">
-            <OfferCard :offer="offer" :recharge="true" />
+            <OfferCard 
+              :offer="offer" 
+              :recharge="true"
+              :is-active="offer === currentOffer" 
+              @select:offer="getCurrentOffer"
+            />
           </div>
         </div>
       </div>
@@ -29,7 +34,7 @@
           </UiDate>
         </div>
         <div class="col-md-4">
-          <Button @click="" variant="primary">{{
+          <Button @click="rechargeLine" variant="primary" :disabled="!selectedLinesForActCreation.length || !currentOffer">{{
             $t('getparc.actCreation.carouselItem.RECHARGE_LINES_BTN')
           }}</Button>
         </div>
@@ -51,9 +56,8 @@ import OfferCard from '@/views/AccountCreation/OfferCard.vue';
 import UiDate from '@/components/ui/UiDate';
 import moment from 'moment';
 
-import { fetchODOffers } from '@/api/offers.js';
+import { fetchODOffers, rechargeLineOD } from '@/api/offers.js';
 import { mapState, mapGetters } from 'vuex';
-import { createRechargeLVOffer } from '@/api/actCreation.js';
 import { formattedCurrentDateExtended } from '@/utils/date.js';
 import Button from '@/components/ui/Button';
 
@@ -71,6 +75,8 @@ export default {
       requestErrors: [],
       actDate: null,
       dateError: null,
+      currentOffer: undefined,
+      workflowId: undefined,
     };
   },
   computed: {
@@ -90,16 +96,24 @@ export default {
     },
   },
   async mounted() {
-    const response = await fetchODOffers(this.actCreationPrerequisites.partner.id);
-
+    const response = await fetchODOffers(this.actCreationPrerequisites.partner.id, this.actCreationPrerequisites.offer.id);
     if (response.items && response.items.length) {
-      console.log(response);
-      this.packages = response.items;
+      this.packages = response.items[0].offerPackages;
+      this.workflowId = response.items[0].id;
     }
 
     this.actDate = formattedCurrentDateExtended();
   },
   methods: {
+    getCurrentOffer(selectedOffer) {
+      this.currentOffer = selectedOffer.selectedOffer;
+    },
+    async rechargeLine() {
+      const envelopeLabel = this.currentOffer.label
+      const simCardIds = this.selectedLinesForActCreation.map(i => i.id);
+      const response = await rechargeLineOD(this.actCreationPrerequisites.partner.id, this.actDate, this.workflowId, envelopeLabel, simCardIds, 'DIGITAL_OFFER')
+      window.location.href = response.url;
+    },
     onActDateChange(value) {
       this.actDate = value;
     },
