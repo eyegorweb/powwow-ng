@@ -600,6 +600,14 @@
     "offer_cf": "CA / Offer",
     "errors": {
       "ALARMS_D_MAX_ALARM_PER_AP_REACHED": "The maximum number of alarms on the scope cf / offer has been reached"
+    },
+    "warnings": {
+      "OVER_CONSUMPTION_VOLUME_FLOTTE": {
+        "modal": {
+          "modalPreventMsg": "Si les seuils sont modifiés l'alarme sera réinitialiée.",
+          "modalConfirmMsg": "Confirmez-vous la modification ?"
+        }
+      }
     }
   },
   "getdevice": {

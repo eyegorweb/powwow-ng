@@ -241,6 +241,9 @@ function getSharedAlarmGqlParams(params) {
   gqlParams.push(`alarmName:"${params.alarmName}"`);
   gqlParams.push(`mailNotification:${params.emailNotification}`);
   gqlParams.push(`activateAlarm:${params.activateAlarm}`);
+  if (params.emailNotification) {
+    gqlParams.push(`mailingListId:${params.mailingList}`);
+  }
 
   if (params.levelsData) {
     if (params.levelsData.levelMax) {

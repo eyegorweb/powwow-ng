@@ -659,6 +659,14 @@
     "offer_cf": "CF / Offre",
     "errors": {
       "ALARMS_D_MAX_ALARM_PER_AP_REACHED": "Le nombre maximum d'alarmes sur le scope cf/offre est atteint"
+    },
+    "warnings": {
+      "OVER_CONSUMPTION_VOLUME_FLOTTE": {
+        "modal": {
+          "modalPreventMsg": "Si les seuils sont modifiés l'alarme sera réinitialiée.",
+          "modalConfirmMsg": "Confirmez-vous la modification ?"
+        }
+      }
     }
   },
   "getdevice": {
