@@ -59,6 +59,7 @@
       :suspension="suspension"
       :duplicate-from="duplicateFrom"
       :is-loading="isLoading"
+      :edit-mode="editMode"
     />
   </div>
 </template>

@@ -49,16 +49,70 @@
           <UiCheckbox v-model="enableAlarm" :checked="true" />
           <span>{{ $t('getvsion.alarm.enableAlarm') }}</span>
         </div>
-        <UiButton
-          variant="primary"
-          class="p-3"
-          block
-          @click="saveAlarm"
-          :disabled="!canSaveAlarm || isLoading"
-        >
-          <span class="btn-label" v-if="!isLoading">{{ $t('getvsion.alarm.saveAlarm') }}</span>
-          <span class="btn-label" v-else>{{ $t('getvsion.alarm.isLoading') }}</span>
-        </UiButton>
+        <template v-if="editMode">
+          <UiButton
+            variant="primary"
+            class="p-3"
+            block
+            @click="waitForConfirmation = true"
+            :disabled="!canSaveAlarm || isLoading"
+          >
+            <span class="btn-label" v-if="!isLoading">{{ $t('getvsion.alarm.saveAlarm') }}</span>
+            <span class="btn-label" v-else>{{ $t('getvsion.alarm.isLoading') }}</span>
+          </UiButton>
+        </template>
+        <template v-else>
+          <UiButton
+            variant="primary"
+            class="p-3"
+            block
+            @click="saveAlarm"
+            :disabled="!canSaveAlarm || isLoading"
+          >
+            <span class="btn-label" v-if="!isLoading">{{ $t('getvsion.alarm.saveAlarm') }}</span>
+            <span class="btn-label" v-else>{{ $t('getvsion.alarm.isLoading') }}</span>
+          </UiButton>
+        </template>
+        <Modal v-if="waitForConfirmation">
+          <div slot="body">
+            <LoaderContainer :is-loading="isLoading">
+              <div slot="on-loading">
+                <ModalSkeleton :is-loading="isLoading" />
+              </div>
+              <div class="text-warning">
+                {{ $t('getparc.actCreation.carouselItem.MODAL_WARNING') }}
+              </div>
+              <p>
+                <span>{{
+                  $t('alarms.warnings.OVER_CONSUMPTION_VOLUME_FLOTTE.modal.modalPreventMsg')
+                }}</span>
+                <br />
+                <span>{{
+                  $t('alarms.warnings.OVER_CONSUMPTION_VOLUME_FLOTTE.modal.modalConfirmMsg')
+                }}</span>
+              </p>
+            </LoaderContainer>
+          </div>
+          <div slot="footer" class="btn-wrapper">
+            <div v-if="haveError" class="loader" :class="{ error: haveError }">
+              {{ $t('retry') }}
+            </div>
+            <button
+              class="modal-default-button btn btn--cancel"
+              @click.stop="waitForConfirmation = false"
+              :disabled="isLoading"
+            >
+              {{ $t('cancel') }}
+            </button>
+            <button
+              class="modal-default-button btn ml-1 btn--confirm"
+              @click.stop="saveAlarm()"
+              :disabled="isLoading"
+            >
+              {{ $t('confirm') }}
+            </button>
+          </div>
+        </Modal>
       </div>
     </div>
   </div>
@@ -69,6 +123,9 @@ import UiCheckbox from '@/components/ui/Checkbox';
 import UiSelect from '@/components/ui/UiSelect';
 import UiInput from '@/components/ui/UiInput';
 import UiButton from '@/components/ui/Button';
+import Modal from '@/components/Modal';
+import LoaderContainer from '@/components/LoaderContainer';
+import ModalSkeleton from '@/components/ui/skeletons/ModalSkeleton';
 import get from 'lodash.get';
 import { getPartyOptions } from '@/api/partners.js';
 
@@ -78,6 +135,9 @@ export default {
     UiSelect,
     UiInput,
     UiButton,
+    Modal,
+    LoaderContainer,
+    ModalSkeleton,
   },
   props: {
     partner: Object,
@@ -94,6 +154,7 @@ export default {
       type: Number,
       default: 3,
     },
+    editMode: Boolean,
   },
   async mounted() {
     if (this.duplicateFrom) {
@@ -159,6 +220,8 @@ export default {
       enableReactivation: false,
       notifList: undefined,
       partnerOptions: undefined,
+      waitForConfirmation: false,
+      haveError: false,
     };
   },
 };
@@ -177,5 +240,53 @@ h5 {
 
 .to-bottom {
   align-self: flex-end;
+}
+
+.form-container {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+
+  ::v-deep .checkbox-container label {
+    margin-bottom: 0;
+    margin-left: 20px;
+  }
+}
+
+.btn {
+  background-color: $orange;
+  color: white;
+
+  &.disabled {
+    opacity: 1;
+    pointer-events: none;
+    background-color: $medium-gray;
+  }
+}
+
+.info {
+  color: $orange;
+}
+
+.btn-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .btn {
+    width: calc(50% - 15px);
+    border: 1px solid $primary;
+
+    &--cancel {
+      background-color: $white;
+      color: $primary;
+    }
+
+    &--confirm {
+      background-color: $primary;
+      color: $white;
+    }
+  }
 }
 </style>

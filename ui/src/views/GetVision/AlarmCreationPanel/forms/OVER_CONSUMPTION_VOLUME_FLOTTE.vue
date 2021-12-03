@@ -541,6 +541,7 @@ export default {
           levelsSms,
           levelsVoice,
           emailNotification: payload.sholdNotify,
+          mailingList: payload.notifList,
           activateAlarm: payload.enableAlarm,
         };
       }
