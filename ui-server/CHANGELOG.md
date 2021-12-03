@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.616+20211203131313
+2021-12-03
+
+### Features
+
+- [2915] ajout de la gestion de commande d'offre digitale pour partenaire M2M Light connecté (2ed78ffa37439993eb754a0f37579a57f08174e3)
+
 ## 1.17.0-master.615+20211203130044
 2021-12-03
 
