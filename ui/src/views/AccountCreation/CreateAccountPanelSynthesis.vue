@@ -319,9 +319,10 @@ $fontSize: 0.8rem;
   flex-direction: column;
   height: 100%;
   max-width: 30%;
-  .synthesis-content {
+  .synthesis-content { 
     overflow-y: auto;
     flex-grow: 1;
+    width: 86%;
   }
   h6 {
     &.title {

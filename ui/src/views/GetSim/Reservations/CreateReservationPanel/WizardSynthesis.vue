@@ -148,6 +148,7 @@ export default {
   .synthesis-content {
     overflow-y: auto;
     flex-grow: 1;
+    width: 86%;
   }
   h6 {
     margin-bottom: 2em;
