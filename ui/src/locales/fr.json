@@ -1996,7 +1996,8 @@
         "validateButton": "Changer d'offre",
         "successMessage": "La demande de changement d'offre a bien été prise en compte.",
         "currentOffer": "Offre actuelle",
-        "changeServices": "Avec changement de services ?"
+        "changeServices": "Avec changement de services ?",
+        "warning": "Attention cet acte a un impact sur le réseau.<br /> Confirmez-vous le changement d'offre ?"
       },
 
       "rechargeLV": {

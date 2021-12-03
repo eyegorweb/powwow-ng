@@ -4,6 +4,7 @@
       v-if="partnerType"
       :validate-fn="doRequest"
       success-message="getparc.actCreation.changeOffer.successMessage"
+      warning-message="getparc.actCreation.changeOffer.warning"
       :check-errors-fn="checkErrors"
       :prevent-send="!canSend"
       :can-change-date="canChangeDate"

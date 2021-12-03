@@ -149,6 +149,7 @@ export default {
     excludeDefaultFields: Boolean,
     confirmLabel: String,
     successMessage: String,
+    warningMessage: String,
     noModal: Boolean,
     preventSend: Boolean,
     partnerType: String,
@@ -194,6 +195,7 @@ export default {
     },
 
     async validate() {
+      console.log('I am here');
       const actionFn = async () => {
         this.tempDataUuid = undefined;
         const response = await this.validateFn({
@@ -221,8 +223,9 @@ export default {
       if (this.noModal) {
         await actionFn();
       } else {
+        console.log(this.warningMessage);
         this.confirmAction({
-          message: 'confirmAction',
+          message: this.warningMessage,
           actionFn,
         });
       }

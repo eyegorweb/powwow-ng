@@ -1801,7 +1801,8 @@
         "validateButton": "Change offer",
         "successMessage": "The request for a change of supply has been taken into account.",
         "currentOffer": "Current offer",
-        "changeServices": "With change of services?"
+        "changeServices": "With change of services?",
+        "warning": "Warning this act has an impact on the network.<br /> Do you confirm ?"
       },
       "rechargeLV": {
         "confirm": "Choose the offer ?",
