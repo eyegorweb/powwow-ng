@@ -64,6 +64,7 @@ import { createDigitalOffer } from '@/api/digital';
 import { fetchBillingAccounts } from '@/api/billingAccounts';
 import { redirectTo } from '@/utils';
 import { mapGetters } from 'vuex';
+import { api } from '@/api/utils';
 
 export default {
   components: {
@@ -226,7 +227,8 @@ export default {
       };
       this.isLoading = true;
       try {
-        const response = await createDigitalOffer(this.formattedData);
+        const token = this.$loGet(api, 'defaults.headers.common.Authorization');
+        const response = await createDigitalOffer(this.formattedData, token);
         this.isLoading = false;
         console.log('response create digital offer >>>>>>>>>>', response);
         this.checkErrors(response);

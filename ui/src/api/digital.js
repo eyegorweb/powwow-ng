@@ -13,10 +13,15 @@ export function fetchSimTypes() {
   return publicApiRoute.get('/api/public/digital-offer/sim').then((res) => res.data.items);
 }
 
-export function createDigitalOffer(formData) {
+export function createDigitalOffer(formData, token) {
+  const config = {
+    headers: {
+      Authorization: token,
+    },
+  };
   try {
     const response = publicApiRoute
-      .post('/api/public/digital-offer/create', formData)
+      .post('/api/public/digital-offer/create', formData, config)
       .then((res) => res.data);
     return response;
   } catch (e) {
@@ -28,9 +33,9 @@ export function createDigitalOffer(formData) {
 }
 
 export function validateAccount(paymentId) {
-  const dynamicValidURL = '/api/public/digital-offer/validate/' + paymentId;
+  const dynamicValidPayment = '/api/public/digital-offer/validate/' + paymentId;
   try {
-    const response = publicApiRoute.post(dynamicValidURL).then((res) => res.data);
+    const response = publicApiRoute.post(dynamicValidPayment).then((res) => res.data);
     return response;
   } catch (e) {
     console.error(e);
