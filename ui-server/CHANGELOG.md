@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.618+20211203155416
+2021-12-03
+
+### Fixes
+
+- [3052] ajouter un message dans le popup pour le changement d'offre (5d22d3d0cb57e0f0c6a697b9d91abd47e961f0e1)
+
 ## 1.17.0-master.617+20211203154631
 2021-12-03
 
