@@ -1,26 +1,18 @@
 <template>
   <div class="creation-panel">
     <div class="step-wrapper">
-      <div class="steps">
+      <div class="steps pb-4">
         <Stepper :key="$i18n.locale" :steps="steps" :selected-index="currentStep" />
       </div>
       <div class="stepContent">
-        <slot
-          name="content"
-          :currentStep="currentStep"
-          :previousStep="previousStep"
-          :stepisDone="stepisDone"
-          :saveSynthesis="saveSynthesis"
-          :reset="reset"
-          :synthesis="synthesis"
-        />
+        <slot name="content" />
       </div>
     </div>
     <div class="wizard-synthesis">
       <div class="loader" v-if="showLoader">
         <div class="skeleton-line"></div>
       </div>
-      <slot v-else name="synthesis" :synthesis="synthesis" :currentStep="currentStep" />
+      <slot v-else name="synthesis" />
     </div>
   </div>
 </template>
@@ -34,37 +26,12 @@ export default {
   },
   props: {
     steps: Array,
+    currentStep: Number,
   },
   data() {
     return {
       showLoader: false,
-      synthesis: {},
-      currentStep: 0,
     };
-  },
-
-  methods: {
-    reset() {
-      this.currentStep = 0;
-      this.synthesis = {};
-    },
-
-    previousStep(payload) {
-      this.saveSynthesis(payload);
-      this.currentStep--;
-    },
-    stepisDone(payload) {
-      this.saveSynthesis(payload);
-      if (this.currentStep < this.steps.length - 1) {
-        this.currentStep++;
-      }
-    },
-    saveSynthesis(payload) {
-      this.synthesis = {
-        ...this.synthesis,
-        ...payload,
-      };
-    },
   },
 };
 </script>

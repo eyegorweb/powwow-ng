@@ -49,7 +49,7 @@
 
 <script>
 import Stepper from '@/components/ui/Stepper';
-import { createAccount } from '@/api/digital.js';
+import { createDigitalOffer } from '@/api/digital.js';
 import CreateAccountPanelSynthesis from './CreateAccountPanelSynthesis';
 import { redirectTo } from '@/utils';
 
@@ -197,7 +197,7 @@ export default {
       };
       this.isLoading = true;
       try {
-        const response = await createAccount(this.formattedData);
+        const response = await createDigitalOffer(this.formattedData);
         this.isLoading = false;
         console.log('response create account >>>>>>>>>>', response);
         this.checkErrors(response);

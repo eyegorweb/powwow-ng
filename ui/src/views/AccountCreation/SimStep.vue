@@ -72,7 +72,6 @@ export default {
   data() {
     return {
       simTypes: [],
-
       limit: 3,
       selectedSimTypeValue: {},
       selectedNumberOfSims: 0,
