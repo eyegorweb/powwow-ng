@@ -27,6 +27,9 @@ export default {
         this.routeToLogin();
       }, 3000);
     }
+    // ajouter la redirection pour commandes suivantes ou recharge
+    // recharge {"paymentTypeEnum":"TOP_UP", "id":880585613, "paid":false} // id=> null retour vers getparc car recherche non unitaire sinon retour vers détail de la ligne
+    // autres commandes {"paymentTypeEnum":"ORDER", "id":221, "paid":false}
   },
 
   computed: {
