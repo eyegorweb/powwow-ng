@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.614+20211203092810
+2021-12-03
+
+### Features
+
+- [3024] Add recharge digital offer act (f1c4ebaf569e60569088a23a08126d3d29039aa3)
+
 ## 1.17.0-master.613+20211201170150
 2021-12-01
 
