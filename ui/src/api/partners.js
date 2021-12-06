@@ -600,6 +600,7 @@ export async function getCustomerAccount(code) {
         company
         status
         massActionsDisabled
+        taxZone
         auditable {
           created
         }
@@ -710,7 +711,8 @@ export async function updateCustomerAccount(params) {
       address2: "${params.address2}",
       zipCode: "${params.zipCode}",
       city: "${params.city}",
-      country: "${params.country}"
+      country: "${params.country}",
+      taxArea: "${params.taxArea}"
     })
   }
   `;
@@ -733,7 +735,7 @@ export async function createCustomerAccount(params) {
       zipCode: "${params.zipCode}",
       city: "${params.city}",
       state: "${params.state}",
-      country: "${params.country}"
+      country: "${params.country}",
       taxArea: "${params.taxArea}"
     })
   }
