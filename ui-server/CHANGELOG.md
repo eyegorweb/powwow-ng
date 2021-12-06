@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.623+20211206155603
+2021-12-06
+
+### Features
+
+- [2915] gestion des retours d'erreur de création paynum (486c7a96c49477dd1aaada0bba3dfa2708802103)
+
 ## 1.17.0-master.622+20211206150327
 2021-12-06
 
