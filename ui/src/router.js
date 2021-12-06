@@ -49,6 +49,11 @@ export default new Router({
       component: () => import('@/views/AccountCreation/SuccessPage.vue'),
     },
     {
+      path: '/payment/ok/:paymentId',
+      name: 'payment.ok',
+      component: () => import('@/views/AccountCreation/SuccessPage.vue'),
+    },
+    {
       path: '/',
       name: 'home',
       component: Home,
