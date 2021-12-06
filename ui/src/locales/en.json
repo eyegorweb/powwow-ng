@@ -454,6 +454,8 @@
     "currentLine": "Actual Line {lineId}",
     "compareLine": "Compared Line",
     "apiError": "Unable to perform the diagnostic",
+    "simpleExport": "Simple export",
+    "advancedExport": "Advanced Export",
     "indicators": {
       "lineStatus": "Is the SIM card authorized to traffic?",
       "testData": "Is data traffic possible?",
@@ -524,7 +526,7 @@
     "nb-of-sim": "Quantity of SIM",
     "nb-of-tapes": "Quantity of coils",
     "export": "Export {total} order(s)",
-    "warning": "The export will be generated offline and will be accessible in document management. Do you want to continue?",
+    "export-warning": "The export will be generated offline and will be accessible in document management. Do you want to continue?",
     "sim-type-labels": {
       "format": "Format",
       "licence": "Licences",
@@ -550,7 +552,7 @@
     "creator": { "title": "User {firstName} {lastName}" },
     "actions": {
       "btn": "Actions",
-      "DETAIL": "Display the détail",
+      "DETAIL": "Display the detail",
       "EXPORT": "Export the lines",
       "IMPORT_SIM": "Import the SIM cards",
       "SHOW_SIM": "Display the SIM cards",
@@ -1049,7 +1051,7 @@
       "Custom": "Custom",
       "M2M": "Export",
       "MVNO": "Export",
-      "LAST_USAGE": "LLast usage",
+      "LAST_USAGE": "Last usage",
       "SERVICES": "Services export"
     },
     "actions": {
@@ -1500,7 +1502,7 @@
           "currentIPv6Address": "Current IPv6 address",
           "geographicalCoordinates": "Geographical coordinates",
           "lastLocationDate": "Date of last location",
-          "useTypeAndDetail": "Type et détail d'usage",
+          "useTypeAndDetail": "Use type and detail",
           "technology": "Technology",
           "technologies": "{value}"
         },
@@ -2312,7 +2314,7 @@
     "classic": "Classic",
     "complete": "Complete",
     "lastUsage": "Last usage",
-    "inProgress": "consumer outstandings",
+    "inProgress": "Consumption export",
     "services": "Services",
     "BO": "Backoffice"
   }
