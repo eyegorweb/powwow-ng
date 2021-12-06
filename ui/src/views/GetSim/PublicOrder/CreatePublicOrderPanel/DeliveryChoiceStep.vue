@@ -3,15 +3,27 @@
     <div class="step-container">
       <div class="deliveryContainer">
         <template v-if="inEditMode">
-          <NewDeliveryAddress
-            @cancel="(inEditMode = false), (addressToEdit = undefined)"
+          <CreateOrderDeliveryNewAddress
+            v-if="inEditMode"
+            @cancel="inEditMode = false"
             @saved="refreshList"
-            @add="addNewAddress"
+            :partner-id="partnerId"
             :address-edit="addressToEdit"
           />
         </template>
         <template v-if="!inEditMode">
           <div class="row mb-3 add-new">
+            <div v-if="lastSelectedAdress" class>
+              <div class="col-md-12">
+                <h6>{{ $t('orders.new.deliveryStep.last') }}</h6>
+                <CreateOrderStepDeliveryAddress
+                  :item="lastSelectedAdress"
+                  :default-selected-item="selectedAddress"
+                  @update:defaultSelectedItem="selectAdress"
+                  name="address"
+                />
+              </div>
+            </div>
             <BlocList :items="address">
               <template slot="firstElement" slot-scope="{ className }">
                 <div
@@ -36,23 +48,13 @@
                 </div>
               </template>
               <template slot-scope="{ item }">
-                <CreateAccountDeliveryAddress
+                <CreateOrderStepDeliveryAddress
                   :item="item"
                   :default-selected-item="selectedAddress"
+                  @update:defaultSelectedItem="selectAdress"
+                  @modify="editAddress"
                   can-edit
                   name="address"
-                  @modify="editAddress"
-                  @update:defaultSelectedItem="selectAdress"
-                />
-              </template>
-              <template v-if="lastSelectedAdress" slot="defaultElement">
-                <CreateAccountDeliveryAddress
-                  :item="lastSelectedAdress"
-                  :default-selected-item="selectedAddress"
-                  can-edit
-                  name="Acccountaddress"
-                  @modify="editAddress"
-                  @update:defaultSelectedItem="selectAdress"
                 />
               </template>
             </BlocList>
@@ -67,8 +69,8 @@
 import CreateOrderStepContainer from '@/views/GetSim/CreateOrder/CreateOrderStepContainer.vue';
 import BlocList from '@/components/BlocList';
 import UiButton from '@/components/ui/Button';
-import CreateAccountDeliveryAddress from '@/views/AccountCreation/CreateAccountDeliveryAddress.vue';
-import NewDeliveryAddress from '@/views/AccountCreation//NewDeliveryAddressStep.vue';
+import CreateOrderStepDeliveryAddress from '@/views/GetSim/CreateOrder/DeliveryStep/CreateOrderStepDeliveryAddress';
+import CreateOrderDeliveryNewAddress from '@/views/GetSim/CreateOrder/DeliveryStep/CreateOrderDeliveryNewAddress'; // ui/src/views/GetSim/CreateOrder/DeliveryStep/CreateOrderDeliveryNewAddress.vue
 import { fetchpartnerAddresses } from '@/api/partners';
 import { mapGetters } from 'vuex';
 
@@ -77,8 +79,8 @@ export default {
     CreateOrderStepContainer,
     BlocList,
     UiButton,
-    CreateAccountDeliveryAddress,
-    NewDeliveryAddress,
+    CreateOrderStepDeliveryAddress,
+    CreateOrderDeliveryNewAddress,
   },
 
   props: {
@@ -90,6 +92,9 @@ export default {
 
   mounted() {
     this.refreshList();
+    if (!this.selectedAddress) {
+      this.selectedAddress = this.lastSelectedAdress;
+    }
   },
 
   data() {
@@ -104,6 +109,9 @@ export default {
 
   computed: {
     ...mapGetters(['userInfos']),
+    partnerId() {
+      return this.userInfos.partners[0].id;
+    },
   },
 
   methods: {
@@ -118,25 +126,17 @@ export default {
       this.addressToEdit = item;
     },
 
-    async refreshList(form) {
+    async refreshList(formId) {
       this.inEditMode = false;
-      if (this.synthesis.deliveryStep && !form) {
-        this.lastSelectedAdress = this.synthesis.deliveryStep;
+      const data = await fetchpartnerAddresses(this.partnerId);
+      if (data) {
+        this.lastSelectedAdress = data.last;
         this.selectedAddress = this.lastSelectedAdress;
-      } else if (form && form.id) {
-        const addressIndex = this.address.findIndex((f) => f.id === form.id);
-        this.address.splice(addressIndex, 1, form);
-        this.lastSelectedAdress = undefined;
-        this.selectedAddress = form;
-      } else {
-        const data = await fetchpartnerAddresses(this.userInfos.partners[0].id);
-        if (data) {
-          this.lastSelectedAdress = data.last;
-          this.selectedAddress = this.lastSelectedAdress;
-          if (data.all) {
-            this.address = [...data.all];
-          }
-        }
+        this.address = data.all;
+      }
+
+      if (formId) {
+        this.selectedAddress = this.address.find((f) => f.id === formId);
       }
     },
 
