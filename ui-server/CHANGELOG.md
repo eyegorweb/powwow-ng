@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.620+20211206094640
+2021-12-06
+
+### Fixes
+
+- [3003] traduction (eb2d2840e4e4b1550ebfe8a90830953951557037)
+- [2915] correction de l'adresse de livraison des autres commandes (f7afa22a58235abe8265d71229025fabbe977ca4)
+
 ## 1.17.0-master.619+20211203165002
 2021-12-03
 
