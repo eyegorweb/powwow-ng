@@ -3,7 +3,7 @@ import OfferStep from './OfferStep.vue';
 import DeliveryStep from './DeliveryStep.vue';
 import PartnerStep from './PartnerStep.vue';
 // import SuccessPage from './SuccessPage.vue';
-import ErrorPage from './ErrorPage.vue';
+// import ErrorPage from './ErrorPage.vue';
 
 export default {
   path: '/create-account',
@@ -34,10 +34,10 @@ export default {
     //   name: 'createAccount.ok',
     //   component: SuccessPage,
     // },
-    {
-      path: 'ko',
-      name: 'createAccount.ko',
-      component: ErrorPage,
-    },
+    // {
+    //   path: 'ko',
+    //   name: 'createAccount.ko',
+    //   component: ErrorPage,
+    // },
   ],
 };
