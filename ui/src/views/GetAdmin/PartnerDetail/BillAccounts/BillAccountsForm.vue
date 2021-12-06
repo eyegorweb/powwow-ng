@@ -156,6 +156,7 @@ export default {
         city: undefined,
         state: undefined,
         country: undefined,
+        taxArea: undefined,
         actBlock: false,
       },
       creationMode: true,
@@ -233,6 +234,7 @@ export default {
       this.form.city = this.account[0].address.city;
       this.form.state = this.account[0].address.state;
       this.form.country = this.countries.find((c) => c.code === this.account[0].address.country);
+      this.form.taxArea = this.countriesAreaTax.find((t) => t.code === this.account[0].taxZone);
     },
     getCountryData(countryCode) {
       if (countryCode === 'null' || !countryCode) {
@@ -266,6 +268,7 @@ export default {
     },
     async save() {
       let params;
+      const countryTaxArea = this.getCountryDataForAreaTax(this.form.taxArea.code);
       if (!this.creationMode) {
         params = {
           id: this.account[0].id,
@@ -279,6 +282,7 @@ export default {
           city: this.form.city,
           state: this.form.state,
           country: this.form.country && this.form.country.code ? this.form.country.code : '',
+          taxArea: countryTaxArea,
         };
       } else {
         const country = this.getCountryData(this.form.country.code);
