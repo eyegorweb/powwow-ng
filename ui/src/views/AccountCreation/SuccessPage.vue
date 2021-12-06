@@ -21,12 +21,21 @@ export default {
   },
 
   mounted() {
+    console.log('success page redirection from paynum', this.$route);
     if (this.$route.params && this.$route.params.paymentId) {
       this.validate(this.$route.params.paymentId);
-      setTimeout(() => {
-        this.routeToLogin();
-      }, 3000);
+
+      // redirection 1ère ou commandes suivantes (donc connecté)
+      if (window.location.href.includes('payment')) {
+        const hashParts = window.location.href.split('/ok/');
+        this.$router.push({ name: 'home', params: { paymentId: hashParts[1] } });
+      } else if (window.location.href.includes('create-account')) {
+        setTimeout(() => {
+          this.routeToLogin();
+        }, 30000);
+      }
     }
+
     // ajouter la redirection pour commandes suivantes ou recharge
     // recharge {"paymentTypeEnum":"TOP_UP", "id":880585613, "paid":false} // id=> null retour vers getparc car recherche non unitaire sinon retour vers détail de la ligne
     // autres commandes {"paymentTypeEnum":"ORDER", "id":221, "paid":false}
@@ -58,6 +67,10 @@ export default {
       // this.$router.push({ name: 'orders.search' });
       // const targetUrl = `${this.authUrl}/oauth/authorize?response_type=token&client_id=${process.env.VUE_APP_CLIENT_ID}&redirect_uri=${window.location.origin}${process.env.VUE_APP_BASE_URL}/callback&prev=${this.currentUrl}`;
       redirectTo(this.refreshUrl);
+    },
+
+    routeToHome() {
+      redirectTo();
     },
   },
 };

@@ -230,7 +230,6 @@ export default {
         const token = this.$loGet(api, 'defaults.headers.common.Authorization');
         const response = await createDigitalOffer(this.formattedData, token);
         this.isLoading = false;
-        console.log('response create digital offer >>>>>>>>>>', response);
         this.checkErrors(response);
         // redirection paynum
         if (response && response.url) {
@@ -243,7 +242,6 @@ export default {
     },
 
     checkErrors(response) {
-      console.log('response errors for commands', response);
       if (response && response.errors) {
         this.businessErrors = response.errors.map((e) => {
           let errors = {};
@@ -301,31 +299,6 @@ export default {
     redirectToPaynum(paynumUrl) {
       redirectTo(paynumUrl);
     },
-  },
-
-  watch: {
-    // synthesis(stepData) {
-    //   console.log('step data', stepData);
-    //   if (stepData && stepData.businessErrors && stepData.businessErrors.length) {
-    //     let previousForm = [];
-    //     const currentForm = [
-    //       stepData.creationAccountStep.company,
-    //       stepData.creationAccountStep.siretValue,
-    //       stepData.creationAccountStep.login,
-    //     ];
-    //     stepData.businessErrors.map((error) => {
-    //       for (const key in error) {
-    //         previousForm.push(error[key]);
-    //       }
-    //     });
-    //     let foundErrors = previousForm.filter((pf) => currentForm.find((cf) => cf === pf));
-    //     if (foundErrors.length) {
-    //       this.isError = true;
-    //     } else {
-    //       this.isError = false;
-    //     }
-    //   }
-    // },
   },
 };
 </script>
