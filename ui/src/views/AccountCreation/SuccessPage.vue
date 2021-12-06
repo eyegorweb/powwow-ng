@@ -32,7 +32,7 @@ export default {
       } else if (window.location.href.includes('create-account')) {
         setTimeout(() => {
           this.routeToLogin();
-        }, 30000);
+        }, 3000);
       }
     }
 
