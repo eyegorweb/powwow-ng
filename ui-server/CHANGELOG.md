@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.624+20211206164120
+2021-12-06
+
+### Fixes
+
+- [2915] correction des apn dans le résumé des commandes (0db55d2b8e216db76cee9277f8b74449283376a8)
+
 ## 1.17.0-master.623+20211206155603
 2021-12-06
 
