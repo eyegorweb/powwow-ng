@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.625+20211206170942
+2021-12-06
+
+### Fixes
+
+- [2915] redirection depuis paynum - correction du délai (cc80c33cc8f522385caef3d74caa32def444ed07)
+
 ## 1.17.0-master.624+20211206164120
 2021-12-06
 
