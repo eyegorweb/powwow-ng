@@ -139,7 +139,7 @@ export default {
             .toString();
           const apn = getApnServices(
             this.$loGet(this.synthesis, 'offerStep.initialOffer.marketingService')
-          )
+          )[0]
             .map((s) => ` ${s.name}`)
             .toString();
           formatted.push({
