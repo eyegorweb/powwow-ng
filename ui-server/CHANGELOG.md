@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.622+20211206150327
+2021-12-06
+
+### Features
+
+- [2915] redirection depuis Paynum pour les commandes du partenaire M2M_LIGHT connecté (063d74c192328fd97a1215ecdc61054cc91afc25)
+
 ## 1.17.0-master.621+20211206143528
 2021-12-06
 
