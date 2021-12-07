@@ -2,6 +2,15 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.626+20211207110320
+2021-12-07
+
+### Fixes
+
+- [3035] corriger la création d'une alarme (12703f50b612ed5d889e768932382e19e13411a8)
+- [3046] redirection des commandes du partenaire connecté en cas d'abandon ou d'erreur (713df42048c1e047292685deed99614061acc876)
+- [3046] ajout des apn sur les synthèses de commande d'offre digitale (30b9fb9a7cd5c3f5195d3fd7c0d64fa1d72f419a)
+
 ## 1.17.0-master.625+20211206170942
 2021-12-06
 
