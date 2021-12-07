@@ -2,7 +2,7 @@ Feature: Création d'actes de gestion
 
   je veux faire des tests sur la creation d'actes de gestion
 
-  @massActions @create_mass_actions
+  @massActions @create_mass_actions @ignore
   Scenario: Je veux créer un acte de suspension de ligne
     Given en tant que BO
     And je regarde le nombre d'actes de gestions
@@ -11,7 +11,7 @@ Feature: Création d'actes de gestion
     When je confirme la création de l'acte
     Then je verifie que mon acte a été créé
 
-  @massActions @create_mass_actions
+  @massActions @create_mass_actions @ignore
   Scenario: Je veux créer un acte d'activation/preactivation
     Given en tant que BO
     And Je vais sur la page des lignes

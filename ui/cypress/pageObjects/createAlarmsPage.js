@@ -11,6 +11,12 @@ export default {
     cy.waitGet(':nth-child(4) > :nth-child(2) > .p-3 > .btn-label').click({ force: true });
     cy.wait(2000);
   },
+  saveModify() {
+    cy.waitGet(':nth-child(4) > :nth-child(2) > .p-3 > .btn-label').click({ force: true });
+    cy.wait(1000);
+    cy.waitGet('.modal-default-button.btn--confirm').click({ force: true });
+    cy.wait(2000);
+  },
   fillAlarmName(alarmName) {
     cy.waitGet('label.alarm-name > input')
       .click({ force: true })

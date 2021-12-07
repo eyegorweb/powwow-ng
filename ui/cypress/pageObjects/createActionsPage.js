@@ -160,7 +160,7 @@ export default {
       },
       validate() {
         cy.waitGet(
-          '.col-7 > div:nth-child(8) > div:nth-child(2) > div:nth-child(2) > button'
+          '.col-7 > div:nth-child(3) > div:nth-child(2) > div:nth-child(2) > button > span'
         ).click({ force: true });
       },
       selectSecondLine() {

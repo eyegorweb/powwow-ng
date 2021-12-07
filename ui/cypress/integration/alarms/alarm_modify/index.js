@@ -33,8 +33,8 @@ Given(
   }
 );
 
-When(`je valide la création`, () => {
-  createAlarmsPage.saveAlarm();
+When(`je valide la modification`, () => {
+  createAlarmsPage.saveModify();
 });
 
 Then("je vérifie la modification du nom de l'alarme mutualisée", () => {

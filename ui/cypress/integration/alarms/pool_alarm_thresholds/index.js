@@ -48,7 +48,7 @@ Given("je vais sur l'onglet Voix", () => {
   createAlarmsPage.overConsumptionPool.thresholds.clickVoice();
 });
 
-Given("je modifie le deuxième seuil à {string} avant le {string} du mois", (value, date) => {
+Given('je modifie le deuxième seuil à {string} avant le {string} du mois', (value, date) => {
   createAlarmsPage.overConsumptionPool.thresholds.setSecondThresholdValue(value);
   createAlarmsPage.overConsumptionPool.thresholds.setSecondThresholdDate(date);
 });
@@ -71,7 +71,7 @@ Given("j'enrgistre l'alarme", () => {
   createAlarmsPage.saveAlarm();
 });
 
-Given("je donne le nom {string}", (alarmName) => {
+Given('je donne le nom {string}', (alarmName) => {
   createAlarmsPage.fillAlarmName(alarmName);
 });
 
@@ -81,6 +81,10 @@ Given("je clique sur l'ID de l'alarme créée", () => {
 
 When("j'enregistre l'alarme", () => {
   createAlarmsPage.saveAlarm();
+});
+
+When("j'enregistre la modification de l'alarme", () => {
+  createAlarmsPage.saveModify();
 });
 
 Then('je vérifie que les données de seuil du volet correspondent aux seuils rentrés', () => {
