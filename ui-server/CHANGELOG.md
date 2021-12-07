@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.628+20211207144208
+2021-12-07
+
+### Fixes
+
+- [3052] corriger le changement d'offre avec rcard compatiblité (1f985220134b18a43f7edf52c137b31b56dabfeb)
+
 ## 1.17.0-master.627+20211207135529
 2021-12-07
 
