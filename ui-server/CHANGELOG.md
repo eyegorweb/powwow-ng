@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.631+20211207155959
+2021-12-07
+
+### Fixes
+
+- [3046] affichage du message de redirection et centrage du loader après payment paynum (bb71a9ee11449b1cee89f94480b1a421a5585f0b)
+
 ## 1.17.0-master.630+20211207153405
 2021-12-07
 
