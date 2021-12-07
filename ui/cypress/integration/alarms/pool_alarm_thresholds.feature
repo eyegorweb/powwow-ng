@@ -109,7 +109,7 @@ Feature: Seuils des alarmes de flotte
     And je modifie le deuxième seuil à "80" avant le "25" du mois
     And je vais sur l'onglet Voix
     And je modifie le deuxième seuil à "80" avant le "25" du mois
-    When j'enregistre l'alarme
+    When j'enregistre la modification de l'alarme
     Then je vérifie que les données de seuil du volet correspondent aux seuils rentrés
 
   @alarms @pool_alarm_thresholds @ignore
@@ -132,7 +132,7 @@ Feature: Seuils des alarmes de flotte
     And j'ajoute un deuxième seuil à "80" avant le "25" du mois
     And je vais sur l'onglet Voix
     And j'ajoute un deuxième seuil à "80" avant le "25" du mois
-    When j'enregistre l'alarme
+    When j'enregistre la modification de l'alarme
     Then je vérifie que les données de seuil du volet correspondent aux seuils rentrés
 
   @alarms @pool_alarm_thresholds @ignore
@@ -158,7 +158,7 @@ Feature: Seuils des alarmes de flotte
     And je vais sur l'onglet Voix
     And j'ajoute un deuxième seuil à "80" avant le "25" du mois
     And j'ajoute un troisième seuil à "50" avant le "15" du mois
-    When j'enregistre l'alarme
+    When j'enregistre la modification de l'alarme
     Then je vérifie que les données de seuil du volet correspondent aux seuils rentrés
 
   @alarms @pool_alarm_thresholds
@@ -185,7 +185,7 @@ Feature: Seuils des alarmes de flotte
     And je modifie le deuxième seuil à "80" avant le "25" du mois
     And je vais sur l'onglet Voix
     And je modifie le deuxième seuil à "80" avant le "25" du mois
-    When j'enregistre l'alarme
+    When j'enregistre la modification de l'alarme
     Then je vérifie que les données de seuil du volet correspondent aux seuils rentrés
 
   @alarms @pool_alarm_thresholds
@@ -262,7 +262,7 @@ Feature: Seuils des alarmes de flotte
     And je supprime le deuxième seuil de Data
     And je supprime le deuxième seuil de SMS
     And je supprime le deuxième seuil de Voix
-    When j'enregistre l'alarme
+    When j'enregistre la modification de l'alarme
     Then je vérifie que les données de seuil du volet correspondent aux seuils rentrés
 
   @alarms @pool_alarm_thresholds
@@ -287,5 +287,5 @@ Feature: Seuils des alarmes de flotte
     And je supprime le deuxième seuil de Data
     And je supprime le deuxième seuil de SMS
     And je supprime le deuxième seuil de Voix
-    When j'enregistre l'alarme
+    When j'enregistre la modification de l'alarme
     Then je vérifie que les données de seuil du volet correspondent aux seuils rentrés

@@ -13,7 +13,7 @@ Feature: Modification d'alarmes
     And je clique sur l'ID de cette alarme
     And je clique sur le bouton "Modifier l’alarme"
     And je modifie le nom de l'alarme par "TEST MODIF sur-consommation de la flotte"
-    When je valide la création
+    When je valide la modification
     Then je vérifie la modification du nom de l'alarme mutualisée
 
   @alarms @alarm_modify
@@ -26,7 +26,7 @@ Feature: Modification d'alarmes
     And je clique sur l'ID de cette alarme
     And je clique sur le bouton "Modifier l’alarme"
     And je modifie le nom de l'alarme par "TEST MODIF sur-consommation"
-    When je valide la création
+    When je valide la modification
     Then je vérifie la modification du nom de l'alarme
 
   @alarms @alarm_modify
@@ -39,7 +39,7 @@ Feature: Modification d'alarmes
     And je clique sur l'ID de cette alarme
     And je clique sur le bouton "Modifier l’alarme"
     And je modifie le nom de l'alarme par "TEST MODIF sous-consommation"
-    When je valide la création
+    When je valide la modification
     Then je vérifie la modification du nom de l'alarme
 
   @alarms @alarm_modify
@@ -52,7 +52,7 @@ Feature: Modification d'alarmes
     And je clique sur l'ID de cette alarme
     And je clique sur le bouton "Modifier l’alarme"
     And je modifie le nom de l'alarme par "TEST MODIF changement d'opérateur"
-    When je valide la création
+    When je valide la modification
     Then je vérifie la modification du nom de l'alarme
 
   @alarms @alarm_modify
@@ -65,7 +65,7 @@ Feature: Modification d'alarmes
     And je clique sur l'ID de cette alarme
     And je clique sur le bouton "Modifier l’alarme"
     And je modifie le nom de l'alarme par "TEST MODIF changement de statut"
-    When je valide la création
+    When je valide la modification
     Then je vérifie la modification du nom de l'alarme
 
   @alarms @alarm_modify
@@ -80,7 +80,7 @@ Feature: Modification d'alarmes
     And je clique sur le bouton "Modifier l’alarme"
     And je vérifie que je ne peux pas modifier le partenaire et la portée
     And je modifie le nom de l'alarme par "TEST MODIF changement de statut de profil"
-    When je valide la création
+    When je valide la modification
     Then je vérifie la modification du nom de l'alarme
 
   @alarms @alarm_modify
@@ -93,7 +93,7 @@ Feature: Modification d'alarmes
     And je clique sur l'ID de cette alarme
     And je clique sur le bouton "Modifier l’alarme"
     And je modifie le nom de l'alarme par "TEST MODIF changement de module"
-    When je valide la création
+    When je valide la modification
     Then je vérifie la modification du nom de l'alarme
 
   @alarms @alarm_modify
@@ -106,5 +106,5 @@ Feature: Modification d'alarmes
     And je clique sur l'ID de cette alarme
     And je clique sur le bouton "Modifier l’alarme"
     And je modifie le nom de l'alarme par "TEST MODIF changement de pays"
-    When je valide la création
+    When je valide la modification
     Then je vérifie la modification du nom de l'alarme

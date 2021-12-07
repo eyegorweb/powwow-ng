@@ -28,15 +28,15 @@ Given(`je choisis l'acte de suspension par défaut`, () => {
 });
 
 Given(`je choisis l'acte d'activation par défaut`, () => {
-  typeMassAction = 'Pré-activation et Activation';
+  typeMassAction = 'Pré-activation';
   createActionsPage.actionsPannel.activate();
   createActionsPage.actions.inMass();
   createActionsPage.actions.selectPartner('Lyra');
   createActionsPage.actions.selectBillingAccount('6.42661');
   createActionsPage.actions.apply();
-  createActionsPage.actions.activate.activation();
+  //createActionsPage.actions.activate.activation();
   createActionsPage.actions.activate.clientReference('001');
-  createActionsPage.actions.activate.selectOffre('Parc 2 forfait');
+  //createActionsPage.actions.activate.selectOffre('Parc 2 forfait');
   createActionsPage.actions.activate.validate();
 });
 
@@ -187,6 +187,10 @@ Then('un acte de refus de résiliation est bien créé', () => {
 
 Then(`je verifie que mon acte a été créé`, () => {
   layout.menu.massActions();
+
+  cy.waitGet(
+    '.mt-4 > div.pt-4.pl-4 > div > div.col-md-3 > div:nth-child(1) > div > ul > li:nth-child(1) > div > button > span'
+  ).click({ force: true });
 
   cy.wrap(null).then(() => {
     return cy.waitForGQL('massActionsV2').then((response) => {
