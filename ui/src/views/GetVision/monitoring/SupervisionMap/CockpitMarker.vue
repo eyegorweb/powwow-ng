@@ -70,11 +70,15 @@ export default {
       this.isVisible = false;
     },
     showAlertsPopover() {
-      this.contentPopup = `Nombre d'alertes sur les 7 derniers jours`;
+      const location = this.$loGet(this.data, 'data.locationName');
+      const trad = this.$t('getvsion.cockpitMarker.alarm');
+      this.contentPopup = `${location}
+${trad}`;
       this.isVisible = true;
     },
     showLinesUsagePopover() {
-      this.contentPopup = `Nombre SIM trafiquantes du jour
+      const trad = this.$t('getvsion.cockpitMarker.sim');
+      this.contentPopup = `${trad}
 Data: ${this.data.dataTrafic}
 SMS: ${this.data.smsTrafic}
 Voix: ${this.data.voiceTrafic}`;
