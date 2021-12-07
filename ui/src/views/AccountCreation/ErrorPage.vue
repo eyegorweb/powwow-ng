@@ -4,9 +4,7 @@
       <div class="creation-panel">
         <div class="stepper-container">
           <CircleLoader />
-          <h6>
-            Paiement non validé.
-          </h6>
+          <h6>{{ $t('digitalOffer.errors.PAYMENT_NOT_VALIDATED') }}.</h6>
         </div>
       </div>
     </div>
@@ -16,6 +14,7 @@
 <script>
 import CircleLoader from '@/components/ui/CircleLoader';
 import { validateAccount } from '@/api/digital.js';
+import { redirectTo, getBaseURL } from '@/utils';
 
 export default {
   components: {
@@ -23,7 +22,7 @@ export default {
   },
 
   mounted() {
-    console.log('success page redirection from paynum', this.$route);
+    console.log('error page redirection from paynum', this.$route);
     if (this.$route.params && this.$route.params.paymentId) {
       this.validate(this.$route.params.paymentId);
 
@@ -43,11 +42,30 @@ export default {
     // autres commandes {"paymentTypeEnum":"ORDER", "id":221, "paid":false}
   },
 
+  computed: {
+    authUrl() {
+      return getBaseURL();
+    },
+    refreshUrl() {
+      return `${this.authUrl}/oauth/authorize?response_type=token&client_id=${process.env.VUE_APP_CLIENT_ID}&redirect_uri=${window.location.origin}/refresh.html`;
+    },
+    currentUrl() {
+      const sameUrl =
+        location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '');
+
+      return window.location.href.replace(sameUrl, '');
+    },
+  },
+
   methods: {
     async validate(paymentId) {
       if (paymentId) {
         return await validateAccount(paymentId);
       }
+    },
+
+    routeToLogin() {
+      redirectTo(this.refreshUrl);
     },
   },
 };

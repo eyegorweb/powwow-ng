@@ -145,7 +145,7 @@ export default {
           formatted.push({
             label: 'digitalOffer.offer',
             value: {
-              content: [this.$loGet(this.synthesis, 'offerStep.name'), services, apn],
+              content: [this.$loGet(this.synthesis, 'offerStep.name'), apn, services],
             },
           });
         }
