@@ -741,6 +741,11 @@
     },
     "supervisionMarker": "{count} ligne(s) {type}",
 
+    "cockpitMarker": {
+      "alarm": "Nombre d'alertes sur les 7 derniers jours",
+      "sim": "Nombre SIM trafiquantes du jour"
+    },
+
     "detail-panel": {
       "stepper": {
         "created": "Créée"

@@ -769,7 +769,12 @@
         "less500": "Unsupervised countries with less than 500 lines"
       }
     },
-    "supervisionMarker": "{count} {type} line(s)"
+    "supervisionMarker": "{count} {type} line(s)",
+
+    "cockpitMarker": {
+      "alarm": "Nombre d'alertes sur les 7 derniers jours",
+      "sim": "Nombre SIM trafiquantes du jour"
+    }
   },
   "getadmin": {
     "cf": {
