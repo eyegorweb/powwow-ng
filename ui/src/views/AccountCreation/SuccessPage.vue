@@ -3,7 +3,10 @@
     <div class="cd-panel__content">
       <div class="creation-panel">
         <div class="stepper-container">
-          <CircleLoader />
+          <div class="loader-container">
+            <h6>{{ $t('processing') }}...</h6>
+            <CircleLoader />
+          </div>
         </div>
       </div>
     </div>
@@ -35,10 +38,6 @@ export default {
         }, 3000);
       }
     }
-
-    // ajouter la redirection pour commandes suivantes ou recharge
-    // recharge {"paymentTypeEnum":"TOP_UP", "id":880585613, "paid":false} // id=> null retour vers getparc car recherche non unitaire sinon retour vers détail de la ligne
-    // autres commandes {"paymentTypeEnum":"ORDER", "id":221, "paid":false}
   },
 
   computed: {
@@ -86,6 +85,18 @@ export default {
     display: flex;
     flex-flow: column nowrap;
     height: 100%;
+    position: relative;
+
+    .loader-container {
+      width: 300px;
+      height: 300px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin: -150px 0 0 -150px;
+      font-size: 3rem;
+      text-align: center;
+    }
   }
 }
 </style>
