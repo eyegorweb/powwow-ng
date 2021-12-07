@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.630+20211207153405
+2021-12-07
+
+### Fixes
+
+- [3046] ajout de la permission pour afficher l'historique des actes de gestion (30ab67dcc99f93fccff4221a9ce30f02b114ba66)
+
 ## 1.17.0-master.629+20211207151921
 2021-12-07
 
