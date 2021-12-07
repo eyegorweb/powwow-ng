@@ -95,7 +95,7 @@
 import UiCheckbox from '@/components/ui/Checkbox';
 import CircleLoader from '@/components/ui/CircleLoader';
 import CreateOrderPanelSynthesisItem from '@/views/GetSim/CreateOrder/CreateOrderPanelSynthesisItem.vue';
-import { getOfferServices, getApnServices } from '@/components/Services/utils.js';
+import { getOfferServices } from '@/components/Services/utils.js';
 import { formatCurrency } from '@/utils/numbers.js';
 
 export default {
@@ -124,6 +124,25 @@ export default {
     formatCurrency(value) {
       return formatCurrency(value);
     },
+
+    getApnServices(services) {
+      return services
+        .filter((s) => {
+          // caution: s.parameters can return null or [null]
+          return !!s && !!s.parameters && !!s.parameters.length && !!s.parameters[0];
+        })
+        .map((p) => {
+          const parameters = p.parameters.map((p) => {
+            return {
+              code: p.code,
+              name: p.name,
+              version: p.versionIp,
+              ipAdress: p.ipAdress,
+            };
+          });
+          return parameters;
+        });
+    },
   },
 
   computed: {
@@ -137,10 +156,10 @@ export default {
           )
             .map((s) => ` ${s.labelService}`)
             .toString();
-          const apn = getApnServices(
+          const apn = this.getApnServices(
             this.$loGet(this.synthesis, 'offerStep.initialOffer.marketingService')
           )[0]
-            .map((s) => ` ${s.name}`)
+            .map((s) => ` ${this.$t('digitalOffer.offerPackages.' + s.name)}`)
             .toString();
           formatted.push({
             label: 'digitalOffer.offer',

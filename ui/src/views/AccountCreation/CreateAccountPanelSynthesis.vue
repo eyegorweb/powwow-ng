@@ -91,7 +91,7 @@
 import CreateAccountPanelSynthesisItem from '@/views/GetSim/CreateOrder/CreateOrderPanelSynthesisItem.vue';
 import CircleLoader from '@/components/ui/CircleLoader';
 import { formatCurrency } from '@/utils/numbers.js';
-import { getOfferServices, getApnServices } from '@/components/Services/utils.js';
+import { getOfferServices } from '@/components/Services/utils.js';
 
 export default {
   components: {
@@ -155,16 +155,15 @@ export default {
           )
             .map((s) => ` ${s.labelService}`)
             .toString();
-          const apn = getApnServices(
+          const apn = this.getApnServices(
             this.$loGet(this.synthesis, 'offerStep.initialOffer.marketingService')
-          )
-            .map((s) => ` ${s.name}`)
+          )[0]
+            .map((s) => ` ${this.$t('digitalOffer.offerPackages.' + s.name)}`)
             .toString();
-          // console.log('apn', apn);
           formatted.push({
             label: 'digitalOffer.offer',
             value: {
-              content: [this.$loGet(this.synthesis, 'offerStep.name'), services, apn],
+              content: [this.$loGet(this.synthesis, 'offerStep.name'), apn, services],
             },
           });
         }
@@ -307,6 +306,25 @@ export default {
     formatCurrency(value) {
       return formatCurrency(value);
     },
+
+    getApnServices(services) {
+      return services
+        .filter((s) => {
+          // caution: s.parameters can return null or [null]
+          return !!s && !!s.parameters && !!s.parameters.length && !!s.parameters[0];
+        })
+        .map((p) => {
+          const parameters = p.parameters.map((p) => {
+            return {
+              code: p.code,
+              name: p.name,
+              version: p.versionIp,
+              ipAdress: p.ipAdress,
+            };
+          });
+          return parameters;
+        });
+    },
   },
 };
 </script>
@@ -319,7 +337,7 @@ $fontSize: 0.8rem;
   flex-direction: column;
   height: 100%;
   max-width: 30%;
-  .synthesis-content { 
+  .synthesis-content {
     overflow-y: auto;
     flex-grow: 1;
     width: 86%;

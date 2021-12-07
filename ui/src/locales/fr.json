@@ -190,6 +190,8 @@
       "DATA": "Data {value} {unit}",
       "SMS": "Sms {value}",
       "VOICE": "Voix {value} {unit}",
+      "objcoPprive": "Adresse IP privée",
+      "objcoPpublic": "Adresse IP publique",
       "infoMessage": "La communication est à l'initiative du boitier"
     },
     "offerStep": {

@@ -4,6 +4,7 @@
     <template v-if="isContentArray">
       <div :key="value" v-for="value in content">
         {{ value }}
+        <slot name="info" />
       </div>
     </template>
     <p v-else-if="content">
