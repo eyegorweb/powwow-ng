@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.629+20211207151921
+2021-12-07
+
+### Features
+
+- [000] Maintenance des tests Cypress (cf1461877f5d01fdaa24de5fe108c8e7573fa6f4)
+
 ## 1.17.0-master.628+20211207144208
 2021-12-07
 
