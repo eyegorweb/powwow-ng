@@ -322,6 +322,13 @@ function getScopeGQLParams(params) {
   const offer = get(params, 'scope.offer.id');
   const billingAccount = get(params, 'scope.billingAccount.id');
 
+  if (offer && billingAccount) {
+    const offerGqlParams = [`idParty: {eq: ${params.scope.partnerId}}`];
+    offerGqlParams.push(`relatedOffers: {eq: "${offer}"}`);
+    offerGqlParams.push(`idCF: {eq: ${billingAccount}}`);
+    return offerGqlParams.join(',');
+  }
+
   if (offer) {
     const offerGqlParams = [`idParty: {eq: ${params.scope.partnerId}}`];
     offerGqlParams.push(`relatedOffers: {eq: "${offer}"}`);
