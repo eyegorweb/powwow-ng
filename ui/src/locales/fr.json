@@ -183,7 +183,8 @@
       "GENERIC_ERROR": "GENERIC_ERROR",
       "PAYMENT_INVALID": "PAYMENT_INVALID",
       "PAYMENT_PAID": "PAYMENT_PAID",
-      "PAYMENT_ONGOING": "PAYMENT_ONGOING"
+      "PAYMENT_ONGOING": "PAYMENT_ONGOING",
+      "PAYMENT_NOT_VALIDATED": "Paiement non validé"
     },
     "offerPackages": {
       "DATA": "Data {value} {unit}",

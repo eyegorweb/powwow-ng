@@ -64,13 +64,7 @@ export default {
     },
 
     routeToLogin() {
-      // this.$router.push({ name: 'orders.search' });
-      // const targetUrl = `${this.authUrl}/oauth/authorize?response_type=token&client_id=${process.env.VUE_APP_CLIENT_ID}&redirect_uri=${window.location.origin}${process.env.VUE_APP_BASE_URL}/callback&prev=${this.currentUrl}`;
       redirectTo(this.refreshUrl);
-    },
-
-    routeToHome() {
-      redirectTo();
     },
   },
 };

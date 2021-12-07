@@ -70,12 +70,6 @@ export default {
     } else if (window.location.href.includes('create-account/ko')) {
       const hashParts = window.location.href.split('/ko/');
       this.$router.push({ name: 'createAccount.ko', params: { paymentId: hashParts[1] } });
-    } else if (window.location.href.includes('payment/ok')) {
-      const hashParts = window.location.href.split('/ok/');
-      this.$router.push({ name: 'payment.ok', params: { paymentId: hashParts[1] } });
-    } else if (window.location.href.includes('payment/ko')) {
-      const hashParts = window.location.href.split('/ko/');
-      this.$router.push({ name: 'payment.ko', params: { paymentId: hashParts[1] } });
     } else {
       this.$router.push({ name: 'createAccount.partner' });
     }
