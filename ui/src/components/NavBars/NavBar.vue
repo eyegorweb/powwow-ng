@@ -91,8 +91,9 @@
         >
           <img src="@/assets/en.png" />
         </a>
-
-        <ActHistoryButton />
+        <permission domain="act" action="read">
+          <ActHistoryButton />
+        </permission>
       </div>
       <div class="nav">
         <ul class="nav navbar-nav">
