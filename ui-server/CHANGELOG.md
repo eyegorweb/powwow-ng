@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.627+20211207135529
+2021-12-07
+
+### Features
+
+- [3057] cockpit M2M Marqueurs (ff2c49bbe560da08be05f3e4f7cfd1a66de450c1)
+
 ## 1.17.0-master.626+20211207110320
 2021-12-07
 
