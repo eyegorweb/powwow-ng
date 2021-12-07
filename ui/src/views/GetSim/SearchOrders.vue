@@ -3,16 +3,16 @@
     <div class="row mb-0">
       <div class="col-md-9"></div>
       <div class="col-md-3">
-        <!-- <permission domain="getSim" action="create"> -->
-        <UiButton
-          variant="accent"
-          block
-          class="float-right create-order"
-          @click="openCreateOrderPanel()"
-        >
-          {{ $t('getsim.order-sim') }}
-        </UiButton>
-        <!-- </permission> -->
+        <permission domain="getSim" action="create">
+          <UiButton
+            variant="accent"
+            block
+            class="float-right create-order"
+            @click="openCreateOrderPanel()"
+          >
+            {{ $t('getsim.order-sim') }}
+          </UiButton>
+        </permission>
       </div>
     </div>
 
