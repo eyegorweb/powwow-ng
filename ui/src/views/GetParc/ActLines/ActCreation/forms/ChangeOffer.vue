@@ -228,7 +228,13 @@ export default {
             }
           }
         });
-        return { errors: response.errors };
+        return {
+          errors: response.errors,
+          validationError: {
+            validated: response.validated,
+            tempDataUuid: response.tempDataUuid,
+          },
+        };
       }
       return response;
     },
