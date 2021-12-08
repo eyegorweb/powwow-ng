@@ -141,12 +141,14 @@ export default {
           sortingName: 'simcardDesc',
           exportId: 'ORDER_SIMCARD_TYPE',
           tootltipText: (item, row) => {
-            return row.orderedSIMCard.description;
+            return this.userIsPartner ? '' : row.orderedSIMCard.description;
           },
           format: {
             type: 'Getter',
             getter: (row) => {
-              return truncateLabel(row.orderedSIMCard.description, 20);
+              return this.userIsPartner
+                ? row.orderedSIMCard.description
+                : truncateLabel(row.orderedSIMCard.description, 20);
             },
           },
         },
@@ -158,7 +160,6 @@ export default {
           noHandle: true,
           visible: true,
           exportId: 'ORDER_STATUS',
-
           format: {
             component: GetSimOrdersStatusCell,
           },

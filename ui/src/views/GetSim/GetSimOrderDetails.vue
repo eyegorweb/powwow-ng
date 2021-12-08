@@ -104,7 +104,7 @@
           <h6>{{ $t('orders.detail.importedSimQuantity') }} :</h6>
           <p>{{ getFromOrder('importedQuantity') }}</p>
         </div>
-        <div class="overview-item">
+        <div class="overview-item" v-if="!isPublicPartner">
           <h6>{{ $t('action') }} :</h6>
           <p v-if="order.preActivationAsked && order.activationAsked">
             {{ $t('col.preActivationAsked') }} {{ $t('col.activationAsked') }}
@@ -191,7 +191,7 @@
         <div class="overview-item">
           <h4 class="font-weight-normal text-uppercase">{{ $t('common.billingAccount') }}</h4>
         </div>
-        <div class="overview-item">
+        <div class="overview-item" v-if="!isPublicPartner">
           <h6>{{ $t('common.code') }} :</h6>
           <p>{{ getFromOrder('customerAccount.code') }}</p>
         </div>
@@ -204,9 +204,13 @@
           <p v-if="getFromOrder('customerAccount.address.address3')">
             {{ getFromOrder('customerAccount.address.address3') }}
           </p>
-          <p v-if="getFromOrder('customerAccount.address.city')">
-            {{ getFromOrder('customerAccount.address.zipCode') }} -
-            {{ getFromOrder('customerAccount.address.city') }}
+          <p>
+            <template v-if="getFromOrder('customerAccount.address.zipCode')"
+              >{{ getFromOrder('customerAccount.address.zipCode') }} -</template
+            >
+            <template v-if="getFromOrder('customerAccount.address.city')">{{
+              getFromOrder('customerAccount.address.city')
+            }}</template>
           </p>
           <p v-if="getFromOrder('address.countryName')">
             {{ getFromOrder('customerAccount.address.countryName') }}
@@ -214,7 +218,7 @@
         </div>
       </div>
 
-      <div class="overview-container m-3 bg-white bottom-space">
+      <div class="overview-container m-3 bg-white bottom-space" v-if="!isPublicPartner">
         <div class="overview-item">
           <h4 class="font-weight-normal text-uppercase">{{ $t('orders.new.settings') }}</h4>
         </div>
@@ -327,7 +331,10 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['userIsBO']),
+    ...mapGetters(['userIsBO', 'userInfos']),
+    isPublicPartner() {
+      return this.userInfos.partners[0] && this.userInfos.partners[0].partyType === 'M2M_LIGHT';
+    },
     creatorTitle() {
       const title = this.getFromOrder('auditable.creator.name.title');
       if (!title) return '';
