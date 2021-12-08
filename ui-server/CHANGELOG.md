@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.632+20211208142925
+2021-12-08
+
+### Fixes
+
+- [3046] ajout de contrôles pour l'affichage du volet de la commande d'un partenaire M2M_LIGHT (eef07a33f11ecc35eb847e2add09ebaa70cddcbe)
+
 ## 1.17.0-master.631+20211207155959
 2021-12-07
 
