@@ -663,3 +663,31 @@ export async function supervisionExport(params) {
   }
   return response.data.supervisionExport;
 }
+
+export async function lineDistributionByPlmn(params) {
+  const queryStr = `query LineDistributionByPlmn($filter: GeolocListFilterInput ){
+    lineDistributionByPlmn(
+      filter: $filter
+    ) {
+      plmn
+      accessPointNumber
+      percentage
+      operator
+    }
+  }
+  `;
+
+  const response = await query(queryStr, params);
+  if (!response || !response.data) {
+    return {
+      errors: ['unknown'],
+    };
+  }
+  if (response.errors) {
+    return {
+      errors: response.errors,
+    };
+  }
+
+  return response.data.lineDistributionByPlmn;
+}
