@@ -1,5 +1,7 @@
 <template>
   <div>
+    <PlmnDistribution :filters-for-export="filtersForExport" :show="canShowPlmn()">
+    </PlmnDistribution>
     <template v-if="indicatorTotal < 500">
       <PaginatedDataTable
         storage-id="supervision.table"
@@ -89,12 +91,14 @@ import UiButton from '@/components/ui/Button';
 import ExportButton from '@/components/ExportButton';
 import { geoListExport, geoCounterListExport } from '@/api/supervision.js';
 import ICCIDCell from './ICCIDCell';
+import PlmnDistribution from './PlmnDistibution';
 
 export default {
   components: {
     PaginatedDataTable,
     UiButton,
     ExportButton,
+    PlmnDistribution,
   },
 
   props: {
@@ -303,6 +307,13 @@ export default {
   },
 
   methods: {
+    canShowPlmn() {
+      return (
+        this.filtersForExport &&
+        this.filtersForExport.locationType &&
+        this.filtersForExport.locationType != 'CONTINENT'
+      );
+    },
     getExportFn() {
       return async (columnsParam, orderBy, exportFormat, asyncExportRequest) => {
         const sorting = {};
