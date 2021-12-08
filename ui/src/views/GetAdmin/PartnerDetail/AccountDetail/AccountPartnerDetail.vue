@@ -398,8 +398,12 @@ export default {
         commercialName: this.form.commercialName || '',
         commercialEmail: this.form.commercialEmail || '',
         defaultWorkflowCode: this.form.workflow || '',
-        contractDate: '"' + this.form.contractDate + '"' || '',
-        contractExpiration: '"' + this.form.contractExpiration + '"' || '',
+        contractDate: this.form.contractDate ? '"' + this.form.contractDate + '"' : null,
+        contractExpiration: this.form.contractExpiration
+          ? '"' + this.form.contractExpiration + '"'
+          : null,
+
+        tva: this.form.tva || '',
       };
 
       let response;

@@ -646,8 +646,6 @@ export async function getCustomerAccount(code) {
 }
 
 export async function updatePartyDetail(params) {
-  const contractDateParam = params.contractDate !== 'null' || null;
-  const contractExpirationParam = params.contractExpiration !== 'null' || null;
   const queryStr = `
   mutation {
     updateDetailParty(
@@ -671,8 +669,8 @@ export async function updatePartyDetail(params) {
         }
         contractInput: {
           contractReference: "${params.contractReference}"
-          contractDate: ${contractDateParam}
-          contractExpiration: ${contractExpirationParam}
+          contractDate: ${params.contractDate}
+          contractExpiration: ${params.contractExpiration}
           salesEngineer: "${params.salesEngineer}"
           commercialName: "${params.commercialName}"
           commercialEmail: "${params.commercialEmail}"
