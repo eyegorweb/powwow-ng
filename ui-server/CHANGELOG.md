@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.633+20211208172917
+2021-12-08
+
+### Features
+
+- [3060] GetVision - repartition par PLMN. (63bc28bc74d4942553694b9cd1d9b642cc4c93ed)
+
 ## 1.17.0-master.632+20211208142925
 2021-12-08
 
