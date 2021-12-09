@@ -22,6 +22,7 @@
 import $ from 'jquery';
 import 'daterangepicker/daterangepicker.js';
 import 'daterangepicker/daterangepicker.css';
+import moment from 'moment';
 
 export default {
   name: 'UiDate',
@@ -71,6 +72,12 @@ export default {
         this.$emit('change', value.format(this.dateFormat));
       };
 
+      const onDateShowCalendar = () => {
+        if (!this.value) {
+          this.$emit('change', moment().format(this.dateFormat));
+        }
+      };
+
       // TODO: add i18n support
       // Problème avec l'utilisation de la librairie, obligatoire pour refresh le state startDate
       setTimeout(() => {
@@ -110,6 +117,8 @@ export default {
           },
           onDateSelected
         );
+
+        this.dateInstance.on('showCalendar.daterangepicker', onDateShowCalendar);
 
         if (this.direction === 'auto') {
           this.dateInstance.on('showCalendar.daterangepicker', function(ev, picker) {
