@@ -2256,6 +2256,7 @@
       "FAILED": "Commande en erreur",
       "TERMINATED": "Terminée",
       "CANCELED": "Annulée",
+      "WAITING_FOR_PAYMENT": "En attente de paiement",
       "CREATED": "En cours"
     },
     "import": "Import",

@@ -2025,6 +2025,7 @@
       "CONFIRMED": "Confirmed",
       "FAILED": "Failed order",
       "TERMINATED": "Finished",
+      "WAITING_FOR_PAYMENT": "Waiting for payment",
       "CANCELED": "Canceled"
     },
     "manufacturerIMEI": "Manufacturer (IMEI)",
