@@ -200,6 +200,15 @@ export default {
         }
       }
 
+      if (this.$loGet(this.synthesis, 'deliveryStep.company')) {
+        formatted.push({
+          label: 'digitalOffer.synthesis.company',
+          value: {
+            content: [`${this.$loGet(this.synthesis, 'deliveryStep.company', '-')}`],
+          },
+        });
+      }
+
       if (this.$loGet(this.synthesis, 'deliveryStep.name')) {
         const civility = `${this.$loGet(this.synthesis, 'deliveryStep.name.title', '')}`;
         const assembledCivility = `${this.$t('common.' + civility)} ${this.$loGet(
