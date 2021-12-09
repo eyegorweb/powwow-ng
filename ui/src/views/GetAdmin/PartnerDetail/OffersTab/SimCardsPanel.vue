@@ -52,7 +52,7 @@
         <UiButton variant="import" @click="closePanel" block>{{ $t('cancel') }}</UiButton>
       </div>
       <div>
-        <UiButton @click="save" variant="primary" block>{{ $t('save') }}</UiButton>
+        <UiButton disabled @click="save" variant="primary" block>{{ $t('save') }}</UiButton>
       </div>
     </div>
   </BaseDetailPanelContent>
