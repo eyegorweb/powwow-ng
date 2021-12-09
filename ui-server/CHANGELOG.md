@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.634+20211209082722
+2021-12-09
+
+### Fixes
+
+- [3046] contrôle des entrées dans l'étape Partenaires pour la création de compte (3361bcc7c387a87254006bd7a66f023818b31487)
+
 ## 1.17.0-master.633+20211208172917
 2021-12-08
 
