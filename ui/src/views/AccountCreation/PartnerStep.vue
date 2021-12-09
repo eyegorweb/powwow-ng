@@ -45,7 +45,7 @@
           <FormControl
             label="getadmin.partners.name"
             v-model="form.company"
-            :error="businessErrors['PARTY_NAME_ALREADY_EXIST']"
+            :error="businessErrors['PARTY_NAME_ALREADY_EXIST'] || companyInputError"
           />
         </div>
       </div>
@@ -62,9 +62,9 @@
             v-model="form.siretValue"
             @update:value="onChange"
             @focus="onInputFocus"
-            @blur="onInputBlur"
+            @blur="onInputBlur($event)"
             input-type="number"
-            :error="businessErrors['SIRET_ALREADY_EXIST']"
+            :error="businessErrors['SIRET_ALREADY_EXIST'] || siretInputError"
           />
           <span v-if="!hide && !reachedMaxLength && siretType === 'siret'" class="error-text">
             {{ $t('errors.maxlength') }}
@@ -106,7 +106,11 @@
 
       <div class="form-group">
         <label class="small-label">{{ $t('login') }}</label>
-        <UiInput v-model="form.login" block :error="businessErrors['USER_NAME_ALREADY_EXIST']" />
+        <UiInput
+          v-model="form.login"
+          block
+          :error="businessErrors['USER_NAME_ALREADY_EXIST'] || loginInputError"
+        />
         <!-- <small v-if="fieldErrors && errors.login" class="form-text error-text">{{
           $t('required')
         }}</small> -->
@@ -153,6 +157,7 @@ import Toggle from '@/components/ui/UiToggle2';
 
 import { searchAddress, fetchCountries } from '@/api/address';
 import { checkPasswordErrors } from '@/utils.js';
+import { validatePartner } from '@/api/digital.js';
 
 export default {
   components: {
@@ -215,6 +220,7 @@ export default {
         },
       ],
       hide: true,
+      inputErrors: [],
     };
   },
 
@@ -313,15 +319,33 @@ export default {
 
       return foundErrors;
     },
+    companyInputError() {
+      return this.inputErrors.find((err) => err.type === 'USER_NAME')
+        ? this.$t('digitalOffer.errors.USER_NAME_ALREADY_EXIST')
+        : '';
+    },
+    siretInputError() {
+      return this.inputErrors.find((err) => err.type === 'SIRET')
+        ? this.$t('digitalOffer.errors.SIRET_ALREADY_EXIST')
+        : '';
+    },
+    loginInputError() {
+      return this.inputErrors.find((err) => err.type === 'PARTY_NAME')
+        ? this.$t('digitalOffer.errors.PARTY_NAME_ALREADY_EXIST')
+        : '';
+    },
   },
 
   methods: {
     searchAddress,
-    gotoNext() {
-      this.$router.push({
-        name: 'createAccount.offer',
-        params: { step: { creationAccountStep: this.form } },
-      });
+    async gotoNext() {
+      this.inputErrors = await this.checkInputErrors();
+      if (!this.inputErrors.length) {
+        this.$router.push({
+          name: 'createAccount.offer',
+          params: { step: { creationAccountStep: this.form } },
+        });
+      }
     },
 
     isEmailValid(email) {
@@ -346,6 +370,20 @@ export default {
     },
     onInputFocus() {
       this.hide = false;
+    },
+    async validatePartner(fields) {
+      return await validatePartner(fields);
+    },
+    async checkInputErrors() {
+      const errors = await this.validatePartner([
+        { type: 'PARTY_NAME', value: this.form.login },
+        { type: 'USER_NAME', value: this.form.company },
+        { type: 'SIRET', value: this.form.siretValue },
+      ]);
+      if (errors.length) {
+        return errors.filter((err) => !!err.error);
+      }
+      return [];
     },
   },
 
