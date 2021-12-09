@@ -50,3 +50,22 @@ export function validateAccount(paymentId) {
 export function fetchWorkflows() {
   return publicApiRoute.get('/api/public/digital-offer/workflows').then((res) => res.data.items);
 }
+
+export function validatePartner(fields) {
+  try {
+    const response = publicApiRoute
+      .post('/api/public/digital-offer/validateInput', fields)
+      .then((res) => {
+        console.log('validate input partners', res.data);
+        return res.data;
+      });
+    return response;
+  } catch (e) {
+    console.error(e);
+    return {
+      errors: [
+        { code: 'API_ERROR', message: 'API Error lors de la validation de création du partenaire' },
+      ],
+    };
+  }
+}
