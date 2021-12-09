@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.637+20211209164342
+2021-12-09
+
+### Fixes
+
+- [3069] disactiver temporairement les bouton de save du panel (9c2a57814606dc983a28ae8b3f6cb0c04eef7930)
+
 ## 1.17.0-master.636+20211209123808
 2021-12-09
 
