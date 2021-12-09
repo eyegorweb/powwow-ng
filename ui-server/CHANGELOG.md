@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.635+20211209114650
+2021-12-09
+
+### Fixes
+
+- [3052] corriger le message du popup (f88a86af6e49910b6d7b851fccdcd6ef932d4fee)
+
 ## 1.17.0-master.634+20211209082722
 2021-12-09
 
