@@ -1,12 +1,11 @@
 <template>
   <div>
-    <h6>Date de début</h6>
-
+    <h6>{{ $t('filters.actDateStart') }}</h6>
     <UiDate @change="onDateStartChange" :value="startDate" class="d-block">
       <i slot="icon" class="select-icon ic-Flag-Icon" />
     </UiDate>
-    <h6>Date de fin</h6>
 
+    <h6>{{ $t('filters.actDateEnd') }}</h6>
     <UiDate @change="onDateEndChange" :value="endDate" class="d-block">
       <i slot="icon" class="select-icon ic-Flag-Icon" />
     </UiDate>
