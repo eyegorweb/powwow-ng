@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.636+20211209123808
+2021-12-09
+
+### Fixes
+
+- [3058] application de la date du jour sur le filtre Date simple (bd8c654aca918bd22320e4d51cbf7fa81851d3a1)
+- [3067] status commande et société récap commande (f405868368de3fb2886ca504fdf18eb86aa1e642)
+
 ## 1.17.0-master.635+20211209114650
 2021-12-09
 
