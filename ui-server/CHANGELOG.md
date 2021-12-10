@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.638+20211210112716
+2021-12-10
+
+### Features
+
+- [2986] mise en place du volet de paiemnt d'une commande en tant que M2M_LIGHT (82d2943c34b55927739eb37829c3ee99b9cac2b4)
+
 ## 1.17.0-master.637+20211209164342
 2021-12-09
 
