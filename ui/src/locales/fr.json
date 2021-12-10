@@ -148,6 +148,7 @@
     "simType": "SIM",
     "offer": "Offre",
     "delivery": "Livraison",
+    "doPayment": "Procéder au paiement",
     "step1": {
       "company": "Nom de la société",
       "siren": "Siren",
@@ -181,10 +182,11 @@
       "PARTY_NAME_ALREADY_EXIST": "Le nom du partenaire doit être unique",
       "SHIPPING_ADDRESS_MANDATORY": "SHIPPING_ADDRESS_MANDATORY",
       "GENERIC_ERROR": "GENERIC_ERROR",
-      "PAYMENT_INVALID": "PAYMENT_INVALID",
-      "PAYMENT_PAID": "PAYMENT_PAID",
-      "PAYMENT_ONGOING": "PAYMENT_ONGOING",
-      "PAYMENT_NOT_VALIDATED": "Paiement non validé"
+      "PAYMENT_NOT_VALIDATED": "Paiement non validé",
+      "PAYMENT_ERROR": "Erreur lors du paiement. Veuillez réessayer.",
+      "PAYMENT_INVALID": "Vous n'êtes pas autorisé à procéder au paiement",
+      "PAYMENT_PAID": "La demande est déjà payée",
+      "PAYMENT_ONGOING": "Un paiement est déjà en cours"
     },
     "offerPackages": {
       "DATA": "Data {value} {unit}",

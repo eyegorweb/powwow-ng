@@ -5,6 +5,16 @@
         $t('getsim.actions.VALIDATE')
       }}</UiButton>
     </div>
+    <div v-if="userIsM2M_LIGHT && statusIn(['WAITING_FOR_PAYMENT'])">
+      <UiButton variant="accent" block @click="orderPublicPayment()">
+        {{ $t('digitalOffer.doPayment') }}
+      </UiButton>
+    </div>
+    <div v-if="userIsM2M_LIGHT && statusIn(['WAITING_FOR_PAYMENT'])">
+      <UiButton variant="accent" block @click="updateStatus('CANCELED')">{{
+        $t('getsim.actions.CANCEL')
+      }}</UiButton>
+    </div>
     <div
       v-if="
         userIsBO && statusIn(['VALIDATED', 'CONFIRMATION_IN_PROGRESS', 'TO_BE_CONFIRMED_BY_BO'])
@@ -53,7 +63,7 @@
 
 <script>
 import UiButton from '@/components/ui/Button';
-import { updateOrderStatus } from '@/api/orders';
+import { updateOrderStatus, orderPublicPayment } from '@/api/orders';
 import { mapGetters, mapMutations } from 'vuex';
 import { setTimeout } from 'timers';
 import { exportSimCardInstances } from '@/api/linesActions';
@@ -76,7 +86,15 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['userIsBO', 'havePermission']),
+    ...mapGetters(['userIsBO', 'havePermission', 'userInfos']),
+    userIsM2M_LIGHT() {
+      return (
+        !this.userIsBO &&
+        this.userInfos &&
+        this.userInfos.roles &&
+        this.userInfos.roles[0].name === 'M2M_LIGHT_NOT_VALIDATED'
+      );
+    },
   },
 
   methods: {
@@ -148,6 +166,17 @@ export default {
           break;
         }
       }
+    },
+
+    async orderPublicPayment() {
+      return await orderPublicPayment(this.order.id);
+    },
+
+    checkPaymentErrors() {
+      // PAYMENT_ERROR - Erreur lors du paiement. Veuillez réessayer.
+      // PAYMENT_INVALID - Vous n'êtes pas autorisé à procéder au paiement
+      // PAYMENT_PAID - La demande est déjà payée
+      // PAYMENT_ONGOING - Un paiement est déjà en cours
     },
 
     statusIn(statuses) {
