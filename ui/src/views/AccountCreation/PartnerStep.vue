@@ -319,7 +319,7 @@ export default {
 
       return foundErrors;
     },
-    companyInputError() {
+    loginInputError() {
       return this.inputErrors.find((err) => err.type === 'USER_NAME')
         ? this.$t('digitalOffer.errors.USER_NAME_ALREADY_EXIST')
         : '';
@@ -329,7 +329,7 @@ export default {
         ? this.$t('digitalOffer.errors.SIRET_ALREADY_EXIST')
         : '';
     },
-    loginInputError() {
+    companyInputError() {
       return this.inputErrors.find((err) => err.type === 'PARTY_NAME')
         ? this.$t('digitalOffer.errors.PARTY_NAME_ALREADY_EXIST')
         : '';
@@ -376,8 +376,8 @@ export default {
     },
     async checkInputErrors() {
       const errors = await this.validatePartner([
-        { type: 'PARTY_NAME', value: this.form.login },
-        { type: 'USER_NAME', value: this.form.company },
+        { type: 'USER_NAME', value: this.form.login },
+        { type: 'PARTY_NAME', value: this.form.company },
         { type: 'SIRET', value: this.form.siretValue },
       ]);
       if (errors.length) {
