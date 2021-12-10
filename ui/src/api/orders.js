@@ -527,6 +527,25 @@ export async function updateOrderStatus(orderId, newStatus) {
   return response.data.updateOrder;
 }
 
+export async function orderPublicPayment(orderId) {
+  const queryStr = `
+    query {
+      doPayment(orderId: "${orderId}") {
+        paymentId
+        url
+        errors
+      }
+    }`;
+  const response = await query(queryStr);
+  console.log('response', response);
+
+  if (response.errors) {
+    return { errors: response.errors };
+  }
+
+  return response.data.doPayment;
+}
+
 export async function ordersExport(
   columns,
   orderBy,
