@@ -199,7 +199,6 @@ export default {
         if (partnerId) {
           queryParams.params.partyIds = [partnerId];
         }
-
         return await supervisionExport(queryParams);
       };
     },

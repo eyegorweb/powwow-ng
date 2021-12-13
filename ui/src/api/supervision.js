@@ -95,22 +95,57 @@ export async function fetchCockpitMarkers(filters) {
   }
 }
 
-export async function exportRequestFleetSupervision(params, orderBy, exportFormat) {
+export async function exportRequestFleetSupervision(params, exportFormat, sliceType, usageType) {
+  var slices = getSlices(sliceType, params.dateSplitted);
+  const offerCodeFilter = params.offerCode ? ` offerCode: "${params.offerCode}", ` : '';
   const queryStr = `mutation {
     addExportRequestFleetSupervision(
-      filter: {partyId: ${params.partyId}, usageType:DATA, selectedDate:"${params.date}", sliceType:SIX_HOUR, country:"${params.country}"}, exportFormat:${exportFormat}){
+      filter: { ${offerCodeFilter} partyId: ${
+    params.partyId
+  }, usageType:${usageType}, selectedDate:"${
+    params.dateSplitted[0]
+  }", sliceType:${sliceType}, slices:[${slices.map((i) => `"${i}"`).join(',')}] ,country:"${
+    params.country
+  }"}, exportFormat:${exportFormat} ){
       downloadUri
       total
       asyncRequired
     }
   }
   `;
-
   const response = await query(queryStr);
-
   if (response.data) {
     return response.data;
   }
+}
+
+function getSlices(sliceType, date) {
+  var slices = [];
+  switch (sliceType) {
+    case 'INTRA_DAY':
+      if (date.length == 1) {
+        slices = ['T0'];
+      } else if (date.length == 2 && date[1] == '12h') {
+        slices = ['T1'];
+      } else if (date.length == 2 && date[1] == '18h') {
+        slices = ['T2'];
+      } else if (date.length == 2 && date[1] == '24h') {
+        slices = ['T3'];
+      }
+      break;
+    case 'INTRADAY_CUMUL':
+      if (date.length == 1) {
+        slices = ['T0'];
+      } else if (date.length == 2 && date[1] == '12h') {
+        slices = ['T0', 'T1'];
+      } else if (date.length == 2 && date[1] == '18h') {
+        slices = ['T0', 'T1', 'T2'];
+      } else if (date.length == 2 && date[1] == '24h') {
+        slices = ['T0', 'T1', 'T2', 'T3'];
+      }
+      break;
+  }
+  return slices;
 }
 
 export async function fetchLinesForCounter(filters, pagination = { limit: 10, page: 0 }, sorting) {

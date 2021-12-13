@@ -40,7 +40,6 @@ export default {
       this.refreshData();
     },
   },
-
   methods: {
     ...mapMutations(['openExportChoice']),
     sumAllData(dataOut, dataIn) {
@@ -60,9 +59,9 @@ export default {
         exportFn: async (params, orderBy, exportFormat, asyncExportRequest) => {
           return await exportRequestFleetSupervision(
             this.params,
-            orderBy,
             exportFormat,
-            asyncExportRequest
+            this.supervisionType,
+            'DATA'
           );
         },
       });
@@ -215,13 +214,13 @@ export default {
                       y: e.offsetY - 40,
                     });
                     chart.lbl.on('click', (evt) => {
-                      let regex = /(([1-2][0-9])|([1-9])|(3[0-1])).((1[0-2])|([1-9])).[0-9]{4}/g;
-                      const tooltipText = chart.tooltip.label.text.textStr;
-                      const date = tooltipText.match(regex);
+                      const elem = chart.series[0].options.data.filter((e) => e.x === this.x);
+                      const dateSplitted = elem[0].myData.formatDate.split(' ');
                       const params = {
-                        date,
+                        dateSplitted,
                         partyId: that.filters.params.partyIds[0],
                         country: that.filters.params.locationCode,
+                        offerCode: that.filters.params.offerCode,
                       };
 
                       that.chooseExportFormat(params);
@@ -338,6 +337,7 @@ export default {
               [this.points[0].point.myData.formatDate, '<br />']
             );
           },
+          slice: 'xxxx',
         },
         legend: {
           layout: 'horizontal',
