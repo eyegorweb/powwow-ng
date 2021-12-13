@@ -8,9 +8,10 @@
 import Highcharts from 'highcharts';
 import { Chart } from 'highcharts-vue';
 
-import { fetchSupervisionGraphVoice } from '@/api/supervision.js';
+import { fetchSupervisionGraphVoice, exportRequestFleetSupervision } from '@/api/supervision.js';
 import { formatLargeNumber } from '@/utils/numbers';
 import { formatUTCtoStrDate } from '@/utils/date.js';
+import { mapMutations } from 'vuex';
 
 export default {
   components: {
@@ -40,6 +41,20 @@ export default {
   },
 
   methods: {
+    ...mapMutations(['openExportChoice']),
+    chooseExportFormat(params) {
+      this.params = params;
+      this.openExportChoice({
+        exportFn: async (params, orderBy, exportFormat, asyncExportRequest) => {
+          return await exportRequestFleetSupervision(
+            this.params,
+            exportFormat,
+            this.supervisionType,
+            'VOICE'
+          );
+        },
+      });
+    },
     sumAllData(dataOut, dataIn) {
       return dataOut.map((n) => {
         const corresponding = dataIn.find((c) => c.x == n.x);
@@ -111,7 +126,7 @@ export default {
               ${p.y} <br/>
               `;
       };
-
+      var that = this;
       this.chartOptions = {
         chart: {
           zoomType: 'xy',
@@ -132,6 +147,76 @@ export default {
               color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
               style: {
                 textShadow: '0 0 3px black',
+              },
+            },
+          },
+          series: {
+            // allowPointSelect: true,
+            events: {
+              click() {
+                const chart = this.chart;
+                if (chart.lbl) {
+                  chart.lbl.hide();
+                }
+              },
+              // mouseOut: function() {
+              //   const chart = this.chart;
+              //   if (chart.lbl) {
+              //     chart.lbl.hide();
+              //   }
+              // },
+            },
+            point: {
+              events: {
+                contextmenu(e) {
+                  if (that.filters.params.partyIds) {
+                    const chart = this.series.chart;
+                    const text = `<button class="btn btn-primary btn-block py-1 small-text">Export</button>`;
+                    if (!chart.lbl) {
+                      chart.lbl = chart.renderer
+                        .label(text, undefined, undefined, undefined, undefined, undefined, true) // true for useHTML
+                        .css({
+                          fontSize: '12px',
+                        })
+                        .add();
+                    }
+                    chart.lbl.show().attr({
+                      x: e.offsetX,
+                      y: e.offsetY - 40,
+                    });
+                    chart.lbl.on('click', (evt) => {
+                      const elem = chart.series[0].options.data.filter((e) => e.x === this.x);
+                      const dateSplitted = elem[0].myData.formatDate.split(' ');
+                      const params = {
+                        dateSplitted,
+                        partyId: that.filters.params.partyIds[0],
+                        country: that.filters.params.locationCode,
+                        offerCode: that.filters.params.offerCode,
+                      };
+
+                      that.chooseExportFormat(params);
+                      if (evt.stopPropagation) {
+                        evt.stopPropagation();
+                      }
+                      if (evt.preventDefault) {
+                        evt.preventDefault();
+                      }
+                      this.series.chart.lbl.hide();
+                    });
+                    // chart.lbl.on('mouseout', (evt) => {
+                    //   const chart = this.series.chart;
+                    //   if (chart.lbl) {
+                    //     chart.lbl.hide();
+                    //   }
+                    // });
+                  }
+                },
+                click() {
+                  const chart = this.series.chart;
+                  if (chart.lbl) {
+                    chart.lbl.hide();
+                  }
+                },
               },
             },
           },
