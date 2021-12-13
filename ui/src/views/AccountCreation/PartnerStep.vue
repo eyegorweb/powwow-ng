@@ -397,6 +397,7 @@ export default {
         return;
       }
       if (address.city) {
+        address.label = address.label.replace(address.postcode, '').replace(address.city, '');
         this.form.address = address.name;
         this.form.zipCode = address.postcode;
         this.form.city = address.city;
