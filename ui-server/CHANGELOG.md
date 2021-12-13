@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.642+20211213161508
+2021-12-13
+
+### Fixes
+
+- [2905] corriger l'export des états de services (21167ae88683affb0fd3f14df14ab227e9af2633)
+
 ## 1.17.0-master.641+20211213095111
 2021-12-13
 
