@@ -319,9 +319,9 @@ export default {
 
       return foundErrors;
     },
-    loginInputError() {
-      return this.inputErrors.find((err) => err.type === 'USER_NAME')
-        ? this.$t('digitalOffer.errors.USER_NAME_ALREADY_EXIST')
+    companyInputError() {
+      return this.inputErrors.find((err) => err.type === 'PARTY_NAME')
+        ? this.$t('digitalOffer.errors.PARTY_NAME_ALREADY_EXIST')
         : '';
     },
     siretInputError() {
@@ -329,9 +329,9 @@ export default {
         ? this.$t('digitalOffer.errors.SIRET_ALREADY_EXIST')
         : '';
     },
-    companyInputError() {
-      return this.inputErrors.find((err) => err.type === 'PARTY_NAME')
-        ? this.$t('digitalOffer.errors.PARTY_NAME_ALREADY_EXIST')
+    loginInputError() {
+      return this.inputErrors.find((err) => err.type === 'USER_NAME')
+        ? this.$t('digitalOffer.errors.USER_NAME_ALREADY_EXIST')
         : '';
     },
   },

@@ -157,6 +157,12 @@ export default {
     localeNavigatorLanguage() {
       return this.$loGet(navigator, 'language').split('-')[0];
     },
+
+    countryCode() {
+      return this.$loGet(this.synthesis, 'deliveryStep.country.data')
+        ? this.$loGet(this.synthesis, 'deliveryStep.country.data.code')
+        : this.$loGet(this.synthesis, 'deliveryStep.country.code');
+    },
   },
 
   methods: {
@@ -183,7 +189,7 @@ export default {
             address3: null,
             zipCode: this.$loGet(this.synthesis, 'deliveryStep.zipCode'),
             city: this.$loGet(this.synthesis, 'deliveryStep.city'),
-            country: this.$loGet(this.synthesis, 'deliveryStep.country.code'),
+            country: this.countryCode,
             state: null,
           },
           contactInformation: {

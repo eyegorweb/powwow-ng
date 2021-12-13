@@ -56,7 +56,6 @@ export function validatePartner(fields) {
     const response = publicApiRoute
       .post('/api/public/digital-offer/validateInput', fields)
       .then((res) => {
-        console.log('validate input partners', res.data);
         return res.data;
       });
     return response;
