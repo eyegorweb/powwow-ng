@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.641+20211213095111
+2021-12-13
+
+### Fixes
+
+- [3067] amélioration de la saisie du champ adresse lors de la création de compte (ac11cfda335b78dd28ddc95079310682400766c4)
+
 ## 1.17.0-master.640+20211213092025
 2021-12-13
 
