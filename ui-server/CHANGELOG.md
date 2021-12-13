@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.640+20211213092025
+2021-12-13
+
+### Fixes
+
+- [3067] correction des contrôles pour la création de compte (d36f505e2fc05781258ebee4c21548b17249b8d6)
+
 ## 1.17.0-master.639+20211210143750
 2021-12-10
 
