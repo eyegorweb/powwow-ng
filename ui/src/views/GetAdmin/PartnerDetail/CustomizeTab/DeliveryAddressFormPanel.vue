@@ -91,11 +91,11 @@
           </div>
         </div>
       </div>
-      <div class="form-group">
+      <!-- <div class="form-group">
         <label>{{ $t('orders.new.deliveryStep.form.delivery') }}</label>
         <input class="form-control mb-1" v-model="form.extraInfos" disabled />
         <input class="form-control" v-model="form.extraInfos2" disabled />
-      </div>
+      </div> -->
     </div>
 
     <div slot="footer" class="action-buttons">

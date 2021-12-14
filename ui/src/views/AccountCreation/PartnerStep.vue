@@ -74,7 +74,7 @@
 
       <div class="entries-line">
         <div class="form-entry">
-          <label>{{ $t('getadmin.partnerDetail.address') }}</label>
+          <label>{{ $t('digitalOffer.address') }}</label>
           <UiApiAutocomplete :api-method="searchAddress" v-model="selectedAddress" no-icon />
         </div>
       </div>

@@ -39,7 +39,7 @@ $fontSize: 0.8rem;
   h6 {
     color: $gray-680;
     font-size: $fontSize;
-    font-weight: 500;
+    font-weight: 800;
   }
 
   p {
