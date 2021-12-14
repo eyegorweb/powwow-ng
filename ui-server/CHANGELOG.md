@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.645+20211214145848
+2021-12-14
+
+### Fixes
+
+- [3067] contrôle de la tva intracommunautaire (4114c57fbda8ccdb44205b20964c4286d298e920)
+
 ## 1.17.0-master.644+20211214114110
 2021-12-14
 
