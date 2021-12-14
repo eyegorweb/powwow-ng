@@ -199,6 +199,7 @@
     },
     "offerStep": {
       "subscribe": "Souscrire",
+      "topup": "Recharger",
       "offerPeriod": "pour {period} mois"
     }
   },

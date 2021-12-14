@@ -89,6 +89,10 @@ export default {
                 },
                 { id: 'CONFIRMED', label: this.$t('col.statuses.CONFIRMED') },
                 { id: 'VALIDATED', label: this.$t('col.statuses.VALIDATED') },
+                {
+                  id: 'WAITING_FOR_PAYMENT',
+                  label: this.$t('col.statuses.WAITING_FOR_PAYMENT'),
+                },
               ],
             },
             {

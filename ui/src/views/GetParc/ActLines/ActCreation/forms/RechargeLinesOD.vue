@@ -4,14 +4,14 @@
     :confirm-msg="confirmationMessage"
     no-confirm-translation
   >
-    <div slot="main" slot-scope="{ containerValidationFn }">
+    <div slot="main">
       <div class="pricing">
         <div v-if="packages" class="pricing-container">
-          <div class="card" v-for="offer in packages">
-            <OfferCard 
-              :offer="offer" 
+          <div class="card" v-for="(offer, index) in packages" :key="index">
+            <OfferCard
+              :offer="offer"
               :recharge="true"
-              :is-active="offer === currentOffer" 
+              :is-active="offer === currentOffer"
               @select:offer="getCurrentOffer"
             />
           </div>
@@ -34,9 +34,12 @@
           </UiDate>
         </div>
         <div class="col-md-4">
-          <Button @click="rechargeLine" variant="primary" :disabled="!selectedLinesForActCreation.length || !currentOffer">{{
-            $t('getparc.actCreation.carouselItem.RECHARGE_LINES_BTN')
-          }}</Button>
+          <Button
+            @click="rechargeLine"
+            variant="primary"
+            :disabled="!selectedLinesForActCreation.length || !currentOffer"
+            >{{ $t('getparc.actCreation.carouselItem.RECHARGE_LINES_BTN') }}</Button
+          >
         </div>
       </div>
     </div>
@@ -55,6 +58,7 @@ import VerticalEmptyContainer from './parts/VerticalEmptyContainer';
 import OfferCard from '@/views/AccountCreation/OfferCard.vue';
 import UiDate from '@/components/ui/UiDate';
 import moment from 'moment';
+import { createRechargeLVOffer } from '@/api/actCreation.js';
 
 import { fetchODOffers, rechargeLineOD } from '@/api/offers.js';
 import { mapState, mapGetters } from 'vuex';
@@ -96,7 +100,10 @@ export default {
     },
   },
   async mounted() {
-    const response = await fetchODOffers(this.actCreationPrerequisites.partner.id, this.actCreationPrerequisites.offer.id);
+    const response = await fetchODOffers(
+      this.actCreationPrerequisites.partner.id,
+      this.actCreationPrerequisites.offer.id
+    );
     if (response.items && response.items.length) {
       this.packages = response.items[0].offerPackages;
       this.workflowId = response.items[0].id;
@@ -109,9 +116,16 @@ export default {
       this.currentOffer = selectedOffer.selectedOffer;
     },
     async rechargeLine() {
-      const envelopeLabel = this.currentOffer.label
-      const simCardIds = this.selectedLinesForActCreation.map(i => i.id);
-      const response = await rechargeLineOD(this.actCreationPrerequisites.partner.id, this.actDate, this.workflowId, envelopeLabel, simCardIds, 'DIGITAL_OFFER')
+      const envelopeLabel = this.currentOffer.label;
+      const simCardIds = this.selectedLinesForActCreation.map((i) => i.id);
+      const response = await rechargeLineOD(
+        this.actCreationPrerequisites.partner.id,
+        this.actDate,
+        this.workflowId,
+        envelopeLabel,
+        simCardIds,
+        'DIGITAL_OFFER'
+      );
       window.location.href = response.url;
     },
     onActDateChange(value) {
