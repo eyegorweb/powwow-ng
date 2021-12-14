@@ -58,17 +58,22 @@
             :values="toggleValues"
             no-default
           />
-          <FormControl
-            v-model="form.siretValue"
-            @update:value="onChange"
-            @focus="onInputFocus"
-            @blur="onInputBlur($event)"
-            input-type="number"
-            :error="businessErrors['SIRET_ALREADY_EXIST'] || siretInputError"
-          />
-          <span v-if="!hide && !reachedMaxLength && siretType === 'siret'" class="error-text">
-            {{ $t('errors.maxlength') }}
-          </span>
+          <template v-if="siretType === 'siret'">
+            <FormControl
+              v-model="form.siretValue"
+              @update:value="onChange"
+              @focus="onInputFocus"
+              @blur="onInputBlur($event)"
+              input-type="number"
+              :error="businessErrors['SIRET_ALREADY_EXIST'] || siretInputError"
+            />
+            <span v-if="!hide && !reachedMaxLength && siretType === 'siret'" class="error-text">
+              {{ $t('errors.maxlength') }}
+            </span>
+          </template>
+          <template v-else>
+            <FormControl v-model="form.tvaValue" />
+          </template>
         </div>
       </div>
 
@@ -190,6 +195,7 @@ export default {
         title: undefined,
         company: undefined,
         siretValue: undefined,
+        tvaValue: undefined,
         firstName: undefined,
         lastName: undefined,
         zipCode: undefined,
@@ -226,7 +232,7 @@ export default {
 
   computed: {
     requiredFields() {
-      const requiredFields = [
+      let requiredFields = [
         'title',
         'company',
         'firstName',
@@ -240,6 +246,9 @@ export default {
         'login',
         'password',
       ];
+      if (this.siretType === 'tva') {
+        requiredFields = [...requiredFields, 'tvaValue'];
+      }
 
       return requiredFields.filter((f) => {
         // cas spécial pour l'autocomplete, il renvoi un objet {label: ''} si l'input est vide
@@ -375,11 +384,14 @@ export default {
       return await validatePartner(fields);
     },
     async checkInputErrors() {
-      const errors = await this.validatePartner([
+      let objErrorsToChcek = [
         { type: 'USER_NAME', value: this.form.login },
         { type: 'PARTY_NAME', value: this.form.company },
-        { type: 'SIRET', value: this.form.siretValue },
-      ]);
+      ];
+      if (this.siretType === 'siret') {
+        objErrorsToChcek = [...objErrorsToChcek, { type: 'SIRET', value: this.form.siretValue }];
+      }
+      const errors = await this.validatePartner(objErrorsToChcek);
       if (errors.length) {
         return errors.filter((err) => !!err.error);
       }
