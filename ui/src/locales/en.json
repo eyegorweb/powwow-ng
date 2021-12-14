@@ -115,6 +115,8 @@
     "simType": "SIM",
     "offer": "Offer",
     "delivery": "Delivery",
+    "doPayment": "Proceed to payment",
+    "address": "Company name address",
     "step1": {
       "company": "Company name",
       "siren": "Siren",

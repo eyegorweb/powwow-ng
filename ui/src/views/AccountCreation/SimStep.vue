@@ -21,7 +21,7 @@
         </form>
         <div class="text-right">
           <a
-            v-if="!allSimTypesVisible"
+            v-if="!allSimTypesVisible && limit > 3"
             href="#"
             @click.prevent="showAllSimTypes"
             class="show-all-types text-right"

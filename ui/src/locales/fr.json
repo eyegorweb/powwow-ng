@@ -149,6 +149,7 @@
     "offer": "Offre",
     "delivery": "Livraison",
     "doPayment": "Procéder au paiement",
+    "address": "Adresse de la raison sociale",
     "step1": {
       "company": "Nom de la société",
       "siren": "Siren",
