@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.644+20211214114110
+2021-12-14
+
+### Fixes
+
+- [3067] mise à jour du widget Mes commandes (5a57a45ef770edec80ae6b1db45c363c9309c3c1)
+
 ## 1.17.0-master.643+20211214100638
 2021-12-14
 
