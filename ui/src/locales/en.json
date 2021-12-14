@@ -162,6 +162,7 @@
     },
     "offerStep": {
       "subscribe": "Subscribe",
+      "topup": "Top up",
       "offerPeriod": "pour {period} mois"
     }
   },
