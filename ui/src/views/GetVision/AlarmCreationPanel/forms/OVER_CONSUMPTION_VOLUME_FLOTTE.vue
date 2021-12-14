@@ -352,26 +352,29 @@ export default {
             levelsData.levelMax = { level: parseInt(this.levelsData.levelMax.level) };
           }
 
-          if (this.levelsData.level1) {
-            levelsData.level1 = {
-              level: this.levelsData.level1.level,
-              dayOfMonth: this.levelsData.level1.dayOfMonth,
+          if (this.levelsData.levels && this.levelsData.levels.length == 1) {
+            levelsData.levelMax = {
+              level: this.levelsData.levels[0].value,
+              dayOfMonth: this.levelsData.levels[0].limit,
             };
           }
-
           if (this.levelsData.levels && this.levelsData.levels.length == 2) {
+            levelsData.levelMax = {
+              level: this.levelsData.levels[0].value,
+              dayOfMonth: this.levelsData.levels[0].limit,
+            };
+
             levelsData.level1 = {
               level: this.levelsData.levels[1].value,
               dayOfMonth: this.levelsData.levels[1].limit,
             };
           }
-          if (this.levelsData.level2) {
-            levelsData.level2 = {
-              level: this.levelsData.level2.level,
-              dayOfMonth: this.levelsData.level2.dayOfMonth,
-            };
-          }
           if (this.levelsData.levels && this.levelsData.levels.length == 3) {
+            levelsData.levelMax = {
+              level: this.levelsData.levels[0].value,
+              dayOfMonth: this.levelsData.levels[0].limit,
+            };
+
             levelsData.level1 = {
               level: this.levelsData.levels[1].value,
               dayOfMonth: this.levelsData.levels[1].limit,
@@ -418,26 +421,30 @@ export default {
             levelsSms.levelMax = { level: parseInt(this.levelsSms.levelMax.level) };
           }
 
-          if (this.levelsSms.level1) {
-            levelsSms.level1 = {
-              level: this.levelsSms.level1.level,
-              dayOfMonth: this.levelsSms.level1.dayOfMonth,
+          if (this.levelsSms.levels && this.levelsSms.levels.length == 1) {
+            levelsSms.levelMax = {
+              level: this.levelsSms.levels[0].value,
+              dayOfMonth: this.levelsSms.levels[0].limit,
             };
           }
-
           if (this.levelsSms.levels && this.levelsSms.levels.length == 2) {
+            levelsSms.levelMax = {
+              level: this.levelsSms.levels[0].value,
+              dayOfMonth: this.levelsSms.levels[0].limit,
+            };
+
             levelsSms.level1 = {
               level: this.levelsSms.levels[1].value,
               dayOfMonth: this.levelsSms.levels[1].limit,
             };
           }
-          if (this.levelsSms.level2) {
-            levelsSms.level2 = {
-              level: this.levelsSms.level2.level,
-              dayOfMonth: this.levelsSms.level2.dayOfMonth,
-            };
-          }
+
           if (this.levelsSms.levels && this.levelsSms.levels.length == 3) {
+            levelsSms.levelMax = {
+              level: this.levelsSms.levels[0].value,
+              dayOfMonth: this.levelsSms.levels[0].limit,
+            };
+
             levelsSms.level1 = {
               level: this.levelsSms.levels[1].value,
               dayOfMonth: this.levelsSms.levels[1].limit,
@@ -485,26 +492,30 @@ export default {
             levelsVoice.levelMax = { level: parseInt(this.levelsVoice.levelMax.level) };
           }
 
-          if (this.levelsVoice.level1) {
-            levelsVoice.level1 = {
-              level: this.levelsVoice.level1.level,
-              dayOfMonth: this.levelsVoice.level1.dayOfMonth,
+          if (this.levelsVoice.levels && this.levelsVoice.levels.length == 1) {
+            levelsVoice.levelMax = {
+              level: this.levelsVoice.levels[0].value,
+              dayOfMonth: this.levelsVoice.levels[0].limit,
             };
           }
 
           if (this.levelsVoice.levels && this.levelsVoice.levels.length == 2) {
+            levelsVoice.levelMax = {
+              level: this.levelsVoice.levels[0].value,
+              dayOfMonth: this.levelsVoice.levels[0].limit,
+            };
+
             levelsVoice.level1 = {
               level: this.levelsVoice.levels[1].value,
               dayOfMonth: this.levelsVoice.levels[1].limit,
             };
           }
-          if (this.levelsVoice.level2) {
-            levelsVoice.level2 = {
-              level: this.levelsVoice.level2.level,
-              dayOfMonth: this.levelsVoice.level2.dayOfMonth,
-            };
-          }
           if (this.levelsVoice.levels && this.levelsVoice.levels.length == 3) {
+            levelsVoice.levelMax = {
+              level: this.levelsVoice.levels[0].value,
+              dayOfMonth: this.levelsVoice.levels[0].limit,
+            };
+
             levelsVoice.level1 = {
               level: this.levelsVoice.levels[1].value,
               dayOfMonth: this.levelsVoice.levels[1].limit,
