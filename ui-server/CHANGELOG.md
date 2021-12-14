@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.643+20211214100638
+2021-12-14
+
+### Fixes
+
+- [3067] améliorations des inputs sur la création de commande (040a65ca30b4190a29643a6f2bad7e216d7a916f)
+
 ## 1.17.0-master.642+20211213161508
 2021-12-13
 
