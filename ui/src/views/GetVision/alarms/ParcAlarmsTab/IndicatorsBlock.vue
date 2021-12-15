@@ -36,6 +36,9 @@ const endOfPenultimateMonth = moment()
   .endOf('month');
 
 export default {
+  props: {
+    selectedTab: String,
+  },
   data() {
     return {
       indicators: undefined,
@@ -53,13 +56,22 @@ export default {
       if (this.contextPartners) {
         partnerIds = this.contextPartners.map((p) => p.id);
       }
-
-      const response = await fetchAlarmInstancesIndicators(
-        ['ALARM_TRIGGERED_MONTH'],
-        3,
-        partnerIds,
-        this.contextPartnersType
-      );
+      var response;
+      if (this.selectedTab === 'ALARM') {
+        response = await fetchAlarmInstancesIndicators(
+          ['ALARM_TRIGGERED_MONTH'],
+          3,
+          partnerIds,
+          this.contextPartnersType
+        );
+      } else if (this.selectedTab === 'SHARED_CONSO_ALARM') {
+        response = await fetchAlarmInstancesIndicators(
+          ['ALARM_POOL_TRIGGERED_MONTH'],
+          3,
+          partnerIds,
+          this.contextPartnersType
+        );
+      }
 
       if (response && response.length) {
         const history = response[0].histories;

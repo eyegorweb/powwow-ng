@@ -23,6 +23,7 @@ export default {
       type: Array,
       default: () => [],
     },
+    selectedTab: String,
   },
   mounted() {
     this.refreshChart();
@@ -106,12 +107,22 @@ export default {
       if (!this.partners) return;
       const data = [];
       const historyDepth = 30;
-      this.$emit('isLoading', true);
-      const filledValues = await fetchAlarmInstancesIndicators(
-        ['ALARM_TRIGGERED_DAY'],
-        historyDepth,
-        this.partners
-      );
+      var filledValues = [];
+      if (this.selectedTab === 'ALARM') {
+        this.$emit('isLoading', true);
+        filledValues = await fetchAlarmInstancesIndicators(
+          ['ALARM_TRIGGERED_DAY'],
+          historyDepth,
+          this.partners
+        );
+      } else if (this.selectedTab === 'SHARED_CONSO_ALARM') {
+        this.$emit('isLoading', true);
+        filledValues = await fetchAlarmInstancesIndicators(
+          ['ALARM_POOL_TRIGGERED_DAY'],
+          historyDepth,
+          this.partners
+        );
+      }
       this.$emit('isLoading', false);
 
       if (filledValues[0] && filledValues[0].histories && filledValues[0].histories.length) {

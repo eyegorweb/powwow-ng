@@ -50,10 +50,10 @@
         />
       </template>
       <div slot="before-filters">
-        <IndicatorsBlock @apply="indicatorClick" />
+        <IndicatorsBlock @apply="indicatorClick" :selected-tab="alarmType" />
       </div>
       <div slot="before-table">
-        <AlarmsPerDayGraph :partners="selectedPartnerIds" />
+        <AlarmsPerDayGraph :partners="selectedPartnerIds" :selected-tab="alarmType" />
       </div>
       <template slot="actions" slot-scope="{ row }">
         <AlarmsActions :alarm="row" @actionIsDone="refreshAlarms()" />
@@ -100,6 +100,7 @@ export default {
     m2m: Boolean,
     apiFn: Function,
     initFilters: Array,
+    alarmType: String,
   },
   data() {
     return {
