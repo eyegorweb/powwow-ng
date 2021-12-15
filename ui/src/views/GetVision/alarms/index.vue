@@ -22,6 +22,7 @@
             :api-fn="searchAlarms"
             @currentFiltersChange="setCurrentFilters"
             :init-filters="currentFilters"
+            :alarm-type="'ALARM'"
           />
         </div>
         <div class="pt-4 pl-4" slot="cockpitM2M">M2M</div>
@@ -32,6 +33,7 @@
             m2m
             @currentFiltersChange="setCurrentFilters"
             :init-filters="currentFilters"
+            :alarm-type="'SHARED_CONSO_ALARM'"
           />
         </div>
       </UiTabs>
