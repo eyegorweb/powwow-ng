@@ -1305,7 +1305,7 @@
         "incomingRoming": "Roaming entrant",
         "outgoingFrance": "France sortant",
         "outgoingRoaming": "Roaming sortant",
-        "nbAlarms": "Nb d'alarmes",
+        "nbAlarms": "Nb d'alarmes déclenchées",
         "billed": "Facturé",
         "notBilled": "Non facturé",
         "billeds": "Facturé(s)",

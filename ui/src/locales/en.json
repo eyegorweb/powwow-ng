@@ -1181,7 +1181,7 @@
         "incomingRoming": "Incoming roaming",
         "outgoingFrance": "France outgoing",
         "outgoingRoaming": "Outgoing roaming",
-        "nbAlarms": "Nb of alarms",
+        "nbAlarms": "Nb of triggered alarms",
         "billed": "Charged",
         "notBilled": "Not charged",
         "amount": "Amount",
