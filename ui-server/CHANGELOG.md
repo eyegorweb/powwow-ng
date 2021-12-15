@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.649+20211215145711
+2021-12-15
+
+### Fixes
+
+- [3067] Gestion de la condition du titre pour digital offer offres (af48a35f064b8989c5318c5e6872c2c65f0719ea)
+
 ## 1.17.0-master.648+20211215140431
 2021-12-15
 
