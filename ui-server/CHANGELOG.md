@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.647+20211215121341
+2021-12-15
+
+### Fixes
+
+- [3070] Afficher les indicateurs pour les alarmes flottes (b979a07424b20e6ee101c9e705be521c5c7b5354)
+
 ## 1.17.0-master.646+20211214163053
 2021-12-14
 
