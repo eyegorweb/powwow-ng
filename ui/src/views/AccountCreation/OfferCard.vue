@@ -1,7 +1,7 @@
 <template>
   <div class="pricing-table" :class="isActive ? 'active' : ''" v-if="offerUse">
-    <div class="package-title" v-if="offerUse && offerUse.name" :class="isActive ? 'active' : ''">
-      <span>{{ offerUse.name || '-' }}</span>
+    <div class="package-title" v-if="offer && offer.name" :class="isActive ? 'active' : ''">
+      <span>{{ offer.name || '-' }}</span>
     </div>
     <div class="package-layout">
       <div class="package-value">
