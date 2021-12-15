@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.648+20211215140431
+2021-12-15
+
+### Fixes
+
+- [3081] modifier le label du legends.nbAlarms (e24dd31033d4a2a9c04ef15d3e2901a381e8efa8)
+
 ## 1.17.0-master.647+20211215121341
 2021-12-15
 
