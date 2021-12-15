@@ -114,6 +114,28 @@ export default {
             lastName: null,
           },
         },
+        accountAddress: {
+          company: null,
+          address: {
+            address1: null,
+            address2: null,
+            address3: null,
+            zipCode: null,
+            city: null,
+            country: null,
+            state: null,
+          },
+          contactInformation: {
+            email: null,
+            phone: null,
+            mobile: null,
+          },
+          name: {
+            title: null,
+            firstName: null,
+            lastName: null,
+          },
+        },
       },
       isLoading: false,
       inputErrors: undefined,
@@ -201,6 +223,28 @@ export default {
             title: this.$loGet(this.synthesis, 'deliveryStep.title'),
             firstName: this.$loGet(this.synthesis, 'deliveryStep.firstName'),
             lastName: this.$loGet(this.synthesis, 'deliveryStep.lastName'),
+          },
+        },
+        accountAddress: {
+          company: this.$loGet(this.synthesis, 'creationAccountStep.company'),
+          address: {
+            address1: this.$loGet(this.synthesis, 'creationAccountStep.address'),
+            address2: null,
+            address3: null,
+            zipCode: this.$loGet(this.synthesis, 'creationAccountStep.zipCode'),
+            city: this.$loGet(this.synthesis, 'creationAccountStep.city'),
+            country: this.countryCode,
+            state: null,
+          },
+          contactInformation: {
+            email: this.$loGet(this.synthesis, 'creationAccountStep.email'),
+            phone: this.$loGet(this.synthesis, 'creationAccountStep.phone'),
+            mobile: null,
+          },
+          name: {
+            title: this.$loGet(this.synthesis, 'creationAccountStep.title'),
+            firstName: this.$loGet(this.synthesis, 'creationAccountStep.firstName'),
+            lastName: this.$loGet(this.synthesis, 'creationAccountStep.lastName'),
           },
         },
       };
