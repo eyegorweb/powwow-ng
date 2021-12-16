@@ -405,7 +405,7 @@ export default {
           // on met à jour le libellé du statut pour indiquer l'évolution du statut concernant les partenaires M2M_LIGHT
           if (historyEntry.status === 'WAITING_FOR_PAYMENT') {
             s.label = this.$t('orders.detail.statuses.PAYMENT_MADE');
-          } else if (historyEntry.status === 'VALIDATED' && this.isPublicPartner) {
+          } else if (historyEntry.status === 'NOT_VALIDATED' && this.isPublicPartner) {
             s.label = this.$t('orders.detail.statuses.SAVED');
           } else if (
             (historyEntry.status === 'CONFIRMED' ||
