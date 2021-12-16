@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.659+20211216140523
+2021-12-16
+
+### Fixes
+
+- [3072] correction du stepper pour l'étape de validation d'une commande d'offre digitale (82c0390866dec6818b8adb78e632c7493c987057)
+
 ## 1.17.0-master.658+20211216133409
 2021-12-16
 
