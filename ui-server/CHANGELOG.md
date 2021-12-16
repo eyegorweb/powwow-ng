@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.653+20211216085532
+2021-12-16
+
+### Features
+
+- [3072] mise à jour du stepper des commandes d'offre digitale (3ef4dacf93649612f9bd7ef1c3493054dc89cad4)
+
 ## 1.17.0-master.652+20211216082750
 2021-12-16
 
