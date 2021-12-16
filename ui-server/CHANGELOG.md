@@ -2,12 +2,11 @@
 
 <!--- next entry here -->
 
-## 1.17.0-master.656+20211216111824
+## 1.17.0-master.657+20211216111444
 2021-12-16
 
 ### Fixes
 
-- [3076] Offer prereque options (67fec6b80ce950543d61a519def8500508b58ac2)
 - [3072] correction du stepper pour l'étape de validation d'une commande d'offre digitale (8d762656aeac1ba3bef7efea36b097ff8c8e2c0e)
 
 ## 1.17.0-master.655+20211216104627
