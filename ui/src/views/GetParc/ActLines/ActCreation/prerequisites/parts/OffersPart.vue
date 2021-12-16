@@ -76,9 +76,9 @@ export default {
           const data = await fetchOffers(q, [this.partner], queryParams);
           if (data) {
             let dataToUse = data;
-            if (!this.keepSelectedValue) {
-              dataToUse = data.filter((o) => o.code !== this.prerequisiteOffer.code);
-            }
+            // if (!this.keepSelectedValue) {
+            //   dataToUse = data.filter((o) => o.code !== this.prerequisiteOffer.code);
+            // }
             return dataToUse.map((o) => ({
               id: o.code,
               label: o.workflowDescription,
