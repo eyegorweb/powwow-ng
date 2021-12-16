@@ -287,8 +287,8 @@ export default {
       // see docs ticket https://m2m-gitlab.by-docapost.com/powwow-ng/backlog/-/issues/3072
       this.confirmationStepper = [
         {
-          code: 'NOT_VALIDATED',
-          label: this.$t('orders.detail.statuses.SAVED'),
+          code: this.saveStep.code,
+          label: this.saveStep.label,
           date: null,
           index: 0,
         },
@@ -450,6 +450,22 @@ export default {
     },
     massActionsIds() {
       return this.getFromOrder('massActionIds');
+    },
+    saveStep() {
+      let code, label;
+      if (!this.isPublicPartner) return;
+      if (this.order.status === 'NOT_VALIDATED') {
+        code = 'NOT_VALIDATED';
+        label = this.$t('orders.detail.statuses.SAVED');
+      } else if (this.order.status === 'VALIDATED') {
+        code = 'VALIDATED';
+        label = this.$t('orders.detail.statuses.SAVED');
+      } else {
+        // defaults values are 'NOT_VALIDATED'
+        code = 'NOT_VALIDATED';
+        label = this.$t('orders.detail.statuses.SAVED');
+      }
+      return { code, label };
     },
     confirmStep() {
       let code, label;
