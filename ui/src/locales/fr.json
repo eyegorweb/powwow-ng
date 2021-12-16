@@ -2496,7 +2496,12 @@
         "CONFIRMED": "Confirmée",
         "FAILED": "Échouée",
         "TERMINATED": "Terminée",
-        "CANCELED": "Annulée"
+        "CANCELED": "Annulée",
+        "VALIDATION": "Validation",
+        "SAVED": "Enregistré",
+        "WAITING_FOR_PAYMENT": "En attente de paiement",
+        "PAYMENT_MADE": "Paiement effectué",
+        "KO": "Echec / Commande en erreur"
       }
     },
     "search": {

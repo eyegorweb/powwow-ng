@@ -1,62 +1,76 @@
 <template>
-  <div class="action-buttons">
-    <div v-if="statusIn(['NOT_VALIDATED'])">
-      <UiButton variant="accent" block @click="updateStatus('VALIDATED')">{{
-        $t('getsim.actions.VALIDATE')
-      }}</UiButton>
+  <div>
+    <div v-if="paymentErrors.length" class="alert alert-danger ml-2 mr-3 pl-0" role="alert">
+      <ul>
+        <li v-for="(error, index) in paymentErrors" :key="index">
+          {{ $t('digitalOffer.errors.' + error) }}
+        </li>
+      </ul>
     </div>
-    <div v-if="userIsM2M_LIGHT && statusIn(['WAITING_FOR_PAYMENT'])">
-      <UiButton variant="accent" block @click="orderPublicPayment()">
-        {{ $t('digitalOffer.doPayment') }}
-      </UiButton>
-    </div>
-    <div v-if="userIsM2M_LIGHT && statusIn(['WAITING_FOR_PAYMENT'])">
-      <UiButton variant="accent" block @click="updateStatus('CANCELED')">{{
-        $t('getsim.actions.CANCEL')
-      }}</UiButton>
-    </div>
-    <div
-      v-if="
-        userIsBO && statusIn(['VALIDATED', 'CONFIRMATION_IN_PROGRESS', 'TO_BE_CONFIRMED_BY_BO'])
-      "
-    >
-      <UiButton variant="accent" block @click="confirmOrder()">{{
-        $t('getsim.actions.CONFIRM')
-      }}</UiButton>
-    </div>
-    <div v-if="statusIn(['NOT_VALIDATED'])">
-      <UiButton variant="accent" block @click="updateStatus('CANCELED')">{{
-        $t('getsim.actions.CANCEL')
-      }}</UiButton>
-    </div>
-    <div v-if="order.status == 'TERMINATED'">
-      <ExportButton
-        :export-fn="getExportFn()"
-        :columns="[]"
-        :order-by="orderBy"
-        class="exportButton"
+    <div class="action-buttons">
+      <div v-if="statusIn(['NOT_VALIDATED'])">
+        <UiButton variant="accent" block @click="updateStatus('VALIDATED')">{{
+          $t('getsim.actions.VALIDATE')
+        }}</UiButton>
+      </div>
+      <div v-if="userIsM2M_LIGHT && statusIn(['WAITING_FOR_PAYMENT'])">
+        <UiButton
+          variant="accent"
+          :disabled="!!paymentErrors.length"
+          block
+          @click="orderPublicPayment()"
+        >
+          {{ $t('digitalOffer.doPayment') }}
+        </UiButton>
+      </div>
+      <div v-if="userIsM2M_LIGHT && statusIn(['WAITING_FOR_PAYMENT'])">
+        <UiButton variant="accent" block @click="updateStatus('CANCELED')">{{
+          $t('getsim.actions.CANCEL')
+        }}</UiButton>
+      </div>
+      <div
+        v-if="
+          userIsBO && statusIn(['VALIDATED', 'CONFIRMATION_IN_PROGRESS', 'TO_BE_CONFIRMED_BY_BO'])
+        "
       >
-        <span slot="title">{{ $t('getsim.actions.EXPORT') }}</span>
-      </ExportButton>
-    </div>
-    <div
-      v-if="
-        statusIn([
-          'VALIDATED',
-          'CONFIRMATION_IN_PROGRESS',
-          'TO_BE_CONFIRMED',
-          'TO_BE_CONFIRMED_BY_BO',
-          'CONFIRMED',
-        ])
-      "
-    >
-      <UiButton
-        variant="accent"
-        block
-        @click="openOrderPanel"
-        v-if="havePermission('getSim', 'create')"
-        >{{ $t('getsim.actions.DUPLICATE') }}</UiButton
+        <UiButton variant="accent" block @click="confirmOrder()">{{
+          $t('getsim.actions.CONFIRM')
+        }}</UiButton>
+      </div>
+      <div v-if="statusIn(['NOT_VALIDATED'])">
+        <UiButton variant="accent" block @click="updateStatus('CANCELED')">{{
+          $t('getsim.actions.CANCEL')
+        }}</UiButton>
+      </div>
+      <div v-if="order.status == 'TERMINATED'">
+        <ExportButton
+          :export-fn="getExportFn()"
+          :columns="[]"
+          :order-by="orderBy"
+          class="exportButton"
+        >
+          <span slot="title">{{ $t('getsim.actions.EXPORT') }}</span>
+        </ExportButton>
+      </div>
+      <div
+        v-if="
+          statusIn([
+            'VALIDATED',
+            'CONFIRMATION_IN_PROGRESS',
+            'TO_BE_CONFIRMED',
+            'TO_BE_CONFIRMED_BY_BO',
+            'CONFIRMED',
+          ])
+        "
       >
+        <UiButton
+          variant="accent"
+          block
+          @click="openOrderPanel"
+          v-if="havePermission('getSim', 'create')"
+          >{{ $t('getsim.actions.DUPLICATE') }}</UiButton
+        >
+      </div>
     </div>
   </div>
 </template>
@@ -83,6 +97,7 @@ export default {
         key: 'id',
         direction: 'DESC',
       },
+      response: [],
     };
   },
   computed: {
@@ -92,8 +107,11 @@ export default {
         !this.userIsBO &&
         this.userInfos &&
         this.userInfos.roles &&
-        this.userInfos.roles[0].name === 'M2M_LIGHT_NOT_VALIDATED'
+        this.userInfos.partners[0].partyType === 'M2M_LIGHT'
       );
+    },
+    paymentErrors() {
+      return this.response && this.response.errors ? this.response.errors : [];
     },
   },
 
@@ -169,14 +187,9 @@ export default {
     },
 
     async orderPublicPayment() {
-      return await orderPublicPayment(this.order.id);
-    },
-
-    checkPaymentErrors() {
-      // PAYMENT_ERROR - Erreur lors du paiement. Veuillez réessayer.
-      // PAYMENT_INVALID - Vous n'êtes pas autorisé à procéder au paiement
-      // PAYMENT_PAID - La demande est déjà payée
-      // PAYMENT_ONGOING - Un paiement est déjà en cours
+      this.response = await orderPublicPayment(this.order.id);
+      console.log('response >>>>>>>>>>>', this.response);
+      return this.response;
     },
 
     statusIn(statuses) {
