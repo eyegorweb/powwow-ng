@@ -72,7 +72,7 @@
             </span>
           </template>
           <template v-else>
-            <FormControl v-model="form.tvaValue" />
+            <FormControl v-model="form.siretValue" />
           </template>
         </div>
       </div>
@@ -246,15 +246,20 @@ export default {
         'login',
         'password',
       ];
-      if (this.siretType === 'tva') {
-        requiredFields = [...requiredFields, 'tvaValue'];
-      }
+      // if (this.siretType === 'tva') {
+      //   requiredFields = [...requiredFields, 'tvaValue'];
+      // }
 
       return requiredFields.filter((f) => {
         // cas spécial pour l'autocomplete, il renvoi un objet {label: ''} si l'input est vide
         if (f === 'address') {
           if (typeof this.form.address === 'object') {
             return !this.form.address.label;
+          }
+        }
+        if (f === 'country') {
+          if (typeof this.form.country === 'object') {
+            return !this.form.country.label;
           }
         }
         return !this.form[f];
