@@ -299,8 +299,8 @@ export default {
           index: 1,
         },
         {
-          code: 'VALIDATION',
-          label: this.$t('orders.detail.statuses.VALIDATION'),
+          code: this.confirmStep.code,
+          label: this.confirmStep.label,
           date: null,
           index: 2,
         },
@@ -451,19 +451,36 @@ export default {
     },
     confirmStep() {
       let code, label;
-      if (this.order.status === 'CONFIRMED') {
-        code = 'CONFIRMED';
-        label = this.$t('orders.detail.statuses.CONFIRMED');
-      } else if (this.order.status === 'TO_BE_CONFIRMED') {
-        code = 'TO_BE_CONFIRMED';
-        label = this.$t('col.statuses.TO_BE_CONFIRMED');
-      } else if (this.order.status === 'TO_BE_CONFIRMED_BY_BO') {
-        code = 'TO_BE_CONFIRMED_BY_BO';
-        label = this.$t('col.statuses.TO_BE_CONFIRMED_BY_BO');
+      if (!this.isPublicPartner) {
+        if (this.order.status === 'CONFIRMED') {
+          code = 'CONFIRMED';
+          label = this.$t('orders.detail.statuses.CONFIRMED');
+        } else if (this.order.status === 'TO_BE_CONFIRMED') {
+          code = 'TO_BE_CONFIRMED';
+          label = this.$t('col.statuses.TO_BE_CONFIRMED');
+        } else if (this.order.status === 'TO_BE_CONFIRMED_BY_BO') {
+          code = 'TO_BE_CONFIRMED_BY_BO';
+          label = this.$t('col.statuses.TO_BE_CONFIRMED_BY_BO');
+        } else {
+          // defaults values are 'CONFIRMED'
+          code = 'CONFIRMED';
+          label = this.$t('orders.detail.statuses.CONFIRMED');
+        }
       } else {
-        // defaults values are 'CONFIRMED'
-        code = 'CONFIRMED';
-        label = this.$t('orders.detail.statuses.CONFIRMED');
+        if (this.order.status === 'CONFIRMED') {
+          code = 'CONFIRMED';
+          label = this.$t('orders.detail.statuses.VALIDATION');
+        } else if (this.order.status === 'TO_BE_CONFIRMED') {
+          code = 'TO_BE_CONFIRMED';
+          label = this.$t('orders.detail.statuses.VALIDATION');
+        } else if (this.order.status === 'TO_BE_CONFIRMED_BY_BO') {
+          code = 'TO_BE_CONFIRMED_BY_BO';
+          label = this.$t('orders.detail.statuses.VALIDATION');
+        } else {
+          // defaults values are 'CONFIRMED'
+          code = 'CONFIRMED';
+          label = this.$t('orders.detail.statuses.VALIDATION');
+        }
       }
       return { code, label };
     },
