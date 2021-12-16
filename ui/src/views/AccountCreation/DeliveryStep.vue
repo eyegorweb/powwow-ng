@@ -12,28 +12,6 @@
       <template v-if="!inEditMode">
         <div class="row mb-3 add-new">
           <BlocList :items="address">
-            <template slot="firstElement" slot-scope="{ className }">
-              <div
-                :class="`${className}`"
-                @click="(inEditMode = true), (addressToEdit = undefined)"
-              >
-                <div class="add-new">
-                  <UiButton
-                    variant="round-button"
-                    @click="(inEditMode = true), (addressToEdit = undefined)"
-                    class="ic-Plus-Icon test"
-                    style="
-                  margin: auto;
-                  background: #009dcc;
-                  width: 3rem;
-                  height: 3rem;
-                  font-size: 1.5rem;
-                "
-                  />
-                  <span>{{ $t('orders.new.deliveryStep.new') }}</span>
-                </div>
-              </div>
-            </template>
             <template slot-scope="{ item }">
               <CreateAccountDeliveryAddress
                 :item="item"
@@ -65,7 +43,6 @@
 <script>
 import BottomBar from './BottomBar.vue';
 import BlocList from '@/components/BlocList';
-import UiButton from '@/components/ui/Button';
 import CreateAccountDeliveryAddress from './CreateAccountDeliveryAddress.vue';
 import NewDeliveryAddress from './NewDeliveryAddressStep.vue';
 
@@ -73,7 +50,7 @@ export default {
   components: {
     BottomBar,
     BlocList,
-    UiButton,
+
     CreateAccountDeliveryAddress,
     NewDeliveryAddress,
   },
