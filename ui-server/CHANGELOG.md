@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.652+20211216082750
+2021-12-16
+
+### Fixes
+
+- [3067] corrections sur le pays de livraison et sur le numéro intracommunautaire (b9b2eb28a734f5750bee7b6653e9f96fbcedfea7)
+
 ## 1.17.0-master.651+20211216074822
 2021-12-16
 
