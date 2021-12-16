@@ -263,36 +263,82 @@ export default {
           statusError: true,
         },
       ],
+      koStepper: [
+        {
+          code: 'NOT_VALIDATED',
+          label: this.$t('orders.detail.statuses.NOT_VALIDATED'),
+          date: null,
+          index: 0,
+          statusError: false,
+        },
+        {
+          code: 'FAILED',
+          label: this.$t('orders.detail.statuses.KO'),
+          date: null,
+          index: 1,
+          statusError: true,
+        },
+      ],
     };
   },
 
   mounted() {
-    this.confirmationStepper = [
-      {
-        code: 'NOT_VALIDATED',
-        label: this.$t('orders.detail.statuses.NOT_VALIDATED'),
-        date: null,
-        index: 0,
-      },
-      {
-        code: 'VALIDATED',
-        label: this.$t('orders.detail.statuses.VALIDATED'),
-        date: null,
-        index: 1,
-      },
-      {
-        code: this.confirmStep.code,
-        label: this.confirmStep.label,
-        date: null,
-        index: 2,
-      },
-      {
-        code: 'TERMINATED',
-        label: this.$t('orders.detail.statuses.TERMINATED'),
-        date: null,
-        index: 3,
-      },
-    ];
+    if (this.isPublicPartner) {
+      // see docs ticket https://m2m-gitlab.by-docapost.com/powwow-ng/backlog/-/issues/3072
+      this.confirmationStepper = [
+        {
+          code: 'NOT_VALIDATED',
+          label: this.$t('orders.detail.statuses.SAVED'),
+          date: null,
+          index: 0,
+        },
+        {
+          code: 'WAITING_FOR_PAYMENT',
+          label: this.$t('orders.detail.statuses.WAITING_FOR_PAYMENT'),
+          date: null,
+          index: 1,
+        },
+        {
+          code: 'VALIDATION',
+          label: this.$t('orders.detail.statuses.VALIDATION'),
+          date: null,
+          index: 2,
+        },
+        {
+          code: 'TERMINATED',
+          label: this.$t('orders.detail.statuses.TERMINATED'),
+          date: null,
+          index: 3,
+        },
+      ];
+    } else {
+      this.confirmationStepper = [
+        {
+          code: 'NOT_VALIDATED',
+          label: this.$t('orders.detail.statuses.NOT_VALIDATED'),
+          date: null,
+          index: 0,
+        },
+        {
+          code: 'VALIDATED',
+          label: this.$t('orders.detail.statuses.VALIDATED'),
+          date: null,
+          index: 1,
+        },
+        {
+          code: this.confirmStep.code,
+          label: this.confirmStep.label,
+          date: null,
+          index: 2,
+        },
+        {
+          code: 'TERMINATED',
+          label: this.$t('orders.detail.statuses.TERMINATED'),
+          date: null,
+          index: 3,
+        },
+      ];
+    }
   },
 
   props: {
@@ -344,6 +390,8 @@ export default {
       let stepsToUse;
       if (this.order.status === 'CANCELED') {
         stepsToUse = this.cancelStepper;
+      } else if (this.order.status === 'FAILED') {
+        stepsToUse = this.koStepper;
       } else {
         stepsToUse = this.confirmationStepper;
       }
@@ -352,7 +400,20 @@ export default {
         if (!this.order.orderStatusHistories) return;
         const historyEntry = this.order.orderStatusHistories.find((h) => h.status === s.code);
         if (historyEntry) {
+          // on ajoute la date issue de l'historique des statuts
           s.date = historyEntry.statusDate;
+          // on met à jour le libellé du statut pour indiquer l'évolution du statut concernant les partenaires M2M_LIGHT
+          if (historyEntry.status === 'WAITING_FOR_PAYMENT') {
+            s.label = this.$t('orders.detail.statuses.PAYMENT_MADE');
+          } else if (
+            (historyEntry.status === 'CONFIRMED' ||
+              historyEntry.status === 'TO_BE_CONFIRMED' ||
+              historyEntry.status === 'TO_BE_CONFIRMED_BY_BO' ||
+              historyEntry.status === 'CONFIRMATION_IN_PROGRESS') &&
+            this.isPublicPartner
+          ) {
+            s.label = this.$t('orders.detail.statuses.VALIDATED');
+          }
         }
         return s;
       });
