@@ -405,6 +405,8 @@ export default {
           // on met à jour le libellé du statut pour indiquer l'évolution du statut concernant les partenaires M2M_LIGHT
           if (historyEntry.status === 'WAITING_FOR_PAYMENT') {
             s.label = this.$t('orders.detail.statuses.PAYMENT_MADE');
+          } else if (historyEntry.status === 'VALIDATED' && this.isPublicPartner) {
+            s.label = this.$t('orders.detail.statuses.SAVED');
           } else if (
             (historyEntry.status === 'CONFIRMED' ||
               historyEntry.status === 'TO_BE_CONFIRMED' ||
@@ -475,6 +477,9 @@ export default {
           label = this.$t('orders.detail.statuses.VALIDATION');
         } else if (this.order.status === 'TO_BE_CONFIRMED_BY_BO') {
           code = 'TO_BE_CONFIRMED_BY_BO';
+          label = this.$t('orders.detail.statuses.VALIDATION');
+        } else if (this.order.status === 'CONFIRMATION_IN_PROGRESS') {
+          code = 'CONFIRMATION_IN_PROGRESS';
           label = this.$t('orders.detail.statuses.VALIDATION');
         } else {
           // defaults values are 'CONFIRMED'
