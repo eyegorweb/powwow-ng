@@ -180,10 +180,13 @@ export default {
       return this.$loGet(navigator, 'language').split('-')[0];
     },
 
-    countryCode() {
-      return this.$loGet(this.synthesis, 'deliveryStep.country.data')
-        ? this.$loGet(this.synthesis, 'deliveryStep.country.data.code')
-        : this.$loGet(this.synthesis, 'deliveryStep.country.code');
+    deliveryCountryCode() {
+      if (this.$loGet(this.synthesis, 'deliveryStep')) {
+        return this.$loGet(this.synthesis, 'deliveryStep.country.data')
+          ? this.$loGet(this.synthesis, 'deliveryStep.country.data.code')
+          : this.$loGet(this.synthesis, 'deliveryStep.country.code');
+      }
+      return '';
     },
   },
 
@@ -211,7 +214,7 @@ export default {
             address3: null,
             zipCode: this.$loGet(this.synthesis, 'deliveryStep.zipCode'),
             city: this.$loGet(this.synthesis, 'deliveryStep.city'),
-            country: this.countryCode,
+            country: this.deliveryCountryCode,
             state: null,
           },
           contactInformation: {
@@ -233,7 +236,7 @@ export default {
             address3: null,
             zipCode: this.$loGet(this.synthesis, 'creationAccountStep.zipCode'),
             city: this.$loGet(this.synthesis, 'creationAccountStep.city'),
-            country: this.countryCode,
+            country: this.$loGet(this.synthesis, 'creationAccountStep.country.code'),
             state: null,
           },
           contactInformation: {

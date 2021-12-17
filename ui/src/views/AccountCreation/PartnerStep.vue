@@ -259,7 +259,7 @@ export default {
         }
         if (f === 'country') {
           if (typeof this.form.country === 'object') {
-            return !this.form.country.label;
+            return !this.form.country.code;
           }
         }
         return !this.form[f];
