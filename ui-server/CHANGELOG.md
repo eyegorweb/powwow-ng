@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.660+20211217074822
+2021-12-17
+
+### Fixes
+
+- [3086] modification de l'adresse de livraison (ca5e2873884ab862ba9590f01729804dfe7a3464)
+
 ## 1.17.0-master.659+20211216140523
 2021-12-16
 
