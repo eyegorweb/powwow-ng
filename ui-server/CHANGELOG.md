@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.661+20211217103746
+2021-12-17
+
+### Fixes
+
+- [3067] gestion des erreurs lors de la création de commande (5e9d823be7dd397370781e2e9fecd5e5607d2108)
+
 ## 1.17.0-master.660+20211217074822
 2021-12-17
 
