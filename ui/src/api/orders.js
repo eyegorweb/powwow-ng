@@ -537,7 +537,6 @@ export async function orderPublicPayment(orderId) {
       }
     }`;
   const response = await query(queryStr);
-  console.log('response', response);
 
   if (response.errors) {
     return { errors: response.errors };

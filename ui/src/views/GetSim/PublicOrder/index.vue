@@ -42,6 +42,13 @@
                 </span>
               </li>
             </ul>
+            <ul>
+              <li v-for="(value, name) in requestErrors" :key="name">
+                <span v-for="(val, nom) in value" :key="nom">
+                  {{ $t('digitalOffer.errors.' + nom) }}
+                </span>
+              </li>
+            </ul>
           </div>
           <div v-if="inputErrors" class="alert alert-danger" role="alert">
             <ul>
@@ -123,6 +130,7 @@ export default {
       isLoading: false,
       inputErrors: undefined,
       businessErrors: undefined,
+      requestErrors: undefined,
       customerAccountId: null,
       partyId: null,
       isError: false,
@@ -243,6 +251,13 @@ export default {
 
     checkErrors(response) {
       if (response && response.errors) {
+        this.requestErrors = response.errors.filter(
+          (e) =>
+            e !== 'USER_NAME_ALREADY_EXIST' &&
+            e !== 'SIRET_ALREADY_EXIST' &&
+            e !== 'PARTY_NAME_ALREADY_EXIST' &&
+            e !== 'SIRET_MANDATORY'
+        );
         this.businessErrors = response.errors.map((e) => {
           let errors = {};
           switch (e) {
