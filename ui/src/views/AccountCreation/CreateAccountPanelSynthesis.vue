@@ -131,7 +131,7 @@ export default {
               this.synthesis,
               'creationAccountStep.zipCode',
               '-'
-            )} - ${this.$loGet(this.synthesis, 'creationAccountStep.city', '-')}`;
+            )} - ${this.$loGet(this.synthesis, 'creationAccountStep.city', '-')} `;
             formatted.push({
               label: 'digitalOffer.synthesis.billingAddress',
               value: {
@@ -139,6 +139,7 @@ export default {
                   assembledCivility,
                   `${this.$loGet(this.synthesis, 'creationAccountStep.address', '-')}`,
                   assembledCityAddress,
+                  `${this.$loGet(this.synthesis, 'creationAccountStep.country.label', '-')}`,
                   `${this.$loGet(this.synthesis, 'creationAccountStep.email', '-')}`,
                   `${this.$loGet(this.synthesis, 'creationAccountStep.phone', '-')}`,
                 ],
