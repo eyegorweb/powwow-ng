@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.662+20211217133916
+2021-12-17
+
+### Fixes
+
+- [3067] ajout d'erreurs dans le gestionnaire pour les commandes suivantes M2M_LIGHT (fa12b47fe392e8c5fc8ca4762207e1029062faa2)
+
 ## 1.17.0-master.661+20211217103746
 2021-12-17
 
