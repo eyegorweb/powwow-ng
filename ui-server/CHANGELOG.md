@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.663+20211217153941
+2021-12-17
+
+### Fixes
+
+- [3087] add country to account creation (2ac4f1e653aff71516bd09173843908660e72d97)
+
 ## 1.17.0-master.662+20211217133916
 2021-12-17
 
