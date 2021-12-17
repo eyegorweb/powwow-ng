@@ -1,7 +1,7 @@
 <template>
   <div class="pricing-table" :class="isActive ? 'active' : ''" v-if="offerUse">
     <div class="package-title" v-if="offer && offer.name" :class="isActive ? 'active' : ''">
-      <span>{{ offer.name || '-' }}</span>
+      <span>{{ offer.workflowDescription || '-' }}</span>
     </div>
     <div class="package-layout">
       <div class="package-value">
@@ -23,13 +23,15 @@
     <div class="divider"></div>
     <div class="terms">
       <div class="term details">
-        <template v-if="allUsage('DATA')"> {{ allUsage('DATA') }}, </template>
-        <template v-if="allUsage('SMS')"> {{ allUsage('SMS') }}, </template>
-        <template v-if="allUsage('VOICE')"> {{ allUsage('VOICE') }}</template>
+        <template v-if="allUsage('DATA')"> {{ allUsage('DATA') }}</template>
+        <template v-if="allUsage('SMS')">,{{ allUsage('SMS') }} </template>
+        <template v-if="allUsage('VOICE')">,{{ allUsage('VOICE') }}</template>
       </div>
       <div v-if="offer.initialOffer">
         <div v-for="(service, index) in offer.initialOffer.marketingService" :key="service.id">
-          <div class="term" v-if="index < maxServicesShow">{{ service.labelService }}</div>
+          <div class="term" v-if="index < maxServicesShow && service.activated">
+            {{ service.labelService }}
+          </div>
         </div>
       </div>
     </div>
@@ -70,7 +72,10 @@ export default {
     allUsage(type) {
       const usage = this.offerUse && this.offerUse.usage ? this.offerUse.usage : null;
       const value =
-        this.offerUse && usage && usage[0].envelopeValue
+        this.offerUse &&
+        usage &&
+        usage[0].envelopeValue &&
+        usage.filter((o) => o.usageType === type)[0]
           ? usage.filter((o) => o.usageType === type)[0].envelopeValue
           : 0;
       if (value) {
