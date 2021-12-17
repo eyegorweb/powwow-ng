@@ -263,7 +263,6 @@ export default {
       try {
         const response = await createDigitalOffer(this.formattedData);
         this.isLoading = false;
-        console.log('response create account >>>>>>>>>>', response);
         this.checkErrors(response);
         // redirection paynum
         if (response && response.url) {

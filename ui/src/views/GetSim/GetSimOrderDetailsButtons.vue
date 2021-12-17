@@ -60,7 +60,7 @@
             'TO_BE_CONFIRMED',
             'TO_BE_CONFIRMED_BY_BO',
             'CONFIRMED',
-          ])
+          ]) && !userIsM2M_LIGHT
         "
       >
         <UiButton
@@ -188,7 +188,6 @@ export default {
 
     async orderPublicPayment() {
       this.response = await orderPublicPayment(this.order.id);
-      console.log('response >>>>>>>>>>>', this.response);
       return this.response;
     },
 
