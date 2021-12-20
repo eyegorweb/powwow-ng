@@ -81,7 +81,7 @@ Feature: Détails d'une ligne
     Then Le message d'avertissement est present dans les onglets de consommation et d'analyse
     And je clique sur le bouton "Retour"
 
-  @lines @line_detail
+  @lines @line_detail @ignore
   Scenario: Je veux vérifier le changement de carte SIM
     Given en tant que BO
     And Je vais sur la page des lignes
@@ -172,7 +172,7 @@ Feature: Détails d'une ligne
   Scenario: Je veux ouvrir l'acte de masse d'un acte de gestion
     Given en tant que BO
     And Je vais sur la page des lignes
-    And je lance la recherche par ID "8933203494859102768"
+    And je lance la recherche par ID "33640647635"
     And j'ouvre le panneau de détail de la ligne
     And je clique sur le bouton "Voir le détail de la ligne"
     And Je clique sur "Suivi pilotage des actes de gestion"
@@ -184,7 +184,7 @@ Feature: Détails d'une ligne
   Scenario: Je veux ouvrir la page de l'acte de gestion en cliquant sur "Voir le résultat de l'acte" dans le panneau
     Given en tant que BO
     And Je vais sur la page des lignes
-    And je lance la recherche par ID "8933203494859102768"
+    And je lance la recherche par ID "33640647635"
     And j'ouvre le panneau de détail de la ligne
     And je clique sur le bouton "Voir le détail de la ligne"
     And Je clique sur "Suivi pilotage des actes de gestion"

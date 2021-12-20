@@ -1,4 +1,4 @@
-import layout from '../../pageObjects/layout'
+import layout from '../../pageObjects/layout';
 import alarmsPage from '../../pageObjects/alarmsPage';
 import { Given, When, Then } from 'cypress-cucumber-preprocessor/steps';
 
@@ -8,7 +8,7 @@ Given(`en tant que BO`, () => {
 
 Given(`en tant que partenaire {word}`, (partnerName) => {
   switch (partnerName) {
-    case "lyra":
+    case 'lyra':
       //token non fonctionnel, redirection vers page de login
       /*if (partnerName === 'lyra') {
         cy.testVars.userPartner = 'LYRA NETWORK';
@@ -16,13 +16,13 @@ Given(`en tant que partenaire {word}`, (partnerName) => {
       }*/
       cy.login('lyra', 'admin');
       break;
-    case "auchan":
+    case 'auchan':
       cy.testVars.userPartner = 'LYRA NETWORK';
       cy.startAsPartnerAuchan();
       break;
     default:
       break;
-  };
+  }
 });
 
 Given('en tant que compte groupe', () => {
@@ -32,9 +32,13 @@ Given('en tant que compte groupe', () => {
 Given('je clique sur le bouton {string}', (buttonName) => {
   cy.waitGet('#main-sliding-panel').then(($panel) => {
     if ($panel.hasClass('cd-panel--is-visible')) {
-      cy.waitGet('.cd-panel button').contains(buttonName).click();
+      cy.waitGet('.cd-panel button')
+        .contains(buttonName)
+        .click({ force: true });
     } else {
-      cy.waitGet('button').contains(buttonName).click();
+      cy.waitGet('button')
+        .contains(buttonName)
+        .click({ force: true });
     }
   });
 });
@@ -42,9 +46,13 @@ Given('je clique sur le bouton {string}', (buttonName) => {
 When('je clique sur le bouton {string}', (buttonName) => {
   cy.waitGet('#main-sliding-panel').then(($panel) => {
     if ($panel.hasClass('cd-panel--is-visible')) {
-      cy.waitGet('.cd-panel button').contains(buttonName).click();
+      cy.waitGet('.cd-panel button')
+        .contains(buttonName)
+        .click({ force: true });
     } else {
-      cy.waitGet('button').contains(buttonName).click();
+      cy.waitGet('button')
+        .contains(buttonName)
+        .click({ force: true });
     }
   });
 });
@@ -52,9 +60,13 @@ When('je clique sur le bouton {string}', (buttonName) => {
 Then('je clique sur le bouton {string}', (buttonName) => {
   cy.waitGet('#main-sliding-panel').then(($panel) => {
     if ($panel.hasClass('cd-panel--is-visible')) {
-      cy.waitGet('.cd-panel button').contains(buttonName).click();
+      cy.waitGet('.cd-panel button')
+        .contains(buttonName)
+        .click({ force: true });
     } else {
-      cy.waitGet('button').contains(buttonName).click();
+      cy.waitGet('button')
+        .contains(buttonName)
+        .click({ force: true });
     }
   });
 });
