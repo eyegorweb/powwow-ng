@@ -102,7 +102,6 @@
         <div class="col">
           <FormControl
             label="orders.new.deliveryStep.form.zipcode"
-            input-type="number"
             v-model="form.zipCode"
             :max-size="15"
           />
