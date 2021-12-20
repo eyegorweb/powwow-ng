@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.666+20211220134629
+2021-12-20
+
+### Fixes
+
+- [3085] gestion des controles des champs input de création de compte (3d8064af47c5289089b17c952ab359049747f0fd)
+
 ## 1.17.0-master.665+20211220104030
 2021-12-20
 
