@@ -158,9 +158,13 @@ export default {
             .toString();
           const apn = this.getApnServices(
             this.$loGet(this.synthesis, 'offerStep.initialOffer.marketingService')
-          )[0]
-            .map((s) => ` ${this.$t('digitalOffer.offerPackages.' + s.name)}`)
-            .toString();
+          )
+            ? this.getApnServices(
+                this.$loGet(this.synthesis, 'offerStep.initialOffer.marketingService')
+              )[0]
+                .map((s) => ` ${this.$t('digitalOffer.offerPackages.' + s.name)}`)
+                .toString()
+            : [];
           formatted.push({
             label: 'digitalOffer.offer',
             value: {

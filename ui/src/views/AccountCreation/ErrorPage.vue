@@ -28,8 +28,11 @@ export default {
 
       // redirection 1ère ou commandes suivantes (donc connecté)
       if (window.location.href.includes('payment')) {
-        const hashParts = window.location.href.split('/ko/');
-        this.$router.push({ name: 'home', params: { paymentId: hashParts[1] } });
+        const hashParts = window.location.href.split('/ko/')[1].split('/');
+        this.$router.push({
+          name: 'home',
+          params: { paymentId: hashParts[0], status: hashParts[1] },
+        });
       } else if (window.location.href.includes('create-account')) {
         setTimeout(() => {
           this.routeToLogin();
@@ -60,7 +63,7 @@ export default {
   methods: {
     async validate(paymentId) {
       if (paymentId) {
-        return await validateAccount(paymentId);
+        return await validateAccount(paymentId, false);
       }
     },
 

@@ -72,11 +72,17 @@ export default {
     // this.$router.push({ name: 'createAccount.offer' });
     // sinon aller à la création de partenaire
     if (window.location.href.includes('create-account/ok')) {
-      const hashParts = window.location.href.split('/ok/');
-      this.$router.push({ name: 'createAccount.ok', params: { paymentId: hashParts[1] } });
+      const hashParts = window.location.href.split('/ok/')[1].split('/');
+      this.$router.push({
+        name: 'createAccount.ok',
+        params: { paymentId: hashParts[0], status: hashParts[1] },
+      });
     } else if (window.location.href.includes('create-account/ko')) {
-      const hashParts = window.location.href.split('/ko/');
-      this.$router.push({ name: 'createAccount.ko', params: { paymentId: hashParts[1] } });
+      const hashParts = window.location.href.split('/ko/')[1].split('/');
+      this.$router.push({
+        name: 'createAccount.ko',
+        params: { paymentId: hashParts[0], status: hashParts[1] },
+      });
     } else {
       this.$router.push({ name: 'createAccount.partner' });
     }
