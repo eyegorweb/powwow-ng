@@ -20,23 +20,31 @@
 
       <div class="entries-line formLine">
         <div class="form-entry">
-          <FormControl label="digitalOffer.step1.lastName" v-model="form.lastName" />
+          <FormControl
+            label="digitalOffer.step1.lastName"
+            v-model="form.lastName"
+            :max-size="100"
+          />
         </div>
         <div class="form-entry">
-          <FormControl label="digitalOffer.step1.firstName" v-model="form.firstName" />
+          <FormControl
+            label="digitalOffer.step1.firstName"
+            v-model="form.firstName"
+            :max-size="100"
+          />
         </div>
       </div>
 
       <div class="entries-line formLine">
         <div class="form-entry">
-          <FormControl label="common.email" v-model="form.email" />
+          <FormControl label="common.email" v-model="form.email" :max-size="100" />
           <span v-if="form.email && !isEmailValid(form.email)" class="error-text">
             {{ $t('errors.password.email-error') }}
           </span>
         </div>
 
         <div class="form-entry">
-          <FormControl label="digitalOffer.step1.phone" v-model="form.phone" />
+          <FormControl label="digitalOffer.step1.phone" v-model="form.phone" :max-size="20" />
         </div>
       </div>
 
@@ -44,6 +52,7 @@
         <div class="form-entry">
           <FormControl
             label="getadmin.partners.name"
+            :max-size="50"
             v-model="form.company"
             :error="businessErrors['PARTY_NAME_ALREADY_EXIST'] || companyInputError"
           />
@@ -72,7 +81,7 @@
             </span>
           </template>
           <template v-else>
-            <FormControl v-model="form.siretValue" />
+            <FormControl v-model="form.siretValue" :max-size="50" />
           </template>
         </div>
       </div>
@@ -80,7 +89,12 @@
       <div class="entries-line">
         <div class="form-entry">
           <label>{{ $t('digitalOffer.address') }}</label>
-          <UiApiAutocomplete :api-method="searchAddress" v-model="selectedAddress" no-icon />
+          <UiApiAutocomplete
+            :api-method="searchAddress"
+            :max-size="80"
+            v-model="selectedAddress"
+            no-icon
+          />
         </div>
       </div>
 
@@ -90,10 +104,11 @@
             label="orders.new.deliveryStep.form.zipcode"
             input-type="number"
             v-model="form.zipCode"
+            :max-size="15"
           />
         </div>
         <div class="col">
-          <FormControl label="filters.city" v-model="form.city" />
+          <FormControl label="filters.city" v-model="form.city" :max-size="50" />
         </div>
         <div class="col">
           <div class="form-group">
@@ -101,6 +116,7 @@
             <div>
               <UiApiAutocomplete
                 :items="countries"
+                :max-size="50"
                 v-model="form.country"
                 display-results-while-empty
               />
@@ -113,12 +129,10 @@
         <label class="small-label">{{ $t('login') }}</label>
         <UiInput
           v-model="form.login"
+          :max-size="50"
           block
           :error="businessErrors['USER_NAME_ALREADY_EXIST'] || loginInputError"
         />
-        <!-- <small v-if="fieldErrors && errors.login" class="form-text error-text">{{
-          $t('required')
-        }}</small> -->
       </div>
 
       <div class="form-entry"></div>
@@ -129,12 +143,14 @@
           label="password"
           input-type="password"
           v-model="form.password"
+          :max-size="50"
         />
         <FormControl
           class="password-confirm"
           label="passwordConfirm"
           input-type="password"
           v-model="form.passwordConfirm"
+          :max-size="50"
         />
       </div>
 
@@ -246,9 +262,6 @@ export default {
         'login',
         'password',
       ];
-      // if (this.siretType === 'tva') {
-      //   requiredFields = [...requiredFields, 'tvaValue'];
-      // }
 
       return requiredFields.filter((f) => {
         // cas spécial pour l'autocomplete, il renvoi un objet {label: ''} si l'input est vide

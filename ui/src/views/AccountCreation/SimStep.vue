@@ -43,6 +43,7 @@
           class="d-block w-50 mx-auto"
           input-type="number"
           :min-value="1"
+          :max-value="maxValue"
         />
         <p v-if="selectedSimIsOfTapeType" class="text-center display-nb-bobines">
           {{ $t('getsim.nb-of-sim') }}:
@@ -77,6 +78,7 @@ export default {
       selectedNumberOfSims: 0,
       allSimTypesVisible: false,
       selectedSimIsOfTapeType: false,
+      maxValue: 9999999999,
     };
   },
 
@@ -99,7 +101,8 @@ export default {
       return !!(
         this.selectedSimTypeValue &&
         this.selectedSimTypeValue.simCard &&
-        parseInt(this.selectedNumberOfSims)
+        parseInt(this.selectedNumberOfSims) &&
+        parseInt(this.selectedNumberOfSims) <= this.maxValue
       );
     },
   },
