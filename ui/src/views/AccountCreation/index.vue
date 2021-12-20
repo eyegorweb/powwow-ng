@@ -268,11 +268,6 @@ export default {
         if (response && response.url) {
           this.redirectToPaynum(response.url);
         }
-
-        // validation de la création de compte après paiement
-        // if (response && response.paymentId) {
-        //   this.validate(response.paymentId);
-        // }
       } catch (e) {
         this.isLoading = false;
         console.error('request error from API REST "digital offer create"', e);

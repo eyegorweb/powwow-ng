@@ -21,6 +21,7 @@
           @keydown.prevent.down.exact="selectDown(data ? data.length - 1 : 0)"
           @keydown.prevent.up.exact="selectUp"
           @keydown.enter.exact="selectValue(data[selectedItem])"
+          :maxlength="maxSize"
         />
         <a v-if="value && !disabled" @click.prevent="resetValue" class="btn crossCancel">
           <i class="select-icon ic-Cross-Icon"></i>
@@ -114,6 +115,7 @@ export default {
       type: String,
       required: false,
     },
+    maxSize: Number,
   },
 
   computed: {

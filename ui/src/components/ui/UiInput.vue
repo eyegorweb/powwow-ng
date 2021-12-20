@@ -31,6 +31,7 @@
       v-on="$listeners"
       :style="inputStyle"
       type="text"
+      :maxlength="maxSize"
     />
     <a v-if="haveCrossButton && value_" @click.prevent="resetValue" class="btn">
       <i class="select-icon ic-Cross-Icon"></i>
@@ -89,6 +90,7 @@ export default {
     noNumberArrows: Boolean,
     positiveNumber: Boolean,
     block: Boolean,
+    maxSize: Number,
   },
 
   mounted() {
