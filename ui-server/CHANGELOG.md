@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.667+20211220192110
+2021-12-20
+
+### Fixes
+
+- [3067] ajout des paramètres ok à la redirection de la validation paynum (46f7e8643629ef6d3a2bc31175427610accc83ed)
+
 ## 1.17.0-master.666+20211220134629
 2021-12-20
 
