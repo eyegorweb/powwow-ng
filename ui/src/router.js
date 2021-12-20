@@ -44,22 +44,22 @@ export default new Router({
     getParcRoutes,
     accountCreationRoute,
     {
-      path: '/create-account/ok/:paymentId',
+      path: '/create-account/ok/:paymentId/:status',
       name: 'createAccount.ok',
       component: () => import('@/views/AccountCreation/SuccessPage.vue'),
     },
     {
-      path: '/create-account/ko/:paymentId',
+      path: '/create-account/ko/:paymentId/:status',
       name: 'createAccount.ko',
       component: () => import('@/views/AccountCreation/ErrorPage.vue'),
     },
     {
-      path: '/payment/ok/:paymentId',
+      path: '/payment/ok/:paymentId/:status',
       name: 'payment.ok',
       component: () => import('@/views/AccountCreation/SuccessPage.vue'),
     },
     {
-      path: '/payment/ko/:paymentId',
+      path: '/payment/ko/:paymentId/:status',
       name: 'payment.ko',
       component: () => import('@/views/AccountCreation/ErrorPage.vue'),
     },

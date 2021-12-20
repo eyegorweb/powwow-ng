@@ -32,8 +32,8 @@ export function createDigitalOffer(formData, token) {
   }
 }
 
-export function validateAccount(paymentId) {
-  const dynamicValidPayment = '/api/public/digital-offer/validate/' + paymentId;
+export function validateAccount(paymentId, status) {
+  const dynamicValidPayment = '/api/public/digital-offer/validate/' + paymentId + '/' + status;
   try {
     const response = publicApiRoute.post(dynamicValidPayment).then((res) => res.data);
     return response;
