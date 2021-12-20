@@ -2,6 +2,17 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.665+20211220104030
+2021-12-20
+
+### Features
+
+- [000] Maintenance des tests Cypress 20/12/2021 (5ed0d801593910772a0c44ebd5a885e1ac16bae0)
+
+### Fixes
+
+- [3085] gestion des controles des inputs sur la création de compte (45fe1a378c257a99c3f561fb5837d5688de8d450)
+
 ## 1.17.0-master.664+20211220100524
 2021-12-20
 
