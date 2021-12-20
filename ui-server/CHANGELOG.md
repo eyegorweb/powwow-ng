@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.664+20211220100524
+2021-12-20
+
+### Fixes
+
+- [3067] afficher que les services activés + corriger bug (0a646021f4aac0ac68492211af296dff6c5808fa)
+
 ## 1.17.0-master.663+20211217153941
 2021-12-17
 
