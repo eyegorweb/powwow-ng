@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.670+20211221153926
+2021-12-21
+
+### Fixes
+
+- [3085] max digit on simcard order digital offer (725916828dd2f43cf038c6298eb9f691a5c8a7fd)
+
 ## 1.17.0-master.669+20211221150149
 2021-12-21
 
