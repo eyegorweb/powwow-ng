@@ -63,7 +63,9 @@ export default {
       cy.waitGet('.cd-panel').should('have.class', 'cd-panel--is-visible');
     },
     save() {
-      cy.waitGet('.fileInfoContainer > div:nth-child(3) > button').click({ force: true });
+      cy.waitGet('.fileInfoContainer > div:nth-child(3) > button')
+        .click({ force: true })
+        .click({ force: true });
     },
     reportName(name) {
       cy.waitGet('.fileInfoContainer > div:nth-child(1) > label > input').type(name);
@@ -79,7 +81,7 @@ export default {
         cy.waitGet('div.partner-select > fieldset > input')
           .clear()
           .type(partner);
-        cy.wait(400); 
+        cy.wait(400);
         cy.waitGet('.autocomplete-results > li:nth-child(1)').click({ force: true });
         cy.wait(400);
       },

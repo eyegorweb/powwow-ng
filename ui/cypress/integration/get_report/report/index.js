@@ -39,7 +39,12 @@ Given('Je cree un rapport classique', () => {
   cy.wait(400);
 });
 
+When('Je clique sur le bouton "Enregistrer"', () => {
+  report.panel.save();
+});
+
 Then('Je verifie la création du rapport', () => {
+  cy.wait(1000);
   report.checkFirstReportName(reportName);
 });
 
