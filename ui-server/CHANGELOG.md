@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.669+20211221150149
+2021-12-21
+
+### Fixes
+
+- [3017] permission M2M Light (6f0cf52a2c4017ca4fc6f44b439230ed43bb3c50)
+
 ## 1.17.0-master.668+20211221102344
 2021-12-21
 
