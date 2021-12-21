@@ -11,7 +11,7 @@ Feature: Rapports
     And Je choisis l'export classique
     And Je rentre le nom du rapport
     And Je choisis le format CSV
-    When je clique sur le bouton "Enregistrer"
+    When Je clique sur le bouton "Enregistrer"
     Then Je verifie la création du rapport
 
   @get_report @report
@@ -23,7 +23,7 @@ Feature: Rapports
     And Je choisis l'export dernier usage
     And Je rentre le nom du rapport
     And Je choisis le format CSV
-    When je clique sur le bouton "Enregistrer"
+    When Je clique sur le bouton "Enregistrer"
     Then Je verifie la création du rapport
 
   @get_report @report
@@ -35,7 +35,7 @@ Feature: Rapports
     And Je choisis l'export Export des services
     And Je rentre le nom du rapport
     And Je choisis le format CSV
-    When je clique sur le bouton "Enregistrer"
+    When Je clique sur le bouton "Enregistrer"
     Then Je verifie la création du rapport
 
   @get_report @report
@@ -54,7 +54,7 @@ Feature: Rapports
     And Je supprime la derniere donnee depuis les donnees du rapport
     And Je rentre le nom du rapport
     And Je choisis le format CSV
-    When je clique sur le bouton "Enregistrer"
+    When Je clique sur le bouton "Enregistrer"
     Then Je verifie la création du rapport
 
   @get_report @report
