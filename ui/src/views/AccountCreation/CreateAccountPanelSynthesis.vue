@@ -91,7 +91,7 @@
 import CreateAccountPanelSynthesisItem from '@/views/GetSim/CreateOrder/CreateOrderPanelSynthesisItem.vue';
 import CircleLoader from '@/components/ui/CircleLoader';
 import { formatCurrency } from '@/utils/numbers.js';
-import { getOfferServices } from '@/components/Services/utils.js';
+import { getActiveServicesWithoutAPN } from '@/components/Services/utils.js';
 
 export default {
   components: {
@@ -151,7 +151,7 @@ export default {
 
       if (this.$loGet(this.synthesis, 'offerStep')) {
         if (this.$loGet(this.synthesis, 'offerStep.name')) {
-          const services = getOfferServices(
+          const services = getActiveServicesWithoutAPN(
             this.$loGet(this.synthesis, 'offerStep.initialOffer.marketingService')
           )
             .map((s) => ` ${s.labelService}`)

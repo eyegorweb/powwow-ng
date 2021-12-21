@@ -10,6 +10,10 @@ export function getOptionalServices(services) {
   return services.filter((s) => !!s && s.optional).map(formatServices);
 }
 
+export function getActiveServicesWithoutAPN(services) {
+  return services.filter((s) => s.activated && !s.parameters).map(formatServices);
+}
+
 function formatServices(s) {
   const service = {
     code: s.code,

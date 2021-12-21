@@ -28,9 +28,12 @@
         <template v-if="allUsage('VOICE')">,{{ allUsage('VOICE') }}</template>
       </div>
       <div v-if="offer.initialOffer">
-        <div v-for="(service, index) in offer.initialOffer.marketingService" :key="service.id">
-          <div class="term" v-if="index < maxServicesShow && service.activated">
+        <div v-for="(service, index) in activeServices" :key="service.id">
+          <div class="term" v-if="index < maxServicesShow && !service.parameters">
             {{ service.labelService }}
+          </div>
+          <div class="term" v-if="index < maxServicesShow && service.parameters">
+            {{ $t('digitalOffer.offerPackages.' + service.parameters[0].name) }}
           </div>
         </div>
       </div>
@@ -49,6 +52,7 @@ export default {
       price: undefined,
       maxServices: 3,
       offerUse: undefined,
+      activeServices: undefined,
     };
   },
   props: {
@@ -62,6 +66,7 @@ export default {
       this.offerUse && this.offerUse.buyingPriceInEuroCentHT
         ? this.offerUse.buyingPriceInEuroCentHT
         : 0;
+    this.activeServices = this.offer.initialOffer.marketingService.filter((s) => s.activated);
   },
   methods: {
     onClick() {
@@ -103,6 +108,24 @@ export default {
           console.log(`Sorry, we are out of ${part}.`);
           return '';
       }
+    },
+    getApnServices(services) {
+      return services
+        .filter((s) => {
+          // caution: s.parameters can return null or [null]
+          return !!s && !!s.parameters && !!s.parameters.length && !!s.parameters[0];
+        })
+        .map((p) => {
+          const parameters = p.parameters.map((p) => {
+            return {
+              code: p.code,
+              name: p.name,
+              version: p.versionIp,
+              ipAdress: p.ipAdress,
+            };
+          });
+          return parameters;
+        });
     },
   },
 
