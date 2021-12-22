@@ -193,8 +193,8 @@
       "DATA": "Data {value} {unit}",
       "SMS": "Sms {value}",
       "VOICE": "Voix {value} {unit}",
-      "objcoPprive": "Adresse IP privée",
-      "objcoPpublic": "Adresse IP publique",
+      "objcoPprive": "APN privé",
+      "objcoPpublic": "APN publique",
       "infoMessage": "La communication est à l'initiative du boitier"
     },
     "offerStep": {

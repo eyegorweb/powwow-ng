@@ -158,6 +158,8 @@
       "DATA": "Data {value} {unit}",
       "SMS": "Sms {value}",
       "VOICE": "Voix {value} {unit}",
+      "objcoPprive": "Private APN",
+      "objcoPpublic": "Public APN",
       "infoMessage": "Communication is initiated by the box"
     },
     "offerStep": {
