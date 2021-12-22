@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.672+20211222121729
+2021-12-22
+
+### Fixes
+
+- [3067] correction de l'url de redirection depuis paynum pour la création de compte M2M_Light (d55945932090524ec0e89df6f4546958c71cf4cb)
+
 ## 1.17.0-master.671+20211222113309
 2021-12-22
 
