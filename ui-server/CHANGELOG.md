@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.671+20211222113309
+2021-12-22
+
+### Fixes
+
+- [3067] afficher que les services activés dans les cartes offres (59ccaf709cca075bdc5563eba0ac3900024c1c1d)
+
 ## 1.17.0-master.670+20211221153926
 2021-12-21
 
