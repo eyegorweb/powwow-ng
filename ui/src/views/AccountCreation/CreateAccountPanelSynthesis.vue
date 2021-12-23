@@ -243,6 +243,24 @@ export default {
       return price / 100;
     },
 
+    simPriceHT() {
+      const simPriceHT = this.$loGet(
+        this.synthesis,
+        'simStep.selectedSimTypeValue.buyingPriceInEuroCentHT',
+        0
+      );
+      return simPriceHT / 100;
+    },
+
+    simPriceTTC() {
+      const simPriceTTC = this.$loGet(
+        this.synthesis,
+        'simStep.selectedSimTypeValue.buyingPriceInEuroCentTTC',
+        0
+      );
+      return simPriceTTC / 100;
+    },
+
     priceTTC() {
       const price = this.$loGet(
         this.synthesis,
@@ -264,25 +282,15 @@ export default {
     total() {
       // total TTC : nb SIM * (prix SIM TTC + prix enveloppe TTC)
       const quantity = this.$loGet(this.synthesis, 'simStep.selectedNumberOfSims', 0);
-      const simPriceTTC = this.$loGet(
-        this.synthesis,
-        'simStep.selectedSimTypeValue.buyingPriceInEuroCentTTC',
-        0
-      );
       if (!quantity) return 0;
-      return quantity * (this.priceTTC + simPriceTTC);
+      return quantity * (this.priceTTC + this.simPriceTTC);
     },
 
     totalHT() {
       // total HT : nb SIM * (prix SIM HT + prix enveloppe HT)
       const quantity = this.$loGet(this.synthesis, 'simStep.selectedNumberOfSims', 0);
-      const simPriceHT = this.$loGet(
-        this.synthesis,
-        'simStep.selectedSimTypeValue.buyingPriceInEuroCentHT',
-        0
-      );
       if (!quantity) return 0;
-      return quantity * (this.priceHT + simPriceHT);
+      return quantity * (this.priceHT + this.simPriceHT);
     },
 
     totalTVA() {
