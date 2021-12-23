@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.674+20211223125603
+2021-12-23
+
+### Fixes
+
+- [2954] correction du prix des cartes SIM (763e42deada7a7fe32326eddae2ff171d7c2400a)
+
 ## 1.17.0-master.673+20211223103428
 2021-12-23
 
