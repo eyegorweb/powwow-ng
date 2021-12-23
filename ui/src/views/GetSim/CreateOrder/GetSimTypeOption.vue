@@ -22,7 +22,7 @@
           {{ $t('getsim.sim-type-labels.licence') }}: {{ item.simCard.licence }}
         </p>
         <p class="simtype__info m-0" v-if="formattedPriceHT">
-          {{ $t('price') }}: {{ formattedPriceHT }} €
+          {{ $t('price') }}: {{ formatCurrency(formattedPriceHT) }} €
         </p>
         <p v-if="item.orderDate" class="last-order mt-1">
           {{ $t(lastActionKey) }}: {{ formattedDate }}
@@ -38,6 +38,7 @@
 
 <script>
 import UiCheckbox from '@/components/ui/Checkbox';
+import { formatCurrency } from '@/utils/numbers.js';
 
 export default {
   name: 'GetSimTypeOption',
@@ -57,6 +58,11 @@ export default {
     lastActionKey: String,
     noActionKey: String,
   },
+  methods: {
+    formatCurrency(value) {
+      return formatCurrency(value);
+    },
+  },
   computed: {
     formattedDate() {
       return this.item.orderDate.replace(/-/g, '/');
@@ -70,7 +76,7 @@ export default {
       },
     },
     formattedPriceHT() {
-      return this.$loGet(this.item, 'buyingPriceInEuroCentHT', 0);
+      return this.$loGet(this.item, 'buyingPriceInEuroCentHT', 0) / 100;
     },
   },
   components: {
