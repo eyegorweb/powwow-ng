@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.673+20211223103428
+2021-12-23
+
+### Fixes
+
+- [2954] correction de l'affichage des prix des cartes sim (66e1ab8c272a29094669b8fb126cfa038da4a2c5)
+
 ## 1.17.0-master.672+20211222121729
 2021-12-22
 
