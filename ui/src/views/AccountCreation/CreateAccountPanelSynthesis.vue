@@ -220,14 +220,13 @@ export default {
       }
 
       if (this.$loGet(this.synthesis, 'simStep')) {
+        const price =
+          this.$loGet(this.synthesis, 'simStep.selectedSimTypeValue.buyingPriceInEuroCentHT', 0) /
+          100;
         formatted.push({
           label: this.$t('digitalOffer.synthesis.price'),
           value: {
-            content: this.$loGet(
-              this.synthesis,
-              'simStep.selectedSimTypeValue.buyingPriceInEuroCentHT',
-              0
-            ),
+            content: price,
           },
         });
       }
