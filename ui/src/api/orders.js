@@ -99,6 +99,7 @@ export async function searchOrders(orderBy, pagination, filters = []) {
           custom5FieldLabel
           custom6FieldLabel
           contractReference
+          partyType
         }
         quantity
         customFields {

@@ -13,7 +13,7 @@
           $t('getsim.actions.VALIDATE')
         }}</UiButton>
       </div>
-      <div v-if="userIsM2M_LIGHT && statusIn(['WAITING_FOR_PAYMENT'])">
+      <div v-if="isPublicPartner && statusIn(['WAITING_FOR_PAYMENT'])">
         <UiButton
           variant="accent"
           :disabled="!!paymentErrors.length"
@@ -23,7 +23,7 @@
           {{ $t('digitalOffer.doPayment') }}
         </UiButton>
       </div>
-      <div v-if="userIsM2M_LIGHT && statusIn(['WAITING_FOR_PAYMENT'])">
+      <div v-if="isPublicPartner && statusIn(['WAITING_FOR_PAYMENT'])">
         <UiButton variant="accent" block @click="updateStatus('CANCELED')">{{
           $t('getsim.actions.CANCEL')
         }}</UiButton>
@@ -60,7 +60,7 @@
             'TO_BE_CONFIRMED',
             'TO_BE_CONFIRMED_BY_BO',
             'CONFIRMED',
-          ]) && !userIsM2M_LIGHT
+          ]) && !isPublicPartner
         "
       >
         <UiButton
@@ -102,7 +102,7 @@ export default {
   },
   computed: {
     ...mapGetters(['userIsBO', 'havePermission', 'userInfos']),
-    userIsM2M_LIGHT() {
+    isPublicPartner() {
       return (
         !this.userIsBO &&
         this.userInfos &&
