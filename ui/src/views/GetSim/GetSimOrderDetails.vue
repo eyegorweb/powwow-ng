@@ -283,7 +283,7 @@ export default {
   },
 
   mounted() {
-    if (this.isPublicPartner) {
+    if (this.isPublicOrder) {
       // see docs ticket https://m2m-gitlab.by-docapost.com/powwow-ng/backlog/-/issues/3072
       this.confirmationStepper = [
         {
@@ -381,6 +381,9 @@ export default {
     isPublicPartner() {
       return this.userInfos.partners[0] && this.userInfos.partners[0].partyType === 'M2M_LIGHT';
     },
+    isPublicOrder() {
+      return this.order && this.order.party && this.order.party.partyType === 'M2M_LIGHT';
+    },
     creatorTitle() {
       const title = this.getFromOrder('auditable.creator.name.title');
       if (!title) return '';
@@ -395,30 +398,24 @@ export default {
       } else {
         stepsToUse = this.confirmationStepper;
       }
-
-      stepsToUse = stepsToUse.map((s) => {
-        if (!this.order.orderStatusHistories) return;
-        const historyEntry = this.order.orderStatusHistories.find((h) => h.status === s.code);
-        if (historyEntry) {
-          // on ajoute la date issue de l'historique des statuts
-          s.date = historyEntry.statusDate;
-          // on met à jour le libellé du statut pour indiquer l'évolution du statut concernant les partenaires M2M_LIGHT
-          if (historyEntry.status === 'WAITING_FOR_PAYMENT') {
-            s.label = this.$t('orders.detail.statuses.PAYMENT_MADE');
-          } else if (historyEntry.status === 'NOT_VALIDATED' && this.isPublicPartner) {
-            s.label = this.$t('orders.detail.statuses.SAVED');
-          } else if (
-            (historyEntry.status === 'CONFIRMED' ||
-              historyEntry.status === 'TO_BE_CONFIRMED' ||
-              historyEntry.status === 'TO_BE_CONFIRMED_BY_BO' ||
-              historyEntry.status === 'CONFIRMATION_IN_PROGRESS') &&
-            this.isPublicPartner
-          ) {
-            s.label = this.$t('orders.detail.statuses.VALIDATED');
+      if (!this.isPublicOrder) {
+        stepsToUse = stepsToUse.map((s) => {
+          if (!this.order.orderStatusHistories) return;
+          // on matche entre le statut de la commande et le statut identique dans l'historique des statuts
+          const historyEntry = this.order.orderStatusHistories.find((h) => h.status === s.code);
+          // Pour les commandes classiques, on récupère le statut de la commande et on matche ce statut avec l'historique des statuts
+          if (historyEntry) {
+            // on ajoute la date issue de l'historique des statuts
+            s.date = historyEntry.statusDate;
           }
-        }
-        return s;
-      });
+          return s;
+        });
+      } else {
+        // TODO
+        // Pour les commandes d'offres digitales, on n'analyse que l'historique des statuts du fait d'un statut dépendant de Paynum
+        // le statut de la commande n'est pas actualisée comme celui des offres classiques, on ne compare plus avec le statut de la commande
+        //  => problème: on utilisait le statut de la commande pour afficher l'index courant du stepper par la variable statusStepperIndex
+      }
 
       return {
         data: stepsToUse,
@@ -426,10 +423,13 @@ export default {
     },
     statusStepperIndex() {
       if (!this.steps || !this.steps.data || !this.order.status) return;
-      const res = this.steps.data.find((c) => c.code === this.order.status);
-
-      if (res) return res.index;
-      return null;
+      if (!this.isPublicOrder) {
+        const res = this.steps.data.find((c) => c.code === this.order.status);
+        if (res) return res.index;
+        return null;
+      } else {
+        return this.order.orderStatusHistories.length - 1;
+      }
     },
     customFields() {
       const customFields = this.getFromOrder('customFields');
@@ -453,7 +453,7 @@ export default {
     },
     saveStep() {
       let code, label;
-      if (!this.isPublicPartner) return;
+      if (!this.isPublicOrder) return;
       if (this.order.status === 'NOT_VALIDATED') {
         code = 'NOT_VALIDATED';
         label = this.$t('orders.detail.statuses.SAVED');
@@ -469,7 +469,7 @@ export default {
     },
     confirmStep() {
       let code, label;
-      if (!this.isPublicPartner) {
+      if (!this.isPublicOrder) {
         if (this.order.status === 'CONFIRMED') {
           code = 'CONFIRMED';
           label = this.$t('orders.detail.statuses.CONFIRMED');
