@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.676+20211227074719
+2021-12-27
+
+### Fixes
+
+- [3067] affichage des prix en euros pour la synthèse des commandes d'offres digitales (5971a361bcb158fa6d007da5ba1344303867426e)
+
 ## 1.17.0-master.675+20211227072846
 2021-12-27
 
