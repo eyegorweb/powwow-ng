@@ -46,7 +46,7 @@
         <template v-if="hasResults">
           <DataTable
             storage-id="getparc.lines"
-            storage-version="28"
+            storage-version="028"
             v-if="columns"
             :columns="columns"
             :rows="rows || []"
@@ -251,9 +251,6 @@ export default {
       return false;
     },
 
-    canShowPLMNColumn() {
-      return this.havePermission('getVision', 'read');
-    },
   },
   methods: {
     ...mapActions('actLines', ['fetchLinesActionsFromApi', 'initFilterForContext']),
@@ -444,6 +441,9 @@ export default {
     } else {
       this.columns = [...this.commonColumns, ...this.defaultCustomFieldsColumns];
     }
+    if(this.havePermission('getVision', 'read')) {
+      this.columns = [...this.columns, ...this.columnsGetVision]
+    }
 
     if (this.rows.length > 0) {
       this.showInfoMessage = false;
@@ -572,16 +572,6 @@ export default {
           visible: false,
         },
         {
-          id: 8,
-          label: this.$t('getparc.actLines.col.lastPLMN'),
-          name: 'lastCountry',
-          orderable: false,
-          visible: false,
-          visibleWhen: () => {
-            return this.canShowPLMNColumn;
-          },
-        },
-        {
           id: 10,
           label: this.$t('getparc.actLines.col.msisdnA'),
           name: 'accessPoint',
@@ -660,6 +650,15 @@ export default {
               );
             },
           },
+        },
+      ],
+      columnsGetVision: [        
+        {
+          id: 8,
+          label: this.$t('getparc.actLines.col.lastPLMN'),
+          name: 'lastCountry',
+          orderable: false,
+          visible: false,
         },
       ],
       defaultCustomFieldsColumns: [
