@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.677+20211228085055
+2021-12-28
+
+### Fixes
+
+- [3055] Probleme de double colonnes dans ajout datatable (d3fb8104604c849e632a1f7ec43b189e55ced7e5)
+
 ## 1.17.0-master.676+20211227074719
 2021-12-27
 
