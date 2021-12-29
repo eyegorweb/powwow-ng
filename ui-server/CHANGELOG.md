@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.680+20211229150806
+2021-12-29
+
+### Fixes
+
+- [2986] ajout de la redirection pour procéder au paiement depuis le volet détail de l'offre (d7d7da175bfffe6a7b901c3f67fd02e186223e62)
+
 ## 1.17.0-master.679+20211229134343
 2021-12-29
 
