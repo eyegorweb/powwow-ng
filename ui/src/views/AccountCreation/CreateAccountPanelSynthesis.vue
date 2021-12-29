@@ -348,7 +348,7 @@ $fontSize: 0.8rem;
   display: flex;
   flex-direction: column;
   height: 100%;
-  max-width: 25%;
+  width: 25%;
   .synthesis-content {
     overflow-y: auto;
     flex-grow: 1;

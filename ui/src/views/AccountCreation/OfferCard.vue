@@ -162,7 +162,7 @@ $box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14),
   background-color: #fff;
   border-radius: 3px;
   overflow: hidden;
-  min-height: 60vh;
+  min-height: 44vh;
   border: 3px solid $title-bg-color;
   &:hover,
   &:focus,
@@ -237,7 +237,7 @@ $box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14),
     padding: 1rem 2rem;
     font-size: 0.9125rem;
     text-align: center;
-
+    min-height: 150px;
     .details {
       font-weight: 600;
     }
