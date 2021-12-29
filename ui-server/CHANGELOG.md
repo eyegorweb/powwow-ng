@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.678+20211229112214
+2021-12-29
+
+### Fixes
+
+- [2954] corrections de style sur les cartes des offres et le résumé de la synthèse (1c4e159bd450178ba0975726520e0de83dd0ce72)
+
 ## 1.17.0-master.677+20211228085055
 2021-12-28
 
