@@ -32,7 +32,12 @@
           <div class="term" v-if="index < maxServicesShow && !service.parameters">
             {{ service.labelService }}
           </div>
-          <div class="term" v-if="index < maxServicesShow && service.parameters">
+          <div
+            class="term"
+            v-if="
+              index < maxServicesShow && service && service.parameters && service.parameters.length
+            "
+          >
             {{ $t('digitalOffer.offerPackages.' + service.parameters[0].name) }}
           </div>
         </div>
