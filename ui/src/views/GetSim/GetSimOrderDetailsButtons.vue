@@ -82,6 +82,7 @@ import { mapGetters, mapMutations } from 'vuex';
 import { setTimeout } from 'timers';
 import { exportSimCardInstances } from '@/api/linesActions';
 import ExportButton from '@/components/ExportButton';
+import { redirectTo } from '@/utils';
 
 export default {
   props: {
@@ -112,6 +113,10 @@ export default {
     },
     paymentErrors() {
       return this.response && this.response.errors ? this.response.errors : [];
+      //   PAYMENT_ERROR - Erreur lors du paiement. Veuillez réessayer.
+      //   PAYMENT_INVALID - Vous n'êtes pas autorisé à procéder au paiement
+      //   PAYMENT_PAID - La demande est déjà payée
+      //   PAYMENT_ONGOING - Un paiement est déjà en cours
     },
   },
 
@@ -188,7 +193,14 @@ export default {
 
     async orderPublicPayment() {
       this.response = await orderPublicPayment(this.order.id);
-      return this.response;
+      // redirection paynum
+      if (this.response && this.response.url) {
+        this.redirectToPaynum(this.response.url);
+      }
+    },
+
+    redirectToPaynum(paynumUrl) {
+      redirectTo(paynumUrl);
     },
 
     statusIn(statuses) {
