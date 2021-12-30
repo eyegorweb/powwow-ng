@@ -973,6 +973,7 @@
         "offerActivation": "Offre d'activation",
         "delayBillings": "Délai avant facturation (mois)",
         "dataReporting": "Reporting des encours conso",
+        "exportBSCS": "Export compta mode BSCS",
         "exportServices": "Export des services",
         "fleetPromotion": "Promotion de la Supervision",
         "flagBillingPDPCellHistory": "Facturation PDP et CELL ID",

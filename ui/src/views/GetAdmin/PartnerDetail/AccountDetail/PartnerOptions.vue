@@ -233,17 +233,28 @@
     <ContentBlock no-handle>
       <template slot="title">{{ $t('common.export') }}</template>
       <template slot="content">
-        <div class="d-flex">
-          <div class="third-size to-bottom pb-3">
+        <div class="d-flex jcsb">
+          <div class="half-size to-bottom pb-3">
             <UiToggle
               :label="$t('getadmin.partners.optionsDetails.dataReporting')"
               :editable="true"
-              :bold-label="comptaExport"
-              v-model="comptaExport"
+              :bold-label="consoReport"
+              v-model="consoReport"
               small-label
             />
           </div>
-          <div class="third-size to-bottom pb-3">
+          <div class="half-size to-bottom pb-3">
+            <UiToggle
+              :label="$t('getadmin.partners.optionsDetails.exportBSCS')"
+              :editable="true"
+              :bold-label="exportBSCS"
+              v-model="exportBSCS"
+              small-label
+            />
+          </div>
+        </div>
+        <div class="d-flex jcsb">
+          <div class="half-size to-bottom pb-3">
             <UiToggle
               :label="$t('getadmin.partners.optionsDetails.exportServices')"
               :editable="true"
@@ -252,8 +263,7 @@
               small-label
             />
           </div>
-
-          <div class="third-size">
+          <div class="half-size">
             <div class="form-group">
               <label class="small-label">{{
                 $t('getadmin.partners.optionsDetails.dataReporting')
@@ -828,7 +838,8 @@ export default {
       this.resilationSecurityNotificationEnabled = this.partnerOptions.resilationSecurityNotificationEnabled;
       this.refUser = this.partnerOptions.userReferenceEnabled;
       this.billingDelay = this.partnerOptions.billingNonActDelay;
-      this.comptaExport = this.partnerOptions.exportComptaBSCSModeEnabled;
+      this.exportBSCS = this.partnerOptions.exportComptaBSCSModeEnabled;
+      this.consoReport = this.partnerOptions.flagStatisticsEnabled;
       this.flagServicesAudit = this.partnerOptions.flagServicesAudit;
       this.geolocViewLimit = this.partnerOptions.geolocViewLimit;
       this.geolocViewCounter = this.partnerOptions.geolocViewCounter;
@@ -943,7 +954,8 @@ export default {
           defaultCustomerForActivationId: parseInt(get(this.selectedBillingAccount, 'id')),
           flagbillingNonActDelay: this.getToggle(this.billingToggles, 'FACT_SIM_STOCK'),
           billingNonActDelay: parseInt(this.billingDelay),
-          exportComptaBSCSModeEnabled: this.comptaExport,
+          exportComptaBSCSModeEnabled: this.exportBSCS,
+          flagStatisticsEnabled: this.consoReport,
           flagServicesAudit: this.flagServicesAudit,
           flagStatisticsEnabled: this.getToggle(this.billingToggles, 'FACT_REPORT_CONSO'),
           portabilityAcquittalsEmails: parseInt(this.portabilityAcquittalsEmails),
@@ -1087,7 +1099,8 @@ export default {
       coachM2MFleetpromotion: undefined,
       coachM2m24h: undefined,
 
-      comptaExport: false,
+      consoReport: false,
+      exportBSCS: false,
       flagServicesAudit: false,
 
       reportConsoValue: undefined,
@@ -1151,6 +1164,13 @@ export default {
 <style lang="scss" scoped>
 .third-size {
   width: 33%;
+}
+.half-size {
+  width: 45%;
+}
+
+.jcsb {
+  justify-content: space-between;
 }
 
 .to-bottom {
