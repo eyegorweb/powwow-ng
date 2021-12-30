@@ -35,7 +35,11 @@
           <div
             class="term"
             v-if="
-              index < maxServicesShow && service && service.parameters && service.parameters.length
+              index < maxServicesShow &&
+                service &&
+                service.parameters &&
+                service.parameters.length &&
+                service.parameters[0].name
             "
           >
             {{ $t('digitalOffer.offerPackages.' + service.parameters[0].name) }}
