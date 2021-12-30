@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.685+20211230125536
+2021-12-30
+
+### Fixes
+
+- [3071] Ajout export BSCS et compta dans options partenaire (3bbbfb87f9bae37f6be24662c2ca4a39c2400c62)
+
 ## 1.17.0-master.684+20211230100425
 2021-12-30
 
