@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.687+20211230141958
+2021-12-30
+
+### Fixes
+
+- [0000] Problème Recaptcha attente Richard (3e795b39f00a484de297386fa4257df5f44a17a5)
+
 ## 1.17.0-master.686+20211230130103
 2021-12-30
 
