@@ -201,7 +201,7 @@ export default {
     // si utilisateur connecté aller directement vers le choix SIM sinon aller à la
     // création de partenaire
     // this.$router.push({ name: 'createAccount.partner' });
-    this.recaptcha()
+    // this.recaptcha()
     const countries = await fetchCountries();
     this.countries = countries.map((c) => ({
       ...c,
