@@ -106,6 +106,7 @@
     "vue-i18n": "^8.0.0",
     "vue-promised": "^1.0.0",
     "vue-prop-data-fallback": "^1.0.1",
+    "vue-recaptcha-v3": "1.9.0",
     "vue-router": "^3.0.2",
     "vue-slick": "^1.1.15",
     "vue-template-compiler": "^2.6.10",
