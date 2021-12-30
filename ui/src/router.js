@@ -54,12 +54,12 @@ export default new Router({
       component: () => import('@/views/AccountCreation/ErrorPage.vue'),
     },
     {
-      path: '/payment/ok/:paymentId/:status',
+      path: '/payment/ok/:paymentId',
       name: 'payment.ok',
       component: () => import('@/views/AccountCreation/SuccessPage.vue'),
     },
     {
-      path: '/payment/ko/:paymentId/:status',
+      path: '/payment/ko/:paymentId',
       name: 'payment.ko',
       component: () => import('@/views/AccountCreation/ErrorPage.vue'),
     },

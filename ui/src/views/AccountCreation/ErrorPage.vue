@@ -24,16 +24,15 @@ export default {
   mounted() {
     console.log('error page redirection from paynum', this.$route);
     if (this.$route.params && this.$route.params.paymentId) {
-      this.validate(this.$route.params.paymentId);
-
-      // redirection 1ère ou commandes suivantes (donc connecté)
       if (window.location.href.includes('payment')) {
-        const hashParts = window.location.href.split('/ko/')[1].split('/');
+        const hashParts = window.location.href.split('/payment/')[1].split('/');
+        this.validate(this.$route.params.paymentId, false);
         this.$router.push({
           name: 'home',
-          params: { paymentId: hashParts[0], status: hashParts[1] },
+          params: { paymentId: hashParts[1], status: hashParts[0] },
         });
       } else if (window.location.href.includes('create-account')) {
+        this.validate(this.$route.params.paymentId);
         setTimeout(() => {
           this.routeToLogin();
         }, 3000);
@@ -61,9 +60,9 @@ export default {
   },
 
   methods: {
-    async validate(paymentId) {
+    async validate(paymentId, status) {
       if (paymentId) {
-        return await validateAccount(paymentId, false);
+        return await validateAccount(paymentId, status);
       }
     },
 
