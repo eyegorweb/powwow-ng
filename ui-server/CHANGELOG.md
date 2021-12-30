@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.683+20211230085345
+2021-12-30
+
+### Features
+
+- [3067] Ajout du ReCaptchaV3 a la création de compte (f512a48c95d64c2d5862eb7a3ca6bccec9e7bbfd)
+
 ## 1.17.0-master.682+20211230080002
 2021-12-30
 
