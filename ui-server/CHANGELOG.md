@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.689+20211230152701
+2021-12-30
+
+### Fixes
+
+- [000] correction de la validation pour la création de compte (8ea8442dd14294ff71f2319d76b1f92d168489ba)
+
 ## 1.17.0-master.688+20211230143827
 2021-12-30
 
