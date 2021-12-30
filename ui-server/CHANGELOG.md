@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.682+20211230080002
+2021-12-30
+
+### Fixes
+
+- [3067] contrôle des paramètres apn (1015e2cea6d1ee3cfb0ff77a238211955a37e8a5)
+
 ## 1.17.0-master.681+20211229152042
 2021-12-29
 
