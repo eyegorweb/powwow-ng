@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.684+20211230100425
+2021-12-30
+
+### Fixes
+
+- [2986] correction de la validation des commandes d'offres digitales postérieures à la 1ère commande (9fd347017c892342997a73e4c07900c453c063f8)
+
 ## 1.17.0-master.683+20211230085345
 2021-12-30
 
