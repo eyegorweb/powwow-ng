@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.690+20211230161257
+2021-12-30
+
+### Fixes
+
+- [0000] space height on offer card (b1b120ea69b3ddb549d2fd0b8e4b9d02dbb6ba79)
+
 ## 1.17.0-master.689+20211230152701
 2021-12-30
 
