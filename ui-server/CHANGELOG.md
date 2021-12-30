@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.688+20211230143827
+2021-12-30
+
+### Fixes
+
+- [0000] Probleme de parametres graphQL (4dcc09f07f75c72562e95a84906cfee5b50b2b23)
+- [0000] Problème Recaptcha attente Richard (4d5a9c50e8e539c0ebaef8d611ea253304f69e9d)
+
 ## 1.17.0-master.687+20211230141958
 2021-12-30
 
