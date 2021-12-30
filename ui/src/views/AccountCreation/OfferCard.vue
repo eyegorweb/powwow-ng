@@ -246,7 +246,7 @@ $box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14),
     padding: 1rem 2rem;
     font-size: 0.9125rem;
     text-align: center;
-    min-height: 150px;
+    min-height: 120px;
     .details {
       font-weight: 600;
     }
