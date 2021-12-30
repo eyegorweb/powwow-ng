@@ -177,10 +177,13 @@ import Toggle from '@/components/ui/UiToggle2';
 import { searchAddress, fetchCountries } from '@/api/address';
 import { checkPasswordErrors } from '@/utils.js';
 import { validatePartner } from '@/api/digital.js';
-import { VueReCaptcha } from 'vue-recaptcha-v3'
+//
+// Waiting for Richard HALLIER to active recaptcha because of proxy issue
+// import { VueReCaptcha } from 'vue-recaptcha-v3'
+//
 import Vue from 'vue'
 
-Vue.use(VueReCaptcha, { siteKey: '6Le7k9AdAAAAAEj45cN9qj3XV6UyuPcD70GsoF2B' })
+// Vue.use(VueReCaptcha, { siteKey: '6Le7k9AdAAAAAEj45cN9qj3XV6UyuPcD70GsoF2B' })
 
 export default {
   components: {
@@ -246,7 +249,7 @@ export default {
       ],
       hide: true,
       inputErrors: [],
-      captchaOk: false,
+      // captchaOk: false,
     };
   },
 
@@ -304,8 +307,8 @@ export default {
         !!this.businessErrors &&
         !this.businessErrors['PARTY_NAME_ALREADY_EXIST'] &&
         !this.businessErrors['SIRET_ALREADY_EXIST'] &&
-        !this.businessErrors['USER_NAME_ALREADY_EXIST'] &&
-        this.captchaOk
+        !this.businessErrors['USER_NAME_ALREADY_EXIST'] 
+        // this.captchaOk
       );
     },
 
@@ -379,14 +382,14 @@ export default {
         });
       }
     },
-    async recaptcha() {
-      await this.$recaptchaLoaded()
-      const token = await this.$recaptcha('login').then((token) => {
-        this.captchaOk = true;
-      })
+    // async recaptcha() {
+    //   await this.$recaptchaLoaded()
+    //   const token = await this.$recaptcha('login').then((token) => {
+    //     this.captchaOk = true;
+    //   })
 
-      // Do stuff with the received token.
-    },
+    //   // Do stuff with the received token.
+    // },
 
     isEmailValid(email) {
       var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
