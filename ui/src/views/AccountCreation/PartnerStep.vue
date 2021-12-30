@@ -174,10 +174,13 @@ import FormControl from '@/components/ui/FormControl';
 import UiApiAutocomplete from '@/components/ui/UiApiAutocomplete';
 import UiInput from '@/components/ui/UiInput';
 import Toggle from '@/components/ui/UiToggle2';
-
 import { searchAddress, fetchCountries } from '@/api/address';
 import { checkPasswordErrors } from '@/utils.js';
 import { validatePartner } from '@/api/digital.js';
+import { VueReCaptcha } from 'vue-recaptcha-v3'
+import Vue from 'vue'
+
+Vue.use(VueReCaptcha, { siteKey: '6Le7k9AdAAAAAEj45cN9qj3XV6UyuPcD70GsoF2B' })
 
 export default {
   components: {
@@ -195,6 +198,7 @@ export default {
     // si utilisateur connecté aller directement vers le choix SIM sinon aller à la
     // création de partenaire
     // this.$router.push({ name: 'createAccount.partner' });
+    this.recaptcha()
     const countries = await fetchCountries();
     this.countries = countries.map((c) => ({
       ...c,
@@ -242,6 +246,7 @@ export default {
       ],
       hide: true,
       inputErrors: [],
+      captchaOk: false,
     };
   },
 
@@ -299,7 +304,8 @@ export default {
         !!this.businessErrors &&
         !this.businessErrors['PARTY_NAME_ALREADY_EXIST'] &&
         !this.businessErrors['SIRET_ALREADY_EXIST'] &&
-        !this.businessErrors['USER_NAME_ALREADY_EXIST']
+        !this.businessErrors['USER_NAME_ALREADY_EXIST'] &&
+        this.captchaOk
       );
     },
 
@@ -372,6 +378,14 @@ export default {
           params: { step: { creationAccountStep: this.form } },
         });
       }
+    },
+    async recaptcha() {
+      await this.$recaptchaLoaded()
+      const token = await this.$recaptcha('login').then((token) => {
+        this.captchaOk = true;
+      })
+
+      // Do stuff with the received token.
     },
 
     isEmailValid(email) {
