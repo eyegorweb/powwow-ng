@@ -16,10 +16,14 @@
       <div v-if="isPublicPartner && statusIn(['WAITING_FOR_PAYMENT'])">
         <UiButton
           variant="accent"
-          :disabled="!!paymentErrors.length"
+          :disabled="!!paymentErrors.length || isLoading"
           block
           @click="orderPublicPayment()"
         >
+          <template slot="button" v-if="isLoading">
+            {{ $t('processing') }}...
+            <CircleLoader />
+          </template>
           {{ $t('digitalOffer.doPayment') }}
         </UiButton>
       </div>
@@ -77,6 +81,7 @@
 
 <script>
 import UiButton from '@/components/ui/Button';
+import CircleLoader from '@/components/ui/CircleLoader';
 import { updateOrderStatus, orderPublicPayment } from '@/api/orders';
 import { mapGetters, mapMutations } from 'vuex';
 import { setTimeout } from 'timers';
@@ -91,6 +96,7 @@ export default {
   components: {
     UiButton,
     ExportButton,
+    CircleLoader,
   },
   data() {
     return {
@@ -99,6 +105,7 @@ export default {
         direction: 'DESC',
       },
       response: [],
+      isLoading: false,
     };
   },
   computed: {
@@ -192,10 +199,17 @@ export default {
     },
 
     async orderPublicPayment() {
-      this.response = await orderPublicPayment(this.order.id);
-      // redirection paynum
-      if (this.response && this.response.url) {
-        this.redirectToPaynum(this.response.url);
+      this.isLoading = true;
+      try {
+        this.response = await orderPublicPayment(this.order.id);
+        this.isLoading = false;
+        // redirection paynum
+        if (this.response && this.response.url) {
+          this.redirectToPaynum(this.response.url);
+        }
+      } catch (e) {
+        this.isLoading = false;
+        console.error('request error from API "doPayument"', e);
       }
     },
 
