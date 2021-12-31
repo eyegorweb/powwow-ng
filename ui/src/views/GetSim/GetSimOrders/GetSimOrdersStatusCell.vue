@@ -2,7 +2,7 @@
   <div class="order-status d-flex flex-wrap align-items-center" v-if="isLoading">
     <div class="circle" />
     <div class="label label--loading" :class="{ error: isError }">
-      {{ $t(`col.statuses.${item}`) }}
+      {{ status }}
     </div>
   </div>
   <div class="order-status d-flex justify-content-center" v-else>
@@ -27,7 +27,9 @@ export default {
     item: {
       type: String,
     },
+    row: Object,
   },
+
   methods: {
     getTooltipConfig() {
       let cssColor = '';
@@ -43,7 +45,7 @@ export default {
       }
 
       return {
-        content: this.$t(`col.statuses.${this.item}`),
+        content: this.status,
         classes: [cssColor],
       };
     },
@@ -53,6 +55,22 @@ export default {
     ...mapGetters('getsim', ['isLoading']),
     isError() {
       return this.item === 'NOT_VALIDATED' || this.item === 'CANCELED';
+    },
+    isM2MLIGHTOrder() {
+      return this.row && this.row.party && this.row.party.partyType === 'M2M_LIGHT';
+    },
+    status() {
+      if (
+        this.isM2MLIGHTOrder &&
+        (this.item === 'CONFIRMED' ||
+          this.item === 'TO_BE_CONFIRMED' ||
+          this.item === 'TO_BE_CONFIRMED_BY_BO' ||
+          this.item === 'CONFIRMATION_IN_PROGRESS')
+      ) {
+        return this.$t(`col.statuses.VALIDATION`);
+      } else {
+        return this.$t(`col.statuses.${this.item}`);
+      }
     },
 
     iconColor() {

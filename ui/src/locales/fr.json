@@ -2254,6 +2254,7 @@
     "statuses": {
       "NOT_VALIDATED": "Non validée",
       "VALIDATED": "Validée",
+      "VALIDATION": "Validation",
       "TO_BE_CONFIRMED": "Confirmation automatique en cours",
       "TO_BE_CONFIRMED_BY_BO": "À confirmer par le BO",
       "CONFIRMATION_IN_PROGRESS": "Fichier de commande transmis ",
