@@ -89,7 +89,7 @@ export default {
     ...mapGetters('getsim', ['appliedFilters']),
     ...mapGetters(['userInfos']),
     isM2MLIGHTPartner() {
-      if (!this.userInfos || !this.userInfos.roles) return;
+      if (!this.userInfos || !this.userInfos.partners) return;
       const found = this.userInfos.partners.find((r) => {
         return r.partyType === 'M2M_LIGHT';
       });
