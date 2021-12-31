@@ -104,7 +104,7 @@
           <h6>{{ $t('orders.detail.importedSimQuantity') }} :</h6>
           <p>{{ getFromOrder('importedQuantity') }}</p>
         </div>
-        <div class="overview-item" v-if="!isPublicPartner">
+        <div class="overview-item" v-if="!isM2MLIGHTOrder">
           <h6>{{ $t('action') }} :</h6>
           <p v-if="order.preActivationAsked && order.activationAsked">
             {{ $t('col.preActivationAsked') }} {{ $t('col.activationAsked') }}
@@ -191,7 +191,7 @@
         <div class="overview-item">
           <h4 class="font-weight-normal text-uppercase">{{ $t('common.billingAccount') }}</h4>
         </div>
-        <div class="overview-item" v-if="!isPublicPartner">
+        <div class="overview-item" v-if="!isM2MLIGHTOrder">
           <h6>{{ $t('common.code') }} :</h6>
           <p>{{ getFromOrder('customerAccount.code') }}</p>
         </div>
@@ -218,7 +218,7 @@
         </div>
       </div>
 
-      <div class="overview-container m-3 bg-white bottom-space" v-if="!isPublicPartner">
+      <div class="overview-container m-3 bg-white bottom-space" v-if="!isM2MLIGHTOrder">
         <div class="overview-item">
           <h4 class="font-weight-normal text-uppercase">{{ $t('orders.new.settings') }}</h4>
         </div>
@@ -283,7 +283,7 @@ export default {
   },
 
   mounted() {
-    if (this.isPublicOrder) {
+    if (this.isM2MLIGHTOrder) {
       // see docs ticket https://m2m-gitlab.by-docapost.com/powwow-ng/backlog/-/issues/3072
       this.confirmationStepper = [
         {
@@ -293,8 +293,8 @@ export default {
           index: 0,
         },
         {
-          code: 'WAITING_FOR_PAYMENT',
-          label: this.$t('orders.detail.statuses.WAITING_FOR_PAYMENT'),
+          code: this.paymentStep.code,
+          label: this.paymentStep.label,
           date: null,
           index: 1,
         },
@@ -378,10 +378,7 @@ export default {
 
   computed: {
     ...mapGetters(['userIsBO', 'userInfos']),
-    isPublicPartner() {
-      return this.userInfos.partners[0] && this.userInfos.partners[0].partyType === 'M2M_LIGHT';
-    },
-    isPublicOrder() {
+    isM2MLIGHTOrder() {
       return this.order && this.order.party && this.order.party.partyType === 'M2M_LIGHT';
     },
     creatorTitle() {
@@ -398,7 +395,7 @@ export default {
       } else {
         stepsToUse = this.confirmationStepper;
       }
-      if (!this.isPublicOrder) {
+      if (!this.isM2MLIGHTOrder) {
         stepsToUse = stepsToUse.map((s) => {
           if (!this.order.orderStatusHistories) return;
           // on matche entre le statut de la commande et le statut identique dans l'historique des statuts
@@ -411,10 +408,21 @@ export default {
           return s;
         });
       } else {
-        // TODO
-        // Pour les commandes d'offres digitales, on n'analyse que l'historique des statuts du fait d'un statut dépendant de Paynum
-        // le statut de la commande n'est pas actualisée comme celui des offres classiques, on ne compare plus avec le statut de la commande
-        //  => problème: on utilisait le statut de la commande pour afficher l'index courant du stepper par la variable statusStepperIndex
+        stepsToUse = stepsToUse.map((s) => {
+          if (!this.order.orderStatusHistories) return;
+          const historyEntry = this.order.orderStatusHistories.find((h) => h.status === s.code);
+          if (historyEntry) {
+            if (
+              this.order.status === 'WAITING_FOR_PAYMENT' &&
+              historyEntry.status === 'WAITING_FOR_PAYMENT'
+            ) {
+              s.date = null;
+            } else {
+              s.date = historyEntry.statusDate;
+            }
+          }
+          return s;
+        });
       }
 
       return {
@@ -423,12 +431,15 @@ export default {
     },
     statusStepperIndex() {
       if (!this.steps || !this.steps.data || !this.order.status) return;
-      if (!this.isPublicOrder) {
-        const res = this.steps.data.find((c) => c.code === this.order.status);
-        if (res) return res.index;
-        return null;
+      const res = this.steps.data.find((c) => c.code === this.order.status);
+      if (res) {
+        // cas spécifique pour les Offres Digitales
+        if (this.order.status === 'WAITING_FOR_PAYMENT') {
+          res.index = 0;
+        }
+        return res.index;
       } else {
-        return this.order.orderStatusHistories.length - 1;
+        return null;
       }
     },
     customFields() {
@@ -453,7 +464,6 @@ export default {
     },
     saveStep() {
       let code, label;
-      if (!this.isPublicOrder) return;
       if (this.order.status === 'NOT_VALIDATED') {
         code = 'NOT_VALIDATED';
         label = this.$t('orders.detail.statuses.SAVED');
@@ -469,7 +479,7 @@ export default {
     },
     confirmStep() {
       let code, label;
-      if (!this.isPublicOrder) {
+      if (!this.isM2MLIGHTOrder) {
         if (this.order.status === 'CONFIRMED') {
           code = 'CONFIRMED';
           label = this.$t('orders.detail.statuses.CONFIRMED');
@@ -487,21 +497,41 @@ export default {
       } else {
         if (this.order.status === 'CONFIRMED') {
           code = 'CONFIRMED';
-          label = this.$t('orders.detail.statuses.VALIDATION');
+          label = this.$t('orders.detail.statuses.VALIDATED');
         } else if (this.order.status === 'TO_BE_CONFIRMED') {
           code = 'TO_BE_CONFIRMED';
-          label = this.$t('orders.detail.statuses.VALIDATION');
+          label = this.$t('orders.detail.statuses.VALIDATED');
         } else if (this.order.status === 'TO_BE_CONFIRMED_BY_BO') {
           code = 'TO_BE_CONFIRMED_BY_BO';
-          label = this.$t('orders.detail.statuses.VALIDATION');
+          label = this.$t('orders.detail.statuses.VALIDATED');
         } else if (this.order.status === 'CONFIRMATION_IN_PROGRESS') {
           code = 'CONFIRMATION_IN_PROGRESS';
-          label = this.$t('orders.detail.statuses.VALIDATION');
+          label = this.$t('orders.detail.statuses.VALIDATED');
         } else {
           // defaults values are 'CONFIRMED'
           code = 'CONFIRMED';
           label = this.$t('orders.detail.statuses.VALIDATION');
         }
+      }
+      return { code, label };
+    },
+    paymentStep() {
+      let code, label;
+      if (this.order.status === 'WAITING_FOR_PAYMENT') {
+        code = 'WAITING_FOR_PAYMENT';
+        label = this.$t('orders.detail.statuses.WAITING_FOR_PAYMENT');
+      } else if (
+        this.order.status === 'CONFIRMED' ||
+        this.order.status === 'TO_BE_CONFIRMED' ||
+        this.order.status === 'TO_BE_CONFIRMED_BY_BO' ||
+        this.order.status === 'CONFIRMATION_IN_PROGRESS'
+      ) {
+        code = 'WAITING_FOR_PAYMENT';
+        label = this.$t('orders.detail.statuses.PAYMENT_MADE');
+      } else {
+        // defaults values are 'WAITING_FOR_PAYMENT'
+        code = 'WAITING_FOR_PAYMENT';
+        label = this.$t('orders.detail.statuses.WAITING_FOR_PAYMENT');
       }
       return { code, label };
     },

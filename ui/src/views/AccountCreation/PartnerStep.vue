@@ -181,7 +181,6 @@ import { validatePartner } from '@/api/digital.js';
 // Waiting for Richard HALLIER to active recaptcha because of proxy issue
 // import { VueReCaptcha } from 'vue-recaptcha-v3'
 //
-import Vue from 'vue'
 
 // Vue.use(VueReCaptcha, { siteKey: '6Le7k9AdAAAAAEj45cN9qj3XV6UyuPcD70GsoF2B' })
 
@@ -307,7 +306,7 @@ export default {
         !!this.businessErrors &&
         !this.businessErrors['PARTY_NAME_ALREADY_EXIST'] &&
         !this.businessErrors['SIRET_ALREADY_EXIST'] &&
-        !this.businessErrors['USER_NAME_ALREADY_EXIST'] 
+        !this.businessErrors['USER_NAME_ALREADY_EXIST']
         // this.captchaOk
       );
     },
