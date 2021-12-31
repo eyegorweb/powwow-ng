@@ -62,7 +62,7 @@ export default {
     },
 
     openCreateOrderPanel() {
-      if (!this.isPublicPartner) {
+      if (!this.isM2MLIGHTPartner) {
         this.openPanel({
           title: this.$t('getsim.order-sim'),
           panelId: 'getsim.order-sim',
@@ -88,7 +88,7 @@ export default {
     }),
     ...mapGetters('getsim', ['appliedFilters']),
     ...mapGetters(['userInfos']),
-    isPublicPartner() {
+    isM2MLIGHTPartner() {
       if (!this.userInfos || !this.userInfos.roles) return;
       const found = this.userInfos.partners.find((r) => {
         return r.partyType === 'M2M_LIGHT';

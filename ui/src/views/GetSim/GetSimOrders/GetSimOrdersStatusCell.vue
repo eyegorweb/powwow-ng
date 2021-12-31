@@ -92,6 +92,9 @@ export default {
         case 'NOT_VALIDATED':
           return 'ic-Alt-Icon';
 
+        case 'WAITING_FOR_PAYMENT':
+          return 'ic-Hourglass-Icon';
+
         case 'FAILED':
         case 'CANCELED':
           return 'ic-Cross-Icon';

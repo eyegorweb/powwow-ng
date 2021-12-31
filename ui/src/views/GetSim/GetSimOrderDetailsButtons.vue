@@ -13,25 +13,27 @@
           $t('getsim.actions.VALIDATE')
         }}</UiButton>
       </div>
-      <div v-if="isPublicPartner && statusIn(['WAITING_FOR_PAYMENT'])">
-        <UiButton
-          variant="accent"
-          :disabled="!!paymentErrors.length || isLoading"
-          block
-          @click="orderPublicPayment()"
-        >
-          <template slot="button" v-if="isLoading">
-            {{ $t('processing') }}...
-            <CircleLoader />
-          </template>
-          {{ $t('digitalOffer.doPayment') }}
-        </UiButton>
-      </div>
-      <div v-if="isPublicPartner && statusIn(['WAITING_FOR_PAYMENT'])">
-        <UiButton variant="accent" block @click="updateStatus('CANCELED')">{{
-          $t('getsim.actions.CANCEL')
-        }}</UiButton>
-      </div>
+      <template v-if="isM2MLIGHTOrder && statusIn(['WAITING_FOR_PAYMENT'])">
+        <div>
+          <UiButton
+            variant="accent"
+            :disabled="!!paymentErrors.length || isLoading"
+            block
+            @click="orderPublicPayment()"
+          >
+            <template slot="button" v-if="isLoading">
+              {{ $t('processing') }}...
+              <CircleLoader />
+            </template>
+            {{ $t('digitalOffer.doPayment') }}
+          </UiButton>
+        </div>
+        <div>
+          <UiButton variant="accent" block @click="updateStatus('CANCELED')">{{
+            $t('getsim.actions.CANCEL')
+          }}</UiButton>
+        </div>
+      </template>
       <div
         v-if="
           userIsBO && statusIn(['VALIDATED', 'CONFIRMATION_IN_PROGRESS', 'TO_BE_CONFIRMED_BY_BO'])
@@ -64,7 +66,7 @@
             'TO_BE_CONFIRMED',
             'TO_BE_CONFIRMED_BY_BO',
             'CONFIRMED',
-          ]) && !isPublicPartner
+          ]) && !isM2MLIGHTOrder
         "
       >
         <UiButton
@@ -110,13 +112,8 @@ export default {
   },
   computed: {
     ...mapGetters(['userIsBO', 'havePermission', 'userInfos']),
-    isPublicPartner() {
-      return (
-        !this.userIsBO &&
-        this.userInfos &&
-        this.userInfos.roles &&
-        this.userInfos.partners[0].partyType === 'M2M_LIGHT'
-      );
+    isM2MLIGHTOrder() {
+      return this.order && this.order.party && this.order.party.partyType === 'M2M_LIGHT';
     },
     paymentErrors() {
       return this.response && this.response.errors ? this.response.errors : [];
