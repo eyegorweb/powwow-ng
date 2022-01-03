@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.695+20220103154322
+2022-01-03
+
+### Fixes
+
+- [3072] rafraîchissement du stepper commandes M2M_LIGHT (d3604d0aa01759b38913776939e811d03f663894)
+
 ## 1.17.0-master.694+20220103143227
 2022-01-03
 
