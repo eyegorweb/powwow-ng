@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.693+20220103101305
+2022-01-03
+
+### Fixes
+
+- [3072] stepper des offres digitales (31b18b2b9f4aaf806a299bb27042ec7644d26123)
+
 ## 1.17.0-master.692+20211231151421
 2021-12-31
 
