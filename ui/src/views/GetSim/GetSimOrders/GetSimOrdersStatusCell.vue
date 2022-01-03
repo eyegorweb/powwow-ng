@@ -62,8 +62,7 @@ export default {
     status() {
       if (
         this.isM2MLIGHTOrder &&
-        (this.item === 'CONFIRMED' ||
-          this.item === 'TO_BE_CONFIRMED' ||
+        (this.item === 'TO_BE_CONFIRMED' ||
           this.item === 'TO_BE_CONFIRMED_BY_BO' ||
           this.item === 'CONFIRMATION_IN_PROGRESS')
       ) {
