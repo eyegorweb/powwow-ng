@@ -511,6 +511,9 @@ export default {
         if (this.order.status === 'CONFIRMED') {
           code = 'CONFIRMED';
           label = this.$t('orders.detail.statuses.VALIDATED');
+        } else if (this.order.status === 'TERMINATED') {
+          code = 'CONFIRMED';
+          label = this.$t('orders.detail.statuses.VALIDATED');
         } else if (this.order.status === 'TO_BE_CONFIRMED') {
           code = 'TO_BE_CONFIRMED';
           label = this.$t('orders.detail.statuses.VALIDATION');
@@ -521,8 +524,8 @@ export default {
           code = 'CONFIRMATION_IN_PROGRESS';
           label = this.$t('orders.detail.statuses.VALIDATION');
         } else {
-          // defaults values are 'CONFIRMED'
-          code = 'CONFIRMED';
+          // defaults values are 'TO_BE_CONFIRMED'
+          code = 'TO_BE_CONFIRMED';
           label = this.$t('orders.detail.statuses.VALIDATION');
         }
       }
