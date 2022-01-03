@@ -2,7 +2,7 @@
   <transition name="modal">
     <div class="modal-mask">
       <div class="modal-wrapper" @click.stop="noop">
-        <div class="modal-container">
+        <div class="modal-container" :class="{ 'sub-panel-container': panelView }">
           <div class="modal-body">
             <slot name="body">Default body</slot>
           </div>
@@ -25,6 +25,9 @@
 
 <script>
 export default {
+  props: {
+    panelView: Boolean,
+  },
   methods: {
     noop() {},
   },
@@ -58,6 +61,9 @@ export default {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
   transition: all 0.3s ease;
   font-family: Helvetica, Arial, sans-serif;
+  &.sub-panel-container {
+    width: 90%;
+  }
 }
 
 .modal-header h3 {

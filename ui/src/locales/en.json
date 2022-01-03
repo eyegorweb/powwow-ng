@@ -166,7 +166,8 @@
       "subscribe": "Subscribe",
       "topup": "Top up",
       "offerPeriod": "pour {period} mois"
-    }
+    },
+    "confirmationWarning": "Do you confirm the cancellation of the order? "
   },
   "export-types": {
     "EXPORT_ORDERS": "Orders export",
