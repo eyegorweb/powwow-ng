@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.696+20220103155237
+2022-01-03
+
+### Fixes
+
+- [3072] mise à jour du stepper pour une commande M2M_LIGHT terminée (659020037e955835cfcfbd3745e7dbbfe2bbe9ba)
+
 ## 1.17.0-master.695+20220103154322
 2022-01-03
 
