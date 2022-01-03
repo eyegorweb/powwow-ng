@@ -201,7 +201,8 @@
       "subscribe": "Souscrire",
       "topup": "Recharger",
       "offerPeriod": "pour {period} mois"
-    }
+    },
+    "confirmationWarning": "Confirmez-vous l'annulation de la commande ?"
   },
   "export-types": {
     "EXPORT_ORDERS": "Export de commandes",

@@ -32,6 +32,7 @@ export default {
           params: { paymentId: hashParts[1], status: hashParts[0] },
         });
       } else if (window.location.href.includes('create-account')) {
+        this.validate(this.$route.params.paymentId);
         setTimeout(() => {
           this.routeToLogin();
         }, 3000);

@@ -29,7 +29,7 @@
           </UiButton>
         </div>
         <div>
-          <UiButton variant="accent" block @click="updateStatus('CANCELED')">{{
+          <UiButton variant="accent" block @click="waitForConfirmation = true">{{
             $t('getsim.actions.CANCEL')
           }}</UiButton>
         </div>
@@ -44,7 +44,7 @@
         }}</UiButton>
       </div>
       <div v-if="statusIn(['NOT_VALIDATED'])">
-        <UiButton variant="accent" block @click="updateStatus('CANCELED')">{{
+        <UiButton variant="accent" block @click="waitForConfirmation = true">{{
           $t('getsim.actions.CANCEL')
         }}</UiButton>
       </div>
@@ -78,12 +78,65 @@
         >
       </div>
     </div>
+    <Modal panel-view v-if="waitForConfirmation">
+      <div slot="body">
+        <LoaderContainer :is-loading="isLoading">
+          <div slot="on-loading">
+            <ModalSkeleton :is-loading="isLoading" />
+          </div>
+          <div class="text-danger">
+            <i class="ic-Alert-Icon"></i>
+            Confirmez-vous l'annulation de la commande ?
+            <!-- {{ $t('getparc.actCreation.editCustomFields.confirmationWarning') }} -->
+          </div>
+        </LoaderContainer>
+      </div>
+      <div slot="footer">
+        <button
+          class="modal-default-button btn btn-danger btn-sm"
+          :disabled="isLoading"
+          @click.stop="waitForConfirmation = false"
+        >
+          {{ $t('cancel') }}
+        </button>
+        <button
+          class="modal-default-button btn btn-success btn-sm ml-1"
+          @click.stop="cancelOrder('CANCELED')"
+          :disabled="isLoading"
+        >
+          {{ $t('confirm') }}
+        </button>
+        <button class="modal-default-button btn btn-light btn-sm ml-1" disabled v-if="isLoading">
+          {{ $t('processing') }}...
+          <CircleLoader />
+        </button>
+      </div>
+      <!-- <div slot="footer" class="btn-wrapper">
+        <button
+          class="modal-default-button btn btn--cancel"
+          @click.stop="waitForConfirmation = false"
+          :disabled="isLoading"
+        >
+          {{ $t('cancel') }}
+        </button>
+        <button
+          class="modal-default-button btn ml-1 btn--confirm"
+          @click.stop="cancelOrder('CANCELED')"
+          :disabled="isLoading"
+        >
+          {{ $t('confirm') }}
+        </button>
+      </div> -->
+    </Modal>
   </div>
 </template>
 
 <script>
 import UiButton from '@/components/ui/Button';
 import CircleLoader from '@/components/ui/CircleLoader';
+import Modal from '@/components/Modal';
+import LoaderContainer from '@/components/LoaderContainer';
+import ModalSkeleton from '@/components/ui/skeletons/ModalSkeleton';
 import { updateOrderStatus, orderPublicPayment } from '@/api/orders';
 import { mapGetters, mapMutations } from 'vuex';
 import { setTimeout } from 'timers';
@@ -99,6 +152,9 @@ export default {
     UiButton,
     ExportButton,
     CircleLoader,
+    Modal,
+    LoaderContainer,
+    ModalSkeleton,
   },
   data() {
     return {
@@ -108,6 +164,7 @@ export default {
       },
       response: [],
       isLoading: false,
+      waitForConfirmation: false,
     };
   },
   computed: {
@@ -174,6 +231,14 @@ export default {
       this.order.status = orderData.status;
       this.updateOrderInTable(orderData);
       this.refreshIndicators();
+    },
+
+    async cancelOrder(cancelStatus) {
+      const orderData = await updateOrderStatus(this.order.id, cancelStatus);
+      this.order.status = orderData.status;
+      this.updateOrderInTable(orderData);
+      this.refreshIndicators();
+      this.waitForConfirmation = false;
     },
 
     async confirmOrder() {
