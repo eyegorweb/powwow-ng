@@ -413,8 +413,14 @@ export default {
           const historyEntry = this.order.orderStatusHistories.find((h) => h.status === s.code);
           if (historyEntry) {
             if (
-              this.order.status === 'WAITING_FOR_PAYMENT' &&
-              historyEntry.status === 'WAITING_FOR_PAYMENT'
+              (this.order.status === 'WAITING_FOR_PAYMENT' &&
+                historyEntry.status === 'WAITING_FOR_PAYMENT') ||
+              (this.order.status === 'TO_BE_CONFIRMED' &&
+                historyEntry.status === 'TO_BE_CONFIRMED') ||
+              (this.order.status === 'TO_BE_CONFIRMED_BY_BO' &&
+                historyEntry.status === 'TO_BE_CONFIRMED_BY_BO') ||
+              (this.order.status === 'CONFIRMATION_IN_PROGRESS' &&
+                historyEntry.status === 'CONFIRMATION_IN_PROGRESS')
             ) {
               s.date = null;
             } else {
@@ -436,6 +442,13 @@ export default {
         // cas spécifique pour les Offres Digitales
         if (this.order.status === 'WAITING_FOR_PAYMENT') {
           res.index = 0;
+        } else if (
+          this.isM2MLIGHTOrder &&
+          (this.order.status === 'TO_BE_CONFIRMED' ||
+            this.order.status === 'TO_BE_CONFIRMED_BY_BO' ||
+            this.order.status === 'CONFIRMATION_IN_PROGRESS')
+        ) {
+          res.index = 1;
         }
         return res.index;
       } else {
@@ -500,13 +513,13 @@ export default {
           label = this.$t('orders.detail.statuses.VALIDATED');
         } else if (this.order.status === 'TO_BE_CONFIRMED') {
           code = 'TO_BE_CONFIRMED';
-          label = this.$t('orders.detail.statuses.VALIDATED');
+          label = this.$t('orders.detail.statuses.VALIDATION');
         } else if (this.order.status === 'TO_BE_CONFIRMED_BY_BO') {
           code = 'TO_BE_CONFIRMED_BY_BO';
-          label = this.$t('orders.detail.statuses.VALIDATED');
+          label = this.$t('orders.detail.statuses.VALIDATION');
         } else if (this.order.status === 'CONFIRMATION_IN_PROGRESS') {
           code = 'CONFIRMATION_IN_PROGRESS';
-          label = this.$t('orders.detail.statuses.VALIDATED');
+          label = this.$t('orders.detail.statuses.VALIDATION');
         } else {
           // defaults values are 'CONFIRMED'
           code = 'CONFIRMED';
