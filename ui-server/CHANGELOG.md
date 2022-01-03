@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.694+20220103143227
+2022-01-03
+
+### Fixes
+
+- [2986] ajout d'une  popup de confirmation pour l'annulation de commande (4591f9c01f29b1283b185c1b7cbcf25f4cf375fc)
+
 ## 1.17.0-master.693+20220103101305
 2022-01-03
 
