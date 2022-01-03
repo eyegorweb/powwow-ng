@@ -537,7 +537,8 @@ export default {
         this.order.status === 'CONFIRMED' ||
         this.order.status === 'TO_BE_CONFIRMED' ||
         this.order.status === 'TO_BE_CONFIRMED_BY_BO' ||
-        this.order.status === 'CONFIRMATION_IN_PROGRESS'
+        this.order.status === 'CONFIRMATION_IN_PROGRESS' ||
+        this.order.status === 'TERMINATED'
       ) {
         code = 'WAITING_FOR_PAYMENT';
         label = this.$t('orders.detail.statuses.PAYMENT_MADE');
@@ -555,32 +556,63 @@ export default {
 
   watch: {
     confirmStep(newValue) {
-      this.confirmationStepper = [
-        {
-          code: 'NOT_VALIDATED',
-          label: this.$t('orders.detail.statuses.NOT_VALIDATED'),
-          date: null,
-          index: 0,
-        },
-        {
-          code: 'VALIDATED',
-          label: this.$t('orders.detail.statuses.VALIDATED'),
-          date: null,
-          index: 1,
-        },
-        {
-          code: newValue.code,
-          label: newValue.label,
-          date: null,
-          index: 2,
-        },
-        {
-          code: 'TERMINATED',
-          label: this.$t('orders.detail.statuses.TERMINATED'),
-          date: null,
-          index: 3,
-        },
-      ];
+      if (this.isM2MLIGHTOrder) {
+        // see docs ticket https://m2m-gitlab.by-docapost.com/powwow-ng/backlog/-/issues/3072
+        this.confirmationStepper = [
+          {
+            code: this.saveStep.code,
+            label: this.saveStep.label,
+            date: null,
+            index: 0,
+          },
+          {
+            code: this.paymentStep.code,
+            label: this.paymentStep.label,
+            date: null,
+            index: 1,
+          },
+          {
+            code: newValue.code,
+            label: newValue.label,
+            date: null,
+            index: 2,
+          },
+          {
+            code: 'TERMINATED',
+            label: this.$t('orders.detail.statuses.TERMINATED'),
+            date: null,
+            index: 3,
+          },
+        ];
+      } else {
+        this.confirmationStepper = [
+          {
+            code: 'NOT_VALIDATED',
+            label: this.$t('orders.detail.statuses.NOT_VALIDATED'),
+            date: null,
+            index: 0,
+          },
+          {
+            code: 'VALIDATED',
+            label: this.$t('orders.detail.statuses.VALIDATED'),
+            date: null,
+            index: 1,
+          },
+          {
+            code: this.confirmStep.code,
+            label: this.confirmStep.label,
+            date: null,
+            index: 2,
+          },
+          {
+            code: 'TERMINATED',
+            label: this.$t('orders.detail.statuses.TERMINATED'),
+            date: null,
+            index: 3,
+          },
+        ];
+      }
+
       return this.confirmationStepper;
     },
   },
