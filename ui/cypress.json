@@ -19,7 +19,5 @@
     "html": false,
     "json": true
   },
-  "video": true,
-  "videoUploadOnPasses": false,
-  "videoCompression": 50
+  "video": false
 }
