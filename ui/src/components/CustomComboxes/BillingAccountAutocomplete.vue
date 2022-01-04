@@ -38,7 +38,11 @@ export default {
   },
 
   mounted() {
-    this.selectedBillingAccount = this.value;
+    setTimeout(() => {
+      if (this.value) {
+        this.selectedBillingAccount = this.value;
+      }
+    });
   },
 
   watch: {

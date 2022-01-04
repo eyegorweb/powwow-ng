@@ -206,7 +206,7 @@ export default {
       }
     },
     setBillingAccount(billingAccount) {
-      this.chosenBillingAccount.label = billingAccount;
+      this.chosenBillingAccount = billingAccount;
     },
 
     onServiceChange(servicesChoice) {
