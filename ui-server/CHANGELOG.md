@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.701+20220104133900
+2022-01-04
+
+### Fixes
+
+- [3091] correction du prérequis lors de la sélection de compte de facturation pour les actes de gestion (732626317aff6565375e638296d6a80dfeca6bdc)
+
 ## 1.17.0-master.700+20220104125853
 2022-01-04
 
