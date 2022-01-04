@@ -10,7 +10,7 @@
   "testFiles": "**/*.feature",
   "projectId": "powwow-ng",
   "retries": {
-    "runMode": 2,
+    "runMode": 3,
     "openMode": 0
   },
   "reporter": "../node_modules/mochawesome/src/mochawesome.js",
@@ -19,5 +19,7 @@
     "html": false,
     "json": true
   },
-  "video": false
+  "video": true,
+  "videoUploadOnPasses": false,
+  "videoCompression": 24
 }
