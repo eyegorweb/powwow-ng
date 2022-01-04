@@ -259,6 +259,7 @@ e2e_integration:
       - ui/node_modules
       - cache/Cypress
       - .cache/Cypress
+  allow_failure: true
   script:
     - cd ui
     - yarn install --frozen-lockfile
