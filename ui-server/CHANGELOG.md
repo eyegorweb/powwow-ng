@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.702+20220107093111
+2022-01-07
+
+### Fixes
+
+- [3008] Modifier le process du changement de mot de passe (98038fab770d977ba3560e1fcddb89e22af8c99f)
+
 ## 1.17.0-master.701+20220104133900
 2022-01-04
 
