@@ -63,6 +63,8 @@
   "list": "Liste",
   "date": "Date",
   "none": "Aucune",
+  "allRequired": "Tous les champs sont obligatoires",
+  "civility": "Civilité",
   "noneM": "Aucun",
   "type": "Type",
   "searchError": "La recherche n'a pu aboutir. Veuillez réessayer",

@@ -11,7 +11,7 @@
         </div>
       </div>
     </div>
-    <BottomBar @next="gotoNext" @prev="gotoPrev" :can-prev="true" :can-next="canNext" />
+    <BottomBar @next="gotoNext" @prev="gotoPrev" :can-prev="true" :can-next="canNext" class="bottomBar"/>
   </div>
 </template>
 
@@ -65,6 +65,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.bottomBar {
+  box-shadow: 0px -8px 10px -11px rgb(125 125 125 / 39%);
+}
 .offerContainer {
   width: 80%;
   margin: 0 auto;
