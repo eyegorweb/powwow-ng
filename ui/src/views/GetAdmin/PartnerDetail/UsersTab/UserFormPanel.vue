@@ -495,7 +495,8 @@ export default {
 
     canShowRoles() {
       return (
-        this.userType === 'OPERATOR' ||
+        this.fromPagePartner ||
+        (this.userType === 'OPERATOR' ||
         !!this.selectedPartner ||
         !!this.selectedGroupPartner ||
         (this.userInfos.type === 'PARTNER' &&
@@ -503,7 +504,7 @@ export default {
           !!this.userInfos.partners[0].id) ||
         (this.userInfos.type === 'PARTNER_GROUP' &&
           !!this.userInfos.partyGroup &&
-          !!this.userInfos.partyGroup.id)
+          !!this.userInfos.partyGroup.id))
       );
     },
 
@@ -731,10 +732,10 @@ export default {
 
   watch: {
     async selectedPartner() {
-      if (!this.content.duplicateFrom) {
-        if (!this.selectedPartner) return;
-        const roles = await fetchAllowedRoles(null, this.selectedPartner.id, null);
-        const rolesWs = await fetchAllowedRoles(null, this.selectedPartner.id, null, true);
+      if (!this.content.duplicateFrom && this.selectedPartner && this.selectedPartner.id) {
+        const id = this.selectedPartner.id
+        const roles = await fetchAllowedRoles(null, id, null);
+        const rolesWs = await fetchAllowedRoles(null, id, null, true);
         this.roles = this.formattedRoles(roles);
         this.rolesWs = this.formattedRoles(rolesWs);
       }
