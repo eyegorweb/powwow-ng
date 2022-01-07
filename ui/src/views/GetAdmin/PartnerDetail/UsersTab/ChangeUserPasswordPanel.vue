@@ -2,6 +2,10 @@
   <BaseDetailPanelContent white>
     <div class="entries-line m-2">
       <div class="form-entry">
+        <FormControl label="oldPassword" input-type="password" v-model="oldPassword" />
+        <span v-if="showErrorWrongPassword">{{ $t('wrongPassword') }}</span>
+      </div>
+      <div class="form-entry">
         <FormControl label="password" input-type="password" v-model="password" />
       </div>
       <div class="form-entry">
@@ -48,6 +52,8 @@ export default {
     return {
       password: undefined,
       passwordConfirm: undefined,
+      oldPassword: undefined,
+      showErrorWrongPassword: false,
     };
   },
   props: {
@@ -80,10 +86,15 @@ export default {
         userId: this.userId,
         password: this.password,
         confirmPassword: this.passwordConfirm,
+        oldPassword: this.oldPassword,
       };
 
       const response = await updateUserPassword(params);
       if (response && response.errors && response.errors.length) {
+        if (response.errors[0].extensions.password === 'USER_D_PASSWORD_OLD_ENTERED_IS_INCORRECT') {
+          this.showErrorWrongPassword = true;
+        }
+
         response.errors.forEach(() => {
           let errorMessage =
             response.errors[0].extensions[''] === 'AccessDeniedForThisUser'
