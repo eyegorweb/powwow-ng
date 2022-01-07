@@ -99,8 +99,10 @@
   "showAllHistory": "View full history",
   "groupAccount": "Group account",
   "login": "Login",
-  "password": "Password",
-  "passwordConfirm": "Confirma password",
+  "oldPassword": "Old password",
+  "password": "New Password",
+  "passwordConfirm": "Password confirmation",
+  "wrongPassword": "Old password is incorrect",
   "pending-actions": {
     "preparing": "Preparing operations ...",
     "ready": "operation ready",

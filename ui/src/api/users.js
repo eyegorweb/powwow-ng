@@ -42,7 +42,7 @@ export async function updateUserPassword(params) {
   const response = await query(queryStr, {
     userPasswordInput: params,
   });
-  return response.data.updateUserPassword;
+  return response;
 }
 
 export async function createUser(params) {
