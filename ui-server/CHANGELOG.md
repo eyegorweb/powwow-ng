@@ -2,6 +2,18 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.703+20220110132758
+2022-01-10
+
+### Fixes
+
+- [2861] Changement label applyFilters (58efa934eb3f6d81ff4f6d580d6b9b2d5627ebe1)
+- [3004] Disable button save when process act (2e313316c28255abcc7ab4d62d07af572cc899e9)
+- [2780] Gestion permission sur section admin (4c244eb8eed6372d696b8e64fdb71b1192f3c726)
+- [3100] add roles to admin user creation on partner page (0867eea5a9b379487333d69336b5333798805e89)
+- [3106] Add error front for account creation (49cfff7c2c86820f377639765918215311464e17)
+- [3091] correction de la présélection du composant de compte de facturation (d346d8264b53e41147dc02d4a3184ec608d4a9ee)
+
 ## 1.17.0-master.702+20220107093111
 2022-01-07
 
