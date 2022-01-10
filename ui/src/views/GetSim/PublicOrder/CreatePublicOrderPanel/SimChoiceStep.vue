@@ -60,7 +60,8 @@
 import CreateOrderStepContainer from '@/views/GetSim/CreateOrder/CreateOrderStepContainer.vue';
 import GetSimTypeOption from '@/views/GetSim/CreateOrder/GetSimTypeOption.vue';
 import UiInput from '@/components/ui/UiInput';
-import { fetchSimTypes } from '@/api/digital.js';
+import { fetchSimTypesWhithParty } from '@/api/digital.js';
+import { mapGetters } from 'vuex';
 
 export default {
   components: {
@@ -75,7 +76,7 @@ export default {
     },
   },
   async mounted() {
-    this.simTypes = await fetchSimTypes();
+    this.simTypes = await fetchSimTypesWhithParty(this.partnerId);
     this.preFill();
   },
   data() {
@@ -99,6 +100,10 @@ export default {
         parseInt(this.selectedNumberOfSims) &&
         this.selectedNumberOfSims < 9999999999
       );
+    },
+    ...mapGetters(['userInfos']),
+    partnerId() {
+      return this.userInfos.partners[0].id;
     },
   },
   methods: {
