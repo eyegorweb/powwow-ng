@@ -1,15 +1,17 @@
 <template>
   <div class="step-container">
     <div class="form-container">
+      <div class="allRequired">{{$t('allRequired')}}</div>
       <div class="row mb-3">
-        <div class="col">
+        <div class="col" :class="{error: civilityError}">
+          <label>{{$t('civility')}}</label>
           <div class="d-flex">
             <label class="radio-container mr-3">
               {{ $t('common.MRS') }}
               <input name="title" type="radio" value="MRS" v-model="form.title" />
               <span class="checkmark" />
             </label>
-            <label class="radio-container">
+            <label class="radio-container" :class="{error: civilityError}">
               {{ $t('common.MR') }}
               <input name="title" type="radio" value="MR" v-model="form.title" />
               <span class="checkmark" />
@@ -24,6 +26,7 @@
             label="digitalOffer.step1.lastName"
             v-model="form.lastName"
             :max-size="100"
+            :class="{error: lastNameError}"
           />
         </div>
         <div class="form-entry">
@@ -31,20 +34,21 @@
             label="digitalOffer.step1.firstName"
             v-model="form.firstName"
             :max-size="100"
+            :class="{error: firstNameError}"
           />
         </div>
       </div>
 
       <div class="entries-line formLine">
         <div class="form-entry">
-          <FormControl label="common.email" v-model="form.email" :max-size="100" />
+          <FormControl label="common.email" v-model="form.email" :max-size="100" :class="{error: emailError}"/>
           <span v-if="form.email && !isEmailValid(form.email)" class="error-text">
             {{ $t('errors.password.email-error') }}
           </span>
         </div>
 
         <div class="form-entry">
-          <FormControl label="digitalOffer.step1.phone" v-model="form.phone" :max-size="20" />
+          <FormControl label="digitalOffer.step1.phone" v-model="form.phone" :max-size="20" :class="{error: phoneError}"/>
         </div>
       </div>
 
@@ -55,12 +59,13 @@
             :max-size="50"
             v-model="form.company"
             :error="businessErrors['PARTY_NAME_ALREADY_EXIST'] || companyInputError"
+            :class="{error: companyError}"
           />
         </div>
       </div>
 
       <div class="entries-line">
-        <div class="form-group">
+        <div class="form-group" :class="{error: companyNumberError}">
           <Toggle
             v-if="toggleValues"
             @update="siretType = $event.id"
@@ -88,11 +93,12 @@
 
       <div class="entries-line">
         <div class="form-entry">
-          <label>{{ $t('digitalOffer.address') }}</label>
+          <label :class="{error: addressError}">{{ $t('digitalOffer.address') }}</label>
           <UiApiAutocomplete
             :api-method="searchAddress"
             :max-size="80"
             v-model="selectedAddress"
+            :class="{error: addressError}"
             no-icon
           />
         </div>
@@ -104,13 +110,14 @@
             label="orders.new.deliveryStep.form.zipcode"
             v-model="form.zipCode"
             :max-size="15"
+            :class="{error: zipCodeError}"
           />
         </div>
         <div class="col">
-          <FormControl label="filters.city" v-model="form.city" :max-size="50" />
+          <FormControl label="filters.city" v-model="form.city" :max-size="50" :class="{error: cityError}"/>
         </div>
         <div class="col">
-          <div class="form-group">
+          <div class="form-group" :class="{error: countryError}">
             <label>{{ $t('orders.new.deliveryStep.form.country') }}</label>
             <div>
               <UiApiAutocomplete
@@ -125,12 +132,13 @@
       </div>
 
       <div class="form-group">
-        <label class="small-label">{{ $t('login') }}</label>
+        <label class="small-label" :class="{error: loginError}">{{ $t('login') }} </label>
         <UiInput
           v-model="form.login"
           :max-size="50"
           block
           :error="businessErrors['USER_NAME_ALREADY_EXIST'] || loginInputError"
+          :class="{error: loginError}"
         />
       </div>
 
@@ -142,6 +150,7 @@
           label="password"
           input-type="password"
           v-model="form.password"
+          :class="{error: passwordError}"
           :max-size="50"
         />
         <FormControl
@@ -149,6 +158,7 @@
           label="passwordConfirm"
           input-type="password"
           v-model="form.passwordConfirm"
+          :class="{error: passwordConfirmError}"
           :max-size="50"
         />
       </div>
@@ -164,7 +174,7 @@
       </div>
     </div>
 
-    <BottomBar no-prev :can-next="canNext" @next="gotoNext" />
+    <BottomBar no-prev :can-next="true" @next="gotoNext" />
   </div>
 </template>
 
@@ -227,8 +237,25 @@ export default {
         phone: undefined,
         login: undefined,
         password: undefined,
-        passwordConfirm: undefined,
       },
+      // FormChecker
+      formErrorCheck: false,
+      passwordConfirm: undefined,
+      companyError: undefined,
+      firstNameError: undefined,
+      lastNameError: undefined,
+      zipCodeError: undefined,
+      addressError: undefined,
+      cityError: undefined,
+      countryError: undefined,
+      emailError: undefined,
+      phoneError: undefined,
+      loginError: undefined,
+      civilityError: undefined,
+      companyNumberError: undefined,
+      passwordConfirmError: undefined,
+      passwordError: undefined,
+
       selectedAddress: {},
       countries: [],
       siretLimit: 14,
@@ -298,19 +325,6 @@ export default {
       return true;
     },
 
-    canNext() {
-      return (
-        this.requiredFields.length === 0 &&
-        this.passwordConfirmationErrors.length === 0 &&
-        this.hasSiretValue &&
-        !!this.businessErrors &&
-        !this.businessErrors['PARTY_NAME_ALREADY_EXIST'] &&
-        !this.businessErrors['SIRET_ALREADY_EXIST'] &&
-        !this.businessErrors['USER_NAME_ALREADY_EXIST']
-        // this.captchaOk
-      );
-    },
-
     businessErrors() {
       let errors = [
         'PARTY_NAME_ALREADY_EXIST', // company
@@ -373,13 +387,44 @@ export default {
   methods: {
     searchAddress,
     async gotoNext() {
-      this.inputErrors = await this.checkInputErrors();
-      if (!this.inputErrors.length) {
+      console.log("pouet");
+      this.formErrorChecker()
+      if(!this.formErrorCheck) {
+        this.inputErrors = await this.checkInputErrors();
+      }
+      if (!this.inputErrors.length && !this.formErrorCheck) {
         this.$router.push({
           name: 'createAccount.offer',
           params: { step: { creationAccountStep: this.form } },
         });
       }
+    },
+    formErrorChecker() {
+        this.companyError = this.form.company ? false : true;
+        this.firstNameError = this.form.firstName ? false : true;
+        this.lastNameError = this.form.lastName ? false : true;
+        this.zipCodeError = this.form.zipCode ? false : true;
+        this.addressError = this.form.address ? false : true;
+        this.emailError = this.form.email ? false : true;
+        this.phoneError = this.form.phone ? false : true;
+        this.cityError = this.form.city ? false : true;
+        this.countryError = this.form.country ? false : true;
+        this.loginError = this.form.login ? false : true;
+        this.civilityError = this.form.title ? false : true;
+        this.companyNumberError = this.form.tvaValue || this.form.siretValue ? false : true;
+        this.passwordConfirmError = this.form.password ? false : true;
+        this.passwordError = this.form.password ? false : true;
+
+        if(!this.form.company || !this.form.firstName || !this.form.lastName || 
+        !this.form.zipCode || !this.form.address || !this.form.city || 
+        !this.form.country || !this.form.email || !this.form.phone 
+        || !this.form.login || !this.form.title) 
+        {
+          this.formErrorCheck = true;
+        }
+        else {
+          this.formErrorCheck = false;
+        }
     },
     // async recaptcha() {
     //   await this.$recaptchaLoaded()
@@ -460,6 +505,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.error {color: red;}
+.allRequired {
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+}
+
 .formLine {
   display: flex;
   justify-content: space-between;
