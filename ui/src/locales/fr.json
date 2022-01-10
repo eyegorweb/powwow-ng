@@ -179,6 +179,7 @@
       "SIMCARD_MANDATORY": "SIMCARD_MANDATORY",
       "USER_MANDATORY": "USER_MANDATORY",
       "USER_NAME_ALREADY_EXIST": "Le login existe déjà ",
+      "PHONE_NUMBER_INVALID": "Le numéro de téléphone est invalide ",
       "SIRET_MANDATORY": "SIRET_MANDATORY",
       "SIRET_ALREADY_EXIST": "Le Siret est déjà utilisé",
       "USER_NOT_ALLOWED": "USER_NOT_ALLOWED",
