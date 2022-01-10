@@ -57,6 +57,15 @@ export const getters = {
     }
     return false;
   },
+  userIsSuperAdmin: (state) => {
+    // Admin docapost
+    if (state.userInfos) {
+      return !!state.userInfos.roles.find(
+        (r) => r.name === 'admin'
+      );
+    }
+    return false;
+  },
   userIsGroupPartner: (state) => {
     return state.userInfos && state.userInfos.type === 'PARTNER_GROUP';
   },

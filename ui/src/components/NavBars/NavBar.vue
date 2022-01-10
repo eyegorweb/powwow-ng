@@ -114,7 +114,7 @@
                 {{ userInfos.email }}
               </span>
 
-              <template v-if="userIsAdmin">
+              <template v-if="userIsSuperAdmin">
                 <div class="dropdown-divider"></div>
                 <router-link class="dropdown-item" :to="{ name: 'messagesList' }">
                   Section admin
@@ -435,7 +435,7 @@ export default {
       'userIsGroupPartner',
       'userIsPartner',
       'userIsMVNO',
-      'userIsAdmin',
+      'userIsSuperAdmin',
       'userName',
       'havePermission',
       'havePermissionDomain',
