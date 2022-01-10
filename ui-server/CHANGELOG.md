@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.704+20220110142125
+2022-01-10
+
+### Fixes
+
+- [3102] affichage des menus du détail de la ligne pour les partenaires M2M_LIGHT (fc9d1b135c8e8790fc4b804f23c1738cc8126a46)
+
 ## 1.17.0-master.703+20220110132758
 2022-01-10
 
