@@ -325,6 +325,11 @@ export async function searchLines(orderBy, pagination, filters = []) {
     }
     order {
       id
+      customerAccount {
+        id
+        name
+        code
+      }
     }
     deviceInstance {
       manufacturer

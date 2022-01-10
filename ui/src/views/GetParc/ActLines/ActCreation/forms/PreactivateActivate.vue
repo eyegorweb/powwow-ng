@@ -131,18 +131,26 @@ export default {
     },
     billingAccount() {
       if (this.actCreationPrerequisites.searchById) {
+        let data;
         if (this.singleLineFound && this.singleLineFound.customerAccountForActivation) {
-          const data = this.singleLineFound.customerAccountForActivation;
-          const formatted = {
-            id: data.id,
-            label: `${data.code} - ${data.name}`,
-            code: data.code,
-            data,
-            partner: data.party,
-            partnerId: data.party.id,
-          };
-          return formatted;
+          data = this.singleLineFound.customerAccountForActivation;
+        } else if (
+          this.singleLineFound &&
+          this.singleLineFound.accessPoint &&
+          this.singleLineFound.accessPoint.offerGroup &&
+          this.singleLineFound.accessPoint.offerGroup.customerAccount
+        ) {
+          data = this.singleLineFound.accessPoint.offerGroup.customerAccount;
         }
+        const formatted = {
+          id: data.id,
+          label: `${data.code} - ${data.name}`,
+          code: data.code,
+          data,
+          partner: data.party,
+          partnerId: data.party.id,
+        };
+        return formatted;
       }
       return this.actCreationPrerequisites.billingAccount;
     },
