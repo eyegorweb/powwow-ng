@@ -2,29 +2,7 @@
 
 <!--- next entry here -->
 
-## 1.17.0-master.707+20220110155219
-2022-01-10
-
-### Fixes
-
-- [3079] Ajouter la date de dernier commande d'une sim (209d5f51606fcb013869fe9ffd6aacd865283923)
-- [3091] configuration du compte de facturation comme prérequis pour l'acte des gestion Préactivation/activation (ef5488f66c53ce704bbcba6c8937717d5fdd6cae)
-
-## 1.17.0-master.705+20220110152624
-2022-01-10
-
-### Fixes
-
-- [3091] gestion de la réponse de l'api simCardInstances avec retour de la clé customerAccountForActivation (5696e0ff740c6e609fcaf82d36a510264c734762)
-
-## 1.17.0-master.704+20220110142125
-2022-01-10
-
-### Fixes
-
-- [3102] affichage des menus du détail de la ligne pour les partenaires M2M_LIGHT (fc9d1b135c8e8790fc4b804f23c1738cc8126a46)
-
-## 1.17.0-master.703+20220110132758
+## 1.17.0-master.708+20220110132719
 2022-01-10
 
 ### Fixes
@@ -34,7 +12,6 @@
 - [2780] Gestion permission sur section admin (4c244eb8eed6372d696b8e64fdb71b1192f3c726)
 - [3100] add roles to admin user creation on partner page (0867eea5a9b379487333d69336b5333798805e89)
 - [3106] Add error front for account creation (49cfff7c2c86820f377639765918215311464e17)
-- [3091] correction de la présélection du composant de compte de facturation (d346d8264b53e41147dc02d4a3184ec608d4a9ee)
 
 ## 1.17.0-master.702+20220107093111
 2022-01-07
