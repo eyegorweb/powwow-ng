@@ -13,6 +13,11 @@ export function fetchSimTypes() {
   return publicApiRoute.get('/api/public/digital-offer/sim').then((res) => res.data.items);
 }
 
+export function fetchSimTypesWhithParty(partyId) {
+  const simUrl = '/api/public/digital-offer/sim?partyId=' + partyId;
+  return publicApiRoute.get(simUrl).then((res) => res.data.items);
+}
+
 export function createDigitalOffer(formData, token) {
   const config = {
     headers: {
