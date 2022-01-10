@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.705+20220110152624
+2022-01-10
+
+### Fixes
+
+- [3091] gestion de la réponse de l'api simCardInstances avec retour de la clé customerAccountForActivation (5696e0ff740c6e609fcaf82d36a510264c734762)
+
 ## 1.17.0-master.704+20220110142125
 2022-01-10
 
