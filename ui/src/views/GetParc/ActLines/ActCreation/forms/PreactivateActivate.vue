@@ -131,8 +131,20 @@ export default {
     },
     billingAccount() {
       if (this.actCreationPrerequisites.searchById) {
-        if (this.singleLineFound) {
-          return this.singleLineFound.customerAccountForActivation;
+        if (
+          this.singleLineFound &&
+          this.singleLineFound.accessPoint &&
+          this.singleLineFound.accessPoint.offerGroup &&
+          this.singleLineFound.accessPoint.offerGroup.customerAccount
+        ) {
+          const data = this.singleLineFound.accessPoint.offerGroup.customerAccount;
+          const formatted = {
+            id: data.id,
+            label: `${data.code} - ${data.name}`,
+            code: data.code,
+            data,
+          };
+          return formatted;
         }
       }
       return this.actCreationPrerequisites.billingAccount;
