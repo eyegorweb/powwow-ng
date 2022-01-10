@@ -36,7 +36,7 @@ export default {
       {
         section: 'line_info',
         title: 'getparc.lineDetail.tab1.lineInfo',
-        compatiblePartnerTypes: ['CUSTOMER', 'MVNO', 'MULTI_CUSTOMER'],
+        compatiblePartnerTypes: ['CUSTOMER', 'MVNO', 'MULTI_CUSTOMER', 'M2M_LIGHT'],
         to: {
           name: 'lineDetail.details.info',
           params: { lineId: this.$route.params.lineId, meta: this.content },
@@ -45,7 +45,7 @@ export default {
       {
         section: 'billing',
         title: 'getparc.lineDetail.tab1.billingOffer.title',
-        compatiblePartnerTypes: ['CUSTOMER', 'MVNO', 'MULTI_CUSTOMER'],
+        compatiblePartnerTypes: ['CUSTOMER', 'MVNO', 'MULTI_CUSTOMER', 'M2M_LIGHT'],
         to: {
           name: 'lineDetail.details.billing',
           params: { lineId: this.$route.params.lineId, meta: this.content },
@@ -54,7 +54,7 @@ export default {
       {
         section: 'line_services',
         title: 'getparc.lineDetail.tab1.lineServices',
-        compatiblePartnerTypes: ['CUSTOMER', 'MVNO', 'MULTI_CUSTOMER'],
+        compatiblePartnerTypes: ['CUSTOMER', 'MVNO', 'MULTI_CUSTOMER', 'M2M_LIGHT'],
         to: {
           name: 'lineDetail.details.services',
           params: { lineId: this.$route.params.lineId, meta: this.content },
@@ -63,7 +63,7 @@ export default {
       {
         section: 'alarm_list',
         title: 'getparc.lineDetail.tab1.alarmsList',
-        compatiblePartnerTypes: ['CUSTOMER', 'MULTI_CUSTOMER'],
+        compatiblePartnerTypes: ['CUSTOMER', 'MULTI_CUSTOMER', 'M2M_LIGHT'],
         to: {
           name: 'lineDetail.details.alarms',
           params: { lineId: this.$route.params.lineId, meta: this.content },
@@ -72,7 +72,7 @@ export default {
       {
         section: 'acts_history',
         title: 'getparc.lineDetail.tab1.actsHistory',
-        compatiblePartnerTypes: ['CUSTOMER', 'MVNO', 'MULTI_CUSTOMER'],
+        compatiblePartnerTypes: ['CUSTOMER', 'MVNO', 'MULTI_CUSTOMER', 'M2M_LIGHT'],
         to: {
           name: 'lineDetail.details.acts',
           params: { lineId: this.$route.params.lineId, meta: this.content },
