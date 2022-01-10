@@ -131,18 +131,15 @@ export default {
     },
     billingAccount() {
       if (this.actCreationPrerequisites.searchById) {
-        if (
-          this.singleLineFound &&
-          this.singleLineFound.accessPoint &&
-          this.singleLineFound.accessPoint.offerGroup &&
-          this.singleLineFound.accessPoint.offerGroup.customerAccount
-        ) {
-          const data = this.singleLineFound.accessPoint.offerGroup.customerAccount;
+        if (this.singleLineFound && this.singleLineFound.customerAccountForActivation) {
+          const data = this.singleLineFound.customerAccountForActivation;
           const formatted = {
             id: data.id,
             label: `${data.code} - ${data.name}`,
             code: data.code,
             data,
+            partner: data.party,
+            partnerId: data.party.id,
           };
           return formatted;
         }
