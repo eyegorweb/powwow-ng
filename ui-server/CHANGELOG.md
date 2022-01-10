@@ -2,11 +2,12 @@
 
 <!--- next entry here -->
 
-## 1.17.0-master.706+20220110154843
+## 1.17.0-master.707+20220110155219
 2022-01-10
 
 ### Fixes
 
+- [3079] Ajouter la date de dernier commande d'une sim (209d5f51606fcb013869fe9ffd6aacd865283923)
 - [3091] configuration du compte de facturation comme prérequis pour l'acte des gestion Préactivation/activation (ef5488f66c53ce704bbcba6c8937717d5fdd6cae)
 
 ## 1.17.0-master.705+20220110152624
