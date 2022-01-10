@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.706+20220110154843
+2022-01-10
+
+### Fixes
+
+- [3091] configuration du compte de facturation comme prérequis pour l'acte des gestion Préactivation/activation (ef5488f66c53ce704bbcba6c8937717d5fdd6cae)
+
 ## 1.17.0-master.705+20220110152624
 2022-01-10
 
