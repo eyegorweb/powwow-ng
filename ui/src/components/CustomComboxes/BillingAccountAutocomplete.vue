@@ -38,10 +38,8 @@ export default {
   },
 
   mounted() {
-    setTimeout(() => {
-      if (this.value) {
-        this.selectedBillingAccount = this.value;
-      }
+    this.$nextTick(() => {
+      this.selectedBillingAccount = this.value;
     });
   },
 

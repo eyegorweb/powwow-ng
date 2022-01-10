@@ -17,7 +17,7 @@
           :disabled="!selectedPartner"
           v-model="selectedBillingAccount"
           :selected-partner="selectedPartner"
-          preselect-first
+          preselect-first-only-when-one-item
         />
       </div>
       <div class="filter-item">
@@ -25,7 +25,6 @@
           v-model="selectedOffer"
           :partners="partnersForFilters"
           :disabled="!selectedPartner"
-          preselect-first
         />
       </div>
       <div class="action-btn pl-2">

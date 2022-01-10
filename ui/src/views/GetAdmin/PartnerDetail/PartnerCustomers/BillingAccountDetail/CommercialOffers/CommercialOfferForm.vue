@@ -32,11 +32,7 @@
               >
                 <div v-if="initOffer">{{ $loGet(initOffer, 'marketingOffer.description') }}</div>
                 <div v-else>
-                  <OfferCombo
-                    v-model="selectedCatalogOffer"
-                    :filters="workflowFilters"
-                    preselect-first
-                  />
+                  <OfferCombo v-model="selectedCatalogOffer" :filters="workflowFilters" />
                 </div>
               </FormControl>
             </div>
