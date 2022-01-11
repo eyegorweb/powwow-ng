@@ -104,7 +104,7 @@ export default {
       this.actCreationPrerequisites.partner.id,
       this.actCreationPrerequisites.offer.label
     );
-    console.log(response)
+    console.log(response);
     if (response.items && response.items.length) {
       this.packages = response.items[0].offerPackages;
       this.workflowId = response.items[0].id;
@@ -127,7 +127,7 @@ export default {
         simCardIds,
         'DIGITAL_OFFER'
       );
-      console.log(response)
+      console.log(response);
       window.location.href = response.url;
     },
     onActDateChange(value) {

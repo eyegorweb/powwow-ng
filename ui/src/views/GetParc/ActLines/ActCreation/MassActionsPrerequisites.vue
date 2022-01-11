@@ -5,11 +5,7 @@
       @set:preprequisites="setPrerequisites"
     />
     <PartnerAndCFTransfertSim
-      v-if="
-        [
-          'getparc.actCreation.carouselItem.TRANSFERT_LINES',
-        ].find((a) => a === act.title)
-      "
+      v-if="['getparc.actCreation.carouselItem.TRANSFERT_LINES'].find((a) => a === act.title)"
       @set:preprequisites="setPrerequisites"
       :user-partner="userPartner"
     />
@@ -53,7 +49,7 @@
       "
       :have-lv-offers="
         act.title === 'getparc.actCreation.carouselItem.esim.CHARGE_LV_LINES' ||
-        act.title === 'getparc.actCreation.carouselItem.RECHARGE_LINES'
+          act.title === 'getparc.actCreation.carouselItem.RECHARGE_LINES'
       "
     />
   </div>

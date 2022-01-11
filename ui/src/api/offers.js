@@ -554,8 +554,8 @@ export async function rechargeLineOD(partyId, date, workflowId, label, simCardId
       }
     }
   }
-  `
-  
+  `;
+
   const response = await query(mutationStr, { partyId, date, workflowId, label, simCardIds, type });
   return response.data.topUpOffer;
 }
@@ -589,7 +589,7 @@ export async function fetchODOffers(partyId, offer) {
         }
       }
       }
-    };`
+    };`;
 
   const response = await query(queryStr, { partyId, offer });
   return response.data.workflows;

@@ -11,7 +11,13 @@
         </div>
       </div>
     </div>
-    <BottomBar @next="gotoNext" @prev="gotoPrev" :can-prev="true" :can-next="canNext" class="bottomBar"/>
+    <BottomBar
+      @next="gotoNext"
+      @prev="gotoPrev"
+      :can-prev="true"
+      :can-next="canNext"
+      class="bottomBar"
+    />
   </div>
 </template>
 

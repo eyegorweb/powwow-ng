@@ -250,7 +250,6 @@ export default {
 
       return false;
     },
-
   },
   methods: {
     ...mapActions('actLines', ['fetchLinesActionsFromApi', 'initFilterForContext']),
@@ -441,8 +440,8 @@ export default {
     } else {
       this.columns = [...this.commonColumns, ...this.defaultCustomFieldsColumns];
     }
-    if(this.havePermission('getVision', 'read')) {
-      this.columns = [...this.columns, ...this.columnsGetVision]
+    if (this.havePermission('getVision', 'read')) {
+      this.columns = [...this.columns, ...this.columnsGetVision];
     }
 
     if (this.rows.length > 0) {
@@ -652,7 +651,7 @@ export default {
           },
         },
       ],
-      columnsGetVision: [        
+      columnsGetVision: [
         {
           id: 8,
           label: this.$t('getparc.actLines.col.lastPLMN'),

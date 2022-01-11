@@ -341,23 +341,6 @@ export default {
       return true;
     },
 
-<<<<<<< HEAD
-=======
-    canNext() {
-      return (
-        this.requiredFields.length === 0 &&
-        this.passwordConfirmationErrors.length === 0 &&
-        this.hasSiretValue &&
-        !!this.businessErrors &&
-        !this.businessErrors['PARTY_NAME_ALREADY_EXIST'] &&
-        !this.businessErrors['SIRET_ALREADY_EXIST'] &&
-        !this.businessErrors['USER_NAME_ALREADY_EXIST'] &&
-        !this.businessErrors['PHONE_NUMBER_INVALID']
-        // this.captchaOk
-      );
-    },
-
->>>>>>> 60455554f (fix: [3107] Création d'une commande Offre digitale.)
     businessErrors() {
       let errors = [
         'PARTY_NAME_ALREADY_EXIST', // company
@@ -427,9 +410,9 @@ export default {
   methods: {
     searchAddress,
     async gotoNext() {
-      console.log("pouet");
-      this.formErrorChecker()
-      if(!this.formErrorCheck) {
+      console.log('pouet');
+      this.formErrorChecker();
+      if (!this.formErrorCheck) {
         this.inputErrors = await this.checkInputErrors();
       }
       if (!this.inputErrors.length && !this.formErrorCheck) {
@@ -440,31 +423,38 @@ export default {
       }
     },
     formErrorChecker() {
-        this.companyError = this.form.company ? false : true;
-        this.firstNameError = this.form.firstName ? false : true;
-        this.lastNameError = this.form.lastName ? false : true;
-        this.zipCodeError = this.form.zipCode ? false : true;
-        this.addressError = this.form.address ? false : true;
-        this.emailError = this.form.email ? false : true;
-        this.phoneError = this.form.phone ? false : true;
-        this.cityError = this.form.city ? false : true;
-        this.countryError = this.form.country ? false : true;
-        this.loginError = this.form.login ? false : true;
-        this.civilityError = this.form.title ? false : true;
-        this.companyNumberError = this.form.tvaValue || this.form.siretValue ? false : true;
-        this.passwordConfirmError = this.form.password ? false : true;
-        this.passwordError = this.form.password ? false : true;
+      this.companyError = this.form.company ? false : true;
+      this.firstNameError = this.form.firstName ? false : true;
+      this.lastNameError = this.form.lastName ? false : true;
+      this.zipCodeError = this.form.zipCode ? false : true;
+      this.addressError = this.form.address ? false : true;
+      this.emailError = this.form.email ? false : true;
+      this.phoneError = this.form.phone ? false : true;
+      this.cityError = this.form.city ? false : true;
+      this.countryError = this.form.country ? false : true;
+      this.loginError = this.form.login ? false : true;
+      this.civilityError = this.form.title ? false : true;
+      this.companyNumberError = this.form.tvaValue || this.form.siretValue ? false : true;
+      this.passwordConfirmError = this.form.password ? false : true;
+      this.passwordError = this.form.password ? false : true;
 
-        if(!this.form.company || !this.form.firstName || !this.form.lastName ||
-        !this.form.zipCode || !this.form.address || !this.form.city ||
-        !this.form.country || !this.form.email || !this.form.phone
-        || !this.form.login || !this.form.title)
-        {
-          this.formErrorCheck = true;
-        }
-        else {
-          this.formErrorCheck = false;
-        }
+      if (
+        !this.form.company ||
+        !this.form.firstName ||
+        !this.form.lastName ||
+        !this.form.zipCode ||
+        !this.form.address ||
+        !this.form.city ||
+        !this.form.country ||
+        !this.form.email ||
+        !this.form.phone ||
+        !this.form.login ||
+        !this.form.title
+      ) {
+        this.formErrorCheck = true;
+      } else {
+        this.formErrorCheck = false;
+      }
     },
     // async recaptcha() {
     //   await this.$recaptchaLoaded()

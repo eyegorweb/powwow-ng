@@ -60,9 +60,7 @@ export const getters = {
   userIsSuperAdmin: (state) => {
     // Admin docapost
     if (state.userInfos) {
-      return !!state.userInfos.roles.find(
-        (r) => r.name === 'admin'
-      );
+      return !!state.userInfos.roles.find((r) => r.name === 'admin');
     }
     return false;
   },
