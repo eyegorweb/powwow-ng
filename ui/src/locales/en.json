@@ -852,6 +852,8 @@
       "deleteDeliveryAddress": "Are you sure you want to delete this shipping address ?"
     },
     "partners": {
+      "siren": "SIREN number",
+      "creationDate": "Creation date",
       "name": "Corporate name",
       "mainAdmin": "Principal administrator",
       "secondAdmin": "Secondary Administrator",

@@ -16,7 +16,7 @@
       :rows="rows"
       :total="total"
       :order-by.sync="orderBy"
-      :size="0"
+      :size="6"
       @applyFilters="applyFilters"
     >
       <div slot="title">
@@ -70,7 +70,7 @@ export default {
         id: 2,
         label: this.$t('common.code'),
         name: 'code',
-        orderable: true,
+        orderable: false,
         visible: true,
       },
       {
@@ -110,7 +110,7 @@ export default {
             return row.disabled ? this.$t('col.notActive') : this.$t('col.active');
           },
         },
-        orderable: true,
+        orderable: false,
         visible: true,
       },
       {
@@ -123,8 +123,24 @@ export default {
             return row.partyGroups.map((p) => p.name).join(',');
           },
         },
-        orderable: true,
+        orderable: false,
         visible: true,
+      },
+      {
+        id: 6,
+        label: this.$t('getadmin.partners.siren'),
+        name: 'siren',
+        visible: false,
+      },
+      {
+        id: 7,
+        label: this.$t('getadmin.partners.creationDate'),
+        name: 'auditable',
+        visible: false,
+        format: {
+          type: 'ObjectAttribute',
+          path: 'created',
+        },
       },
     ];
     this.applyFilters();
