@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.709+20220111082659
+2022-01-11
+
+### Fixes
+
+- [3107] Création d'une commande Offre digitale. (b94b0397dfa423ba68b8e79ba59e92c081e314f4)
+- [000] lint front code (f24cfb822a748cd20c691b0da2216ce9395eecdf)
+
 ## 1.17.0-master.708+20220110132719
 2022-01-10
 
