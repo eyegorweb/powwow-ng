@@ -1125,6 +1125,10 @@ export async function fetchAllPartners(orderBy, pagination, filters = []) {
           code
           partyType
           disabled
+          siren
+          auditable {
+            created
+          }
           partyGroups {
             name
           }

@@ -137,6 +137,7 @@
   "tva-number": "N° TVA intra communautaire",
   "price": "Prix",
   "designation": "Désignation",
+  "siren": "Numéro SIREN :",
   "pending-actions": {
     "title": "Opérations en cours",
     "preparing": "Préparation de l'opération ...",
@@ -937,6 +938,8 @@
       "modifySpecificField": "Modifier un champ spécifique"
     },
     "partners": {
+      "siren": "Numéro SIREN",
+      "creationDate": "Date de création",
       "name": "Raison sociale",
       "mainAdmin": "Administrateur principal",
       "secondAdmin": "Administrateur secondaire",
