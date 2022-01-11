@@ -3,9 +3,9 @@
     <div class="form-container">
       <div class="allRequired">{{ $t('allRequired') }}</div>
       <div class="row mb-3">
-        <div class="col" :class="{ error: civilityError }">
+        <div class="col">
           <label>{{ $t('civility') }}</label>
-          <div class="d-flex">
+          <div class="d-flex" :class="{ error: civilityError }">
             <label class="radio-container mr-3">
               {{ $t('common.MRS') }}
               <input name="title" type="radio" value="MRS" v-model="form.title" />
@@ -17,6 +17,7 @@
               <span class="checkmark" />
             </label>
           </div>
+          <small v-if="civilityError" class="form-text error-text">{{ $t('required') }}</small>
         </div>
       </div>
 
@@ -27,6 +28,7 @@
             v-model="form.lastName"
             :max-size="100"
             :class="{ error: lastNameError }"
+            :required="lastNameError"
           />
         </div>
         <div class="form-entry">
@@ -35,6 +37,7 @@
             v-model="form.firstName"
             :max-size="100"
             :class="{ error: firstNameError }"
+            :required="firstNameError"
           />
         </div>
       </div>
@@ -46,6 +49,7 @@
             v-model="form.email"
             :max-size="100"
             :class="{ error: emailError }"
+            :required="emailError"
           />
           <span v-if="form.email && !isEmailValid(form.email)" class="error-text">
             {{ $t('errors.password.email-error') }}
@@ -59,6 +63,7 @@
             :error="businessErrors['PHONE_NUMBER_INVALID'] || phoneInputError"
             :max-size="20"
             :class="{ error: phoneError }"
+            :required="phoneError"
           />
         </div>
       </div>
@@ -71,6 +76,7 @@
             v-model="form.company"
             :error="businessErrors['PARTY_NAME_ALREADY_EXIST'] || companyInputError"
             :class="{ error: companyError }"
+            :required="companyError"
           />
         </div>
       </div>
@@ -91,13 +97,14 @@
               @blur="onInputBlur($event)"
               input-type="number"
               :error="businessErrors['SIRET_ALREADY_EXIST'] || siretInputError"
+              :required="companyNumberError"
             />
             <span v-if="!hide && !reachedMaxLength && siretType === 'siret'" class="error-text">
               {{ $t('errors.maxlength') }}
             </span>
           </template>
           <template v-else>
-            <FormControl v-model="form.siretValue" :max-size="50" />
+            <FormControl v-model="form.siretValue" :max-size="50" :required="companyNumberError" />
           </template>
         </div>
       </div>
@@ -122,6 +129,7 @@
             v-model="form.zipCode"
             :max-size="15"
             :class="{ error: zipCodeError }"
+            :required="zipCodeError"
           />
         </div>
         <div class="col">
@@ -130,6 +138,7 @@
             v-model="form.city"
             :max-size="50"
             :class="{ error: cityError }"
+            :required="cityError"
           />
         </div>
         <div class="col">
@@ -156,6 +165,7 @@
           :error="businessErrors['USER_NAME_ALREADY_EXIST'] || loginInputError"
           :class="{ error: loginError }"
         />
+        <small v-if="loginError" class="form-text error-text">{{ $t('required') }}</small>
       </div>
 
       <div class="form-entry"></div>
@@ -168,6 +178,7 @@
           v-model="form.password"
           :class="{ error: passwordError }"
           :max-size="50"
+          :required="passwordError"
         />
         <FormControl
           class="password-confirm"
@@ -175,6 +186,7 @@
           input-type="password"
           v-model="form.passwordConfirm"
           :class="{ error: passwordConfirmError }"
+          :required="passwordConfirmError"
           :max-size="50"
         />
       </div>
@@ -255,7 +267,6 @@ export default {
         password: undefined,
       },
       // FormChecker
-      formErrorCheck: false,
       passwordConfirm: undefined,
       companyError: undefined,
       firstNameError: undefined,
@@ -409,52 +420,56 @@ export default {
 
   methods: {
     searchAddress,
+    checkFieldFormError(field) {
+      return !!Object.keys(this.form).find((key) => key === field && !this.form[key]);
+    },
     async gotoNext() {
-      console.log('pouet');
-      this.formErrorChecker();
-      if (!this.formErrorCheck) {
+      const isRequired = this.validateInputForm();
+      if (!isRequired) {
         this.inputErrors = await this.checkInputErrors();
-      }
-      if (!this.inputErrors.length && !this.formErrorCheck) {
-        this.$router.push({
-          name: 'createAccount.offer',
-          params: { step: { creationAccountStep: this.form } },
-        });
+        if (!this.inputErrors.length) {
+          this.$router.push({
+            name: 'createAccount.offer',
+            params: { step: { creationAccountStep: this.form } },
+          });
+        }
       }
     },
-    formErrorChecker() {
-      this.companyError = this.form.company ? false : true;
-      this.firstNameError = this.form.firstName ? false : true;
-      this.lastNameError = this.form.lastName ? false : true;
-      this.zipCodeError = this.form.zipCode ? false : true;
-      this.addressError = this.form.address ? false : true;
-      this.emailError = this.form.email ? false : true;
-      this.phoneError = this.form.phone ? false : true;
-      this.cityError = this.form.city ? false : true;
-      this.countryError = this.form.country ? false : true;
-      this.loginError = this.form.login ? false : true;
-      this.civilityError = this.form.title ? false : true;
-      this.companyNumberError = this.form.tvaValue || this.form.siretValue ? false : true;
-      this.passwordConfirmError = this.form.password ? false : true;
-      this.passwordError = this.form.password ? false : true;
+    validateInputForm() {
+      this.companyError = this.checkFieldFormError('company');
+      this.firstNameError = this.checkFieldFormError('firstName');
+      this.lastNameError = this.checkFieldFormError('lastName');
+      this.zipCodeError = this.checkFieldFormError('zipCode');
+      this.addressError = this.checkFieldFormError('address');
+      this.emailError = this.checkFieldFormError('email');
+      this.phoneError = this.checkFieldFormError('phone');
+      this.cityError = this.checkFieldFormError('city');
+      this.countryError = this.checkFieldFormError('country');
+      this.loginError = this.checkFieldFormError('login');
+      this.civilityError = this.checkFieldFormError('title');
+      this.companyNumberError =
+        this.siretType === 'siret'
+          ? this.checkFieldFormError('tvaValue')
+          : this.checkFieldFormError('siretValue');
+      this.passwordConfirmError = this.checkFieldFormError('password');
+      this.passwordError = this.checkFieldFormError('password');
 
-      if (
-        !this.form.company ||
-        !this.form.firstName ||
-        !this.form.lastName ||
-        !this.form.zipCode ||
-        !this.form.address ||
-        !this.form.city ||
-        !this.form.country ||
-        !this.form.email ||
-        !this.form.phone ||
-        !this.form.login ||
-        !this.form.title
-      ) {
-        this.formErrorCheck = true;
-      } else {
-        this.formErrorCheck = false;
-      }
+      return (
+        this.companyError ||
+        this.firstNameError ||
+        this.lastNameError ||
+        this.zipCodeError ||
+        this.addressError ||
+        this.emailError ||
+        this.phoneError ||
+        this.cityError ||
+        this.countryError ||
+        this.loginError ||
+        this.civilityError ||
+        this.companyNumberError ||
+        this.passwordConfirmError ||
+        this.passwordError
+      );
     },
     // async recaptcha() {
     //   await this.$recaptchaLoaded()
@@ -537,7 +552,10 @@ export default {
 
 <style lang="scss" scoped>
 .error {
-  color: red;
+  border-color: $orange;
+}
+.d-flex.error {
+  color: $orange;
 }
 .allRequired {
   font-size: 14px;
