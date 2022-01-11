@@ -1,5 +1,63 @@
 <template>
   <div>
+    <div class="longLife" v-if="longLifeInfo && !userIsMVNO">
+      <div class="longLife-title">
+        <h2 class="text-gray font-weight-light" style="font-size: 2rem">
+          {{ $t('getparc.lineDetail.longLife') }}
+        </h2>
+      </div>
+      <div class="longLife-bars">
+        <div class="longLife-bar">
+          <div class="longLife-bar-title">DATA</div>
+          <div class="longLife-bar-rest">
+            {{ $t('getparc.lineDetail.rest') }}&nbsp;{{
+              formattedData('DATA', longLifeInfo.dataAvailable)
+            }}
+          </div>
+          <div class="barConso">
+            <div class="barConso-use" :style="dataBarUse">
+              {{ $t('getparc.lineDetail.consume') }}&nbsp;{{
+                formattedData('DATA', longLifeInfo.dataConsumed)
+              }}
+            </div>
+          </div>
+        </div>
+        <div class="longLife-bar">
+          <div class="longLife-bar-title">SMS</div>
+          <div class="longLife-bar-rest">
+            {{ $t('getparc.lineDetail.rest') }} {{ longLifeInfo.smsAvailable }}
+          </div>
+          <div class="barConso">
+            <div class="barConso-use" :style="smsBarUse">
+              {{ $t('getparc.lineDetail.consume') }}&nbsp;{{ longLifeInfo.smsConsumed }}
+            </div>
+          </div>
+        </div>
+        <div class="longLife-bar">
+          <div class="longLife-bar-title">VOIX</div>
+          <div class="longLife-bar-rest">
+            {{ $t('getparc.lineDetail.rest') }}
+            {{ formattedData('VOICE', longLifeInfo.voiceAvailable) }}
+          </div>
+          <div class="barConso">
+            <div class="barConso-use" :style="voiceBarUse">
+              {{ $t('getparc.lineDetail.consume') }}&nbsp;{{
+                formattedData('VOICE', longLifeInfo.voiceConsumed)
+              }}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="longLife-date">
+        {{ $t('getparc.lineDetail.limitDate') }} {{ longLifeInfo.DLV }} <br />
+        {{
+          $t('getparc.lineDetail.lastRecharge', {
+            date: longLifeInfo.lastRechargeDate,
+            offer: longLifeInfo.envelopeName,
+          })
+        }}
+      </div>
+    </div>
     <LoaderContainer :is-loading="isLoading">
       <div slot="on-loading">
         <ConsoSkeletonTable v-if="!partnerTypeMVNO" />
@@ -269,64 +327,6 @@
         </h3>
       </div>
     </LoaderContainer>
-    <div class="longLife" v-if="longLifeInfo && !userIsMVNO">
-      <div class="longLife-title">
-        <h2 class="text-gray font-weight-light" style="font-size: 2rem">
-          {{ $t('getparc.lineDetail.longLife') }}
-        </h2>
-      </div>
-      <div class="longLife-bars">
-        <div class="longLife-bar">
-          <div class="longLife-bar-title">SMS</div>
-          <div class="longLife-bar-rest">
-            {{ $t('getparc.lineDetail.rest') }} {{ longLifeInfo.smsAvailable }}
-          </div>
-          <div class="barConso">
-            <div class="barConso-use" :style="smsBarUse">
-              {{ $t('getparc.lineDetail.consume') }}&nbsp;{{ longLifeInfo.smsConsumed }}
-            </div>
-          </div>
-        </div>
-        <div class="longLife-bar">
-          <div class="longLife-bar-title">VOIX</div>
-          <div class="longLife-bar-rest">
-            {{ $t('getparc.lineDetail.rest') }}
-            {{ formattedData('VOICE', longLifeInfo.voiceAvailable) }}
-          </div>
-          <div class="barConso">
-            <div class="barConso-use" :style="voiceBarUse">
-              {{ $t('getparc.lineDetail.consume') }}&nbsp;{{
-                formattedData('VOICE', longLifeInfo.voiceConsumed)
-              }}
-            </div>
-          </div>
-        </div>
-        <div class="longLife-bar">
-          <div class="longLife-bar-title">DATA</div>
-          <div class="longLife-bar-rest">
-            {{ $t('getparc.lineDetail.rest') }}&nbsp;{{
-              formattedData('DATA', longLifeInfo.dataAvailable)
-            }}
-          </div>
-          <div class="barConso">
-            <div class="barConso-use" :style="dataBarUse">
-              {{ $t('getparc.lineDetail.consume') }}&nbsp;{{
-                formattedData('DATA', longLifeInfo.dataConsumed)
-              }}
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="longLife-date">
-        {{ $t('getparc.lineDetail.limitDate') }} {{ longLifeInfo.DLV }} <br />
-        {{
-          $t('getparc.lineDetail.lastRecharge', {
-            date: longLifeInfo.lastRechargeDate,
-            offer: longLifeInfo.envelopeName,
-          })
-        }}
-      </div>
-    </div>
   </div>
 </template>
 
@@ -496,6 +496,7 @@ export default {
       margin-bottom: 10px;
     }
   }
+  margin-bottom: 2rem;
 }
 .barConso {
   background: rgb(137, 208, 255);
