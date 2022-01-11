@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.710+20220111104501
+2022-01-11
+
+### Features
+
+- [3108] ajouter le siren et la date de création dans la liste des partenaires (112cfd3f191f39afc64c9d6af8e858dd6cb1a39e)
+
 ## 1.17.0-master.709+20220111082659
 2022-01-11
 
