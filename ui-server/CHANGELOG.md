@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.712+20220111171258
+2022-01-11
+
+### Fixes
+
+- [3106] gestion de validation des champs obligatoires pour la création de partenaire sur une offre digitale (096b85927d09c381007de6258bd1aa1fca2ef54e)
+
 ## 1.17.0-master.711+20220111164350
 2022-01-11
 
