@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.711+20220111164350
+2022-01-11
+
+### Features
+
+- [3109] Mis a jour du bloc des consommations LV dans l'écran des encours conso du détail de la ligne. (98fedc04ea3b3bdf6211f6083f7e82f121b8d52a)
+
 ## 1.17.0-master.710+20220111104501
 2022-01-11
 
