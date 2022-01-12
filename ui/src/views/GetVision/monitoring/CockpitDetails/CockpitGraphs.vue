@@ -70,7 +70,7 @@ export default {
     loadedComponents(loadedComponents) {
       if (loadedComponents === 3) {
         setTimeout(() => {
-          this.scrollTo(this.markerData.type);
+          if (this.markerData && this.markerData.type) this.scrollTo(this.markerData.type);
         }, 500);
       }
     },
@@ -147,7 +147,7 @@ export default {
   methods: {
     scrollTo(usage) {
       const element = this.$refs[usage];
-      const top = element.offsetTop;
+      const top = element ? element.offsetTop : 0;
       window.scrollTo(0, top);
     },
     getExportFn() {

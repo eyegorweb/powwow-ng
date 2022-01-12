@@ -38,7 +38,7 @@
             <div v-if="canShowWorldGraphBtn" class="row mt-2 pl-2">
               <div class="col">
                 <UiButton variant="outline-primary" class="mb-4" @click="showWorldM2MGraphs">
-                  Graphe monde
+                  {{ $t('getvsion.graph-world') }}
                 </UiButton>
               </div>
             </div>
@@ -232,12 +232,17 @@ export default {
   },
 
   watch: {
-    cockpitMarkerToDetail() {
-      if (this.cockpitMarkerToDetail) {
+    cockpitMarkerToDetail(value) {
+      if (value) {
+        if (value.type === 'ALERT') {
+          this.currentTab = 'alerts';
+        } else {
+          this.currentTab = 'graphs';
+        }
         this.refreshCockpitFilters();
       }
     },
-    currentUsage() {
+    currentUsage(value) {
       this.appliedFilters = undefined;
       this.currentUsagePrevFilters = undefined;
       this.refreshLinesFn = undefined;
@@ -249,7 +254,7 @@ export default {
       this.currentFilters = [];
       this.currentTab = 'graphs';
 
-      if (this.currentUsage === 'COCKPIT') {
+      if (value === 'COCKPIT') {
         this.currentTab = 'alerts';
         this.refreshCockpitFilters();
         this.setupDefaultValues();
@@ -304,7 +309,23 @@ export default {
       });
     },
     showWorldM2MGraphs() {
-      // this.appliedFilters = []
+      this.filters = [
+        {
+          title: 'common.period',
+          component: DateRangeFilter,
+          onChange(chosen) {
+            return {
+              id: 'common.period',
+              startDate: chosen.startDate,
+              endDate: chosen.endDate,
+              data: chosen,
+            };
+          },
+        },
+      ];
+      setTimeout(() => {
+        this.refreshCockpitFilters();
+      });
       this.cockpitMarkerToDetail = { world: true };
       this.freezeFilterSelection({ world: true });
       this.doSearch([...this.appliedFilters]);
@@ -319,7 +340,6 @@ export default {
 
     refreshCockpitFilters() {
       this.filters = this.getCockpitFilters();
-      this.filterBarVersion += 1;
     },
 
     onUsageChange(usage) {

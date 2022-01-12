@@ -726,6 +726,7 @@
     "allUsages": "Tout usage",
     "dataUsage": "Usage data",
     "m2mCockpit": "Cockpit M2M",
+    "graph-world": "Graphe monde",
     "alarms": "Alarmes",
     "exportGraph": "Exporter les données des graphes",
     "supervisionType": "Type de supervision",
