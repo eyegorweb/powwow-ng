@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.713+20220112100757
+2022-01-12
+
+### Fixes
+
+- [3117] correction du siret obligatoire dans la création d'offre digitale (8f5adcbc7140570d428fa5bd957272d4f5003954)
+
 ## 1.17.0-master.712+20220111171258
 2022-01-11
 
