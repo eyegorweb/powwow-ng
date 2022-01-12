@@ -916,7 +916,8 @@
         "AccessDeniedForThisUser": "Message d'erreur : Vous n'avez pas la permission.",
         "username": "Le login existe déjà."
       },
-      "export": "Exporter {total} utilisateur(s)"
+      "export": "Exporter {total} utilisateur(s)",
+      "tooltip-text": "Cette page permet de rechercher un utilisateur."
     },
     "customize": {
       "addList": "Ajouter une liste de diffusion",
@@ -1349,6 +1350,7 @@
     "lines-sim-import": "Importer des cartes SIM",
     "management-act": "Suivi/pilotage des actes de gestion",
     "management-act-detail": "Historique des actes",
+    "management-act-tooltip-text": "Vous pouvez retrouver l'ensemble des actes de gestion effectués sur le parc, ainsi que leurs résultats.",
     "management-lines": "Gestion des lignes",
     "display-lines": "Afficher toutes les lignes",
     "screen-search": "Ecran de recherche de lignes et création d'actes de gestion",

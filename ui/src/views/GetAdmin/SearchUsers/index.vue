@@ -5,7 +5,7 @@
         <h4>
           <b>GetAdmin</b>
           - {{ $t('getadmin.users.title') }}
-          <Tooltip direction="right">{{ $t('getvsion.manage-alarms-tooltip') }}</Tooltip>
+          <Tooltip direction="right">{{ $t('getadmin.users.tooltip-text') }}</Tooltip>
         </h4>
       </div>
       <div class="col-md-3" v-if="canShow">
