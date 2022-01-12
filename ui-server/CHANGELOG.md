@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.714+20220112150945
+2022-01-12
+
+### Features
+
+- [3098] Ajout d'un contrôle sur la validité du partenaire lors de la validation d'une commande (4bbc81b62785c27ff218328732dd331bb100648f)
+
 ## 1.17.0-master.713+20220112100757
 2022-01-12
 
