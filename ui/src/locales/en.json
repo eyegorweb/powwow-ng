@@ -830,7 +830,8 @@
         "username": "Login already exists."
       },
       "searchPlaceholder": "Enter a name, first name or login",
-      "export": "Export {total} user(s)"
+      "export": "Export {total} user(s)",
+      "tooltip-text": "This page allows you to search for a user."
     },
     "customize": {
       "addList": "Add a mailing list",
@@ -1224,6 +1225,7 @@
     "lines-sim-import": "Import SIM cards",
     "management-act": "Monitoring of management acts",
     "management-act-detail": "History of act details",
+    "management-act-tooltip-text": "You can find all the management acts in the fleet and the results.",
     "management-lines": "Line management",
     "tooltip-title-text": "You can find all the lines in the fleet, their condition as well as the line diagnostic tools. You can also manage lines, modify services and offers, export information and usage data.",
     "classic-acts": "Classic acts",

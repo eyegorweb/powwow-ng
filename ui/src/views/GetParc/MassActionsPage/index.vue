@@ -5,7 +5,7 @@
         <h4>
           <b>GetParc</b>
           - {{ $t('getparc.management-act') }}
-          <em class="ic-Info-Icon" />
+          <Tooltip direction="right">{{ $t('getparc.management-act-tooltip-text') }}</Tooltip>
         </h4>
       </div>
     </div>
@@ -32,12 +32,14 @@
 <script>
 import UiTabs from '@/components/ui/Tabs';
 import UiTab from '@/components/ui/Tab';
+import Tooltip from '@/components/ui/Tooltip';
 import { mapGetters } from 'vuex';
 
 export default {
   components: {
     UiTabs,
     UiTab,
+    Tooltip,
   },
 
   data() {
