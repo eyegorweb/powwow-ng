@@ -663,6 +663,7 @@
     "allUsages": "DATA, SMS, Voice usage",
     "dataUsage": "DATA Usage",
     "m2mCockpit": "Cockpit M2M",
+    "graph-world": "World graph",
     "exportGraph": "Export from graphs",
     "msgGlobalParcExport": "Only the export is available from this counter",
     "supervisionTypes": {
