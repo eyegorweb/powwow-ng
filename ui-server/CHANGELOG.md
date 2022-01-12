@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.716+20220112154404
+2022-01-12
+
+### Fixes
+
+- [3077] Modification dese points d'information de la page des utilisateurs et de la page des actes de gestion. (7148992d2e6f61296513b90add577668056bd119)
+
 ## 1.17.0-master.715+20220112152557
 2022-01-12
 
