@@ -38,8 +38,9 @@
         v-if="
           userIsBO && statusIn(['VALIDATED', 'CONFIRMATION_IN_PROGRESS', 'TO_BE_CONFIRMED_BY_BO'])
         "
+        v-tooltip="isPartyNotValidated ? $t('digitalOffer.validateParty') : undefined"
       >
-        <UiButton variant="accent" block @click="confirmOrder()">{{
+        <UiButton variant="accent" :disabled="isPartyNotValidated" block @click="confirmOrder()">{{
           $t('getsim.actions.CONFIRM')
         }}</UiButton>
       </div>
@@ -171,6 +172,9 @@ export default {
     ...mapGetters(['userIsBO', 'havePermission', 'userInfos']),
     isM2MLIGHTOrder() {
       return this.order && this.order.party && this.order.party.partyType === 'M2M_LIGHT';
+    },
+    isPartyNotValidated() {
+      return this.isM2MLIGHTOrder && this.order.party.validationStatus === 'TO_VALIDATE';
     },
     paymentErrors() {
       return this.response && this.response.errors ? this.response.errors : [];

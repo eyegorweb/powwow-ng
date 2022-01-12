@@ -100,6 +100,7 @@ export async function searchOrders(orderBy, pagination, filters = []) {
           custom6FieldLabel
           contractReference
           partyType
+          validationStatus
         }
         quantity
         customFields {

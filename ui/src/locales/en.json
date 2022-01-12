@@ -118,6 +118,7 @@
     "offer": "Offer",
     "delivery": "Delivery",
     "doPayment": "Proceed to payment",
+    "validateParty": "Partner must be validated",
     "address": "Company name address",
     "step1": {
       "company": "Company name",
