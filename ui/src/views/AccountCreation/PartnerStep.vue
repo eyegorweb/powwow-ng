@@ -104,7 +104,7 @@
             </span>
           </template>
           <template v-else>
-            <FormControl v-model="form.siretValue" :max-size="50" :required="companyNumberError" />
+            <FormControl v-model="form.tvaValue" :max-size="50" :required="companyNumberError" />
           </template>
         </div>
       </div>
@@ -449,8 +449,8 @@ export default {
       this.civilityError = this.checkFieldFormError('title');
       this.companyNumberError =
         this.siretType === 'siret'
-          ? this.checkFieldFormError('tvaValue')
-          : this.checkFieldFormError('siretValue');
+          ? this.checkFieldFormError('siretValue')
+          : this.checkFieldFormError('tvaValue');
       this.passwordConfirmError = this.checkFieldFormError('password');
       this.passwordError = this.checkFieldFormError('password');
 
