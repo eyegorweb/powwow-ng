@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.715+20220112152557
+2022-01-12
+
+### Fixes
+
+- [3114] correction du filtre de période dans la page cockpit M2M (ecd3ebe61eaf36f1ab42e53fe7ac09e05253e318)
+
 ## 1.17.0-master.714+20220112150945
 2022-01-12
 
