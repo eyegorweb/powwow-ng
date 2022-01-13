@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.717+20220113144125
+2022-01-13
+
+### Fixes
+
+- [3113] gestion du zoom sur cartes Google avec filtres dans la supervision (cd4d3f2bd0c6283d3f2c5113edf3a7ad2df4f647)
+
 ## 1.17.0-master.716+20220112154404
 2022-01-12
 
