@@ -319,13 +319,13 @@ export default {
     },
 
     centerOnCoords(longitude, latitude) {
-      if (this.isSameFilters) return;
+      // if (this.isSameFilters) return;
       const countryCoords = new this.google.maps.LatLng(latitude, longitude);
       this.map.setCenter(countryCoords);
     },
 
     async initZoom() {
-      if (this.isSameFilters) return;
+      // if (this.isSameFilters) return;
       if (!this.appliedFilters) return;
 
       const zoneFilter = this.appliedFilters.find((f) => f.id === 'filters.zone');
@@ -465,17 +465,17 @@ export default {
         : undefined;
 
       if (!this.markers || !this.markers.length) {
-        if (!this.isSameFilters) {
-          if (countryFilter) {
-            this.centerZoom(
-              countryFilter.data.longitude,
-              countryFilter.data.latitude,
-              COUNTRY_ZOOM_LEVEL
-            );
-          } else {
-            this.centerOnFrance(COUNTRY_ZOOM_LEVEL);
-          }
+        // if (!this.isSameFilters) {
+        if (countryFilter) {
+          this.centerZoom(
+            countryFilter.data.longitude,
+            countryFilter.data.latitude,
+            COUNTRY_ZOOM_LEVEL
+          );
+        } else {
+          this.centerOnFrance(COUNTRY_ZOOM_LEVEL);
         }
+        // }
 
         setTimeout(() => {
           this.markers = markers;
