@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.720+20220114143827
+2022-01-14
+
+### Fixes
+
+- [3118] Affichage service optionnel (536b10726ed1ae1ac0aeb75904c15866e0d4513e)
+
 ## 1.17.0-master.719+20220114141836
 2022-01-14
 
