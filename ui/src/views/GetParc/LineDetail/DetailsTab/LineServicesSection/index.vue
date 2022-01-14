@@ -19,7 +19,7 @@
             </template>
             <template slot="content">
               <div>
-                <ServicesBlock :services="optionalServices" full-width />
+                <ServicesOptionalBlock :services="optionalServices" full-width />
               </div>
             </template>
           </ContentBlock>
@@ -114,6 +114,7 @@ import CircleLoader from '@/components/ui/CircleLoader';
 import ContentBlock from '@/views/GetParc/LineDetail/ContentBlock';
 import draggable from 'vuedraggable';
 import ServicesBlock from '@/components/Services/ServicesBlock.vue';
+import ServicesOptionalBlock from '@/components/Services/ServicesOptionalBlock.vue';
 import {
   getOfferServices,
   getOptionalServices,
@@ -135,6 +136,7 @@ export default {
     ServicesSkeleton,
     LoaderContainer,
     CircleLoader,
+    ServicesOptionalBlock,
   },
   props: {
     content: Object,
