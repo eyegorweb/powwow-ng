@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.718+20220114085036
+2022-01-14
+
+### Fixes
+
+- [3112] exporter les graphes en image et régler l'affichage des dates (547c00320a2aab46e3297dde444b6c889c1c5ec4)
+
 ## 1.17.0-master.717+20220113144125
 2022-01-13
 
