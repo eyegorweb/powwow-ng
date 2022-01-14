@@ -69,7 +69,7 @@ export default {
         !!parseInt(this.values.smsOut) ||
         !!parseInt(this.values.voiceES) ||
         !!parseInt(this.values.voiceIn) ||
-        !!parseInt(this.values.VoiceOut);
+        !!parseInt(this.values.voiceOut);
 
       if (this.values.period === 'CUSTOM') {
         isFormValid &= !!this.values.customPeriodValue;
