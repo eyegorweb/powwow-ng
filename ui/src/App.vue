@@ -34,6 +34,10 @@ import { mapMutations, mapGetters } from 'vuex';
 import $ from 'jquery';
 import 'jquery-ui-dist/jquery-ui.js';
 import 'jquery-ui-dist/jquery-ui.css';
+import exportingInit from 'highcharts/modules/exporting';
+import Highcharts from 'highcharts';
+
+exportingInit(Highcharts);
 
 export default {
   name: 'App',

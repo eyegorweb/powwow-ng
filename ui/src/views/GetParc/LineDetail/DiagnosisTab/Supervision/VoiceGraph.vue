@@ -126,6 +126,13 @@ export default {
             }
           },
         },
+        plotOptions: {
+          series: {
+            marker: {
+              enabled: false,
+            },
+          },
+        },
         series: [
           {
             name: this.$t('getparc.lineDetail.supervision.minutesIn'),

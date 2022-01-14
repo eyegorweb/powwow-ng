@@ -154,4 +154,9 @@ export default {
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+.highcharts-container {
+  overflow: visible !important;
+  z-index: 100 !important;
+}
+</style>

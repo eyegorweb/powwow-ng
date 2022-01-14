@@ -138,6 +138,11 @@ export default {
           },
         },
         plotOptions: {
+          series: {
+            marker: {
+              enabled: false,
+            },
+          },
           column: {
             stacking: 'normal',
             zones: [
