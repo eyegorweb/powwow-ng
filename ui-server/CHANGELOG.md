@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.719+20220114141836
+2022-01-14
+
+### Fixes
+
+- [3112] corriger création alarme + corriger l'affichage du dropMenu des graphs (da8ef59e2bf646d7eef893ab6d2b39d441a86adc)
+
 ## 1.17.0-master.718+20220114085036
 2022-01-14
 
