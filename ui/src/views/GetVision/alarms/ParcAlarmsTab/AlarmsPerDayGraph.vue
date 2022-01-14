@@ -157,6 +157,6 @@ export default {
 <style lang="scss">
 .highcharts-container {
   overflow: visible !important;
-  z-index: 100 !important;
+  z-index: auto !important;
 }
 </style>
