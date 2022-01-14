@@ -92,6 +92,13 @@ export default {
         tooltip: {
           shared: true,
         },
+        plotOptions: {
+          series: {
+            marker: {
+              enabled: false,
+            },
+          },
+        },
         series: [
           {
             name: this.$t('getparc.lineDetail.supervision.smsIn'),
