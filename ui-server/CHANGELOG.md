@@ -2,8 +2,12 @@
 
 <!--- next entry here -->
 
-## 1.17.0-master.721+20220117110056
+## 1.17.0-master.721+20220117111425
 2022-01-17
+
+### Fixes
+
+- [3114] Affichage du filtre partenaire dans le cockpit getvision. (4be91b368b9c1108203886820478127fa5868639)
 
 ## 1.17.0-master.720+20220114143827
 2022-01-14
