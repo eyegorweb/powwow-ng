@@ -164,6 +164,7 @@ export default {
       currentFilters: [],
       frozenValues: [],
       isFrozen: false,
+      isCockpitClick: false,
       currentTab: 'graphs',
       lastCenteredCountry: undefined,
 
@@ -199,6 +200,9 @@ export default {
           title: 'getadmin.users.filters.partners',
           component: MultiCustomerPartnerFilter,
           isHidden: () => {
+            if (!this.userIsPartner && this.isCockpitClick) {
+              return false;
+            }
             return this.isFrozen;
           },
           onChange(chosenValue, clearFilter) {
@@ -703,7 +707,10 @@ export default {
 
     onCockpitClick(payload) {
       this.cockpitMarkerToDetail = payload;
+      this.isCockpitClick = true;
       this.freezeFilterSelection(payload);
+      this.defaultValues = [...this.frozenValues];
+      this.frozenValues = [];
     },
   },
 };
