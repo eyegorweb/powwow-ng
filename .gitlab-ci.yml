@@ -265,6 +265,7 @@ e2e_integration:
     - yarn install --frozen-lockfile
     - yarn e2e || echo e2e failed
     - yarn generate:html:report
+    - python cypress/flaky-test/script.py
     - cd ../
   artifacts:
     when: always
@@ -273,3 +274,4 @@ e2e_integration:
       - ui/cypress/videos
       - ui/cypress/screenshots
       - ui/TestReport
+      - ui/cypress/flaky-test/flaky-tests.json
