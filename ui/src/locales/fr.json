@@ -122,7 +122,6 @@
   "oldPassword": "Ancien mot de passe",
   "password": "Nouveau mot de passe",
   "passwordConfirm": "Confirmation du mot de passe",
-  "wrongPassword": "Ancien mot de passe est incorrect",
   "moreFilters": "Plus de filtres",
   "lessFilters": "Moins de filtres",
   "applyFilters": "Rechercher",
@@ -915,7 +914,9 @@
       },
       "total": "{total} utilisateur(s) trouvé(s)",
       "errors": {
-        "AccessDeniedForThisUser": "Message d'erreur : Vous n'avez pas la permission.",
+        "AccessDeniedForThisUser": "Vous n'avez pas la permission.",
+        "USER_D_PASSWORD_OLD_ENTERED_IS_INCORRECT": "L'ancien mot de passe est incorrect",
+        "USER_D_PASSWORD_MUST_BE_DIFFERENT_FROM_OLD_ONE": "Le mot de passe doit être différent de l'ancien",
         "username": "Le login existe déjà."
       },
       "export": "Exporter {total} utilisateur(s)",

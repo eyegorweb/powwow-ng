@@ -102,7 +102,6 @@
   "oldPassword": "Old password",
   "password": "New Password",
   "passwordConfirm": "Password confirmation",
-  "wrongPassword": "Old password is incorrect",
   "pending-actions": {
     "preparing": "Preparing operations ...",
     "ready": "operation ready",
@@ -826,7 +825,9 @@
       },
       "total": "{total} found user(s)",
       "errors": {
-        "AccessDeniedForThisUser": "Error Message : You don't have permission.",
+        "AccessDeniedForThisUser": "You don't have permission.",
+        "USER_D_PASSWORD_OLD_ENTERED_IS_INCORRECT": "Old password is incorrect",
+        "USER_D_PASSWORD_MUST_BE_DIFFERENT_FROM_OLD_ONE": "Password must be different from old one",
         "username": "Login already exists."
       },
       "searchPlaceholder": "Enter a name, first name or login",
