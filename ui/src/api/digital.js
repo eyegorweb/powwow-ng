@@ -14,14 +14,18 @@ export function getOrderConditionUrl() {
     const response = publicApiRoute
       .get('/api/public/digital-offer/order/conditionUrl')
       .then((res) => {
-    return res.data;
-    });
-    console.log('fetch rest request conditions url >>>>>>>>', response);
+        return res.data;
+      });
     return response;
   } catch (e) {
     console.error(e);
     return {
-    errors: [{code: 'API_ERROR', message: 'API Error lors de la récupération des conditions de création du partenaire'}],
+      errors: [
+        {
+          code: 'API_ERROR',
+          message: 'API Error lors de la récupération des conditions de création du partenaire',
+        },
+      ],
     };
   }
 }
