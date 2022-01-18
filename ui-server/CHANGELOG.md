@@ -2,8 +2,12 @@
 
 <!--- next entry here -->
 
-## 1.17.0-master.725+20220118132458
+## 1.17.0-master.726+20220118133606
 2022-01-18
+
+### Features
+
+- [3108] Un tri sur la date de création pour la liste de partenaires (7d368cb03930a792a6c10f1124b3892f50fd863d)
 
 ### Fixes
 
