@@ -69,11 +69,18 @@
         <slot name="errors"></slot>
       </template>
       <template v-if="canSave">
+        <UiCheckbox v-model="accept" :disabled="!canSave">
+          <span v-if="!conditionUrl">{{ $t('orders.new.acceptConditions') }}</span>
+          <span v-if="conditionUrl"
+            >{{ $t('orders.new.accept') }}
+            <a :href="conditionUrl">{{ $t('orders.new.conditions') }}</a>
+          </span>
+        </UiCheckbox>
         <button
           v-if="!isLoading"
           type="button"
           class="btn btn-accent btn-lg btn-block mt-1"
-          :disabled="!canSave || isError"
+          :disabled="!(accept && canSave) || isError"
           @click="$emit('save')"
         >
           {{ $t('orders.new.save') }}
@@ -92,11 +99,17 @@ import CreateAccountPanelSynthesisItem from '@/views/GetSim/CreateOrder/CreateOr
 import CircleLoader from '@/components/ui/CircleLoader';
 import { formatCurrency } from '@/utils/numbers.js';
 import { getActiveServicesWithoutAPN } from '@/components/Services/utils.js';
+import { getOrderConditionUrl } from '@/api/digital';
+import UiCheckbox from '@/components/ui/Checkbox';
 
 export default {
+  async mounted() {
+    this.conditionUrl = await getOrderConditionUrl();
+  },
   components: {
     CreateAccountPanelSynthesisItem,
     CircleLoader,
+    UiCheckbox,
   },
   props: {
     synthesis: {
@@ -107,7 +120,12 @@ export default {
     isLoading: Boolean,
     isError: Boolean,
   },
-
+  data() {
+    return {
+      accept: false,
+      conditionUrl: '',
+    };
+  },
   computed: {
     formattedItems() {
       const formatted = [];

@@ -2447,6 +2447,8 @@
       "settings": "Paramètres",
       "synthesis": "Récapitulatif de la commande",
       "acceptConditions": "Accepter les conditions contractuelles",
+      "accept": "Accepter les",
+      "conditions": "conditions contractuelles",
       "save": "ENREGISTRER LA COMMANDE",
       "settingsStep": {
         "mandatoryField": "Champ libre obligatoire",

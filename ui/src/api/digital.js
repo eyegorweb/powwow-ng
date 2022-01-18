@@ -9,6 +9,23 @@ const publicApiRoute = axios.create({
   baseURL: targetUrl,
 });
 
+export function getOrderConditionUrl() {
+  try {
+    const response = publicApiRoute
+      .get('/api/public/digital-offer/order/conditionUrl')
+      .then((res) => {
+    return res.data;
+    });
+    console.log('fetch rest request conditions url >>>>>>>>', response);
+    return response;
+  } catch (e) {
+    console.error(e);
+    return {
+    errors: [{code: 'API_ERROR', message: 'API Error lors de la récupération des conditions de création du partenaire'}],
+    };
+  }
+}
+
 export function fetchSimTypes() {
   return publicApiRoute.get('/api/public/digital-offer/sim').then((res) => res.data.items);
 }
