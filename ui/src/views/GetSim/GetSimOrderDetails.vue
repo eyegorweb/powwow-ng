@@ -502,6 +502,9 @@ export default {
         } else if (this.order.status === 'TO_BE_CONFIRMED_BY_BO') {
           code = 'TO_BE_CONFIRMED_BY_BO';
           label = this.$t('col.statuses.TO_BE_CONFIRMED_BY_BO');
+        } else if (this.order.status === 'CONFIRMATION_IN_PROGRESS') {
+          code = 'CONFIRMATION_IN_PROGRESS';
+          label = this.$t('orders.detail.statuses.CONFIRMATION_IN_PROGRESS');
         } else {
           // defaults values are 'CONFIRMED'
           code = 'CONFIRMED';
@@ -602,8 +605,8 @@ export default {
             index: 1,
           },
           {
-            code: this.confirmStep.code,
-            label: this.confirmStep.label,
+            code: newValue.code,
+            label: newValue.label,
             date: null,
             index: 2,
           },
