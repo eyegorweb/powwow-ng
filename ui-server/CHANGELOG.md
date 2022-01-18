@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.725+20220118132458
+2022-01-18
+
+### Fixes
+
+- [2666] correction du stepper pour les commandes au statut confirmation en cours (38d1eae210d4105507ef479c6b74e48cfa2a92b7)
+
 ## 1.17.0-master.724+20220118091649
 2022-01-18
 
