@@ -2207,6 +2207,8 @@
       "settings": "Parameters",
       "synthesis": "Order Summary",
       "acceptConditions": "Accept the contractual conditions",
+      "accept": "Accept the",
+      "conditions": "contractual conditions",
       "save": "SAVE THE ORDER",
       "settingsStep": {
         "mandatoryField": "Mandatory free field",
