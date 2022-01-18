@@ -135,11 +135,14 @@ export default {
       {
         id: 7,
         label: this.$t('getadmin.partners.creationDate'),
-        name: 'auditable',
+        name: 'created',
+        orderable: true,
         visible: false,
         format: {
-          type: 'ObjectAttribute',
-          path: 'created',
+          type: 'Getter',
+          getter: (row) => {
+            return row.auditable.created;
+          },
         },
       },
     ];
