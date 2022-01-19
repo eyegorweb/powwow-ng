@@ -8,6 +8,7 @@
 
 <script>
 import OfferCombo from '@/components/CustomComboxes/OfferCombo.vue';
+import { mapGetters } from 'vuex';
 
 export default {
   components: {
@@ -20,6 +21,7 @@ export default {
   },
 
   computed: {
+    ...mapGetters(['userIsPartner']),
     partnerGroup() {
       const partnerGroup = this.selectedFilters.find(
         (f) => f.id === 'getadmin.users.filters.partnerGroup'
@@ -28,6 +30,9 @@ export default {
       return partnerGroup && partnerGroup.data.value;
     },
     partner() {
+      if (this.userIsPartner) {
+        return true;
+      }
       return this.selectedFilters.find((f) => f.id === 'getadmin.users.filters.partners');
     },
     selectedOffer: {

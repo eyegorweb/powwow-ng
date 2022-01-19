@@ -177,6 +177,9 @@ export default {
           title: 'getadmin.users.filters.partnerGroup',
           component: PartnerGroupChoice,
           isHidden: () => {
+            if (!this.userIsBO) {
+              return true;
+            }
             return this.isFrozen;
           },
           onChange(chosen, clearFilter) {
@@ -530,7 +533,9 @@ export default {
           const partnerFilter = currentVisibleFilters.find(
             (c) => c.title === 'getadmin.users.filters.partners'
           );
-          partnerFilter.isHidden = false;
+          if (partnerFilter) {
+            partnerFilter.isHidden = false;
+          }
         }
       }
 
