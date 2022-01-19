@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.727+20220119083621
+2022-01-19
+
+### Fixes
+
+- [3128] add usertype into user creation partnerpage (f147da61fabf1a014b022a0047861067a059bf4c)
+- [3116] reponsive on terms offercard (ca8b86251f6ae0b67b3e7cfca05620f617697560)
+
 ## 1.17.0-master.726+20220118133606
 2022-01-18
 
