@@ -37,9 +37,10 @@
           <Button
             @click="rechargeLine"
             variant="primary"
-            :disabled="!selectedLinesForActCreation.length || !currentOffer"
-            >{{ $t('getparc.actCreation.carouselItem.RECHARGE_LINES_BTN') }}</Button
-          >
+            :disabled="!selectedLinesForActCreation.length || !currentOffer || isLoading"
+            >{{ $t('getparc.actCreation.carouselItem.RECHARGE_LINES_BTN') }}
+          </Button>
+          <CircleLoader class="load" v-if="isLoading" />
         </div>
       </div>
     </div>
@@ -59,7 +60,7 @@ import OfferCard from '@/views/AccountCreation/OfferCard.vue';
 import UiDate from '@/components/ui/UiDate';
 import moment from 'moment';
 import { createRechargeLVOffer } from '@/api/actCreation.js';
-
+import CircleLoader from '@/components/ui/CircleLoader';
 import { fetchODOffers, rechargeLineOD } from '@/api/offers.js';
 import { mapState, mapGetters } from 'vuex';
 import { formattedCurrentDateExtended } from '@/utils/date.js';
@@ -71,6 +72,7 @@ export default {
     UiDate,
     OfferCard,
     Button,
+    CircleLoader,
   },
   data() {
     return {
@@ -81,6 +83,7 @@ export default {
       dateError: null,
       currentOffer: undefined,
       workflowId: undefined,
+      isLoading: false,
     };
   },
   computed: {
@@ -117,6 +120,7 @@ export default {
       this.currentOffer = selectedOffer.selectedOffer;
     },
     async rechargeLine() {
+      this.isLoading = true;
       const envelopeLabel = this.currentOffer.label;
       const simCardIds = this.selectedLinesForActCreation.map((i) => i.id);
       const response = await rechargeLineOD(
@@ -127,6 +131,7 @@ export default {
         simCardIds,
         'DIGITAL_OFFER'
       );
+      this.isLoading = false;
       console.log(response);
       window.location.href = response.url;
     },
@@ -217,5 +222,11 @@ $primary-color: #57e2b2;
       background-color: $primary;
     }
   }
+}
+.load {
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+  margin-left: 5px;
 }
 </style>
