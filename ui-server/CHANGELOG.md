@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.729+20220120081348
+2022-01-20
+
+### Fixes
+
+- [2966] gestion du data report et des exceptions pour les actes de gestion (477e5ff2c31c7bcc538824057caf8b9604bad735)
+
 ## 1.17.0-master.728+20220119103052
 2022-01-19
 
