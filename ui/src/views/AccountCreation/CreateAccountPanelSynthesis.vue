@@ -1,6 +1,12 @@
 <template>
-  <div class="new-digital-offer-synthesis">
-    <h6 class="title">{{ $t('digitalOffer.synthesis.title') }}</h6>
+  <div class="new-digital-offer-synthesis" :class="{open: showSynthesis}">
+    <h6 
+      class="title" 
+      @click="canShowSynthesis()"
+    >
+        {{ $t('digitalOffer.synthesis.title') }}
+        <span></span>
+    </h6>
     <div class="synthesis-content">
       <CreateAccountPanelSynthesisItem
         :key="item.label"
@@ -124,6 +130,7 @@ export default {
     return {
       accept: false,
       conditionUrl: '',
+      showSynthesis: false,
     };
   },
   computed: {
@@ -333,6 +340,11 @@ export default {
   },
 
   methods: {
+
+    canShowSynthesis() {
+      this.showSynthesis = !this.showSynthesis;
+    },
+
     formatCurrency(value) {
       return formatCurrency(value);
     },
@@ -367,11 +379,38 @@ $fontSize: 0.8rem;
   flex-direction: column;
   height: 100%;
   width: 25%;
+  transition: 0.2s;
+  background: #f3f3f3;
+  @media screen and (max-width: 900px) {
+    height: 60px;
+    width: 100%;
+  }
+  
+  &.open {
+    @media screen and (max-width: 900px) {
+        height: 100vh;
+    }
+  }
   .synthesis-content {
     overflow-y: auto;
     flex-grow: 1;
   }
   h6 {
+
+    span {
+      width: 15px; 
+      height: 15px; 
+      border-right: 2px solid grey;      
+      border-top: 2px solid grey;
+      border-left: 2px solid transparent;
+      border-bottom: 2px solid transparent;
+      transform: rotate(135deg);
+      position: absolute;
+      right: 30px;
+      top: 15px;
+      transition: 0.2s;
+    }
+
     &.title {
       margin-bottom: 2em;
     }
@@ -381,9 +420,34 @@ $fontSize: 0.8rem;
       font-weight: 500;
     }
   }
+  
+  &.open {
+    @media screen and (max-width: 900px) {
+        height: 100vh;
+
+        h6 span {
+          transform: rotate(-45deg)
+        }
+    }
+  }
+
   .footer {
     button {
       font-size: 1rem;
+    }
+    @media screen and (max-width: 900px) {
+      position: fixed;
+      bottom: 0;
+      right: 10px;
+      display: flex;
+      align-items: center;
+      width: 80%;
+      justify-content: flex-end;
+      height: 70px;
+
+      .checkbox-container {
+        margin-right: 10px;
+      }
     }
   }
   .separator {

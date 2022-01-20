@@ -39,6 +39,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@media screen and (max-width: 900px) {
+  .container {
+    left: 0;
+    width: 100%!important;
+    max-width: 100%;;
+  }
+}
 .container {
   flex-basis: 4rem;
   display: flex;
@@ -49,6 +56,7 @@ export default {
   width: 59%;
   bottom: 0;
   padding: 1rem 3rem;
+  box-shadow: 0px -23px 13px -23px rgba(0,0,0,0.25);
 
   .next-btn {
     width: 3rem;

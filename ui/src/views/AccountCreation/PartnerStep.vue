@@ -579,5 +579,9 @@ export default {
 .form-container {
   width: 70%;
   margin: 0 auto;
+
+  @media screen and (max-width: 900px) {
+    width: 90%;
+  }
 }
 </style>
