@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.730+20220120093340
+2022-01-20
+
+### Fixes
+
+- [2957] Mise en place d'un loader lors du rechargement. (00f7f84b9d711f3a6c102c6b35f5731dd0dbe1c9)
+
 ## 1.17.0-master.729+20220120081348
 2022-01-20
 
