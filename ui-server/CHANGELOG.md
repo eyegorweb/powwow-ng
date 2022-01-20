@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.731+20220120094042
+2022-01-20
+
+### Fixes
+
+- [000] rempalcement de Souscrire par Sélectionner pour les offres digitales (b8ec386351e734513d5855675945021c12717b6d)
+
 ## 1.17.0-master.730+20220120093340
 2022-01-20
 
