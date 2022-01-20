@@ -166,7 +166,7 @@
       "infoMessage": "Communication is initiated by the box"
     },
     "offerStep": {
-      "subscribe": "Subscribe",
+      "subscribe": "Select",
       "topup": "Top up",
       "offerPeriod": "pour {period} mois"
     },

@@ -204,7 +204,7 @@
       "infoMessage": "La communication est à l'initiative du boitier"
     },
     "offerStep": {
-      "subscribe": "Souscrire",
+      "subscribe": "Sélectionner",
       "topup": "Recharger",
       "offerPeriod": "pour {period} mois"
     },
