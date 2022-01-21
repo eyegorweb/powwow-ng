@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.734+20220121132401
+2022-01-21
+
+### Fixes
+
+- [3090] gestion des exceptions et des rapports de l'acte de gestion Transfert vers un partenaire (a20c7723896d8f8afcb56e172810b38a57b1b9c1)
+
 ## 1.17.0-master.733+20220121104707
 2022-01-21
 
