@@ -48,6 +48,14 @@ export const getters = {
   userIsPartner: (state) => {
     return state.userInfos && state.userInfos.type === 'PARTNER';
   },
+  userIsM2MLight: (state) => {
+    return (
+      state.userInfos &&
+      state.userInfos.type === 'PARTNER' &&
+      state.userInfos.partners &&
+      state.userInfos.partners[0].partyType === 'M2M_LIGHT'
+    );
+  },
   userIsAdmin: (state) => {
     // Admin docapost
     if (state.userInfos) {

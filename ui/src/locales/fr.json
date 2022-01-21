@@ -2277,7 +2277,17 @@
       "TERMINATED": "Terminée",
       "CANCELED": "Annulée",
       "WAITING_FOR_PAYMENT": "En attente de paiement",
-      "CREATED": "En cours"
+      "CREATED": "En cours",
+      "m2mLight": {
+        "TO_BE_CONFIRMED": "Validation",
+        "TO_BE_CONFIRMED_BY_BO": "Validation",
+        "CONFIRMATION_IN_PROGRESS": "Validation",
+        "CONFIRMED": "Validée",
+        "FAILED": "Commande en erreur",
+        "TERMINATED": "Terminée",
+        "CANCELED": "Annulée",
+        "WAITING_FOR_PAYMENT": "En attente de paiement"
+      }
     },
     "import": "Import",
     "line": "Ligne"
@@ -2543,5 +2553,7 @@
     "inProgress": "Encours",
     "services": "Services",
     "BO": "Backoffice"
-  }
+  },
+
+  "other": "Autre(s)"
 }
