@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.732+20220121083647
+2022-01-21
+
+### Features
+
+- [3131] Reponsive account creation (8124435f96e717407ef0ad9c202bbf85e5c22c2a)
+
 ## 1.17.0-master.731+20220120094042
 2022-01-20
 
