@@ -24,6 +24,7 @@
           @save="saveAccount"
           :is-loading="isLoading"
           :is-error="isError"
+          class="panelSynthesis"
         >
           <template slot="errors">
             <div v-if="isError" class="alert alert-danger" role="alert">
@@ -158,7 +159,6 @@ export default {
       const index = this.steps.findIndex((s) => s.route === this.$route.name);
       return index !== -1 ? index : 0;
     },
-
     steps() {
       return [
         {
@@ -371,6 +371,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
 .creation-panel {
   display: flex;
   flex-flow: row nowrap;
@@ -427,6 +428,33 @@ export default {
       width: 100px;
       height: 10px;
     }
+  }
+}
+@media screen and (max-width: 900px) {
+
+  .cd-panel__container {
+    width: 100%;
+    left: 0;
+  }
+  .creation-panel {
+    width: 100%;
+    .stepper-container {
+      width: 100%!important;
+      margin-top: 60px;
+      
+      .step-container {
+        .container {
+          max-width: 100%;
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  .panelSynthesis {
+    position: absolute;
+    top: 0;
+    left: 0;
   }
 }
 </style>

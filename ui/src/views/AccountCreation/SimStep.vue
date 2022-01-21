@@ -142,5 +142,9 @@ export default {
 .simContainer {
   width: 70%;
   margin: 0 auto;
+  
+  @media screen and (max-width: 900px) {
+    width: 100%;
+  }
 }
 </style>
