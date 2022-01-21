@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.733+20220121104707
+2022-01-21
+
+### Features
+
+- [3101] Gestion du filtre des statuts de commande pour le M2M Light. (387ee0d86fc95491fd1748eddec030e3b289656e)
+
 ## 1.17.0-master.732+20220121083647
 2022-01-21
 
