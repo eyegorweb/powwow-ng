@@ -68,6 +68,8 @@ export default {
       ) {
         return this.$t(`col.statuses.VALIDATION`);
       } else {
+        // TODO controle non existence du message (key = message)
+        // SI non ajouter statut 'Autres'
         return this.$t(`col.statuses.${this.item}`);
       }
     },

@@ -31,12 +31,12 @@
           <FoldableBlock :title="$t('filters.orderStatus')" :key="'el3'" draggable>
             <div>
               <UiCheckbox
-                v-for="status in statusResults"
-                :checked="status.checked"
-                :value="{ id: status, label: $t(`col.statuses.${status}`) }"
-                :key="status"
+                v-for="(status, index) in statusMapResults"
+                :checked="status[1].checked"
+                :value="{ id: status[1], label: status[0] }"
+                :key="'orderStatus_' + index"
                 v-model="orderStatus"
-                >{{ $t(`col.statuses.${status}`) }}</UiCheckbox
+                >{{ status[0] }}</UiCheckbox
               >
             </div>
           </FoldableBlock>
@@ -132,7 +132,7 @@ import SelectedFiltersManagement from '@/components/Filters/SelectedFiltersManag
 export default {
   data() {
     return {
-      statusResults: [],
+      statusMapResults: [],
       allFiltersVisible: false,
       maximumNumberOfVisibleBlocksByDefault: 6,
     };
@@ -147,7 +147,7 @@ export default {
       'selectedPartnersValues',
       'selectedOrderCreatorValues',
     ]),
-    ...mapGetters(['userIsPartner', 'userInfos', 'userIsMVNO']),
+    ...mapGetters(['userIsPartner', 'userInfos', 'userIsMVNO', 'userIsM2MLight']),
     orderStatus: {
       get() {
         return this.selectedOrderStatus;
@@ -190,10 +190,34 @@ export default {
         }
       }
     },
+    async formatOrderStatuses() {
+      const statuses = await fetchOrderStatuses();
+      let mapStatus = new Map();
+      const prefixMessage = this.userIsM2MLight ? 'col.statuses.m2mLight.' : 'col.statuses.';
+      statuses.forEach((status) => {
+        let vKey = this.$t(prefixMessage + status);
+        if (vKey === prefixMessage + status) {
+          vKey = this.$t('other');
+        }
+        let newValue = '';
+        if (mapStatus.has(vKey)) {
+          newValue = mapStatus.get(vKey).concat(', ', status);
+        } else {
+          newValue = status;
+        }
+        mapStatus.set(vKey, newValue);
+      });
+      let arrayStatus = Array.from(mapStatus);
+      const index = arrayStatus.findIndex((s) => s[0] === this.$t('other'));
+      if (index !== -1) {
+        arrayStatus.push(arrayStatus.splice(index, 1)[0]);
+      }
+      return arrayStatus;
+    },
   },
 
   async mounted() {
-    this.statusResults = await fetchOrderStatuses();
+    this.statusMapResults = await this.formatOrderStatuses();
   },
 
   components: {

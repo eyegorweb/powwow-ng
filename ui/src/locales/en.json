@@ -2042,7 +2042,17 @@
       "FAILED": "Failed order",
       "TERMINATED": "Finished",
       "WAITING_FOR_PAYMENT": "Waiting for payment",
-      "CANCELED": "Canceled"
+      "CANCELED": "Canceled",
+      "m2mLight": {
+        "TO_BE_CONFIRMED": "Validation",
+        "TO_BE_CONFIRMED_BY_BO": "Validation",
+        "CONFIRMATION_IN_PROGRESS": "Validation",
+        "CONFIRMED": "Confirmed",
+        "FAILED": "Failed order",
+        "TERMINATED": "Finished",
+        "WAITING_FOR_PAYMENT": "Waiting for payment",
+        "CANCELED": "Canceled"
+      }
     },
     "manufacturerIMEI": "Manufacturer (IMEI)",
     "frequency": "Frequency",
@@ -2341,5 +2351,7 @@
     "inProgress": "Consumption export",
     "services": "Services",
     "BO": "Backoffice"
-  }
+  },
+
+  "other": "Other"
 }
