@@ -247,7 +247,7 @@ $box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14),
     font-size: 0.9125rem;
     text-align: center;
     min-height: 120px;
-    @media screen and (max-width: 1368px) { 
+    @media screen and (max-width: 1368px) {
       padding: 1rem 1rem;
     }
     @media screen and (max-width: 560px) {

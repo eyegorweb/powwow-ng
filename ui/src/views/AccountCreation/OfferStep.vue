@@ -77,13 +77,11 @@ export default {
 .offerContainer {
   width: 80%;
   margin: 0 auto;
-  
-    @media screen and (max-width: 900px) {
-      width: 100%;
-    }
+  @media screen and (max-width: 900px) {
+    width: 100%;
+  }
   .row {
     justify-content: space-between;
-    
     @media screen and (max-width: 560px) {
       flex-direction: column;
       justify-content: center;

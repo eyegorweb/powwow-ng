@@ -371,7 +371,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 .creation-panel {
   display: flex;
   flex-flow: row nowrap;
@@ -431,7 +430,6 @@ export default {
   }
 }
 @media screen and (max-width: 900px) {
-
   .cd-panel__container {
     width: 100%;
     left: 0;
@@ -439,9 +437,8 @@ export default {
   .creation-panel {
     width: 100%;
     .stepper-container {
-      width: 100%!important;
+      width: 100% !important;
       margin-top: 60px;
-      
       .step-container {
         .container {
           max-width: 100%;

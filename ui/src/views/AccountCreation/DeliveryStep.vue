@@ -134,8 +134,7 @@ export default {
 <style lang="scss" scoped>
 .deliveryContainer {
   width: 70%;
-  margin: 0 auto;  
-  
+  margin: 0 auto;
   @media screen and (max-width: 900px) {
     width: 100%;
   }
