@@ -2,6 +2,15 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.736+20220124150811
+2022-01-24
+
+### Fixes
+
+- [3130] Affichage des remises dans les offres commerciales (bf9374afd20f9cec9f00f6de1d25cecc81ae8100)
+- [3138] gestion des dates pour les actes Changement d'offre et Changement de CF (09cfdaa09ba98184bfd6d64b389c9b6e08662ab3)
+- [3140] Chargement du formulaire pour le changement de CF par identifiant. (b87ed746bb3605cc52f2f5d08847cbc5023ec099)
+
 ## 1.17.0-master.735+20220124095808
 2022-01-24
 
