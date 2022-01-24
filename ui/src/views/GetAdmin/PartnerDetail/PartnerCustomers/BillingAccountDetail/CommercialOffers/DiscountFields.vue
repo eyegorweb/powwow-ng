@@ -35,13 +35,17 @@ export default {
   },
 
   mounted() {
-    this.localDiscounts = this.dicounts.map((d) => ({
-      label: d.discount.code + ' (%)',
-      code: d.discount.code,
-      discountValue: d.discountValue,
-      lowerBound: d.lowerBound,
-      upperBound: d.upperBound,
-    }));
+    const sortAlphaNum = (a, b) => a.label.localeCompare(b.label, 'en', { numeric: true });
+    this.localDiscounts = this.dicounts
+      .map((d) => ({
+        label: d.discount.code + ' (%)',
+        code: d.discount.code,
+        discountValue: d.discountValue,
+        lowerBound: d.lowerBound,
+        upperBound: d.upperBound,
+      }))
+      .filter((i) => i.code !== undefined)
+      .sort(sortAlphaNum);
   },
 };
 </script>
