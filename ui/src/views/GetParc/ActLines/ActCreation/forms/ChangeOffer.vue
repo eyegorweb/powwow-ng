@@ -80,7 +80,7 @@ export default {
   computed: {
     ...mapState('actLines', ['selectedLinesForActCreation', 'actCreationPrerequisites']),
     ...mapGetters('actLines', ['appliedFilters']),
-    ...mapGetters(['userInfos', 'userIsBO', 'userIsPartner']),
+    ...mapGetters(['userIsCustomer', 'userIsBO']),
     currentOffer() {
       return this.actCreationPrerequisites.offer.data.id;
     },
@@ -89,21 +89,10 @@ export default {
       return false;
     },
     canChangeDate() {
-      if (this.userIsBO) {
-        if (!this.actCreationPrerequisites || !this.partner) return false;
-        return this.partner.partyType === 'MVNO';
-      } else if (this.userIsPartner) {
-        return this.isPartnerMVNO;
-      } else {
-        return true;
+      if (!this.userIsBO && this.userIsCustomer) {
+        return false;
       }
-    },
-    isPartnerMVNO() {
-      if (!this.userInfos || !this.userInfos.roles) return;
-      const found = this.userInfos.roles.find((r) => {
-        return r.description === 'MVNO';
-      });
-      return !!found;
+      return true;
     },
   },
   data() {

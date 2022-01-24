@@ -48,6 +48,9 @@ export const getters = {
   userIsPartner: (state) => {
     return state.userInfos && state.userInfos.type === 'PARTNER';
   },
+  userIsCustomer: (state, getters) => {
+    return getters.singlePartner && getters.singlePartner.partyType === 'CUSTOMER';
+  },
   userIsM2MLight: (state) => {
     return (
       state.userInfos &&
