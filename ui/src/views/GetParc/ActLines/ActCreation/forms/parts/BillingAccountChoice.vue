@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import { fetchBillingAccounts } from '@/api/billingAccounts';
+import { fetchBillingAccountsForChangeAccount } from '@/api/billingAccounts';
 import UiApiAutocomplete from '@/components/ui/UiApiAutocomplete';
 import { mapState } from 'vuex';
 
@@ -26,6 +26,7 @@ export default {
       type: Object,
       required: false,
     },
+    previousBillingAccount: Object,
   },
   data() {
     return {
@@ -49,20 +50,29 @@ export default {
   },
 
   methods: {
+    getPreviousBillingAccount() {
+      if (this.previousBillingAccount) {
+        return this.previousBillingAccount;
+      }
+      return this.prerequisiteBillingAccount;
+    },
     async fetchBillingAccounts(q, page = 0) {
       const partners = [];
       if (this.partner) {
         partners.push(this.partner);
       }
-      const data = await fetchBillingAccounts(q, partners, { page, limit: 10 });
-      return data
-        .filter((ba) => ba.id !== this.prerequisiteBillingAccount.id)
-        .map((ba) => ({
-          id: ba.id,
-          label: `${ba.code} - ${ba.name}`,
-          partnerId: ba.party.id,
-          partner: ba.party,
-        }));
+      const data = await fetchBillingAccountsForChangeAccount(
+        q,
+        partners,
+        this.getPreviousBillingAccount(),
+        { page, limit: 10 }
+      );
+      return data.map((ba) => ({
+        id: ba.id,
+        label: `${ba.code} - ${ba.name}`,
+        partnerId: ba.party.id,
+        partner: ba.party,
+      }));
     },
   },
 };

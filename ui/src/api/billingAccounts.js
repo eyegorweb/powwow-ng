@@ -2,6 +2,15 @@ import { query } from './utils';
 
 // TODO : verifier si il est nécessaire de passer des objet de partenaires , pkpas iun tableau d'ids ?
 export async function fetchBillingAccounts(q, partners, { page, limit, partnerType }) {
+  return await searchBillingAccounts(q, partners, undefined, { page, limit, partnerType });
+}
+
+export async function searchBillingAccounts(
+  q,
+  partners,
+  notEqualBillingAccount,
+  { page, limit, partnerType }
+) {
   let partnersIds,
     partnerGqlParam = '';
 
@@ -17,10 +26,14 @@ export async function fetchBillingAccounts(q, partners, { page, limit, partnerTy
   if (partnerType) {
     partnerTypeGqlFilter = `, partyType: {in: [${partnerType}]}`;
   }
+  let neBillingAccountIdParam = '';
+  if (notEqualBillingAccount) {
+    neBillingAccountIdParam = `, id:{ne:${notEqualBillingAccount.id}}`;
+  }
 
   const queryStr = `
   query{
-    customerAccounts(filter:{code: {startsWith: "${q}"}${partnerGqlParam}${partnerTypeGqlFilter}}, pagination: {limit: ${limit}, page: ${page}}, sorting: {name: ASC}) {
+    customerAccounts(filter:{code: {startsWith: "${q}"}${partnerGqlParam}${partnerTypeGqlFilter}${neBillingAccountIdParam}}, pagination: {limit: ${limit}, page: ${page}}, sorting: {name: ASC}) {
       total,
       items {
         id
@@ -35,4 +48,16 @@ export async function fetchBillingAccounts(q, partners, { page, limit, partnerTy
   `;
   const response = await query(queryStr);
   return response.data.customerAccounts.items;
+}
+export async function fetchBillingAccountsForChangeAccount(
+  q,
+  partners,
+  notEqualBillingAccount,
+  { page, limit, partnerType }
+) {
+  return await searchBillingAccounts(q, partners, notEqualBillingAccount, {
+    page,
+    limit,
+    partnerType,
+  });
 }
