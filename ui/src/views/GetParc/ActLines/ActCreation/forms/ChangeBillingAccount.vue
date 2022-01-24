@@ -14,6 +14,7 @@
           :partner="partner"
           @set:billingAccount="setBillingAccount"
           :errors="errors"
+          :previous-billing-account="billingAccountFromSingleLine"
         />
       </div>
       <div slot="validate-btn-content" slot-scope="{ containerValidationFn }">
@@ -65,7 +66,14 @@ export default {
       }
       return this.actCreationPrerequisites.partner;
     },
-
+    billingAccountFromSingleLine() {
+      if (this.actCreationPrerequisites.searchById && this.singleLineFound) {
+        if (this.singleLineFound.accessPoint && this.singleLineFound.accessPoint.offerGroup) {
+          return this.singleLineFound.accessPoint.offerGroup.customerAccount;
+        }
+      }
+      return undefined;
+    },
     canChangeDate() {
       if (this.userIsBO) {
         if (!this.actCreationPrerequisites || !this.partner) return false;
@@ -90,9 +98,7 @@ export default {
   },
   async mounted() {
     await this.loadSingleLineInfo();
-    if (this.actCreationPrerequisites.partner.partyType) {
-      this.partnerType = this.actCreationPrerequisites.partner.partyType;
-    }
+    this.partnerType = this.partner.partyType;
   },
   data() {
     return {
