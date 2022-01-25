@@ -183,6 +183,7 @@
       "PHONE_NUMBER_INVALID": "Le numéro de téléphone est invalide ",
       "SIRET_MANDATORY": "SIRET_MANDATORY",
       "SIRET_ALREADY_EXIST": "Le Siret est déjà utilisé",
+      "TVA_ALREADY_EXIST": "Le numéro de TVA intracommunautaire est déjà utilisé",
       "USER_NOT_ALLOWED": "USER_NOT_ALLOWED",
       "PARTY_NOT_AUTHORIZED": "PARTY_NOT_AUTHORIZED",
       "PARTY_NOT_FOUND": "PARTY_NOT_FOUND",

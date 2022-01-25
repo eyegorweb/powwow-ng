@@ -258,6 +258,9 @@ export default {
             e !== 'PARTY_NAME_ALREADY_EXIST' &&
             e !== 'SIRET_MANDATORY'
         );
+        if (this.requestErrors) {
+          this.isError = true;
+        }
         this.businessErrors = response.errors.map((e) => {
           let errors = {};
           switch (e) {
