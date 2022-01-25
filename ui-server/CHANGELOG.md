@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.740+20220125155140
+2022-01-25
+
+### Fixes
+
+- [3145] Change on account creation (04ecbef432df32f0a4f9745fc6ba7123eb9604c7)
+
 ## 1.17.0-master.739+20220125142016
 2022-01-25
 
