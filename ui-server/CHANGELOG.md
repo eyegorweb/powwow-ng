@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.741+20220125160725
+2022-01-25
+
+### Fixes
+
+- [3146] History on demand status column (b20fc704b58aa31583d55cd06c12d3dd03dc2bcb)
+
 ## 1.17.0-master.740+20220125155140
 2022-01-25
 
