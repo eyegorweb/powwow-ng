@@ -127,7 +127,16 @@ export async function fetchOffers2(filters, pagination, sorting) {
 export async function fetchOffers(
   q,
   partners,
-  { page, limit, partnerType, disabledOffer, customerAccountCode, haveLvOffers, catalogOfferOnly }
+  {
+    page,
+    limit,
+    partnerType,
+    disabledOffer,
+    customerAccountCode,
+    haveLvOffers,
+    catalogOfferOnly,
+    notEqualsOfferCode,
+  }
 ) {
   let partnersIds,
     partnerGqlParam = '',
@@ -162,6 +171,11 @@ export async function fetchOffers(
     partnerTypeGqlFilter = `, partyType: {in: [${partnerType}]}`;
   }
 
+  let offerCodeFilter = '';
+  if (notEqualsOfferCode) {
+    offerCodeFilter = `, code: {ne: "${notEqualsOfferCode}"}`;
+  }
+
   let lvOffers = '';
 
   if (haveLvOffers) {
@@ -170,7 +184,7 @@ export async function fetchOffers(
 
   const queryStr = `
   query{
-    workflows(filter:{description: {startsWith: "${q}"} ${offersParam} ${catalogOfferOnlyParam}${partnerGqlParam} ${partnerTypeGqlFilter}${customerAccountCodeParam}${lvOffers}}, sorting: { description: DESC }, pagination: {limit: ${limit}, page: ${page}}) {
+    workflows(filter:{description: {startsWith: "${q}"} ${offersParam} ${offerCodeFilter} ${catalogOfferOnlyParam}${partnerGqlParam} ${partnerTypeGqlFilter}${customerAccountCodeParam}${lvOffers}}, sorting: { description: DESC }, pagination: {limit: ${limit}, page: ${page}}) {
       total,
       items {
         id
@@ -550,7 +564,7 @@ export async function rechargeLineOD(partyId, date, workflowId, label, simCardId
         key
         number
         message
-        
+
       }
     }
   }
@@ -570,7 +584,7 @@ export async function fetchODOffers(partyId, offer) {
         code
         initialOffer {
           code
-          id      
+          id
         }
         workflowDescription
         name
