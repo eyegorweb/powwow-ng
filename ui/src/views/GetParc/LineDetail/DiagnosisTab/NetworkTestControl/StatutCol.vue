@@ -49,6 +49,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.order-status {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  
+  label {
+    margin-left: 10px;
+  }
+}
 .running {
   color: $primary !important;
 }
