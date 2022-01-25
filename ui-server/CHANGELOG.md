@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.737+20220125093848
+2022-01-25
+
+### Fixes
+
+- [3135] gestion indépendante du siret et de la tva dans la validation de création d'offre digitale (f7eb48b6ad3e7b276a653bf124f3731b4c59b979)
+
 ## 1.17.0-master.736+20220124150811
 2022-01-24
 
