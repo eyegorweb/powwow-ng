@@ -104,7 +104,12 @@
             </span>
           </template>
           <template v-else>
-            <FormControl v-model="form.tvaValue" :max-size="50" :required="companyNumberError" />
+            <FormControl
+              v-model="form.tvaValue"
+              :max-size="50"
+              :error="businessErrors['SIRET_ALREADY_EXIST'] || tvaInputError"
+              :required="companyNumberError"
+            />
           </template>
         </div>
       </div>
@@ -361,37 +366,28 @@ export default {
       ];
       let foundErrors = {};
       let previousForm = [];
+      const currentSiretTypeAndValue =
+        this.siretType === 'siret' ? this.form.siretValue : this.form.tvaValue;
       if (this.synthesis && this.synthesis.businessErrors) {
-        this.synthesis.businessErrors.map((error) => {
-          for (const key in error) {
-            previousForm.push(error[key]);
-          }
-        });
+        for (const key in this.synthesis.businessErrors) {
+          previousForm.push(this.synthesis.businessErrors[key]);
+        }
       }
-      const currentForm = [this.form.company, this.form.siretValue, this.form.login];
+      const currentForm = [this.form.company, currentSiretTypeAndValue, this.form.login];
 
-      if (this.synthesis && this.synthesis.businessErrors) {
-        foundErrors = this.synthesis.businessErrors.reduce(
-          (all, e, index) => {
-            for (const key in e) {
-              if (
-                errors.map((err) => err === e[key]) &&
-                !!currentForm.find((f) => f === previousForm[index])
-              ) {
-                all[key] = this.$t('digitalOffer.errors.' + key);
-              } else {
-                all[key] = '';
-              }
-            }
-            return all;
-          },
-          {
-            USER_NAME_ALREADY_EXIST: '',
-            SIRET_ALREADY_EXIST: '',
-            PARTY_NAME_ALREADY_EXIST: '',
-            PHONE_NUMBER_INVALID: '',
-          }
-        );
+      let errorValueAlreadyExists = previousForm.filter((pf) =>
+        currentForm.find((cf) => cf === pf)
+      );
+
+      for (const key in this.synthesis.businessErrors) {
+        if (
+          errors.map((err) => err === this.synthesis.businessErrors[key]) &&
+          errorValueAlreadyExists
+        ) {
+          foundErrors[key] = this.$t('digitalOffer.errors.' + key);
+        } else {
+          foundErrors[key] = '';
+        }
       }
 
       return foundErrors;
@@ -402,8 +398,17 @@ export default {
         : '';
     },
     siretInputError() {
-      return this.inputErrors.find((err) => err.type === 'SIRET')
+      return this.inputErrors.find((err) => err.type === 'SIRET') &&
+        this.siretType === 'siret' &&
+        this.form.siretValue
         ? this.$t('digitalOffer.errors.SIRET_ALREADY_EXIST')
+        : '';
+    },
+    tvaInputError() {
+      return this.inputErrors.find((err) => err.type === 'SIRET') &&
+        this.siretType === 'tva' &&
+        this.form.tvaValue
+        ? this.$t('digitalOffer.errors.TVA_ALREADY_EXIST')
         : '';
     },
     loginInputError() {
@@ -449,7 +454,7 @@ export default {
       this.civilityError = this.checkFieldFormError('title');
       this.companyNumberError =
         this.siretType === 'siret'
-          ? this.checkFieldFormError('siretValue')
+          ? this.checkFieldFormError('siretValue') || !this.hasSiretValue
           : this.checkFieldFormError('tvaValue');
       this.passwordConfirmError = this.checkFieldFormError('password');
       this.passwordError = this.checkFieldFormError('password');
@@ -514,6 +519,8 @@ export default {
       ];
       if (this.siretType === 'siret') {
         objErrorsToChcek = [...objErrorsToChcek, { type: 'SIRET', value: this.form.siretValue }];
+      } else if (this.siretType === 'tva') {
+        objErrorsToChcek = [...objErrorsToChcek, { type: 'SIRET', value: this.form.tvaValue }];
       }
       const errors = await this.validatePartner(objErrorsToChcek);
       if (errors.length) {

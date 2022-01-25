@@ -29,16 +29,16 @@
           <template slot="errors">
             <div v-if="isError" class="alert alert-danger" role="alert">
               <ul>
-                <li v-for="(value, name) in businessErrors" :key="name">
-                  <span v-for="(val, nom) in value" :key="nom">
-                    {{ $t('digitalOffer.errors.' + nom) }}
+                <li v-for="(value, key) in businessErrors" :key="key">
+                  <span>
+                    {{ $t('digitalOffer.errors.' + key) }}
                   </span>
                 </li>
               </ul>
               <ul>
-                <li v-for="(value, name) in requestErrors" :key="name">
-                  <span v-for="(val, nom) in value" :key="nom">
-                    {{ $t('digitalOffer.errors.' + nom) }}
+                <li v-for="(value, key) in requestErrors" :key="key">
+                  <span>
+                    {{ $t('digitalOffer.errors.' + value) }}
                   </span>
                 </li>
               </ul>
@@ -147,9 +147,8 @@ export default {
       },
       isLoading: false,
       inputErrors: undefined,
-      businessErrors: undefined,
+      businessErrors: {},
       requestErrors: undefined,
-      report: undefined,
       isError: false,
     };
   },
@@ -200,6 +199,9 @@ export default {
 
   methods: {
     async saveAccount() {
+      const siretTypeAndValue = this.$loGet(this.synthesis, 'creationAccountStep.siretValue')
+        ? this.$loGet(this.synthesis, 'creationAccountStep.siretValue')
+        : this.$loGet(this.synthesis, 'creationAccountStep.tvaValue');
       this.formattedData = {
         customerAccountId: null,
         user: {
@@ -211,7 +213,7 @@ export default {
         simCardQuantity: this.$loGet(this.synthesis, 'simStep.selectedNumberOfSims'),
         simCardId: this.$loGet(this.synthesis, 'simStep.selectedSimTypeValue.simCard.id'),
         workflowId: this.$loGet(this.synthesis, 'offerStep.id'),
-        siret: this.$loGet(this.synthesis, 'creationAccountStep.siretValue'),
+        siret: siretTypeAndValue,
         partyId: null,
         userId: null,
         shippingAddress: {
@@ -287,25 +289,36 @@ export default {
           (e) =>
             e !== 'USER_NAME_ALREADY_EXIST' &&
             e !== 'SIRET_ALREADY_EXIST' &&
-            e !== 'PARTY_NAME_ALREADY_EXIST'
+            e !== 'PARTY_NAME_ALREADY_EXIST' &&
+            e !== 'SIRET_MANDATORY'
         );
-        this.businessErrors = response.errors.map((e) => {
-          let errors = {};
-          switch (e) {
-            case 'USER_NAME_ALREADY_EXIST':
-              errors['USER_NAME_ALREADY_EXIST'] = this.synthesis.creationAccountStep.login;
-              break;
-            case 'SIRET_ALREADY_EXIST':
-              errors['SIRET_ALREADY_EXIST'] = this.synthesis.creationAccountStep.siretValue;
-              break;
-            case 'PARTY_NAME_ALREADY_EXIST':
-              errors['PARTY_NAME_ALREADY_EXIST'] = this.synthesis.creationAccountStep.company;
-              break;
-            default:
-              break;
-          }
-          return errors;
-        });
+        if (this.requestErrors) {
+          this.isError = true;
+        }
+        const businessErrors = response.errors.filter(
+          (e) =>
+            e === 'USER_NAME_ALREADY_EXIST' ||
+            e === 'SIRET_ALREADY_EXIST' ||
+            e === 'PARTY_NAME_ALREADY_EXIST' ||
+            e === 'SIRET_MANDATORY'
+        );
+        if (businessErrors.find((e) => e === 'USER_NAME_ALREADY_EXIST')) {
+          this.businessErrors['USER_NAME_ALREADY_EXIST'] = this.synthesis.creationAccountStep.login;
+        }
+        if (businessErrors.find((e) => e === 'SIRET_ALREADY_EXIST')) {
+          this.businessErrors[
+            'SIRET_ALREADY_EXIST'
+          ] = this.synthesis.creationAccountStep.siretValue;
+        }
+        if (businessErrors.find((e) => e === 'SIRET_MANDATORY')) {
+          this.businessErrors['SIRET_MANDATORY'] = this.synthesis.creationAccountStep.siretValue;
+        }
+        if (businessErrors.find((e) => e === 'PARTY_NAME_ALREADY_EXIST')) {
+          this.businessErrors[
+            'PARTY_NAME_ALREADY_EXIST'
+          ] = this.synthesis.creationAccountStep.company;
+        }
+
         this.synthesis = {
           ...this.synthesis,
           businessErrors: this.businessErrors,
@@ -344,21 +357,21 @@ export default {
     },
 
     synthesis(stepData) {
-      if (stepData && stepData.businessErrors && stepData.businessErrors.length) {
+      if (stepData && stepData.businessErrors) {
         let previousForm = [];
         const currentForm = [
           stepData.creationAccountStep.company,
           stepData.creationAccountStep.siretValue,
+          stepData.creationAccountStep.tvaValue,
           stepData.creationAccountStep.login,
         ];
 
-        stepData.businessErrors.map((error) => {
-          for (const key in error) {
-            previousForm.push(error[key]);
-          }
-        });
+        for (const key in stepData.businessErrors) {
+          previousForm.push(stepData.businessErrors[key]);
+        }
 
         let foundErrors = previousForm.filter((pf) => currentForm.find((cf) => cf === pf));
+
         if (foundErrors.length) {
           this.isError = true;
         } else {
