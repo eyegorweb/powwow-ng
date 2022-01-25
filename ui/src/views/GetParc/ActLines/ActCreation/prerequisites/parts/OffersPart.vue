@@ -41,6 +41,11 @@ export default {
       required: false,
       default: false,
     },
+    hasPrerequisiteValue: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
   },
   data() {
     return {
@@ -72,6 +77,9 @@ export default {
           }
 
           queryParams.haveLvOffers = !!this.haveLvOffers;
+          if (this.hasPrerequisiteValue && this.prerequisiteOffer.code) {
+            queryParams.notEqualsOfferCode = this.prerequisiteOffer.code;
+          }
 
           const data = await fetchOffers(q, [this.partner], queryParams);
           if (data) {

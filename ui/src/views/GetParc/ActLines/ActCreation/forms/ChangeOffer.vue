@@ -18,6 +18,7 @@
           :error="errors.offer"
           :chosen-billing-account="actCreationPrerequisites.billingAccount"
           billing-account-mandatory
+          has-prerequisite-value="true"
         />
       </template>
 
