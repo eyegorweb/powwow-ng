@@ -170,12 +170,31 @@
             v-if="havePermission('party', 'update_account_detail')"
             :variant="'primary'"
             class="updateDetail"
-            @click="save"
+            @click="openPopup = true"
             >{{ $t('getadmin.partnerDetail.update') }}</Button
           >
         </div>
       </div>
     </div>
+    <Modal v-if="openPopup">
+      <div class="text-left" slot="body">
+        <p>{{ $t('changePartnerInfosSave') }}</p>
+      </div>
+      <div slot="footer">
+        <button
+          class="modal-default-button btn btn-danger btn-sm"
+          @click.stop="openPopup = false"
+        >
+          {{ $t('cancel') }}
+        </button>
+        <button
+          class="modal-default-button btn btn-success btn-sm ml-1"
+          @click.stop="save"
+        >
+          {{ $t('save') }}
+        </button>
+      </div>
+    </Modal>
   </div>
 </template>
 
@@ -183,6 +202,7 @@
 import { mapMutations, mapGetters } from 'vuex';
 import FormControl from '@/components/ui/FormControl';
 import Button from '@/components/ui/Button';
+import Modal from '@/components/Modal';
 import {
   fetchAccountDetail,
   updatePartyDetail,
@@ -204,6 +224,7 @@ export default {
   components: {
     FormControl,
     Button,
+    Modal,
     UiDate,
     UiApiAutocomplete,
   },
@@ -212,6 +233,7 @@ export default {
     return {
       accountDetail: Object,
       partyDetail: Object,
+      openPopup : false,
       form: {
         partnerName: undefined,
         siren: undefined,
@@ -418,6 +440,7 @@ export default {
       } else {
         this.flashMessage({ level: 'success', message: this.$t('genericSuccessMessage') });
       }
+      this.openPopup = false;
     },
   },
 };
