@@ -7,6 +7,7 @@
             :offer="offer"
             :is-active="offer === currentOffer"
             @select:offer="getCurrentOffer"
+            read-more
           />
         </div>
       </div>
