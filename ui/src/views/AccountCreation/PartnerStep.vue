@@ -566,8 +566,8 @@ export default {
 }
 .allRequired {
   font-size: 14px;
-  font-weight: bold;
   margin-bottom: 1.5rem;
+  color: red;
 }
 
 .formLine {

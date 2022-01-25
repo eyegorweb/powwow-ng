@@ -20,6 +20,7 @@
         </div>
       </div>
     </div>
+    <a class="readMore" v-if="readMore" href="https://objenious.com/" target="_blank">{{$t('readMore')}}</a>
     <div class="divider"></div>
     <div class="terms">
       <div class="term details">
@@ -68,6 +69,7 @@ export default {
     offer: Object,
     isActive: Boolean,
     recharge: Boolean,
+    readMore: Boolean,
   },
   mounted() {
     this.offerUse = this.offer.offerPackages ? this.offer.offerPackages[0] : this.offer;
@@ -304,6 +306,12 @@ $box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14),
     display: block;
     border-top: 1px solid rgba(0, 0, 0, 0.12);
     margin: 8px 32px;
+  }
+
+  .readMore {
+    text-align: center;
+    font-size: 14px;
+    color: $blue;
   }
 }
 </style>
