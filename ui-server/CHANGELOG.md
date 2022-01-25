@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.738+20220125112420
+2022-01-25
+
+### Features
+
+- [3126] add popup on save into partner detail account (916a03a5d6e36a21d8bb026684a0b1340d745828)
+
 ## 1.17.0-master.737+20220125093848
 2022-01-25
 
