@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.739+20220125142016
+2022-01-25
+
+### Fixes
+
+- [3076] Suppression de l'offre d'origine dans la liste des offres de destination proposées lors d'un acte de changement d'offre. (23ed650d1a10b11d5b945db6a7dd31697d905505)
+
 ## 1.17.0-master.738+20220125112420
 2022-01-25
 
