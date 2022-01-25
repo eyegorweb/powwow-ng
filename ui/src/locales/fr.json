@@ -113,6 +113,7 @@
   "personalizeHome": "Personnaliser ma home",
   "genericSuccessMessage": "Opération effectuée avec succès",
   "genericErrorMessage": "Erreur inconnue",
+  "changePartnerInfosSave": "Confirmez-vous que les informations du partenaire ont bien été validées (Siren, N° TVA, identité, Code BSCS Root) ?",
   "getvisionAlarmLegend": "Nombre de lignes ayant déclenché au moins une alarme depuis le début du mois",
   "queryError": "Erreur rencontrée durant le traitement de la requête",
   "lastMassActions": "Derniers actes de gestion",
