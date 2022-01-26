@@ -1,8 +1,7 @@
 <template>
   <div v-if="show">
-    <span v-for="(formatted, index) in formattedData" :key="'plmn_' + index">
-      {{ Math.round(formatted.percentage) }}% ({{ formatted.accessPointNumber }} lignes) sur le PLMN
-      {{ formatted.plmn }} - {{ formatted.operator }} /
+    <span v-for="(lineByPlmn, index) in linesByPlmn" :key="'plmn_' + index">
+      {{ formatData(lineByPlmn, index) }}
     </span>
   </div>
 </template>
@@ -13,11 +12,11 @@ import { lineDistributionByPlmn } from '@/api/supervision.js';
 export default {
   data() {
     return {
-      formattedData: [],
+      linesByPlmn: [],
     };
   },
   async mounted() {
-    this.formattedData = await this.getPlmnDistribution();
+    this.linesByPlmn = await this.getPlmnDistribution();
   },
   props: {
     filtersForExport: Object,
@@ -29,6 +28,25 @@ export default {
         filter: this.filtersForExport,
       });
       return data;
+    },
+    formatData(lineByPlmnValue, index) {
+      let value = '';
+      if (lineByPlmnValue) {
+        const pluralOrSingularLine = lineByPlmnValue.accessPointNumber > 1 ? ' lignes' : ' ligne';
+        if (index !== 0) {
+          value += ' / ';
+        }
+        value +=
+          Math.round(lineByPlmnValue.percentage) +
+          '% (' +
+          lineByPlmnValue.accessPointNumber +
+          pluralOrSingularLine +
+          ') sur le PLMN ' +
+          lineByPlmnValue.plmn +
+          ' - ' +
+          lineByPlmnValue.operator;
+      }
+      return value;
     },
   },
 };
