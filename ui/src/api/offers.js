@@ -575,9 +575,10 @@ export async function rechargeLineOD(partyId, date, workflowId, label, simCardId
 }
 
 export async function fetchODOffers(partyId, offer) {
+  const partnerId = partyId ? `partyId:{eq:${partyId}},` : '';
   const queryStr = `
   query{
-    workflows(filter: {partyId:{eq:${partyId}}, description: {eq: "${offer}"}}){
+    workflows(filter: {${partnerId} description: {eq: "${offer}"}}){
       total
       items {
         id

@@ -241,6 +241,7 @@ export async function searchLinesForTable(orderBy, pagination, filters = []) {
       activationDate
       commercialStatusDate
       terminationValidated
+      workflowCode
     customFields {
       custom1
       custom2
