@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.745+20220126161530
+2022-01-26
+
+### Fixes
+
+- [3003] Traduction anglaise (4877b39bdb0382cc3f9d3c07d43adc69dfb04715)
+
 ## 1.17.0-master.744+20220126155030
 2022-01-26
 
