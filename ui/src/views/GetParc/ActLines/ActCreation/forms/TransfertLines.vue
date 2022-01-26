@@ -62,11 +62,15 @@
       </div>
     </div>
     <div slot="messages" class="text-info">
-      <div v-if="requestErrors && requestErrors.length">
+      <div>
+        <i class="ic-Alert-Icon" />
+        {{ $t('getparc.actCreation.changeStatus.warningMsg') }}
+      </div>
+      <div v-if="exceptionError">
         <h6 class="text-danger">{{ $t('errors.all') }}</h6>
-        <ul class="text-danger list-unstyled">
-          <li v-for="error in requestErrors" :key="error.message">{{ error.message }}</li>
-        </ul>
+        <div class="text-danger">
+          {{ exceptionError }}
+        </div>
       </div>
     </div>
   </ActFormEmptyContainer>
@@ -84,6 +88,7 @@ import { transferSIMCards } from '@/api/actCreation';
 import { mapState, mapGetters } from 'vuex';
 import { searchLineById } from '@/api/linesActions';
 import { getMarketingOfferServices } from '@/components/Services/utils.js';
+import { formatBackErrors } from '@/utils/errors';
 
 export default {
   components: {
@@ -108,7 +113,7 @@ export default {
       offerServices: undefined,
       isDataParamsError: false,
       servicesChoice: undefined,
-      requestErrors: [],
+      exceptionError: undefined,
     };
   },
   async mounted() {
@@ -229,30 +234,32 @@ export default {
         params
       );
       if (response.errors && response.errors.length) {
-        response.errors.forEach((r) => {
-          if (r.extensions && r.extensions.error) {
-            if (r.extensions.error === 'MassActionLimit') {
-              const count = r.extensions && r.extensions.limit ? r.extensions.limit : '';
-              const messageErrorMaxLine = this.$t(
-                'getparc.actCreation.report.FILE_MAX_LINE_NUMBER_INVALID',
-                {
-                  count,
-                }
-              );
-              this.requestErrors = [
-                {
-                  message: messageErrorMaxLine,
-                },
-              ];
-            } else {
-              this.requestErrors = [
-                {
-                  message: r.message,
-                },
-              ];
-            }
+        let errorMessage = '',
+          massActionLimitError = '',
+          count;
+        const formatted = formatBackErrors(response.errors)
+          .map((e) => e.errors)
+          .flat();
+        formatted.forEach((e) => {
+          if (e.key === 'limit') {
+            count = e.value;
+          }
+          if (e.key === 'error') {
+            massActionLimitError = `${e.key}.${e.value}`;
+          } else {
+            errorMessage = `${e.key}: ${e.value}`;
           }
         });
+        if (massActionLimitError) {
+          this.exceptionError = `${this.$t(
+            'getparc.actCreation.report.errors.' + massActionLimitError,
+            {
+              count,
+            }
+          )}`;
+        } else {
+          this.exceptionError = errorMessage;
+        }
 
         return {
           errors: response.errors,

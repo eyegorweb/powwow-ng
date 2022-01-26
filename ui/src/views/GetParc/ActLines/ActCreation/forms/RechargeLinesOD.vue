@@ -45,10 +45,11 @@
       </div>
     </div>
     <div slot="messages" class="text-info">
-      <div v-if="requestErrors && requestErrors.length">
-        <ul class="text-danger list-unstyled">
-          <li v-for="error in requestErrors" :key="error.message">{{ error.message }}</li>
-        </ul>
+      <div v-if="exceptionError">
+        <h6 class="text-danger">{{ $t('errors.all') }}</h6>
+        <div class="text-danger">
+          {{ exceptionError }}
+        </div>
       </div>
     </div>
   </VerticalEmptyContainer>
@@ -65,6 +66,7 @@ import { fetchODOffers, rechargeLineOD } from '@/api/offers.js';
 import { mapState, mapGetters } from 'vuex';
 import { formattedCurrentDateExtended } from '@/utils/date.js';
 import Button from '@/components/ui/Button';
+import { formatBackErrors } from '@/utils/errors';
 
 export default {
   components: {
@@ -78,7 +80,7 @@ export default {
     return {
       packages: undefined,
       chosenPackage: undefined,
-      requestErrors: [],
+      exceptionError: undefined,
       actDate: null,
       dateError: null,
       currentOffer: undefined,
@@ -167,13 +169,34 @@ export default {
         params
       );
       if (response.errors && response.errors.length) {
-        response.errors.forEach((r) => {
-          this.requestErrors = [
-            {
-              message: r.message,
-            },
-          ];
+        let errorMessage = '',
+          massActionLimitError = '',
+          count;
+        const formatted = formatBackErrors(response.errors)
+          .map((e) => e.errors)
+          .flat();
+        formatted.forEach((e) => {
+          if (e.key === 'limit') {
+            count = e.value;
+          }
+          if (e.key === 'error') {
+            massActionLimitError = `${e.key}.${e.value}`;
+          } else {
+            errorMessage = `${e.key}: ${e.value}`;
+          }
         });
+        if (massActionLimitError) {
+          this.exceptionError = `${this.$t(
+            'getparc.actCreation.report.errors.' + massActionLimitError,
+            {
+              count,
+            }
+          )}`;
+        } else {
+          this.exceptionError = errorMessage;
+        }
+
+        return { errors: response.errors };
       }
       return response;
     },

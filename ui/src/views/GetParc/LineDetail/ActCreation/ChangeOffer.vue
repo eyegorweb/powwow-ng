@@ -80,7 +80,7 @@ export default {
               e.extensions.targetWorkflowID === 'LONG_LIFE_NOT_ALLOWED')
           ) {
             formatted.message = this.$t(
-              'getparc.actCreation.errors.workflow.LONG_LIFE_NOT_ALLOWED'
+              'getparc.actCreation.report.errors.workflow.LONG_LIFE_NOT_ALLOWED'
             );
           }
           return formatted;
