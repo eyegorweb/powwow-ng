@@ -87,7 +87,7 @@ export default {
     };
   },
   computed: {
-    ...mapState('actLines', ['selectedLinesForActCreation', 'actCreationPrerequisites']),
+    ...mapState('actLines', ['linesActionsResponse', 'selectedLinesForActCreation', 'actCreationPrerequisites']),
     ...mapGetters('actLines', ['appliedFilters']),
     minDate() {
       return moment().format('DD/MM/YYYY HH:mm:ss');
@@ -103,11 +103,27 @@ export default {
     },
   },
   async mounted() {
-    const response = await fetchODOffers(
-      this.actCreationPrerequisites.partner.id,
-      this.actCreationPrerequisites.offer.label
-    );
-    console.log(response);
+    let response = undefined;
+    const workflowDescription = undefined 
+    if(this.linesActionsResponse 
+    && this.linesActionsResponse.items[0] 
+    && this.linesActionsResponse.items[0].workflow 
+    && this.linesActionsResponse.items[0].workflow.workflowDescription);
+    {
+      workflowDescription = this.linesActionsResponse.items[0].workflow.workflowDescription;
+    }
+    if(this.actCreationPrerequisites.partner) {
+      response = await fetchODOffers(
+        this.actCreationPrerequisites.partner.id,
+        this.actCreationPrerequisites.offer.label
+      );
+    }
+    else if(workflowDescription) {
+      response = await fetchODOffers(
+        '',
+        workflowDescription
+      );
+    }
     if (response.items && response.items.length) {
       this.packages = response.items[0].offerPackages;
       this.workflowId = response.items[0].id;
