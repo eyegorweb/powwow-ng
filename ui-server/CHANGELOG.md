@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.743+20220126153921
+2022-01-26
+
+### Fixes
+
+- [3060] Affichage repartition par PLMN. (41fe31e3dd6f932c9a6960747f0c55e215d55240)
+
 ## 1.17.0-master.742+20220126151634
 2022-01-26
 
