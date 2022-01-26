@@ -1064,6 +1064,15 @@
       }
     }
   },
+  "report": {
+    "creationDate": "Creation date",
+    "partenaire": "Partner",
+    "frequency": "Frequency",
+    "generatedReports": "Generated reports",
+    "creator": "Created by",
+    "fields": "fields",
+    "generationStatus": "Status"
+  },
   "getreport": {
     "pageTitle": "Report Templates",
     "reports_tooltip": "This page allows you to configure reports",
@@ -1665,6 +1674,7 @@
         "SUSPEND": "Suspend lines",
         "SUSPEND_BILLS": "Suspend billing",
         "MANAGE_ALARMS": "Manage alarms",
+        "RECHARGE_LINES": "Top up digital Offer",
         "EXPORT_LAST_USAGE": "Export last use",
         "CHANGE_CF": "Change Billing account",
         "CHANGE_OFFER": "Change offer",
@@ -1688,7 +1698,15 @@
         "TRANSFERT_LINES": "Transfer to a partner",
         "CHANGE_SIMCARD": "Change SIM card",
         "CHANGE_MSISDN": "Change MSISDN",
-        "ACTIVATE_PREACTIVATE": "Preactivate / Activate lines"
+        "ACTIVATE_PREACTIVATE": "Preactivate / Activate lines",
+        "esim": {
+          "PAIRING": "Pairing eSIM",
+          "FREE_RESERVATION": "Free reservation eSIM",
+          "CHANGE_STATUS_PROFIL_ESIM": "Change eSIM profiles status",
+          "DOWNLOAD_ESIM_PROFILE": "Download eSIM profile",
+          "POLICY_RULES": "Policy rules",
+          "CHARGE_LV_LINES": "Top up long life offer"
+        }
       },
       "step2Titles": {
         "CHANGE_SERVICES": "Configure service modification",
