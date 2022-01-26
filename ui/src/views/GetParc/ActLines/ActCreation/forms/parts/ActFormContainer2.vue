@@ -66,7 +66,10 @@
           <slot name="messages"></slot>
           <div
             v-if="
-              tempDataUuid && validationErrors && validationErrors.errors.length && !requestErrors
+              tempDataUuid &&
+                validationErrors &&
+                validationErrors.errors.length &&
+                !requestExceptionsErrors
             "
           >
             <FormReport
@@ -90,7 +93,10 @@
 
           <div
             v-else-if="
-              !tempDataUuid && validationErrors && validationErrors.errors.length && !!requestErrors
+              !tempDataUuid &&
+                validationErrors &&
+                validationErrors.errors.length &&
+                !!requestExceptionsErrors
             "
           >
             <ul class="list-unstyled m-0">
@@ -179,7 +185,7 @@ export default {
     minDate() {
       return moment().format('DD/MM/YYYY HH:mm:ss');
     },
-    requestErrors() {
+    requestExceptionsErrors() {
       if (!this.validationErrors) return false;
       return this.validationErrors.errors.find((f) => f.key === 400 || f.key === 500);
     },

@@ -49,25 +49,20 @@
       </Modal>
     </div>
     <div slot="messages" class="text-info">
-      <span
-        v-if="allFields && allFields.length && isFileImportContextValid && !requestErrors.length"
-      >
+      <span v-if="allFields && allFields.length && isFileImportContextValid && !exceptionError">
         <i class="ic-Alert-Icon" />
         {{ $t('getparc.actCreation.editCustomFields.infoMessage') }}
       </span>
-      <ul
+      <div
         v-else-if="
-          (allFields &&
-            allFields.length &&
-            !isFileImportContextValid &&
-            requestErrors.length > 0) ||
-            (!allFields.length && !isFileImportContextValid && requestErrors.length > 0)
+          (allFields && allFields.length && !isFileImportContextValid && exceptionError) ||
+            (!allFields.length && !isFileImportContextValid && exceptionError)
         "
         class="list-unstyled m-0 alert alert-danger"
       >
-        <li class="item" v-for="e in requestErrors" :key="e.key">{{ e.message }}</li>
-      </ul>
-      <span v-else-if="!allFields.length && !isFileImportContextValid && !requestErrors.length"
+        {{ exceptionError }}
+      </div>
+      <span v-else-if="!allFields.length && !isFileImportContextValid && !exceptionError"
         ><i class="ic-Alert-Icon" />{{ $t('getparc.actCreation.editCustomFields.noResult') }}
       </span>
     </div>
@@ -85,6 +80,7 @@ import { searchLineById, uploadSearchFile } from '@/api/linesActions';
 import * as fileUtils from '@/utils/file.js';
 import LoaderContainer from '@/components/LoaderContainer';
 import ModalSkeleton from '@/components/ui/skeletons/ModalSkeleton';
+import { formatBackErrors } from '@/utils/errors';
 
 export default {
   components: {
@@ -112,7 +108,7 @@ export default {
       waitForConfirmation: false,
       canSend: false,
       singleLineFound: undefined,
-      requestErrors: [],
+      exceptionError: undefined,
       isLoading: false,
     };
   },
@@ -130,10 +126,7 @@ export default {
         const selectedIdType = this.$loGet(this.fileImportAsInputContext, 'selectedIdType');
 
         return (
-          !!customFieldTypeToggle &&
-          !!selectedFile &&
-          !!selectedIdType &&
-          !this.requestErrors.length
+          !!customFieldTypeToggle && !!selectedFile && !!selectedIdType && !this.exceptionError
         );
       }
       return false;
@@ -145,7 +138,7 @@ export default {
           this.fileImportAsInputContext.selectedFile &&
           this.fileImportAsInputContext.selectedIdType &&
           this.fileImportAsInputContext.selectedIdType !== 'none' &&
-          !this.requestErrors.length
+          !this.exceptionError
         ) {
           return false;
         }
@@ -288,30 +281,32 @@ export default {
       );
       if (response.errors && response.errors.length) {
         this.waitForConfirmation = false;
-        response.errors.forEach((r) => {
-          if (r.extensions && r.extensions.error) {
-            if (r.extensions.error === 'MassActionLimit') {
-              const count = r.extensions && r.extensions.limit ? r.extensions.limit : '';
-              const messageErrorMaxLine = this.$t(
-                'getparc.actCreation.report.FILE_MAX_LINE_NUMBER_INVALID',
-                {
-                  count,
-                }
-              );
-              this.requestErrors = [
-                {
-                  message: messageErrorMaxLine,
-                },
-              ];
-            } else {
-              this.requestErrors = [
-                {
-                  message: r.message,
-                },
-              ];
-            }
+        let errorMessage = '',
+          massActionLimitError = '',
+          count;
+        const formatted = formatBackErrors(response.errors)
+          .map((e) => e.errors)
+          .flat();
+        formatted.forEach((e) => {
+          if (e.key === 'limit') {
+            count = e.value;
+          }
+          if (e.key === 'error') {
+            massActionLimitError = `${e.key}.${e.value}`;
+          } else {
+            errorMessage = `${e.key}: ${e.value}`;
           }
         });
+        if (massActionLimitError) {
+          this.exceptionError = `${this.$t(
+            'getparc.actCreation.report.errors.' + massActionLimitError,
+            {
+              count,
+            }
+          )}`;
+        } else {
+          this.exceptionError = errorMessage;
+        }
 
         return { errors: response.errors };
       }
@@ -350,37 +345,25 @@ export default {
         })
         .map((c) => c.code);
     },
-    checkForRequestErrors() {
+    checkForExceptionErrors() {
       if (this.fileImportAsInputContext) {
         const selectedFile = this.$loGet(this.fileImportAsInputContext, 'selectedFile');
         if (selectedFile && fileUtils.checkFormat(selectedFile)) {
-          this.requestErrors = [
-            {
-              message: this.$t('getparc.actCreation.report.DATA_INVALID_FORMAT'),
-            },
-          ];
+          this.exceptionError = this.$t('getparc.actCreation.report.DATA_INVALID_FORMAT');
         } else if (selectedFile && fileUtils.checkFileSize(selectedFile)) {
-          this.requestErrors = [
-            {
-              message: this.$t('getparc.actCreation.report.FILE_SIZE_LIMIT_EXCEEDED'),
-            },
-          ];
+          this.exceptionError = this.$t('getparc.actCreation.report.FILE_SIZE_LIMIT_EXCEEDED');
         } else if (selectedFile && selectedFile.error) {
-          this.requestErrors = [
-            {
-              message: this.$t('getparc.actCreation.report.' + selectedFile.error),
-            },
-          ];
+          this.exceptionError = this.$t('getparc.actCreation.report.' + selectedFile.error);
         } else {
-          this.requestErrors = [];
+          this.exceptionError = '';
         }
-        return this.requestErrors;
+        return this.exceptionError;
       }
     },
   },
   watch: {
     fileImportAsInputContext() {
-      this.checkForRequestErrors();
+      this.checkForExceptionErrors();
     },
   },
 };

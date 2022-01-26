@@ -80,10 +80,12 @@
             </button>
           </div>
           <div>
-            <div v-if="requestErrors">
+            <div v-if="requestExceptionsErrors">
               <h6 class="text-danger">{{ $t('errors.all') }}</h6>
               <ul class="text-danger list-unstyled">
-                <li :key="error.message" v-for="error in requestErrors">{{ error.message }}</li>
+                <li :key="error.message" v-for="error in requestExceptionsErrors">
+                  {{ error.message }}
+                </li>
               </ul>
             </div>
 
@@ -143,7 +145,7 @@ export default {
     return {
       tempDataUuid: undefined,
       requestError: undefined,
-      requestErrors: undefined,
+      requestExceptionsErrors: undefined,
       contextValues: undefined,
       report: undefined,
       disableForced: false,
@@ -223,21 +225,21 @@ export default {
     validFile(file) {
       if (fileUtils.checkFormat(file)) {
         this.disableForced = true;
-        this.requestErrors = [
+        this.requestExceptionsErrors = [
           {
             message: this.$t('getparc.actCreation.report.DATA_INVALID_FORMAT'),
           },
         ];
       } else if (fileUtils.checkFileSize(file)) {
         this.disableForced = true;
-        this.requestErrors = [
+        this.requestExceptionsErrors = [
           {
             message: this.$t('getparc.actCreation.report.FILE_SIZE_LIMIT_EXCEEDED'),
           },
         ];
       } else if (file.error) {
         this.disableForced = true;
-        this.requestErrors = [
+        this.requestExceptionsErrors = [
           {
             message: this.$t('getparc.actCreation.report.' + file.error),
           },
@@ -249,7 +251,7 @@ export default {
 
     resetForm() {
       this.tempDataUuid = undefined;
-      this.requestErrors = undefined;
+      this.requestExceptionsErrors = undefined;
       this.report = undefined;
       this.contextValues = undefined;
     },
@@ -271,13 +273,13 @@ export default {
                 count,
               }
             );
-            this.requestErrors = [
+            this.requestExceptionsErrors = [
               {
                 message: messageErrorMaxLine,
               },
             ];
           } else {
-            this.requestErrors = [
+            this.requestExceptionsErrors = [
               {
                 message: r.message,
               },
@@ -365,10 +367,10 @@ export default {
 
         tempDataUuid: this.tempDataUuid,
       };
-      this.requestErrors = undefined;
+      this.requestExceptionsErrors = undefined;
       const response = await this.actMutationFn(params);
       if (response.errors) {
-        this.requestErrors = response.errors;
+        this.requestExceptionsErrors = response.errors;
       } else {
         if (showMessage) {
           const successMessage = this.successMessage
