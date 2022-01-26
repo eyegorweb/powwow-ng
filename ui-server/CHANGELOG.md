@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.744+20220126155030
+2022-01-26
+
+### Fixes
+
+- [2983] gestion des exceptions d'erreurs pour les actes de gestion (5b44a9f39258b2df374372f13a7f2ca138e85a75)
+
 ## 1.17.0-master.743+20220126153921
 2022-01-26
 
