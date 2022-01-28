@@ -50,7 +50,7 @@
         </div>
       </div>
     </div>
-    <button class="subscribe-btn" @click="onClick()">
+    <button class="subscribe-btn" @click="onClick()" v-if="isActive">
       <span> {{ recharge ? $t('select') : $t('digitalOffer.offerStep.subscribe') }}</span>
     </button>
   </div>
@@ -75,11 +75,15 @@ export default {
   },
   mounted() {
     this.offerUse = this.offer.offerPackages ? this.offer.offerPackages[0] : this.offer;
-    this.price =
-      this.offerUse && this.offerUse.buyingPriceInEuroCentHT
-        ? this.offerUse.buyingPriceInEuroCentHT
-        : 0;
-    this.activeServices = this.offer.initialOffer.marketingService.filter((s) => s.activated);
+    // this.price =
+    //   this.offerUse && this.offerUse.buyingPriceInEuroCentHT
+    //     ? this.offerUse.buyingPriceInEuroCentHT
+    //     : 0;
+    this.price = this.$loGet(this.offerUse, 'buyingPriceInEuroCentHT', 0);
+    const marketingService = this.$loGet(this.offer, 'initialOffer.marketingService');
+    if (marketingService) {
+      this.activeServices = marketingService.filter((s) => s.activated);
+    }
   },
   methods: {
     onClick() {

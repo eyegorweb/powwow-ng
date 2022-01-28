@@ -4,15 +4,15 @@
     :confirm-msg="confirmationMessage"
     no-confirm-translation
   >
-    <div slot="main">
+    <div slot="main" slot-scope="{ containerValidationFn }">
       <div class="pricing">
         <div v-if="packages" class="pricing-container">
           <div class="card" v-for="(offer, index) in packages" :key="index">
             <OfferCard
               :offer="offer"
               :recharge="true"
-              :is-active="offer === currentOffer"
-              @select:offer="getCurrentOffer"
+              :is-active="!!selectedLinesForActCreation.length || !!currentOffer"
+              @select:offer="() => onOfferCLick(offer, containerValidationFn)"
             />
           </div>
         </div>
@@ -33,15 +33,6 @@
             <em slot="icon" class="select-icon ic-Flag-Icon" />
           </UiDate>
         </div>
-        <div class="col-md-4">
-          <Button
-            @click="rechargeLine"
-            variant="primary"
-            :disabled="!selectedLinesForActCreation.length || !currentOffer || isLoading"
-            >{{ $t('getparc.actCreation.carouselItem.RECHARGE_LINES_BTN') }}
-          </Button>
-          <CircleLoader class="load" v-if="isLoading" />
-        </div>
       </div>
     </div>
     <div slot="messages" class="text-info">
@@ -60,12 +51,9 @@ import VerticalEmptyContainer from './parts/VerticalEmptyContainer';
 import OfferCard from '@/views/AccountCreation/OfferCard.vue';
 import UiDate from '@/components/ui/UiDate';
 import moment from 'moment';
-import { createRechargeLVOffer } from '@/api/actCreation.js';
-import CircleLoader from '@/components/ui/CircleLoader';
 import { fetchODOffers, rechargeLineOD } from '@/api/offers.js';
 import { mapState, mapGetters } from 'vuex';
 import { formattedCurrentDateExtended } from '@/utils/date.js';
-import Button from '@/components/ui/Button';
 import { formatBackErrors } from '@/utils/errors';
 
 export default {
@@ -73,8 +61,6 @@ export default {
     VerticalEmptyContainer,
     UiDate,
     OfferCard,
-    Button,
-    CircleLoader,
   },
   data() {
     return {
@@ -89,15 +75,19 @@ export default {
     };
   },
   computed: {
-    ...mapState('actLines', ['linesActionsResponse', 'selectedLinesForActCreation', 'actCreationPrerequisites']),
+    ...mapState('actLines', [
+      'linesActionsResponse',
+      'selectedLinesForActCreation',
+      'actCreationPrerequisites',
+    ]),
     ...mapGetters('actLines', ['appliedFilters']),
     minDate() {
       return moment().format('DD/MM/YYYY HH:mm:ss');
     },
     confirmationMessage() {
-      if (this.chosenPackage) {
+      if (this.currentOffer) {
         return `${this.$t('getparc.actCreation.rechargeLV.confirm')} "${
-          this.chosenPackage.label
+          this.currentOffer.label
         }" ?`;
       }
 
@@ -106,38 +96,36 @@ export default {
   },
   async mounted() {
     let response = undefined;
-    const workflowDescription = undefined 
-    if(this.linesActionsResponse 
-    && this.linesActionsResponse.items[0] 
-    && this.linesActionsResponse.items[0].workflow 
-    && this.linesActionsResponse.items[0].workflow.workflowDescription);
-    {
-      workflowDescription = this.linesActionsResponse.items[0].workflow.workflowDescription;
-    }
-    if(this.actCreationPrerequisites.partner) {
+    const workflowDescription = this.$loGet(
+      this.linesActionsResponse.items[0],
+      'workflow.workflowDescription',
+      ''
+    );
+    if (this.actCreationPrerequisites.partner) {
       response = await fetchODOffers(
         this.actCreationPrerequisites.partner.id,
         this.actCreationPrerequisites.offer.label
       );
-    }
-    else if(workflowDescription) {
-      response = await fetchODOffers(
-        '',
-        workflowDescription
-      );
+    } else if (workflowDescription) {
+      response = await fetchODOffers('', workflowDescription);
     }
     if (response.items && response.items.length) {
       this.packages = response.items[0].offerPackages;
-      this.workflowId = response.items[0].id;
+      this.packages = this.$loGet(response.items[0], 'offerPackages', []);
+      this.workflowId = this.$loGet(response.items[0], 'id', []);
     }
 
     this.actDate = formattedCurrentDateExtended();
   },
   methods: {
-    getCurrentOffer(selectedOffer) {
-      this.currentOffer = selectedOffer.selectedOffer;
+    onOfferCLick(offer, validationCallback) {
+      this.currentOffer = offer;
+      validationCallback();
     },
-    async rechargeLine() {
+    onActDateChange(value) {
+      this.actDate = value;
+    },
+    async validate() {
       this.isLoading = true;
       const envelopeLabel = this.currentOffer.label;
       const simCardIds = this.selectedLinesForActCreation.map((i) => i.id);
@@ -150,24 +138,7 @@ export default {
         'DIGITAL_OFFER'
       );
       this.isLoading = false;
-      console.log(response);
-      window.location.href = response.url;
-    },
-    onActDateChange(value) {
-      this.actDate = value;
-    },
-    async validate(contextValues) {
-      const params = {
-        partyId: this.actCreationPrerequisites.partner.id,
-        dueDate: this.actDate,
-        packageLabel: this.chosenPackage.label,
-        tempDataUuid: contextValues.tempDataUuid,
-      };
-      const response = await createRechargeLVOffer(
-        this.appliedFilters,
-        this.selectedLinesForActCreation,
-        params
-      );
+
       if (response.errors && response.errors.length) {
         let errorMessage = '',
           massActionLimitError = '',
@@ -195,10 +166,16 @@ export default {
         } else {
           this.exceptionError = errorMessage;
         }
-
-        return { errors: response.errors };
+        return {
+          errors: response.errors,
+          validationError: {
+            validated: response.validated,
+            tempDataUuid: response.tempDataUuid,
+          },
+        };
+      } else {
+        window.location.href = response.url;
       }
-      return response;
     },
   },
 };

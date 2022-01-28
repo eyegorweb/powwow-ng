@@ -544,6 +544,9 @@ query LongLifeOffer($partyId: Long, $offerCode: String){
 }`;
 
   const response = await query(queryStr, { partyId, offerCode });
+  if (response.errors) {
+    return { errors: response.errors };
+  }
   return response.data.longLifeOffer;
 }
 export async function rechargeLineOD(partyId, date, workflowId, label, simCardIds, type) {
@@ -571,6 +574,10 @@ export async function rechargeLineOD(partyId, date, workflowId, label, simCardId
   `;
 
   const response = await query(mutationStr, { partyId, date, workflowId, label, simCardIds, type });
+
+  if (response.errors) {
+    return { errors: response.errors };
+  }
   return response.data.topUpOffer;
 }
 

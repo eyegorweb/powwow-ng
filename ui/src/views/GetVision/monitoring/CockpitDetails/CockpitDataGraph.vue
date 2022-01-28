@@ -260,16 +260,17 @@ export default {
               formatter() {
                 var x = formattedData.in.filter((e) => e.x === this.value);
                 var xSplitted = x[0].myData.formatDate.split(' ');
-                if(that.supervisionType==='INTRA_DAY' || that.supervisionType==='INTRADAY_CUMUL' ){
-                if (xSplitted.length == 2) {
-                  if(xSplitted.[1]==='06h')
-                  return  x[0].myData.formatDate;
-                  else
-                  return xSplitted.[1];
-                }
-                return x[0].myData.formatDate;
-                }else{
-                   return formatUTCtoStrDate(this.value, 'DD. MMM');
+                if (
+                  that.supervisionType === 'INTRA_DAY' ||
+                  that.supervisionType === 'INTRADAY_CUMUL'
+                ) {
+                  if (xSplitted.length == 2) {
+                    if (xSplitted[1] === '06h') return x[0].myData.formatDate;
+                    else return xSplitted[1];
+                  }
+                  return x[0].myData.formatDate;
+                } else {
+                  return formatUTCtoStrDate(this.value, 'DD. MMM');
                 }
               },
               style: {
