@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.746+20220128125138
+2022-01-28
+
+### Features
+
+- [3147] add subrow into datatable (e4a4828513f1eca871a828b89fad8ad1047e31d2)
+
 ## 1.17.0-master.745+20220126161530
 2022-01-26
 
