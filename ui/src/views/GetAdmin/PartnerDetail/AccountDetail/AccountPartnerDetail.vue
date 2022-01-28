@@ -181,16 +181,10 @@
         <p>{{ $t('changePartnerInfosSave') }}</p>
       </div>
       <div slot="footer">
-        <button
-          class="modal-default-button btn btn-danger btn-sm"
-          @click.stop="openPopup = false"
-        >
+        <button class="modal-default-button btn btn-danger btn-sm" @click.stop="openPopup = false">
           {{ $t('cancel') }}
         </button>
-        <button
-          class="modal-default-button btn btn-success btn-sm ml-1"
-          @click.stop="save"
-        >
+        <button class="modal-default-button btn btn-success btn-sm ml-1" @click.stop="save">
           {{ $t('save') }}
         </button>
       </div>
@@ -233,7 +227,7 @@ export default {
     return {
       accountDetail: Object,
       partyDetail: Object,
-      openPopup : false,
+      openPopup: false,
       form: {
         partnerName: undefined,
         siren: undefined,

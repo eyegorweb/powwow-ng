@@ -957,7 +957,7 @@ export default {
           exportComptaBSCSModeEnabled: this.exportBSCS,
           flagStatisticsEnabled: this.consoReport,
           flagServicesAudit: this.flagServicesAudit,
-          flagStatisticsEnabled: this.getToggle(this.billingToggles, 'FACT_REPORT_CONSO'),
+          // flagStatisticsEnabled: this.getToggle(this.billingToggles, 'FACT_REPORT_CONSO'),
           portabilityAcquittalsEmails: parseInt(this.portabilityAcquittalsEmails),
           importCustomFieldsEnabled: this.getToggle(this.otherToggles, 'CUSTOM_FIELD_IMPORT'),
           dashBoarDetailsPerCountry: this.getToggle(this.otherToggles, 'DASHBOARD_COUNTRY'),

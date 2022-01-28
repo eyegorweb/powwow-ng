@@ -20,7 +20,9 @@
         </div>
       </div>
     </div>
-    <a class="readMore" v-if="readMore" href="https://objenious.com/" target="_blank">{{$t('readMore')}}</a>
+    <a class="readMore" v-if="readMore" href="https://objenious.com/" target="_blank">{{
+      $t('readMore')
+    }}</a>
     <div class="divider"></div>
     <div class="terms">
       <div class="term details">

@@ -9,6 +9,8 @@
       :storage-id="storageId"
       :storage-version="storageVersion"
       :columns.sync="columns"
+      :columns-sub="columnsSub || columns"
+      :sub-rows="subRows"
       :rows="rows || []"
       :page.sync="page"
       :total="total || 0"
@@ -31,6 +33,9 @@
       <template slot="noResult">
         <slot name="noResult" />
       </template>
+      <template slot="actions">
+        <slot name="actions" />
+      </template>
     </DataTable>
   </LoaderContainer>
 </template>
@@ -43,7 +48,9 @@ import TableSkeleton from '@/components/ui/skeletons/TableSkeleton';
 export default {
   props: {
     columns: Array,
+    columnsSub: Array,
     fetchDataFn: Function,
+    subRows: Boolean,
     size: {
       type: Number,
       default: 6,
