@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.747+20220128161235
+2022-01-28
+
+### Fixes
+
+- [2983] gestion des erreurs et des exceptions des actes de création en masse (df87bb824c45de79a6e99d64ffbb72f52a2f76ef)
+
 ## 1.17.0-master.746+20220128125138
 2022-01-28
 
