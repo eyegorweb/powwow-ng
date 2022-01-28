@@ -71,11 +71,11 @@
       </div>
 
       <div slot="messages" class="text-info">
-        <div v-if="requestErrors && requestErrors.length">
+        <div v-if="exceptionError">
           <h6 class="text-danger">{{ $t('errors.all') }}</h6>
-          <ul class="text-danger list-unstyled">
-            <li v-for="error in requestErrors" :key="error.message">{{ error.message }}</li>
-          </ul>
+          <div class="text-danger">
+            {{ exceptionError }}
+          </div>
         </div>
       </div>
     </template>
@@ -99,6 +99,7 @@ import ServicesBlock from '@/components/Services/ServicesBlock.vue';
 import { getMarketingOfferServices } from '@/components/Services/utils.js';
 import { searchLineById } from '@/api/linesActions';
 import { esimDownloadProfil } from '@/api/esim.js';
+import { formatBackErrors } from '@/utils/errors';
 
 export default {
   components: {
@@ -160,7 +161,7 @@ export default {
       servicesChoice: undefined,
       chosenBillingAccount: undefined,
       singleLineFound: undefined,
-      requestErrors: [],
+      exceptionError: undefined,
       selectedDownloadStatus: undefined,
       downloadStatuses: undefined,
     };
@@ -262,6 +263,42 @@ export default {
         simStatus: this.actCreationPrerequisites.selectedStatus.id,
         allCustomFields: this.customFieldsValues,
       });
+      if (response.errors && response.errors.length) {
+        let errorMessage = '',
+          massActionLimitError = '',
+          count;
+        const formatted = formatBackErrors(response.errors)
+          .map((e) => e.errors)
+          .flat();
+        formatted.forEach((e) => {
+          if (e.key === 'limit') {
+            count = e.value;
+          }
+          if (e.key === 'error') {
+            massActionLimitError = `${e.key}.${e.value}`;
+          } else {
+            errorMessage = `${e.key}: ${e.value}`;
+          }
+        });
+        if (massActionLimitError) {
+          this.exceptionError = `${this.$t(
+            'getparc.actCreation.report.errors.' + massActionLimitError,
+            {
+              count,
+            }
+          )}`;
+        } else {
+          this.exceptionError = errorMessage;
+        }
+
+        return {
+          errors: response.errors,
+          validationError: {
+            validated: response.validated,
+            tempDataUuid: response.tempDataUuid,
+          },
+        };
+      }
       return response;
     },
 
