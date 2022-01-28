@@ -56,7 +56,7 @@ export default {
     chooseExportFormat(params) {
       this.params = params;
       this.openExportChoice({
-        exportFn: async (params, orderBy, exportFormat, asyncExportRequest) => {
+        exportFn: async (params, orderBy, exportFormat) => {
           return await exportRequestFleetSupervision(
             this.params,
             exportFormat,

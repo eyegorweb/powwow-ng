@@ -61,6 +61,7 @@
                   />
                 </div>
               </th>
+              <th v-if="subRows" key="subrows"></th>
               <th v-if="size" :key="'btnAdd'">
                 <button
                   type="button"
@@ -73,26 +74,16 @@
               </th>
             </transition-group>
           </draggable>
-          <tbody>
-            <tr :key="row.id" v-for="row in rows">
-              <td
-                :key="column.name + column.label + row.id"
-                v-for="column in sortableColumns"
-                v-tooltip="getTooltipConfig(column, row)"
-              >
-                <DatatableColumnTypeSwitcher
-                  :format="column.format"
-                  :item="row[column.name]"
-                  :row="row"
-                  :visible-columns="sortableColumns"
-                  @colEvent="$emit('colEvent', $event)"
-                />
-              </td>
-              <td v-if="size">
-                <slot name="actions" :row="row" />
-              </td>
-            </tr>
-          </tbody>
+          <DataTableRow
+            v-for="row in rows"
+            :key="row.id"
+            :row="row"
+            :sortable-columns="sortableColumns"
+            :columns-sub="columnsSub"
+            :sub-rows="subRows"
+            :open-subs="subRows"
+            :size="size"
+          />
         </table>
       </div>
     </div>
@@ -104,8 +95,8 @@ import draggable from 'vuedraggable';
 import UiSelect from '@/components/ui/UiSelect';
 import DataTablePagination from './DataTablePagination';
 import DataTableOrderArrow from './DataTableOrderArrow';
+import DataTableRow from './DataTableRow';
 import DataTableConfiguration from './DataTableConfiguration';
-import DatatableColumnTypeSwitcher from '@/components/DataTable/DataTableColumnTypeSwitcher';
 
 export default {
   /**
@@ -118,11 +109,11 @@ export default {
   name: 'DataTable',
   components: {
     draggable,
+    DataTableRow,
     UiSelect,
     DataTableConfiguration,
     DataTablePagination,
     DataTableOrderArrow,
-    DatatableColumnTypeSwitcher,
   },
   props: {
     /**
@@ -151,6 +142,14 @@ export default {
     columns: {
       type: Array,
       required: true,
+    },
+    columnsSub: {
+      type: Array,
+      required: false,
+    },
+    subRows: {
+      type: Boolean,
+      required: false,
     },
     rows: {
       type: Array,
@@ -280,12 +279,6 @@ export default {
   },
 
   methods: {
-    getTooltipConfig(column, row) {
-      if (!column.tootltipText) {
-        return;
-      }
-      return column.tootltipText(row[column.name], row);
-    },
     checkStorageVersion() {
       if (!this.storageId) return;
 
@@ -364,7 +357,6 @@ export default {
 .form-group {
   margin-bottom: 0; //reset bootstrap
 }
-
 .handle {
   font-size: 20px;
   position: relative;

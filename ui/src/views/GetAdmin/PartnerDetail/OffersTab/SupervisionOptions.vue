@@ -101,10 +101,10 @@ export default {
     this.rows = response;
   },
   methods: {
-    rCardModify(data) {
+    rCardModify() {
       this.canModify = true;
     },
-    reportingModify(data) {
+    reportingModify() {
       this.canModify = true;
     },
   },

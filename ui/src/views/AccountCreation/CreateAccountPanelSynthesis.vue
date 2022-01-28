@@ -1,11 +1,8 @@
 <template>
-  <div class="new-digital-offer-synthesis" :class="{open: showSynthesis}">
-    <h6 
-      class="title" 
-      @click="canShowSynthesis()"
-    >
-        {{ $t('digitalOffer.synthesis.title') }}
-        <span></span>
+  <div class="new-digital-offer-synthesis" :class="{ open: showSynthesis }">
+    <h6 class="title" @click="canShowSynthesis()">
+      {{ $t('digitalOffer.synthesis.title') }}
+      <span></span>
     </h6>
     <div class="synthesis-content">
       <CreateAccountPanelSynthesisItem
@@ -340,7 +337,6 @@ export default {
   },
 
   methods: {
-
     canShowSynthesis() {
       this.showSynthesis = !this.showSynthesis;
     },
@@ -385,10 +381,10 @@ $fontSize: 0.8rem;
     height: 60px;
     width: 100%;
   }
-  
+
   &.open {
     @media screen and (max-width: 900px) {
-        height: 100vh;
+      height: 100vh;
     }
   }
   .synthesis-content {
@@ -396,11 +392,10 @@ $fontSize: 0.8rem;
     flex-grow: 1;
   }
   h6 {
-
     span {
-      width: 15px; 
-      height: 15px; 
-      border-right: 2px solid grey;      
+      width: 15px;
+      height: 15px;
+      border-right: 2px solid grey;
       border-top: 2px solid grey;
       border-left: 2px solid transparent;
       border-bottom: 2px solid transparent;
@@ -420,14 +415,14 @@ $fontSize: 0.8rem;
       font-weight: 500;
     }
   }
-  
+
   &.open {
     @media screen and (max-width: 900px) {
-        height: 100vh;
+      height: 100vh;
 
-        h6 span {
-          transform: rotate(-45deg)
-        }
+      h6 span {
+        transform: rotate(-45deg);
+      }
     }
   }
 

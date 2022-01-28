@@ -53,7 +53,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-around;
-  
+
   label {
     margin-left: 10px;
   }

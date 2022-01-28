@@ -5,10 +5,13 @@
       <PaginatedDataTable
         :key="tableVersion"
         :columns="columns"
+        :columns-sub="columnsSub"
         :fetch-data-fn="getFetchDataFn()"
         :size="0"
+        sub-rows
         @colEvent="onCancelDone"
-      />
+      >
+      </PaginatedDataTable>
       <div class="row">
         <div class="col-md-12">
           <button @click="openNewDemandModal" class="btn btn-xs float-right btn-primary">
@@ -77,6 +80,7 @@ import { col } from '@/components/DataTable/utils';
 import { consumptionOnDemand, createConsumptionOnDemand } from '@/api/consumption';
 
 import ObservationRangeCol from './ObservationRangeCol';
+import SubStream from './SubStream';
 import RealConsumtionCol from './RealConsumtionCol';
 import StatutCol from './StatutCol';
 import DataCol from './DataCol';
@@ -183,6 +187,14 @@ export default {
         col('DATA', 'id', true, false, { component: DataCol }),
         col('SMS', 'id', true, false, { component: SMSCol }),
         col('Voice', 'id', true, false, { component: VoiceCol }),
+      ],
+      columnsSub: [
+        col('Période d’observation', 'id', true, false, { component: SubStream }),
+        col('Consommation réelle', 'id', true, false, { component: RealConsumtionCol }),
+        col('', 'empty', true, false),
+        col('DATA', 'id', true, false, { component: DataCol }),
+        col('', 'empty2', true, false),
+        col('', 'empty3', true, false),
       ],
     };
   },
