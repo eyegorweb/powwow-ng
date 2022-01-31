@@ -98,6 +98,7 @@ export default {
         simCardId: null,
         workflowId: null,
         siret: null,
+        intraCommunityVAT: null,
         partyId: null,
         userId: null,
         shippingAddress: {
@@ -199,9 +200,6 @@ export default {
 
   methods: {
     async saveAccount() {
-      const siretTypeAndValue = this.$loGet(this.synthesis, 'creationAccountStep.siretValue')
-        ? this.$loGet(this.synthesis, 'creationAccountStep.siretValue')
-        : this.$loGet(this.synthesis, 'creationAccountStep.tvaValue');
       this.formattedData = {
         customerAccountId: null,
         user: {
@@ -213,7 +211,8 @@ export default {
         simCardQuantity: this.$loGet(this.synthesis, 'simStep.selectedNumberOfSims'),
         simCardId: this.$loGet(this.synthesis, 'simStep.selectedSimTypeValue.simCard.id'),
         workflowId: this.$loGet(this.synthesis, 'offerStep.id'),
-        siret: siretTypeAndValue,
+        siret: this.$loGet(this.synthesis, 'creationAccountStep.siretValue'),
+        intraCommunityVAT: this.$loGet(this.synthesis, 'creationAccountStep.tvaValue'),
         partyId: null,
         userId: null,
         shippingAddress: {
@@ -289,6 +288,8 @@ export default {
           (e) =>
             e !== 'USER_NAME_ALREADY_EXIST' &&
             e !== 'SIRET_ALREADY_EXIST' &&
+            e !== 'INTRA_COMMUNITY_VAT_MANDATORY' &&
+            e !== 'INTRA_COMMUNITY_VAT_ALREADY_EXIST' &&
             e !== 'PARTY_NAME_ALREADY_EXIST' &&
             e !== 'SIRET_MANDATORY'
         );
@@ -299,6 +300,8 @@ export default {
           (e) =>
             e === 'USER_NAME_ALREADY_EXIST' ||
             e === 'SIRET_ALREADY_EXIST' ||
+            e === 'INTRA_COMMUNITY_VAT_MANDATORY' ||
+            e === 'INTRA_COMMUNITY_VAT_ALREADY_EXIST' ||
             e === 'PARTY_NAME_ALREADY_EXIST' ||
             e === 'SIRET_MANDATORY'
         );
@@ -309,6 +312,16 @@ export default {
           this.businessErrors[
             'SIRET_ALREADY_EXIST'
           ] = this.synthesis.creationAccountStep.siretValue;
+        }
+        if (businessErrors.find((e) => e === 'INTRA_COMMUNITY_VAT_MANDATORY')) {
+          this.businessErrors[
+            'INTRA_COMMUNITY_VAT_MANDATORY'
+          ] = this.synthesis.creationAccountStep.tvaValue;
+        }
+        if (businessErrors.find((e) => e === 'INTRA_COMMUNITY_VAT_ALREADY_EXIST')) {
+          this.businessErrors[
+            'INTRA_COMMUNITY_VAT_ALREADY_EXIST'
+          ] = this.synthesis.creationAccountStep.tvaValue;
         }
         if (businessErrors.find((e) => e === 'SIRET_MANDATORY')) {
           this.businessErrors['SIRET_MANDATORY'] = this.synthesis.creationAccountStep.siretValue;
