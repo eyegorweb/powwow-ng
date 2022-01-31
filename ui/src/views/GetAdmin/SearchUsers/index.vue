@@ -318,10 +318,6 @@ export default {
         filters: [],
       };
 
-      filters.push({
-        id: 'getadmin.users.filters.login',
-        value: this.searchByLoginValue,
-      });
       this.isLoading = true;
       const data = await searchUsers('', this.orderBy, pagination, filters);
       this.isLoading = false;
