@@ -82,35 +82,29 @@
       </div>
 
       <div class="entries-line">
-        <div class="form-group" :class="{ error: companyNumberError }">
-          <Toggle
-            v-if="toggleValues"
-            @update="siretType = $event.id"
-            :values="toggleValues"
-            no-default
+        <div class="form-group" :class="{ error: siretNumberError }">
+          <FormControl
+            v-model="form.siretValue"
+            label="siret-number"
+            @update:value="onChange"
+            @focus="onInputFocus"
+            @blur="onInputBlur($event)"
+            input-type="number"
+            :error="businessErrors['SIRET_ALREADY_EXIST'] || siretInputError"
+            :required="siretNumberError"
           />
-          <template v-if="siretType === 'siret'">
-            <FormControl
-              v-model="form.siretValue"
-              @update:value="onChange"
-              @focus="onInputFocus"
-              @blur="onInputBlur($event)"
-              input-type="number"
-              :error="businessErrors['SIRET_ALREADY_EXIST'] || siretInputError"
-              :required="companyNumberError"
-            />
-            <span v-if="!hide && !reachedMaxLength && siretType === 'siret'" class="error-text">
-              {{ $t('errors.maxlength') }}
-            </span>
-          </template>
-          <template v-else>
-            <FormControl
-              v-model="form.tvaValue"
-              :max-size="50"
-              :error="businessErrors['SIRET_ALREADY_EXIST'] || tvaInputError"
-              :required="companyNumberError"
-            />
-          </template>
+          <span v-if="!hide && !reachedMaxLength" class="error-text">
+            {{ $t('errors.maxlength') }}
+          </span>
+        </div>
+        <div class="form-group" :class="{ error: tvaNumberError }">
+          <FormControl
+            v-model="form.tvaValue"
+            label="tva-number"
+            :max-size="50"
+            :error="businessErrors['INTRA_COMMUNITY_VAT_ALREADY_EXIST'] || tvaInputError"
+            :required="tvaNumberError"
+          />
         </div>
       </div>
 
@@ -216,7 +210,6 @@ import BottomBar from './BottomBar.vue';
 import FormControl from '@/components/ui/FormControl';
 import UiApiAutocomplete from '@/components/ui/UiApiAutocomplete';
 import UiInput from '@/components/ui/UiInput';
-import Toggle from '@/components/ui/UiToggle2';
 import { searchAddress, fetchCountries } from '@/api/address';
 import { checkPasswordErrors } from '@/utils.js';
 import { validatePartner } from '@/api/digital.js';
@@ -233,7 +226,6 @@ export default {
     FormControl,
     UiApiAutocomplete,
     UiInput,
-    Toggle,
   },
   props: {
     synthesis: Object,
@@ -284,7 +276,8 @@ export default {
       phoneError: undefined,
       loginError: undefined,
       civilityError: undefined,
-      companyNumberError: undefined,
+      siretNumberError: undefined,
+      tvaNumberError: undefined,
       passwordConfirmError: undefined,
       passwordError: undefined,
 
@@ -292,19 +285,6 @@ export default {
       countries: [],
       siretLimit: 14,
       reachedMaxLength: false,
-      siretType: 'siret',
-      toggleValues: [
-        {
-          id: 'siret',
-          label: 'siret-number',
-          default: true,
-        },
-        {
-          id: 'tva',
-          label: 'tva-number',
-          default: false,
-        },
-      ],
       hide: true,
       inputErrors: [],
       // captchaOk: false,
@@ -351,29 +331,31 @@ export default {
     },
 
     hasSiretValue() {
-      if (this.siretType === 'siret') {
-        return this.reachedMaxLength;
-      }
-      return true;
+      return this.reachedMaxLength;
     },
 
     businessErrors() {
       let errors = [
         'PARTY_NAME_ALREADY_EXIST', // company
         'SIRET_ALREADY_EXIST',
+        'INTRA_COMMUNITY_VAT_MANDATORY',
+        'INTRA_COMMUNITY_VAT_ALREADY_EXIST',
         'USER_NAME_ALREADY_EXIST', // login
         'PHONE_NUMBER_INVALID',
       ];
       let foundErrors = {};
       let previousForm = [];
-      const currentSiretTypeAndValue =
-        this.siretType === 'siret' ? this.form.siretValue : this.form.tvaValue;
       if (this.synthesis && this.synthesis.businessErrors) {
         for (const key in this.synthesis.businessErrors) {
           previousForm.push(this.synthesis.businessErrors[key]);
         }
       }
-      const currentForm = [this.form.company, currentSiretTypeAndValue, this.form.login];
+      const currentForm = [
+        this.form.company,
+        this.form.siretValue,
+        this.form.tvaValue,
+        this.form.login,
+      ];
 
       let errorValueAlreadyExists = previousForm.filter((pf) =>
         currentForm.find((cf) => cf === pf)
@@ -398,17 +380,13 @@ export default {
         : '';
     },
     siretInputError() {
-      return this.inputErrors.find((err) => err.type === 'SIRET') &&
-        this.siretType === 'siret' &&
-        this.form.siretValue
+      return this.inputErrors.find((err) => err.type === 'SIRET') && this.form.siretValue
         ? this.$t('digitalOffer.errors.SIRET_ALREADY_EXIST')
         : '';
     },
     tvaInputError() {
-      return this.inputErrors.find((err) => err.type === 'SIRET') &&
-        this.siretType === 'tva' &&
-        this.form.tvaValue
-        ? this.$t('digitalOffer.errors.TVA_ALREADY_EXIST')
+      return this.inputErrors.find((err) => err.type === 'VAT') && this.form.tvaValue
+        ? this.$t('digitalOffer.errors.INTRA_COMMUNITY_VAT_ALREADY_EXIST')
         : '';
     },
     loginInputError() {
@@ -441,6 +419,7 @@ export default {
       }
     },
     validateInputForm() {
+      const countryCode = this.$loGet(this.form, 'country.code', 'fr');
       this.companyError = this.checkFieldFormError('company');
       this.firstNameError = this.checkFieldFormError('firstName');
       this.lastNameError = this.checkFieldFormError('lastName');
@@ -452,10 +431,8 @@ export default {
       this.countryError = this.checkFieldFormError('country');
       this.loginError = this.checkFieldFormError('login');
       this.civilityError = this.checkFieldFormError('title');
-      this.companyNumberError =
-        this.siretType === 'siret'
-          ? this.checkFieldFormError('siretValue') || !this.hasSiretValue
-          : this.checkFieldFormError('tvaValue');
+      this.siretNumberError = this.checkFieldFormError('siretValue') && countryCode === 'fr';
+      this.tvaNumberError = this.checkFieldFormError('tvaValue');
       this.passwordConfirmError = this.checkFieldFormError('password');
       this.passwordError = this.checkFieldFormError('password');
 
@@ -471,7 +448,8 @@ export default {
         this.countryError ||
         this.loginError ||
         this.civilityError ||
-        this.companyNumberError ||
+        this.siretNumberError ||
+        this.tvaNumberError ||
         this.passwordConfirmError ||
         this.passwordError
       );
@@ -516,12 +494,9 @@ export default {
         { type: 'USER_NAME', value: this.form.login },
         { type: 'PARTY_NAME', value: this.form.company },
         { type: 'PHONE_FORMAT', value: this.form.phone },
+        { type: 'SIRET', value: this.form.siretValue },
+        { type: 'VAT', value: this.form.tvaValue },
       ];
-      if (this.siretType === 'siret') {
-        objErrorsToChcek = [...objErrorsToChcek, { type: 'SIRET', value: this.form.siretValue }];
-      } else if (this.siretType === 'tva') {
-        objErrorsToChcek = [...objErrorsToChcek, { type: 'SIRET', value: this.form.tvaValue }];
-      }
       const errors = await this.validatePartner(objErrorsToChcek);
       if (errors.length) {
         return errors.filter((err) => !!err.error);
