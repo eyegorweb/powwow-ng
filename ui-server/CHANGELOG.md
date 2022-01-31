@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.750+20220131163721
+2022-01-31
+
+### Fixes
+
+- [3044] correction filtre liste utilisteur (1ec8c29c42da3f9a6a8e004245532b0ca75ca67f)
+
 ## 1.17.0-master.749+20220131151311
 2022-01-31
 
