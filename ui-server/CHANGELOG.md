@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.749+20220131151311
+2022-01-31
+
+### Fixes
+
+- [3133] gestion des siret et tva pour la création d'offre digitale (cbd6bd4c0395d9ec498b71d5a87c69fed75f2b7f)
+
 ## 1.17.0-master.748+20220131131059
 2022-01-31
 
