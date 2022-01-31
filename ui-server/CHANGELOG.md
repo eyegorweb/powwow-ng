@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.748+20220131131059
+2022-01-31
+
+### Fixes
+
+- [000] hotfix sur la gestion des offres actives pour la création de compte (dc8114c70b5627d56f17e974af1609ee48ce0cae)
+
 ## 1.17.0-master.747+20220128161235
 2022-01-28
 
