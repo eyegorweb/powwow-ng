@@ -50,9 +50,16 @@
         </div>
       </div>
     </div>
-    <button class="subscribe-btn" @click="onClick()" v-if="isActive">
-      <span> {{ recharge ? $t('select') : $t('digitalOffer.offerStep.subscribe') }}</span>
-    </button>
+    <template v-if="recharge">
+      <button class="subscribe-btn" @click="onClick()" v-if="isActive">
+        <span> {{ $t('select') }}</span>
+      </button>
+    </template>
+    <template v-else>
+      <button class="subscribe-btn" @click="onClick()">
+        {{ $t('digitalOffer.offerStep.subscribe') }}
+      </button>
+    </template>
   </div>
 </template>
 
