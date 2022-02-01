@@ -4,33 +4,48 @@
     :check-errors-fn="checkErrors"
     :prevent-send="!canSend"
   >
-    <div class="row">
-      <div class="col">
-        <span class="font-weight-bold mt-4 mb-4">{{
-          $t('getparc.actCreation.changeService.servicesToEnable')
-        }}</span>
-      </div>
-      <div class="col">
-        <span class="font-weight-bold mt-4 mb-4">{{
-          $t('getparc.actCreation.changeService.servicesToDisable')
-        }}</span>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-6">
+    <div class="flex">
+      <div class="serviceBox">
+        <div class="serviceBox-title">
+          <span class="font-weight-bold mt-4 mb-4">{{
+            $t('getparc.actCreation.changeService.servicesToEnable')
+          }}</span>
+        </div>
         <ServicesChoice
           :offer="selectedOffer"
           :selected-items.sync="servicesToEnable"
           :items-to-disable="servicesToDisable"
         />
       </div>
-      <div class="col-md-6">
+      <div class="serviceBox">
+        <div class="serviceBox-title">
+          <span class="font-weight-bold mt-4 mb-4">{{
+            $t('getparc.actCreation.changeService.servicesToDisable')
+          }}</span>
+        </div>
         <ServicesChoice
           :offer="selectedOffer"
           :selected-items.sync="servicesToDisable"
           :items-to-disable="servicesToEnable"
           selected-color="bg-accent"
         />
+      </div>
+    </div>
+      
+    <div slot="messages" class="text-info">
+      <div class="services">
+        <h4 v-if="servicesToEnable.length > 0">{{$t('getparc.actCreation.changeService.servicesToEnable')}}</h4>
+        <div v-for="service in servicesToEnable" :key="service.id">
+          {{service.label}}
+        </div>
+        <h4 v-if="servicesToDisable.length > 0">{{$t('getparc.actCreation.changeService.servicesToDisable')}}</h4>
+        <div v-for="service in servicesToDisable" :key="service.id">
+          {{service.label}}
+        </div>
+        <h4 v-if="shouldChangeData">Data services</h4>
+        <div v-for="service in dataService.parameters" :key="service.id">
+          {{service.selected ? service.label : ''}}
+        </div>
       </div>
     </div>
     <div class="row">
@@ -182,4 +197,31 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.flex {
+  display: flex;
+
+  .serviceBox {
+    margin-right: 20px;
+
+    &-title {
+      margin-bottom: 10px;
+    }
+  }
+}
+.services {
+  width: 60%;
+  border: 1px solid #d6d6d6;
+  padding: 10px;
+
+  h4 {
+    font-size: 14px;
+    font-weight: bold;
+    margin: 0;
+  }
+
+  div {
+    font-size: 14px;
+  }
+}
+</style>

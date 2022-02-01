@@ -6,6 +6,7 @@
       :placeholder="placeholder"
       @update:value="updateValue"
       @click="suggestionsAreVisible = true"
+      v-if="!withoutSearch"
     >
       <!-- TODO:Utiliser la bonne icone -->
       <img style="font-size: 24px" slot="icon" src="@/assets/search.svg" :style="{ left: 0 }" />
@@ -36,6 +37,7 @@ export default {
   mixins: [propWithDataFallback('value')],
 
   props: {
+    withoutSearch: Boolean,
     items: {
       type: Array,
       required: true,
