@@ -10,9 +10,9 @@
       <ul class="list-unstyled m-0">
         <li>
           <i class="ic-Check-Icon mr-2 text-success" />
-          {{ fileMeta.validated }}
+          {{ totalLinesFound }}
           {{
-            fileMeta.validated > 1
+            totalLinesFound > 1
               ? $t('getparc.actLines.fileImport.foundLines')
               : $t('getparc.actLines.fileImport.foundLine')
           }}.
@@ -136,6 +136,9 @@ export default {
     requestErrors() {
       if (!this.fileResponse) return false;
       return this.fileResponse.errors.find((f) => f.key === 400 || f.key === 500);
+    },
+    totalLinesFound() {
+      return this.$loGet(this.fileMeta, 'validated', 0);
     },
     totalNotCompatible() {
       if (!this.fileMeta.errors) {
