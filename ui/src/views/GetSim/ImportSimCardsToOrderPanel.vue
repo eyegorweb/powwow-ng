@@ -39,6 +39,7 @@
             </ul>
             <div class="mt-5">
               <button
+                v-if="!isLoadingForConfirmation"
                 :disabled="!fileResponse.validated"
                 @click="confirmRequest(true)"
                 class="btn btn-block"
@@ -49,13 +50,21 @@
               >
                 <span>{{ $t('confirm') }}</span>
               </button>
+              <button
+                class="btn btn-light btn-block btn-sm"
+                disabled
+                v-if="isLoadingForConfirmation"
+              >
+                {{ $t('processing') }}...
+                <CircleLoader />
+              </button>
             </div>
           </div>
         </div>
 
         <div v-else-if="fileResponse && !!requestErrors && !isLoading">
           <ul class="list-unstyled m-0">
-            <li class="item" v-for="e in fileResponse.errors" :key="e.key">
+            <li class="item" v-for="(e, index) in fileResponse.errors" :key="index">
               <div
                 v-if="e.key === 400 && e.error === 'FILE_LINE_NUMBER_INVALID'"
                 class="alert alert-danger"
@@ -99,6 +108,7 @@
 <script>
 import BaseDetailPanelContent from '@/components/BaseDetailPanelContent';
 import FileSelect from '@/components/ui/FileSelect';
+import CircleLoader from '@/components/ui/CircleLoader';
 import { uploadFileSimCards } from '@/api/linesActions';
 import { importIccids } from '@/api/orders';
 import { mapGetters, mapMutations, mapActions } from 'vuex';
@@ -108,6 +118,7 @@ export default {
   components: {
     BaseDetailPanelContent,
     FileSelect,
+    CircleLoader,
   },
   props: {
     content: Object,
@@ -121,6 +132,7 @@ export default {
       localError: undefined,
       pageLimit: 20,
       isLoading: false,
+      isLoadingForConfirmation: false,
       orderBy: {
         key: 'id',
         direction: 'DESC',
@@ -142,7 +154,9 @@ export default {
     },
     requestErrors() {
       if (!this.fileResponse) return false;
-      return this.fileResponse.errors.find((f) => f.key === 400 || f.key === 500);
+      return this.fileResponse.errors.find(
+        (f) => f.key === 400 || f.key === 500 || f.error === 'unknown'
+      );
     },
     fileMeta: {
       get() {
@@ -196,6 +210,7 @@ export default {
       return undefined;
     },
     async confirmRequest(showMessage = false) {
+      this.isLoadingForConfirmation = true;
       const response = await importIccids(this.orderId, this.fileResponse.tempDataUuid);
 
       if (response.errors && response.errors.length) {
@@ -212,6 +227,8 @@ export default {
         this.fetchOrders();
         this.resetForm();
       }
+      this.isLoadingForConfirmation = false;
+      console.log('confirm response', response);
       return response;
     },
     resetForm() {
