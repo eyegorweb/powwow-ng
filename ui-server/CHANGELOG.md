@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.751+20220201135546
+2022-02-01
+
+### Fixes
+
+- [3073] gestion de l'erreur pour l'import de cartes SIM (1902deb7804e9e860df90c394d8eebe5be6b7e62)
+- [000] correction code javascript pour le filtre d'import de fichier (405cb8458b9c284b3ec32ace9d116d69aedc15bc)
+
 ## 1.17.0-master.750+20220131163721
 2022-01-31
 
