@@ -1,14 +1,18 @@
 <template>
-  <MultiSelectSearch
+<div class="flex">
+  <MultiSelectServices
     :items="offerServices"
     :default-selected-items.sync="selectedServices"
     :selected-color="selectedColor"
+    :disabledItems="itemsToDisable"
   />
+</div>
+
 </template>
 
 <script>
 // import get from 'lodash.get';
-import MultiSelectSearch from '@/components/ui/MultiSelectSearch';
+import MultiSelectServices from './MultiSelectServices';
 import { getMarketingOfferServices } from '@/components/Services/utils.js';
 
 export default {
@@ -25,7 +29,7 @@ export default {
     },
   },
   components: {
-    MultiSelectSearch,
+    MultiSelectServices,
   },
 
   mounted() {
@@ -65,9 +69,6 @@ export default {
     offer() {
       this.initServices();
     },
-    itemsToDisable() {
-      this.initServices();
-    },
   },
 
   computed: {
@@ -83,4 +84,8 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+  .flex {
+    display: flex;
+  }
+</style>
