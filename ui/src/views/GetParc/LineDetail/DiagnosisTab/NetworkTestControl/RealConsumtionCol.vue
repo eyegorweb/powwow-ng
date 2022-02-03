@@ -1,7 +1,7 @@
 <template>
   <ul class="list-unstyled">
-    <li>{{ $t('from') }} {{ row.fistIncomingTicketDate }}</li>
-    <li>{{ $t('to') }} {{ row.lastIncomingTicketDate }}</li>
+    <li>{{ $t('from') }} {{ firstDate }}</li>
+    <li>{{ $t('to') }} {{ lastdate }}</li>
   </ul>
 </template>
 
@@ -9,6 +9,14 @@
 export default {
   props: {
     row: Object,
+  },
+  computed: {
+    firstDate() {
+      return this.row.fistIncomingTicketDate < this.row.fistOutgoingTicketDate ? this.row.fistIncomingTicketDate : this.row.fistOutgoingTicketDate;
+    }, 
+    lastDate() {
+      return this.row.lastIncomingTicketDate > this.row.lastOutgoingTicketDate ? this.row.lastIncomingTicketDate : this.row.lastOutgoingTicketDate;
+    }
   },
 };
 </script>
