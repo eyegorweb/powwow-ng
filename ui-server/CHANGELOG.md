@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.754+20220203100825
+2022-02-03
+
+### Features
+
+- [3166] add esim infos on line detail (f23867d2a460d5947a095ce8cd999b98de28b3ec)
+
 ## 1.17.0-master.753+20220203084301
 2022-02-03
 
