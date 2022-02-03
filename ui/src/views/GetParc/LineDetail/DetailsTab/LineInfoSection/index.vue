@@ -90,6 +90,53 @@
             </div>
           </template>
         </ContentBlock>
+        <ContentBlock :key="'block8'">
+          <template slot="title">Profile eUICC / ESIM</template>
+          <template slot="content">
+            <div class="content--flex">       
+              <div class="content-box">   
+                <div class="item">
+                  <h6>{{ $t('getparc.lineDetail.state') }}:</h6>
+                  <p>{{ getFromContent('esimInfos.profileState') }}</p>
+                </div>
+                <div class="item">
+                  <h6>{{ $t('getparc.lineDetail.downloadState') }}:</h6>
+                  <p>{{ getFromContent('esimInfos.esimDownloadState') }}</p>
+                </div>
+              </div>    
+              <div class="content-box">  
+                <div class="item">
+                  <h6>{{ $t('getparc.lineDetail.lastChange') }}:</h6>
+                  <p>{{ getFromContent('esimInfos.lastProfileStateDate') }}</p>
+                </div>
+                <div class="item">
+                  <h6>Date download synchro:</h6>
+                  <p>{{ getFromContent('esimInfos.esimDownloadSynchroDate') }}</p>
+                </div>
+              </div>    
+              <div class="content-box">   
+                <div class="item">
+                  <h6>{{ $t('getparc.lineDetail.lastUpdate') }}:</h6>
+                  <p>{{ getFromContent('esimInfos.profileStateSynchroDate', '-') }}</p>
+                </div>
+                <div class="item">
+                  <h6>EID:</h6>
+                  <p>{{ getFromContent('esimInfos.eidValue') }}</p>
+                </div>
+              </div>    
+              <div class="content-box">   
+                <div class="item">
+                  <h6>{{ $t('getparc.lineDetail.lastState') }}:</h6>
+                  <p>{{ getFromContent('esimInfos.lastProfileState') }}</p>
+                </div>
+                <div class="item">
+                  <h6>MSISDN SMSR statut:</h6>
+                  <p>{{ getFromContent('esimInfos.msisdnSMSRStatus') }}</p>
+                </div>
+              </div>    
+            </div>
+          </template>
+        </ContentBlock>
         <ContentBlock :key="'block3'" v-if="canSeeDualSIM">
           <template slot="title">{{ $t('getparc.lineDetail.tab1.dualSim') }}</template>
           <template slot="content">
@@ -273,7 +320,7 @@ export default {
     },
     getFromContent(path, defaultValue = '') {
       const value = get(this.content, path, defaultValue);
-      return value !== null ? value : '';
+      return value !== null ? value : '-';
     },
     getPrefix(status) {
       if (status === 'LINE_NOT_PREACTIVATED') {
@@ -311,6 +358,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.content--flex {
+  display: flex;
+}
+.content-box {
+  width: 33%;
+}
 .item {
   p {
     font-size: 0.8rem;

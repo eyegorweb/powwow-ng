@@ -1511,7 +1511,11 @@
     },
     "lineDetail": {
       "title": "Détail de la ligne {msisdn}",
-      "offer": "Offre",
+      "state": "Etat",
+      "lastState": "Etat précédent",
+      "lastChange": "Dernier changement",
+      "downloadState": "Etat de téléchargement",
+      "lastUpdate": "Dernière mise à jour",
       "rest": "Restant:",
       "consume": "Consommé:",
       "limitDate": "Date limite de validité:",
