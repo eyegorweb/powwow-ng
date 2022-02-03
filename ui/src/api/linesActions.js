@@ -425,6 +425,16 @@ export async function searchLines(orderBy, pagination, filters = []) {
       spec1
       spec2
     }
+    esimInfos {
+      profileState
+      lastProfileStateDate
+      profileStateSynchroDate
+      lastProfileState
+      esimDownloadState
+      esimDownloadSynchroDate
+      eidValue
+      msisdnSMSRStatus
+    }
   }`;
   return await searchLinesQuery(orderBy, pagination, filters, fields);
 }
