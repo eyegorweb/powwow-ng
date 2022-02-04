@@ -354,7 +354,8 @@
     "getBill": "GetBills",
     "getAdmin": "GetAdmin",
     "getDevice": "GetDevice",
-    "help": "Help"
+    "help": "Help",
+    "contact": "Contacte us"
   },
   "menu": {
     "getSim": {

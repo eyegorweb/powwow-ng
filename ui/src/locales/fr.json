@@ -404,7 +404,8 @@
     "getBill": "GetFactu",
     "getAdmin": "GetAdmin",
     "getDevice": "GetDevice",
-    "help": "Aide"
+    "help": "Aide",
+    "contact": "Nous contacter"
   },
   "menu": {
     "getSim": {
