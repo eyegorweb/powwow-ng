@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.756+20220204120306
+2022-02-04
+
+### Fixes
+
+- [3166] configuration des infos de la ligne pour le profile esim (770b39b24c57e0dc5130fa6cbc5d21afd4f621d0)
+
 ## 1.17.0-master.755+20220204083049
 2022-02-04
 
