@@ -1872,6 +1872,7 @@
         "ACTIVATE_PREACTIVATE": "Préactiver / Activer des lignes",
         "esim": {
           "PAIRING": "Appairer des eSIM",
+          "AUDIT": "Audit eSIM",
           "FREE_RESERVATION": "Libérer des profils eSIM",
           "CHANGE_STATUS_PROFIL_ESIM": "Changer le statut des profils eSIM",
           "DOWNLOAD_ESIM_PROFILE": "Télécharger un profil eSIM",

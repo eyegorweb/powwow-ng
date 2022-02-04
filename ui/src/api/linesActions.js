@@ -440,6 +440,7 @@ export async function searchLines(orderBy, pagination, filters = []) {
 }
 
 export function formatFilters(filters) {
+  console.log(filters)
   const allFilters = [];
   const partyIds = getValuesIdsWithoutQuotes(filters, 'filters.partners');
   if (partyIds) {
@@ -504,6 +505,7 @@ export function formatFilters(filters) {
   addEsimId(allFilters, filters);
   addEsimCategory(allFilters, filters);
   addEsimType(allFilters, filters);
+  addEsimFamily(allFilters, filters);
   addDownloadStatus(allFilters, filters);
   addEsimPairingStatus(allFilters, filters);
   addSMSRIDStatus(allFilters, filters);
@@ -570,6 +572,13 @@ function addEsimType(gqlFilters, selectedFilters) {
   const foundFilter = selectedFilters.find((f) => f.id === 'indicators.getparc.lines.esim.type');
   if (foundFilter) {
     gqlFilters.push(`esimStepType: {eq: ${foundFilter.meta.value}}`);
+  }
+}
+
+function addEsimFamily(gqlFilters, selectedFilters) {
+  const foundFilter = selectedFilters.find((f) => f.id === 'indicators.getparc.lines.esim.family');
+  if (foundFilter) {
+    gqlFilters.push(`simCardFamily: {eq: ${foundFilter.meta.value}}`);
   }
 }
 

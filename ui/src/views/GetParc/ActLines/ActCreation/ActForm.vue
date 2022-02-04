@@ -58,6 +58,11 @@
             !isLoading
         "
       />
+      <EsimAudit
+        v-if="
+          act.title === 'getparc.actCreation.carouselItem.esim.AUDIT' && !isLoading
+        "
+      />
       <EsimDownloadProfile
         v-if="
           act.title === 'getparc.actCreation.carouselItem.esim.DOWNLOAD_ESIM_PROFILE' && !isLoading
@@ -97,6 +102,7 @@ import EsimFreeReservations from './forms/EsimFreeReservations';
 import EsimChangeProfile from './forms/EsimChangeProfile';
 import EsimPolicyRules from './forms/EsimPolicyRules';
 import EsimDownloadProfile from './forms/EsimDownloadProfile';
+import EsimAudit from './forms/EsimAudit';
 
 const ChargeLVOffers = () =>
   import('@/views/GetParc/ActLines/ActCreation/forms/ChargeLVOffers.vue');
@@ -130,6 +136,7 @@ export default {
     ChargeLVOffers,
     RechargeLinesOD,
     EsimPolicyRules,
+    EsimAudit,
   },
   props: {
     act: Object,

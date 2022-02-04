@@ -488,6 +488,26 @@ export default excludeMocked([
   },
   {
     icon: 'ic-Settings-Icon',
+    title: 'getparc.actCreation.carouselItem.esim.AUDIT',
+    id: 'ESIM_AUDIT',
+    stepTitle: 'getparc.actCreation.step2Titles.configure',
+    selected: false,
+    filters: [
+      {
+        id: 'filters.lines.SIMCardStatus',
+        values: [
+          { id: 'ACTIVATED', label: 'Activée' },
+        ],
+      },
+      {
+        id: 'indicators.getparc.lines.esim.family',
+        value: 'eSim',
+        meta: { label: 'simcard.family.esim.owner', value: 'ESIM_OWNER' },
+      },
+    ],
+  },
+  {
+    icon: 'ic-Settings-Icon',
     title: 'getparc.actCreation.carouselItem.esim.POLICY_RULES',
     id: 'POLICY_RULES',
     stepTitle: 'getparc.actCreation.step2Titles.configure',

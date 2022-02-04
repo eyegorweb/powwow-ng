@@ -15,6 +15,7 @@
           'getparc.actCreation.carouselItem.ACTIVATE_PREACTIVATE',
           'getparc.actCreation.carouselItem.esim.FREE_RESERVATION',
           'getparc.actCreation.carouselItem.esim.CHANGE_STATUS_PROFIL_ESIM',
+          'getparc.actCreation.carouselItem.esim.AUDIT',
         ].find((a) => a === act.title) && !userIsMVNO
       "
       @set:preprequisites="setPrerequisites"
