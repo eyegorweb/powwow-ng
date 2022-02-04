@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.759+20220204203736
+2022-02-04
+
+### Fixes
+
+- [3044] correction filtre liste utilisateur (5a060017f642da170e7ea913fced3c9ee772a6c5)
+
 ## 1.17.0-master.758+20220204173305
 2022-02-04
 
