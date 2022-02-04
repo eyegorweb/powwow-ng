@@ -308,10 +308,23 @@ export default {
 
     resetFilters() {
       this.searchByIdValue = undefined;
+      this.searchByLoginValue = undefined;
       this.applyFilters();
     },
 
     async applyFilters(payload) {
+      if (this.searchByLoginValue) {
+        payload = {
+          pagination: payload !== undefined ? payload.pagination : { page: 0, limit: 20 },
+          filters: [
+            ...payload.filters,
+            {
+              id: 'getadmin.users.filters.login',
+              value: this.searchByLoginValue,
+            },
+          ],
+        };
+      }
       this.lastPayload = payload;
       const { pagination, filters } = payload || {
         pagination: { page: 0, limit: 20 },
