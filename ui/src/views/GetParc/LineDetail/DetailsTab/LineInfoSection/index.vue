@@ -90,11 +90,11 @@
             </div>
           </template>
         </ContentBlock>
-        <ContentBlock :key="'block8'">
+        <ContentBlock :key="'block8'" v-if="canSeeBlockEsim">
           <template slot="title">Profile eUICC / ESIM</template>
           <template slot="content">
-            <div class="content--flex">       
-              <div class="content-box">   
+            <div class="content--flex" v-if="canSeeAllEsimInfos || canSeeLightEsimInfos">
+              <div class="content-box">
                 <div class="item">
                   <h6>{{ $t('getparc.lineDetail.state') }}:</h6>
                   <p>{{ getFromContent('esimInfos.profileState') }}</p>
@@ -103,8 +103,8 @@
                   <h6>{{ $t('getparc.lineDetail.downloadState') }}:</h6>
                   <p>{{ getFromContent('esimInfos.esimDownloadState') }}</p>
                 </div>
-              </div>    
-              <div class="content-box">  
+              </div>
+              <div class="content-box" v-if="canSeeAllEsimInfos || canSeeLightEsimInfos">
                 <div class="item">
                   <h6>{{ $t('getparc.lineDetail.lastChange') }}:</h6>
                   <p>{{ getFromContent('esimInfos.lastProfileStateDate') }}</p>
@@ -113,8 +113,8 @@
                   <h6>Date download synchro:</h6>
                   <p>{{ getFromContent('esimInfos.esimDownloadSynchroDate') }}</p>
                 </div>
-              </div>    
-              <div class="content-box">   
+              </div>
+              <div class="content-box" v-if="canSeeAllEsimInfos">
                 <div class="item">
                   <h6>{{ $t('getparc.lineDetail.lastUpdate') }}:</h6>
                   <p>{{ getFromContent('esimInfos.profileStateSynchroDate', '-') }}</p>
@@ -123,8 +123,8 @@
                   <h6>EID:</h6>
                   <p>{{ getFromContent('esimInfos.eidValue') }}</p>
                 </div>
-              </div>    
-              <div class="content-box">   
+              </div>
+              <div class="content-box" v-if="canSeeAllEsimInfos">
                 <div class="item">
                   <h6>{{ $t('getparc.lineDetail.lastState') }}:</h6>
                   <p>{{ getFromContent('esimInfos.lastProfileState') }}</p>
@@ -133,7 +133,7 @@
                   <h6>MSISDN SMSR statut:</h6>
                   <p>{{ getFromContent('esimInfos.msisdnSMSRStatus') }}</p>
                 </div>
-              </div>    
+              </div>
             </div>
           </template>
         </ContentBlock>
@@ -306,6 +306,19 @@ export default {
         this.$loGet(this.content, 'dualSIMCardInstance') &&
         this.havePermission('getParc', 'manage_dual')
       );
+    },
+    canSeeBlockEsim() {
+      return (
+        this.$loGet(this.content, 'esimInfos') &&
+        (this.havePermission('getParc', 'manage_esim') ||
+          this.havePermission('getParc', 'manage_esim_light'))
+      );
+    },
+    canSeeLightEsimInfos() {
+      return this.havePermission('getParc', 'manage_esim_light');
+    },
+    canSeeAllEsimInfos() {
+      return this.havePermission('getParc', 'manage_esim');
     },
   },
   methods: {
