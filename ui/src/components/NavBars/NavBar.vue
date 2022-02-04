@@ -27,6 +27,11 @@
                 {{ $t(tab.label) }}
               </a>
             </template>
+            <template v-else-if="tab.mailto"
+              ><a :href="'mailto:' + tab.mailto.email" v-if="userIsM2MLight">
+                {{ $t(tab.label) }}
+              </a>
+            </template>
             <router-link v-else-if="!tab.submenu" :to="tab.to" :class="'menu_' + tab.to.name">{{
               $t(tab.label)
             }}</router-link>
@@ -356,6 +361,13 @@ export default {
           url: 'https://www.objenious.com/aide-getway/',
         },
       },
+      {
+        label: 'mainMenu.contact',
+        to: { name: 'contact' },
+        mailto: {
+          email: 'objenious@bouyguestelecom.fr',
+        },
+      },
     ]);
 
     this.navbarLinks = navbarLinks;
@@ -435,6 +447,7 @@ export default {
       'userIsGroupPartner',
       'userIsPartner',
       'userIsMVNO',
+      'userIsM2MLight',
       'userIsSuperAdmin',
       'userName',
       'havePermission',
