@@ -922,7 +922,7 @@ export default {
         partyOptions: {
           partyId: this.partner.id,
           flagMsisdnA: this.getToggle(this.services, 'AMSISDN'),
-          // euiccEnabled: this.getToggle(this.services, 'NOTIF_EUICC'),
+          euiccEnabled: false,
           resilationSecurityEnabled: this.getToggle(this.services, 'SECU_RESIL'),
           resilationSecurityDelay,
           esimEnable,

@@ -14,7 +14,7 @@
               </div>
             </ff-wip>
             <div class="row">
-              <div class="col" v-if="canChangeDate">
+              <div class="col" v-if="canChangeDate && !noDate">
                 <UiDate
                   @change="onActDateChange"
                   :value="actDate"
@@ -27,7 +27,7 @@
                   <i slot="icon" class="select-icon ic-Flag-Icon" />
                 </UiDate>
               </div>
-              <div v-else class="col">
+              <div v-else-if="!noDate" class="col">
                 <div class="ml-1 mt-2">
                   <span>
                     <i class="icon ic-Calendar-Icon"></i>
@@ -160,6 +160,7 @@ export default {
     preventSend: Boolean,
     partnerType: String,
     disabledNotificationCheck: Boolean,
+    noDate: Boolean,
     canChangeDate: {
       type: Boolean,
       default: true,

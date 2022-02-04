@@ -33,6 +33,55 @@ export async function updatePolicyRules(
   }
   return response.data.policyRulesUpdate;
 }
+export async function simCardFamilies() {
+  const queryStr = `
+  query{
+    simCardFamilies{
+      simCardFamily
+      label
+    }
+  }
+  `;
+  const response = await query(queryStr);
+  if (!response) {
+    return {
+      errors: ['unknown'],
+    };
+  }
+  if (response.errors) {
+    return {
+      errors: response.errors,
+    };
+  }
+  return response.data.simCardFamilies;
+}
+export async function auditESIM(params) {
+  const queryStr = `
+  mutation { auditESIM(input: {filter: {${formatFilters(params.filters)}}, partyId: ${params.partyId}, simCardInstanceIds: [${params.simCardInstanceIds}]})
+     {
+      tempDataUuid
+      validated
+      errors {
+        key
+        number
+        message
+      }
+    }
+  }    
+  `;
+  const response = await query(queryStr);
+  if (!response) {
+    return {
+      errors: ['unknown'],
+    };
+  }
+  if (response.errors) {
+    return {
+      errors: response.errors,
+    };
+  }
+  return response.data.auditESIM;
+}
 export async function exportEsimReservations(columns, orderBy, exportFormat, filters = []) {
   const orderingInfo = orderBy ? `, sorting: {${orderBy.key}: ${orderBy.direction}}` : '';
   const queryStr = `
