@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.755+20220204083049
+2022-02-04
+
+### Fixes
+
+- [3162] ajout du menu Nous contacter pour les partenaires M2M_LIGHT (5fff456b3168c0adfe12b738f7a583c43aaf419c)
+
 ## 1.17.0-master.754+20220203100825
 2022-02-03
 
