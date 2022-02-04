@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.757+20220204164359
+2022-02-04
+
+### Features
+
+- [3164] add act audit ESIM getParc (9efb757ed7c69abbb9a038dc2ce130ce57965cb5)
+
 ## 1.17.0-master.756+20220204120306
 2022-02-04
 
