@@ -8,7 +8,6 @@ import { mapActions, mapMutations } from 'vuex';
 export default {
   name: 'AuthCallback',
   async mounted() {
-    console.log('AuthCallback');
     // vérifier si l'url est appelée à l'intérieur de l'iframe de refresh du token
     if (!window.frameElement) {
       // First token is loaded here

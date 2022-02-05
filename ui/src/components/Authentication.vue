@@ -43,13 +43,9 @@ export default {
       } else {
         console.log('Not ignoring :', this.$route.name);
       }
-      console.log('this.token', !this.token);
       if (!this.token) {
-        console.log('startRefreshingToken begin');
         this.startRefreshingToken();
-        console.log('startRefreshingToken end');
       }
-      console.log('ensureUserIsAuthentified end');
     },
 
     redirectToLogin() {
