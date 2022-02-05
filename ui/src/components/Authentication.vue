@@ -14,7 +14,7 @@ export default {
   name: 'Authentication',
   created() {
     this.ensureUserIsAuthentified();
-  },
+  }, 
   methods: {
     ...mapActions(['ensureTokenExists', 'setAuthToken', 'fetchUserInfos']),
     ...mapMutations(['stopRefreshingToken', 'startRefreshingToken', 'appIsReady']),
