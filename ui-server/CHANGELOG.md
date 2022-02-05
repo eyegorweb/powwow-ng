@@ -2,6 +2,15 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.762+20220205191604
+2022-02-05
+
+### Fixes
+
+- [000] Ajout log (a2a0fa28a4afb80ca9bbc36c14001f7b7ce59116)
+- [000] Remove logs (ff3a0aab23d72ffd6ccb8a26a9c04903a69fdb63)
+- [000] Remove logs (cca05960234f9b3785f2da741570a80fe410876e)
+
 ## 1.17.0-master.761+20220205180200
 2022-02-05
 
