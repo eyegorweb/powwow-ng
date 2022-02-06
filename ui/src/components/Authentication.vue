@@ -14,7 +14,7 @@ export default {
   name: 'Authentication',
   created() {
     this.ensureUserIsAuthentified();
-  }, 
+  },
   methods: {
     ...mapActions(['ensureTokenExists', 'setAuthToken', 'fetchUserInfos']),
     ...mapMutations(['stopRefreshingToken', 'startRefreshingToken', 'appIsReady']),
@@ -59,11 +59,13 @@ export default {
     */
     onRefreshTokenPageLoaded(frame) {
       try {
+        console.log('onRefreshTokenPageLoaded');
         if (frame.target.contentDocument) {
           try {
             this.setAuthToken(
               frame.target.contentDocument.location.href.split('=')[1].split('&')[0]
             );
+            console.log('onRefreshTokenPageLoaded imReady');
             this.imReady();
           } catch (e) {
             log('Erreur token', e, frame.target.contentDocument.location);
@@ -75,6 +77,7 @@ export default {
           this.redirectToLogin();
         }
       } catch (e) {
+        console.log('onRefreshTokenPageLoaded', e);
         log('Erreur refresh ', e);
         this.stopRefreshingToken();
       }
