@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.767+20220206123552
+2022-02-06
+
+### Fixes
+
+- [000] Augementation timeout (0e08f89c7205e3e46cd9f30229ecd58f4aaf4638)
+
 ## 1.17.0-master.766+20220206122224
 2022-02-06
 
