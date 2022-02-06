@@ -169,6 +169,7 @@ export const mutations = {
       console.log('startRefreshingToken module.js timeout:', MAX_TIME_FOR_REFRESHING_TOKEN_IN_MS);
       state.refreshingToken = true;
       refreshTokenClearTimeout = setTimeout(() => {
+        console.log('refreshTokenClearTimeout setTimeout');
         state.refreshingToken = false;
       }, MAX_TIME_FOR_REFRESHING_TOKEN_IN_MS);
     }
