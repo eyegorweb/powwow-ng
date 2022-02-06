@@ -5,7 +5,7 @@ import cloneDeep from 'lodash.clonedeep';
 // import moment from 'moment';
 import { checkLocalStorageProfile } from '@/utils/localstorage.js';
 
-const MAX_TIME_FOR_REFRESHING_TOKEN_IN_MS = 4000;
+const MAX_TIME_FOR_REFRESHING_TOKEN_IN_MS = 10000;
 
 export const state = {
   token: undefined,
