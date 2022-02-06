@@ -108,7 +108,6 @@ export default {
       return getBaseURL();
     },
     refreshUrl() {
-      console.log('refreshUrl: ', this.token);
       return `${this.authUrl}/oauth/authorize?response_type=token&client_id=${process.env.VUE_APP_CLIENT_ID}&redirect_uri=${window.location.origin}/refresh.html`;
     },
   },
