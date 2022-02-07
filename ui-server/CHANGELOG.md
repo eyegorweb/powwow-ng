@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.769+20220207144946
+2022-02-07
+
+### Fixes
+
+- [3166] correction des permissions pour afficher les infos de la ligne eSim (eafc761a0b87fccf4750ec687b34360b4c80eb1c)
+
 ## 1.17.0-master.768+20220206125311
 2022-02-06
 
