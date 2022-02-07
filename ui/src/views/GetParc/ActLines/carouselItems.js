@@ -492,16 +492,15 @@ export default excludeMocked([
     id: 'ESIM_AUDIT',
     stepTitle: 'getparc.actCreation.step2Titles.configure',
     selected: false,
+    permission: { domain: 'act', action: 'audit_esim_light' },
     filters: [
       {
         id: 'filters.lines.SIMCardStatus',
-        values: [
-          { id: 'ACTIVATED', label: 'Activée' },
-        ],
+        values: [{ id: 'ACTIVATED', label: 'Activée' }],
       },
       {
         id: 'indicators.getparc.lines.esim.family',
-        value: 'eSim',
+        value: 'eSim client',
         meta: { label: 'simcard.family.esim.owner', value: 'ESIM_OWNER' },
       },
     ],
