@@ -93,43 +93,43 @@
         <ContentBlock :key="'block8'" v-if="canSeeBlockEsim">
           <template slot="title">Profile eUICC / ESIM</template>
           <template slot="content">
-            <div class="content--flex" v-if="canSeeAllEsimInfos || canSeeLightEsimInfos">
+            <div class="content--flex">
               <div class="content-box">
-                <div class="item">
+                <div class="item" v-if="canSeeAllEsimInfos || canSeeLightEsimInfos">
                   <h6>{{ $t('getparc.lineDetail.state') }}:</h6>
                   <p>{{ getFromContent('esimInfos.profileState') }}</p>
                 </div>
-                <div class="item">
+                <div class="item" v-if="canSeeAllEsimInfos">
                   <h6>{{ $t('getparc.lineDetail.downloadState') }}:</h6>
                   <p>{{ getFromContent('esimInfos.esimDownloadState') }}</p>
                 </div>
               </div>
-              <div class="content-box" v-if="canSeeAllEsimInfos || canSeeLightEsimInfos">
-                <div class="item">
+              <div class="content-box">
+                <div class="item" v-if="canSeeAllEsimInfos || canSeeLightEsimInfos">
                   <h6>{{ $t('getparc.lineDetail.lastChange') }}:</h6>
                   <p>{{ getFromContent('esimInfos.lastProfileStateDate') }}</p>
                 </div>
-                <div class="item">
+                <div class="item" v-if="canSeeAllEsimInfos">
                   <h6>Date download synchro:</h6>
                   <p>{{ getFromContent('esimInfos.esimDownloadSynchroDate') }}</p>
                 </div>
               </div>
-              <div class="content-box" v-if="canSeeAllEsimInfos">
-                <div class="item">
+              <div class="content-box">
+                <div class="item" v-if="canSeeAllEsimInfos || canSeeLightEsimInfos">
                   <h6>{{ $t('getparc.lineDetail.lastUpdate') }}:</h6>
                   <p>{{ getFromContent('esimInfos.profileStateSynchroDate', '-') }}</p>
                 </div>
-                <div class="item">
+                <div class="item" v-if="canSeeAllEsimInfos">
                   <h6>EID:</h6>
                   <p>{{ getFromContent('esimInfos.eidValue') }}</p>
                 </div>
               </div>
-              <div class="content-box" v-if="canSeeAllEsimInfos">
-                <div class="item">
+              <div class="content-box">
+                <div class="item" v-if="canSeeAllEsimInfos || canSeeLightEsimInfos">
                   <h6>{{ $t('getparc.lineDetail.lastState') }}:</h6>
                   <p>{{ getFromContent('esimInfos.lastProfileState') }}</p>
                 </div>
-                <div class="item">
+                <div class="item" v-if="canSeeAllEsimInfos">
                   <h6>MSISDN SMSR statut:</h6>
                   <p>{{ getFromContent('esimInfos.msisdnSMSRStatus') }}</p>
                 </div>
