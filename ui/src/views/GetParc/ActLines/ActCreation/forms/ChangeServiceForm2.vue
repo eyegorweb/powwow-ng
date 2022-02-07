@@ -33,7 +33,7 @@
     </div>
       
     <div slot="messages" class="text-info">
-      <div class="services">
+      <div class="services" v-if="servicesToEnable.length > 0 || shouldChangeData || servicesToDisable.length > 0">
         <h4 v-if="servicesToEnable.length > 0">{{$t('getparc.actCreation.changeService.servicesToEnable')}}</h4>
         <div v-for="service in servicesToEnable" :key="service.id">
           {{service.label}}
@@ -43,8 +43,10 @@
           {{service.label}}
         </div>
         <h4 v-if="shouldChangeData">Data services</h4>
-        <div v-for="service in dataService.parameters" :key="service.id">
-          {{service.selected ? service.label : ''}}
+        <div  v-if="dataService && dataService.parameters && shouldChangeData">
+          <div v-for="service in dataService.parameters" :key="service.id">
+            {{service.selected ? service.label : ''}}
+          </div>
         </div>
       </div>
     </div>
@@ -129,7 +131,7 @@ export default {
     checkErrors() {
       let isError = false;
       this.isDataParamsError = false;
-      if (this.shouldChangeData) {
+      if (this.shouldChangeData && this.dataService && this.dataService.parameters) {
         this.isDataParamsError =
           this.dataService &&
           this.dataService.parameters &&
