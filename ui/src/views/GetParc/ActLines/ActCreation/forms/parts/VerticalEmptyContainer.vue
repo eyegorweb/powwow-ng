@@ -3,8 +3,8 @@
     <div class="card-body">
       <div class="row">
         <div class="col-10">
-          <slot name="main" :containerValidationFn="validate" />
-          <slot name="bottom"></slot>
+          <slot name="main" />
+          <slot name="bottom" :containerValidationFn="validate"></slot>
         </div>
         <div class="col-2">
           <div class="text-right">

@@ -51,7 +51,7 @@
       </div>
     </div>
     <template v-if="recharge">
-      <button class="subscribe-btn" @click="onClick()" v-if="isActive">
+      <button class="subscribe-btn" @click="onClick()">
         <span> {{ $t('select') }}</span>
       </button>
     </template>

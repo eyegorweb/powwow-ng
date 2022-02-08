@@ -4,19 +4,19 @@
     :confirm-msg="confirmationMessage"
     no-confirm-translation
   >
-    <div slot="main" slot-scope="{ containerValidationFn }">
-      <div class="pricing">
+    <div slot="main">
+      <div class="pricing mb-3">
         <div v-if="packages && onPackageCLick" class="pricing-container">
           <PackageCardComponent
             v-for="p in packages"
             :key="p.label"
             :pack="p"
-            :on-click="() => onPackageCLick(p, containerValidationFn)"
+            :on-click="() => onPackageCLick(p)"
           />
         </div>
       </div>
     </div>
-    <div slot="bottom">
+    <div slot="bottom" slot-scope="{ containerValidationFn }">
       <div class="row">
         <div class="col-md-4">
           <UiDate
@@ -30,6 +30,15 @@
           >
             <em slot="icon" class="select-icon ic-Flag-Icon" />
           </UiDate>
+        </div>
+        <div class="col-md-4">
+          <Button
+            @click="containerValidationFn"
+            variant="primary"
+            :disabled="!selectedLinesForActCreation.length || !chosenPackage || isLoading"
+            >{{ $t('getparc.actCreation.carouselItem.RECHARGE_LINES_BTN') }}
+          </Button>
+          <CircleLoader class="load" v-if="isLoading" />
         </div>
       </div>
     </div>
@@ -47,6 +56,8 @@
 <script>
 import VerticalEmptyContainer from './parts/VerticalEmptyContainer';
 import UiDate from '@/components/ui/UiDate';
+import Button from '@/components/ui/Button';
+import CircleLoader from '@/components/ui/CircleLoader';
 import moment from 'moment';
 
 import { fetchLVOffers } from '@/api/offers.js';
@@ -92,6 +103,8 @@ export default {
     VerticalEmptyContainer,
     PackageCardComponent,
     UiDate,
+    Button,
+    CircleLoader,
   },
   data() {
     return {
@@ -100,6 +113,7 @@ export default {
       exceptionError: undefined,
       actDate: null,
       dateError: null,
+      isLoading: false,
     };
   },
   computed: {
@@ -143,9 +157,8 @@ export default {
     onActDateChange(value) {
       this.actDate = value;
     },
-    onPackageCLick(pack, validationCallback) {
+    onPackageCLick(pack) {
       this.chosenPackage = pack;
-      validationCallback();
     },
     async validate(contextValues) {
       const params = {
