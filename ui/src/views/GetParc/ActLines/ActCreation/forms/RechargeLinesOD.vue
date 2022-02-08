@@ -4,21 +4,21 @@
     :confirm-msg="confirmationMessage"
     no-confirm-translation
   >
-    <div slot="main" slot-scope="{ containerValidationFn }">
+    <div slot="main">
       <div class="pricing">
         <div v-if="packages" class="pricing-container">
           <div class="card" v-for="(offer, index) in packages" :key="index">
             <OfferCard
               :offer="offer"
               :recharge="true"
-              :is-active="!!selectedLinesForActCreation.length || !!currentOffer"
-              @select:offer="() => onOfferCLick(offer, containerValidationFn)"
+              :is-active="offer === currentOffer"
+              @select:offer="getCurrentOffer"
             />
           </div>
         </div>
       </div>
     </div>
-    <div slot="bottom">
+    <div slot="bottom" slot-scope="{ containerValidationFn }">
       <div class="row">
         <div class="col-md-4">
           <UiDate
@@ -32,6 +32,15 @@
           >
             <em slot="icon" class="select-icon ic-Flag-Icon" />
           </UiDate>
+        </div>
+        <div class="col-md-4">
+          <Button
+            @click="containerValidationFn"
+            variant="primary"
+            :disabled="!selectedLinesForActCreation.length || !currentOffer || isLoading"
+            >{{ $t('getparc.actCreation.carouselItem.RECHARGE_LINES_BTN') }}
+          </Button>
+          <CircleLoader class="load" v-if="isLoading" />
         </div>
       </div>
     </div>
@@ -50,6 +59,8 @@
 import VerticalEmptyContainer from './parts/VerticalEmptyContainer';
 import OfferCard from '@/views/AccountCreation/OfferCard.vue';
 import UiDate from '@/components/ui/UiDate';
+import Button from '@/components/ui/Button';
+import CircleLoader from '@/components/ui/CircleLoader';
 import moment from 'moment';
 import { fetchODOffers, rechargeLineOD } from '@/api/offers.js';
 import { mapState, mapGetters } from 'vuex';
@@ -61,11 +72,12 @@ export default {
     VerticalEmptyContainer,
     UiDate,
     OfferCard,
+    Button,
+    CircleLoader,
   },
   data() {
     return {
       packages: undefined,
-      chosenPackage: undefined,
       exceptionError: undefined,
       actDate: null,
       dateError: null,
@@ -96,12 +108,11 @@ export default {
   },
   async mounted() {
     let response = undefined;
-    const workflowDescription = this.$loGet(
-      this.linesActionsResponse.items[0],
-      'workflow.workflowDescription',
-      ''
-    );
-    if (this.actCreationPrerequisites.partner) {
+    const workflowDescription =
+      this.linesActionsResponse && this.linesActionsResponse.items
+        ? this.$loGet(this.linesActionsResponse.items[0], 'workflow.workflowDescription', '')
+        : '';
+    if (this.actCreationPrerequisites && this.actCreationPrerequisites.partner) {
       response = await fetchODOffers(
         this.actCreationPrerequisites.partner.id,
         this.actCreationPrerequisites.offer.label
@@ -118,9 +129,8 @@ export default {
     this.actDate = formattedCurrentDateExtended();
   },
   methods: {
-    onOfferCLick(offer, validationCallback) {
-      this.currentOffer = offer;
-      validationCallback();
+    getCurrentOffer(offer) {
+      this.currentOffer = offer.selectedOffer;
     },
     onActDateChange(value) {
       this.actDate = value;
@@ -176,6 +186,7 @@ export default {
       } else {
         window.location.href = response.url;
       }
+      return response;
     },
   },
 };
