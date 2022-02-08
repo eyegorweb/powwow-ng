@@ -86,12 +86,19 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
+            <tr class="infoConsoTable">
               <td>
                 <ul class="content-cell list-unstyled">
                   <li>{{ $t('getparc.lineDetail.consummated.nationalConsumption') }}</li>
                   <li>{{ $t('getparc.lineDetail.consummated.incoming') }}</li>
-                  <li>{{ $t('getparc.lineDetail.consummated.outgoing') }}</li>
+                  <li v-for="item in consumptionData.dataIncomingNationalConsumptionStreams" :key="item.stream" class="subrow ml10">
+                    {{item.stream}}
+                  </li>
+                  <li v-if="consumptionData.dataIncomingNationalConsumptionStreams">&nbsp;</li>
+                  <li class="outgoing">{{ $t('getparc.lineDetail.consummated.outgoing') }}</li>
+                  <li v-for="item in consumptionData.dataOutgoingNationalConsumptionStreams" :key="item.stream" class="subrow ml10">
+                    {{item.stream}}
+                  </li>
                 </ul>
               </td>
               <td>
@@ -100,8 +107,15 @@
                   <li>
                     {{ formattedData('DATA', consumptionData.dataIncomingNationalConsumption) }}
                   </li>
-                  <li>
+                  <li v-for="item in consumptionData.dataIncomingNationalConsumptionStreams" :key="item.stream" class="subrow">
+                    {{formattedData('DATA', item.volume)}}
+                  </li>
+                  <li v-if="consumptionData.dataIncomingNationalConsumptionStreams">&nbsp;</li>
+                  <li class="outgoing">
                     {{ formattedData('DATA', consumptionData.dataOutgoingNationalConsumption) }}
+                  </li>
+                  <li v-for="item in consumptionData.dataOutgoingNationalConsumptionStreams" :key="item.stream" class="subrow">
+                    {{formattedData('DATA', item.volume)}}
                   </li>
                 </ul>
               </td>
@@ -109,7 +123,11 @@
                 <ul class="content-cell list-unstyled">
                   <li>{{ consumptionData.smsNationalConsumption }} SMS</li>
                   <li>{{ consumptionData.smsIncomingNationalConsumption }} SMS</li>
-                  <li>{{ consumptionData.smsOutgoingNationalConsumption }} SMS</li>
+                  <li v-for="item in consumptionData.dataIncomingNationalConsumptionStreams" :key="item.stream">
+                    &nbsp;
+                  </li>
+                  <li v-if="consumptionData.dataIncomingNationalConsumptionStreams">&nbsp;</li>
+                  <li class="outgoing">{{ consumptionData.smsOutgoingNationalConsumption }} SMS</li>
                 </ul>
               </td>
               <td>
@@ -118,18 +136,29 @@
                   <li>
                     {{ formattedData('VOICE', consumptionData.voiceIncomingNationalConsumption) }}
                   </li>
-                  <li>
+                  <li v-for="item in consumptionData.dataIncomingNationalConsumptionStreams" :key="item.stream">
+                    &nbsp;
+                  </li>
+                  <li v-if="consumptionData.dataIncomingNationalConsumptionStreams">&nbsp;</li>
+                  <li class="outgoing">
                     {{ formattedData('VOICE', consumptionData.voiceOutgoingNationalConsumption) }}
                   </li>
                 </ul>
               </td>
             </tr>
-            <tr>
+            <tr class="infoConsoTable">
               <td>
                 <ul class="content-cell list-unstyled">
                   <li>{{ $t('getparc.lineDetail.consummated.internationalConsumption') }}</li>
                   <li>{{ $t('getparc.lineDetail.consummated.incoming') }}</li>
-                  <li>{{ $t('getparc.lineDetail.consummated.outgoing') }}</li>
+                  <li v-for="item in consumptionData.dataIncomingInternationalConsumptionStreams" :key="item.stream" class="subrow ml10">
+                    {{item.stream}}
+                  </li>
+                  <li v-if="consumptionData.dataIncomingInternationalConsumptionStreams">&nbsp;</li>
+                  <li class="outgoing">{{ $t('getparc.lineDetail.consummated.outgoing') }}</li>
+                  <li v-for="item in consumptionData.dataOutgoingInternationalConsumptionStreams" :key="item.stream" class="subrow ml10">
+                    {{item.stream}}
+                  </li>
                 </ul>
               </td>
               <td>
@@ -140,10 +169,17 @@
                       formattedData('DATA', consumptionData.dataIncomingInternationalConsumption)
                     }}
                   </li>
-                  <li>
+                  <li v-for="item in consumptionData.dataIncomingInternationalConsumptionStreams" :key="item.stream" class="subrow">
+                    {{formattedData('DATA', item.volume)}}
+                  </li>
+                  <li v-if="consumptionData.dataIncomingInternationalConsumptionStreams">&nbsp;</li>
+                  <li class="outgoing">
                     {{
                       formattedData('DATA', consumptionData.dataOutgoingInternationalConsumption)
                     }}
+                  </li>
+                  <li v-for="item in consumptionData.dataOutgoingInternationalConsumptionStreams" :key="item.stream" class="subrow">
+                    {{formattedData('DATA', item.volume)}}
                   </li>
                 </ul>
               </td>
@@ -151,7 +187,11 @@
                 <ul class="content-cell list-unstyled">
                   <li>{{ consumptionData.smsInternationalConsumption }} SMS</li>
                   <li>{{ consumptionData.smsIncomingInternationalConsumption }} SMS</li>
-                  <li>{{ consumptionData.smsOutgoingInternationalConsumption }} SMS</li>
+                  <li v-for="item in consumptionData.dataIncomingInternationalConsumptionStreams" :key="item.stream">
+                    &nbsp;
+                  </li>
+                  <li v-if="consumptionData.dataIncomingInternationalConsumptionStreams">&nbsp;</li>
+                  <li class="outgoing">{{ consumptionData.smsOutgoingInternationalConsumption }} SMS</li>
                 </ul>
               </td>
               <td>
@@ -164,7 +204,11 @@
                       formattedData('VOICE', consumptionData.voiceIncomingInternationalConsumption)
                     }}
                   </li>
-                  <li>
+                  <li v-for="item in consumptionData.dataIncomingInternationalConsumptionStreams" :key="item.stream">
+                    &nbsp;
+                  </li>
+                  <li v-if="consumptionData.dataIncomingNationalConsumptionStreams">&nbsp;</li>
+                  <li class="outgoing">
                     {{
                       formattedData('VOICE', consumptionData.voiceOutgoingInternationalConsumption)
                     }}
@@ -525,7 +569,7 @@ export default {
     transition-delay: 1s;
   }
 }
-.partnerTypeM2M .content-cell {
+.infoConsoTable .content-cell {
   li:nth-child(1) {
     color: $dark-gray;
     font-size: 1.4rem;
@@ -537,7 +581,7 @@ export default {
     font-size: 1rem;
     line-height: 1.4rem;
   }
-  li:nth-child(3) {
+  .outgoing {
     color: $accent;
     font-size: 1rem;
     line-height: 1.4rem;
@@ -569,6 +613,13 @@ export default {
   line-height: 40px;
 }
 
+.subrow {
+  font-size: 14px;
+}
+
+.ml10 {
+  margin-left: 10px;
+}
 .partnerTypeMVNO tr td:nth-child(2) {
   width: 50%;
   padding-right: 30%;
