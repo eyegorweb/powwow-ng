@@ -2,6 +2,17 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.773+20220208140635
+2022-02-08
+
+### Features
+
+- [3150] add subline linedetail conso (d990c945256de53c455d25c22d886a4e82d94dfa)
+
+### Fixes
+
+- [3171] gestion des indicateurs de supervision en fonction de l'usage et des filtres (8610e31a9db463b539042a5e70c44dc3becc4298)
+
 ## 1.17.0-master.772+20220208095854
 2022-02-08
 
