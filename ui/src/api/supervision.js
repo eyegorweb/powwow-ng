@@ -90,6 +90,12 @@ export async function fetchCockpitMarkers(filters) {
     filter: filters,
   });
 
+  if (response.errors) {
+    return {
+      errors: response.errors,
+    };
+  }
+
   if (response.data) {
     return response.data.countServicesStateByCountry;
   }
