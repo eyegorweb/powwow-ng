@@ -2,12 +2,13 @@
 
 <!--- next entry here -->
 
-## 1.17.0-master.771+20220208095021
+## 1.17.0-master.772+20220208095854
 2022-02-08
 
 ### Fixes
 
 - [3022] act modify service toggle (242eea6ad4d762de4eb55ea6449cccc933fb4362)
+- [3136] correctifs sur l'acte de gestion de recharge d'offre digitale (479496814bfd3ac58f42a6e9af4b02f1ee210950)
 
 ## 1.17.0-master.770+20220207151547
 2022-02-07
