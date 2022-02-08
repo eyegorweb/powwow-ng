@@ -194,10 +194,14 @@ export default {
       this.mapOverlay = new this.google.maps.OverlayView();
       this.mapOverlay.setMap(this.map);
       this.google.maps.event.addListener(this.map, 'idle', () => {
-        if (this.isReady) {
+        // application différente du refreshData pour modifier le comportement https://m2m-gitlab.by-docapost.com/powwow-ng/backlog/-/issues/3171
+        // if (this.isReady) {
+        //   this.refreshData(true);
+        // } else {
+        //   this.isReady = true;
+        // }
+        if (this.appliedFilters) {
           this.refreshData(true);
-        } else {
-          this.isReady = true;
         }
       });
     });
@@ -348,14 +352,12 @@ export default {
     },
 
     formatFilters() {
-      if (!this.appliedFilters);
-
+      if (!this.appliedFilters) return {};
       return filterFormatter(this.appliedFilters);
     },
 
     formatFiltersForCockpit() {
-      if (!this.appliedFilters);
-
+      if (!this.appliedFilters) return {};
       return this.appliedFilters.reduce((filters, item) => {
         if (item.id === 'getadmin.users.filters.partners') {
           if (item.data) {
