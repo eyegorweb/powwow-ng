@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.771+20220208095021
+2022-02-08
+
+### Fixes
+
+- [3022] act modify service toggle (242eea6ad4d762de4eb55ea6449cccc933fb4362)
+
 ## 1.17.0-master.770+20220207151547
 2022-02-07
 
