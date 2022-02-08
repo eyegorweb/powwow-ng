@@ -12,8 +12,9 @@
         <tr v-for="indicator in indicators" :key="indicator.id">
           <td v-if="!userIsPartner">{{ formattedLabel(indicator.labelKey) }}</td>
           <td>
-            <a href="#" @click.prevent="onClick(indicator.entityId)">
-              {{ indicator.name }}
+            <a href="#" @click.prevent="onClick(indicator.entityId)" class="nameLink">
+              {{ indicator.name.length > 20 ? indicator.name.substring(0, 20) + '...' : indicator.name }}
+              <span class="nameLink-tooltip">{{ indicator.name }}</span>
             </a>
           </td>
           <td>
@@ -21,11 +22,9 @@
           </td>
         </tr>
         <tr v-if="specificMessage">
-          <td>
+          <td colspan="3">
             <em>{{ specificMessage }}</em>
           </td>
-          <td></td>
-          <td></td>
         </tr>
       </tbody>
       <tbody v-else>
@@ -114,6 +113,24 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.nameLink {
+  position: relative;
+
+  &-tooltip {
+    display: none;
+  }
+  &:hover {
+    .nameLink-tooltip {
+      display: block;
+      position: absolute;
+      background: #000;
+      color: white;
+      padding: 5px 10px;
+      border-radius: 5px;
+      top: -20px;
+    }
+  }
+}
 .table {
   td {
     font-size: 0.8rem;
