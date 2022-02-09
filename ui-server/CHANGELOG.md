@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.775+20220209155019
+2022-02-09
+
+### Features
+
+- [3174] Suppression du mot de passe dans l'offre digitale. (9f6eb4c390f0d794cbf83a5cec1e14a68b220b7d)
+
 ## 1.17.0-master.774+20220208161332
 2022-02-08
 
