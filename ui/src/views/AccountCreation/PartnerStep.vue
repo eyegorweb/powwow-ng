@@ -166,39 +166,6 @@
         />
         <small v-if="loginError" class="form-text error-text">{{ $t('required') }}</small>
       </div>
-
-      <div class="form-entry"></div>
-      <div class="form-entry formLine">
-        <input type="password" name="password" class="hidden" autocomplete="off" />
-        <FormControl
-          class="password"
-          label="password"
-          input-type="password"
-          v-model="form.password"
-          :class="{ error: passwordError }"
-          :max-size="50"
-          :required="passwordError"
-        />
-        <FormControl
-          class="password-confirm"
-          label="passwordConfirm"
-          input-type="password"
-          v-model="form.passwordConfirm"
-          :class="{ error: passwordConfirmError }"
-          :required="passwordConfirmError"
-          :max-size="50"
-        />
-      </div>
-
-      <div v-if="passwordConfirmationErrors" class="entries-line">
-        <div class="form-entry">
-          <ul class="list-unstyled">
-            <li :key="error" v-for="error in passwordConfirmationErrors" class="error-text">
-              {{ $t(error) }}
-            </li>
-          </ul>
-        </div>
-      </div>
     </div>
 
     <BottomBar no-prev :can-next="true" @next="gotoNext" />
@@ -211,7 +178,6 @@ import FormControl from '@/components/ui/FormControl';
 import UiApiAutocomplete from '@/components/ui/UiApiAutocomplete';
 import UiInput from '@/components/ui/UiInput';
 import { searchAddress, fetchCountries } from '@/api/address';
-import { checkPasswordErrors } from '@/utils.js';
 import { validatePartner } from '@/api/digital.js';
 //
 // Waiting for Richard HALLIER to active recaptcha because of proxy issue
@@ -261,10 +227,8 @@ export default {
         email: undefined,
         phone: undefined,
         login: undefined,
-        password: undefined,
       },
       // FormChecker
-      passwordConfirm: undefined,
       companyError: undefined,
       firstNameError: undefined,
       lastNameError: undefined,
@@ -278,8 +242,6 @@ export default {
       civilityError: undefined,
       siretNumberError: undefined,
       tvaNumberError: undefined,
-      passwordConfirmError: undefined,
-      passwordError: undefined,
 
       selectedAddress: {},
       countries: [],
@@ -305,7 +267,6 @@ export default {
         'email',
         'phone',
         'login',
-        'password',
       ];
 
       return requiredFields.filter((f) => {
@@ -322,12 +283,6 @@ export default {
         }
         return !this.form[f];
       });
-    },
-
-    passwordConfirmationErrors() {
-      if (!this.form.password) return [];
-      const errors = checkPasswordErrors(this.form.password, this.form.passwordConfirm);
-      return errors;
     },
 
     hasSiretValue() {
@@ -433,8 +388,6 @@ export default {
       this.civilityError = this.checkFieldFormError('title');
       this.siretNumberError = this.checkFieldFormError('siretValue') && countryCode === 'fr';
       this.tvaNumberError = this.checkFieldFormError('tvaValue');
-      this.passwordConfirmError = this.checkFieldFormError('password');
-      this.passwordError = this.checkFieldFormError('password');
 
       return (
         this.companyError ||
@@ -449,9 +402,7 @@ export default {
         this.loginError ||
         this.civilityError ||
         this.siretNumberError ||
-        this.tvaNumberError ||
-        this.passwordConfirmError ||
-        this.passwordError
+        this.tvaNumberError
       );
     },
     // async recaptcha() {
