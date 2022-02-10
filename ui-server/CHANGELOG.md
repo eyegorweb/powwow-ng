@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.776+20220210155414
+2022-02-10
+
+### Fixes
+
+- [3183] dont push partner id when user is operator usermodify (8101fb33dd652ec6db4e722a9f89df05633e78e5)
+
 ## 1.17.0-master.775+20220209155019
 2022-02-09
 
