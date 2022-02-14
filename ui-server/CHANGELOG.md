@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.778+20220214143300
+2022-02-14
+
+### Features
+
+- [3150] connect api to detail line stream ongoing (2d8927946508deeeabc58cc6642308e1ff18e6e8)
+
 ## 1.17.0-master.777+20220210170732
 2022-02-10
 
