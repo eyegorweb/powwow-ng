@@ -1017,7 +1017,7 @@ export async function fetchCurrentConsumption(filters) {
 
   const queryStr = `
   query {
-    currentConsumptionV2(${filtersGQL.join(',')}){
+    currentConsumptionV2(${filtersGQL.join(',')}, full: true){
       dataNationalConsumption
       dataIncomingNationalConsumption
       dataOutgoingNationalConsumption
@@ -1039,6 +1039,22 @@ export async function fetchCurrentConsumption(filters) {
       voiceIncomingInternationalConsumption
       voiceOutgoingInternationalConsumption
       voiceTotal
+      dataIncomingNationalConsumptionStreams {
+        stream
+        volume
+      }
+      dataOutgoingNationalConsumptionStreams {
+        stream
+        volume
+      }
+      dataIncomingInternationalConsumptionStreams {
+        stream
+        volume
+      }
+      dataOutgoingInternationalConsumptionStreams {
+        stream
+        volume
+      }  
     }
   }
   `;

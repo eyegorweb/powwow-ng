@@ -151,12 +151,12 @@
                 <ul class="content-cell list-unstyled">
                   <li>{{ $t('getparc.lineDetail.consummated.internationalConsumption') }}</li>
                   <li>{{ $t('getparc.lineDetail.consummated.incoming') }}</li>
-                  <li v-for="item in consumptionData.dataIncomingInternationalConsumptionStreams" :key="item.stream" class="subrow ml10">
+                  <li v-for="item in consumptionData.dataIncomingInternationalConsumptionStreams" :key="item.stream + item.volume" class="subrow ml10">
                     {{item.stream}}
                   </li>
                   <li v-if="consumptionData.dataIncomingInternationalConsumptionStreams">&nbsp;</li>
                   <li class="outgoing">{{ $t('getparc.lineDetail.consummated.outgoing') }}</li>
-                  <li v-for="item in consumptionData.dataOutgoingInternationalConsumptionStreams" :key="item.stream" class="subrow ml10">
+                  <li v-for="item in consumptionData.dataOutgoingInternationalConsumptionStreams" :key="item.stream + item.volume" class="subrow ml10">
                     {{item.stream}}
                   </li>
                 </ul>
@@ -169,7 +169,7 @@
                       formattedData('DATA', consumptionData.dataIncomingInternationalConsumption)
                     }}
                   </li>
-                  <li v-for="item in consumptionData.dataIncomingInternationalConsumptionStreams" :key="item.stream" class="subrow">
+                  <li v-for="item in consumptionData.dataIncomingInternationalConsumptionStreams" :key="item.stream + item.volume" class="subrow">
                     {{formattedData('DATA', item.volume)}}
                   </li>
                   <li v-if="consumptionData.dataIncomingInternationalConsumptionStreams">&nbsp;</li>
@@ -178,7 +178,7 @@
                       formattedData('DATA', consumptionData.dataOutgoingInternationalConsumption)
                     }}
                   </li>
-                  <li v-for="item in consumptionData.dataOutgoingInternationalConsumptionStreams" :key="item.stream" class="subrow">
+                  <li v-for="item in consumptionData.dataOutgoingInternationalConsumptionStreams" :key="item.stream + item.volume" class="subrow">
                     {{formattedData('DATA', item.volume)}}
                   </li>
                 </ul>
@@ -470,6 +470,7 @@ export default {
           simCardInstanceId: this.content.id,
         });
       }
+        console.log(this.consumptionData)
 
       setTimeout(() => {
         this.isLoading = false;
