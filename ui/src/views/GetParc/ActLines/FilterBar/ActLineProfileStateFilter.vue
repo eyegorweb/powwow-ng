@@ -2,10 +2,10 @@
   <div>
     <UiCheckbox
       v-for="state in states"
-      :value="{ id: state, label: $t(`filters.lines.profileStateFilter. ${state}`) }"
+      :value="{ id: state, label: $t(`filters.lines.profileStateFilter.${state}`) }"
       :key="state"
       v-model="selectedValues"
-      >{{ $t(`filters.lines.profileStateFilter. ${state}`) }}</UiCheckbox
+      >{{ $t(`filters.lines.profileStateFilter.${state}`) }}</UiCheckbox
     >
   </div>
 </template>
