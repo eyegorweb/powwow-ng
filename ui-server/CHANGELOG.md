@@ -2,6 +2,17 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.779+20220215083504
+2022-02-15
+
+### Features
+
+- [3173] add permission to filter esim family (3a626eb36572ddcc5976715d8966f0261b00aecb)
+
+### Fixes
+
+- [3168] correction filtre etat de profile (adec71eebd7c1f39d3c67923af70344b92acbcdc)
+
 ## 1.17.0-master.778+20220214143300
 2022-02-14
 
