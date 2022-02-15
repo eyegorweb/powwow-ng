@@ -60,6 +60,7 @@
       :duplicate-from="duplicateFrom"
       :is-loading="isLoading"
       :edit-mode="editMode"
+      :num-notif="numNotif"
     />
   </div>
 </template>
@@ -87,6 +88,7 @@ export default {
     haveForm: Boolean,
     noSuspension: Boolean,
     noWsnotification: Boolean,
+    numNotif: Number,
     suspension: Boolean,
     checkErrorsFn: {
       type: Function,
