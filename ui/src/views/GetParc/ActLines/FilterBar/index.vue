@@ -406,6 +406,7 @@
               :key="'esim7'"
               :disabled="filtersAreDisabled || !isEsimCategoryInFilter"
               draggable
+                v-if="havePermission('getParc', 'manage_esim')"
             >
               <EsimFamilyFilter
                 :selected-value="selectedSmsRid"
@@ -520,6 +521,7 @@ export default {
       'userIsBO',
       'userIsGroupPartner',
       'userHaveEsimEnabled',
+      'havePermission',
     ]),
     ...mapGetters('actLines', [
       'currentFilters',
