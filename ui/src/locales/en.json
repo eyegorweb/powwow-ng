@@ -1848,6 +1848,9 @@
         "changeServices": "With change of services?",
         "warning": "Warning this act has an impact on the network.<br /> Do you confirm ?"
       },
+      "rechargeOD": {
+        "confirm": "Choose the envelope "
+      },
       "rechargeLV": {
         "confirm": "Choose the offer ?",
         "partnerExportError": "You must select a non-MVNO partner.",

@@ -35,7 +35,7 @@
           <Button
             @click="containerValidationFn"
             variant="primary"
-            :disabled="!selectedLinesForActCreation.length || !chosenPackage || isLoading"
+            :disabled="!chosenPackage || isLoading"
             >{{ $t('getparc.actCreation.carouselItem.RECHARGE_LINES_BTN') }}
           </Button>
           <CircleLoader class="load" v-if="isLoading" />
