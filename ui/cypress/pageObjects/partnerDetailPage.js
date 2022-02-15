@@ -1,6 +1,6 @@
 export default {
   goToPartnerDetail() {
-    cy.waitGet('table > tbody > tr:nth-child(2) > td:nth-child(1) > div > a').click({
+    cy.waitGet('table > tbody:nth-child(3) > tr > td:nth-child(1) > div > a').click({
       force: true,
     });
   },
@@ -311,12 +311,12 @@ export default {
         cy.url().should('include', '/billAccounts');
       },
       clickCodeFirstLine() {
-        cy.waitGet('table > tbody > tr:nth-child(1) > td:nth-child(1) > div > span > a').click({
+        cy.waitGet('table > tbody:nth-child(2) > tr > td:nth-child(1) > div > span > a').click({
           force: true,
         });
       },
       verifyLabelFirstLine(label) {
-        cy.waitGet('table > tbody > tr:nth-child(1) > td:nth-child(2) > div').should(($label) => {
+        cy.waitGet('table > tbody:nth-child(2) > tr > td:nth-child(2) > div').should(($label) => {
           const labelText = $label.text().trim();
           expect(labelText, 'Label').to.equal(label);
         });

@@ -103,7 +103,7 @@ Feature: Détails d'un partenaire
     When Je clique sur le bouton "Modifier" de ce nouveau champ
     Then Le panneau s'ouvre et est visible
 
-  @partner @partner_detail
+  @partner @partner_detail @ignore
   Scenario: Je peux modifier un compte de facturation, onglet "Comptes de facturation"
     Given en tant que BO
     And Je vais sur la page de detail du partenaire LYRA
@@ -113,7 +113,7 @@ Feature: Détails d'un partenaire
     And Je modifie la zone de taxe a "TaxAreaCypress"
     And je clique sur le bouton "Mettre à jour"
     When Je clique sur le bouton "Retour a la liste des C.F."
-    Then Le libelle est correctement modifie a "TEST"
+    Then Le libelle est correctement modifie a "TestCypress"
 
   @partner @partner_detail
   Scenario: Je peux ouvrir le panneau de gestion des cartes SIM et désactiver l'une d'elle, onglet "Offres et cartes SIM", section "Cartes SIM"

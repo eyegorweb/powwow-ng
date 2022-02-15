@@ -35,11 +35,11 @@ Feature: Recherche d'utilisateurs
     Then la table contient 1 resultat
     And Je supprime les filtres
 
-  @users @search_user
+  @users @search_user @ignore
   Scenario: Je fais une recherche par partenaire
     Given en tant que BO
     And Je vais sur la page des utilisateurs
-    And Je filtre par "Partenaires" nommé "AUCHAN"
+    And Je filtre par "Partenaires" nommé "INGENICO"
     When je lance la recherche
     Then la table contient plus de 0 resultat
     And Je supprime les filtres

@@ -134,7 +134,7 @@ Then('je peux naviguer entre les différents onglets', () => {
 // fonctions
 
 function getFirstId() {
-  cy.waitGet('table > tbody > tr:first-child > td:first-child > div > button').then((e) => {
+  cy.waitGet('table > tbody:nth-child(2) > tr > td:nth-child(1) > div > button').then((e) => {
     const value = e.text().trim();
     idAlarm = value;
   });

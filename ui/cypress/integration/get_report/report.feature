@@ -57,7 +57,7 @@ Feature: Rapports
     When Je clique sur le bouton "Enregistrer"
     Then Je verifie la création du rapport
 
-  @get_report @report
+  @get_report @report @ignore
   Scenario: Je veux désactiver un rapport
     Given en tant que BO
     And Je vais sur la page des rapports
@@ -74,7 +74,7 @@ Feature: Rapports
     Then Le panneau de detail est visible
     And Je ferme le panneau
 
-  @get_report @report
+  @get_report @report @ignore
   Scenario: Je vérifie l'apparition du panneau des détails du rapport en cliquant sur "Voir le détail" dans les actions
     Given en tant que BO
     And Je vais sur la page des rapports

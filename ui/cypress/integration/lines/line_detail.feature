@@ -132,7 +132,7 @@ Feature: Détails d'une ligne
     When je clique sur le bouton "Appliquer"
     Then Je confirme le changement
 
-  @lines @line_detail
+  @lines @line_detail @ignore
   Scenario: Je veux ouvrir l'historique de déclenchement d'une alarme activée
     Given en tant que BO
     And Je vais sur la page des lignes
@@ -144,7 +144,7 @@ Feature: Détails d'une ligne
     Then Le panneau s'est ouvert
     And je clique sur le bouton "Retour"
 
-  @lines @line_detail
+  @lines @line_detail @ignore
   Scenario: Je veux ouvrir la modification d'alarme en cliquant sur l'ID d'une alarme
     Given en tant que BO
     And Je vais sur la page des lignes

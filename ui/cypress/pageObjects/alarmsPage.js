@@ -57,7 +57,7 @@ export default {
     },
   },
   clickFirstId() {
-    cy.waitGet('table > tbody > tr:first-child > td:first-child > div > button').click({
+    cy.waitGet('table > tbody:nth-child(2) > tr > td:nth-child(1) > div > button').click({
       force: true,
     });
   },
