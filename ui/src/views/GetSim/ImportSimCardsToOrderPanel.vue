@@ -228,8 +228,7 @@ export default {
         this.resetForm();
       }
       this.isLoadingForConfirmation = false;
-      console.log('confirm response', response);
-      // return response;
+      return response;
     },
     resetForm() {
       this.fileResponse = undefined;
