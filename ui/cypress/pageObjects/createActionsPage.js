@@ -165,7 +165,7 @@ export default {
       },
       selectSecondLine() {
         cy.waitGet(
-          'table > tbody > tr:nth-child(2) > td:nth-child(1) > div > div > label > span'
+          'table > tbody:nth-child(3) > tr > td:nth-child(1) > div > div > label > span'
         ).click({ force: true });
       },
       selectFifthLine() {
@@ -224,7 +224,7 @@ export default {
     editFreeFields: {
       checkFirstLine() {
         cy.waitGet(
-          'table > tbody > tr:nth-child(4) > td:nth-child(1) > div > div > label > span'
+          'table > tbody:nth-child(2) > tr > td:nth-child(1) > div > div > label > span'
         ).click({ force: true });
       },
       fillFirstFreeField(freeField) {

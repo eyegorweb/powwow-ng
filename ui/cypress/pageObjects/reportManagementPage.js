@@ -3,7 +3,7 @@ export default {
     cy.waitGet('.btn.btn-secondary.btn-block').click({ force: true });
   },
   checkFirstReportName(name) {
-    cy.waitGet('table > tbody > tr:first-child > td:nth-child(1) > div > button').should(
+    cy.waitGet('table > tbody:nth-child(2) > tr > td:nth-child(1) > div > button').should(
       ($name) => {
         const reportLongName = $name
           .text()
@@ -15,7 +15,7 @@ export default {
     );
   },
   clickFirstReportName() {
-    cy.waitGet('table > tbody > tr:first-child > td:nth-child(1) > div > button').click({
+    cy.waitGet('table > tbody:nth-child(2) > tr > td:nth-child(1) > div > button').click({
       force: true,
     });
   },
@@ -63,9 +63,7 @@ export default {
       cy.waitGet('.cd-panel').should('have.class', 'cd-panel--is-visible');
     },
     save() {
-      cy.waitGet('.fileInfoContainer > div:nth-child(3) > button')
-        .click({ force: true })
-        .click({ force: true });
+      cy.waitGet('.fileInfoContainer > div:nth-child(3) > button').click({ force: true });
     },
     reportName(name) {
       cy.waitGet('.fileInfoContainer > div:nth-child(1) > label > input').type(name);

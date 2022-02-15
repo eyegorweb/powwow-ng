@@ -206,6 +206,7 @@ Then('Je verifie la modification du champ libre a {string}', (title) => {
 
 Given('Je clique sur le code de la premiere ligne', () => {
   partnerDetailPage.tabs.billingAccount.clickCodeFirstLine();
+  cy.wait(500);
 });
 
 Given('Je modifie le libelle a {string}', (label) => {

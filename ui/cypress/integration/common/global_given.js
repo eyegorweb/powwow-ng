@@ -14,7 +14,7 @@ Given(`en tant que partenaire {word}`, (partnerName) => {
         cy.testVars.userPartner = 'LYRA NETWORK';
         cy.startAsPartnerLyra();
       }*/
-      cy.login('lyra', 'admin');
+      cy.login('LYRA', 'admin');
       break;
     case 'auchan':
       cy.testVars.userPartner = 'LYRA NETWORK';
@@ -41,6 +41,15 @@ Given('je clique sur le bouton {string}', (buttonName) => {
         .click({ force: true });
     }
   });
+});
+
+Given('Je me déconnecte', () => {
+  cy.waitGet(
+    '#app > div.container > div.navbars.bg-white > div > div:nth-child(2) > div.nav > ul > li > div > a:nth-child(5)'
+  ).click({ force: true });
+  cy.wait(500);
+  cy.visit('http://localhost:8081/');
+  cy.wait(500);
 });
 
 When('je clique sur le bouton {string}', (buttonName) => {

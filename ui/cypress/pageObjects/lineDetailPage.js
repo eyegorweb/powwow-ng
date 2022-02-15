@@ -42,7 +42,7 @@ export default {
             .click({ force: true });
         },
         openAlarmModification() {
-          cy.waitGet('table > tbody > tr:nth-child(1) > td:nth-child(1) > div > button').click({
+          cy.waitGet('table > tbody:nth-child(2) > tr > td:nth-child(1) > div > button').click({
             force: true,
           });
         },
@@ -53,7 +53,7 @@ export default {
       },
       actsDetails: {
         openMassAction() {
-          cy.waitGet('table > tbody > tr:nth-child(1) > td:nth-child(2) > div > button').click({
+          cy.waitGet('table > tbody:nth-child(2) > tr > td:nth-child(2) > div > button').click({
             force: true,
           });
           cy.wait(1000);

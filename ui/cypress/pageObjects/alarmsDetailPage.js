@@ -25,7 +25,9 @@ export default {
     },
   },
   selectFirstLine() {
-    cy.waitGet('table > tbody > tr:first-child > td:first-child > div > div > label > span').click({
+    cy.waitGet(
+      'table > tbody:nth-child(2) > tr > td:nth-child(1) > div > div > label > span'
+    ).click({
       force: true,
     });
   },

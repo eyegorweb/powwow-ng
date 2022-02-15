@@ -44,6 +44,7 @@
     "e2e:users:create": "yarn run clean:reports && ./node_modules/.bin/cypress-tags run -e TAGS=\"not @ignore and @create_user\"",
     "e2e:users:export": "yarn run clean:reports && ./node_modules/.bin/cypress-tags run -e TAGS=\"not @ignore and @export_user\"",
     "e2e:users:search": "yarn run clean:reports && ./node_modules/.bin/cypress-tags run -e TAGS=\"not @ignore and @search_user\"",
+    "e2e:users:partner": "yarn run clean:reports && ./node_modules/.bin/cypress-tags run -e TAGS=\"not @ignore and @partner_user\"",
     "e2e:indicators": "yarn run clean:reports && ./node_modules/.bin/cypress-tags run -e TAGS=\"not @ignore and @indicators\"",
     "e2e:lines": "yarn run clean:reports && ./node_modules/.bin/cypress-tags run -e TAGS=\"not @ignore and @lines\"",
     "e2e:lines:details": "yarn run clean:reports && ./node_modules/.bin/cypress-tags run -e TAGS=\"not @ignore and @line_detail\"",
