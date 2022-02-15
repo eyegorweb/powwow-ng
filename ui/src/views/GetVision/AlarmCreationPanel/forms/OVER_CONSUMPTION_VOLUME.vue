@@ -9,22 +9,27 @@
     :suspension="true"
     :check-errors-fn="isFormValid"
     :is-loading="isLoading"
+    :num-notif="5"
   >
     <ConsumptionForm @change="values = $event" :duplicate-from="duplicateFrom" :partner="partner" />
+    <fluxSelect v-if="streamFlux && streamFlux.streams"  :data="streamFlux" @selectedStream="selectedStream" />
   </AlarmCreationBaseForm>
 </template>
 
 <script>
 import AlarmCreationBaseForm from './AlarmCreationBaseForm';
 import ConsumptionForm from './ConsumptionForm';
+import fluxSelect from './fluxSelect';
 import { mapMutations } from 'vuex';
 import { alarmOnOverConso } from '@/api/alarmCreation';
 import { modifyOverConso } from '@/api/alarmsModifications';
+import { getPartnerFlux } from '@/api/partners';
 
 export default {
   components: {
     AlarmCreationBaseForm,
     ConsumptionForm,
+    fluxSelect,
   },
   props: {
     alarm: Object,
@@ -37,7 +42,17 @@ export default {
       scopeChoice: undefined,
       initValues: undefined,
       isLoading: false,
+      partnerId: undefined,
+      streamFlux: undefined,
+      fluxChoice: undefined,
     };
+  },
+  watch: {
+    scopeChoice(newValue) {
+      if(newValue && newValue.partner) {
+        this.getFlux(newValue.partner.id)
+      }
+    }
   },
   mounted() {
     if (this.duplicateFrom) {
@@ -57,6 +72,13 @@ export default {
   methods: {
     ...mapMutations(['flashMessage', 'closePanel', 'confirmAction']),
 
+    async getFlux(id) {
+      this.streamFlux = await getPartnerFlux(id);
+    },
+
+    selectedStream(item) {
+      this.fluxChoice = item;
+    },
     isFormValid() {
       if (!this.values) return false;
 
@@ -82,6 +104,7 @@ export default {
         ...payload,
         scope: this.scopeChoice,
         formData: this.values,
+        streamId: this.fluxChoice,
       };
 
       let response;

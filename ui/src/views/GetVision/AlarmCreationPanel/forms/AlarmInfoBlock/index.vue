@@ -1,7 +1,7 @@
 <template>
   <div>
     <h5 class="text-primary text-uppercase">
-      <span class="badge badge-pill badge-primary">{{ num }}</span>
+      <span class="badge badge-pill badge-primary">{{ numNotif || num }}</span>
       <span class="title">{{ $t('getvsion.alarm-creation.chooseNotification') }}</span>
     </h5>
 
@@ -146,6 +146,7 @@ export default {
     noWsnotification: Boolean,
     canSave: Boolean,
     isLoading: Boolean,
+    numNotif: Number,
     suspension: {
       type: Boolean,
       default: false,

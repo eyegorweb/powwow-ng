@@ -273,6 +273,9 @@ function getFormGQLParams(params) {
   if (get(params, 'scope.billingAccount.data.id')) {
     gqlParams.push(`customerAccountId:${get(params, 'scope.billingAccount.data.id')}`);
   }
+  if (get(params, 'streamId')) {
+    gqlParams.push(`streamId:${get(params, 'streamId')}`);
+  }
 
   return gqlParams;
 }

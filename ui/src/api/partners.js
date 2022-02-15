@@ -100,6 +100,23 @@ export async function getPartyOptions(partyId) {
   return response.data.getPartyOptions;
 }
 
+export async function getPartnerFlux(id) {
+  const queryStr = `
+    query{
+      party(id: ${id}) {
+        id
+        name
+        streams{
+          id
+          label
+        }    
+      }
+    }
+    `;
+  const response = await query(queryStr);
+  return response.data.party;
+}
+
 export async function getOfferOption(id) {
   const queryStr = `
     {

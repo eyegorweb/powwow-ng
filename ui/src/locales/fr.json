@@ -822,6 +822,7 @@
       "setCountries": "Définir une liste de pays autorisés",
       "setISPs": "Définir une liste d'opérateurs",
       "chooseAlarm": "CHOISIR UNE ALARME",
+      "fluxSelect": "OPTIONNEL : SELECTIONNER UN FLUX",
       "linesFound": "lignes trouvées",
       "limitedScope": "Cette alarme a une portée limitée à la ligne sélectionnée",
       "chooseOffer": "Choisir l'offre",
@@ -2054,7 +2055,7 @@
 
       "rechargeLV": {
         "confirm": "Voulez vous choisir l'offre ",
-        "partnerExportError": "Il faut sélectionner un partenaire non MVNO.",
+        "partnerExportError": "Il faut sélectionner un partenaire non MVNO et unique.",
         "simSHouldBeActive": "Le statut de la SIM doit être actif",
         "simStatusError": "Le statut de la ligne doit être \"Activée\" ou \"Suspendue\"."
       },
