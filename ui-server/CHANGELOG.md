@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.780+20220215140528
+2022-02-15
+
+### Fixes
+
+- [3185] correction de l'- appel asynchrone pour importer des sims depuis le volet d'une commande (cdf1f8fbaedd4c287ff9414c24848a07df4babca)
+
 ## 1.17.0-master.779+20220215083504
 2022-02-15
 
