@@ -2052,7 +2052,9 @@
         "changeServices": "Avec changement de services ?",
         "warning": "Attention cet acte a un impact sur le réseau.<br /> Confirmez-vous le changement d'offre ?"
       },
-
+      "rechargeOD": {
+        "confirm": "Voulez vous choisir l'enveloppe "
+      },
       "rechargeLV": {
         "confirm": "Voulez vous choisir l'offre ",
         "partnerExportError": "Il faut sélectionner un partenaire non MVNO et unique.",

@@ -37,7 +37,7 @@
           <Button
             @click="containerValidationFn"
             variant="primary"
-            :disabled="!selectedLinesForActCreation.length || !currentOffer || isLoading"
+            :disabled="!currentOffer || isLoading"
             >{{ $t('getparc.actCreation.carouselItem.RECHARGE_LINES_BTN') }}
           </Button>
           <CircleLoader class="load" v-if="isLoading" />
@@ -98,7 +98,7 @@ export default {
     },
     confirmationMessage() {
       if (this.currentOffer) {
-        return `${this.$t('getparc.actCreation.rechargeLV.confirm')} "${
+        return `${this.$t('getparc.actCreation.rechargeOD.confirm')} "${
           this.currentOffer.label
         }" ?`;
       }
