@@ -578,8 +578,7 @@ export async function ordersExport(
 }
 
 export async function importIccids(orderId, tempDataUuid) {
-  const queryStr = await query(
-    `
+  const queryStr = `
     mutation {
       importIccids(orderId: "${orderId}", uuid: "${tempDataUuid}") {
         tempDataUuid
@@ -591,8 +590,8 @@ export async function importIccids(orderId, tempDataUuid) {
       }
     }
 
-    `
-  );
+    `;
+
   try {
     const response = await query(queryStr);
     return response.data.importIccids;

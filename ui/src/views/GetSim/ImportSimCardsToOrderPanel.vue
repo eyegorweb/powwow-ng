@@ -41,7 +41,7 @@
               <button
                 v-if="!isLoadingForConfirmation"
                 :disabled="!fileResponse.validated"
-                @click="confirmRequest(true)"
+                @click.prevent="confirmRequest(true)"
                 class="btn btn-block"
                 :class="{
                   'btn-success': fileResponse.validated,
@@ -229,7 +229,7 @@ export default {
       }
       this.isLoadingForConfirmation = false;
       console.log('confirm response', response);
-      return response;
+      // return response;
     },
     resetForm() {
       this.fileResponse = undefined;
