@@ -348,7 +348,7 @@ export default {
         lastName: this.form.lastName,
         email: this.form.email,
         username: this.form.username,
-        partyId: this.content.duplicateFrom.type != 'OPERATOR' ? this.content.partnerId : null,
+        partyId: this.content.duplicateFrom && this.content.duplicateFrom.type != 'OPERATOR' ? this.content.partnerId : null,
         roles: this.selectedRoles.concat(wsRoles),
       };
 
