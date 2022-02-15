@@ -2,12 +2,16 @@
 
 <!--- next entry here -->
 
-## 1.17.0-master.781+20220215142221
+## 1.17.0-master.782+20220215142800
 2022-02-15
 
 ### Features
 
 - [3179] add flux to overconso alarm creation (64cbf83c121171c774e3117c311206c2f6141ba5)
+
+### Fixes
+
+- [000] userpanel creation hotfix (63dbac43b7fdda288c1f61f79b553aab4abfe85f)
 
 ## 1.17.0-master.780+20220215140528
 2022-02-15
