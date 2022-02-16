@@ -1,6 +1,7 @@
 <template>
   <UiApiAutocomplete
     :api-method="searchAddress"
+    noFilterOnResult
     v-model="selectedAddress"
     :error="error"
     :big="big"
