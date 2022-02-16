@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.787+20220216143859
+2022-02-16
+
+### Fixes
+
+- [3188] Last update of bugfix on creation user (3549b47b9090a856a805b3761da8289fe906b6f4)
+
 ## 1.17.0-master.786+20220216135925
 2022-02-16
 
