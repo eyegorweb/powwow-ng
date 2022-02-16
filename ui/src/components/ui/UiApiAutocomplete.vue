@@ -226,19 +226,18 @@ export default {
       this.enablePagination();
 
       if (this.apiMethod) {
-        this.isFetching = true;
+        this.isFetching = true
         let result = undefined;
         this.resultsPromise = new Promise(async (resolve) => {
           const items = (await this.apiMethod(this.$value || '')) || [];
-          if(!this.noFilterOnResult) {
+          if (!this.noFilterOnResult) {
             result = startsWithHighlight(this.$value || '', items).map((result) => {
               return {
                 ...result.item,
                 highlighted: result.highlighted.label,
               };
             });
-          }
-          else {
+          } else {
             result = items.map((result) => {
               return {
                 ...result.item,

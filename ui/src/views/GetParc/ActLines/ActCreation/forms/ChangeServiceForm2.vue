@@ -31,21 +31,28 @@
         />
       </div>
     </div>
-      
+
     <div slot="messages" class="text-info">
-      <div class="services" v-if="servicesToEnable.length > 0 || shouldChangeData || servicesToDisable.length > 0">
-        <h4 v-if="servicesToEnable.length > 0">{{$t('getparc.actCreation.changeService.servicesToEnable')}}</h4>
+      <div
+        class="services"
+        v-if="servicesToEnable.length > 0 || shouldChangeData || servicesToDisable.length > 0"
+      >
+        <h4 v-if="servicesToEnable.length > 0">
+          {{ $t('getparc.actCreation.changeService.servicesToEnable') }}
+        </h4>
         <div v-for="service in servicesToEnable" :key="service.id">
-          {{service.label}}
+          {{ service.label }}
         </div>
-        <h4 v-if="servicesToDisable.length > 0">{{$t('getparc.actCreation.changeService.servicesToDisable')}}</h4>
+        <h4 v-if="servicesToDisable.length > 0">
+          {{ $t('getparc.actCreation.changeService.servicesToDisable') }}
+        </h4>
         <div v-for="service in servicesToDisable" :key="service.id">
-          {{service.label}}
+          {{ service.label }}
         </div>
         <h4 v-if="shouldChangeData">Data services</h4>
-        <div  v-if="dataService && dataService.parameters && shouldChangeData">
+        <div v-if="dataService && dataService.parameters && shouldChangeData">
           <div v-for="service in dataService.parameters" :key="service.id">
-            {{service.selected ? service.label : ''}}
+            {{ service.selected ? service.label : '' }}
           </div>
         </div>
       </div>

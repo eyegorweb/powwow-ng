@@ -13,7 +13,11 @@
           <td v-if="!userIsPartner">{{ formattedLabel(indicator.labelKey) }}</td>
           <td>
             <a href="#" @click.prevent="onClick(indicator.entityId)" class="nameLink">
-              {{ indicator.name.length > 20 ? indicator.name.substring(0, 20) + '...' : indicator.name }}
+              {{
+                indicator.name.length > 20
+                  ? indicator.name.substring(0, 20) + '...'
+                  : indicator.name
+              }}
               <span class="nameLink-tooltip">{{ indicator.name }}</span>
             </a>
           </td>

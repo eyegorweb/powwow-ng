@@ -57,7 +57,9 @@ export async function simCardFamilies() {
 }
 export async function auditESIM(params) {
   const queryStr = `
-  mutation { auditESIM(input: {filter: {${formatFilters(params.filters)}}, partyId: ${params.partyId}, simCardInstanceIds: [${params.simCardInstanceIds}]})
+  mutation { auditESIM(input: {filter: {${formatFilters(params.filters)}}, partyId: ${
+    params.partyId
+  }, simCardInstanceIds: [${params.simCardInstanceIds}]})
      {
       tempDataUuid
       validated

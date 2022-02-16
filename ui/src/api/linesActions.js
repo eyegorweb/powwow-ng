@@ -440,7 +440,7 @@ export async function searchLines(orderBy, pagination, filters = []) {
 }
 
 export function formatFilters(filters) {
-  console.log(filters)
+  console.log(filters);
   const allFilters = [];
   const partyIds = getValuesIdsWithoutQuotes(filters, 'filters.partners');
   if (partyIds) {

@@ -350,7 +350,6 @@ export default {
         username: this.form.username,
         roles: this.selectedRoles.concat(wsRoles),
       };
-      console.log(this.$loGet(this.content, 'duplicateFrom.type'));
       if (this.createMode || this.isDuplicateMode) {
         params.password = this.form.password;
         params.confirmPassword = this.form.passwordConfirm;
@@ -374,7 +373,7 @@ export default {
       if (this.userType !== 'PARTNER_GROUP') {
         if (this.$loGet(this.content, 'duplicateFrom.type') != 'OPERATOR') {
           params.partyId = this.content.partnerId || this.selectedPartner.id;
-        }   
+        }
       }
 
       let response, errorMessage;

@@ -4,7 +4,7 @@
 
 <script>
 import UiSelect from '@/components/ui/UiSelect';
-import { simCardFamilies } from '@/api/esim.js'
+import { simCardFamilies } from '@/api/esim.js';
 
 export default {
   components: {
@@ -36,18 +36,16 @@ export default {
   data() {
     return {
       options: [],
-    }; 
+    };
   },
-  async mounted () {
+  async mounted() {
     let response = await simCardFamilies();
-    console.log(response)
-    response.forEach(e => {
-      this.options.push(
-        {
-          label: e.label,
-          value: e.simCardFamily,
-        },
-      )
+    console.log(response);
+    response.forEach((e) => {
+      this.options.push({
+        label: e.label,
+        value: e.simCardFamily,
+      });
     });
   },
 };

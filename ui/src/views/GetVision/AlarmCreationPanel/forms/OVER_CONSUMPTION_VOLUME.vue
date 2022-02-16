@@ -12,7 +12,11 @@
     :num-notif="5"
   >
     <ConsumptionForm @change="values = $event" :duplicate-from="duplicateFrom" :partner="partner" />
-    <fluxSelect v-if="streamFlux && streamFlux.streams"  :data="streamFlux" @selectedStream="selectedStream" />
+    <fluxSelect
+      v-if="streamFlux && streamFlux.streams"
+      :data="streamFlux"
+      @selectedStream="selectedStream"
+    />
   </AlarmCreationBaseForm>
 </template>
 
@@ -49,10 +53,10 @@ export default {
   },
   watch: {
     scopeChoice(newValue) {
-      if(newValue && newValue.partner) {
-        this.getFlux(newValue.partner.id)
+      if (newValue && newValue.partner) {
+        this.getFlux(newValue.partner.id);
       }
-    }
+    },
   },
   mounted() {
     if (this.duplicateFrom) {
