@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.786+20220216135925
+2022-02-16
+
+### Fixes
+
+- [000] return to master on TST (de677ac42a88c4d55c4e77f29943b297ea4a0b13)
+
 ## 1.17.0-master.785+20220216130220
 2022-02-16
 
