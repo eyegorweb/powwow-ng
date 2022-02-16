@@ -348,10 +348,9 @@ export default {
         lastName: this.form.lastName,
         email: this.form.email,
         username: this.form.username,
-        partyId: this.content.duplicateFrom && this.content.duplicateFrom.type != 'OPERATOR' ? this.content.partnerId : null,
         roles: this.selectedRoles.concat(wsRoles),
       };
-
+      console.log(this.$loGet(this.content, 'duplicateFrom.type'));
       if (this.createMode || this.isDuplicateMode) {
         params.password = this.form.password;
         params.confirmPassword = this.form.passwordConfirm;
@@ -371,6 +370,11 @@ export default {
         if (this.selectedGroupPartner && groupPartnerId) {
           params.partyGroupId = this.selectedGroupPartner.id;
         }
+      }
+      if (this.userType !== 'PARTNER_GROUP') {
+        if (this.$loGet(this.content, 'duplicateFrom.type') != 'OPERATOR') {
+          params.partyId = this.content.partnerId 
+        }   
       }
 
       let response, errorMessage;
