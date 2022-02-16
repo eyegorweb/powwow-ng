@@ -373,7 +373,7 @@ export default {
       }
       if (this.userType !== 'PARTNER_GROUP') {
         if (this.$loGet(this.content, 'duplicateFrom.type') != 'OPERATOR') {
-          params.partyId = this.content.partnerId 
+          params.partyId = this.content.partnerId || this.selectedPartner.id;
         }   
       }
 
