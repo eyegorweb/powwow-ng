@@ -1,15 +1,14 @@
 <template>
-  <ActFormContainer :validate-fn="onValidate" noDate disabledNotificationCheck>
+  <ActFormContainer :validate-fn="onValidate" no-date disabled-notification-check>
     <div>
-
-    <div slot="messages" class="text-info">
-      <div v-if="exceptionError">
-        <h6 class="text-danger">{{ $t('errors.all') }}</h6>
-        <div class="text-danger">
-          {{ exceptionError }}
+      <div slot="messages" class="text-info">
+        <div v-if="exceptionError">
+          <h6 class="text-danger">{{ $t('errors.all') }}</h6>
+          <div class="text-danger">
+            {{ exceptionError }}
+          </div>
         </div>
       </div>
-    </div>
     </div>
   </ActFormContainer>
 </template>
@@ -27,7 +26,7 @@ export default {
   data() {
     return {
       exceptionError: undefined,
-    }
+    };
   },
   computed: {
     ...mapState('actLines', ['selectedLinesForActCreation', 'actCreationPrerequisites']),
@@ -40,7 +39,7 @@ export default {
       if (this.selectedLinesForActCreation && this.selectedLinesForActCreation.length) {
         simIds = this.selectedLinesForActCreation.map((s) => s.id);
       }
-      const response =  await auditESIM({
+      const response = await auditESIM({
         filters: this.appliedFilters,
         partyId: partnerId,
         simCardInstanceIds: simIds,
@@ -53,9 +52,9 @@ export default {
           .map((e) => e.errors)
           .flat();
         formatted.forEach((e) => {
-            errorMessage = `${e.key}: ${e.value}`;
+          errorMessage = `${e.key}: ${e.value}`;
         });
-          this.exceptionError = errorMessage;
+        this.exceptionError = errorMessage;
 
         return {
           errors: response.errors,
@@ -64,8 +63,8 @@ export default {
             tempDataUuid: response.tempDataUuid,
           },
         };
-      }      
-      return response 
+      }
+      return response;
     },
   },
 };

@@ -12,10 +12,9 @@
       :value.sync="searchValue"
       @clear="removeSelection()"
       :contains-search="containsSearch"
-      withoutSearch
+      without-search
     >
       <template slot="beforeInput">
-
         <button
           class="display-selections text-secondary underlined shadow-none bg-transparent p-0 mx-2 border-0"
           @click="showAll = !showAll"

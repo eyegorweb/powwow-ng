@@ -406,7 +406,7 @@
               :key="'esim7'"
               :disabled="filtersAreDisabled || !isEsimCategoryInFilter"
               draggable
-                v-if="havePermission('getParc', 'manage_esim')"
+              v-if="havePermission('getParc', 'manage_esim')"
             >
               <EsimFamilyFilter
                 :selected-value="selectedSmsRid"
@@ -468,7 +468,7 @@ import EsimDownloadStatusFilter from '@/views/GetParc/ActLines/FilterBar/Esim/Es
 import EsimPairedLine from '@/views/GetParc/ActLines/FilterBar/Esim/EsimPairedLine.vue';
 import DownloadProfileFilter from '@/views/GetParc/ActLines/FilterBar/DownloadProfileFilter.vue';
 import EsimCategoryFilter from '@/views/GetParc/ActLines/FilterBar/Esim/EsimCategoryFilter.vue';
-import EsimFamilyFilter  from '@/views/GetParc/ActLines/FilterBar/Esim/EsimFamilyFilter.vue';
+import EsimFamilyFilter from '@/views/GetParc/ActLines/FilterBar/Esim/EsimFamilyFilter.vue';
 
 import SelectedFiltersManagement from '@/components/Filters/SelectedFiltersManagement.vue';
 import { getPartyOptions } from '@/api/partners.js';
@@ -501,7 +501,7 @@ export default {
     EsimPairedLine,
     ActLinesTerminationFilter,
     DownloadProfileFilter,
-    EsimFamilyFilter
+    EsimFamilyFilter,
   },
   props: {
     creationMode: Boolean,
@@ -608,7 +608,7 @@ export default {
       'selectIPFilter',
       'selectEsimCategoryFilter',
       'selectSMSRidFilter',
-      'selectEsimFamilyFilter'
+      'selectEsimFamilyFilter',
     ]),
     ...mapActions('actLines', ['clearFilter']),
 

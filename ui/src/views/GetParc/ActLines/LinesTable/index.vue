@@ -213,7 +213,6 @@ export default {
       const otherExportChoices = [];
 
       if (this.havePermission('getParc', 'export_service')) {
-        console.log(this.isUniquePartnerForServicesExport)
         otherExportChoices.push({
           id: 'SERVICES',
           label: 'exportTable.services',
@@ -240,7 +239,9 @@ export default {
       let mvnoFound = false;
       if (partnerFilter && partnerFilter.values && partnerFilter.values.length) {
         mvnoFound = partnerFilter.values.find((f) => f.partyType === 'MVNO');
-        return !mvnoFound && partnerFilter.values.length === 1
+        return !mvnoFound && partnerFilter.values.length === 1;
+      } else {
+        return false;
       }
     },
 

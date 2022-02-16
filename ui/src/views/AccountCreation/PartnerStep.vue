@@ -113,7 +113,7 @@
           <label :class="{ error: addressError }">{{ $t('digitalOffer.address') }}</label>
           <UiApiAutocomplete
             :api-method="searchAddress"
-            noFilterOnResult
+            no-filter-on-result
             :max-size="80"
             v-model="selectedAddress"
             :class="{ error: addressError }"
@@ -453,7 +453,7 @@ export default {
       if (errors.length) {
         return errors.filter((err) => !!err.error);
       }
-      return [];
+      return []
     },
   },
 

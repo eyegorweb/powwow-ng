@@ -61,7 +61,7 @@
           <label data-v-4eacd3ee>{{ $t('orders.new.deliveryStep.form.address') }}</label>
           <UiApiAutocomplete
             :api-method="searchAddress"
-            noFilterOnResult
+            no-filter-on-result
             v-model="selectedAddress"
             :error="errors.address"
             no-icon

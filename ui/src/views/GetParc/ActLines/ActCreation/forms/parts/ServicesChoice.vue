@@ -1,13 +1,12 @@
 <template>
-<div class="flex">
-  <MultiSelectServices
-    :items="offerServices"
-    :default-selected-items.sync="selectedServices"
-    :selected-color="selectedColor"
-    :disabledItems="itemsToDisable"
-  />
-</div>
-
+  <div class="flex">
+    <MultiSelectServices
+      :items="offerServices"
+      :default-selected-items.sync="selectedServices"
+      :selected-color="selectedColor"
+      :disabled-items="itemsToDisable"
+    />
+  </div>
 </template>
 
 <script>
@@ -85,7 +84,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .flex {
-    display: flex;
-  }
+.flex {
+  display: flex;
+}
 </style>

@@ -58,11 +58,7 @@
             !isLoading
         "
       />
-      <EsimAudit
-        v-if="
-          act.title === 'getparc.actCreation.carouselItem.esim.AUDIT' && !isLoading
-        "
-      />
+      <EsimAudit v-if="act.title === 'getparc.actCreation.carouselItem.esim.AUDIT' && !isLoading" />
       <EsimDownloadProfile
         v-if="
           act.title === 'getparc.actCreation.carouselItem.esim.DOWNLOAD_ESIM_PROFILE' && !isLoading

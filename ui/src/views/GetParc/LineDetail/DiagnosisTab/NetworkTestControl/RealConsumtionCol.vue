@@ -12,11 +12,15 @@ export default {
   },
   computed: {
     firstDate() {
-      return this.row.fistIncomingTicketDate < this.row.fistOutgoingTicketDate ? this.row.fistIncomingTicketDate : this.row.fistOutgoingTicketDate;
-    }, 
+      return this.row.fistIncomingTicketDate < this.row.fistOutgoingTicketDate
+        ? this.row.fistIncomingTicketDate
+        : this.row.fistOutgoingTicketDate;
+    },
     lastDate() {
-      return this.row.lastIncomingTicketDate > this.row.lastOutgoingTicketDate ? this.row.lastIncomingTicketDate : this.row.lastOutgoingTicketDate;
-    }
+      return this.row.lastIncomingTicketDate > this.row.lastOutgoingTicketDate
+        ? this.row.lastIncomingTicketDate
+        : this.row.lastOutgoingTicketDate;
+    },
   },
 };
 </script>
