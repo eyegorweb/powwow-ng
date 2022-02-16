@@ -154,6 +154,8 @@ export default {
             valueToEmit = { [this.labelKey]: newValue };
           }
         }
+        console.log('valueToEmit')
+        console.log(valueToEmit)
         this.$emit('update:value', valueToEmit);
       },
     },
@@ -240,7 +242,7 @@ export default {
           } else {
             result = items.map((result) => {
               return {
-                ...result.item,
+                ...result,
                 highlighted: result.label,
               };
             });
