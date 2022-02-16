@@ -105,6 +105,7 @@ export default {
     defaultOpen: Boolean,
     scrollForNext: Boolean,
     noIcon: Boolean,
+    noFilterOnResult: Boolean,
     error: {
       type: String,
       required: false,
@@ -223,14 +224,25 @@ export default {
 
       if (this.apiMethod) {
         this.isFetching = true;
+        let result = undefined;
         this.resultsPromise = new Promise(async (resolve) => {
           const items = (await this.apiMethod(this.$value || '')) || [];
-          const result = startsWithHighlight(this.$value || '', items).map((result) => {
-            return {
-              ...result.item,
-              highlighted: result.highlighted.label,
-            };
-          });
+          if(!noFilterOnResult) {
+            result = startsWithHighlight(this.$value || '', items).map((result) => {
+              return {
+                ...result.item,
+                highlighted: result.highlighted.label,
+              };
+            });
+          }
+          else {
+            result = items.map((result) => {
+              return {
+                ...result.item,
+                highlighted: result.label,
+              };
+            });
+          }
           resolve(result);
         });
         this.isFetching = false;
