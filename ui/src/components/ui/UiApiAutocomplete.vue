@@ -105,7 +105,10 @@ export default {
     defaultOpen: Boolean,
     scrollForNext: Boolean,
     noIcon: Boolean,
-    noFilterOnResult: Boolean,
+    noFilterOnResult: {
+      type: Boolean,
+      default: false,
+    },
     error: {
       type: String,
       required: false,
@@ -227,7 +230,7 @@ export default {
         let result = undefined;
         this.resultsPromise = new Promise(async (resolve) => {
           const items = (await this.apiMethod(this.$value || '')) || [];
-          if(!noFilterOnResult) {
+          if(!this.noFilterOnResult) {
             result = startsWithHighlight(this.$value || '', items).map((result) => {
               return {
                 ...result.item,
