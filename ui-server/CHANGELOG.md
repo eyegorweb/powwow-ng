@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.784+20220216090231
+2022-02-16
+
+### Fixes
+
+- [3186] corrections de l'acte de gestion Rechargement des Offres digitales (94548628f9f3b456c51cbe459b8a9d8bc790e57c)
+- [000] hotfix user error/bug (55358f5b457b155bba982604b709042767e96a81)
+
 ## 1.17.0-master.783+20220215145741
 2022-02-15
 
