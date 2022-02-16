@@ -2,6 +2,15 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.785+20220216130220
+2022-02-16
+
+### Fixes
+
+- [3145] add props to autocomplete for no filter (ab3d14a2b03b01920938b705409150f0f03ea162)
+- [000] userpanel creation multiple bug (7ab3dd5d25e582ebe89c07b00aadb049629234b1)
+- [3187] hotfix (db62c48f349256dfb7e06a2191584e932e83d949)
+
 ## 1.17.0-master.784+20220216090231
 2022-02-16
 
