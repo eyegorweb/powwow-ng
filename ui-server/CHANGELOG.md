@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.790+20220217163809
+2022-02-17
+
+### Features
+
+- [3134] add loading screen before paynum to account creation (19af7d9721f56f712a8ae41fe1299f24aa4b47ba)
+
 ## 1.17.0-master.789+20220217151429
 2022-02-17
 
