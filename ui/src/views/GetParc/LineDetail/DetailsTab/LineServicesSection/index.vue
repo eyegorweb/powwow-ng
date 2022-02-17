@@ -47,7 +47,7 @@
                 </div>
               </div>
               <div class="row mt-2" v-if="havePermission('act', 'manage_main')">
-                <div class="col">
+                <div class="col" v-if="!userIsM2MLight">
                   <button
                     v-if="!savingChanges"
                     @click="saveChanges"
@@ -326,7 +326,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['userIsMVNO', 'havePermission']),
+    ...mapGetters(['userIsMVNO', 'userIsM2MLight', 'havePermission']),
 
     isRoamingExtended() {
       return this.$loGet(this.content, 'workflow.roamingExtended');

@@ -166,11 +166,6 @@ export default {
     if (this.userIsPartner) {
       getAdminExtra = [
         {
-          label: 'menu.users',
-          to: { name: 'getAdminUsers' },
-          permission: { domain: 'user', action: 'read' },
-        },
-        {
           label: 'menu.account',
           to: {
             name: 'partnerDetail.users.admins',
@@ -286,7 +281,9 @@ export default {
             permission: () => {
               let canSeeMenu = this.havePermission('getReport', 'read_dashboard');
               if (this.userIsPartner) {
-                canSeeMenu = canSeeMenu && !!this.singlePartner.flagStatisticsEnabled;
+                canSeeMenu =
+                  canSeeMenu &&
+                  !!this.$loGet(this.userInfos, 'partnerOptions.flagStatisticsEnabled');
               }
 
               if (this.userIsGroupPartner) {
@@ -354,13 +351,14 @@ export default {
         to: { name: 'getDevice' },
         permission: { domain: 'getDevice', action: 'read' },
       },
-      {
-        label: 'mainMenu.help',
-        to: { name: 'help' },
-        external: {
-          url: 'https://www.objenious.com/aide-getway/',
-        },
-      },
+      // TODO To be added later, so don't delete comment
+      // {
+      //   label: 'mainMenu.help',
+      //   to: { name: 'help' },
+      //   external: {
+      //     url: 'https://www.objenious.com/aide-getway/',
+      //   },
+      // },
       {
         label: 'mainMenu.contact',
         to: { name: 'contact' },

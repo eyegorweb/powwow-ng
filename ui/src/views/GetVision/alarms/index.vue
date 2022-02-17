@@ -62,25 +62,34 @@ export default {
     return {
       prevRoute: undefined,
       currentTab: 0,
-      tabs: excludeMocked([
-        {
-          label: 'parcAlarms',
-          title: this.$t('getvsion.tab-1-parc-alarms'),
-        },
-        {
-          label: 'cockpitM2M',
-          title: this.$t('getvsion.tab-2-m2m-alarms'),
-          mock: true,
-        },
-        {
-          label: 'alarmsSharedConso',
-          title: this.$t('getvsion.tab-3-m2m-sharedconso'),
-        },
-      ]),
+      tabs: [],
     };
+  },
+  mounted() {
+    this.tabs = excludeMocked([
+      {
+        label: 'parcAlarms',
+        title: this.$t('getvsion.tab-1-parc-alarms'),
+      },
+      {
+        label: 'cockpitM2M',
+        title: this.$t('getvsion.tab-2-m2m-alarms'),
+        mock: true,
+      },
+      {
+        label: 'alarmsSharedConso',
+        title: this.$t('getvsion.tab-3-m2m-sharedconso'),
+      },
+    ]).filter((i) => {
+      if (this.userIsM2MLight) {
+        return i.label === 'parcAlarms';
+      }
+      return true;
+    });
   },
   computed: {
     ...mapGetters('alarms', ['currentFilters']),
+    ...mapGetters(['userIsM2MLight']),
   },
   methods: {
     ...mapMutations('alarms', ['setCurrentFilters']),
