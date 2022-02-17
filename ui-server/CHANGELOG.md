@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.791+20220217164459
+2022-02-17
+
+### Features
+
+- [3148] Adaptation de l'existant pour offre digitale. (f95b6d50fe0a0a1a407312ff906f75c6df86eaa7)
+
 ## 1.17.0-master.790+20220217163809
 2022-02-17
 
