@@ -100,7 +100,12 @@ export default {
           params: { lineId: this.$route.params.lineId },
         },
       },
-    ];
+    ].filter((i) => {
+      if (this.userIsM2MLight) {
+        return i.label !== 'diagnosis';
+      }
+      return true;
+    });
   },
   data() {
     return {
@@ -119,7 +124,13 @@ export default {
       if (this.$route.name.includes('diagnosis')) return 2;
       return 0;
     },
-    ...mapGetters(['userIsBO', 'userIsMVNO', 'havePermission', 'userIsMultiCustomer']),
+    ...mapGetters([
+      'userIsBO',
+      'userIsMVNO',
+      'havePermission',
+      'userIsMultiCustomer',
+      'userIsM2MLight',
+    ]),
 
     canRunCoach() {
       return (
@@ -275,6 +286,12 @@ export default {
             .filter((i) => {
               if (i.permission) {
                 return this.havePermission(i.permission.domain, i.permission.action);
+              }
+              return true;
+            })
+            .filter((i) => {
+              if (this.userIsM2MLight) {
+                return i.title === 'getparc.actCreation.carouselItem.lineDetail.CUSTOM_FIELDS';
               }
               return true;
             })

@@ -254,6 +254,7 @@ export default {
       'havePermission',
       'userIsMultiCustomer',
       'userHaveEsimEnabled',
+      'userIsM2MLight',
     ]),
     ...mapState({
       actToCreate: (state) => state.actLines.actToCreate,
@@ -319,6 +320,20 @@ export default {
           .filter((i) => {
             if (i.permission) {
               return this.havePermission(i.permission.domain, i.permission.action);
+            }
+            return true;
+          })
+          .filter((i) => {
+            if (this.userIsPartner) {
+              if (
+                i.title === 'getparc.actCreation.carouselItem.CUSTOM_FIELDS' ||
+                i.title === 'getparc.actCreation.carouselItem.SUSPEND' ||
+                i.title === 'getparc.actCreation.carouselItem.REACTIVATE' ||
+                i.title === 'getparc.actCreation.carouselItem.RECHARGE_LINES'
+              ) {
+                return true;
+              }
+              return false;
             }
             return true;
           })

@@ -47,7 +47,7 @@ export default {
       return getBaseURL();
     },
     refreshUrl() {
-      return `${this.authUrl}/oauth/authorize?response_type=token&client_id=${process.env.VUE_APP_CLIENT_ID}&redirect_uri=${window.location.origin}/refresh.html`;
+      return `${this.authUrl}/oauth/resetPassword`;
     },
     currentUrl() {
       const sameUrl =

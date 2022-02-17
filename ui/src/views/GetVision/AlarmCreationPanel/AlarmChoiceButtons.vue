@@ -25,6 +25,7 @@
 
 <script>
 import UiButton from '@/components/ui/Button';
+import { mapGetters } from 'vuex';
 
 export default {
   components: {
@@ -73,7 +74,13 @@ export default {
         id: 'COUNTRY_CHANGE',
         description: this.$t('getvsion.alarm-creation.description.COUNTRY_CHANGE'),
       },
-    ];
+    ].filter((i) => {
+      // For user M2M Light, only over consumption and imei change alarm
+      if (this.userIsM2MLight) {
+        return i.id === 'OVER_CONSUMPTION_VOLUME' || i.id === 'IMEI_CHANGE';
+      }
+      return true;
+    });
     if (this.duplicateFrom) {
       const alarmToChoose = this.alarms.find((a) => a.id === this.duplicateFrom.type);
       if (alarmToChoose) {
@@ -101,6 +108,9 @@ export default {
       currentAlarm: undefined,
       alarms: undefined,
     };
+  },
+  computed: {
+    ...mapGetters(['userIsM2MLight']),
   },
 };
 </script>

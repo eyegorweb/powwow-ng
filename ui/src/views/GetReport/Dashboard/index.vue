@@ -43,7 +43,7 @@
       <transition-group>
         <FoldableBlock default-open :title="'Consommation'" :key="'Consommation'" draggable>
           <div>
-            <div class="row">
+            <div class="row" v-if="!userIsM2MLight">
               <ReportGauges
                 :partner="appliedPartner"
                 :offer="appliedOffer"
@@ -104,7 +104,13 @@
             </permission>
           </div>
         </FoldableBlock>
-        <FoldableBlock default-open :title="'Alarme'" :key="'Alarme'" draggable>
+        <FoldableBlock
+          v-if="!userIsM2MLight"
+          default-open
+          :title="'Alarme'"
+          :key="'Alarme'"
+          draggable
+        >
           <div>
             <div class="row">
               <AlarmsPerDayContainerGraph
@@ -287,7 +293,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['userIsPartner', 'singlePartner']),
+    ...mapGetters(['userIsPartner', 'singlePartner', 'userIsM2MLight']),
     canCancel() {
       return !!this.selectedPartner || !!(this.singlePartner && this.singlePartner.length);
     },
