@@ -140,8 +140,8 @@ export default {
       isReady: false,
       isSameFilters: false,
       canSearch: true,
-
       locationType: 'CONTINENT',
+      isZoomClicked: false,
     };
   },
 
@@ -194,14 +194,13 @@ export default {
       this.mapOverlay = new this.google.maps.OverlayView();
       this.mapOverlay.setMap(this.map);
       this.google.maps.event.addListener(this.map, 'idle', () => {
-        // application différente du refreshData pour modifier le comportement https://m2m-gitlab.by-docapost.com/powwow-ng/backlog/-/issues/3171
-        // if (this.isReady) {
-        //   this.refreshData(true);
-        // } else {
-        //   this.isReady = true;
-        // }
         if (this.appliedFilters) {
           this.refreshData(true);
+        }
+      });
+      this.google.maps.event.addListener(this.map, 'zoom_changed', () => {
+        if (this.usage !== 'COCKPIT') {
+          this.isZoomClicked = true;
         }
       });
     });
@@ -220,6 +219,9 @@ export default {
       }
 
       this.markers = [];
+      if (this.usage !== 'COCKPIT') {
+        this.isZoomClicked = false;
+      }
       this.refreshData();
     },
   },
@@ -338,13 +340,13 @@ export default {
         if (zoneName === 'france') {
           const franceCoords = new this.google.maps.LatLng(47.343482, 3.2814);
           this.map.setCenter(franceCoords);
-          this.setZoom(6);
+          // this.setZoom(6);
         } else if (zoneName === 'world') {
           const country = zoneFilter.data.country;
           if (country) {
             const countryCoords = new this.google.maps.LatLng(country.latitude, country.longitude);
             this.map.setCenter(countryCoords);
-            this.setZoom(5);
+            // this.setZoom(5);
           }
         }
       }
@@ -431,7 +433,7 @@ export default {
 
     centerZoom(longitude, latitude, zoomLevel) {
       const currentZoomLevel = this.map.getZoom();
-      if (currentZoomLevel !== zoomLevel) {
+      if (currentZoomLevel !== zoomLevel && !this.isZoomClicked) {
         this.centerOnCoords(longitude, latitude);
         this.setZoom(zoomLevel);
       }

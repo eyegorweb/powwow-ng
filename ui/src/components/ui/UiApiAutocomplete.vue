@@ -154,8 +154,6 @@ export default {
             valueToEmit = { [this.labelKey]: newValue };
           }
         }
-        console.log('valueToEmit')
-        console.log(valueToEmit)
         this.$emit('update:value', valueToEmit);
       },
     },
@@ -228,7 +226,7 @@ export default {
       this.enablePagination();
 
       if (this.apiMethod) {
-        this.isFetching = true
+        this.isFetching = true;
         let result = undefined;
         this.resultsPromise = new Promise(async (resolve) => {
           const items = (await this.apiMethod(this.$value || '')) || [];
