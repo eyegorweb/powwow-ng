@@ -156,6 +156,7 @@
     "delivery": "Livraison",
     "doPayment": "Procéder au paiement",
     "validateParty": "Le partenaire doit être validé",
+    "successCreation": "Votre compte a été créé avec succès, nous allons vous redirigez vers la page de paiement.",
     "address": "Adresse de l'entreprise/raison sociale",
     "step1": {
       "company": "Nom de la société",
