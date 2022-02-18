@@ -1991,6 +1991,12 @@
           "SelectedServiceInput": {
             "NotFound": "La modification de service a rencontré une erreur."
           },
+          "partyId": {
+            "DISABLED_AUDIT_OPTION": "Le partenaire n'a pas l'option d'audit."
+          },
+          "service": {
+            "CONNECTION" : "Problème de connexion au service."
+          },
           "error": {
             "MassActionLimit": "Le nombre de lignes est supérieure à la limite de {count} lignes"
           }
