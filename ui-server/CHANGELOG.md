@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.792+20220218133627
+2022-02-18
+
+### Fixes
+
+- [3195] corrections de la requête pour l'acte de gestion audit eSim (f4a86186efef095564965e9e723ae7ee9b439a29)
+
 ## 1.17.0-master.791+20220217164459
 2022-02-17
 
