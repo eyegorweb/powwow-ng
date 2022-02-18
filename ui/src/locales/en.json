@@ -1799,7 +1799,25 @@
         "InvalidFileVersion": "Invalid file version",
         "NotFoundException": "Not found",
         "InvalidFileSize": "The file is too large",
-        "timeout": "Import will finish soon. Please check within a few minutes that it is complete."
+        "timeout": "Import will finish soon. Please check within a few minutes that it is complete.",
+        "unknown": "Unknown error.",
+        "errors": {
+          "workflow": {
+            "LONG_LIFE_NOT_ALLOWED": "Changement d'offre impossible sur les offres LV."
+          },
+          "SelectedServiceInput": {
+            "NotFound": "La modification de service a rencontré une erreur."
+          },
+          "partyId": {
+            "DISABLED_AUDIT_OPTION": "The partner does not have the audit option."
+          },
+          "service": {
+            "CONNECTION" : "Service connection problem."
+          },
+          "error": {
+            "MassActionLimit": "Le nombre de lignes est supérieure à la limite de {count} lignes"
+          }
+        }
       },
       "transfertCF": {
         "confirmationWarning": "Do you confirm the change of the billing account?",

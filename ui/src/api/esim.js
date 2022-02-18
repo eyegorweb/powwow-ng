@@ -69,7 +69,7 @@ export async function auditESIM(params) {
         message
       }
     }
-  }    
+  }
   `;
   const response = await query(queryStr);
   if (!response) {
