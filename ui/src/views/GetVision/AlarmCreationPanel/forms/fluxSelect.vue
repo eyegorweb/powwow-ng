@@ -51,6 +51,14 @@ export default {
     selectedStream: {
       type: String,
     },
+    streamInfos: {
+      type: Object,
+    }
+  },
+  mounted () {
+    if(this.streamInfos) {
+      this.fluxSelect = this.streamInfos.usageType;
+    }
   },
   data() {
     return {
