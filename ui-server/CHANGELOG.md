@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.795+20220221160016
+2022-02-21
+
+### Fixes
+
+- [3189] gestion du zoom pour l'usage dans supervision (22f5a179f35a04354a90662254a08d4b0d607a49)
+
 ## 1.17.0-master.794+20220221154316
 2022-02-21
 
