@@ -167,6 +167,7 @@
     },
     "synthesis": {
       "title": "Récapitulatif de la commande",
+      "successCreation": "Votre compte a été créé avec succès, nous allons vous redirigez vers la page de paiement.",
       "company": "Société",
       "email": "Email",
       "phone": "Téléphone",
