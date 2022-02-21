@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.794+20220221154316
+2022-02-21
+
+### Fixes
+
+- [3180] alarm stream surconso creation and modify (8a9de3a5d69f75baf8c86b611b5666c889282959)
+
 ## 1.17.0-master.793+20220221145400
 2022-02-21
 
