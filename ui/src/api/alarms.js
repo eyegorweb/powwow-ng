@@ -217,6 +217,10 @@ export async function searchAlarms(orderBy, pagination, filters = []) {
         countriesList
         reactivationAuto
         suspensionAuto
+        pdpSplitConfig {
+          id
+         usageType
+        }
         mailingList {
           id
           name

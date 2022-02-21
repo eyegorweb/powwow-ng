@@ -13,9 +13,10 @@
   >
     <ConsumptionForm @change="values = $event" :duplicate-from="duplicateFrom" :partner="partner" />
     <fluxSelect
-      v-if="streamFlux && streamFlux.streams"
+      v-if="duplicateFrom"
       :data="streamFlux"
       @selectedStream="selectedStream"
+      :streamInfos="duplicateFrom.pdpSplitConfig"
     />
   </AlarmCreationBaseForm>
 </template>
@@ -60,6 +61,7 @@ export default {
   },
   mounted() {
     if (this.duplicateFrom) {
+      this.getFlux(this.duplicateFrom.party.id)
       this.initValues = {
         dataES: this.duplicateFrom.level1,
         dataOut: this.duplicateFrom.level1Up,
@@ -70,6 +72,7 @@ export default {
         voiceES: this.duplicateFrom.level3,
         voiceOut: this.duplicateFrom.level3Up,
         voiceIn: this.duplicateFrom.level3Down,
+        streamId: this.duplicateFrom.pdpSplitConfig.id,
       };
     }
   },
