@@ -340,13 +340,19 @@ export default {
         if (zoneName === 'france') {
           const franceCoords = new this.google.maps.LatLng(47.343482, 3.2814);
           this.map.setCenter(franceCoords);
-          // this.setZoom(6);
+          if (!this.isZoomClicked) {
+            this.setZoom(6);
+            this.isZoomClicked = true;
+          }
         } else if (zoneName === 'world') {
           const country = zoneFilter.data.country;
           if (country) {
             const countryCoords = new this.google.maps.LatLng(country.latitude, country.longitude);
             this.map.setCenter(countryCoords);
-            // this.setZoom(5);
+            if (!this.isZoomClicked) {
+              this.setZoom(5);
+              this.isZoomClicked = true;
+            }
           }
         }
       }
