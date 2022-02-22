@@ -324,7 +324,7 @@ export default {
             return true;
           })
           .filter((i) => {
-            if (this.userIsPartner) {
+            if (this.userIsM2MLight) {
               if (
                 i.title === 'getparc.actCreation.carouselItem.CUSTOM_FIELDS' ||
                 i.title === 'getparc.actCreation.carouselItem.SUSPEND' ||
