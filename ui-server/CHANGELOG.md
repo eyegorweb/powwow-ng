@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.798+20220222142247
+2022-02-22
+
+### Fixes
+
+- [3131] stepper in mobile account creation (82be9448ec62537d27fd5c6af0a8b8e05a6cdbc2)
+
 ## 1.17.0-master.797+20220222140035
 2022-02-22
 
