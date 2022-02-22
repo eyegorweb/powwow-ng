@@ -305,7 +305,6 @@ export default {
         label: 'mainMenu.getAdmin',
         to: { name: 'exemples' },
         submenu: [...getAdminExtra],
-        permission: { domain: 'user', action: 'read' },
       },
       {
         label: 'mainMenu.getSupport',
