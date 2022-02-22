@@ -401,11 +401,7 @@ export default {
     },
 
     async loadDataById() {
-      const data = await fetchDataForCells(
-        this.usageForQuery,
-        this.getBounds(),
-        this.formatFilters()
-      );
+      const data = await fetchDataForCells(this.usageForQuery, {}, this.formatFilters());
       const markers = this.formatMarkers(data);
       this.adjustPosition = defaultAdjustment;
 
@@ -603,6 +599,7 @@ export default {
       let currentBounds = this.map.getBounds();
       let ne = currentBounds.getNorthEast();
       let sw = currentBounds.getSouthWest();
+      console.log('current bounds', currentBounds);
       return {
         neLat: ne.lat(),
         neLng: ne.lng(),
