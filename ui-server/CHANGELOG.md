@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.799+20220222143150
+2022-02-22
+
+### Features
+
+- [3147] Connect API to subrows in history control detail line (53b5bf5ce4f9ebd7961bcc82f3c800f20876fe5f)
+
 ## 1.17.0-master.798+20220222142247
 2022-02-22
 
