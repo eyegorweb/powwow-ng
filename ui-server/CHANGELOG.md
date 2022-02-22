@@ -2,12 +2,16 @@
 
 <!--- next entry here -->
 
-## 1.17.0-master.802+20220222153612
+## 1.17.0-master.802+20220222154350
 2022-02-22
 
 ### Features
 
 - [000] Maintenance des tests Cypress du 15/02/2022 (e50dbbb771749e76c3f4913cd03f7709ac0aa338)
+
+### Fixes
+
+- [3084] Change permission for getAdmin navbar (5b6a2dd88f2ded0694ee4537c240e78de9b16947)
 
 ## 1.17.0-master.801+20220222150743
 2022-02-22
