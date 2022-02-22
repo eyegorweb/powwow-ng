@@ -48,8 +48,6 @@ Given('Je me déconnecte', () => {
     '#app > div.container > div.navbars.bg-white > div > div:nth-child(2) > div.nav > ul > li > div > a:nth-child(5)'
   ).click({ force: true });
   cy.wait(500);
-  cy.visit('http://localhost:8081/');
-  cy.wait(500);
 });
 
 When('je clique sur le bouton {string}', (buttonName) => {
