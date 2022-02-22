@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.796+20220222133116
+2022-02-22
+
+### Fixes
+
+- [3148] Filtre acte de gestion pour les utilisateurs M2M Light. (02c2b154e15ec713890c7cc4935f894626aa7ccc)
+
 ## 1.17.0-master.795+20220221160016
 2022-02-21
 
