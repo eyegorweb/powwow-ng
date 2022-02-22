@@ -44,6 +44,7 @@ export default {
     left: 0;
     width: 100% !important;
     max-width: 100%;
+    z-index: 99;
   }
 }
 .container {
