@@ -512,7 +512,7 @@ export default excludeMocked([
     stepTitle: 'getparc.actCreation.step2Titles.configure',
     selected: false,
     esimAct: true,
-    permission: { domain: 'getSim', action: 'order_esim' },
+    permission: { domain: 'act', action: 'manage_esim' },
     filters: [
       {
         id: 'indicators.getparc.lines.esim.category',

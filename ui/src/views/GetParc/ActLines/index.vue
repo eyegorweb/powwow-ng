@@ -90,9 +90,9 @@
             num="1"
             v-if="
               creationMode &&
-                actCreationPrerequisites &&
-                !actToCreate.containFile &&
-                !useFileImportAsInput
+              actCreationPrerequisites &&
+              !actToCreate.containFile &&
+              !useFileImportAsInput
             "
             title="getparc.actLines.step1Title"
             :color="actToCreate.color"
@@ -334,6 +334,14 @@ export default {
                 return true;
               }
               return false;
+            }
+            return true;
+          })
+          .filter((i) => {
+            if (!this.userIsM2MLight) {
+              if (i.title === 'getparc.actCreation.carouselItem.RECHARGE_LINES') {
+                return false;
+              }
             }
             return true;
           })
