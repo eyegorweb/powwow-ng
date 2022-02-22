@@ -295,6 +295,15 @@ export async function consumptionOnDemand(simCardInstanceId, pagination) {
           voiceIn
           voiceOut
           Statut
+          subItems{
+            fistIncomingTicketDate
+            fistOutgoingTicketDate
+            lastIncomingTicketDate
+            lastOutgoingTicketDate
+            dataIn
+            dataOut
+            stream
+          }
         }
       }
     }

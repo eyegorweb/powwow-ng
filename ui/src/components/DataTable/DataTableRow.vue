@@ -15,8 +15,8 @@
         />
       </td>
       <td v-if="subRows" @click="openSubs = !openSubs">
-        <span v-if="openSubs" class="ic-Minus-Icon" />
-        <span v-else class="ic-Plus-Icon" />
+        <span v-if="openSubs" class="ic-Minus-Icon cursorP" />
+        <span v-else class="ic-Plus-Icon cursorP" />
       </td>
       <td v-if="size">
         <slot name="actions" :row="row" />
@@ -90,6 +90,10 @@ export default {
   height: 0;
   overflow: hidden;
   transition: 0.4s;
+}
+
+.cursorP {
+  cursor: pointer;
 }
 
 .openCollapse {
