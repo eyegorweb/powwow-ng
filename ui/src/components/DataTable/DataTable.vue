@@ -83,7 +83,11 @@
             :sub-rows="subRows"
             :open-subs="subRows"
             :size="size"
-          />
+          >
+            <template slot="actionsRow" slot-scope="{ row }">
+              <slot name="actions" :row="row" />
+            </template>
+          </DataTableRow>
         </table>
       </div>
     </div>

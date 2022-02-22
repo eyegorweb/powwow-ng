@@ -19,7 +19,7 @@
         <span v-else class="ic-Plus-Icon" />
       </td>
       <td v-if="size">
-        <slot name="actions" :row="row" />
+        <slot name="actionsRow" :row="row" />
       </td>
     </tr>
     <template v-if="row.subItems && openSubs">
