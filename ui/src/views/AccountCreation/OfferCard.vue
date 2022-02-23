@@ -1,14 +1,12 @@
 <template>
-  <div class="pricing-table" :class="isActive ? 'active' : ''" v-if="offerUse">
+  <div class="pricing-table" :class="[{ active: isActive }, { minCard: recharge }]" v-if="offerUse">
     <div class="package-title" v-if="offer && offer.name" :class="isActive ? 'active' : ''">
       <span>{{ offer.workflowDescription || '-' }}</span>
     </div>
     <div class="package-layout">
       <div class="package-value">
-        <div class="euro-value">
-          {{ offerPrice('EURO_PART') }}
-        </div>
-        <div class="cent-with-period">
+        <div class="euro-value">{{ offerPrice('EURO_PART') }}</div>
+        <div class="centWithPeriod">
           <div class="cent-value">€{{ offerPrice('CENT_PART') }}</div>
           <div class="period">
             {{
@@ -26,9 +24,9 @@
     <div class="divider"></div>
     <div class="terms" :class="recharge ? 'minCard' : ''">
       <div class="term details">
-        <template v-if="allUsage('DATA')"> {{ allUsage('DATA') }}</template>
-        <template v-if="allUsage('SMS')">,{{ allUsage('SMS') }} </template>
-        <template v-if="allUsage('VOICE')">,{{ allUsage('VOICE') }}</template>
+        <template v-if="allUsage('DATA')">{{ allUsage('DATA') }}</template>
+        <template v-if="allUsage('SMS')">, {{ allUsage('SMS') }}</template>
+        <template v-if="allUsage('VOICE')">, {{ allUsage('VOICE') }}</template>
       </div>
       <div v-if="offer.initialOffer">
         <div v-for="(service, index) in activeServices" :key="service.id">
@@ -82,10 +80,6 @@ export default {
   },
   mounted() {
     this.offerUse = this.offer.offerPackages ? this.offer.offerPackages[0] : this.offer;
-    // this.price =
-    //   this.offerUse && this.offerUse.buyingPriceInEuroCentHT
-    //     ? this.offerUse.buyingPriceInEuroCentHT
-    //     : 0;
     this.price = this.$loGet(this.offerUse, 'buyingPriceInEuroCentHT', 0);
     const marketingService = this.$loGet(this.offer, 'initialOffer.marketingService');
     if (marketingService) {
@@ -197,6 +191,17 @@ $box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14),
       background-color: $blue;
     }
   }
+  &.minCard {
+    max-width: 240px;
+    min-height: 310px;
+    .terms {
+      min-height: 80px;
+      padding: 1rem 2rem 0 1rem;
+    }
+    .subscribe-btn {
+      margin: 1rem auto 0rem;
+    }
+  }
   .package-title {
     display: flex;
     justify-content: center;
@@ -236,6 +241,10 @@ $box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14),
     .package-value {
       display: flex;
       align-items: center;
+
+      .centWithPeriod {
+        width: 100px;
+      }
 
       .euro-value {
         font-size: 4.5rem;
