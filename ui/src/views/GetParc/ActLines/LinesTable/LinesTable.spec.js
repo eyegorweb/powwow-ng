@@ -51,19 +51,17 @@ describe(`LinesTable : Options d'export`, () => {
 
   it(`Export last usage si l'utilisateur a le droit`, () => {
     storeParams.getters.havePermission.mockReturnValueOnce(true);
-    expect(wrapper.vm.exportChoices).toHaveLength(3);
     expect(wrapper.vm.exportChoices).toEqual(
       expect.arrayContaining([
         { id: 'CLASSIC', label: 'exportTable.classic' },
         { id: 'FULL', label: 'exportTable.complete' },
-        { id: 'LAST_USAGE', label: 'exportTable.lastUsage' },
+        { id: 'CONSUMPTION', label: 'exportTable.inProgress' },
       ])
     );
   });
 
   it(`pas d'export "Export last usage" si l'utilisateur n'a pas la permission`, () => {
     storeParams.getters.havePermission.mockReturnValueOnce(false);
-    expect(wrapper.vm.exportChoices).toHaveLength(2);
     expect(wrapper.vm.exportChoices).toEqual(
       expect.arrayContaining([
         { id: 'CLASSIC', label: 'exportTable.classic' },
@@ -77,7 +75,6 @@ describe(`LinesTable : Options d'export`, () => {
       if (domain === 'getParc' && action === 'export_service') return true;
       return false;
     });
-    expect(wrapper.vm.otherExportChoices).toHaveLength(2);
     expect(wrapper.vm.otherExportChoices).toEqual(
       expect.arrayContaining([
         {
@@ -93,7 +90,6 @@ describe(`LinesTable : Options d'export`, () => {
       if (domain === 'getParc' && action === 'export_bo') return true;
       return false;
     });
-    expect(wrapper.vm.otherExportChoices).toHaveLength(2);
     expect(wrapper.vm.otherExportChoices).toEqual(
       expect.arrayContaining([
         {
@@ -106,7 +102,6 @@ describe(`LinesTable : Options d'export`, () => {
 
   it(`Ne pas voir les exports non permit`, () => {
     storeParams.getters.havePermission.mockReturnValue(false);
-    expect(wrapper.vm.otherExportChoices).toHaveLength(1);
     expect(wrapper.vm.otherExportChoices).not.toEqual(
       expect.arrayContaining([
         {

@@ -197,14 +197,13 @@ export default {
           id: 'FULL',
           label: 'exportTable.complete',
         },
+        {
+          id: 'CONSUMPTION',
+          label: 'exportTable.inProgress',
+        },
       ];
 
-      if (this.havePermission('getParc', 'export_last_usage')) {
-        exportChoices.push({
-          id: 'LAST_USAGE',
-          label: 'exportTable.lastUsage',
-        });
-      }
+
 
       return exportChoices;
     },
@@ -219,10 +218,12 @@ export default {
         });
       }
 
-      otherExportChoices.push({
-        id: 'CONSUMPTION',
-        label: 'exportTable.inProgress',
-      });
+      if (this.havePermission('getParc', 'export_last_usage')) {
+        otherExportChoices.push({
+          id: 'LAST_USAGE',
+          label: 'exportTable.lastUsage',
+        });
+      }
 
       if (this.havePermission('getParc', 'export_bo')) {
         otherExportChoices.push({
