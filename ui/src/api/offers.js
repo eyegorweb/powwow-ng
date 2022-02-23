@@ -554,7 +554,7 @@ export async function rechargeLineOD(partyId, filters, date, workflowId, label, 
   const mutationStr = `
   mutation{
     topUpOffer(input: {
-      {filter: {${formatFilters(filters)}}
+      filter: {${formatFilters(filters)}}
       partyId: ${partyId}
       dueDate:"${date}"
       workflowId: ${workflowId}
