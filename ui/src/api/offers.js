@@ -1,5 +1,6 @@
 import { query } from './utils';
 import get from 'lodash.get';
+import { formatFilters } from '@/api/linesActions.js';
 
 export async function getAvailableOffer(partnerId, pagination) {
   const queryStr = `{
@@ -549,10 +550,11 @@ query LongLifeOffer($partyId: Long, $offerCode: String){
   }
   return response.data.longLifeOffer;
 }
-export async function rechargeLineOD(partyId, date, workflowId, label, simCardIds, type) {
+export async function rechargeLineOD(partyId, filters, date, workflowId, label, simCardIds, type) {
   const mutationStr = `
   mutation{
     topUpOffer(input: {
+      {filter: {${formatFilters(filters)}}
       partyId: ${partyId}
       dueDate:"${date}"
       workflowId: ${workflowId}

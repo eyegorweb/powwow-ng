@@ -141,6 +141,7 @@ export default {
       const simCardIds = this.selectedLinesForActCreation.map((i) => i.id);
       const response = await rechargeLineOD(
         this.actCreationPrerequisites.partner.id,
+        this.appliedFilters,
         this.actDate,
         this.workflowId,
         envelopeLabel,
