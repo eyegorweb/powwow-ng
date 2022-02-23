@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.807+20220223180105
+2022-02-23
+
+### Fixes
+
+- [3157] swap export type on actlines (d9bb25efc390fab1ede2288abed6bef05d3d94c2)
+
 ## 1.17.0-master.806+20220223154255
 2022-02-23
 
