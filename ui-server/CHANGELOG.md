@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.806+20220223154255
+2022-02-23
+
+### Fixes
+
+- [3189] ajout du bouton Vue carte si la table ne renvoie pas de lignes dans la supervision (b2a5b33ea01965b44a68588a8f9e49ba94ab9b08)
+
 ## 1.17.0-master.805+20220223150204
 2022-02-23
 
