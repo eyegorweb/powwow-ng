@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.804+20220223144304
+2022-02-23
+
+### Fixes
+
+- [3202] ajout des filtres dans la gestion de l'acte de recharge d'offres digitales (2cc7f21f1438ea8fe2b694376eece6f2933ef11e)
+
 ## 1.17.0-master.803+20220223130843
 2022-02-23
 
