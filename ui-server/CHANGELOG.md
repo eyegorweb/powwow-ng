@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.803+20220223130843
+2022-02-23
+
+### Fixes
+
+- [3186] application de styles pour les offres digitales dans la recharge (0cfca4c8ae45053737a4e6e6d2a736d3af340332)
+
 ## 1.17.0-master.802+20220222154350
 2022-02-22
 
