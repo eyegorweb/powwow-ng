@@ -2,6 +2,17 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.808+20220224161034
+2022-02-24
+
+### Features
+
+- [3182] création des flux dans le graphe historique des consommations (0e9ec8a612f3e3091f8819b3af0a9c87c2b4b023)
+
+### Fixes
+
+- [3148] Menu Aide. (bf87143b15ad609e436480c34708276ccab9f021)
+
 ## 1.17.0-master.807+20220223180105
 2022-02-23
 
