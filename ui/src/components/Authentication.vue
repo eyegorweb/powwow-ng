@@ -59,13 +59,11 @@ export default {
     */
     onRefreshTokenPageLoaded(frame) {
       try {
-        console.log('onRefreshTokenPageLoaded');
         if (frame.target.contentDocument) {
           try {
             this.setAuthToken(
               frame.target.contentDocument.location.href.split('=')[1].split('&')[0]
             );
-            console.log('onRefreshTokenPageLoaded imReady');
             this.imReady();
           } catch (e) {
             log('Erreur token', e, frame.target.contentDocument.location);
