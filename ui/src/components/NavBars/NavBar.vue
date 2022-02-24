@@ -252,120 +252,126 @@ export default {
       });
     }
 
-    navbarLinks = navbarLinks.concat([
-      {
-        label: 'mainMenu.getAlarm',
-        to: { name: 'alarms' },
-        permission: { domain: 'alarm', action: 'read' },
-      },
-      {
-        label: 'mainMenu.getReport',
-        to: { name: 'reports' },
-        permission: () => {
-          return this.havePermissionDomain('getReport');
+    navbarLinks = navbarLinks
+      .concat([
+        {
+          label: 'mainMenu.getAlarm',
+          to: { name: 'alarms' },
+          permission: { domain: 'alarm', action: 'read' },
         },
-        submenu: [
-          {
-            label: 'menu.modelReports',
-            to: { name: 'getReportsModels' },
-            permission: { domain: 'getReport', action: 'read' },
+        {
+          label: 'mainMenu.getReport',
+          to: { name: 'reports' },
+          permission: () => {
+            return this.havePermissionDomain('getReport');
           },
-          {
-            label: 'menu.documents',
-            to: { name: 'documents' },
-            permission: { domain: 'getReport', action: 'manage_document' },
-          },
-          {
-            label: 'menu.reportsDashboard',
-            to: { name: 'reportsDashboard' },
-            permission: () => {
-              let canSeeMenu = this.havePermission('getReport', 'read_dashboard');
-              if (this.userIsPartner) {
-                canSeeMenu =
-                  canSeeMenu &&
-                  !!this.$loGet(this.userInfos, 'partnerOptions.flagStatisticsEnabled');
-              }
-
-              if (this.userIsGroupPartner) {
-                canSeeMenu =
-                  canSeeMenu && !!this.$loGet(this.userInfos, 'partyGroup.flagStatisticsEnabled');
-              }
-
-              return canSeeMenu;
+          submenu: [
+            {
+              label: 'menu.modelReports',
+              to: { name: 'getReportsModels' },
+              permission: { domain: 'getReport', action: 'read' },
             },
-          },
-        ],
-      },
-      {
-        label: 'mainMenu.getBill',
-        to: { name: 'reportsBill' },
-        permission: { domain: 'getReport', action: 'read_bill' },
-      },
-      {
-        label: 'mainMenu.getAdmin',
-        to: { name: 'exemples' },
-        submenu: [...getAdminExtra],
-      },
-      {
-        label: 'mainMenu.getSupport',
-        to: { name: 'exemples' },
-        permission: { domain: 'getSupport', action: 'access' },
-        onClick: async (targetName) => {
-          if (waitingForGetSupportLink) return;
+            {
+              label: 'menu.documents',
+              to: { name: 'documents' },
+              permission: { domain: 'getReport', action: 'manage_document' },
+            },
+            {
+              label: 'menu.reportsDashboard',
+              to: { name: 'reportsDashboard' },
+              permission: () => {
+                let canSeeMenu = this.havePermission('getReport', 'read_dashboard');
+                if (this.userIsPartner) {
+                  canSeeMenu =
+                    canSeeMenu &&
+                    !!this.$loGet(this.userInfos, 'partnerOptions.flagStatisticsEnabled');
+                }
 
-          waitingForGetSupportLink = true;
-          try {
-            const targetUrl = await getAccessToGetSupport(targetName);
-            if (!getSupportWindow || getSupportWindow.closed) {
-              getSupportWindow = window.open(targetUrl, '_blank');
-            } else {
-              getSupportWindow.location.replace(targetUrl);
+                if (this.userIsGroupPartner) {
+                  canSeeMenu =
+                    canSeeMenu && !!this.$loGet(this.userInfos, 'partyGroup.flagStatisticsEnabled');
+                }
+
+                return canSeeMenu;
+              },
+            },
+          ],
+        },
+        {
+          label: 'mainMenu.getBill',
+          to: { name: 'reportsBill' },
+          permission: { domain: 'getReport', action: 'read_bill' },
+        },
+        {
+          label: 'mainMenu.getAdmin',
+          to: { name: 'exemples' },
+          submenu: [...getAdminExtra],
+        },
+        {
+          label: 'mainMenu.getSupport',
+          to: { name: 'exemples' },
+          permission: { domain: 'getSupport', action: 'access' },
+          onClick: async (targetName) => {
+            if (waitingForGetSupportLink) return;
+
+            waitingForGetSupportLink = true;
+            try {
+              const targetUrl = await getAccessToGetSupport(targetName);
+              if (!getSupportWindow || getSupportWindow.closed) {
+                getSupportWindow = window.open(targetUrl, '_blank');
+              } else {
+                getSupportWindow.location.replace(targetUrl);
+              }
+              waitingForGetSupportLink = false;
+            } catch (e) {
+              console.log(e);
+              waitingForGetSupportLink = false;
             }
-            waitingForGetSupportLink = false;
-          } catch (e) {
-            console.log(e);
-            waitingForGetSupportLink = false;
-          }
+          },
+          submenu: [
+            {
+              label: 'menu.getSupport.homepage',
+              to: { name: 'HOMEPAGE' },
+              permission: { domain: 'getSupport', action: 'access' },
+            },
+            {
+              label: 'menu.getSupport.all_incidents',
+              to: { name: 'ALL_INCIDENTS' },
+              permission: { domain: 'getSupport', action: 'access' },
+            },
+            {
+              label: 'menu.getSupport.search_incidents',
+              to: { name: 'SEARCH_INCIDENTS' },
+              permission: { domain: 'getSupport', action: 'access' },
+            },
+          ],
         },
-        submenu: [
-          {
-            label: 'menu.getSupport.homepage',
-            to: { name: 'HOMEPAGE' },
-            permission: { domain: 'getSupport', action: 'access' },
-          },
-          {
-            label: 'menu.getSupport.all_incidents',
-            to: { name: 'ALL_INCIDENTS' },
-            permission: { domain: 'getSupport', action: 'access' },
-          },
-          {
-            label: 'menu.getSupport.search_incidents',
-            to: { name: 'SEARCH_INCIDENTS' },
-            permission: { domain: 'getSupport', action: 'access' },
-          },
-        ],
-      },
-      {
-        label: 'mainMenu.getDevice',
-        to: { name: 'getDevice' },
-        permission: { domain: 'getDevice', action: 'read' },
-      },
-      // TODO To be added later, so don't delete comment
-      // {
-      //   label: 'mainMenu.help',
-      //   to: { name: 'help' },
-      //   external: {
-      //     url: 'https://www.objenious.com/aide-getway/',
-      //   },
-      // },
-      {
-        label: 'mainMenu.contact',
-        to: { name: 'contact' },
-        mailto: {
-          email: 'objenious@bouyguestelecom.fr',
+        {
+          label: 'mainMenu.getDevice',
+          to: { name: 'getDevice' },
+          permission: { domain: 'getDevice', action: 'read' },
         },
-      },
-    ]);
+        {
+          label: 'mainMenu.help',
+          to: { name: 'help' },
+          external: {
+            url: 'https://www.objenious.com/aide-getway/',
+          },
+        },
+        {
+          label: 'mainMenu.contact',
+          to: { name: 'contact' },
+          mailto: {
+            email: 'objenious@bouyguestelecom.fr',
+          },
+        },
+      ])
+      .filter((i) => {
+        if (this.userIsM2MLight) {
+          return i.label !== 'mainMenu.help';
+        }
+        return true;
+      });
 
     this.navbarLinks = navbarLinks;
     this.chooseCurrentMenu();
