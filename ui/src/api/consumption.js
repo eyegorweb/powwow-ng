@@ -551,5 +551,40 @@ export async function fetchConsoHistory(filters) {
   }
   `;
   const response = await query(queryStr);
-  if (response.data) return response.data.consumptionHistory;
+  if (!response) {
+    return { errors: ['unknown'] };
+  }
+  if (response.errors) {
+    return { errors: response.errors };
+  }
+  return response.data.consumptionHistory;
+}
+
+export async function fetchStreamConsoHistory(filters) {
+  const params = [];
+
+  params.push(`partyId:${filters.partyId}`);
+  if (filters.customerAccountCode) {
+    params.push(`customerAccountCode:"${filters.customerAccountCode}"`);
+  }
+  const queryStr = `query{
+    splitConsumptionHistory(${params.join(',')}){
+      stream
+      dataConsumption {
+        consumptionDate
+        consumptionFrIn
+        consumptionFrOut
+        consumptionRoamingIn
+        consumptionRoamingOut
+      }
+    }
+  }`;
+  const response = await query(queryStr);
+  if (!response) {
+    return { errors: ['unknown'] };
+  }
+  if (response.errors) {
+    return { errors: response.errors };
+  }
+  return response.data.splitConsumptionHistory;
 }
