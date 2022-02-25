@@ -649,7 +649,7 @@
   },
   "alarms": {
     "OVER_CONSUMPTION_VOLUME": "Sur-consommation",
-    "STREAM_OVER_CONSUMPTION_VOLUME": "Sur-consommation",
+    "STREAM_OVER_CONSUMPTION_VOLUME": "Sur-consommation sur un flux",
     "UNDER_CONSUMPTION_VOLUME": "Sous-Consommation",
     "PLMN_CHANGE": "Changement d'opérateur ",
     "NOCHANGE_STATUS": "Non changement de statut sur une période",
