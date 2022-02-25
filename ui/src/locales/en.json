@@ -583,6 +583,7 @@
   },
   "alarms": {
     "OVER_CONSUMPTION_VOLUME": "Over consumption",
+    "STREAM_OVER_CONSUMPTION_VOLUME": "Over consumption on a stream",
     "UNDER_CONSUMPTION_VOLUME": "Under consumption",
     "PLMN_CHANGE": "Network Provider change",
     "NOCHANGE_STATUS": "No change of status over a period",

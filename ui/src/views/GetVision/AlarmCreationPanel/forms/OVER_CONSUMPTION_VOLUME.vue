@@ -13,10 +13,10 @@
   >
     <ConsumptionForm @change="values = $event" :duplicate-from="duplicateFrom" :partner="partner" />
     <fluxSelect
-      v-if="duplicateFrom"
+      v-if="streamFlux"
       :data="streamFlux"
       @selectedStream="selectedStream"
-      :streamInfos="duplicateFrom.pdpSplitConfig"
+      :streamInfos="streamInfos"
     />
   </AlarmCreationBaseForm>
 </template>
@@ -40,6 +40,11 @@ export default {
     alarm: Object,
     duplicateFrom: Object,
     partner: Object,
+  },
+  computed: {
+    streamInfos() {
+      return this.duplicateFrom ? this.duplicateFrom.pdpSplitConfig : null
+    }
   },
   data() {
     return {
