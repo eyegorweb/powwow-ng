@@ -1434,6 +1434,7 @@
           "IMEI_CHANGE": "Module change",
           "NOCHANGE_STATUS": "No change of status over a period",
           "OVER_CONSUMPTION_VOLUME": "Over-consumption",
+          "STREAM_OVER_CONSUMPTION_VOLUME": "Over consumption on a stream",
           "OVER_CONSUMPTION_VOLUME_FLOTTE": "Over-consumption of the fleet",
           "OVER_CONSUMPTION_VOLUME_ROUNDED": "Over-consumption (rounded volumes)",
           "PLMN_CHANGE": "Change of operator",
