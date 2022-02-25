@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.812+20220225142822
+2022-02-25
+
+### Fixes
+
+- [3179] flux on alarm overconso (ae9fc38966802ed6d68af28e7b1a68366f510777)
+
 ## 1.17.0-master.811+20220225125331
 2022-02-25
 
