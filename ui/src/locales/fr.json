@@ -1761,7 +1761,9 @@
             "device": "Référence commerciale",
             "manufacturer": "Constructeur",
             "longitude": "Longitude",
-            "latitude": "Latitude"
+            "latitude": "Latitude",
+            "stream": "Flux",
+            "contentId": "ContentId"
           }
         }
       },

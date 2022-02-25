@@ -3,7 +3,8 @@ import { query } from './utils';
 export async function splitDataConsumptionGraph(simCardInstanceId) {
   const queryStr = `query{
   splitDataConsumptionGraph(simCardInstanceId: ${simCardInstanceId}){
-    usageType
+    streamId
+    stream
     splitPDPConnectionHistories {
       date
       upload
@@ -14,6 +15,11 @@ export async function splitDataConsumptionGraph(simCardInstanceId) {
 }`;
 
   const response = await query(queryStr);
+  if (response.errors) {
+    return {
+      errors: response.errors,
+    };
+  }
   return response.data.splitDataConsumptionGraph;
 }
 
@@ -311,10 +317,74 @@ export async function consumptionOnDemand(simCardInstanceId, pagination) {
   `;
 
   const response = await query(queryStr);
+  if (response.errors) {
+    return {
+      errors: response.errors,
+    };
+  }
 
   return response.data.consumptionOnDemand;
 }
 
+export async function splittedDataUsage(simInstanceId, streamId, pagination) {
+  const paginationInfo = pagination
+    ? `, pagination: {page: ${pagination.page}, limit: ${pagination.limit}}`
+    : '';
+
+  const streamFilter = streamId ? `streamId: ${streamId} ` : '';
+  const queryStr = `{
+    splitDataUsageHistory(simCardInstanceId: ${simInstanceId} ${streamFilter} getLastOnly: false ${paginationInfo}) {
+      total
+      items {
+        ipAddressTypeTranslated
+        connectionStatusTranslated
+        splittedPDPConnectionHistory {
+          uploadVolume
+          downloadVolume
+          apn
+          imei
+          offerCode
+          connectionId
+          accessPointId
+          ipV4Address
+          ipV6Address
+          cellChangeDate
+          isLast
+          partyId
+        }
+        offerLabel
+      	pdpConnectionDateInfo {
+          startDate
+          endDate
+          connectionClosingReasonTranslated
+        }
+        location {
+          detail
+          detailTranslated
+          cellLatitude
+          cellLongitude
+          zipCode
+          cellId
+          countryIso3Translated
+          referentialIso3
+          operator
+        }
+        stream
+        contentId
+      }
+    }
+  }
+  `;
+
+  const response = await query(queryStr);
+  if (response.errors) {
+    return {
+      errors: response.errors,
+    };
+  }
+
+  return response.data.splitDataUsageHistory;
+}
 export async function createConsumptionOnDemand(simId, startDate, endDate) {
   const queryStr = `
   mutation {

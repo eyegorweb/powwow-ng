@@ -1580,7 +1580,9 @@
             "device": "Commercial reference",
             "manufacturer": "Maker",
             "longitude": "Longitude",
-            "latitude": "Latitude"
+            "latitude": "Latitude",
+            "stream": "Flux",
+            "contentId": "ContentId"
           },
           "mapView": "Map view"
         }
