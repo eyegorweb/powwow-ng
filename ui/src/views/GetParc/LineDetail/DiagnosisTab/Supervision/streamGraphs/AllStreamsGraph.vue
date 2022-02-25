@@ -52,7 +52,7 @@ export default {
           { in: [], out: [], pdp: [] }
         );
         return {
-          usageType: usageData.usageType,
+          usageType: usageData.stream,
           splitData: formattedData,
         };
       });
