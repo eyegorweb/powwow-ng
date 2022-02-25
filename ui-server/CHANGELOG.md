@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.810+20220225120123
+2022-02-25
+
+### Features
+
+- [3144] brancher splitDataUsageHistory  et splitDataConsumptionGraph APIs (2024098be2b9ee7d28f8f2819df239473d03b0e7)
+
 ## 1.17.0-master.809+20220224160417
 2022-02-24
 
