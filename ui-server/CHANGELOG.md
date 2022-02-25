@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.811+20220225125331
+2022-02-25
+
+### Fixes
+
+- [3208] gestion des champs avec tooltip dans la table des rapports (48afe04061b780806d9cba2c4151934eee9c8dae)
+
 ## 1.17.0-master.810+20220225120123
 2022-02-25
 
