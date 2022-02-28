@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.814+20220228111030
+2022-02-28
+
+### Fixes
+
+- [3148] Affichage des menus (a66bedcbaac326d06ed6e55b5e679c841ca1d2eb)
+
 ## 1.17.0-master.813+20220225154706
 2022-02-25
 
