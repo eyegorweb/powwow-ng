@@ -15,10 +15,16 @@
           alt="Logo"
         />
       </a>
+      <div class="burger" @click="showNavMenu = !showNavMenu" :class="{open : showNavMenu}">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
       <UiTabs
         v-if="navbarLinks"
         :tabs="filterByPermission(navbarLinks)"
         :selected-index="currentIndex"
+        :class="{open : showNavMenu}"
       >
         <template slot-scope="{ tab, index }">
           <UiTab v-if="tab" :is-selected="index === currentIndex">
@@ -28,7 +34,7 @@
               </a>
             </template>
             <template v-else-if="tab.mailto"
-              ><a :href="'mailto:' + tab.mailto.email" v-if="userIsM2MLight">
+              ><a :href="'mailto:' + tab.mailto.email" v-if="userIsM2MLight" class="w100">
                 {{ $t(tab.label) }}
               </a>
             </template>
@@ -382,6 +388,7 @@ export default {
       currentUrlName: '',
       currentIndexIsForced: false,
       navbarLinks: undefined,
+      showNavMenu: false,
 
       userMenuVisible: false,
     };
@@ -507,6 +514,10 @@ export default {
   }
 }
 
+.w100 {
+  width: 100px;
+}
+
 .flex-container {
   display: flex;
   align-items: center;
@@ -554,6 +565,73 @@ a {
   }
 }
 
+.burger {
+  display: none;
+  position: relative;
+  
+  &.open {
+    span {
+      &:nth-child(2) {
+        display: none;
+      }
+      &:nth-child(1) {
+        top: 0px;
+        transform: rotate(45deg);
+      }
+      &:nth-child(3) {
+        top: 0px;
+        transform: rotate(-45deg);
+      }
+    }
+  }
+
+  @media screen and (max-width: 992px) {
+    display: block;
+
+    span {
+      display: block;
+      width: 20px;
+      height: 2px;
+      position: absolute;
+      background: #383838;
+      transition: 0.3s;
+
+      &:first-child {
+        top: -5px;
+      }
+      &:last-child {
+        top: 5px;
+      }
+    }
+  }
+}
+
+.tabs {
+  @media screen and (max-width: 992px) {
+    display: none;
+
+    &.open {
+      display: block;
+      position: absolute;
+      top: 110px;
+      left: 50%;
+      z-index: 9;
+      background: white;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 690px;
+
+      ol {
+        display: flex;
+        flex-direction: column;
+
+        li {
+          flex-basis: 0px;
+        }
+      }
+    }
+  }
+}
 .nav {
   justify-content: space-around;
 
