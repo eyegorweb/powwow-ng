@@ -50,6 +50,7 @@
   "ordersFound": "{total} found order(s)",
   "set": "Apply",
   "noResult": "No result",
+  "noResultBill": "No invoice",
   "noConso": "No consumption",
   "back": "Back",
   "searching": "Search in progress ...",

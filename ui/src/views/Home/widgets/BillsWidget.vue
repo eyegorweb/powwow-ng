@@ -1,20 +1,27 @@
 <template>
-  <WidgetBloc :widget="widget" v-if="!userIsPartner" @seeMore="onSeeMore">
-    <table class="table">
-      <tbody v-if="bills && bills.items">
-        <tr :key="bill.reference" v-for="bill in bills.items">
-          <td>{{ bill.customerAccountCode }} du {{ bill.date }}</td>
-          <td>{{ bill.amount }} € HT</td>
-          <td>
-            <i
-              class="ic-Download-Icon cursorP"
-              v-if="bill.documentId"
-              @click="downloadBill(bill.documentId)"
-            ></i>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+  <WidgetBloc :widget="widget" v-if="userIsPartner" @seeMore="onSeeMore">
+    <div v-if="bills && bills.items.length > 0">
+      <table class="table">
+        <tbody>
+          <tr :key="bill.reference" v-for="bill in bills.items">
+            <td>{{ bill.customerAccountCode }} du {{ bill.date }}</td>
+
+            <td>{{ bill.amount }} € HT</td>
+
+            <td>
+              <i
+                class="ic-Download-Icon cursorP"
+                v-if="bill.documentId"
+                @click="downloadBill(bill.documentId)"
+              ></i>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div v-else class="alert-light">
+      {{ $t('noResultBill') }}
+    </div>
   </WidgetBloc>
 </template>
 

@@ -73,6 +73,7 @@
   "ordersFound": "{total} commande(s) trouvée(s)",
   "set": "Appliquer",
   "noResult": "Aucun résultat",
+  "noResultBill": "Aucune facture",
   "noConso": "Pas de consommation",
   "back": "Retour",
   "searching": "Recherche en cours ...",
