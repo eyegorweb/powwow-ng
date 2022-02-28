@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.815+20220228151915
+2022-02-28
+
+### Features
+
+- [3206] Exports des services et export dernier usage par flux. (03c220a6596727e80dc73dd891948db32e845fd3)
+
 ## 1.17.0-master.814+20220228111030
 2022-02-28
 
