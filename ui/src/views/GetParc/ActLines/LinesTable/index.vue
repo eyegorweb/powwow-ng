@@ -110,6 +110,7 @@ import get from 'lodash.get';
 import { setTimeout } from 'timers';
 import SearchResultSkeleton from '@/components/ui/skeletons/SearchResultSkeleton';
 import { isFiltersAcceptable } from '@/utils/filters.js';
+import { isFeatureAvailable } from '@/api/partners';
 
 export default {
   components: {
@@ -203,8 +204,6 @@ export default {
         },
       ];
 
-
-
       return exportChoices;
     },
 
@@ -218,10 +217,24 @@ export default {
         });
       }
 
+      if (this.havePermission('getParc', 'export_service') && this.hasStreamPDP) {
+        otherExportChoices.push({
+          id: 'STREAM_SERVICES',
+          label: 'exportTable.streamServices',
+        });
+      }
+
       if (this.havePermission('getParc', 'export_last_usage')) {
         otherExportChoices.push({
           id: 'LAST_USAGE',
           label: 'exportTable.lastUsage',
+        });
+      }
+
+      if (this.havePermission('getParc', 'export_last_usage') && this.hasStreamPDP) {
+        otherExportChoices.push({
+          id: 'STREAM_LAST_USAGE',
+          label: 'exportTable.streamLastUsage',
         });
       }
 
@@ -329,7 +342,9 @@ export default {
         appliedFilters: this.appliedFilters,
       });
     },
-
+    async fetchPartyFeatures() {
+      this.hasStreamPDP = await isFeatureAvailable('STREAM_PDP');
+    },
     getExportErrorCallback() {
       return (errors) => {
         const formattedErrors = formatBackErrors(errors);
@@ -347,7 +362,7 @@ export default {
 
     getExportChoiceDisabledMessage(option) {
       let errorMessages = [];
-      if (option === 'exportTable.services') {
+      if (option === 'exportTable.services' || option === 'exportTable.streamServices') {
         const haveStatusFilter = this.appliedFilters.find(
           (a) => a.id === 'filters.lines.SIMCardStatus'
         );
@@ -464,6 +479,7 @@ export default {
         this.enableSearchLines();
       });
     }
+    await this.fetchPartyFeatures();
   },
   data() {
     return {
@@ -471,6 +487,7 @@ export default {
       showInfoMessage: true,
       searchByIdValue: undefined,
       columns: undefined,
+      hasStreamPDP: false,
       orderedColumns: undefined,
       commonColumns: [
         {

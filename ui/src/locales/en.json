@@ -197,9 +197,11 @@
     "EXPORT_CURRENT_CONSUMPTION": "Consumption balance export",
     "EXPORT_FULL": "Full export",
     "EXPORT_LAST_USAGE": "Last usage export",
+    "EXPORT_STREAM_LAST_USAGE": "Stream last usage export",
     "EXPORT_CONSUMPTION": "Consumption export",
     "EXPORT_BACKOFFICE": "Backoffice export",
     "EXPORT_SERVICES": "Services export",
+    "EXPORT_STREAM_SERVICES": "Stream services export",
     "EXPORT_BILLING_AMOUNT_INFO": "Dashboard export",
     "EXPORT_RAW_CONSUPTION": "Balance export",
     "EXPORT_CONSUMPTIONS": "Dashboard export",
@@ -1816,7 +1818,7 @@
             "DISABLED_AUDIT_OPTION": "The partner does not have the audit option."
           },
           "service": {
-            "CONNECTION" : "Service connection problem."
+            "CONNECTION": "Service connection problem."
           },
           "error": {
             "MassActionLimit": "Le nombre de lignes est supérieure à la limite de {count} lignes"
@@ -2390,12 +2392,15 @@
   "days": "Days",
   "specific": "specific",
   "map": { "world": "World", "countryFR": "France" },
+
   "exportTable": {
     "classic": "Classic",
     "complete": "Complete",
     "lastUsage": "Last usage",
+    "streamLastUsage": "Stream last usage",
     "inProgress": "Consumption export",
     "services": "Services",
+    "streamServices": "Stream services",
     "BO": "Backoffice"
   },
 
