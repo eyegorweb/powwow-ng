@@ -239,9 +239,11 @@
     "EXPORT_CURRENT_CONSUMPTION": "Export de l'encours de consommation",
     "EXPORT_FULL": "Export complet",
     "EXPORT_LAST_USAGE": "Export dernier usage",
+    "EXPORT_STREAM_LAST_USAGE": "Export dernier usage par flux",
     "EXPORT_CONSUMPTION": "Export conso",
     "EXPORT_BACKOFFICE": "Export BO",
     "EXPORT_SERVICES": "Export des services",
+    "EXPORT_STREAM_SERVICES": "Export des services par flux",
     "EXPORT_BILLING_AMOUNT_INFO": "Export du tableau de bord",
     "EXPORT_RAW_CONSUPTION": "Export des encours non valorisés",
     "EXPORT_CONSUMPTIONS": "Export du tableau de bord",
@@ -2000,7 +2002,7 @@
             "DISABLED_AUDIT_OPTION": "Le partenaire n'a pas l'option d'audit."
           },
           "service": {
-            "CONNECTION" : "Problème de connexion au service."
+            "CONNECTION": "Problème de connexion au service."
           },
           "error": {
             "MassActionLimit": "Le nombre de lignes est supérieure à la limite de {count} lignes"
@@ -2581,8 +2583,10 @@
     "classic": "Classique",
     "complete": "Complet",
     "lastUsage": "Dernier usage",
+    "streamLastUsage": "Dernier usage par flux",
     "inProgress": "Encours",
     "services": "Services",
+    "streamServices": "Services par flux",
     "BO": "Backoffice"
   },
 
