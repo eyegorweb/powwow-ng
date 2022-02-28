@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.816+20220228154629
+2022-02-28
+
+### Features
+
+- [3197] responsive navbar + acts + hotfix (1c9af00ebfe600ec58cf07c4f015b89f4a5f6c7f)
+
 ## 1.17.0-master.815+20220228151915
 2022-02-28
 
