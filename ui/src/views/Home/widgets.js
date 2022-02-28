@@ -126,7 +126,7 @@ const defaultWidgets = [
   {
     title: 'home.widgets.orders',
     description: '',
-    checked: false,
+    checked: true,
     large: true,
     seeMore: { domain: 'getSim', action: 'read' },
     component: OrdersWidget,
@@ -136,7 +136,7 @@ const defaultWidgets = [
   {
     title: 'home.widgets.bills',
     description: '',
-    checked: false,
+    checked: true,
     large: false,
     seeMore: { domain: 'getReport', action: 'read_bill' },
     component: BillsWidget,
