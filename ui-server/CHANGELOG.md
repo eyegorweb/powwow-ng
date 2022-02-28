@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.818+20220228164331
+2022-02-28
+
+### Features
+
+- [3212] Modifier le widget "Dernières factures" pour les résultats vides. (c12333360b762cd8cd3d2bc29a22e0980ffdc873)
+
 ## 1.17.0-master.817+20220228151110
 2022-02-28
 
