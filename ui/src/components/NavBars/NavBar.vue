@@ -390,6 +390,12 @@ export default {
     ...mapMutations(['changeAppLanguage']),
     filterByPermission(arrayInput) {
       return arrayInput.filter((a) => {
+        if (a.submenu) {
+          const submenu = this.filterByPermission(a.submenu);
+          if (submenu.length === 0) {
+            return false;
+          }
+        }
         if (!a.permission) return true;
         if (typeof a.permission === 'function') {
           return a.permission();
