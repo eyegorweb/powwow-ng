@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.819+20220301104803
+2022-03-01
+
+### Fixes
+
+- [3197] Creation account save in responsive (3c0e9731f8a1e253925551a4bcd873e948b52e6c)
+
 ## 1.17.0-master.818+20220228164331
 2022-02-28
 
