@@ -5,7 +5,7 @@
       <span></span>
     </h6>
     <div class="creationSuccess" v-if="isLoading">
-      {{ $t('digitalOffer.synthesis.successCreation')}}
+      {{ $t('digitalOffer.synthesis.successCreation') }}
     </div>
     <div class="synthesis-content">
       <CreateAccountPanelSynthesisItem
@@ -442,6 +442,7 @@ $fontSize: 0.8rem;
       width: 80%;
       justify-content: flex-end;
       height: 70px;
+      z-index: 99;
 
       .checkbox-container {
         margin-right: 10px;
