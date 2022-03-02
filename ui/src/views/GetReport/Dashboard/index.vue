@@ -76,7 +76,7 @@
         </div>
         <FoldableBlock default-open :title="'Parc'" :key="'Parc'" draggable>
           <div>
-            <div class="row">
+            <div class="row flexResponsive">
               <ParcByOffersGraph
                 :partner="appliedPartner"
                 :offer="appliedOffer"
@@ -391,6 +391,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.flexResponsive {
+  
+  @media screen and (max-width: 992px) {
+    flex-direction: column;
+
+    .col-4 {
+      width: 100%;
+      max-width: 100%;
+    }
+  }
+}
 .filters-container {
   display: flex;
   .filter-item {
