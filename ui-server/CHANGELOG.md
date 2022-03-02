@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.820+20220302101319
+2022-03-02
+
+### Features
+
+- [3197] responsive for datatable and slidepanel (ae4188850ad391bc89c2d4c8286700cc24efdc25)
+- [3197] responsive dashboard getreport (b7aabba05c09a59a10b63c0628e2994c17914111)
+
 ## 1.17.0-master.819+20220301104803
 2022-03-01
 
