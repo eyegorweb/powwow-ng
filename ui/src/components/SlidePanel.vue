@@ -321,9 +321,17 @@ $size-narrow: 30%;
 .narrow {
   .cd-panel__header {
     width: $size-narrow;
+
+    @media only screen and (max-width: 1024px) {
+      width: 100%;
+    }
   }
   .cd-panel__container {
     width: $size-narrow;
+
+    @media only screen and (max-width: 1024px) {
+      width: 100%;
+    }
   }
 }
 .cd-panel__footer {

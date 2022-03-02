@@ -42,7 +42,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-md-12">
+      <div class="col-md-12 responsiveTable">
         <table
           class="table table-blue table-hover result-table mt-1"
           :class="{ 'small-text': smallText }"
@@ -453,6 +453,10 @@ label {
 @media only screen and (max-width: 1024px) {
   .table-blue th {
     font-size: 1rem;
+  }
+
+  .responsiveTable {
+    overflow-x: scroll;
   }
 }
 </style>

@@ -33,6 +33,10 @@ $fontSize: 0.8rem;
 
 .panel-vertical-container {
   overflow-y: scroll;
+
+  @media only screen and (max-width: 1024px) {
+    width: 100%;
+  }
 }
 
 .footer-panel-buttons {
