@@ -34,6 +34,7 @@ export default {
     liClasses() {
       return {
         'is-finished': this.isFinished,
+        responsiveStepHide: !this.isCurrent,
         'is-current': this.isCurrent,
         'is-next': this.index > this.currentIndex,
       };
@@ -65,6 +66,21 @@ export default {
     font-weight: bold;
     border-bottom: $secondary solid 3px;
     margin-bottom: -3px;
+
+    @media screen and (max-width: 900px) {
+      flex-direction: row !important;
+      width: 100%;
+
+      .check-container {
+        margin-right: 20px;
+      }
+    }
+  }
+
+  &.responsiveStepHide {
+    @media screen and (max-width: 900px) {
+      display: none !important;
+    }
   }
 }
 

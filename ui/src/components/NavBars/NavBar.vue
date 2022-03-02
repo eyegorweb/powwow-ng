@@ -15,7 +15,7 @@
           alt="Logo"
         />
       </a>
-      <div class="burger" @click="showNavMenu = !showNavMenu" :class="{open : showNavMenu}">
+      <div class="burger" @click="showNavMenu = !showNavMenu" :class="{ open: showNavMenu }">
         <span></span>
         <span></span>
         <span></span>
@@ -24,7 +24,7 @@
         v-if="navbarLinks"
         :tabs="filterByPermission(navbarLinks)"
         :selected-index="currentIndex"
-        :class="{open : showNavMenu}"
+        :class="{ open: showNavMenu }"
       >
         <template slot-scope="{ tab, index }">
           <UiTab v-if="tab" :is-selected="index === currentIndex">
@@ -489,7 +489,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .navbars {
   margin: 0 auto;
   padding: 0 10px;
@@ -568,7 +568,7 @@ a {
 .burger {
   display: none;
   position: relative;
-  
+
   &.open {
     span {
       &:nth-child(2) {

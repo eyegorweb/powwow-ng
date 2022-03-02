@@ -1,7 +1,14 @@
 <template>
   <div class="new-digital-offer-synthesis" :class="{ open: showSynthesis }">
-    <h6 class="title" @click="canShowSynthesis()">
+    <h6 class="title title--responsiveNone">
       {{ $t('digitalOffer.synthesis.title') }}
+    </h6>
+    <h6 class="title title--responsive" @click="canShowSynthesis()">
+      {{
+        showSynthesis
+          ? $t('digitalOffer.synthesis.titleHide')
+          : $t('digitalOffer.synthesis.titleShow')
+      }}
       <span></span>
     </h6>
     <div class="creationSuccess" v-if="isLoading">
@@ -411,6 +418,22 @@ $fontSize: 0.8rem;
 
     &.title {
       margin-bottom: 2em;
+
+      &--responsive {
+        display: none;
+        @media screen and (max-width: 900px) {
+          display: block;
+        }
+      }
+      &--responsiveNone {
+        @media screen and (max-width: 900px) {
+          display: none;
+        }
+      }
+      @media screen and (max-width: 900px) {
+        font-size: 14px;
+        margin-top: 1rem;
+      }
     }
     &.subtitle {
       color: $gray-680;

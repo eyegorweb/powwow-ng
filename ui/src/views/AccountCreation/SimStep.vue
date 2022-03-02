@@ -138,12 +138,28 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .simContainer {
   width: 70%;
   margin: 0 auto;
   @media screen and (max-width: 900px) {
     width: 100%;
+  }
+}
+.choose-amount {
+  .cmp-ui-input input {
+    color: black;
+    font-size: 2rem;
+    font-weight: 600;
+    text-align: center;
+
+    @media screen and (max-height: 900px) {
+      padding: 0;
+    }
+
+    &::placeholder {
+      color: black;
+    }
   }
 }
 </style>
