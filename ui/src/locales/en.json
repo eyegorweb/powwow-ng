@@ -129,6 +129,8 @@
     },
     "synthesis": {
       "title": "Order Summary",
+      "titleShow": "Show order summary",
+      "titleHide": "Hide order summary",
       "company": "Society",
       "email": "Email",
       "phone": "Phone",

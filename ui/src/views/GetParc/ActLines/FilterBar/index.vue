@@ -209,7 +209,7 @@
             />
           </FoldableBlock>
           <FoldableBlock
-            v-if="!userIsMVNO"
+            v-if="!userIsMVNO && (havePermission('getParc', 'manage_esim') || havePermission('getParc', 'manage_esim_light'))"
             :title="$t('filters.lines.profileEUICC')"
             :key="'el20'"
             :disabled="filtersAreDisabled"
@@ -271,7 +271,7 @@
             />
           </FoldableBlock>
           <FoldableBlock
-            v-if="!userIsMVNO"
+            v-if="!userIsMVNO && (userIsMultiCustomer || userIsOperator)"
             :title="$t('filters.lines.siren')"
             :key="'el26'"
             :disabled="filtersAreDisabled"
@@ -522,6 +522,8 @@ export default {
       'userIsGroupPartner',
       'userHaveEsimEnabled',
       'havePermission',
+      'userIsMultiCustomer',
+      'userIsOperator',
     ]),
     ...mapGetters('actLines', [
       'currentFilters',
