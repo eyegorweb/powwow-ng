@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.822+20220302155808
+2022-03-02
+
+### Fixes
+
+- [3214] Customer return Bytel (accountcreation) (03ceea41eb79f23f121b44e5e53a090e7517e888)
+
 ## 1.17.0-master.821+20220302152438
 2022-03-02
 
