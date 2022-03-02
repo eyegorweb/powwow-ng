@@ -15,7 +15,7 @@
     </div>
     <button
       v-if="row.Statut === 'WAITING'"
-      class="btn btn-link text-left p-0"
+      class="btn btn-link text-left p-0 ml10"
       @click.stop="cancelRequest()"
     >
       <span>Annuler</span>
@@ -57,6 +57,9 @@ export default {
   label {
     margin-left: 10px;
   }
+}
+.ml10 {
+  margin-left: 10px;
 }
 .running {
   color: $primary !important;
