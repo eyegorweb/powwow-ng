@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.825+20220303095021
+2022-03-03
+
+### Fixes
+
+- [3206] Gestion des exports vide dans la recherche de ligne. (984dd5092081de1c0c2cca3ef9cad297254bb7ec)
+
 ## 1.17.0-master.824+20220303093736
 2022-03-03
 
