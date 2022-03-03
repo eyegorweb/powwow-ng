@@ -2,6 +2,17 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.824+20220303093736
+2022-03-03
+
+### Features
+
+- [3159] exporter par flux les encours conso et les conso dans l'écran détails de la ligne (c59241819315239b94cbcb69dc1f3e99d359d89e)
+
+### Fixes
+
+- [3131] Bug on responsive menu (75603d771390e298ad7055dc0ad2cd66633923ea)
+
 ## 1.17.0-master.823+20220303085518
 2022-03-03
 
