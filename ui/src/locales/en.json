@@ -2407,7 +2407,8 @@
     "inProgress": "Consumption export",
     "services": "Services",
     "streamServices": "Stream services",
-    "BO": "Backoffice"
+    "BO": "Backoffice",
+    "byStream": "Detailled by stream"
   },
 
   "other": "Other"

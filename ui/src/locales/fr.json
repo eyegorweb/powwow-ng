@@ -2593,7 +2593,8 @@
     "inProgress": "Encours",
     "services": "Services",
     "streamServices": "Services par flux",
-    "BO": "Backoffice"
+    "BO": "Backoffice",
+    "byStream": "Détaillé par flux"
   },
 
   "other": "Autre(s)"

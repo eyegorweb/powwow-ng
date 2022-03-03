@@ -71,7 +71,7 @@
             </h2>
           </div>
           <div class="col">
-            <ExportButton :export-fn="getExportFn()">
+            <ExportButton :export-fn="getExportFn()" :export-choices="exportChoices">
               <span slot="title">{{ $t('getparc.lineDetail.consummated.export') }}</span>
             </ExportButton>
           </div>
@@ -471,6 +471,29 @@ export default {
     partnerTypeMVNO() {
       return get(this.content, 'party.partyType') === 'MVNO';
     },
+    exportChoices() {
+      let exportChoices;
+      const consumptionData = this.consumptionData;
+      if (
+        consumptionData.dataIncomingInternationalConsumptionStreams ||
+        consumptionData.dataIncomingNationalConsumptionStreams ||
+        consumptionData.dataOutgoingInternationalConsumptionStreams ||
+        consumptionData.dataOutgoingNationalConsumptionStreams
+      ) {
+        exportChoices = [
+          {
+            id: 'CLASSIC',
+            label: 'exportTable.classic',
+          },
+          {
+            id: 'BY_STREAM',
+            label: 'exportTable.byStream',
+          },
+        ];
+      }
+
+      return exportChoices;
+    },
   },
   async mounted() {
     this.isLoading = true;
@@ -528,8 +551,16 @@ export default {
   },
   methods: {
     getExportFn() {
-      return async (columns, orderBy, exportFormat) => {
-        return await exportCurrentConsumption(this.content.id, exportFormat);
+      return async (
+        columns,
+        orderBy,
+        exportFormat,
+        asyncExportRequest,
+        exportAll,
+        forceAsyncExport,
+        exportChoice
+      ) => {
+        return await exportCurrentConsumption(this.content.id, exportFormat, exportChoice);
       };
     },
 

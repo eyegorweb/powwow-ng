@@ -1063,7 +1063,17 @@ export async function fetchCurrentConsumption(filters) {
   return response.data.currentConsumptionV2;
 }
 
-export async function exportCurrentConsumption(simcardId, exportFormat) {
+export async function exportCurrentConsumption(simcardId, exportFormat, exportChoice) {
+  let response;
+  if (exportChoice === 'CLASSIC') {
+    response = exportCurrentConsumptionClassic(simcardId, exportFormat);
+  } else if (exportChoice === 'BY_STREAM') {
+    response = exportCurrentConsumptionByStream(simcardId, exportFormat);
+  }
+  return response;
+}
+
+export async function exportCurrentConsumptionClassic(simcardId, exportFormat) {
   const queryStr = `
   query {
     exportCurrentConsumption(simCardInstanceId: ${simcardId}, exportFormat: ${exportFormat}){
@@ -1082,6 +1092,27 @@ export async function exportCurrentConsumption(simcardId, exportFormat) {
   }
 
   return response.data.exportCurrentConsumption;
+}
+
+export async function exportCurrentConsumptionByStream(simcardId, exportFormat) {
+  const queryStr = `
+  query {
+    exportSplittedCurrentConsumption(simCardInstanceId: ${simcardId}, exportFormat: ${exportFormat}){
+      downloadUri
+      asyncRequired
+    }
+  }
+  `;
+
+  const response = await query(queryStr);
+
+  if (response.errors) {
+    return {
+      errors: response.errors,
+    };
+  }
+
+  return response.data.exportSplittedCurrentConsumption;
 }
 
 export async function unthrottleLine(accessPointId) {

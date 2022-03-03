@@ -443,26 +443,60 @@ export async function exportSmsHistory(simCardInstanceId, exportFormat) {
   return response.data.exportSmsHistory;
 }
 
-export async function exportDataHistory(simCardInstanceId, exportFormat) {
+export async function exportDataHistory(simCardInstanceId, exportFormat, exportChoice) {
+  let response;
+  if (exportChoice === 'CLASSIC') {
+    response = exportDataHistoryClassic(simCardInstanceId, exportFormat);
+  } else if (exportChoice === 'BY_STREAM') {
+    response = exportDataHistoryByStream(simCardInstanceId, exportFormat);
+  }
+  return response;
+}
+
+async function exportDataHistoryByStream(simCardInstanceId, exportFormat) {
   const response = await query(
     `
-    {
-      exportDataHistory(simCardInstanceId: ${simCardInstanceId}, exportFormat: ${exportFormat}, getLastOnly: false, columns: [MSISDN, CONNECTION_START_DATE, CONNECTION_END_DATE, CONNECTION_STATUS, REASON, UL_VOLUME, DL_VOLUME, IP_TYPE, APN, IP_V4_ADDRESS, IP_V6_ADDRESS, OPERATOR, PLMN, ZIP_CODE, CITY, COUNTRY, IMEI, OFFER, CELL_ID, LONGITUDE, LATITUDE, TECHNOLOGY]) {
-        downloadUri
-        total
-        asyncRequired
+      {
+        exportSplittedDataHistory(simCardInstanceId: ${simCardInstanceId}, exportFormat: ${exportFormat}, getLastOnly: false, columns: [MSISDN,STREAM, CONNECTION_START_DATE, CONNECTION_END_DATE, CONNECTION_STATUS, REASON, UL_VOLUME, DL_VOLUME, IP_TYPE, APN, IP_V4_ADDRESS, IP_V6_ADDRESS, OPERATOR, PLMN, ZIP_CODE, CITY, COUNTRY, IMEI, OFFER, CELL_ID, LONGITUDE, LATITUDE, TECHNOLOGY]) {
+          downloadUri
+          total
+          asyncRequired
+        }
       }
-    }
-    `
+      `
   );
+
   if (!response) {
     return { errors: ['unknown'] };
   }
   if (response.errors) {
     return { errors: response.errors };
   }
-  return response.data.exportDataHistory;
+  return response.data.exportSplittedDataHistory;
 }
+
+async function exportDataHistoryClassic(simCardInstanceId, exportFormat) {
+  const response = await query(
+    `
+      {
+        exportSplittedDataHistory(simCardInstanceId: ${simCardInstanceId}, exportFormat: ${exportFormat}, getLastOnly: false, columns: [MSISDN, CONNECTION_START_DATE, CONNECTION_END_DATE, CONNECTION_STATUS, REASON, UL_VOLUME, DL_VOLUME, IP_TYPE, APN, IP_V4_ADDRESS, IP_V6_ADDRESS, OPERATOR, PLMN, ZIP_CODE, CITY, COUNTRY, IMEI, OFFER, CELL_ID, LONGITUDE, LATITUDE, TECHNOLOGY]) {
+          downloadUri
+          total
+          asyncRequired
+        }
+      }
+      `
+  );
+
+  if (!response) {
+    return { errors: ['unknown'] };
+  }
+  if (response.errors) {
+    return { errors: response.errors };
+  }
+  return response.data.exportSplittedDataHistory;
+}
+
 export async function exportVoiceHistory(simCardInstanceId, exportFormat) {
   const response = await query(
     `
