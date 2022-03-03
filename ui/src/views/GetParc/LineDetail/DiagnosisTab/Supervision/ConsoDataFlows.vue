@@ -15,7 +15,7 @@
       $t('getparc.lineDetail.tab2.supervisionContent.dataConsumptionPerDay')
     }}</template>
     <template v-if="canExportData" slot="topRight">
-      <ExportButton :export-fn="getDataExportFn()">
+      <ExportButton :export-fn="getDataExportFn()" :export-choices="exportChoices">
         <span slot="title">{{
           $t('getparc.lineDetail.tab2.supervisionContent.exportDataConsumption')
         }}</span>
@@ -123,8 +123,16 @@ export default {
       this.dataUsageStreams = await splitDataConsumptionGraph(this.content.id);
     },
     getDataExportFn() {
-      return async (columns, orderBy, exportFormat) => {
-        return await exportDataHistory(this.content.id, exportFormat);
+      return async (
+        columns,
+        orderBy,
+        exportFormat,
+        asyncExportRequest,
+        exportAll,
+        forceAsyncExport,
+        exportChoice
+      ) => {
+        return await exportDataHistory(this.content.id, exportFormat, exportChoice);
       };
     },
     initFlowTypesToggle() {
@@ -153,6 +161,24 @@ export default {
       }
 
       this.flowTypesTabs = flowTypes;
+    },
+  },
+  computed: {
+    exportChoices() {
+      let exportChoices;
+      if (this.dataUsageStreams && this.dataUsageStreams.length) {
+        exportChoices = [
+          {
+            id: 'CLASSIC',
+            label: 'exportTable.classic',
+          },
+          {
+            id: 'BY_STREAM',
+            label: 'exportTable.byStream',
+          },
+        ];
+      }
+      return exportChoices;
     },
   },
 };
