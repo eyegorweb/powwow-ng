@@ -1208,8 +1208,10 @@
       "Custom": "Personnalisé",
       "M2M": "Export classique",
       "MVNO": "Export classique",
-      "LAST_USAGE": "Dernier usage",
-      "SERVICES": "Export des services"
+      "LAST_USAGE": "Export dernier usage",
+      "LAST_USAGE_STREAM": "Export dernier usage par flux",
+      "SERVICES": "Export des services",
+      "SERVICES_STREAM": "Export des services par flux"
     },
     "actions": {
       "DETAIL": "Voir   le détail du reporting",
@@ -1304,7 +1306,8 @@
           "LAST_TYPE_APPEL": "Type appel",
           "LAST_USAGE_IMEI": "IMEI du dernier usage",
           "LAST_USAGE_OFFER_CODE": "Code offre du dernier usage",
-          "LAST_TICKET_GENERATION": "Génération du ticket"
+          "LAST_TICKET_GENERATION": "Génération du ticket",
+          "STREAM": "Flux"
         }
       }
     },

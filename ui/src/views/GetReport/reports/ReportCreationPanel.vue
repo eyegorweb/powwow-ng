@@ -310,7 +310,7 @@ export default {
       }
     };
 
-    const prefillForm = async () => {
+    const prefillForm = () => {
       if (this.content) {
         this.reportFrequency = this.content.frequency;
         this.name = this.content.name;
@@ -337,7 +337,7 @@ export default {
     await preselectPartner();
     this.resetCheckboxes();
     await this.loadModels();
-    await prefillForm();
+    prefillForm();
     this.canShowForm = true;
   },
 
@@ -543,9 +543,59 @@ export default {
     },
     toggleCheckbox(checkbox) {
       if (checkbox.checked) {
+        this.checkIncompatibilityWithField(checkbox, 'STREAM', [
+          'LAST_SMS_DATE',
+          'LAST_SMS_DIRECTION',
+          'CUMULATED_SMS_VOLUME',
+          'LAST_VOICE_DATE',
+          'LAST_VOICE_DURATION',
+          'LAST_VOICE_DIRECTION',
+          'CUMULATED_VOICE_VOLUME',
+        ]);
         this.selectedItems.push(checkbox);
       } else {
         this.selectedItems = this.selectedItems.filter((i) => i.label !== checkbox.label);
+      }
+    },
+
+    /**
+     * Toggle and select checkboxes by group
+     * @param {Object} currentCheckbox
+     * @param {String} targetFied
+     * @param {Array} incompatibleCheckboxes
+     */
+    checkIncompatibilityWithField(currentCheckbox, targetField, incompatibleCheckboxes) {
+      // chaque champ est représenté par une checkbox et si le champ est sélectionné
+      // alors il s'affiche dans une liste
+
+      // Si le champ ne correspond pas, on ne vérifie aucune des checkboxes
+      if (currentCheckbox.code !== targetField) return;
+
+      let foundItems = [],
+        foundIndex = -1;
+      // Vérifier l'incompatibilité du champ 'targetField' avec les champs issus du tableau incompatibleCheckboxes
+      if (currentCheckbox.code === targetField && currentCheckbox.checked) {
+        // Mise à jour des checkboxes en fonction de l'incompatibilité
+        this.groups
+          .map((g) => g.checkboxes)
+          .flat()
+          .filter((g) => {
+            return incompatibleCheckboxes.find((i) => i === g.code) && g.checked;
+          })
+          .forEach((g) => {
+            g.checked = false;
+            foundItems.push(g);
+            return g;
+          });
+      }
+      // Mise à jour des champs sélectionnés en fonction de l'incompatibilité
+      if (foundItems.length) {
+        this.selectedItems.forEach(() => {
+          foundIndex = this.selectedItems.findIndex((i) =>
+            foundItems.find((f) => f.code === i.code)
+          );
+          if (foundIndex !== -1) this.selectedItems.splice(foundIndex, 1);
+        });
       }
     },
     selectOrRemove(checkbox) {
@@ -922,12 +972,14 @@ export default {
             {
               code: 'CUMULATED_SMS_VOLUME',
               label: this.$t('getreport.creation.groups.checkboxes.CUMULATED_SMS_VOLUME'),
-              checked: false,
+              checked: this.incompatibleWithStream(),
+              isDisabled: () => this.incompatibleWithStream(),
             },
             {
               code: 'CUMULATED_VOICE_VOLUME',
               label: this.$t('getreport.creation.groups.checkboxes.CUMULATED_VOICE_VOLUME'),
-              checked: false,
+              checked: this.incompatibleWithStream(),
+              isDisabled: () => this.incompatibleWithStream(),
             },
           ],
         },
@@ -974,27 +1026,32 @@ export default {
             {
               code: 'LAST_SMS_DATE',
               label: this.$t('getreport.creation.groups.checkboxes.LAST_SMS_DATE'),
-              checked: false,
+              checked: this.incompatibleWithStream(),
+              isDisabled: () => this.incompatibleWithStream(),
             },
             {
               code: 'LAST_SMS_DIRECTION',
               label: this.$t('getreport.creation.groups.checkboxes.LAST_SMS_DIRECTION'),
-              checked: false,
+              checked: this.incompatibleWithStream(),
+              isDisabled: () => this.incompatibleWithStream(),
             },
             {
               code: 'LAST_VOICE_DATE',
               label: this.$t('getreport.creation.groups.checkboxes.LAST_VOICE_DATE'),
-              checked: false,
+              checked: this.incompatibleWithStream(),
+              isDisabled: () => this.incompatibleWithStream(),
             },
             {
               code: 'LAST_VOICE_DURATION',
               label: this.$t('getreport.creation.groups.checkboxes.LAST_VOICE_DURATION'),
-              checked: false,
+              checked: this.incompatibleWithStream(),
+              isDisabled: () => this.incompatibleWithStream(),
             },
             {
               code: 'LAST_VOICE_DIRECTION',
               label: this.$t('getreport.creation.groups.checkboxes.LAST_VOICE_DIRECTION'),
-              checked: false,
+              checked: this.incompatibleWithStream(),
+              isDisabled: () => this.incompatibleWithStream(),
             },
             {
               code: 'LAST_CONNECTION_IP_ADDRESS_TYPE',
@@ -1091,6 +1148,11 @@ export default {
               label: this.$t('getreport.creation.groups.checkboxes.LAST_TICKET_GENERATION'),
               checked: false,
             },
+            {
+              code: 'STREAM',
+              label: this.$t('getreport.creation.groups.checkboxes.STREAM'),
+              checked: false,
+            },
           ],
         },
         // {
@@ -1115,6 +1177,10 @@ export default {
         //   ],
         // },
       ];
+    },
+
+    incompatibleWithStream() {
+      return !!this.selectedItems.find((g) => g.code === 'STREAM' && g.checked);
     },
   },
 
