@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.823+20220303085518
+2022-03-03
+
+### Fixes
+
+- [3207] création d'un rapport avec les flux pour le dernier usage et l'export des services (45e1466aab6afd8a979103644bfe341f4712a11d)
+
 ## 1.17.0-master.822+20220302155808
 2022-03-02
 
