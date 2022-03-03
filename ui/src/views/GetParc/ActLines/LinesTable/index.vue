@@ -355,6 +355,12 @@ export default {
           if (haveSimStatusError) {
             return this.$t('needActiveLines');
           }
+          const haveExportEmptyError = formattedErrors[0].errorKeys.find(
+            (e) => e === 'export.EXPORT_EMPTY'
+          );
+          if (haveExportEmptyError) {
+            return this.$t('exportEmpty');
+          }
           return this.$t('exportError');
         }
       };

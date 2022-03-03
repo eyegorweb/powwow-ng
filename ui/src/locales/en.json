@@ -2410,6 +2410,6 @@
     "BO": "Backoffice",
     "byStream": "Detailled by stream"
   },
-
+  "exportEmpty": "The export is empty.",
   "other": "Other"
 }

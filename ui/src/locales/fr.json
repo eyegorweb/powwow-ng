@@ -2596,6 +2596,6 @@
     "BO": "Backoffice",
     "byStream": "Détaillé par flux"
   },
-
+  "exportEmpty": "L'export demandé est vide.",
   "other": "Autre(s)"
 }
