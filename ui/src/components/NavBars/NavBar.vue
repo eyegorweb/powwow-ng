@@ -489,7 +489,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .navbars {
   margin: 0 auto;
   padding: 0 10px;
