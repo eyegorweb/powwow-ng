@@ -16,18 +16,15 @@
       </div>
     </div>
     <div class="mt-4 mb-4">
-      <LoaderContainer :is-loading="isLoading">
-        <div slot="on-loading">
-          <TableSkeleton :columns="columns" :size="3" />
-        </div>
-        <DataTable
-          storage-id="getreport.models"
-          storage-version="001"
+        <TableWithFilter
+          @applyFilters="applyFilters"
           :columns="columns"
-          :rows="rows || []"
+          :filters="filters"
+          :rows="rows"
           :page.sync="page"
+          :is-loading="isLoading"
           :page-limit.sync="pageLimit"
-          :total="total || 0"
+          :total="total"
           :order-by.sync="orderBy"
           :show-extra-columns.sync="showExtraCells"
           :size="6"
@@ -35,12 +32,11 @@
           <template slot="actions" slot-scope="{ row }">
             <ReportsActions
               :report="row"
-              @actionIsDone="fetchResults()"
+              @actionIsDone="applyFilters()"
               :panel-config="getPanelConfig(row)"
             />
           </template>
-        </DataTable>
-      </LoaderContainer>
+        </TableWithFilter>
     </div>
   </div>
 </template>
@@ -55,21 +51,24 @@ import FieldsReportCell from './FieldsReportCell';
 import GetSimOrdersCreatorCell from '@/views/GetSim/GetSimOrders/GetSimOrdersCreatorCell.vue';
 import { mapGetters, mapMutations } from 'vuex';
 import { fetchReports } from '@/api/reports.js';
-import TableSkeleton from '@/components/ui/skeletons/TableSkeleton';
-import LoaderContainer from '@/components/LoaderContainer';
+import TableWithFilter from '@/components/Filters/TableWithFilter';
+
+//Filtres du tableau
+import PartnerFilter from '../filters/PartnerFilter';
+import UsersFilter from '@/components/Filters/filterbar/UsersFilter';
 
 export default {
   components: {
     Tooltip,
     UiButton,
     DataTable,
+    TableWithFilter,
     ReportsActions,
-    TableSkeleton,
-    LoaderContainer,
   },
   data() {
     return {
       page: 1,
+      filters: [],
       pageLimit: 10,
       showExtraCells: false,
       isLoading: true,
@@ -107,7 +106,7 @@ export default {
         {
           id: 3,
           label: this.$t('report.creationDate'),
-          orderable: false,
+          orderable: true,
           visible: true,
           name: 'generationDate',
           exportId: 'generationDate',
@@ -122,7 +121,7 @@ export default {
         {
           id: 4,
           label: this.$t('report.partenaire'),
-          orderable: false,
+          orderable: true,
           visible: true,
           name: 'partner',
           exportId: 'partner',
@@ -168,7 +167,7 @@ export default {
         {
           id: 7,
           label: this.$t('report.creator'),
-          orderable: false,
+          orderable: true,
           visible: true,
           name: 'creator',
           exportId: 'creator',
@@ -212,6 +211,33 @@ export default {
           },
         },
       ],
+      filters: [
+        {
+          title: 'filters.partner',
+          component: PartnerFilter,
+          onChange(chosenValue) {
+            return {
+              id: 'filters.partner',
+              value: chosenValue.label,
+              data: chosenValue,
+            };
+          },
+        },
+        {
+        title: 'filters.reportOwner',
+        component: UsersFilter,
+        onChange(chosenValue) {
+          if (chosenValue) {
+            return {
+              id: 'filters.reportOwner',
+              value: chosenValue.label,
+              data: chosenValue,
+            };
+          }
+        }
+      },
+      ],      
+      currentAppliedFilters: [],
       orderBy: {
         key: 'id',
         direction: 'DESC',
@@ -221,7 +247,7 @@ export default {
     };
   },
   mounted() {
-    this.fetchResults();
+    this.applyFilters();
   },
   computed: {
     ...mapGetters(['userInfos', 'userIsBO', 'userIsPartner']),
@@ -240,11 +266,45 @@ export default {
   },
   methods: {
     ...mapMutations(['openPanel']),
+    async applyFilters(payload) {
+      const { pagination, filters } = payload || {
+        pagination: { page: 0, limit: 20 },
+        filters: [],
+      };
 
+      if (this.appliedFilters && this.appliedFilters.length) {
+        filters = [...filters, ...this.appliedFilters];
+      }
+      
+      let reportName;
+      let partner;
+      if(filters) {
+        filters.forEach(e => {
+          e.id === 'filters.reportOwner' ? reportName = e.data.label : undefined;
+          e.id === 'filters.partner' ? partner = e.data.id : undefined;
+        });
+      }
+  
+      let data;
+      this.isLoading = true;
+      if(filters.length > 0) {
+        data = await fetchReports(this.orderBy, pagination, partner, reportName);
+      }
+      else {        
+        data = await fetchReports(this.orderBy, this.pageInfo,);
+      }
+      
+      this.isLoading = false;
+
+      this.total = data.total;
+      this.rows = data.items;
+
+      this.currentAppliedFilters = filters;
+    },
     getPanelConfig(row) {
       const doReset = () => {
         this.page = 1;
-        this.fetchResults();
+        this.applyFilters();
       };
       return {
         title: this.$t('getreport.create_report'),
@@ -262,26 +322,11 @@ export default {
       };
     },
 
-    async fetchResults(payload) {
-      const { pagination, orderBy } = payload || {
-        pagination: this.pageInfo,
-        orderBy: this.orderBy,
-      };
-
-      this.isLoading = true;
-      const response = await fetchReports(orderBy, pagination, this.partnerId);
-      this.isLoading = false;
-
-      if (response) {
-        this.total = response.total;
-        this.rows = response.items;
-      }
-    },
 
     createReport() {
       const doReset = () => {
         this.page = 1;
-        this.fetchResults();
+        this.applyFilters();
       };
       this.openPanel({
         title: this.$t('getreport.create_report'),
@@ -301,14 +346,14 @@ export default {
   watch: {
     orderBy() {
       this.page = 1;
-      this.fetchResults();
+      this.applyFilters();
     },
     pageLimit() {
       this.page = 1;
-      this.fetchResults();
+      this.applyFilters();
     },
     page() {
-      this.fetchResults();
+      this.applyFilters();
     },
   },
 };
