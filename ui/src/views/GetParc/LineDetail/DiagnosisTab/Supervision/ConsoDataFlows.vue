@@ -54,6 +54,7 @@
               :simcard="content"
               :stream-id="currentFlowType === -1 ? null : currentFlowType"
               @currentFlowTypeChanged="forceRerender()"
+              @haveContent="canExportData = true"
             />
           </template>
         </div>
