@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.826+20220304141752
+2022-03-04
+
+### Fixes
+
+- [3131] export des conso par flux (8d802ec4a745cd1d71d9dbab77844d4a36692af6)
+
 ## 1.17.0-master.825+20220303095021
 2022-03-03
 
