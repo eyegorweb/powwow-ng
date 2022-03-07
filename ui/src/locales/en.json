@@ -2170,6 +2170,8 @@
     "idOrder": "Order ID",
     "title": "FILTERS",
     "partners": "Partners",
+    "partner": "Partner",
+    "reportOwner": "Report owner",
     "countries": "Countries",
     "billingAccounts": "Billing account",
     "orderStatus": "Order status",
