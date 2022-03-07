@@ -64,10 +64,10 @@
           >{{ labelText }} ({{ results.length }})</UiCheckbox
         >
         <UiCheckbox
-          v-for="result in results"
+          v-for="(result, index) in results"
           v-model="selectedItems"
           :value="result.item"
-          :key="'ms_' + result.item.id"
+          :key="'ms_' + result.item.id + '_' + index"
           :disabled="isItemDisabled(result.item)"
           @change="
             updateTextLabel(
