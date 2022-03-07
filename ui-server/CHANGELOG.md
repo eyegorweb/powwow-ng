@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.827+20220307130846
+2022-03-07
+
+### Fixes
+
+- [3194] corriger le composant filtre des pays (5e1851c4179a8977aff8e47d73b8b359c6e8991d)
+
 ## 1.17.0-master.826+20220304141752
 2022-03-04
 
