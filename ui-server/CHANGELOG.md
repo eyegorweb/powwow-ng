@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.828+20220307154646
+2022-03-07
+
+### Features
+
+- [2789] add filters to getReports (18160617b00751425cef09eeecaf96cf6d617fcc)
+
 ## 1.17.0-master.827+20220307130846
 2022-03-07
 
