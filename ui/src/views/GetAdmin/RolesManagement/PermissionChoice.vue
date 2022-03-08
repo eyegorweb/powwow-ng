@@ -3,7 +3,7 @@
     <div class="list-group-item domain-item">
       <div>{{ domain.labelDomain }}</div>
       <a class="p-0" @click.prevent="isOpen = !isOpen">
-        {{ isOpen ? ' Cacher les permissions' : ' Afficher les permissions' }}
+        {{ isOpen ? $t('getadmin.hidePermissions') : $t('getadmin.showPermissions') }}
 
         <em :class="iconClass" />
       </a>
@@ -11,18 +11,7 @@
 
     <TransitionCollapse>
       <div class="permissions-container" v-if="isOpen">
-        <ul class="list-group list-group-flush">
-          <li
-            class="list-group-item permission-item"
-            :key="`${domain.id}_${p.id}`"
-            v-for="p in domain.permissions"
-            @click.stop="() => (p.checked = !p.checked)"
-          >
-            <input class="blue-checkbox" type="checkbox" v-model="p.checked" />
-
-            <span class="pl-2 pb-2">{{ p.labelAction }}</span>
-          </li>
-        </ul>
+        <slot :domain="domain" />
       </div>
     </TransitionCollapse>
   </div>

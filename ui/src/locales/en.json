@@ -381,6 +381,7 @@
     "reportsDashboard": "Dashboard",
     "reportsBill": "Invoices",
     "monitoring": "Monitoring",
+    "rolesManagement": "Roles management",
     "getSupport": {
       "homepage": "Homepage",
       "all_incidents": "open incidents",
@@ -801,6 +802,11 @@
     }
   },
   "getadmin": {
+    "chooseRole": "Please choose a role",
+    "hidePermissions": "Hide permissions",
+    "showPermissions": "Show permissions",
+    "closePanels": "Close panels",
+    "openPanels": "Open panels",
     "cf": {
       "name": "Billing accounts",
       "marketLine": "Market line",
@@ -2360,7 +2366,7 @@
       "contractReference": "Reference of the framework contract",
       "deActivate": "Disabled",
       "title": "Title",
-      "roles": "Rôles",
+      "roles": "Roles",
       "statuses": {
         "NOT_VALIDATED": "Registered",
         "VALIDATED": "Validated",
