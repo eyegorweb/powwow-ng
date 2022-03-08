@@ -140,7 +140,7 @@ export default new Router({
       component: SearchPartners,
     },
     {
-      path: '/getamin/manate-roles',
+      path: '/getamin/manage-roles',
       name: 'getAdminRoles',
       component: RolesManagement,
     },

@@ -12,23 +12,36 @@
           </div>
           <div class="col-9 permissions-list">
             <div v-if="!selectedRole" class="alert alert-warning mt-2">
-              Veuillez choisir un rôle
+              {{ $t('getadmin.chooseRole') }}
             </div>
 
             <template v-else>
               <div class="d-flex justify-content-end mb-2">
                 <div class="pt-1 pr-1">
-                  {{ openAll ? 'Fermer tout les panneaux' : 'Ouvrir tout les panneaux' }}
+                  {{ openAll ? $t('getadmin.closePanels') : $t('getadmin.openPanels') }}
                 </div>
                 <UiSimpleToggle v-model="openAll" />
               </div>
               <div v-if="domains" class="list-group">
                 <PermissionChoice
-                  :key="domain.id"
-                  v-for="domain in domains"
+                  :key="`${domain.labelDomain}_${index}`"
+                  v-for="(domain, index) in domains"
                   :domain="domain"
                   :default-open="openAll"
-                />
+                >
+                  <ul class="list-group list-group-flush">
+                    <li
+                      class="list-group-item permission-item"
+                      :key="`${domain.labelDomain}_${p.id}`"
+                      v-for="p in domain.permissions"
+                      @click.stop="() => (p.checked = !p.checked)"
+                    >
+                      <UiCheckbox v-model="p.checked">
+                        <span class="pl-2 pb-2">{{ p.labelAction }}</span>
+                      </UiCheckbox>
+                    </li>
+                  </ul>
+                </PermissionChoice>
               </div>
               <div class="d-flex justify-content-end mt-2 mb-2">
                 <UiButton :variant="'primary'" @click="savePermissions">{{ $t('save') }}</UiButton>
@@ -42,10 +55,12 @@
 </template>
 
 <script>
+import UiCheckbox from '@/components/ui/Checkbox';
 import PermissionChoice from './PermissionChoice.vue';
 import UiSimpleToggle from '@/components/ui/UiSimpleToggle.vue';
 import UiButton from '@/components/ui/Button';
 import { mapMutations } from 'vuex';
+import union from 'lodash.union';
 
 import {
   fetchRoles,
@@ -53,6 +68,25 @@ import {
   fetchPermissionsByRole,
   updatePermissions,
 } from '@/api/permission.js';
+
+/**
+ * Sort roles
+ * @param {Object} role
+ */
+function sortRoles(r) {
+  r.sort((a, b) => {
+    const nameA = a.description.toUpperCase();
+    const nameB = b.description.toUpperCase();
+    let comparison = 0;
+    if (nameA > nameB) {
+      comparison = 1;
+    } else if (nameA < nameB) {
+      comparison = -1;
+    }
+    return comparison;
+  });
+  return r;
+}
 
 const RolesChoice = {
   functional: true,
@@ -64,6 +98,7 @@ const RolesChoice = {
 
   render(h, context) {
     const { roles, selectedRole, onRoleClick } = context.props;
+
     return (
       <div class="roles-container">
         <ul class="list-group list-group-flush">
@@ -73,7 +108,7 @@ const RolesChoice = {
                 class={`list-group-item ${selectedRole === role ? 'active' : ''}`}
                 onClick={() => onRoleClick(role)}
               >
-                {role.name}
+                {role.description}
               </li>
             );
           })}
@@ -85,15 +120,28 @@ const RolesChoice = {
 
 export default {
   components: {
+    UiCheckbox,
     RolesChoice,
     PermissionChoice,
     UiSimpleToggle,
     UiButton,
   },
+
   async mounted() {
     await this.loadRoles();
     await this.loadAllPermissions();
   },
+
+  data() {
+    return {
+      selectedRole: undefined,
+      openAll: false,
+      roles: [],
+      domains: undefined,
+      rolesSorted: [],
+    };
+  },
+
   methods: {
     ...mapMutations(['flashMessage', 'confirmAction']),
     onRoleClick(role) {
@@ -123,8 +171,7 @@ export default {
 
     async refreshSelectedRolePermissions() {
       const rolePermissions = await fetchPermissionsByRole(this.selectedRole.Id);
-
-      if (rolePermissions) {
+      if (rolePermissions.length) {
         rolePermissions.forEach((domainByRole) => {
           const matchingDomain = this.domains.find(
             (d) => d.labelDomain === domainByRole.labelDomain
@@ -136,33 +183,42 @@ export default {
               );
               if (corresponding) {
                 localPermission.checked = true;
+              } else {
+                localPermission.checked = false;
               }
             });
           }
         });
+        // Render domains array and remove duplicate values
+        this.domains = union(this.domains, rolePermissions);
+      } else {
+        await this.loadAllPermissions();
       }
     },
 
     async loadAllPermissions() {
       this.domains = await fetchAllPermissions();
+      this.domains.forEach((d) => {
+        d.permissions.forEach((p) => {
+          p.checked = false;
+        });
+      });
     },
 
     async loadRoles() {
-      const roles = await fetchRoles();
+      let roles = await fetchRoles();
       if (roles && roles.length) {
-        this.roles = roles;
+        let rolesC = roles.filter((e) => e.category == null);
+        let rolesW = roles.filter((e) => e.category == 2 || e.category == 1);
+
+        rolesW = sortRoles(rolesW);
+
+        this.rolesSorted.push(...rolesC, ...rolesW);
+        this.roles = this.rolesSorted;
       } else {
         this.roles = [];
       }
     },
-  },
-  data() {
-    return {
-      selectedRole: undefined,
-      openAll: false,
-      roles: [],
-      domains: undefined,
-    };
   },
 };
 </script>

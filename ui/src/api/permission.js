@@ -32,7 +32,6 @@ query{
 `;
 
   const response = await query(queryStr);
-
   return response.data.permissions;
 }
 
