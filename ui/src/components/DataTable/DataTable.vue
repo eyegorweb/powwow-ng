@@ -83,6 +83,7 @@
             :sub-rows="subRows"
             :open-subs="subRows"
             :size="size"
+            @colEvent="$emit('colEvent', $event)"
           >
             <template slot="actionsRow" slot-scope="{ row }">
               <slot name="actions" :row="row" />

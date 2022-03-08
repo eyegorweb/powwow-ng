@@ -8,6 +8,7 @@ export async function fetchIsps() {
       items{
         id
         operator
+        plmn
       }
     }
   }

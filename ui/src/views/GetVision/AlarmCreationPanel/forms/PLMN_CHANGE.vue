@@ -48,7 +48,7 @@ export default {
     if (!isps || !isps.total) return;
 
     const options = isps.items.map((i) => {
-      i.label = i.operator;
+      i.label = i.operator + ' (' + i.plmn + ')';
       return i;
     });
 
