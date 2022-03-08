@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.829+20220308102348
+2022-03-08
+
+### Fixes
+
+- [1320] Liste des alarmes dans le détail de la ligne et ajout de la gestion des flux. (81b8b2b9af9ceb34ba82ebc3de8b1263af72ecd5)
+
 ## 1.17.0-master.828+20220307154646
 2022-03-07
 
