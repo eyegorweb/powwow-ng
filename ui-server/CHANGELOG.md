@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.830+20220308153937
+2022-03-08
+
+### Features
+
+- [3225] Configuration des rôles dans getadmin (4be661b57d9ec5ff973e7b2ebba1fe1edbfb1052)
+
 ## 1.17.0-master.829+20220308102348
 2022-03-08
 
