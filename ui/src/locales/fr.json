@@ -687,6 +687,11 @@
     "errors": {
       "ALARMS_D_MAX_ALARM_PER_AP_REACHED": "Le nombre maximum d'alarmes sur le scope cf/offre est atteint"
     },
+    "label": {
+      "newStatus": "Nouveau statut :",
+      "newOperator": "Nouvel opérateur :",
+      "newImei": "Nouvel IMEI :"
+    },
     "warnings": {
       "OVER_CONSUMPTION_VOLUME_FLOTTE": {
         "modal": {
@@ -2599,5 +2604,6 @@
     "byStream": "Détaillé par flux"
   },
   "exportEmpty": "L'export demandé est vide.",
+  "undefined": "Indéterminé",
   "other": "Autre(s)"
 }

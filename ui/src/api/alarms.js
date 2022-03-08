@@ -289,6 +289,7 @@ export async function fetchTriggerHistory(alarmId, simCardInstanceId) {
         currentValue1Down
         currentValue2Down
         currentValue3Down
+        streamLabel
         alarm {
           id,
           startDate,
