@@ -1,5 +1,5 @@
 <template>
-  <ActionButtons :actions="actions" @itemClick="onActionClicked" />
+  <ActionButtons :actions="actions" @itemClick="onActionClicked" v-if="!userIsM2MLight" />
 </template>
 
 <script>
@@ -93,7 +93,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['userIsBO', 'havePermission']),
+    ...mapGetters(['userIsBO', 'havePermission', 'userIsM2MLight']),
     actions() {
       let actions = [];
       switch (this.order.status) {
@@ -122,7 +122,9 @@ export default {
           actions = ['getsim.actions.DETAIL', 'getsim.actions.EXPORT', 'getsim.actions.SHOW_SIM'];
           break;
         }
-
+        case 'WAITING_FOR_PAYMENT':
+          actions = ['getsim.actions.DETAIL'];
+          break;
         case 'TO_BE_CONFIRMED_BY_BO': {
           actions = ['getsim.actions.DETAIL'];
           break;
@@ -132,7 +134,11 @@ export default {
           actions = [];
       }
 
-      if (this.havePermission('getSim', 'create')) {
+      if (
+        this.havePermission('getSim', 'create') &&
+        !this.userIsM2MLight &&
+        !this.partnerIsM2MLight
+      ) {
         actions.push('getsim.actions.DUPLICATE');
       }
 
@@ -148,6 +154,12 @@ export default {
         }
       }
       return actions;
+    },
+    partnerIsM2MLight() {
+      if (this.order.party && this.order.party.partyType) {
+        return this.order.party.partyType === 'M2M_LIGHT';
+      }
+      return false;
     },
   },
 };

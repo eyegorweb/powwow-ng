@@ -109,7 +109,7 @@ export async function getPartnerFlux(id) {
         streams{
           id
           label
-        }    
+        }
       }
     }
     `;
@@ -352,6 +352,7 @@ export async function fetchAccountDetail(id) {
         siren
         naf
         partyType
+        status
         partyGroups {
           id
           name
@@ -1143,6 +1144,7 @@ export async function fetchAllPartners(orderBy, pagination, filters = []) {
           partyType
           disabled
           siren
+          status
           auditable {
             created
           }

@@ -131,6 +131,9 @@
       "title": "Order Summary",
       "titleShow": "Show order summary",
       "titleHide": "Hide order summary",
+      "successCreation1": "Account created, redirection to payment.",
+      "successCreation2": "Your order will be delivered upon receipt of your identity card.",
+      "onGoingCreation": "Ongoing account creation.",
       "company": "Society",
       "email": "Email",
       "phone": "Phone",
@@ -877,6 +880,7 @@
     },
     "partners": {
       "siren": "SIREN number",
+      "status": "Status",
       "creationDate": "Creation date",
       "name": "Corporate name",
       "mainAdmin": "Principal administrator",

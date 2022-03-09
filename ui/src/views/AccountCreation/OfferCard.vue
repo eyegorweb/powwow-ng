@@ -193,7 +193,7 @@ $box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14),
   }
   &.minCard {
     max-width: 240px;
-    min-height: 310px;
+    min-height: 340px;
     .terms {
       min-height: 80px;
       padding: 1rem 2rem 0 1rem;

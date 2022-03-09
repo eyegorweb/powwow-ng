@@ -23,6 +23,7 @@
           :can-save="currentStep === steps.length - 1 && canSave"
           @save="saveAccount"
           :is-loading="isLoading"
+          :is-success="isSuccess"
           :is-error="isError"
           class="panelSynthesis"
         >
@@ -147,6 +148,7 @@ export default {
         },
       },
       isLoading: false,
+      isSuccess: false,
       inputErrors: undefined,
       businessErrors: {},
       requestErrors: undefined,
@@ -263,11 +265,15 @@ export default {
       this.isLoading = true;
       try {
         const response = await createDigitalOffer(this.formattedData);
-        this.isLoading = false;
         this.checkErrors(response);
+        this.isLoading = false;
         // redirection paynum
         if (response && response.url) {
-          this.redirectToPaynum(response.url);
+          this.isSuccess = true;
+          setTimeout(() => {
+            this.redirectToPaynum(response.url);
+            this.isSuccess = false;
+          }, 3000);
         }
       } catch (e) {
         this.isLoading = false;

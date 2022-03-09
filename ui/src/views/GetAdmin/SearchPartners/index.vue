@@ -102,14 +102,8 @@ export default {
       },
       {
         id: 4,
-        label: this.$t('getparc.history.details.CHANGE_STATUS.activated'),
-        name: 'disabled',
-        format: {
-          type: 'Getter',
-          getter: (row) => {
-            return row.disabled ? this.$t('col.notActive') : this.$t('col.active');
-          },
-        },
+        label: this.$t('getadmin.partners.status'),
+        name: 'status',
         orderable: false,
         visible: true,
       },
