@@ -21,6 +21,7 @@
       :min="positiveNumber ? 0 : minValue"
       :max="maxValue"
       :onkeyup="onKeyUpFn"
+      :disabled="disabled"
     />
     <input
       v-else
@@ -32,6 +33,7 @@
       :style="inputStyle"
       type="text"
       :maxlength="maxSize"
+      :disabled="disabled"
     />
     <a v-if="haveCrossButton && value_" @click.prevent="resetValue" class="btn">
       <i class="select-icon ic-Cross-Icon"></i>
@@ -91,6 +93,7 @@ export default {
     positiveNumber: Boolean,
     block: Boolean,
     maxSize: Number,
+    disabled: Boolean,
   },
 
   mounted() {
