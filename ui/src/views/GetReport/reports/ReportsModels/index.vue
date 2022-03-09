@@ -44,7 +44,6 @@
 <script>
 import Tooltip from '@/components/ui/Tooltip';
 import UiButton from '@/components/ui/Button';
-import DataTable from '@/components/DataTable/DataTable';
 import ReportsActions from './ReportsActions';
 import GeneratedReportsCell from './GeneratedReportsCell';
 import FieldsReportCell from './FieldsReportCell';
@@ -61,7 +60,6 @@ export default {
   components: {
     Tooltip,
     UiButton,
-    DataTable,
     TableWithFilter,
     ReportsActions,
   },
