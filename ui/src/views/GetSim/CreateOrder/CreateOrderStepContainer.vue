@@ -51,6 +51,10 @@ export default {
   .orderStepContent {
     flex-grow: 1;
     padding: 0 7rem;
+    
+    @media only screen and (max-width: 700px) {
+        padding: 0 1rem;
+    }
   }
 
   .orderStepButtons {

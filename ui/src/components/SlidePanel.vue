@@ -351,4 +351,14 @@ $size-narrow: 30%;
     }
   }
 }
+@media only screen and (max-width: 700px) {
+  .wide {
+    .cd-panel__header {
+      width: 100%;
+    }
+    .cd-panel__container {
+      width: 100%;
+    }
+  }
+}
 </style>
