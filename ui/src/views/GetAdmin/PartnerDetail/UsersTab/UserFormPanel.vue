@@ -371,8 +371,11 @@ export default {
         }
       }
       if (this.userType !== 'PARTNER_GROUP') {
-        if ((this.$loGet(this.content, 'duplicateFrom.type') != 'OPERATOR') && this.userType != 'OPERATOR') {
-          console.log('je suis ici')
+        if (
+          this.$loGet(this.content, 'duplicateFrom.type') != 'OPERATOR' &&
+          this.userType != 'OPERATOR'
+        ) {
+          console.log('je suis ici');
           params.partyId = this.content.partnerId || this.selectedPartner.id;
         }
       }

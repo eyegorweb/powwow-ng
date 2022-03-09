@@ -4,7 +4,7 @@
       <h5 v-if="title" class="card-title">{{ $t(title) }}</h5>
 
       <div class="actions-carousel">
-        <div class="slider-container"  v-if="slickOptions">
+        <div class="slider-container" v-if="slickOptions">
           <slick ref="slick" :options="slickOptions">
             <ActionCarouselItem
               v-for="item in actions"
@@ -49,7 +49,7 @@ export default {
     };
   },
 
-  mounted () {
+  mounted() {
     if (window.innerWidth <= 400) {
       this.slickOptions = {
         infinite: false,
@@ -59,8 +59,8 @@ export default {
           '<div class="slider-next slider-button d-block"><span class="ic-Arrow-Next-Icon"></span></div>',
         prevArrow:
           '<div class="slider-prev slider-button d-block"><span class="ic-Arrow-Previous-Icon"></span></div>',
-      }
-    };
+      };
+    }
     if (window.innerWidth < 780 && window.innerWidth > 400) {
       this.slickOptions = {
         infinite: false,
@@ -70,8 +70,8 @@ export default {
           '<div class="slider-next slider-button d-block"><span class="ic-Arrow-Next-Icon"></span></div>',
         prevArrow:
           '<div class="slider-prev slider-button d-block"><span class="ic-Arrow-Previous-Icon"></span></div>',
-      }
-    };
+      };
+    }
     if (window.innerWidth > 780) {
       this.slickOptions = {
         infinite: false,
@@ -81,8 +81,8 @@ export default {
           '<div class="slider-next slider-button d-block"><span class="ic-Arrow-Next-Icon"></span></div>',
         prevArrow:
           '<div class="slider-prev slider-button d-block"><span class="ic-Arrow-Previous-Icon"></span></div>',
-      }
-    };
+      };
+    }
   },
   methods: {
     checkDisable(item) {

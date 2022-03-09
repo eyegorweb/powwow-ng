@@ -207,7 +207,7 @@ export default {
       return this.checkForErrors();
     },
     canSave() {
-      return this.requiredFields.length === 0
+      return this.requiredFields.length === 0;
     },
   },
 

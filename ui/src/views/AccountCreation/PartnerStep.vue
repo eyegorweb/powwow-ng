@@ -453,7 +453,7 @@ export default {
       if (errors.length) {
         return errors.filter((err) => !!err.error);
       }
-      return []
+      return [];
     },
   },
 

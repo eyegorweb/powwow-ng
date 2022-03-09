@@ -392,7 +392,6 @@ export default {
 
 <style lang="scss" scoped>
 .flexResponsive {
-  
   @media screen and (max-width: 992px) {
     flex-direction: column;
 
