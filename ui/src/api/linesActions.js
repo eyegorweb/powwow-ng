@@ -1065,10 +1065,10 @@ export async function fetchCurrentConsumption(filters) {
 
 export async function exportCurrentConsumption(simcardId, exportFormat, exportChoice) {
   let response;
-  if (exportChoice === 'CLASSIC') {
-    response = exportCurrentConsumptionClassic(simcardId, exportFormat);
-  } else if (exportChoice === 'BY_STREAM') {
+  if (exportChoice === 'BY_STREAM') {
     response = exportCurrentConsumptionByStream(simcardId, exportFormat);
+  } else {
+    response = exportCurrentConsumptionClassic(simcardId, exportFormat);
   }
   return response;
 }

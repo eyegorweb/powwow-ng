@@ -445,10 +445,10 @@ export async function exportSmsHistory(simCardInstanceId, exportFormat) {
 
 export async function exportDataHistory(simCardInstanceId, exportFormat, exportChoice) {
   let response;
-  if (exportChoice === 'CLASSIC') {
-    response = exportDataHistoryClassic(simCardInstanceId, exportFormat);
-  } else if (exportChoice === 'BY_STREAM') {
+  if (exportChoice === 'BY_STREAM') {
     response = exportDataHistoryByStream(simCardInstanceId, exportFormat);
+  } else {
+    response = exportDataHistoryClassic(simCardInstanceId, exportFormat);
   }
   return response;
 }

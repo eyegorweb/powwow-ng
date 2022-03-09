@@ -93,7 +93,7 @@
                   <li>{{ $t('getparc.lineDetail.consummated.incoming') }}</li>
                   <li
                     v-for="item in consumptionData.dataIncomingNationalConsumptionStreams"
-                    :key="item.stream"
+                    :key="'1_' + item.stream"
                     class="subrow ml10"
                   >
                     {{ item.stream }}
@@ -102,7 +102,7 @@
                   <li class="outgoing">{{ $t('getparc.lineDetail.consummated.outgoing') }}</li>
                   <li
                     v-for="item in consumptionData.dataOutgoingNationalConsumptionStreams"
-                    :key="item.stream"
+                    :key="'2_' + item.stream"
                     class="subrow ml10"
                   >
                     {{ item.stream }}
@@ -117,7 +117,7 @@
                   </li>
                   <li
                     v-for="item in consumptionData.dataIncomingNationalConsumptionStreams"
-                    :key="item.stream"
+                    :key="'3_' + item.stream"
                     class="subrow"
                   >
                     {{ formattedData('DATA', item.volume) }}
@@ -128,7 +128,7 @@
                   </li>
                   <li
                     v-for="item in consumptionData.dataOutgoingNationalConsumptionStreams"
-                    :key="item.stream"
+                    :key="'4_' + item.stream"
                     class="subrow"
                   >
                     {{ formattedData('DATA', item.volume) }}
@@ -141,7 +141,7 @@
                   <li>{{ consumptionData.smsIncomingNationalConsumption }} SMS</li>
                   <li
                     v-for="item in consumptionData.dataIncomingNationalConsumptionStreams"
-                    :key="item.stream"
+                    :key="'5_' + item.stream"
                   >
                     &nbsp;
                   </li>
@@ -157,7 +157,7 @@
                   </li>
                   <li
                     v-for="item in consumptionData.dataIncomingNationalConsumptionStreams"
-                    :key="item.stream"
+                    :key="'6_' + item.stream"
                   >
                     &nbsp;
                   </li>
@@ -175,7 +175,7 @@
                   <li>{{ $t('getparc.lineDetail.consummated.incoming') }}</li>
                   <li
                     v-for="item in consumptionData.dataIncomingInternationalConsumptionStreams"
-                    :key="item.stream + item.volume"
+                    :key="'7_' + item.stream"
                     class="subrow ml10"
                   >
                     {{ item.stream }}
@@ -184,7 +184,7 @@
                   <li class="outgoing">{{ $t('getparc.lineDetail.consummated.outgoing') }}</li>
                   <li
                     v-for="item in consumptionData.dataOutgoingInternationalConsumptionStreams"
-                    :key="item.stream + item.volume"
+                    :key="'8_' + item.stream"
                     class="subrow ml10"
                   >
                     {{ item.stream }}
@@ -201,7 +201,7 @@
                   </li>
                   <li
                     v-for="item in consumptionData.dataIncomingInternationalConsumptionStreams"
-                    :key="item.stream + item.volume"
+                    :key="'9_' + item.stream"
                     class="subrow"
                   >
                     {{ formattedData('DATA', item.volume) }}
@@ -214,7 +214,7 @@
                   </li>
                   <li
                     v-for="item in consumptionData.dataOutgoingInternationalConsumptionStreams"
-                    :key="item.stream + item.volume"
+                    :key="'10_' + item.stream"
                     class="subrow"
                   >
                     {{ formattedData('DATA', item.volume) }}
@@ -227,7 +227,7 @@
                   <li>{{ consumptionData.smsIncomingInternationalConsumption }} SMS</li>
                   <li
                     v-for="item in consumptionData.dataIncomingInternationalConsumptionStreams"
-                    :key="item.stream"
+                    :key="'11_' + item.stream"
                   >
                     &nbsp;
                   </li>
@@ -249,7 +249,7 @@
                   </li>
                   <li
                     v-for="item in consumptionData.dataIncomingInternationalConsumptionStreams"
-                    :key="item.stream"
+                    :key="'12_' + item.stream"
                   >
                     &nbsp;
                   </li>
@@ -475,10 +475,11 @@ export default {
       let exportChoices;
       const consumptionData = this.consumptionData;
       if (
-        consumptionData.dataIncomingInternationalConsumptionStreams ||
-        consumptionData.dataIncomingNationalConsumptionStreams ||
-        consumptionData.dataOutgoingInternationalConsumptionStreams ||
-        consumptionData.dataOutgoingNationalConsumptionStreams
+        consumptionData &&
+        (consumptionData.dataIncomingInternationalConsumptionStreams ||
+          consumptionData.dataIncomingNationalConsumptionStreams ||
+          consumptionData.dataOutgoingInternationalConsumptionStreams ||
+          consumptionData.dataOutgoingNationalConsumptionStreams)
       ) {
         exportChoices = [
           {
