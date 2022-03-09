@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.831+20220309092033
+2022-03-09
+
+### Fixes
+
+- [3235] Reponsive on 2nd order (9134f3fef4f154cf0d3d68159a157ad1c14da23e)
+
 ## 1.17.0-master.830+20220308153937
 2022-03-08
 
