@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.833+20220309143509
+2022-03-09
+
+### Features
+
+- [2789] configuration des filtres et des tris des rapports (9912ffa0f0e1af3b47d045c3ca9c119d750e4ef7)
+
 ## 1.17.0-master.832+20220309124802
 2022-03-09
 
