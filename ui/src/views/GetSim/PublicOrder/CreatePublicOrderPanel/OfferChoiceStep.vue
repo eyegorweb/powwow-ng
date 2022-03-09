@@ -83,4 +83,11 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+
+    @media only screen and (max-width: 700px) {
+        .col-4 {
+          max-width: 100%; 
+        }
+    }
+</style>
