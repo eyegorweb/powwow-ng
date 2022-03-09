@@ -2,6 +2,17 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.834+20220309145035
+2022-03-09
+
+### Features
+
+- [3234] Modifier le message de page de redirect, enlever la duplication des commande et ajouter statut du partenaire. (b34af1e2a113696821fb025c579808c08e31048c)
+
+### Fixes
+
+- [3238] Corriger les erreurs dans le console + l'export classique des encours conso (63c251186c3638d2e31c29072da4cbbe9f89c671)
+
 ## 1.17.0-master.833+20220309143509
 2022-03-09
 
