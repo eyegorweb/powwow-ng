@@ -46,6 +46,7 @@
           :input-style="inputStyle"
           input-type="number"
           v-model="smsES"
+          :disabled="alarmWithStream"
         />
       </div>
       <div class="item">
@@ -56,6 +57,7 @@
           input-type="number"
           v-model="smsOut"
           positive-number
+          :disabled="alarmWithStream"
         />
       </div>
       <div v-if="isAdvanced" class="item fade-in-reveal">
@@ -66,6 +68,7 @@
           :input-style="inputStyle"
           input-type="number"
           v-model="smsIn"
+          :disabled="alarmWithStream"
         />
       </div>
       <div v-if="isAdvanced" class="item fade-in-reveal">
@@ -76,6 +79,7 @@
           input-type="number"
           v-model="voiceES"
           positive-number
+          :disabled="alarmWithStream"
         />
       </div>
       <div class="item">
@@ -86,6 +90,7 @@
           input-type="number"
           v-model="voiceOut"
           positive-number
+          :disabled="alarmWithStream"
         />
       </div>
       <div v-if="isAdvanced" class="item fade-in-reveal">
@@ -96,6 +101,7 @@
           input-type="number"
           v-model="voiceIn"
           positive-number
+          :disabled="alarmWithStream"
         />
       </div>
     </div>
@@ -138,6 +144,7 @@ export default {
   props: {
     alarm: Object,
     partner: Object,
+    alarmWithStream: Boolean,
     duplicateFrom: {
       type: Object,
       required: false,
@@ -291,6 +298,16 @@ export default {
     },
     customPeriodValue() {
       this.emitChange();
+    },
+    alarmWithStream(newValue) {
+      if (newValue) {
+        this.smsES = undefined;
+        this.smsIn = undefined;
+        this.smsOut = undefined;
+        this.voiceES = undefined;
+        this.voiceIn = undefined;
+        this.voiceOut = undefined;
+      }
     },
   },
 };

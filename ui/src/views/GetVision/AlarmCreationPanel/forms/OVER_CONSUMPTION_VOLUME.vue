@@ -11,12 +11,18 @@
     :is-loading="isLoading"
     :num-notif="5"
   >
-    <ConsumptionForm @change="values = $event" :duplicate-from="duplicateFrom" :partner="partner" />
+    <ConsumptionForm
+      @change="values = $event"
+      :duplicate-from="duplicateFrom"
+      :partner="partner"
+      :alarm-with-stream="alarmWithStream"
+    />
+
     <fluxSelect
       v-if="streamFlux"
       :data="streamFlux"
       @selectedStream="selectedStream"
-      :streamInfos="streamInfos"
+      :stream-infos="streamInfos"
     />
   </AlarmCreationBaseForm>
 </template>
@@ -43,8 +49,8 @@ export default {
   },
   computed: {
     streamInfos() {
-      return this.duplicateFrom ? this.duplicateFrom.pdpSplitConfig : null
-    }
+      return this.duplicateFrom ? this.duplicateFrom.pdpSplitConfig : null;
+    },
   },
   data() {
     return {
@@ -55,6 +61,7 @@ export default {
       partnerId: undefined,
       streamFlux: undefined,
       fluxChoice: undefined,
+      alarmWithStream: false,
     };
   },
   watch: {
@@ -66,7 +73,7 @@ export default {
   },
   mounted() {
     if (this.duplicateFrom) {
-      this.getFlux(this.duplicateFrom.party.id)
+      this.getFlux(this.duplicateFrom.party.id);
       this.initValues = {
         dataES: this.duplicateFrom.level1,
         dataOut: this.duplicateFrom.level1Up,
@@ -89,7 +96,13 @@ export default {
     },
 
     selectedStream(item) {
-      this.fluxChoice = item;
+      // to know if it is alarmOverConso with stream or not
+      if (item && item !== 'all') {
+        this.alarmWithStream = true;
+        this.fluxChoice = item;
+      } else {
+        this.alarmWithStream = false;
+      }
     },
     isFormValid() {
       if (!this.values) return false;

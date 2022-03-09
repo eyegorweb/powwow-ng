@@ -53,10 +53,10 @@ export default {
     },
     streamInfos: {
       type: Object,
-    }
+    },
   },
-  mounted () {
-    if(this.streamInfos) {
+  mounted() {
+    if (this.streamInfos) {
       this.fluxSelect = this.streamInfos.usageType;
     }
   },
@@ -66,8 +66,12 @@ export default {
     };
   },
   watch: {
-    fluxSelect(newValue) {
-      this.$emit('selectedStream', this.data.streams.find((e) => e.label == newValue).id);
+    fluxSelect(newStream) {
+      if (newStream && newStream !== 'all') {
+        this.$emit('selectedStream', this.data.streams.find((e) => e.label == newStream).id);
+      } else {
+        this.$emit('selectedStream', newStream);
+      }
     },
   },
 };
