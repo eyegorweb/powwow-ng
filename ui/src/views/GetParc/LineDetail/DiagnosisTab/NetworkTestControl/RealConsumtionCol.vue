@@ -1,7 +1,7 @@
 <template>
   <ul class="list-unstyled">
-    <li>{{ $t('from') }} {{ firstDate || '-' }}</li>
-    <li>{{ $t('to') }} {{ lastDate || '-' }}</li>
+    <li>{{ $t('from') }} {{ firstDate }}</li>
+    <li>{{ $t('to') }} {{ lastDate }}</li>
   </ul>
 </template>
 
@@ -12,17 +12,21 @@ export default {
   },
   computed: {
     firstDate() {
-      if(this.row.fistIncomingTicketDate || this.row.fistOutgoingTicketDate) {
-        return this.row.fistIncomingTicketDate < this.row.fistOutgoingTicketDate
-          ? this.row.fistIncomingTicketDate
-          : this.row.fistOutgoingTicketDate;
+      const incomingDate = this.$loGet(this.row, 'fistIncomingTicketDate');
+      const outgoingDate = this.$loGet(this.row, 'fistOutgoingTicketDate');
+      if (incomingDate || outgoingDate) {
+        return incomingDate < outgoingDate ? incomingDate : outgoingDate;
+      } else {
+        return '-';
       }
     },
     lastDate() {
-      if(this.row.lastIncomingTicketDate || this.row.lastOutgoingTicketDate) {
-        return this.row.lastIncomingTicketDate > this.row.lastOutgoingTicketDate
-          ? this.row.lastIncomingTicketDate
-          : this.row.lastOutgoingTicketDate;
+      const incomingDate = this.$loGet(this.row, 'lastIncomingTicketDate');
+      const outgoingDate = this.$loGet(this.row, 'lastOutgoingTicketDate');
+      if (incomingDate || outgoingDate) {
+        return incomingDate > outgoingDate ? incomingDate : outgoingDate;
+      } else {
+        return '-';
       }
     },
   },

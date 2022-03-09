@@ -82,7 +82,7 @@ export default {
       return true;
     });
     if (this.duplicateFrom) {
-      if(this.duplicateFrom.type === 'STREAM_OVER_CONSUMPTION_VOLUME') {
+      if (this.duplicateFrom.type === 'STREAM_OVER_CONSUMPTION_VOLUME') {
         this.duplicateFrom.type = 'OVER_CONSUMPTION_VOLUME';
       }
       const alarmToChoose = this.alarms.find((a) => a.id === this.duplicateFrom.type);

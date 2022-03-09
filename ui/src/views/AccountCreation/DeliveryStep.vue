@@ -113,7 +113,7 @@ export default {
     },
 
     selectAdress(a) {
-      this.selectedAddress = a
+      this.selectedAddress = a;
     },
 
     gotoPrev() {

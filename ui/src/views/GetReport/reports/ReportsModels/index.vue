@@ -16,27 +16,27 @@
       </div>
     </div>
     <div class="mt-4 mb-4">
-        <TableWithFilter
-          @applyFilters="applyFilters"
-          :columns="columns"
-          :filters="filters"
-          :rows="rows"
-          :page.sync="page"
-          :is-loading="isLoading"
-          :page-limit.sync="pageLimit"
-          :total="total"
-          :order-by.sync="orderBy"
-          :show-extra-columns.sync="showExtraCells"
-          :size="6"
-        >
-          <template slot="actions" slot-scope="{ row }">
-            <ReportsActions
-              :report="row"
-              @actionIsDone="applyFilters()"
-              :panel-config="getPanelConfig(row)"
-            />
-          </template>
-        </TableWithFilter>
+      <TableWithFilter
+        @applyFilters="applyFilters"
+        :columns="columns"
+        :filters="filters"
+        :rows="rows"
+        :page.sync="page"
+        :is-loading="isLoading"
+        :page-limit.sync="pageLimit"
+        :total="total"
+        :order-by.sync="orderBy"
+        :show-extra-columns.sync="showExtraCells"
+        :size="6"
+      >
+        <template slot="actions" slot-scope="{ row }">
+          <ReportsActions
+            :report="row"
+            @actionIsDone="applyFilters()"
+            :panel-config="getPanelConfig(row)"
+          />
+        </template>
+      </TableWithFilter>
     </div>
   </div>
 </template>
@@ -53,7 +53,7 @@ import { mapGetters, mapMutations } from 'vuex';
 import { fetchReports } from '@/api/reports.js';
 import TableWithFilter from '@/components/Filters/TableWithFilter';
 
-//Filtres du tableau
+// Filtres du tableau
 import PartnerFilter from '../filters/PartnerFilter';
 import UsersFilter from '@/components/Filters/filterbar/UsersFilter';
 
@@ -68,7 +68,6 @@ export default {
   data() {
     return {
       page: 1,
-      filters: [],
       pageLimit: 10,
       showExtraCells: false,
       isLoading: true,
@@ -224,19 +223,19 @@ export default {
           },
         },
         {
-        title: 'filters.reportOwner',
-        component: UsersFilter,
-        onChange(chosenValue) {
-          if (chosenValue) {
-            return {
-              id: 'filters.reportOwner',
-              value: chosenValue.label,
-              data: chosenValue,
-            };
-          }
-        }
-      },
-      ],      
+          title: 'filters.reportOwner',
+          component: UsersFilter,
+          onChange(chosenValue) {
+            if (chosenValue) {
+              return {
+                id: 'filters.reportOwner',
+                value: chosenValue.label,
+                data: chosenValue,
+              };
+            }
+          },
+        },
+      ],
       currentAppliedFilters: [],
       orderBy: {
         key: 'id',
@@ -267,7 +266,7 @@ export default {
   methods: {
     ...mapMutations(['openPanel']),
     async applyFilters(payload) {
-      const { pagination, filters } = payload || {
+      let { pagination, filters } = payload || {
         pagination: { page: 0, limit: 20 },
         filters: [],
       };
@@ -275,25 +274,24 @@ export default {
       if (this.appliedFilters && this.appliedFilters.length) {
         filters = [...filters, ...this.appliedFilters];
       }
-      
+
       let reportName;
       let partner;
-      if(filters) {
-        filters.forEach(e => {
-          e.id === 'filters.reportOwner' ? reportName = e.data.label : undefined;
-          e.id === 'filters.partner' ? partner = e.data.id : undefined;
+      if (filters) {
+        filters.forEach((e) => {
+          e.id === 'filters.reportOwner' ? (reportName = e.data.label) : undefined;
+          e.id === 'filters.partner' ? (partner = e.data.id) : undefined;
         });
       }
-  
+
       let data;
       this.isLoading = true;
-      if(filters.length > 0) {
+      if (filters.length > 0) {
         data = await fetchReports(this.orderBy, pagination, partner, reportName);
+      } else {
+        data = await fetchReports(this.orderBy, this.pageInfo);
       }
-      else {        
-        data = await fetchReports(this.orderBy, this.pageInfo,);
-      }
-      
+
       this.isLoading = false;
 
       this.total = data.total;
@@ -321,7 +319,6 @@ export default {
         },
       };
     },
-
 
     createReport() {
       const doReset = () => {

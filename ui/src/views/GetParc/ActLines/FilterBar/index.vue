@@ -209,7 +209,11 @@
             />
           </FoldableBlock>
           <FoldableBlock
-            v-if="!userIsMVNO && (havePermission('getParc', 'manage_esim') || havePermission('getParc', 'manage_esim_light'))"
+            v-if="
+              !userIsMVNO &&
+                (havePermission('getParc', 'manage_esim') ||
+                  havePermission('getParc', 'manage_esim_light'))
+            "
             :title="$t('filters.lines.profileEUICC')"
             :key="'el20'"
             :disabled="filtersAreDisabled"
