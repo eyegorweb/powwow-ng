@@ -12,7 +12,12 @@
       <span></span>
     </h6>
     <div class="creationSuccess" v-if="isLoading">
-      {{ $t('digitalOffer.synthesis.successCreation') }}
+      {{ $t('digitalOffer.synthesis.onGoingCreation') }}
+    </div>
+    <div class="creationSuccess" v-if="isSuccess">
+      {{ $t('digitalOffer.synthesis.successCreation1') }}
+      <br />
+      {{ $t('digitalOffer.synthesis.successCreation2') }}
     </div>
     <div class="synthesis-content">
       <CreateAccountPanelSynthesisItem
@@ -132,6 +137,7 @@ export default {
     canSave: Boolean,
     isLoading: Boolean,
     isError: Boolean,
+    isSuccess: Boolean,
   },
   data() {
     return {
@@ -500,7 +506,9 @@ $fontSize: 0.8rem;
   vertical-align: middle;
   text-align: center;
   font-size: 20px;
-  line-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 @media (max-height: 588px) {

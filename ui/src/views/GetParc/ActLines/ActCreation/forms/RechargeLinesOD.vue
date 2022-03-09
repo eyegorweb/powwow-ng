@@ -121,11 +121,13 @@ export default {
       response = await fetchODOffers('', workflowDescription);
     }
     if (response.items && response.items.length) {
-      this.packages = response.items[0].offerPackages;
       this.packages = this.$loGet(response.items[0], 'offerPackages', []);
+      this.packages.forEach((aPackage) => {
+        aPackage.name = this.$loGet(response.items[0], 'name');
+        aPackage.workflowDescription = this.$loGet(response.items[0], 'workflowDescription');
+      });
       this.workflowId = this.$loGet(response.items[0], 'id', []);
     }
-
     this.actDate = formattedCurrentDateExtended();
   },
   methods: {

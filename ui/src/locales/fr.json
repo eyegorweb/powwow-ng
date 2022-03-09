@@ -170,7 +170,9 @@
       "title": "Récapitulatif de la commande",
       "titleShow": "Afficher le récapitulatif de commande",
       "titleHide": "Masquer le récapitulatif de commande",
-      "successCreation": "Votre compte a été créé avec succès, nous allons vous redirigez vers la page de paiement.",
+      "successCreation1": "Votre compte a été créé avec succès, nous allons vous redirigez vers la page de paiement.",
+      "successCreation2": "Votre commande sera livrée dès réception de votre carte d’identité.",
+      "onGoingCreation": "Votre compte est en cours de création.",
       "company": "Société",
       "email": "Email",
       "phone": "Téléphone",
@@ -967,6 +969,7 @@
     },
     "partners": {
       "siren": "Numéro SIREN",
+      "status": "Statut",
       "creationDate": "Date de création",
       "name": "Raison sociale",
       "mainAdmin": "Administrateur principal",

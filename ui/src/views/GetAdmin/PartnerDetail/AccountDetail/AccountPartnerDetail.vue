@@ -20,6 +20,10 @@
             <h4>{{ $t('partnerType') }} :</h4>
             <p>{{ getFromContent('partyType') }}</p>
           </div>
+          <div class="accountdetail-generalInfos-box">
+            <h4>{{ $t('getadmin.partners.status') }} :</h4>
+            <p>{{ getFromContent('status') }}</p>
+          </div>
         </div>
         <div class="accountdetail-generalInfos-input accountdetail-bloc">
           <div class="accountdetail-generalInfos-input-img"></div>
