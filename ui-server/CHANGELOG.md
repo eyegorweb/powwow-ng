@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.836+20220310085506
+2022-03-10
+
+### Fixes
+
+- [3237] Le + ne doit pas s'afficher s'il n'y a pas de flux correspondant (a5f82a181add483e79d8b87acebeed2e5baa6649)
+
 ## 1.17.0-master.835+20220309151950
 2022-03-09
 
