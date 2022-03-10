@@ -14,10 +14,11 @@
           @colEvent="$emit('colEvent', $event)"
         />
       </td>
-      <td v-if="subRows" @click="openSubs = !openSubs">
+      <td v-if="subRows && row.subItems && row.subItems.length !== 0" @click="openSubs = !openSubs">
         <span v-if="openSubs" class="ic-Minus-Icon cursorP" />
         <span v-else class="ic-Plus-Icon cursorP" />
       </td>
+      <td v-else></td>
       <td v-if="size">
         <slot name="actionsRow" :row="row" />
       </td>
