@@ -85,6 +85,8 @@
                         <th>{{ $t('getparc.lineDetail.tabServices.apn') }}</th>
                         <th>{{ $t('getparc.lineDetail.tabServices.ipAdress') }}</th>
                         <th>{{ $t('getparc.lineDetail.tabServices.version') }}</th>
+                        <th>{{ $t('getparc.lineDetail.tabServices.parameter1') }}</th>
+                        <th>{{ $t('getparc.lineDetail.tabServices.parameter2') }}</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -92,6 +94,8 @@
                         <td>{{ $loGet(service, 'name', '-') }}</td>
                         <td>{{ $loGet(service, 'ipAdress', '-') }}</td>
                         <td>{{ $loGet(service, 'version', '-') }}</td>
+                        <td>{{ $loGet(service, 'parameter1', '-') }}</td>
+                        <td>{{ $loGet(service, 'parameter2', '-') }}</td>
                       </tr>
                     </tbody>
                   </table>

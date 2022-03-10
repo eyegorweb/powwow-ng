@@ -57,6 +57,8 @@ export function getApnServices(services) {
             name: p.name,
             version: p.versionIp,
             ipAdress: p.ipAdress,
+            parameter1: p.parameter1,
+            parameter2: p.parameter2,
           };
         });
       return parameters;
