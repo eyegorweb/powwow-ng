@@ -1856,7 +1856,9 @@
         "cancelModifications": "Annuler les modifications",
         "apn": "APN",
         "ipAdress": "Adresse IP",
-        "version": "Version"
+        "version": "Version",
+        "parameter1": "Paramètre 1",
+        "parameter2": "Paramètre 2"
       }
     },
     "actCreation": {

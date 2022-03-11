@@ -1140,6 +1140,8 @@ export async function fetchLineServices(simCardInstanceId) {
         editable
         versionIp
         ipAdress
+        parameter1
+        parameter2
 
       }
     }

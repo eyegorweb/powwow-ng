@@ -1669,7 +1669,9 @@
         "ipAdress": "IP Adress",
         "version": "Version",
         "modifyServices": "Modify the services",
-        "cancelModifications": "Cancel the modifications"
+        "cancelModifications": "Cancel the modifications",
+        "parameter1": "Parameter 1",
+        "parameter2": "Parameter 2"
       },
       "testData": "Test data",
       "networkTest": "Network test",
