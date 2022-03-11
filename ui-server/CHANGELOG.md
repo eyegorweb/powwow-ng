@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.838+20220311112820
+2022-03-11
+
+### Fixes
+
+- [3242] Corriger le pb de blanc dans les headers de tables (e5b7192e04e3d8bf6801bd1446654f35cbd6f367)
+
 ## 1.17.0-master.837+20220311080536
 2022-03-11
 
