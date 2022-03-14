@@ -41,7 +41,6 @@ function getProfileStorage(username) {
 function updateUserProfileStorage(username, attr, value) {
   let getWayStorage = getGetWayStorage();
   let profiles = getWayStorage['profiles'];
-  console.log('------ update profile: BEGIN -------', profiles);
   if (!profiles) {
     profiles = {};
   }
@@ -57,8 +56,6 @@ function updateUserProfileStorage(username, attr, value) {
     profile[attr] = value;
   }
   profiles['username'] = profile;
-  console.log('------ update profile: VALUE -------', profile);
-  console.log('------ update profile: END -------', profiles);
 
   getWayStorage['profiles'] = profiles;
   updateGetWayStorage(JSON.stringify(getWayStorage));
