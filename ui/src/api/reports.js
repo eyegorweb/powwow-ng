@@ -7,7 +7,6 @@ export async function fetchReports(orderBy, pagination, partnerID, reportName) {
     : '';
   let partnerIdParam = '';
   let partnerNameParam = '';
-
   if (partnerID) {
     partnerIdParam = `partyId: ${partnerID}`;
   }
