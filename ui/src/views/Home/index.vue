@@ -29,6 +29,7 @@ export default {
     ...mapGetters('userContext', ['contextFilters']),
     ...mapState('userContext', ['contextPartnersType', 'contextPartners']),
     ...mapGetters(['userIsPartner', 'havePermission']),
+    ...mapGetters(['activeWidgets']),
 
     ...mapState({
       homeWidgets: (state) => state.ui.homeWidgets,
@@ -44,16 +45,15 @@ export default {
       });
     },
 
-    activeWidgets() {
-      if (!this.permittedHomeWidgets) return [];
+    // activeWidgets() {
+    //   if (!this.permittedHomeWidgets) return [];
 
-      return this.permittedHomeWidgets.filter((w) => w.checked);
-    },
+    //   return this.permittedHomeWidgets.filter((w) => w.checked);
+    // },
   },
   data() {
     return {
       version: 0,
-      startWatchingWidgets: false,
       updating: false,
       canShowGrid: false,
     };
@@ -61,8 +61,6 @@ export default {
   mounted() {
     this.initHomeWidgets();
     this.initFilterForContext();
-
-    this.startWatchingWidgets = true;
 
     /**
      * Attendre avant de charger les composants de la page d'acceuil

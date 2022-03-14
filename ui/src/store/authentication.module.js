@@ -2,8 +2,11 @@ import { fetchCurrentUserInfos } from '@/api/user.js';
 import { isFeatureAvailable, getPartyOptions } from '@/api/partners';
 import { api } from '@/api/utils';
 import cloneDeep from 'lodash.clonedeep';
-// import moment from 'moment';
-import { checkLocalStorageProfile } from '@/utils/localstorage.js';
+import {
+  setItemInStorage,
+  checkLocalStorageProfile,
+  setCurrentUserStorage,
+} from '@/utils/localstorage.js';
 
 const MAX_TIME_FOR_REFRESHING_TOKEN_IN_MS = 10000;
 
@@ -181,9 +184,14 @@ export const mutations = {
     checkLocalStorageProfile();
     state.userInfos = userInfos;
     if (userInfos) {
-      localStorage.setItem('username', userInfos.username);
+      // localStorage.setItem('username', userInfos.username);
+
+      // new version
+      setItemInStorage('currentUser', userInfos.username);
+      setCurrentUserStorage(userInfos.username);
     }
   },
+
   appIsReady(state) {
     state.appIsReady = true;
   },

@@ -26,7 +26,7 @@ import PreacActivationActsWidget from './widgets/ActWidgets/precalculated/PreacA
 import FailedActsWidget from './widgets/ActWidgets/precalculated/FailedActsWidget';
 import { excludeMocked } from '@/featureFlipping/plugin';
 
-import { HIDE_MOCKS } from '@/featureFlipping/plugin.js';
+import { getHomeWidgetsStorage } from '@/utils/localstorage.js';
 
 export const WIDGETS_STORAGE_VERSION = '4';
 
@@ -285,24 +285,71 @@ const defaultWidgets = [
   },
 ];
 
+// export function loadWidgets() {
+//   const savedVersion = localStorage.getItem('widgets.version');
+//   const versionIsDifferent = savedVersion !== WIDGETS_STORAGE_VERSION;
+
+//   const savedProfile = localStorage.getItem('_widgets_profile_');
+//   let savedWidgets = localStorage.getItem('___homewidgets___');
+//   if (savedWidgets) {
+//     savedWidgets = JSON.parse(savedWidgets);
+//   }
+
+//   const currentProfile = getProfile();
+//   const profileIsDifferent = savedProfile && savedProfile !== currentProfile;
+
+//   const shouldRemoveFromStorage = profileIsDifferent || versionIsDifferent;
+//   if (shouldRemoveFromStorage) {
+//     localStorage.removeItem('___homewidgets___');
+//     localStorage.removeItem('widgets.version');
+//   }
+
+//   if (savedWidgets) {
+//     const ret = excludeMocked(
+//       savedWidgets.map((d) => {
+//         const widget = defaultWidgets.find((f) => f.title === d.title);
+//         const conf = {
+//           ...widget,
+//           ...d,
+//           seeMore: widget.seeMore,
+//         };
+
+//         conf.checked = d.checked;
+//         conf.component = widget.component;
+//         return conf;
+//       })
+//     );
+//     return ret;
+//   } else {
+//     return excludeMocked(defaultWidgets);
+//   }
+// }
+
+// export function getProfile() {
+//   return `_${localStorage.getItem('username')}__${localStorage.getItem(HIDE_MOCKS)}_`;
+// }
+
+// new version
+
 export function loadWidgets() {
-  const savedVersion = localStorage.getItem('widgets.version');
+  let savedWidgets = getHomeWidgetsStorage();
+
+  const savedVersion = savedWidgets ? savedWidgets['version'] : 0;
   const versionIsDifferent = savedVersion !== WIDGETS_STORAGE_VERSION;
 
-  const savedProfile = localStorage.getItem('_widgets_profile_');
-  let savedWidgets = localStorage.getItem('___homewidgets___');
-  if (savedWidgets) {
-    savedWidgets = JSON.parse(savedWidgets);
+  // const savedProfile = localStorage.getItem('_widgets_profile_');
+  if (versionIsDifferent) {
+    savedWidgets = null;
   }
 
-  const currentProfile = getProfile();
-  const profileIsDifferent = savedProfile && savedProfile !== currentProfile;
+  // const currentProfile = getProfile();
+  // const profileIsDifferent = savedProfile && savedProfile !== currentProfile;
 
-  const shouldRemoveFromStorage = profileIsDifferent || versionIsDifferent;
-  if (shouldRemoveFromStorage) {
-    localStorage.removeItem('___homewidgets___');
-    localStorage.removeItem('widgets.version');
-  }
+  // const shouldRemoveFromStorage = profileIsDifferent || versionIsDifferent;
+  // if (shouldRemoveFromStorage) {
+  //   localStorage.removeItem('___homewidgets___');
+  //   localStorage.removeItem('widgets.version');
+  // }
 
   if (savedWidgets) {
     const ret = excludeMocked(
@@ -325,6 +372,6 @@ export function loadWidgets() {
   }
 }
 
-export function getProfile() {
-  return `_${localStorage.getItem('username')}__${localStorage.getItem(HIDE_MOCKS)}_`;
-}
+// export function getProfile() {
+//   return `_${localStorage.getItem('username')}__${localStorage.getItem(HIDE_MOCKS)}_`;
+// }

@@ -1,5 +1,6 @@
 import uuid from 'uuid/v1';
-import { loadWidgets, getProfile, WIDGETS_STORAGE_VERSION } from '@/views/Home/widgets';
+import { loadWidgets, WIDGETS_STORAGE_VERSION } from '@/views/Home/widgets';
+import { saveHomeWidgetsStorage } from '@/utils/localstorage.js';
 import { setLanguage } from '@/api/language';
 import moment from 'moment';
 
@@ -36,6 +37,7 @@ export const state = {
 };
 
 export const getters = {
+  // getter called in Home/index.vue
   activeWidgets: (state) => state.homeWidgets.filter((w) => w.checked),
 };
 
@@ -70,9 +72,12 @@ function saveFormattedWidgets(widgets) {
     return ret;
   });
   if (widgetsToSave && widgetsToSave.length) {
-    localStorage.setItem('___homewidgets___', JSON.stringify(widgetsToSave));
-    localStorage.setItem('_widgets_profile_', getProfile());
-    localStorage.setItem('widgets.version', WIDGETS_STORAGE_VERSION);
+    // localStorage.setItem('___homewidgets___', JSON.stringify(widgetsToSave));
+    // localStorage.setItem('_widgets_profile_', getProfile());
+    // localStorage.setItem('widgets.version', WIDGETS_STORAGE_VERSION);
+
+    // new version
+    saveHomeWidgetsStorage(widgetsToSave, WIDGETS_STORAGE_VERSION);
   }
 }
 
