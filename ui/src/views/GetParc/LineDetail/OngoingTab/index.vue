@@ -540,11 +540,7 @@ export default {
           simCardInstanceId: this.content.id,
         });
       }
-      console.log(this.consumptionData);
-
-      setTimeout(() => {
-        this.isLoading = false;
-      }, 3000);
+      this.isLoading = false;
     } catch (e) {
       console.log(e);
       this.isLoading = false;

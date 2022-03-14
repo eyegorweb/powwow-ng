@@ -32,16 +32,12 @@ export default {
       const shouldIgnore = ignoredNames.find((e) => e === this.$route.name);
 
       if (this.isAnonymous) {
-        console.log('Anonymous');
         this.imReady();
         return;
       }
 
       if (shouldIgnore) {
-        console.log('Ignore auth');
         return;
-      } else {
-        console.log('Not ignoring :', this.$route.name);
       }
       if (!this.token) {
         this.startRefreshingToken();
@@ -75,7 +71,6 @@ export default {
           this.redirectToLogin();
         }
       } catch (e) {
-        console.log('onRefreshTokenPageLoaded', e);
         log('Erreur refresh ', e);
         this.stopRefreshingToken();
       }
