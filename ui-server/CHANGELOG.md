@@ -2,12 +2,13 @@
 
 <!--- next entry here -->
 
-## 1.17.0-master.841+20220314143659
+## 1.17.0-master.842+20220314144714
 2022-03-14
 
 ### Fixes
 
 - [3233] Filtre "Tous" sélectionné par défaut dans la création des alarme de surconso (604d290f38be46fb79f7d9ffe46415475b9115b8)
+- [3243] L'APN n'est pas renseigné dans la table de supervision data détaillée dans le détail de la ligne. (1b07a8daf2007e47049617b2d180815e34feda9c)
 
 ## 1.17.0-master.840+20220314134616
 2022-03-14
