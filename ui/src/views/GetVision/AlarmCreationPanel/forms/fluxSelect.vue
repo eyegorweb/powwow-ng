@@ -58,6 +58,8 @@ export default {
   mounted() {
     if (this.streamInfos) {
       this.fluxSelect = this.streamInfos.usageType;
+    } else {
+      this.fluxSelect = 'all';
     }
   },
   data() {
