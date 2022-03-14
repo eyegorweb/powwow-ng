@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.839+20220314105631
+2022-03-14
+
+### Fixes
+
+- [2253] Configuration et gestion du localstorage (a1d3bd56335a222668bcf1f060b02d0ba486c823)
+
 ## 1.17.0-master.838+20220311112820
 2022-03-11
 
