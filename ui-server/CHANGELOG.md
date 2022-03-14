@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.841+20220314143659
+2022-03-14
+
+### Fixes
+
+- [3233] Filtre "Tous" sélectionné par défaut dans la création des alarme de surconso (604d290f38be46fb79f7d9ffe46415475b9115b8)
+
 ## 1.17.0-master.840+20220314134616
 2022-03-14
 
