@@ -91,7 +91,7 @@ export default {
           label: this.$t(
             'getparc.lineDetail.tab2.supervisionContent.dataConsumptionPerDayColumns.status'
           ),
-          name: 'pdpConnectionHistory',
+          name: 'splittedPDPConnectionHistory',
           visible: true,
           orderable: false,
           format: {
@@ -140,7 +140,7 @@ export default {
           label: this.$t(
             'getparc.lineDetail.tab2.supervisionContent.dataConsumptionPerDayColumns.apn'
           ),
-          name: 'pdpConnectionHistory',
+          name: 'splittedPDPConnectionHistory',
           visible: true,
           orderable: false,
           format: {
@@ -153,7 +153,7 @@ export default {
           label: this.$t(
             'getparc.lineDetail.tab2.supervisionContent.dataConsumptionPerDayColumns.ip'
           ),
-          name: 'pdpConnectionHistory',
+          name: 'splittedPDPConnectionHistory',
           visible: false,
           orderable: false,
           format: {
@@ -166,7 +166,7 @@ export default {
         {
           id: 9,
           label: 'IMEI',
-          name: 'pdpConnectionHistory',
+          name: 'splittedPDPConnectionHistory',
           visible: false,
           orderable: false,
           format: {
@@ -179,7 +179,7 @@ export default {
           label: this.$t(
             'getparc.lineDetail.tab2.supervisionContent.dataConsumptionPerDayColumns.offer'
           ),
-          name: 'pdpConnectionHistory',
+          name: 'splittedPDPConnectionHistory',
           visible: false,
           orderable: false,
           format: {
@@ -204,7 +204,7 @@ export default {
           label: this.$t(
             'getparc.lineDetail.tab2.supervisionContent.dataConsumptionPerDayColumns.stream'
           ),
-          name: 'pdpConnectionHistory',
+          name: 'splittedPDPConnectionHistory',
           visible: true,
           orderable: false,
           format: {
@@ -219,7 +219,7 @@ export default {
           label: this.$t(
             'getparc.lineDetail.tab2.supervisionContent.dataConsumptionPerDayColumns.contentId'
           ),
-          name: 'pdpConnectionHistory',
+          name: 'splittedPDPConnectionHistory',
           visible: true,
           orderable: false,
           format: {
