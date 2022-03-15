@@ -471,7 +471,7 @@ $fontSize: 0.8rem;
       width: 80%;
       justify-content: flex-end;
       height: 70px;
-      z-index: 99;
+      z-index: 0;
 
       .checkbox-container {
         margin-right: 10px;
