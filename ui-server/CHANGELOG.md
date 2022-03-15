@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.844+20220315092432
+2022-03-15
+
+### Fixes
+
+- [000] application responsive lors de la création d'un partenaire sur l'offre digitale (182292eb370da93168a9640371778ec87f425616)
+
 ## 1.17.0-master.843+20220315081910
 2022-03-15
 
