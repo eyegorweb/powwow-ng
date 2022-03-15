@@ -82,7 +82,7 @@
         </div>
       </div>
     </div>
-    <div class="footer pt-3">
+    <div class="footer pt-3" :class="{ displayResponsive: canSave }">
       <template v-if="isError">
         <slot name="errors"></slot>
       </template>
@@ -466,12 +466,15 @@ $fontSize: 0.8rem;
       position: fixed;
       bottom: 0;
       right: 10px;
-      display: flex;
+      display: none;
       align-items: center;
       width: 80%;
       justify-content: flex-end;
       height: 70px;
-      z-index: 0;
+      z-index: 99;
+      &.displayResponsive {
+        display: flex;
+      }
 
       .checkbox-container {
         margin-right: 10px;
