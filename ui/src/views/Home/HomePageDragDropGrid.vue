@@ -8,6 +8,7 @@
         'large-widget': widget.large,
         'small-widget': !widget.large,
         'hidden-widget': !widget.checked,
+        'responsive-widget': isResponsive,
       }"
       class="sortable-grid-item"
     >
@@ -23,6 +24,7 @@
 
 <script>
 import $ from 'jquery';
+import { mapGetters } from 'vuex';
 
 export default {
   props: {
@@ -32,6 +34,13 @@ export default {
 
   mounted() {
     this.initSortable();
+  },
+
+  computed: {
+    ...mapGetters(['userIsM2MLight']),
+    isResponsive() {
+      return this.userIsM2MLight;
+    },
   },
 
   methods: {
@@ -84,17 +93,26 @@ export default {
 .sortable-grid-item {
   padding: 1px;
   height: 19.8rem;
-
   display: inline-block;
   vertical-align: top;
 }
 
 .large-widget {
   width: 66%;
+  @media screen and (max-width: 560px) {
+    &.responsive-widget {
+      width: 100%;
+    }
+  }
 }
 
 .small-widget {
   width: 33%;
+  @media screen and (max-width: 560px) {
+    &.responsive-widget {
+      width: 100%;
+    }
+  }
 }
 
 .hidden-widget {
