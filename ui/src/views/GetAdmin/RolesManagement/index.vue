@@ -190,7 +190,7 @@ export default {
           }
         });
         // Render domains array and remove duplicate values
-        this.domains = union(this.domains, rolePermissions);
+        this.domains = union(this.domains, ...rolePermissions);
       } else {
         await this.loadAllPermissions();
       }
