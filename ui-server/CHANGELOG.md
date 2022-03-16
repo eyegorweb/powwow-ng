@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.846+20220316133141
+2022-03-16
+
+### Fixes
+
+- [3247] gestion responsive des widgets de la Home pour les utilisateurs M2M_LIGHT (907560a6e7fea9f3c4d9b9662a01e23af0fa5d29)
+
 ## 1.17.0-master.845+20220316105836
 2022-03-16
 
