@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.845+20220316105836
+2022-03-16
+
+### Fixes
+
+- [3225] configuration des rôles et des permissions (fad8b3fbc0e38a93da6d292a31aef1ac9df43cc2)
+
 ## 1.17.0-master.844+20220315092432
 2022-03-15
 
