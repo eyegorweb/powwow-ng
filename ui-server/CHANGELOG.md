@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.847+20220316192751
+2022-03-16
+
+### Fixes
+
+- [3225] gestion et administration des  rôles (91e7dde3cc9180b4af41f3de20642fe873a827e6)
+
 ## 1.17.0-master.846+20220316133141
 2022-03-16
 
