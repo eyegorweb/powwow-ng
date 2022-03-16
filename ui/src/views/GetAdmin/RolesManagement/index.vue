@@ -77,13 +77,13 @@ function sortRoles(r) {
   r.sort((a, b) => {
     const nameA = a.description.toUpperCase();
     const nameB = b.description.toUpperCase();
-    let comparison = 0;
-    if (nameA > nameB) {
-      comparison = 1;
-    } else if (nameA < nameB) {
-      comparison = -1;
+    if (nameA < nameB) {
+      return -1;
     }
-    return comparison;
+    if (nameA > nameB) {
+      return 1;
+    }
+    return 0;
   });
   return r;
 }
@@ -208,9 +208,10 @@ export default {
     async loadRoles() {
       let roles = await fetchRoles();
       if (roles && roles.length) {
-        let rolesC = roles.filter((e) => e.category == null);
-        let rolesW = roles.filter((e) => e.category == 2 || e.category == 1);
+        let rolesC = roles.filter((e) => e.category === null);
+        let rolesW = roles.filter((e) => e.category === 2 || e.category === 1);
 
+        rolesC = sortRoles(rolesC);
         rolesW = sortRoles(rolesW);
 
         this.rolesSorted.push(...rolesC, ...rolesW);
