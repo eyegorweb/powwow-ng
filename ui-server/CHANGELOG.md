@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.852+20220317133324
+2022-03-17
+
+### Fixes
+
+- [000] réglage de la checkbox de validation de la commande d'offre digitale (96e1c680750d6312f3c958d968b6df480d98e42f)
+
 ## 1.17.0-master.851+20220317131741
 2022-03-17
 
