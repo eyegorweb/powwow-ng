@@ -272,7 +272,7 @@ export default {
       }
     },
     onSeeMore() {
-      this.$pushAnalytics({ event: 'm2m.seeMore', widget: 'ParcStateWidget' });
+      this.$pushAnalytics({ event: 'm2m.seeMore', widget: 'Etat du parc' });
 
       if (this.selectedPartner) {
         this.filters = [

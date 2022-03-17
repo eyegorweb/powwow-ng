@@ -46,7 +46,7 @@ export default {
     },
 
     onSeeMore() {
-      this.$pushAnalytics({ event: 'm2m.seeMore', widget: 'ConsoGraphWidget' });
+      this.$pushAnalytics({ event: 'm2m.seeMore', widget: 'Consommation mensuelle' });
 
       this.$router.push({
         name: 'reportsDashboard',

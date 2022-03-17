@@ -41,7 +41,7 @@ export default {
 
   methods: {
     async searchById(filterObj) {
-      this.$pushAnalytics({ event: 'm2m.search', widget: 'SearchLinesByIdWidget' });
+      this.$pushAnalytics({ event: 'm2m.search', widget: 'Recherche de ligne' });
 
       this.lastSEarchFiler = filterObj;
       this.searching = true;

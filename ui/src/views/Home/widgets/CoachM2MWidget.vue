@@ -125,7 +125,7 @@ export default {
       this.coachData = undefined;
     },
     async startDiagnosis(line) {
-      this.$pushAnalytics({ event: 'm2m.search', widget: 'CoachM2MWidget' });
+      this.$pushAnalytics({ event: 'm2m.search', widget: 'Coach M2M' });
       const apId = get(line, 'accessPoint.id');
       if (this.havePermission('getVision', 'read')) {
         this.advancedIndicators = [

@@ -46,6 +46,7 @@ export default {
       this.rows = this.formatResponse(response.items);
     },
     onSeeMore() {
+      this.$pushAnalytics({ event: 'm2m.seeMore', widget: 'Acte de gestion' });
       this.$router.push({
         name: 'actHistory.classic',
         params: {

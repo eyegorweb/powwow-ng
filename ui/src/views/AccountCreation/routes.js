@@ -12,21 +12,25 @@ export default {
     {
       path: 'partner',
       name: 'createAccount.partner',
+      meta:{label: 'Offre digitale : Création de compte - Partenaire'},
       component: PartnerStep,
     },
     {
       path: 'offer',
       name: 'createAccount.offer',
+      meta:{label: 'Offre digitale : Création de compte - Offre'},
       component: OfferStep,
     },
     {
       path: 'sim',
       name: 'createAccount.simChoice',
+      meta:{label: 'Offre digitale : Création de compte - Sim'},
       component: SimStep,
     },
     {
       path: 'delivery',
       name: 'createAccount.delivery',
+      meta:{label: 'Offre digitale : Création de compte - Adresse de livraison'},
       component: DeliveryStep,
     },
     // {

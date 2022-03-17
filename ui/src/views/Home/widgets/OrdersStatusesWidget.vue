@@ -46,7 +46,7 @@ export default {
       });
     },
     onSeeMore() {
-      this.$pushAnalytics({ event: 'm2m.seeMore', widget: 'OrdersStatusesWidget' });
+      this.$pushAnalytics({ event: 'm2m.seeMore', widget: 'Statut des commandes' });
       this.$router.push({
         name: 'orders.search',
         params: {
@@ -94,7 +94,7 @@ export default {
       });
     },
     createOrder() {
-      this.$pushAnalytics({ event: 'm2m.createOrder', widget: 'OrdersStatusesWidget' });
+      this.$pushAnalytics({ event: 'm2m.createOrder', widget: 'Statut des commandes' });
       this.$router.push({
         name: 'orders.search',
         params: {

@@ -58,7 +58,7 @@ export default {
     ...mapMutations(['startDownload']),
 
     onSeeMore() {
-      this.$pushAnalytics({ event: 'm2m.seeMore', widget: 'BillsWidget' });
+      this.$pushAnalytics({ event: 'm2m.seeMore', widget: 'Dernières factures' });
       this.$router.push({
         name: 'reportsBill',
         params: {
