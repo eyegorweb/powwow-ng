@@ -470,9 +470,15 @@ $fontSize: 0.8rem;
       &.displayResponsive {
         display: flex;
       }
-
       .checkbox-container {
         margin-right: 10px;
+        margin-top: 7px;
+        & ::v-deep label.filled {
+          margin-bottom: 0;
+        }
+        & ::v-deep span.checkmark {
+          margin-top: 7px;
+        }
       }
     }
   }
