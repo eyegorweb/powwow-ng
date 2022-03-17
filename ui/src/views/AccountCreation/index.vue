@@ -273,7 +273,7 @@ export default {
           setTimeout(() => {
             this.redirectToPaynum(response.url);
             this.isSuccess = false;
-          }, 3000);
+          }, 5000);
         }
       } catch (e) {
         this.isLoading = false;

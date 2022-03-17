@@ -100,6 +100,7 @@
   "showAllHistory": "View full history",
   "groupAccount": "Group account",
   "login": "Login",
+  "loginWanted": "Desired login",
   "oldPassword": "Old password",
   "password": "New Password",
   "passwordConfirm": "Password confirmation",
@@ -125,7 +126,7 @@
       "siren": "Siren",
       "lastName": "Name of the responsible",
       "firstName": "First name of the responsible",
-      "phone": "Phone"
+      "phone": "Mobil phone"
     },
     "synthesis": {
       "title": "Order Summary",
