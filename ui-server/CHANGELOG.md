@@ -2,6 +2,17 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.849+20220317115113
+2022-03-17
+
+### Features
+
+- [3243] Modification des libellés dans l'offre digitale. (78142cef63920ee1603af6e8206034f3416bfd6b)
+
+### Fixes
+
+- [3234] correction du style d'affichage du message de succès pour la création d'un partenaire M2M_LIGHT (e64300e8b2cc0b483f52221829b78f57c0244a45)
+
 ## 1.17.0-master.848+20220317091053
 2022-03-17
 
