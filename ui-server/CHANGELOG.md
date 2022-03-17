@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.848+20220317091053
+2022-03-17
+
+### Features
+
+- [2740] Matomo - Id partenaire (07ac5f6c4cfd212363f13365717575152bd5daec)
+
 ## 1.17.0-master.847+20220316192751
 2022-03-16
 
