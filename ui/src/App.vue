@@ -95,7 +95,7 @@ export default {
       this.closePanel();
     },
     singlePartner(value) {
-      this.$pushAnalytics({ partner: value != null ? value.name : '' });
+      this.$pushAnalytics({ partner: value != null ? value.id : '' });
     },
     userInfos(value) {
       this.$pushAnalytics({
@@ -107,8 +107,8 @@ export default {
                 : 'Admin'
               : this.userIsPartner || this.userIsMultiPartner
               ? 'Partner'
-              : 'Unknown'
-            : 'Unknown',
+              : 'Inconnu'
+            : 'Inconnu',
       });
     },
     appIsReady(value) {
