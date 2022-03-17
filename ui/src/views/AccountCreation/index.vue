@@ -3,7 +3,7 @@
     <div class="cd-panel__content">
       <div class="creation-panel">
         <div class="stepper-container">
-          <div class="account-creation-stepper">
+          <div class="account-creation-stepper" v-if="!isSuccess">
             <div class="card">
               <Stepper :key="$i18n.locale" :steps="steps" :selected-index="currentStep" />
               <div class="p-4 pb8">
@@ -16,6 +16,11 @@
                 </keep-alive>
               </div>
             </div>
+          </div>
+          <div class="account-creation-success" v-if="isSuccess">
+            {{ $t('digitalOffer.synthesis.successCreation1') }}
+            <br />
+            {{ $t('digitalOffer.synthesis.successCreation2') }}
           </div>
         </div>
         <CreateAccountPanelSynthesis
@@ -411,10 +416,6 @@ export default {
   overflow: auto;
 
   .stepper-container {
-    // .account-creation-stepper
-    // display: flex;
-    // justify-content: center;
-    // margin-top: 1rem;
     width: 70%;
     background: white;
     overflow: auto;
@@ -436,6 +437,19 @@ export default {
         flex-direction: column;
         height: 100%;
       }
+    }
+    .account-creation-success {
+      height: 100%;
+      padding: 10px;
+      background: white;
+      vertical-align: middle;
+      text-align: center;
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(54, 56, 57, 0.125);
+      border-radius: 0.25rem;
     }
   }
   .wizard-synthesis {
@@ -476,6 +490,10 @@ export default {
           max-width: 100%;
           width: 100%;
         }
+      }
+      .account-creation-success {
+        text-align: left;
+        font-size: 14px;
       }
     }
   }
