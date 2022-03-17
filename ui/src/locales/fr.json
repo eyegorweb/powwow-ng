@@ -122,6 +122,7 @@
   "showAllHistory": "Voir l'historique complet",
   "groupAccount": "Compte groupe",
   "login": "Login",
+  "loginWanted": "Login souhaité",
   "oldPassword": "Ancien mot de passe",
   "password": "Nouveau mot de passe",
   "passwordConfirm": "Confirmation du mot de passe",
@@ -164,7 +165,7 @@
       "siren": "Siren",
       "lastName": "Nom du responsable",
       "firstName": "Prénom du responsable",
-      "phone": "Téléphone"
+      "phone": "Téléphone mobile"
     },
     "synthesis": {
       "title": "Récapitulatif de la commande",
@@ -2348,7 +2349,7 @@
   },
   "indicators": {
     "getsim": {
-      "ordersInProgress": "Commandes en cours de traitement",
+      "ordersInProgress": "Commandes en cours",
       "ordersNotConfirmed": "Commandes non confirmées > 4h",
       "ordersFailed": "Commandes en échec",
       "ordersToBeConfirmed": "Commandes à valider",

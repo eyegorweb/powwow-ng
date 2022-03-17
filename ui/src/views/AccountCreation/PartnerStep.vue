@@ -157,7 +157,7 @@
       </div>
 
       <div class="form-group">
-        <label class="small-label" :class="{ error: loginError }">{{ $t('login') }} </label>
+        <label class="small-label" :class="{ error: loginError }">{{ $t('loginWanted') }} </label>
         <UiInput
           v-model="form.login"
           :max-size="50"
