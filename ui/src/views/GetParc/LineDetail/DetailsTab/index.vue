@@ -39,6 +39,7 @@ export default {
         compatiblePartnerTypes: ['CUSTOMER', 'MVNO', 'MULTI_CUSTOMER', 'M2M_LIGHT'],
         to: {
           name: 'lineDetail.details.info',
+          meta:{label: 'Détail de la ligne - Informations'},
           params: { lineId: this.$route.params.lineId, meta: this.content },
         },
       },
@@ -48,6 +49,7 @@ export default {
         compatiblePartnerTypes: ['CUSTOMER', 'MVNO', 'MULTI_CUSTOMER', 'M2M_LIGHT'],
         to: {
           name: 'lineDetail.details.billing',
+          meta:{label: 'Détail de la ligne - Facturation et offre'},
           params: { lineId: this.$route.params.lineId, meta: this.content },
         },
       },
@@ -57,6 +59,7 @@ export default {
         compatiblePartnerTypes: ['CUSTOMER', 'MVNO', 'MULTI_CUSTOMER', 'M2M_LIGHT'],
         to: {
           name: 'lineDetail.details.services',
+          meta:{label: 'Détail de la ligne - Services de la ligne'},
           params: { lineId: this.$route.params.lineId, meta: this.content },
         },
       },
@@ -66,6 +69,7 @@ export default {
         compatiblePartnerTypes: ['CUSTOMER', 'MULTI_CUSTOMER', 'M2M_LIGHT'],
         to: {
           name: 'lineDetail.details.alarms',
+          meta:{label: 'Détail de la ligne - Liste des alarmes'},
           params: { lineId: this.$route.params.lineId, meta: this.content },
         },
       },
@@ -75,6 +79,7 @@ export default {
         compatiblePartnerTypes: ['CUSTOMER', 'MVNO', 'MULTI_CUSTOMER', 'M2M_LIGHT'],
         to: {
           name: 'lineDetail.details.acts',
+          meta:{label: 'Détail de la ligne - Suivi/pilotage des actes de gestion'},
           params: { lineId: this.$route.params.lineId, meta: this.content },
         },
       },

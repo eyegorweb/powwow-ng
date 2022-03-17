@@ -175,6 +175,7 @@ export default {
           label: 'menu.account',
           to: {
             name: 'partnerDetail.users.admins',
+            meta:{label: 'Détail du partenaire - Administrateurs'},
             params: { id: `${this.userInfos.partners[0].id}` },
           },
           permission: { domain: 'party', action: 'read' },
@@ -184,22 +185,22 @@ export default {
       getAdminExtra = excludeMocked([
         {
           label: 'menu.users',
-          to: { name: 'getAdminUsers' },
+          to: { name: 'getAdminUsers', meta:{label: 'Recherche des utilisateurs'} },
           permission: { domain: 'user', action: 'read' },
         },
         {
           label: 'menu.partners',
-          to: { name: 'getAdminPartners' },
+          to: { name: 'getAdminPartners', meta:{label: 'Recherche de partenaires'} },
           permission: { domain: 'party', action: 'read' },
         },
         {
           label: 'menu.cf',
-          to: { name: 'getAdminCF' },
-          permission: { domain: 'party', action: 'read' },
+          to: { name: 'getAdminCF', meta:{label: 'Recherche de comptes de facturation'} },
+          permission: { domain: 'party', action: 'read_customer_account' },
         },
         {
           label: 'menu.rolesManagement',
-          to: { name: 'getAdminRoles' },
+          to: { name: 'getAdminRoles', meta:{label: 'Gestion des rôles'} },
           permission: { domain: 'party', action: 'read' },
           mock: true,
         },
@@ -212,17 +213,17 @@ export default {
     let navbarLinks = excludeMocked([
       {
         label: 'mainMenu.getSim',
-        to: { name: 'orders.search' },
+        to: { name: 'orders.search', meta:{label: 'Recherche de commandes'} },
         permission: { domain: 'getSim', action: 'read' },
         submenu: [
           {
             label: 'menu.getSim.manage-orders',
-            to: { name: 'orders.search' },
+            to: { name: 'orders.search'; meta:{label: 'Recherche de commandes'} },
             permission: { domain: 'getSim', action: 'read' },
           },
           {
             label: 'menu.getSim.manage-stocks',
-            to: { name: 'stocks' },
+            to: { name: 'stocks', meta:{label: 'Stock'} },
             permission: () => {
               return (
                 this.havePermission('getSim', 'read') &&
@@ -239,12 +240,12 @@ export default {
         submenu: [
           {
             label: 'menu.actLines',
-            to: { name: 'actLines' },
+            to: { name: 'actLines', meta:{label: 'Recherche de lignes'} },
             permission: { domain: 'getParc', action: 'read' },
           },
           {
             label: 'menu.massActions',
-            to: { name: 'actHistory.classic' },
+            to: { name: 'actHistory.classic', meta:{label: 'Historique des actes'} },
             permission: { domain: 'act', action: 'read' },
           },
         ],
@@ -253,7 +254,7 @@ export default {
     if (this.userInfos.isFleetEnabled) {
       navbarLinks.push({
         label: 'mainMenu.getVision',
-        to: { name: 'getVisionMonitoring' },
+        to: { name: 'getVisionMonitoring', meta:{label: 'Supervision'} },
         permission: { domain: 'getVision', action: 'read' },
       });
     }
@@ -262,29 +263,29 @@ export default {
       .concat([
         {
           label: 'mainMenu.getAlarm',
-          to: { name: 'alarms' },
+          to: { name: 'alarms', meta:{label: 'Recherche d\'alarmes'} },
           permission: { domain: 'alarm', action: 'read' },
         },
         {
           label: 'mainMenu.getReport',
-          to: { name: 'reports' },
+          to: { name: 'reports', meta:{label: 'Modèles de rapports'} },
           permission: () => {
             return this.havePermissionDomain('getReport');
           },
           submenu: [
             {
               label: 'menu.modelReports',
-              to: { name: 'getReportsModels' },
+              to: { name: 'getReportsModels', meta:{label: 'Modèles de rapports'} },
               permission: { domain: 'getReport', action: 'read' },
             },
             {
               label: 'menu.documents',
-              to: { name: 'documents' },
+              to: { name: 'documents', meta:{label: 'Gestion des documents'} },
               permission: { domain: 'getReport', action: 'manage_document' },
             },
             {
               label: 'menu.reportsDashboard',
-              to: { name: 'reportsDashboard' },
+              to: { name: 'reportsDashboard', meta:{label: 'Tableau de bord'} },
               permission: () => {
                 let canSeeMenu = this.havePermission('getReport', 'read_dashboard');
                 if (this.userIsPartner) {
@@ -305,17 +306,17 @@ export default {
         },
         {
           label: 'mainMenu.getBill',
-          to: { name: 'reportsBill' },
+          to: { name: 'reportsBill', meta:{label: 'Factures'} },
           permission: { domain: 'getReport', action: 'read_bill' },
         },
         {
           label: 'mainMenu.getAdmin',
-          to: { name: 'exemples' },
+          to: { name: 'exemples', meta:{label: 'Exemples'} },
           submenu: [...getAdminExtra],
         },
         {
           label: 'mainMenu.getSupport',
-          to: { name: 'exemples' },
+          to: { name: 'exemples', meta:{label: 'getSupport'} },
           permission: { domain: 'getSupport', action: 'access' },
           onClick: async (targetName) => {
             if (waitingForGetSupportLink) return;
@@ -337,36 +338,36 @@ export default {
           submenu: [
             {
               label: 'menu.getSupport.homepage',
-              to: { name: 'HOMEPAGE' },
+              to: { name: 'HOMEPAGE', meta:{label: 'getSupport'} },
               permission: { domain: 'getSupport', action: 'access' },
             },
             {
               label: 'menu.getSupport.all_incidents',
-              to: { name: 'ALL_INCIDENTS' },
+              to: { name: 'ALL_INCIDENTS', meta:{label: 'getSupport - Tous les incidents'} },
               permission: { domain: 'getSupport', action: 'access' },
             },
             {
               label: 'menu.getSupport.search_incidents',
-              to: { name: 'SEARCH_INCIDENTS' },
+              to: { name: 'SEARCH_INCIDENTS', meta:{label: 'getSupport - Recherche d\'incidents'} },
               permission: { domain: 'getSupport', action: 'access' },
             },
           ],
         },
         {
           label: 'mainMenu.getDevice',
-          to: { name: 'getDevice' },
+          to: { name: 'getDevice', meta:{label: 'getDevice'} },
           permission: { domain: 'getDevice', action: 'read' },
         },
         {
           label: 'mainMenu.help',
-          to: { name: 'help' },
+          to: { name: 'help', meta:{label: 'Aide'} },
           external: {
             url: 'https://www.objenious.com/aide-getway/',
           },
         },
         {
           label: 'mainMenu.contact',
-          to: { name: 'contact' },
+          to: { name: 'contact', meta:{label: 'Contact'} },
           mailto: {
             email: 'objenious@bouyguestelecom.fr',
           },

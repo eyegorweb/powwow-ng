@@ -64,6 +64,7 @@ export default {
           title: this.$t('getparc.classic-acts'),
           to: {
             name: 'actHistory.classic',
+            meta:{label: 'Historique des actes'},
           },
         },
         {
@@ -71,6 +72,7 @@ export default {
           title: this.$t('getparc.esim-acts'),
           to: {
             name: 'actHistory.esim',
+            meta:{label: 'Historique des actes eSIM'},
           },
         },
       ];

@@ -34,6 +34,7 @@ export default {
         title: 'getadmin.customize.broadcastLists',
         to: {
           name: 'partnerDetail.customize.broadcastLists',
+          meta:{label: 'Détail du partenaire - Listes de diffusion'},
           params: { partner: this.partner },
         },
       });
@@ -47,6 +48,7 @@ export default {
         title: 'getadmin.customize.deliveryAddress',
         to: {
           name: 'partnerDetail.customize.deliveryAddress',
+          meta:{label: 'Détail du partenaire - Adresses de livraison'},
           params: { partner: this.partner },
         },
       });
@@ -58,6 +60,7 @@ export default {
         title: 'getadmin.customize.customFields',
         to: {
           name: 'partnerDetail.customize.customFields',
+          meta:{label: 'Détail du partenaire - Champs libres'},
           params: { partner: this.partner },
         },
       });
@@ -73,6 +76,7 @@ export default {
         title: 'getadmin.customize.specificFields',
         to: {
           name: 'partnerDetail.customize.specificFields',
+          meta:{label: 'Détail du partenaire - Champs spécifiques'},
           params: { partner: this.partner },
         },
       });

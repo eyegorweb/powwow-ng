@@ -107,6 +107,7 @@ export default {
           permission: permissionsForUsersTab,
           to: {
             name: 'partnerDetail.users.admins',
+            meta:{label: 'Détail du partenaire - Administrateurs'},
             params: { partner: this.partner },
           },
         });
@@ -118,6 +119,7 @@ export default {
           title: this.$t('getadmin.partners.customize').toUpperCase(),
           to: {
             name: 'partnerDetail.customize.customFields',
+            meta:{label: 'Détail du partenaire - Champs libres'},
             params: { partner: this.partner },
           },
         });
@@ -129,6 +131,7 @@ export default {
           title: this.$t('getadmin.partners.customerList').toUpperCase(),
           to: {
             name: 'getAdminPartnerDetails.customerList.list',
+            meta:{label: 'Détail du partenaire - Liste des entités (MB)'},
             params: { partner: this.partner },
           },
         });
@@ -139,6 +142,7 @@ export default {
             title: this.$t('filters.billingAccounts').toUpperCase(),
             to: {
               name: 'getAdminPartnerDetails.billingAccounts.list',
+              meta:{label: 'Détail du partenaire - Comptes de facturation'},
               params: { partner: this.partner },
             },
           });
@@ -157,6 +161,7 @@ export default {
           title: this.$t('getadmin.partners.offersAndSim').toUpperCase(),
           to: {
             name: 'partnerDetail.offersAndSim.simCards',
+            meta:{label: 'Détail du partenaire - Cartes SIM'},
             params: { partner: this.partner },
           },
         });
@@ -183,6 +188,7 @@ export default {
           title: this.$t('getadmin.partners.accountDetail').toUpperCase(),
           to: {
             name: 'partnerDetail.accountDetail.description',
+            meta:{label: 'Détail du partenaire - Description du compte partenaire'},
             params: { partner: this.partner },
           },
         });

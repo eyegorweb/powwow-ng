@@ -69,6 +69,7 @@ export default {
           title: this.$t('home.widgets.orders'),
           to: {
             name: 'orders.search',
+            meta:{label: 'Recherche de commandes'},
           },
         },
         {
@@ -76,6 +77,7 @@ export default {
           title: this.$t('getsim.reservations.tabTitle'),
           to: {
             name: 'orders.reservations',
+            meta:{label: 'Recherche de réservations'},
           },
         },
       ];

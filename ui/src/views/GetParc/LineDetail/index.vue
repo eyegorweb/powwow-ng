@@ -80,6 +80,7 @@ export default {
         title: this.$t('getparc.lineDetail.title', { lineId: '' }),
         to: {
           name: 'lineDetail.details.info',
+          meta:{label: 'Détail de la ligne - Informations'},
           params: { lineId: this.$route.params.lineId },
         },
       },
@@ -89,6 +90,7 @@ export default {
 
         to: {
           name: 'lineDetail.ongoing',
+          meta:{label: 'Détail de la ligne - En cours de consommation'},
           params: { lineId: this.$route.params.lineId },
         },
       },
@@ -97,6 +99,7 @@ export default {
         title: this.$t('getparc.lineDetail.analysingTool'), // ne pas afficher l'onglet si on n'a pas les permissions
         to: {
           name: 'lineDetail.diagnosis.analysis',
+          meta:{label: 'Détail de la ligne - Analyser la ligne'},
           params: { lineId: this.$route.params.lineId },
         },
       },
