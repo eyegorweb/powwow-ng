@@ -14,11 +14,6 @@
     <div class="creationSuccess" v-if="isLoading">
       {{ $t('digitalOffer.synthesis.onGoingCreation') }}
     </div>
-    <div class="creationSuccess" v-if="isSuccess">
-      {{ $t('digitalOffer.synthesis.successCreation1') }}
-      <br />
-      {{ $t('digitalOffer.synthesis.successCreation2') }}
-    </div>
     <div class="synthesis-content">
       <CreateAccountPanelSynthesisItem
         :key="item.label"
@@ -86,7 +81,7 @@
       <template v-if="isError">
         <slot name="errors"></slot>
       </template>
-      <template v-if="canSave">
+      <template v-if="canSave && !isSuccess">
         <UiCheckbox v-model="accept" :disabled="!canSave" v-if="!isLoading">
           <span v-if="!conditionUrl">{{ $t('orders.new.acceptConditions') }}</span>
           <span v-if="conditionUrl"
@@ -498,20 +493,6 @@ $fontSize: 0.8rem;
       font-size: 0.9rem;
     }
   }
-}
-
-.creationSuccess {
-  position: absolute;
-  left: 0;
-  height: 100vh;
-  width: 70%;
-  background: white;
-  vertical-align: middle;
-  text-align: center;
-  font-size: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 @media (max-height: 588px) {
