@@ -30,7 +30,7 @@ router.beforeEach((to, from, next) => {
   if (!to.ignoreAnalytics) {
     router.app.$pushAnalyticsIfReady({
       event: 'm2m.PageView',
-      to: { name: to.label ? to.label : to.name , path: to.path },
+      to: { name: to.meta && to.meta.label ? to.meta.label : to.name , path: to.path },
     });
   }
   next();
