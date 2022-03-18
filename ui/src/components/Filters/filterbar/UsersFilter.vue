@@ -1,5 +1,10 @@
 <template>
-  <UiApiAutocomplete :api-method="fetchApi" v-model="selectedUser" display-results-while-empty />
+  <UiApiAutocomplete
+    :api-method="fetchApi"
+    v-model="selectedUser"
+    scroll-for-next
+    display-results-while-empty
+  />
 </template>
 
 <script>
