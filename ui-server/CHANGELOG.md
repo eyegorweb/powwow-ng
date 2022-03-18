@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.856+20220318151809
+2022-03-18
+
+### Fixes
+
+- [2789] correction des filtres et tris dans la gestion des rapports (99f812700adcd81be865261aa9e89ebb0b620f57)
+
 ## 1.17.0-master.855+20220318101338
 2022-03-18
 
