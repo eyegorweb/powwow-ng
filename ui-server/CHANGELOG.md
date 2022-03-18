@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.854+20220318083701
+2022-03-18
+
+### Features
+
+- [2740] Matomo - Noms partie 2 / seeMore (e3d2e1e47442742889f285ee629ae792ed63409a)
+- [2740] Matomo - Noms partie 2 / seeMore (f00876ac4047b41db65a7f2ca1e0aeb0484b1676)
+
 ## 1.17.0-master.853+20220317144523
 2022-03-17
 
