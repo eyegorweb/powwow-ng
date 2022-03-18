@@ -1,22 +1,22 @@
 import { query } from './utils';
 
-export async function fetchReports(orderBy, pagination, partnerID, reportName) {
+export async function fetchReports(orderBy, pagination, partnerID, creator) {
   const orderingInfo = orderBy ? `, sorting: {${orderBy.key}: ${orderBy.direction}}` : '';
   const paginationInfo = pagination
     ? `, pagination: {page: ${pagination.page}, limit: ${pagination.limit}}`
     : '';
   let partnerIdParam = '';
-  let partnerNameParam = '';
+  let reportParams = '';
   if (partnerID) {
     partnerIdParam = `partyId: ${partnerID}`;
   }
-  if (reportName) {
-    partnerNameParam = `,reportName: {eq: "${reportName}"}`;
+  if (creator) {
+    reportParams = `,creatorId: ${creator}`;
   }
   const queryStr = `
   query {
     reportDefinitionsV2(
-      filter: {${partnerIdParam} ${partnerNameParam}}
+      filter: {${partnerIdParam} ${reportParams}}
       ${paginationInfo}${orderingInfo}
     ) {
       total

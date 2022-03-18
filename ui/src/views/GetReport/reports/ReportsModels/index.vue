@@ -21,9 +21,7 @@
         :columns="columns"
         :filters="filters"
         :rows="rows"
-        :page.sync="page"
         :is-loading="isLoading"
-        :page-limit.sync="pageLimit"
         :total="total"
         :order-by.sync="orderBy"
         :show-extra-columns.sync="showExtraCells"
@@ -65,8 +63,6 @@ export default {
   },
   data() {
     return {
-      page: 1,
-      pageLimit: 10,
       showExtraCells: false,
       isLoading: true,
       reportFrequencyChoices: [
@@ -254,12 +250,6 @@ export default {
         ? this.userInfos.partners[0].id
         : null;
     },
-    pageInfo() {
-      return {
-        page: this.page - 1,
-        limit: this.pageLimit,
-      };
-    },
   },
   methods: {
     ...mapMutations(['openPanel']),
@@ -273,11 +263,11 @@ export default {
         filters = [...filters, ...this.appliedFilters];
       }
 
-      let reportName;
+      let creatorInfos;
       let partner;
       if (filters) {
         filters.forEach((e) => {
-          e.id === 'filters.reportOwner' ? (reportName = e.data.label) : undefined;
+          e.id === 'filters.reportOwner' ? (creatorInfos = e.data.id) : undefined;
           e.id === 'filters.partner' ? (partner = e.data.id) : undefined;
         });
       }
@@ -285,9 +275,9 @@ export default {
       let data;
       this.isLoading = true;
       if (filters.length > 0) {
-        data = await fetchReports(this.orderBy, pagination, partner, reportName);
+        data = await fetchReports(this.orderBy, pagination, partner, creatorInfos);
       } else {
-        data = await fetchReports(this.orderBy, this.pageInfo);
+        data = await fetchReports(this.orderBy, pagination);
       }
 
       this.isLoading = false;
@@ -299,7 +289,6 @@ export default {
     },
     getPanelConfig(row) {
       const doReset = () => {
-        this.page = 1;
         this.applyFilters();
       };
       return {
@@ -320,7 +309,6 @@ export default {
 
     createReport() {
       const doReset = () => {
-        this.page = 1;
         this.applyFilters();
       };
       this.openPanel({
@@ -336,19 +324,6 @@ export default {
           }
         },
       });
-    },
-  },
-  watch: {
-    orderBy() {
-      this.page = 1;
-      this.applyFilters();
-    },
-    pageLimit() {
-      this.page = 1;
-      this.applyFilters();
-    },
-    page() {
-      this.applyFilters();
     },
   },
 };
