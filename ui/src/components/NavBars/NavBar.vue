@@ -218,7 +218,7 @@ export default {
         submenu: [
           {
             label: 'menu.getSim.manage-orders',
-            to: { name: 'orders.search'; meta:{label: 'Recherche de commandes'} },
+            to: { name: 'orders.search', meta:{label: 'Recherche de commandes'} },
             permission: { domain: 'getSim', action: 'read' },
           },
           {
