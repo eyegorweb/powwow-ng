@@ -101,6 +101,9 @@ export default {
 
   .card-body {
     height: 16rem;
+    @media only screen and (max-width: 760px) {
+      overflow-y: scroll;
+    }
   }
 }
 
