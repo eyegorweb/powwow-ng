@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.857+20220322140153
+2022-03-22
+
+### Fixes
+
+- [3225] ajout d'un loader pour améliorer l'expérience utilisateur (563a61ef7ec569dd113429443069a3081940e31b)
+
 ## 1.17.0-master.856+20220318151809
 2022-03-18
 
