@@ -36,9 +36,14 @@
                       v-for="p in domain.permissions"
                       @click.stop="() => (p.checked = !p.checked)"
                     >
-                      <UiCheckbox v-model="p.checked">
-                        <span class="pl-2 pb-2">{{ p.labelAction }}</span>
-                      </UiCheckbox>
+                      <template v-if="isLoading">
+                        <div class="skeleton-line"></div>
+                      </template>
+                      <template v-else>
+                        <UiCheckbox v-model="p.checked">
+                          <span class="pl-2 pb-2">{{ p.labelAction }}</span>
+                        </UiCheckbox>
+                      </template>
                     </li>
                   </ul>
                 </PermissionChoice>
@@ -136,6 +141,7 @@ export default {
     return {
       selectedRole: undefined,
       openAll: false,
+      isLoading: false,
       roles: [],
       domains: undefined,
       rolesSorted: [],
@@ -170,6 +176,7 @@ export default {
     },
 
     async refreshSelectedRolePermissions() {
+      this.isLoading = true;
       const rolePermissions = await fetchPermissionsByRole(this.selectedRole.Id);
       if (rolePermissions.length) {
         rolePermissions.forEach((domainByRole) => {
@@ -194,15 +201,18 @@ export default {
       } else {
         await this.loadAllPermissions();
       }
+      this.isLoading = false;
     },
 
     async loadAllPermissions() {
+      this.isLoading = true;
       this.domains = await fetchAllPermissions();
       this.domains.forEach((d) => {
         d.permissions.forEach((p) => {
           p.checked = false;
         });
       });
+      this.isLoading = false;
     },
 
     async loadRoles() {
