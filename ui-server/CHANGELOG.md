@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.858+20220322153002
+2022-03-22
+
+### Fixes
+
+- [3247] correction de l'affichage hauteur des widgets pour les appareils mobiles (6c77f3ae3e2b7a6cbaedf5105b0d816a5aae1730)
+
 ## 1.17.0-master.857+20220322140153
 2022-03-22
 
