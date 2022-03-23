@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.861+20220323145600
+2022-03-23
+
+### Fixes
+
+- [3248] correction de traudctions d'onglets (d59e0192d2f23e5c7d6ccb8c8c422698e145d40a)
+
 ## 1.17.0-master.860+20220323125141
 2022-03-23
 
