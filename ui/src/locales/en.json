@@ -14,6 +14,7 @@
   "mandatory": "Mandatory",
   "date-over": "before {date}",
   "voice": "Voice",
+  "readMore": "Read more",
   "chooseAPartner": "Choose a partner",
   "numberPerPage": "Nb per page",
   "partnerType": "Partner type",
@@ -177,7 +178,7 @@
     "offerStep": {
       "subscribe": "Select",
       "topup": "Top up",
-      "offerPeriod": "pour {period} mois"
+      "offerPeriod": "for {period} months"
     },
     "confirmationWarning": "Do you confirm the cancellation of the order? "
   },
