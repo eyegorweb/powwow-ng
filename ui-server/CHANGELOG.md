@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.860+20220323125141
+2022-03-23
+
+### Fixes
+
+- [3254] configuration de la langue utilisateur lors de la création d'offre digitale (bdbbcddc3d213210299336147fd7ca6d33e3a768)
+
 ## 1.17.0-master.859+20220323112047
 2022-03-23
 
