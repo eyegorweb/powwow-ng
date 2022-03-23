@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.859+20220323112047
+2022-03-23
+
+### Fixes
+
+- [3255] Ajout d'un tri sur les alertes du cockpit M2M. (8f777999c21f2f7f891e22fe57c39ce36f01eaca)
+
 ## 1.17.0-master.858+20220322153002
 2022-03-22
 
