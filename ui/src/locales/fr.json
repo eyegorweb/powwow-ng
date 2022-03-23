@@ -1538,6 +1538,7 @@
     },
     "lineDetail": {
       "title": "Détail de la ligne {msisdn}",
+      "header": "Détail de la ligne",
       "state": "Etat",
       "lastState": "Etat précédent",
       "lastChange": "Dernier changement",

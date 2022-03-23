@@ -35,9 +35,9 @@
         <template slot-scope="{ tab, index }">
           <UiTab v-if="tab" :is-selected="index === currentTabToShow" class="tab-grow">
             <router-link v-if="index !== currentTabToShow" :to="tab.to">{{
-              tab.title
+              $t(tab.title)
             }}</router-link>
-            <a @click="(e) => e.preventDefault()" v-else>{{ tab.title }}</a>
+            <a @click="(e) => e.preventDefault()" v-else>{{ $t(tab.title) }}</a>
           </UiTab>
         </template>
       </UiTabs>
@@ -77,29 +77,29 @@ export default {
     this.tabs = [
       {
         label: 'detail',
-        title: this.$t('getparc.lineDetail.title', { lineId: '' }),
+        title: 'getparc.lineDetail.header',
         to: {
           name: 'lineDetail.details.info',
-          meta:{label: 'Détail de la ligne - Informations'},
+          meta: { label: 'Détail de la ligne - Informations' },
           params: { lineId: this.$route.params.lineId },
         },
       },
       {
         label: 'ongoing',
-        title: this.$t('getparc.lineDetail.consuming'),
+        title: 'getparc.lineDetail.consuming',
 
         to: {
           name: 'lineDetail.ongoing',
-          meta:{label: 'Détail de la ligne - En cours de consommation'},
+          meta: { label: 'Détail de la ligne - En cours de consommation' },
           params: { lineId: this.$route.params.lineId },
         },
       },
       {
         label: 'diagnosis',
-        title: this.$t('getparc.lineDetail.analysingTool'), // ne pas afficher l'onglet si on n'a pas les permissions
+        title: 'getparc.lineDetail.analysingTool', // ne pas afficher l'onglet si on n'a pas les permissions
         to: {
           name: 'lineDetail.diagnosis.analysis',
-          meta:{label: 'Détail de la ligne - Analyser la ligne'},
+          meta: { label: 'Détail de la ligne - Analyser la ligne' },
           params: { lineId: this.$route.params.lineId },
         },
       },

@@ -1407,6 +1407,7 @@
     },
     "lineDetail": {
       "title": "Detail of the line {msisdn}",
+      "header": "Detail of the line",
       "offer": "Offer",
       "lineStatus": "Line status",
       "triggeredAlarms": "Alarms triggered",
