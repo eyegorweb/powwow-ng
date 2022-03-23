@@ -13,7 +13,7 @@
       <UiTabs :tabs="tabs" :selected-index="currentTab">
         <template slot-scope="{ tab, index, selectedIndex }">
           <UiTab v-if="tab" :is-selected="index === selectedIndex" class="tab-grow">
-            <a href="#" @click.prevent="() => (currentTab = index)">{{ tab.title }}</a>
+            <a href="#" @click.prevent="() => (currentTab = index)">{{ $t(tab.title) }}</a>
           </UiTab>
         </template>
         <div class="pt-4 pl-4" slot="parcAlarms">
@@ -69,16 +69,16 @@ export default {
     this.tabs = excludeMocked([
       {
         label: 'parcAlarms',
-        title: this.$t('getvsion.tab-1-parc-alarms'),
+        title: 'getvsion.tab-1-parc-alarms',
       },
       {
         label: 'cockpitM2M',
-        title: this.$t('getvsion.tab-2-m2m-alarms'),
+        title: 'getvsion.tab-2-m2m-alarms',
         mock: true,
       },
       {
         label: 'alarmsSharedConso',
-        title: this.$t('getvsion.tab-3-m2m-sharedconso'),
+        title: 'getvsion.tab-3-m2m-sharedconso',
       },
     ]).filter((i) => {
       if (this.userIsM2MLight) {

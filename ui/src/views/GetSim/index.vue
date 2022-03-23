@@ -18,7 +18,7 @@
           :disable-menu="tab.disable"
           class="tab-grow"
         >
-          <router-link :to="tab.to">{{ tab.title }}</router-link>
+          <router-link :to="tab.to">{{ $t(tab.label) }}</router-link>
         </UiTab>
       </template>
     </UiTabs>
@@ -65,19 +65,17 @@ export default {
     initTabs() {
       this.tabs = [
         {
-          label: 'orders',
-          title: this.$t('home.widgets.orders'),
+          label: 'home.widgets.orders',
           to: {
             name: 'orders.search',
-            meta:{label: 'Recherche de commandes'},
+            meta: { label: 'Recherche de commandes' },
           },
         },
         {
-          label: 'reservations',
-          title: this.$t('getsim.reservations.tabTitle'),
+          label: 'getsim.reservations.tabTitle',
           to: {
             name: 'orders.reservations',
-            meta:{label: 'Recherche de réservations'},
+            meta: { label: 'Recherche de réservations' },
           },
         },
       ];
