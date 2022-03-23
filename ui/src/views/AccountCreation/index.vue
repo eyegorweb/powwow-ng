@@ -85,7 +85,16 @@ export default {
       const hashParts = window.location.href.split('/ko/');
       this.$router.push({ name: 'createAccount.ko', params: { paymentId: hashParts[1] } });
     } else {
-      this.$router.push({ name: 'createAccount.partner' });
+      this.$router.push({ name: 'createAccount.partner' }).catch((err) => {
+        // Ignore the vuex err regarding  navigating to the page they are already on.
+        if (
+          err.name !== 'NavigationDuplicated' &&
+          !err.message.includes('Avoided redundant navigation to current location')
+        ) {
+          // But print any other errors to the console
+          console.error(err);
+        }
+      });
     }
   },
 
@@ -191,8 +200,8 @@ export default {
       return !!(this.synthesis && this.synthesis.deliveryStep);
     },
 
-    localeNavigatorLanguage() {
-      return this.$loGet(navigator, 'language').split('-')[0];
+    userLanguage() {
+      return this.$loGet(this.synthesis, 'creationAccountStep.language', 'fr');
     },
 
     deliveryCountryCode() {
@@ -212,7 +221,7 @@ export default {
         user: {
           username: this.$loGet(this.synthesis, 'creationAccountStep.login'),
           password: this.$loGet(this.synthesis, 'creationAccountStep.password'),
-          language: this.localeNavigatorLanguage,
+          language: this.userLanguage,
         },
         shippingAddressId: null,
         simCardQuantity: this.$loGet(this.synthesis, 'simStep.selectedNumberOfSims'),

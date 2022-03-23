@@ -1,7 +1,27 @@
 <template>
   <div class="step-container">
     <div class="form-container">
-      <div class="allRequired">{{ $t('allRequired') }}</div>
+      <div class="container-flags">
+        <div class="allRequired">{{ $t('allRequired') }}</div>
+        <div class="lang-flags">
+          <a
+            href="#"
+            @click.prevent="() => changeAppLanguage('fr')"
+            :class="{ active: $i18n.locale === 'fr' }"
+            class="flag"
+          >
+            <img src="@/assets/fr.png" />
+          </a>
+          <a
+            href="#"
+            @click.prevent="() => changeAppLanguage('en')"
+            :class="{ active: $i18n.locale === 'en' }"
+            class="flag"
+          >
+            <img src="@/assets/en.png" />
+          </a>
+        </div>
+      </div>
       <div class="row mb-3">
         <div class="col">
           <label>{{ $t('civility') }}</label>
@@ -180,6 +200,8 @@ import UiApiAutocomplete from '@/components/ui/UiApiAutocomplete';
 import UiInput from '@/components/ui/UiInput';
 import { searchAddress, fetchCountries } from '@/api/address';
 import { validatePartner } from '@/api/digital.js';
+import $i18n from '@/i18n';
+import moment from 'moment';
 //
 // Waiting for Richard HALLIER to active recaptcha because of proxy issue
 // import { VueReCaptcha } from 'vue-recaptcha-v3'
@@ -228,6 +250,7 @@ export default {
         email: undefined,
         phone: undefined,
         login: undefined,
+        language: 'fr',
       },
       // FormChecker
       companyError: undefined,
@@ -359,6 +382,15 @@ export default {
 
   methods: {
     searchAddress,
+    changeAppLanguage(lang) {
+      $i18n.locale = lang;
+      if (lang === 'en') {
+        moment.locale('en-sg');
+      } else {
+        moment.locale('fr');
+      }
+      this.form.language = lang;
+    },
     checkFieldFormError(field) {
       return !!Object.keys(this.form).find((key) => key === field && !this.form[key]);
     },
@@ -491,10 +523,23 @@ export default {
 .d-flex.error {
   color: $orange;
 }
-.allRequired {
-  font-size: 14px;
-  margin-bottom: 1.5rem;
-  color: red;
+.container-flags {
+  position: relative;
+  overflow: hidden;
+  .allRequired {
+    font-size: 14px;
+    margin-bottom: 1.5rem;
+    color: red;
+    float: left;
+  }
+  .lang-flags {
+    float: right;
+    margin-top: 7px;
+    > a {
+      margin-left: 1em;
+      margin-right: 0;
+    }
+  }
 }
 
 .formLine {
