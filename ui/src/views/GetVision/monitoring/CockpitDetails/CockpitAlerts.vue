@@ -130,7 +130,7 @@ export default {
     },
     fetchDataFn() {
       return async (pageInfo) => {
-        const sorting = { partnerName: 'DESC' };
+        const sorting = { partnerName: 'DESC', startDate: 'DESC' };
 
         const data = await fetchSupervisionAlerts(this.getFormattedFilters(), pageInfo, sorting);
         if (!data) return { rows: [], total: 0 };
