@@ -37,7 +37,40 @@ export async function fetchSMSConsumption(simInstanceId) {
   return response.data.smsConsumptionGraph;
 }
 
-export async function consumtionHistoryExport(id, format) {
+export async function consumptionHistoryExport(id, format, exportChoice) {
+  let response;
+  if (exportChoice === 'BY_STREAM') {
+    response = consumptionHistoryExportByStream(id, format);
+  } else {
+    response = consumptionHistoryExportClassic(id, format);
+  }
+  return response;
+}
+
+export async function consumptionHistoryExportByStream(id, format) {
+  const queryStr = `
+  {
+    splitConsumptionHistoryExport(filters:{partyId:${id}}
+      columns:[PARTNER_NAME
+      CUSTOMER_ACCOUNT_CODE
+      CUSTOMER_ACCOUNT_NAME
+      STREAM
+      DATE
+      DATA_FR_OUT
+      DATA_FR_IN
+      DATA_ROAMING_OUT
+      DATA_ROAMING_IN]
+      exportFormat:${format})
+    {
+      downloadUri
+    }
+  }`;
+  const response = await query(queryStr);
+
+  return response.data.splitConsumptionHistoryExport;
+}
+
+export async function consumptionHistoryExportClassic(id, format) {
   const queryStr = `
   {
     consumtionHistoyExport(filters:{partyId:${id}}
