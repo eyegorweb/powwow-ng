@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.863+20220324094958
+2022-03-24
+
+### Fixes
+
+- [3255] Suppression du tri partenaire dans les alertes du cockpit M2M. (85fe229350da924f812b64ac1d329dc02d3ff850)
+
 ## 1.17.0-master.862+20220323152857
 2022-03-23
 
