@@ -478,13 +478,13 @@ async function exportDataHistoryByStream(simCardInstanceId, exportFormat) {
 async function exportDataHistoryClassic(simCardInstanceId, exportFormat) {
   const response = await query(
     `
-      {
-        exportSplittedDataHistory(simCardInstanceId: ${simCardInstanceId}, exportFormat: ${exportFormat}, getLastOnly: false, columns: [MSISDN, CONNECTION_START_DATE, CONNECTION_END_DATE, CONNECTION_STATUS, REASON, UL_VOLUME, DL_VOLUME, IP_TYPE, APN, IP_V4_ADDRESS, IP_V6_ADDRESS, OPERATOR, PLMN, ZIP_CODE, CITY, COUNTRY, IMEI, OFFER, CELL_ID, LONGITUDE, LATITUDE, TECHNOLOGY]) {
-          downloadUri
-          total
-          asyncRequired
-        }
+    {
+      exportDataHistory(simCardInstanceId: ${simCardInstanceId}, exportFormat: ${exportFormat}, getLastOnly: false, columns: [MSISDN, CONNECTION_START_DATE, CONNECTION_END_DATE, CONNECTION_STATUS, REASON, UL_VOLUME, DL_VOLUME, IP_TYPE, APN, IP_V4_ADDRESS, IP_V6_ADDRESS, OPERATOR, PLMN, ZIP_CODE, CITY, COUNTRY, IMEI, OFFER, CELL_ID, LONGITUDE, LATITUDE, TECHNOLOGY]) {
+        downloadUri
+        total
+        asyncRequired
       }
+    }
       `
   );
 
@@ -494,7 +494,7 @@ async function exportDataHistoryClassic(simCardInstanceId, exportFormat) {
   if (response.errors) {
     return { errors: response.errors };
   }
-  return response.data.exportSplittedDataHistory;
+  return response.data.exportDataHistory;
 }
 
 export async function exportVoiceHistory(simCardInstanceId, exportFormat) {
