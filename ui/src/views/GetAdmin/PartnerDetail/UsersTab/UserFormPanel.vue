@@ -255,7 +255,7 @@ export default {
       showWebservices: false,
       languages: undefined,
       canShowForm: false,
-      fetchLanguages: undefined,
+      resultLanguages: undefined,
       roles: [],
       rolesWs: [],
       selectedRoles: [],
@@ -339,7 +339,7 @@ export default {
     },
 
     async save() {
-      let lang = this.fetchLanguages.find((e) => e.label === this.form.language);
+      let lang = this.resultLanguages.find((e) => e.label === this.form.language);
       let wsRoles = this.selectedRolesWsActions.concat(this.selectedRolesWsConsultation);
       const params = {
         title: this.form.title,
@@ -375,7 +375,6 @@ export default {
           this.$loGet(this.content, 'duplicateFrom.type') != 'OPERATOR' &&
           this.userType != 'OPERATOR'
         ) {
-          console.log('je suis ici');
           params.partyId = this.content.partnerId || this.selectedPartner.id;
         }
       }
@@ -606,9 +605,9 @@ export default {
 
     // récupération des langues
     let langArray = [];
-    this.fetchLanguages = await fetchAllLanguages();
+    this.resultLanguages = await fetchAllLanguages();
 
-    this.fetchLanguages.forEach((e) => {
+    this.resultLanguages.forEach((e) => {
       langArray.push(e.label);
     });
 
@@ -722,7 +721,9 @@ export default {
 
       this.form.username = this.content.duplicateFrom.username;
       this.form.email = this.content.duplicateFrom.email;
-      let lang = this.fetchLanguages.find((e) => e.name === this.form.language);
+      let lang = this.resultLanguages.find(
+        (e) => e.language === this.$loGet(this.content, 'duplicateFrom.preferredLocale')
+      );
       this.form.language = lang.label;
 
       this.userTypes = this.userTypes.map((u) => {
