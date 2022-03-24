@@ -17,7 +17,7 @@
     ></div>
     <div :class="{ hidden: isLoading }">
       <div class="d-flex justify-content-end cy-export-history-conso">
-        <ExportButton :export-fn="getExportFn()"> </ExportButton>
+        <ExportButton :export-fn="getExportFn()" :export-choices="exportChoices"> </ExportButton>
       </div>
       <div class="d-flex justify-content-end">
         <Toggle
@@ -33,6 +33,7 @@
           :partner="partner"
           :billing-account="billingAccount"
           @isLoading="isLoading = $event"
+          @hasStreams="hasStreams = $event"
         />
       </keep-alive>
       <keep-alive>
@@ -60,7 +61,7 @@ import ConsoHistorySmsGraph from './ConsoHistorySmsGraph';
 import ConsoHistoryVoiceGraph from './ConsoHistoryVoiceGraph';
 import Toggle from '@/components/ui/UiToggle2';
 import ExportButton from '@/components/ExportButton';
-import { consumtionHistoryExport } from '@/api/consumption.js';
+import { consumptionHistoryExport } from '@/api/consumption.js';
 
 export default {
   components: {
@@ -80,8 +81,16 @@ export default {
 
   methods: {
     getExportFn() {
-      return async (columnsParam, orderBy, exportFormat) => {
-        return await consumtionHistoryExport(this.partner.id, exportFormat);
+      return async (
+        columnsParam,
+        orderBy,
+        exportFormat,
+        asyncExportRequest,
+        exportAll,
+        forceAsyncExport,
+        exportChoice
+      ) => {
+        return await consumptionHistoryExport(this.partner.id, exportFormat, exportChoice);
       };
     },
   },
@@ -104,10 +113,27 @@ export default {
         return false;
       }
     },
+    exportChoices() {
+      let exportChoices;
+      if (this.hasStreams) {
+        exportChoices = [
+          {
+            id: 'CLASSIC',
+            label: 'exportTable.classic',
+          },
+          {
+            id: 'BY_STREAM',
+            label: 'exportTable.byStream',
+          },
+        ];
+      }
+      return exportChoices;
+    },
   },
 
   data() {
     return {
+      hasStreams: false,
       isLoading: false,
       currentUsage: 'data',
       tooltipMsg: this.$t('getdevice.messages.warning2'),

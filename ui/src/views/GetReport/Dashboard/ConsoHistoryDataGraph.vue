@@ -64,7 +64,9 @@ export default {
 
   computed: {
     hasStreams() {
-      return this.dataUsageStreams.length > 0;
+      let hasStreams = this.dataUsageStreams.length;
+      if (hasStreams > 0) this.$emit('hasStreams', true);
+      return hasStreams > 0;
     },
   },
 
