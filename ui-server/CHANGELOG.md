@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.866+20220324161308
+2022-03-24
+
+### Fixes
+
+- [3252] Initialisattion de la langue lors de la modification d'un utilisateur. (246c7ffb083d553238c73661d065b745502131ea)
+
 ## 1.17.0-master.865+20220324150453
 2022-03-24
 
