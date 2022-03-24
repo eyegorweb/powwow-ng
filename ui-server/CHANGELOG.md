@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.865+20220324150453
+2022-03-24
+
+### Features
+
+- [3250] export historique des consommations par flux (41ed0fe5ca4341cce4c97a89625c1e424b0fe2a9)
+
 ## 1.17.0-master.864+20220324104511
 2022-03-24
 
