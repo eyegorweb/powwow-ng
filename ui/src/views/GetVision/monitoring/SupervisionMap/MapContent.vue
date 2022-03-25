@@ -65,7 +65,7 @@ import uuid from 'uuid/v1';
 
 const CONTINENT_ZOOM_LEVEL = 4;
 const CITY_ZOOM_LEVEL = 11;
-const CELL_ZOOM_LEVEL = 13;
+let CELL_ZOOM_LEVEL = 13;
 const COUNTRY_ZOOM_LEVEL = 5;
 const DEPARTMENT_ZOOM_LEVEL = 9;
 
@@ -227,6 +227,19 @@ export default {
   },
 
   methods: {
+    getMaxZoom() {
+      const latitude = this.map.center.lat();
+      const longitude = this.map.center.lng();
+      const maxZoomLevel = new this.google.maps.MaxZoomService();
+      maxZoomLevel.getMaxZoomAtLatLng({ lat: latitude, lng: longitude }, (result) => {
+        if (result.status !== 'OK') {
+          console.error('Error in MaxZoomService');
+        } else {
+          CELL_ZOOM_LEVEL = result.zoom;
+        }
+      });
+      return CELL_ZOOM_LEVEL;
+    },
     setMaxZoom(maxZoom) {
       if (this.partyOptions) {
         if (this.partyOptions.optionViewCellId) {
@@ -234,7 +247,7 @@ export default {
           return;
         }
       }
-
+      maxZoom = this.getMaxZoom();
       this.map.setOptions({ maxZoom });
     },
     setZoom(zoomLevel) {
@@ -599,7 +612,6 @@ export default {
       let currentBounds = this.map.getBounds();
       let ne = currentBounds.getNorthEast();
       let sw = currentBounds.getSouthWest();
-      console.log('current bounds', currentBounds);
       return {
         neLat: ne.lat(),
         neLng: ne.lng(),
