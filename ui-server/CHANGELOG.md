@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.868+20220325154129
+2022-03-25
+
+### Features
+
+- [3258] mise à jour de l'échelle maximum disponible du zoom de la supervision (67b2e5543f78aa8aa37f5b93badc6ad23db81477)
+
 ## 1.17.0-master.867+20220325084328
 2022-03-25
 
