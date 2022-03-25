@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.867+20220325084328
+2022-03-25
+
+### Fixes
+
+- [3075] correction du composant UiDateRange pour pouvoir sélectionner la date du jour (837715354e4c1d62f16a078c97e8eb7c99601809)
+
 ## 1.17.0-master.866+20220324161308
 2022-03-24
 
