@@ -94,6 +94,15 @@ export default {
           this.limitDateError = limitDateError;
         };
 
+        const onDateShowCalendar = () => {
+          if (!this.start && !this.end) {
+            this.$emit('change', {
+              startDate: moment().format('DD/MM/YYYY'),
+              endDate: moment().format('DD/MM/YYYY'),
+            });
+          }
+        };
+
         // TODO: add i18n support
         const localeParam = this.getLocaleParam();
         $(this.$refs.daterange).daterangepicker(
@@ -105,6 +114,7 @@ export default {
           },
           onDateSelected
         );
+        $(this.$refs.daterange).on('showCalendar.daterangepicker', onDateShowCalendar);
       });
     },
     getLocaleParam() {
