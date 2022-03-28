@@ -46,6 +46,7 @@
   "list": "List",
   "date": "Date",
   "none": "Any",
+  "allRequired": "All fields are mandatory",
   "type": "Type",
   "action": "Action",
   "ordersFound": "{total} found order(s)",
@@ -402,6 +403,7 @@
   "errors": {
     "all": "Error(s)",
     "mandatory": "* Mandatory field",
+    "boundsError": "The value must be between  {min} and {max}",
     "password": {
       "length-error": "Password must be more than 8 characters",
       "confirm-error": "Passwords do not match",
