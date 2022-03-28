@@ -417,7 +417,7 @@ export default {
       const data = await fetchDataForCells(this.usageForQuery, {}, this.formatFilters());
       const markers = this.formatMarkers(data);
       this.adjustPosition = defaultAdjustment;
-
+      CELL_ZOOM_LEVEL = this.getMaxZoom();
       this.setMarkersAndCenter(markers, CELL_ZOOM_LEVEL);
     },
 
