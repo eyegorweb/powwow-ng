@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.871+20220328141949
+2022-03-28
+
+### Fixes
+
+- [3254] ajout de traductions manquantes à la création d'offre digitale (f2d3d55dceadd129657124d7690b8db9af8a0df0)
+
 ## 1.17.0-master.870+20220328140120
 2022-03-28
 
