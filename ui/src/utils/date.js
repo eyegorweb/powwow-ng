@@ -57,6 +57,13 @@ export function isBefore(expectedBefore, expectedAfter, format = DATE_FORMAT_EXT
   return a.isBefore(b);
 }
 
+export function isAfter(expectedAfter, expectedBefore, format = DATE_FORMAT_EXTENDED) {
+  const a = moment(expectedAfter, format);
+  const b = moment(expectedBefore, format);
+
+  return a.isAfter(b);
+}
+
 export function formatDateToUTC(value) {
   return moment(value, DATE_FORMAT).valueOf();
 }
@@ -64,3 +71,40 @@ export function formatDateToUTC(value) {
 export function formatUTCtoStrDate(value, format = DATE_FORMAT) {
   return moment(value).format(format);
 }
+
+export function getFirstDay(month, year) {
+  return moment()
+    .month(month)
+    .year(2000 + parseInt(year))
+    .startOf('month')
+    .format(DATE_FORMAT);
+}
+
+export const shortMonthsFr = [
+  'Jan',
+  'Fév',
+  'Mar',
+  'Avr',
+  'Mai',
+  'Jui',
+  'Juil',
+  'Aoû',
+  'Sep',
+  'Oct',
+  'Nov',
+  'Déc',
+];
+export const shortMonthsEn = [
+  'Jan',
+  'Feb',
+  'Mar',
+  'Apr',
+  'May',
+  'Jun',
+  'Jul',
+  'Aug',
+  'Sep',
+  'Oct',
+  'Nov',
+  'Dec',
+];

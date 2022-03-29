@@ -152,6 +152,7 @@ export default {
       messageError: undefined,
       forceAsyncExport: false,
       toggleVersion: 0,
+      exportInDocManagement: false,
     };
   },
 
@@ -248,7 +249,10 @@ export default {
       }
       this.exportFormat = exportFormat;
       let downloadResponse = undefined;
-      if (this.exportPanelParams.forceAsyncExport && this.exportAll) {
+      if (
+        (this.exportPanelParams.forceAsyncExport && this.exportAll) ||
+        (this.exportPanelParams.forceAsyncExport && this.exportPanelParams.exportInDocManagement)
+      ) {
         this.closeExportChoice();
         this.showLoader = false;
         setTimeout(() => {
