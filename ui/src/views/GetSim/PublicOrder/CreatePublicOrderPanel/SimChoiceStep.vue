@@ -98,7 +98,8 @@ export default {
         this.selectedSimTypeValue &&
         this.selectedSimTypeValue.simCard &&
         parseInt(this.selectedNumberOfSims) &&
-        this.selectedNumberOfSims < 9999999999
+        this.selectedNumberOfSims < 9999999999 &&
+        this.selectedNumberOfSims > 0
       );
     },
     ...mapGetters(['userInfos']),
