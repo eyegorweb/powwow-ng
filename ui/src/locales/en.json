@@ -208,6 +208,7 @@
     "EXPORT_LAST_USAGE": "Last usage export",
     "EXPORT_STREAM_LAST_USAGE": "Stream last usage export",
     "EXPORT_CONSUMPTION": "Consumption export",
+    "EXPORT_SPLITTED_CONSUMPTIONS": "Consumption export by stream",
     "EXPORT_BACKOFFICE": "Backoffice export",
     "EXPORT_SERVICES": "Services export",
     "EXPORT_STREAM_SERVICES": "Stream services export",

@@ -253,6 +253,7 @@
     "EXPORT_BILLING_AMOUNT_INFO": "Export du tableau de bord",
     "EXPORT_RAW_CONSUPTION": "Export des encours non valorisés",
     "EXPORT_CONSUMPTIONS": "Export du tableau de bord",
+    "EXPORT_SPLITTED_CONSUMPTIONS": "Export conso par flux",
     "EXPORT_BILLING_LINES_AND_AMOUNT_INFOS": "Export du tableau de bord",
     "EXPORT_AVERAGE_BILLING": "Export du tableau de bord",
     "EXPORT_BILLED_LINE_AND_CONSO_BY_ZONE": "Export du tableau de bord",
