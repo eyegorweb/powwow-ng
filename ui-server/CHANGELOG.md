@@ -2,12 +2,16 @@
 
 <!--- next entry here -->
 
-## 1.17.0-master.873+20220329092330
+## 1.17.0-master.874+20220329092945
 2022-03-29
 
 ### Features
 
 - [3250] ajouter le nom de l'export (e5110e40ebe8ab28575353aff62be0af496b21c5)
+
+### Fixes
+
+- [3261] correction du contrôle de nombre de sim dans la création d'offre digitale (56cc816697bca51671292ddeeafccb3c28fbb265)
 
 ## 1.17.0-master.872+20220329084912
 2022-03-29
