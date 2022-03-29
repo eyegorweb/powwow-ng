@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.872+20220329084912
+2022-03-29
+
+### Features
+
+- [2905] corriger l'export de l'état des services (9931167f1fc56d067d04da9f70b4f2ca7373b9ca)
+
 ## 1.17.0-master.871+20220328141949
 2022-03-28
 
