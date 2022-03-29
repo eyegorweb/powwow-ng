@@ -102,7 +102,11 @@ export default {
 
   watch: {
     value_(newValue, oldValue) {
-      if (newValue != oldValue) {
+      if (newValue === '') {
+        this.boundsError = true;
+        return;
+      }
+      if (newValue !== oldValue || newValue === '') {
         this.checkIfValueIsBetweenBounds(newValue);
       }
     },
