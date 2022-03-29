@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.875+20220329101929
+2022-03-29
+
+### Fixes
+
+- [3261] correction du contrôle de nombre de sim dans la création d'offre digitale (ecfc388f2ba2282ac5a0d6b06598ecd9680bc7c3)
+
 ## 1.17.0-master.874+20220329092945
 2022-03-29
 
