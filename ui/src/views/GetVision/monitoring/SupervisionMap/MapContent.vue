@@ -65,7 +65,8 @@ import uuid from 'uuid/v1';
 
 const CONTINENT_ZOOM_LEVEL = 4;
 const CITY_ZOOM_LEVEL = 11;
-const CELL_ZOOM_LEVEL = 20;
+const CELL_ZOOM_LEVEL = 13;
+let MAX_ZOOM_LEVEL = 14;
 const COUNTRY_ZOOM_LEVEL = 5;
 const DEPARTMENT_ZOOM_LEVEL = 9;
 
@@ -227,19 +228,19 @@ export default {
   },
 
   methods: {
-    // getMaxZoom() {
-    //   const latitude = this.map.center.lat();
-    //   const longitude = this.map.center.lng();
-    //   const maxZoomLevel = new this.google.maps.MaxZoomService();
-    //   maxZoomLevel.getMaxZoomAtLatLng({ lat: latitude, lng: longitude }, (result) => {
-    //     if (result.status !== 'OK') {
-    //       console.error('Error in MaxZoomService');
-    //     } else {
-    //       CELL_ZOOM_LEVEL = result.zoom;
-    //     }
-    //   });
-    //   return CELL_ZOOM_LEVEL;
-    // },
+    getMaxZoom() {
+      const latitude = this.map.center.lat();
+      const longitude = this.map.center.lng();
+      const maxZoomLevel = new this.google.maps.MaxZoomService();
+      maxZoomLevel.getMaxZoomAtLatLng({ lat: latitude, lng: longitude }, (result) => {
+        if (result.status !== 'OK') {
+          console.error('Error in MaxZoomService');
+        } else {
+          MAX_ZOOM_LEVEL = result.zoom;
+        }
+      });
+      return MAX_ZOOM_LEVEL;
+    },
     setMaxZoom(maxZoom) {
       if (this.partyOptions) {
         if (this.partyOptions.optionViewCellId) {
@@ -247,6 +248,7 @@ export default {
           return;
         }
       }
+      maxZoom = this.getMaxZoom();
       this.map.setOptions({ maxZoom });
     },
     setZoom(zoomLevel) {
@@ -265,7 +267,7 @@ export default {
       try {
         this.isLoading = true;
         if (!this.zipCodeFilter) {
-          await this.initZoom();
+          await this.initZoom(isDragging);
         }
 
         const countryCode = await this.getCenteredCountry();
@@ -342,7 +344,7 @@ export default {
       this.map.setCenter(countryCoords);
     },
 
-    async initZoom() {
+    async initZoom(isDragging) {
       // if (this.isSameFilters) return;
       if (!this.appliedFilters) return;
 
@@ -350,8 +352,10 @@ export default {
       if (zoneFilter) {
         const zoneName = zoneFilter.data.zone.value;
         if (zoneName === 'france') {
-          const franceCoords = new this.google.maps.LatLng(47.343482, 3.2814);
-          this.map.setCenter(franceCoords);
+          if (!isDragging) {
+            const franceCoords = new this.google.maps.LatLng(47.343482, 3.2814);
+            this.map.setCenter(franceCoords);
+          }
           if (!this.isZoomClicked) {
             this.setZoom(6);
             this.isZoomClicked = true;
@@ -416,7 +420,8 @@ export default {
       const data = await fetchDataForCells(this.usageForQuery, {}, this.formatFilters());
       const markers = this.formatMarkers(data);
       this.adjustPosition = defaultAdjustment;
-      this.setMarkersAndCenter(markers, CELL_ZOOM_LEVEL);
+      MAX_ZOOM_LEVEL = this.getMaxZoom();
+      this.setMarkersAndCenter(markers, MAX_ZOOM_LEVEL);
     },
 
     async setMarkersAndCenter(markers, zoomLevel, coords) {
@@ -433,6 +438,7 @@ export default {
         }
 
         if (longitude && latitude && zoomLevel) {
+          console.log('zoom level', zoomLevel);
           this.canSearch = false;
           this.centerZoom(longitude, latitude, zoomLevel);
           this.markers = markers;
