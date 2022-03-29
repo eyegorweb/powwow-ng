@@ -887,7 +887,8 @@
     },
     "monitoring": {
       "filterByFile": "Filtrer à partir d'un fichier"
-    }
+    },
+    "noDataAvailable": "  Pas de données disponibles pour ce mois"
   },
   "getadmin": {
     "chooseRole": "Veuillez choisir un rôle",

@@ -10,7 +10,15 @@ import { Chart } from 'highcharts-vue';
 
 import { fetchSupervisionGraphVoice, exportRequestFleetSupervision } from '@/api/supervision.js';
 import { formatLargeNumber } from '@/utils/numbers';
-import { formatUTCtoStrDate } from '@/utils/date.js';
+import {
+  formatUTCtoStrDate,
+  getFirstDay,
+  currentDateMinusMounts,
+  isAfter,
+  DATE_FORMAT,
+  shortMonthsEn,
+  shortMonthsFr,
+} from '@/utils/date.js';
 import { mapMutations } from 'vuex';
 
 export default {
@@ -41,7 +49,7 @@ export default {
   },
 
   methods: {
-    ...mapMutations(['openExportChoice']),
+    ...mapMutations(['openExportChoice', 'popupMessage']),
     chooseExportFormat(params) {
       this.params = params;
       this.openExportChoice({
@@ -53,6 +61,8 @@ export default {
             'VOICE'
           );
         },
+        forceAsyncExport: true,
+        exportInDocManagement: true,
       });
     },
     sumAllData(dataOut, dataIn) {
@@ -190,12 +200,30 @@ export default {
                     chart.lbl.on('click', (evt) => {
                       const elem = chart.series[0].options.data.filter((e) => e.x === this.x);
                       const dateSplitted = elem[0].myData.formatDate.split(' ');
+                      let date;
+                      if (that.supervisionType == 'MONTH') {
+                        var month = dateSplitted[0];
+                        var year = dateSplitted[1];
+                        var monthNumber =
+                          shortMonthsFr.indexOf(month) == -1
+                            ? shortMonthsEn.indexOf(month)
+                            : shortMonthsFr.indexOf(month);
+                        date = getFirstDay(monthNumber, year);
+                      } else {
+                        date = dateSplitted[0];
+                      }
                       const params = {
                         dateSplitted,
+                        date,
                         partyId: that.filters.params.partyIds[0],
                         country: that.filters.params.locationCode,
                         offerCode: that.filters.params.offerCode,
                       };
+                      let currentDateMinusTwoMonths = currentDateMinusMounts(2);
+                      if (!isAfter(date, currentDateMinusTwoMonths, DATE_FORMAT)) {
+                        that.popupMessage(that.$t('getvsion.noDataAvailable'));
+                        return;
+                      }
 
                       that.chooseExportFormat(params);
                       if (evt.stopPropagation) {

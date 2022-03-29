@@ -806,7 +806,8 @@
     "cockpitMarker": {
       "alarm": "Nombre d'alertes sur les 7 derniers jours",
       "sim": "Nombre SIM trafiquantes du jour"
-    }
+    },
+    "noDataAvailable": "  No data available for this month"
   },
   "getadmin": {
     "chooseRole": "Please choose a role",

@@ -109,7 +109,7 @@ export async function exportRequestFleetSupervision(params, exportFormat, sliceT
       filter: { ${offerCodeFilter} partyId: ${
     params.partyId
   }, usageType:${usageType}, selectedDate:"${
-    params.dateSplitted[0]
+    params.date
   }", sliceType:${sliceType}, slices:[${slices.map((i) => `"${i}"`).join(',')}] ,country:"${
     params.country
   }"}, exportFormat:${exportFormat} ){
