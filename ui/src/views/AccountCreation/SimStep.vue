@@ -103,7 +103,7 @@ export default {
         this.selectedSimTypeValue.simCard &&
         parseInt(this.selectedNumberOfSims) &&
         parseInt(this.selectedNumberOfSims) <= this.maxValue &&
-        this.selectedNumberOfSims > 0
+        parseInt(this.selectedNumberOfSims) > 0
       );
     },
   },
