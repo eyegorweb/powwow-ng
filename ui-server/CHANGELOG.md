@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.876+20220329132854
+2022-03-29
+
+### Fixes
+
+- [3258] application du zoom automatique uniquement sur la recherche (2d47137c48ed4764f12cf15ee8decf41d621874c)
+
 ## 1.17.0-master.875+20220329101929
 2022-03-29
 
