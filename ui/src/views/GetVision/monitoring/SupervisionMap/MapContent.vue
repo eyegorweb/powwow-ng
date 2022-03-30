@@ -278,9 +278,11 @@ export default {
         if (this.usage === 'COCKPIT') {
           this.setMaxZoom(COUNTRY_ZOOM_LEVEL);
           await this.loadDataForM2MCockpit();
-        } else if (this.zipCodeFilter) {
+        } else if (this.idFilter && !this.zipCodeFilter) {
+          await this.loadDataById();
+        } else if (this.zipCodeFilter && !this.idFilter) {
           await this.loadDataByZipCode();
-        } else if (this.idFilter) {
+        } else if (this.idFilter && this.zipCodeFilter) {
           await this.loadDataById();
         } else {
           if (zoomLevel < CONTINENT_ZOOM_LEVEL) {
@@ -447,7 +449,6 @@ export default {
         }
 
         if (longitude && latitude && zoomLevel) {
-          console.log('zoom level', zoomLevel);
           this.canSearch = false;
           this.centerZoom(longitude, latitude, zoomLevel);
           this.markers = markers;
