@@ -266,7 +266,7 @@ export default {
 
       try {
         this.isLoading = true;
-        if (!this.zipCodeFilter) {
+        if (!this.zipCodeFilter && !this.idFilter) {
           await this.initZoom(isDragging);
         }
 
@@ -420,8 +420,17 @@ export default {
       const data = await fetchDataForCells(this.usageForQuery, {}, this.formatFilters());
       const markers = this.formatMarkers(data);
       this.adjustPosition = defaultAdjustment;
-      MAX_ZOOM_LEVEL = this.getMaxZoom();
-      this.setMarkersAndCenter(markers, MAX_ZOOM_LEVEL);
+
+      // Priorité donnée à l'id mais...
+      // ...si zone renseignée => CELL_ZOOM_LEVEL
+      // sinon MAX_ZOOM_LEVEL
+      const zoneFilter = this.appliedFilters.find((f) => f.id === 'filters.zone');
+      if (zoneFilter) {
+        this.setMarkersAndCenter(markers, CELL_ZOOM_LEVEL);
+      } else {
+        MAX_ZOOM_LEVEL = this.getMaxZoom();
+        this.setMarkersAndCenter(markers, MAX_ZOOM_LEVEL);
+      }
     },
 
     async setMarkersAndCenter(markers, zoomLevel, coords) {
