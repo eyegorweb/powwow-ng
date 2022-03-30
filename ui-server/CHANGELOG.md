@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.877+20220330132216
+2022-03-30
+
+### Fixes
+
+- [3258] correction sur le zoom automatique de la supervision (8bebb0be89a54c5568f57ac2fa9bdb67b9ae19e8)
+
 ## 1.17.0-master.876+20220329132854
 2022-03-29
 
