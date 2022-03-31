@@ -131,7 +131,6 @@ export default {
       'userIsBO',
       'userIsGroupAccount',
       'userPartyGroup',
-      'userIsMultiPartner',
       'userIsPartner',
       'singlePartner',
       'havePermission',
