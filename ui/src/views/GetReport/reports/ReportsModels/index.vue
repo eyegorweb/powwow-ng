@@ -204,32 +204,7 @@ export default {
           },
         },
       ],
-      filters: [
-        {
-          title: 'filters.partner',
-          component: PartnerFilter,
-          onChange(chosenValue) {
-            return {
-              id: 'filters.partner',
-              value: chosenValue.label,
-              data: chosenValue,
-            };
-          },
-        },
-        {
-          title: 'filters.reportOwner',
-          component: UsersFilter,
-          onChange(chosenValue) {
-            if (chosenValue) {
-              return {
-                id: 'filters.reportOwner',
-                value: chosenValue.label,
-                data: chosenValue,
-              };
-            }
-          },
-        },
-      ],
+      filters: undefined,
       currentAppliedFilters: [],
       orderBy: {
         key: 'id',
@@ -240,10 +215,47 @@ export default {
     };
   },
   mounted() {
+    let currentVisibleFilters = [];
+
+    if (this.userIsBO || this.userIsGroupAccount) {
+      currentVisibleFilters.push({
+        title: 'filters.partner',
+        component: PartnerFilter,
+        onChange(chosenValue) {
+          return {
+            id: 'filters.partner',
+            value: chosenValue.label,
+            data: chosenValue,
+          };
+        },
+      });
+    }
+
+    currentVisibleFilters.push({
+      title: 'filters.reportOwner',
+      component: UsersFilter,
+      onChange(chosenValue) {
+        if (chosenValue) {
+          return {
+            id: 'filters.reportOwner',
+            value: chosenValue.label,
+            data: chosenValue,
+          };
+        }
+      },
+    });
+
+    this.filters = currentVisibleFilters;
     this.applyFilters();
   },
   computed: {
-    ...mapGetters(['userInfos', 'userIsBO', 'userIsPartner']),
+    ...mapGetters([
+      'userInfos',
+      'userIsBO',
+      'userIsPartner',
+      'userIsGroupAccount',
+      'userIsMultiPartner',
+    ]),
     partnerId() {
       if (this.userIsBO) return undefined;
       return this.userInfos && this.userInfos.partners && this.userInfos.partners.length
