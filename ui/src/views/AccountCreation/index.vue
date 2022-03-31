@@ -20,7 +20,7 @@
           <div class="account-creation-success" v-if="isSuccess">
             {{ $t('digitalOffer.synthesis.successCreation1') }}
             <br />
-            {{ $t('digitalOffer.synthesis.successCreation2') }}
+            <span class="text-warning">{{ $t('digitalOffer.synthesis.successCreation2') }}</span>
           </div>
         </div>
         <CreateAccountPanelSynthesis
@@ -284,10 +284,10 @@ export default {
         // redirection paynum
         if (response && response.url) {
           this.isSuccess = true;
-          setTimeout(() => {
-            this.redirectToPaynum(response.url);
-            this.isSuccess = false;
-          }, 5000);
+          // setTimeout(() => {
+          //   this.redirectToPaynum(response.url);
+          //   this.isSuccess = false;
+          // }, 5000);
         }
       } catch (e) {
         this.isLoading = false;
