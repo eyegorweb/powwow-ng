@@ -284,10 +284,10 @@ export default {
         // redirection paynum
         if (response && response.url) {
           this.isSuccess = true;
-          // setTimeout(() => {
-          //   this.redirectToPaynum(response.url);
-          //   this.isSuccess = false;
-          // }, 5000);
+          setTimeout(() => {
+            this.redirectToPaynum(response.url);
+            this.isSuccess = false;
+          }, 5000);
         }
       } catch (e) {
         this.isLoading = false;
