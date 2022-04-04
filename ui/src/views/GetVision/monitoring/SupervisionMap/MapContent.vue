@@ -242,11 +242,9 @@ export default {
       return MAX_ZOOM_LEVEL;
     },
     setMaxZoom(maxZoom) {
-      if (this.partyOptions) {
-        if (this.partyOptions.optionViewCellId) {
-          this.map.setOptions({ maxZoom: COUNTRY_ZOOM_LEVEL });
-          return;
-        }
+      if ((this.partyOptions && this.partyOptions.optionViewCellId) || this.usage === 'COCKPIT') {
+        this.map.setOptions({ maxZoom: COUNTRY_ZOOM_LEVEL });
+        return;
       }
       maxZoom = this.getMaxZoom();
       this.map.setOptions({ maxZoom });
