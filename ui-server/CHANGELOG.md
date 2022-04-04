@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.884+20220404135428
+2022-04-04
+
+### Fixes
+
+- [3270] correction pour rafraîchir les données sur le zoom/scroll lors de la supervision pour l'usage Alarmes (f6c20fefc5124bb79b8fa3e57ce37faf34958975)
+
 ## 1.17.0-master.883+20220404120631
 2022-04-04
 
