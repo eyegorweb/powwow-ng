@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.883+20220404120631
+2022-04-04
+
+### Fixes
+
+- [3269] controle du zoom pour l'usage cockpit de la supervision (228e4e99c8a1c1ac27ec6a33458399478cf5e8c3)
+
 ## 1.17.0-master.882+20220401074537
 2022-04-01
 
