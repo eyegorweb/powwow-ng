@@ -66,7 +66,7 @@ import uuid from 'uuid/v1';
 const CONTINENT_ZOOM_LEVEL = 4;
 const CITY_ZOOM_LEVEL = 11;
 const CELL_ZOOM_LEVEL = 13;
-let MAX_ZOOM_LEVEL = 14;
+const MAX_ZOOM_LEVEL = 22;
 const COUNTRY_ZOOM_LEVEL = 5;
 const DEPARTMENT_ZOOM_LEVEL = 9;
 
@@ -195,9 +195,7 @@ export default {
       this.mapOverlay = new this.google.maps.OverlayView();
       this.mapOverlay.setMap(this.map);
       this.google.maps.event.addListener(this.map, 'idle', () => {
-        if (this.appliedFilters) {
-          this.refreshData(true);
-        }
+        this.refreshData(true);
       });
       this.google.maps.event.addListener(this.map, 'zoom_changed', () => {
         if (this.usage !== 'COCKPIT') {
@@ -228,7 +226,7 @@ export default {
   },
 
   methods: {
-    getMaxZoom() {
+    getMaxZoom(maxZoom) {
       const latitude = this.map.center.lat();
       const longitude = this.map.center.lng();
       const maxZoomLevel = new this.google.maps.MaxZoomService();
@@ -236,18 +234,23 @@ export default {
         if (result.status !== 'OK') {
           console.error('Error in MaxZoomService');
         } else {
-          MAX_ZOOM_LEVEL = result.zoom;
+          maxZoom = isNaN(Math.min(maxZoom, result.zoom))
+            ? MAX_ZOOM_LEVEL
+            : Math.min(maxZoom, result.zoom);
         }
       });
-      return MAX_ZOOM_LEVEL;
+      return maxZoom;
     },
     setMaxZoom(maxZoom) {
       if ((this.partyOptions && this.partyOptions.optionViewCellId) || this.usage === 'COCKPIT') {
         this.map.setOptions({ maxZoom: COUNTRY_ZOOM_LEVEL });
         return;
       }
-      maxZoom = this.getMaxZoom();
-      this.map.setOptions({ maxZoom });
+      if (this.usage === 'ALARMS') {
+        this.map.setOptions({ maxZoom: CITY_ZOOM_LEVEL });
+        return;
+      }
+      this.map.setOptions({ maxZoom: this.getMaxZoom(maxZoom) });
     },
     setZoom(zoomLevel) {
       if (this.partyOptions && this.partyOptions.optionViewCellId) {
@@ -274,7 +277,7 @@ export default {
 
         this.setMaxZoom(CELL_ZOOM_LEVEL);
         if (this.usage === 'COCKPIT') {
-          this.setMaxZoom(COUNTRY_ZOOM_LEVEL);
+          this.setMaxZoom();
           await this.loadDataForM2MCockpit();
         } else if (this.idFilter && !this.zipCodeFilter) {
           await this.loadDataById();
@@ -428,7 +431,6 @@ export default {
       if (zoneFilter) {
         this.setMarkersAndCenter(markers, CELL_ZOOM_LEVEL);
       } else {
-        MAX_ZOOM_LEVEL = this.getMaxZoom();
         this.setMarkersAndCenter(markers, MAX_ZOOM_LEVEL);
       }
     },
@@ -555,7 +557,6 @@ export default {
         this.formatFilters()
       );
       const markers = this.formatMarkers(data);
-      // this.setMarkersAndCenter(markers, 6);
       this.markers = markers;
     },
 
