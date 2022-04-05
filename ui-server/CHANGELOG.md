@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.886+20220405144536
+2022-04-05
+
+### Features
+
+- [3266] Création d'un nouveau rôle utilisateur DOR Roaming. (340915c2b2a2b7d7a4c19617190dbd9fd5c03757)
+
 ## 1.17.0-master.885+20220405133706
 2022-04-05
 
