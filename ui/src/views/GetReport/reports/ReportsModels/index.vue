@@ -217,7 +217,7 @@ export default {
   mounted() {
     let currentVisibleFilters = [];
 
-    if (this.userIsBO || this.userIsGroupAccount) {
+    if (this.userIsBO || this.userIsGroupAccount || this.userIsMultiPartner) {
       currentVisibleFilters.push({
         title: 'filters.partner',
         component: PartnerFilter,
