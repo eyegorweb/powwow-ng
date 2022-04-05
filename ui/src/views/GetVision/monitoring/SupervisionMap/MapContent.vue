@@ -463,6 +463,7 @@ export default {
     centerZoom(longitude, latitude, zoomLevel) {
       const currentZoomLevel = this.map.getZoom();
       if (currentZoomLevel !== zoomLevel && !this.isZoomClicked) {
+        console.log('center zoom', zoomLevel);
         this.centerOnCoords(longitude, latitude);
         this.setZoom(zoomLevel);
       }
@@ -500,11 +501,8 @@ export default {
       if (!this.markers || !this.markers.length) {
         // if (!this.isSameFilters) {
         if (countryFilter) {
-          this.centerZoom(
-            countryFilter.data.longitude,
-            countryFilter.data.latitude,
-            COUNTRY_ZOOM_LEVEL
-          );
+          this.centerOnCoords(countryFilter.data.longitude, countryFilter.data.latitude);
+          this.setZoom(COUNTRY_ZOOM_LEVEL);
         } else {
           this.centerOnFrance(COUNTRY_ZOOM_LEVEL);
         }
