@@ -26,13 +26,20 @@
             <div class="row">
               <div class="col">
                 <label class="font-weight-bold">{{ $t('getvsion.supervisionType') }}</label>
-                <Toggle
-                  v-if="toggleValues"
-                  @update="onUsageChange"
-                  :values="toggleValues"
-                  block
-                  class="pl-2"
-                />
+                <template v-if="getToggleSingleValue">
+                  <div class="col">
+                    {{ getToggleSingleValue }}
+                  </div>
+                </template>
+                <template v-else>
+                  <Toggle
+                    v-if="toggleValues"
+                    @update="onUsageChange"
+                    :values="toggleValues"
+                    block
+                    class="pl-2"
+                  />
+                </template>
               </div>
             </div>
             <div v-if="canShowWorldGraphBtn" class="row mt-2 pl-2">
@@ -146,6 +153,17 @@ export default {
       }
 
       return false;
+    },
+    getToggleSingleValue() {
+      let value = undefined;
+      console.log('toggleValues:', this.toggleValues);
+      if (this.toggleValues && this.toggleValues.length === 1) {
+        this.toggleValues.forEach((val) => {
+          value = this.$t(val.label);
+        });
+      }
+      console.log('value:', value);
+      return value;
     },
   },
   data() {
@@ -291,19 +309,23 @@ export default {
       );
     }
 
-    if (this.havePermission('getVision', 'service_state')) {
+    if (
+      this.havePermission('getVision', 'service_state') ||
+      this.havePermission('getVision', 'service_state_roaming')
+    ) {
       toggleValues.push({
         id: 'COCKPIT',
         label: 'getvsion.m2mCockpit',
         default: this.value === 'COCKPIT',
       });
     }
-
-    toggleValues.push({
-      id: 'ALARMS',
-      label: 'getvsion.alarms',
-      default: this.value === 'ALARMS',
-    });
+    if (this.havePermission('getVision', 'alarm')) {
+      toggleValues.push({
+        id: 'ALARMS',
+        label: 'getvsion.alarms',
+        default: this.value === 'ALARMS',
+      });
+    }
 
     this.toggleValues = toggleValues;
   },
