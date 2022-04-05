@@ -501,14 +501,20 @@ export default {
       if (!this.markers || !this.markers.length) {
         // if (!this.isSameFilters) {
         if (countryFilter) {
-          this.centerOnCoords(countryFilter.data.longitude, countryFilter.data.latitude);
-          this.setZoom(COUNTRY_ZOOM_LEVEL);
+          // this.centerOnCoords(countryFilter.data.longitude, countryFilter.data.latitude);
+          // this.setZoom(COUNTRY_ZOOM_LEVEL);
+          this.centerZoom(
+            countryFilter.data.longitude,
+            countryFilter.data.latitude,
+            COUNTRY_ZOOM_LEVEL
+          );
         } else {
           this.centerOnFrance(COUNTRY_ZOOM_LEVEL);
         }
         // }
 
         setTimeout(() => {
+          console.log(...this.markers);
           this.markers = markers;
           this.isReady = true;
         }, 800);
