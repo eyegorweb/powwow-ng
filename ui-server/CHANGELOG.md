@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.885+20220405133706
+2022-04-05
+
+### Fixes
+
+- [3265] correctif rapports multi partenaire (0a794f3c175680884a391159bde91c65316d3fb3)
+
 ## 1.17.0-master.884+20220404135428
 2022-04-04
 
