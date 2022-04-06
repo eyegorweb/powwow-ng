@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.891+20220406151459
+2022-04-06
+
+### Fixes
+
+- [3272] correctif supervision centrage zoom cockpit (f692b4a6c89af4fc17250af83849c1ca5b73e592)
+
 ## 1.17.0-master.890+20220406145317
 2022-04-06
 
