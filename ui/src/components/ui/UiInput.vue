@@ -44,6 +44,9 @@
     <div v-if="boundsError" class="error-text">
       {{ $t('errors.boundsError', { min: minValue, max: maxValue }) }}
     </div>
+    <div v-if="minValueError" class="error-text">
+      {{ $t('errors.minValueError', { min: minValue }) }}
+    </div>
   </label>
 </template>
 
@@ -58,6 +61,7 @@ export default {
   data() {
     return {
       boundsError: false,
+      minValueError: false,
     };
   },
 
@@ -98,6 +102,7 @@ export default {
 
   mounted() {
     this.checkIfValueIsBetweenBounds(this.value_);
+    this.checkIfValueGtMinValue(this.value_);
   },
 
   watch: {
@@ -108,6 +113,7 @@ export default {
       // }
       if (newValue != oldValue) {
         this.checkIfValueIsBetweenBounds(newValue);
+        this.checkIfValueGtMinValue(newValue);
       }
     },
   },
@@ -132,6 +138,15 @@ export default {
           this.boundsError = true;
         } else {
           this.boundsError = false;
+        }
+      }
+    },
+    checkIfValueGtMinValue(newValue) {
+      if (this.minValue !== undefined && this.maxValue == undefined) {
+        if (parseFloat(newValue) <= this.minValue) {
+          this.minValueError = true;
+        } else {
+          this.minValueError = false;
         }
       }
     },

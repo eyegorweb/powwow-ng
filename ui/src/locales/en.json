@@ -141,6 +141,7 @@
       "email": "Email",
       "phone": "Phone",
       "billingAddress": "Billing address",
+      "contact": "Contact information",
       "price": "Price",
       "designation": "Designation",
       "topup": "Topup"
@@ -179,7 +180,7 @@
     "offerStep": {
       "subscribe": "Select",
       "topup": "Top up",
-      "offerPeriod": "for {period} months"
+      "offerPeriod": "excl tax for {period} months"
     },
     "confirmationWarning": "Do you confirm the cancellation of the order? "
   },
@@ -405,6 +406,7 @@
     "all": "Error(s)",
     "mandatory": "* Mandatory field",
     "boundsError": "The value must be between  {min} and {max}",
+    "minValueError": "Value must be greater than {min}",
     "password": {
       "length-error": "Password must be more than 8 characters",
       "confirm-error": "Passwords do not match",

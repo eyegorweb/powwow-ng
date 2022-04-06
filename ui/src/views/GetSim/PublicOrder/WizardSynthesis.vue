@@ -228,6 +228,13 @@ export default {
               assembledCivility,
               `${this.$loGet(this.synthesis, 'deliveryStep.address.address1', '-')}`,
               assembledCityAddress,
+            ],
+          },
+        });
+        formatted.push({
+          label: 'digitalOffer.synthesis.contact',
+          value: {
+            content: [
               `${this.$loGet(this.synthesis, 'deliveryStep.contactInformation.email', '-')}`,
               `${this.$loGet(this.synthesis, 'deliveryStep.contactInformation.phone', '-')}`,
             ],
