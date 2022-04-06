@@ -520,7 +520,7 @@ export default {
 
         this.markers = markers;
         this.isReady = true;
-        return await delay(800);
+        return await delay(50);
       } else {
         this.markers = markers;
         this.isReady = true;
