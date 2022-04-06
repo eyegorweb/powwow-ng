@@ -173,6 +173,13 @@ export default {
                   `${this.$loGet(this.synthesis, 'creationAccountStep.address', '-')}`,
                   assembledCityAddress,
                   `${this.$loGet(this.synthesis, 'creationAccountStep.country.label', '-')}`,
+                ],
+              },
+            });
+            formatted.push({
+              label: 'digitalOffer.synthesis.contact',
+              value: {
+                content: [
                   `${this.$loGet(this.synthesis, 'creationAccountStep.email', '-')}`,
                   `${this.$loGet(this.synthesis, 'creationAccountStep.phone', '-')}`,
                 ],

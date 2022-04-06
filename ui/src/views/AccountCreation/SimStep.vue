@@ -42,8 +42,7 @@
           value
           class="d-block w-50 mx-auto"
           input-type="number"
-          :min-value="1"
-          :max-value="maxValue"
+          :min-value="0"
         />
         <p v-if="selectedSimIsOfTapeType" class="text-center display-nb-bobines">
           {{ $t('getsim.nb-of-sim') }}:

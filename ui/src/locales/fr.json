@@ -180,6 +180,7 @@
       "email": "Email",
       "phone": "Téléphone",
       "billingAddress": "Adresse de facturation",
+      "contact": "Coordonnées ",
       "price": "Prix unitaire",
       "designation": "Désignation",
       "topup": "Recharge"
@@ -220,7 +221,7 @@
     "offerStep": {
       "subscribe": "Sélectionner",
       "topup": "Recharger",
-      "offerPeriod": "pour {period} mois"
+      "offerPeriod": "HT pour {period} mois"
     },
     "confirmationWarning": "Confirmez-vous l'annulation de la commande ?"
   },
@@ -460,6 +461,7 @@
     "all": "Erreur(s)",
     "mandatory": "* Champ obligatoire",
     "boundsError": "La valeur doit être comprise entre {min} et {max}",
+    "minValueError": "La valeur doit être supérieure à {min}",
     "password": {
       "length-error": "Le mot de passe doit faire plus de 8 caractères",
       "confirm-error": "Les mots de passe ne correspondent pas",
@@ -2492,8 +2494,8 @@
   "orders": {
     "choose-account": "Choisir un compte de facturation",
     "choose-partner": "Choisir un partenaire",
-    "choose-delivery": "Choisir un destinataire",
-    "modify-delivery": "Modifier un destinataire",
+    "choose-delivery": "Choisir une adresse de livraison",
+    "modify-delivery": "Modifier l'adresse de livraison",
     "choose-reference": "Saisir une référence client",
     "choose-services": "Configurer des services",
     "choose-delivery-notification": "Prévenir le destinataire de la livraison",
@@ -2537,7 +2539,7 @@
         "last": "Dernière adresse de livraison utilisée:",
         "search": "Rechercher un destinataire :",
         "searchPlaceholder": "Saisir un nom ou une adresse",
-        "new": "Ajouter un destinataire",
+        "new": "Ajouter une adresse",
         "form": {
           "firstname": "Prénom :",
           "lastname": "Nom :",
@@ -2552,8 +2554,8 @@
           "country": "Pays",
           "delivery": "Informations de livraison [facultatif]:",
           "cancel": "Annuler",
-          "add": "Ajouter un destinataire",
-          "modify": "Modifier un destinataire",
+          "add": "Ajouter adresse de livraison",
+          "modify": "Modifier adresse de livraison",
           "taxArea": "Zone de taxe"
         }
       }
