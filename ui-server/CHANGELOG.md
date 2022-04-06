@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.890+20220406145317
+2022-04-06
+
+### Features
+
+- [3264] modifier le composant des messages (d6102019ff649e7dfc2e54d835c381b878983500)
+
 ## 1.17.0-master.889+20220406130919
 2022-04-06
 
