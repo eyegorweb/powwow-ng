@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.892+20220406152443
+2022-04-06
+
+### Features
+
+- [3271] Retour Bouygues du 05/04. (baa1de67dfabb40245b9a83981dcf7fa8bde3268)
+
 ## 1.17.0-master.891+20220406151459
 2022-04-06
 
