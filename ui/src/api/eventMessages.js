@@ -26,6 +26,8 @@ export async function fetchEventMessages() {
       type
       messageDate
       message
+      partyId
+      level
     }
   }`;
 
