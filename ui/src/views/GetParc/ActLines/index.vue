@@ -8,7 +8,7 @@
           <Tooltip direction="right">{{ $t('getparc.tooltip-title-text') }}</Tooltip>
         </h4>
       </div>
-      <div class="col-md-3" v-if="userIsBO">
+      <div class="col-md-3" v-if="havePermission('getSim', 'import')">
         <UiButton variant="accent" block class="float-right" @click="openCreateSimCardsPanel()">{{
           $t('getparc.lines-sim-import')
         }}</UiButton>
