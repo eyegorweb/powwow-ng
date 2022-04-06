@@ -156,13 +156,11 @@ export default {
     },
     getToggleSingleValue() {
       let value = undefined;
-      console.log('toggleValues:', this.toggleValues);
       if (this.toggleValues && this.toggleValues.length === 1) {
         this.toggleValues.forEach((val) => {
           value = this.$t(val.label);
         });
       }
-      console.log('value:', value);
       return value;
     },
   },
