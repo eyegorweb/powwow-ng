@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.893+20220407133205
+2022-04-07
+
+### Fixes
+
+- [3272] correction cockpit supervision (cc04d8574273ef4f7b581b1ade37694116e0b5e8)
+
 ## 1.17.0-master.892+20220406152443
 2022-04-06
 
