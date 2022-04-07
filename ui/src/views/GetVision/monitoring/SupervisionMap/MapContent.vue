@@ -138,7 +138,6 @@ export default {
       mapOverlay: undefined,
       adjustPosition: undefined,
       geocoder: undefined,
-      isReady: false,
       isSameFilters: false,
       canSearch: true,
       locationType: 'CONTINENT',
@@ -491,8 +490,6 @@ export default {
         };
       });
 
-      this.isReady = false;
-
       const countryFilter = this.appliedFilters
         ? this.appliedFilters.find((f) => f.id === 'filters.country')
         : undefined;
@@ -512,18 +509,16 @@ export default {
               parseFloat(longitude)
             );
             this.map.setCenter(countryCoords);
-            this.setZoom(5);
+            this.setZoom(6);
           }
         } else {
           this.centerOnFrance(COUNTRY_ZOOM_LEVEL);
         }
 
         this.markers = markers;
-        this.isReady = true;
         return await delay(50);
       } else {
         this.markers = markers;
-        this.isReady = true;
       }
     },
 
