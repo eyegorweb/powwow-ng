@@ -504,10 +504,7 @@ export default {
           } else if (countryName !== 'France') {
             const longitude = this.$loGet(countryFilter, 'data.longitude');
             const latitude = this.$loGet(countryFilter, 'data.latitude');
-            const countryCoords = new this.google.maps.LatLng(
-              parseFloat(latitude),
-              parseFloat(longitude)
-            );
+            const countryCoords = new this.google.maps.LatLng(latitude, longitude);
             this.map.setCenter(countryCoords);
             this.setZoom(6);
           }
