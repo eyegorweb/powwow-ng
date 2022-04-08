@@ -79,7 +79,7 @@
           >
           <template v-if="userIsBO && order.status === 'CONFIRMED'">
             <UiButton
-              v-if="order.importedQuantity < order.quantity"
+              v-if="havePermission('getSim', 'import') && order.importedQuantity < order.quantity"
               @click="openImportSimPanel"
               variant="import"
             >
@@ -377,7 +377,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['userIsBO', 'userInfos']),
+    ...mapGetters(['userIsBO', 'userInfos', 'havePermission']),
     isM2MLIGHTOrder() {
       return this.order && this.order.party && this.order.party.partyType === 'M2M_LIGHT';
     },
