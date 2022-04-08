@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.895+20220408064543
+2022-04-08
+
+### Fixes
+
+- [3240] Ajout permission getSim Import (97d5fa7d25ed75fccf90202eec506be071c01337)
+
 ## 1.17.0-master.894+20220407165522
 2022-04-07
 
