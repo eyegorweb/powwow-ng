@@ -548,7 +548,11 @@ export default {
           },
         });
 
-        if (!this.appliedFilters.find((f) => f.id === 'getadmin.users.filters.partners')) {
+        if (
+          this.appliedFilters &&
+          this.appliedFilters.length &&
+          !this.appliedFilters.find((f) => f.id === 'getadmin.users.filters.partners')
+        ) {
           const partnerFilter = currentVisibleFilters.find(
             (c) => c.title === 'getadmin.users.filters.partners'
           );
