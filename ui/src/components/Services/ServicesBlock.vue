@@ -43,7 +43,7 @@
             </div>
           </div>
         </div>
-        <template v-if="canShowRoamingTypes">
+        <template v-if="canShowRoamingTypes && canChangeRoamingExtended">
           <div class="row">
             <div class="pl-4">
               <p class="label_before_toggle">{{ $t('services.roaming.title') }}</p>
