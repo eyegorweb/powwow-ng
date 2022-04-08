@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.898+20220408085323
+2022-04-08
+
+### Fixes
+
+- [3273] correction de la gestion du roaming dans l'état des services (455d5fae98b80912187009778c34d7b3cfb0fd51)
+
 ## 1.17.0-master.897+20220408083955
 2022-04-08
 
