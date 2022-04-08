@@ -89,6 +89,7 @@ export default {
             timePicker: this.timePicker,
             timePicker24Hour: true,
             minDate: this.minDate,
+            showDropdowns: true,
             locale: {
               format: this.dateFormat,
               separator: ' - ',
