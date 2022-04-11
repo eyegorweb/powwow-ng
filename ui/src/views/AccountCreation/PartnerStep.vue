@@ -112,6 +112,7 @@
             input-type="number"
             :error="businessErrors['SIRET_ALREADY_EXIST'] || siretInputError"
             :required="siretNumberError"
+            :max-value="14"
           />
           <span v-if="!hide && !reachedMaxLength" class="error-text">
             {{ $t('errors.maxlength') }}

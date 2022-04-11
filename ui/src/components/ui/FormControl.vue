@@ -13,6 +13,7 @@
         :class="{ 'big-input': big }"
         @focus="$emit('focus', $event)"
         @blur="$emit('blur', $event)"
+        @input="onInput($event)"
       />
       <input
         v-else
@@ -95,6 +96,14 @@ export default {
             this.boundsError = false;
           }
         }
+      }
+    },
+  },
+  methods: {
+    onInput(event) {
+      if (this.maxValue != undefined) {
+        console.log('onInput event', event);
+        this.value_ = event.target.value.slice(0, this.maxValue);
       }
     },
   },
