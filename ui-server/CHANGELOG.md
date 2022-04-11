@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.902+20220411142309
+2022-04-11
+
+### Features
+
+- [3282] L'affichage du filtre "groupe de partenaire" se base maintenant sur la permission getVision/filter_domain. (81e36844a8031375ffa11280e96b7b51f5978cd4)
+
 ## 1.17.0-master.901+20220411135316
 2022-04-11
 
