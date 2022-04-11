@@ -192,7 +192,7 @@ export default {
           title: 'getadmin.users.filters.partnerGroup',
           component: PartnerGroupChoice,
           isHidden: () => {
-            if (!this.userIsBO) {
+            if (!this.havePermission('getVision', 'filter_domain')) {
               return true;
             }
             return this.isFrozen;
