@@ -102,7 +102,6 @@ export default {
   methods: {
     onInput(event) {
       if (this.maxValue != undefined) {
-        console.log('onInput event', event);
         this.value_ = event.target.value.slice(0, this.maxValue);
       }
     },
