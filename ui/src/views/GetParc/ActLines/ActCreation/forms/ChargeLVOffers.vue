@@ -6,13 +6,15 @@
   >
     <div slot="main">
       <div class="pricing mb-3">
-        <div v-if="packages && onPackageCLick" class="pricing-container">
-          <PackageCardComponent
-            v-for="p in packages"
-            :key="p.label"
-            :pack="p"
-            :on-click="() => onPackageCLick(p)"
-          />
+        <div v-if="packages" class="pricing-container">
+          <div class="col-4" v-for="p in packages" :key="p.id">
+            <PackageCardComponent
+              :key="p.label"
+              :pack="p"
+              :is-active="p === chosenPackage"
+              @select:pack="onSelectPack"
+            />
+          </div>
         </div>
       </div>
     </div>
@@ -65,38 +67,7 @@ import { mapState, mapGetters } from 'vuex';
 import { createRechargeLVOffer } from '@/api/actCreation.js';
 import { formattedCurrentDateExtended } from '@/utils/date.js';
 import { formatBackErrors } from '@/utils/errors';
-
-const PackageCardComponent = {
-  functional: true,
-  props: {
-    pack: Object,
-    onClick: Function,
-  },
-  render(h, context) {
-    return (
-      <div class="entry p-2">
-        <div class="card text-xs-center">
-          <div class="card-block text-center">
-            <h5 class="card-title pt-2">{context.props.pack.label}</h5>
-            <ul class="list-group">
-              {context.parent.$loGet(context.props, 'pack.usage', []).map((u) => {
-                return (
-                  <li class="list-group-item">
-                    {u.type}: {u.value} {u.unit}
-                  </li>
-                );
-              })}
-            </ul>
-            <button class="btn btn-gradient mt-2" onClick={context.props.onClick}>
-              <em class="ic-Check-Icon" />
-              {context.parent.$t('confirm')}
-            </button>
-          </div>
-        </div>
-      </div>
-    );
-  },
-};
+import PackageCardComponent from '@/views/GetParc/ActLines/ActCreation/forms/PackageCardComponent.vue';
 
 export default {
   components: {
@@ -154,11 +125,11 @@ export default {
     this.actDate = formattedCurrentDateExtended();
   },
   methods: {
+    onSelectPack(pack) {
+      this.chosenPackage = pack;
+    },
     onActDateChange(value) {
       this.actDate = value;
-    },
-    onPackageCLick(pack) {
-      this.chosenPackage = pack;
     },
     async validate(contextValues) {
       const params = {
