@@ -91,7 +91,10 @@ export default {
       this.names = this.partners.map((p) => p.name);
     },
     onSeeMore() {
-      this.$pushAnalytics({ event: 'm2m.seeMore', widget: 'Nombre d\'alarmes déclenchées par jour' });
+      this.$pushAnalytics({
+        event: 'm2m.seeMore',
+        widget: "Nombre d'alarmes déclenchées par jour",
+      });
       this.$router.push({
         name: 'alarms',
         params: {

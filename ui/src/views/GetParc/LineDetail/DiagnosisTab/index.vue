@@ -54,7 +54,7 @@ export default {
         permission: { domain: 'getParc', action: 'manage_coach' },
         to: {
           name: 'lineDetail.diagnosis.last_tests',
-          meta:{label: 'Détail de la ligne - Derniers tests Coach M2M'},
+          meta: { label: 'Détail de la ligne - Derniers tests Coach M2M' },
           params: { lineId: this.$route.params.lineId, meta: this.content },
         },
       },
@@ -65,7 +65,7 @@ export default {
         permission: { domain: 'getVision', action: 'read' },
         to: {
           name: 'lineDetail.diagnosis.analysis',
-          meta:{label: 'Détail de la ligne - Analyser la ligne'},
+          meta: { label: 'Détail de la ligne - Analyser la ligne' },
           params: { lineId: this.$route.params.lineId, meta: this.content },
         },
       },
@@ -76,7 +76,7 @@ export default {
         permission: { domain: 'getVision', action: 'read' },
         to: {
           name: 'lineDetail.diagnosis.networkStatus',
-          meta:{label: 'Détail de la ligne - Tester le réseau et la localisation'},
+          meta: { label: 'Détail de la ligne - Tester le réseau et la localisation' },
           params: { lineId: this.$route.params.lineId, meta: this.content },
         },
       },
@@ -87,7 +87,7 @@ export default {
         permission: { domain: 'getVision', action: 'read' },
         to: {
           name: 'lineDetail.diagnosis.networkTestControl',
-          meta:{label: 'Détail de la ligne - Tester et contrôler la consommation'},
+          meta: { label: 'Détail de la ligne - Tester et contrôler la consommation' },
           params: { lineId: this.$route.params.lineId, meta: this.content },
         },
       },
@@ -98,7 +98,7 @@ export default {
         permission: { domain: 'getVision', action: 'read' },
         to: {
           name: 'lineDetail.diagnosis.supervision',
-          meta:{label: 'Détail de la ligne - Supervision'},
+          meta: { label: 'Détail de la ligne - Supervision' },
           params: { lineId: this.$route.params.lineId, meta: this.content },
         },
       },
@@ -148,7 +148,7 @@ export default {
         title: 'getparc.lineDetail.tab2.networkHistory',
         to: {
           name: 'lineDetail.diagnosis.networkHistory',
-          meta:{label: 'Détail de la ligne - Historique réseau et itinérance'},
+          meta: { label: 'Détail de la ligne - Historique réseau et itinérance' },
           params: { lineId: this.$route.params.lineId, meta: this.content },
         },
       };

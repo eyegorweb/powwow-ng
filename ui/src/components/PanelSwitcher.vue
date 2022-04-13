@@ -15,7 +15,7 @@
         v-if="panelId === 'getsim.reservations.createReservation'"
         :reservation="payload"
       />
-      <CreatePublicOrderPanel v-if="panelId === 'getsim.public-order-sim'" :order="payload" />
+      <CreateDigitalOfferPanel v-if="panelId === 'getsim.public-order-sim'" :order="payload" />
       <GetSimOrderDetails v-if="panelId === 'getsim.details.title'" :order="payload" />
       <GetSimReservationDetails v-if="panelId === 'getsim.reservation.title'" :order="payload" />
       <GetSimCreatorDetails v-if="panelId === 'getsim.creator.title'" :order="payload" />
@@ -97,7 +97,7 @@ export default {
     SlidePanel,
     UserFormPanel,
     GetSimCreateOrderPanel: () => import('@/views/GetSim/CreateOrder/CreateOrderPanel'),
-    CreatePublicOrderPanel: () => import('@/views/GetSim/PublicOrder/index.vue'),
+    CreateDigitalOfferPanel: () => import('@/views/GetSim/DigitalOffer/index.vue'),
     GetSimOrderDetails: () => import('@/views/GetSim/GetSimOrderDetails'),
     GetSimReservationDetails: () => import('@/views/GetSim/GetSimReservationDetails'),
     GetSimCreatorDetails: () => import('@/views/GetSim/GetSimCreatorDetails'),

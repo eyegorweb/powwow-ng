@@ -8,7 +8,7 @@
         <slot name="content" />
       </div>
     </div>
-    <div class="wizard-synthesis">
+    <div class="wizard-synthesis" :class="{ open: showSynthesis }">
       <div class="loader" v-if="showLoader">
         <div class="skeleton-line"></div>
       </div>
@@ -27,6 +27,7 @@ export default {
   props: {
     steps: Array,
     currentStep: Number,
+    showSynthesis: Boolean,
   },
   data() {
     return {
@@ -55,6 +56,10 @@ export default {
     flex-flow: column nowrap;
     height: 100%;
 
+    @media screen and (max-width: 768px) {
+      padding-top: 30px;
+      width: 100%;
+    }
     .steps {
       flex-basis: 4rem;
     }
@@ -90,6 +95,46 @@ export default {
     .skeleton-line {
       width: 100px;
       height: 10px;
+    }
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .cd-panel__container {
+    width: 100%;
+  }
+  .creation-panel {
+    width: 100%;
+    .stepper-container {
+      width: 100% !important;
+      margin-top: 60px;
+      .step-container {
+        .container {
+          max-width: 100%;
+          width: 100%;
+        }
+      }
+      .account-creation-success {
+        text-align: left;
+        font-size: 14px;
+      }
+    }
+    .wizard-synthesis {
+      position: absolute;
+      width: 100%;
+      top: 0;
+      left: 0;
+
+      &-wrapper {        
+        height: 60px;
+      }
+
+      &.open {
+        height: 100vh;
+        h6 span {
+          transform: rotate(-45deg);
+        }
+      }
     }
   }
 }

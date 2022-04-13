@@ -64,9 +64,9 @@
 <script>
 import WizardPanel from '@/components/WizardWithSynthesis/WizardPanel.vue';
 import WizardSynthesis from './WizardSynthesis.vue';
-import OfferChoiceStep from './CreatePublicOrderPanel/OfferChoiceStep.vue';
-import SimChoiceStep from './CreatePublicOrderPanel/SimChoiceStep.vue';
-import DeliveryChoiceStep from './CreatePublicOrderPanel/DeliveryChoiceStep.vue';
+import OfferChoiceStep from './CreateDigitalOfferPanel/OfferChoiceStep';
+import SimChoiceStep from './CreateDigitalOfferPanel/SimChoiceStep';
+import DeliveryChoiceStep from './CreateDigitalOfferPanel/DeliveryChoiceStep';
 import { createDigitalOffer } from '@/api/digital';
 import { fetchBillingAccounts } from '@/api/billingAccounts';
 import { redirectTo } from '@/utils';

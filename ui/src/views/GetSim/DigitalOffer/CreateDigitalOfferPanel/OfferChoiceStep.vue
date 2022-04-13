@@ -88,5 +88,11 @@ export default {
   .col-4 {
     max-width: 100%;
   }
+
+  .offerContainer {
+    .row {
+      justify-content: center;
+    }
+  }
 }
 </style>

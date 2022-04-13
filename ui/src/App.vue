@@ -122,7 +122,13 @@ export default {
           if (this.$route.name != 'callback') {
             this.$pushAnalyticsIfReady({
               event: 'm2m.PageView',
-              to: { name: this.$route.meta && this.$route.meta.label ? this.$route.meta.label : this.$route.name , path: this.$route.path },
+              to: {
+                name:
+                  this.$route.meta && this.$route.meta.label
+                    ? this.$route.meta.label
+                    : this.$route.name,
+                path: this.$route.path,
+              },
             });
           }
         }, 100);

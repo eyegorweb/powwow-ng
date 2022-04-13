@@ -48,7 +48,7 @@ export default {
         // permission: { domain: 'getParc', action: 'manage_coach' },
         to: {
           name: 'partnerDetail.users.admins',
-          meta:{label: 'Détail du partenaire - Administrateurs'},
+          meta: { label: 'Détail du partenaire - Administrateurs' },
           params: { partner: this.partner },
         },
       },
@@ -59,7 +59,7 @@ export default {
         // permission: { domain: 'getParc', action: 'manage_coach' },
         to: {
           name: 'partnerDetail.users.users',
-          meta:{label: 'Détail du partenaire - Utilisateurs'},
+          meta: { label: 'Détail du partenaire - Utilisateurs' },
           params: { partner: this.partner },
         },
       },

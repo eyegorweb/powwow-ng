@@ -46,7 +46,7 @@ export default {
         title: 'getadmin.partnerDetail.mb.commercialOffer',
         to: {
           name: 'getAdminPartnerDetails.customerList.detail.commercialOffers.list',
-          meta:{label: 'Détail du partenaire - CF - Liste des offres commerciales (MB)'},
+          meta: { label: 'Détail du partenaire - CF - Liste des offres commerciales (MB)' },
           params: {
             id: this.$route.params.id,
             billingAccountId: this.$route.params.billingAccountId,
@@ -57,7 +57,7 @@ export default {
         title: 'getadmin.partnerDetail.mb.simCards',
         to: {
           name: 'getAdminPartnerDetails.customerList.detail.simcards',
-          meta:{label: 'Détail du partenaire - CF - Cartes SIM (MB)'},
+          meta: { label: 'Détail du partenaire - CF - Cartes SIM (MB)' },
           params: {
             id: this.$route.params.id,
             billingAccountId: this.$route.params.billingAccountId,
@@ -68,7 +68,7 @@ export default {
         title: 'getadmin.partnerDetail.mb.deliveryAdresses',
         to: {
           name: 'getAdminPartnerDetails.customerList.detail.deliveryAdresses',
-          meta:{label: 'Détail du partenaire - CF - Adresse de livraison (MB)'},
+          meta: { label: 'Détail du partenaire - CF - Adresse de livraison (MB)' },
           params: {
             id: this.$route.params.id,
             billingAccountId: this.$route.params.billingAccountId,

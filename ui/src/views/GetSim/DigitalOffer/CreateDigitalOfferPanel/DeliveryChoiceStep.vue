@@ -171,6 +171,13 @@ export default {
   width: 70%;
   margin: 0 auto;
 }
+
+.list-container .box {
+  
+  @media only screen and (max-width: 700px) {
+    width: 100%;
+  }
+}
 .box__item {
   display: flex;
   justify-content: center;
