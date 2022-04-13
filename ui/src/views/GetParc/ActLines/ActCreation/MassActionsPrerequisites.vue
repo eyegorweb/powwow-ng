@@ -53,6 +53,12 @@
           act.title === 'getparc.actCreation.carouselItem.RECHARGE_LINES'
       "
     />
+    <!-- add condition to display admin radius all prerequesites components -->
+    <RadiusPrerequisite
+      v-if="['getparc.actCreation.carouselItem.RADIUS_ADMIN'].find((a) => a === act.title)"
+      :partner="userPartner"
+      @set:preprequisites="setPrerequisites"
+    />
   </div>
 </template>
 
@@ -63,6 +69,7 @@ import OfferPrerequisite from './prerequisites/OfferPrerequisite';
 import PartnerAndCFTransfertSim from './prerequisites/PartnerAndCFTransfertSim';
 import PartnerAndCF from './prerequisites/PartnerAndCF';
 import PartnerCFEsimStatus from './prerequisites/PartnerCFEsimStatus';
+import RadiusPrerequisite from './prerequisites/RadiusPrerequisite';
 import { mapState, mapActions, mapMutations, mapGetters } from 'vuex';
 
 export default {
@@ -72,6 +79,7 @@ export default {
     PartnerAndCF,
     PartnerCFEsimStatus,
     PartnerAndCFTransfertSim,
+    RadiusPrerequisite,
   },
   props: {
     act: Object,

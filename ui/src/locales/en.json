@@ -1381,7 +1381,10 @@
         "DETAIL": "See the detail",
         "EXPORT": "Export act",
         "EXPORT_LINES": "Export the lines",
-        "CANCEL": "Cancel act"
+        "CANCEL": "Cancel act",
+        "UPDATE": "Update",
+        "CONSULT": "Consult",
+        "SYNC": "Synchronise"
       }
     },
     "actDetail": {
@@ -1739,6 +1742,7 @@
         "MODAL_WARNING": "Warning ! This action is final",
         "TRANSFERT_LINES": "Transfer to a partner",
         "CHANGE_SIMCARD": "Change SIM card",
+        "RADIUS_ADMIN": "Radius admin",
         "CHANGE_MSISDN": "Change MSISDN",
         "ACTIVATE_PREACTIVATE": "Preactivate / Activate lines",
         "esim": {
@@ -1763,7 +1767,8 @@
         "CHANGE_MSISDN": "Configure MSISDN Change",
         "CHANGE_SIMCARD": "Configure the change of SIM cards",
         "ACTIVATE_PREACTIVATE": "Configure activation / Pre-activation",
-        "CHANGE_OFFER": "Configure change of offer"
+        "CHANGE_OFFER": "Configure change of offer",
+        "RADIUS_ADMIN": "Configure Radius administration"
       },
       "modal": {
         "modalPreventMsg": "The lines will be terminated immediately.",
@@ -1811,6 +1816,9 @@
         "confirmationWarning": "Warning ! The old MSISDN will be terminated. Do you confirm the change of MSISDN?",
         "currentMSISDN": "Current MSISDN",
         "newMSISDN": "New MSISDN"
+      },
+      "RADIUS_ADMIN": {
+        "confirmationWarning": "Warning ! Admin radius en cours"
       },
       "changeCustomFields": {
         "confirmationWarning": "Warning ! The old free fields will be terminated. Do you confirm the change of free fields?",
@@ -2413,6 +2421,7 @@
   "noFilter": "No filter",
   "dragOrAddFile": "Drop your file here, or click to add",
   "retry": "Please try again",
+  "retryLater": "Please try again later.",
   "exportLoading": "Your file is being prepared",
   "exportFormat": "Please choose an export format",
   "noneM": "None",

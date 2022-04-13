@@ -54,9 +54,6 @@ export default {
       showCombo: true,
     };
   },
-  async mounted() {
-    // this.refreshData();
-  },
   methods: {
     async searchOffers(q, page = 0) {
       // TODO à valider avec @jpquere
@@ -84,9 +81,6 @@ export default {
           const data = await fetchOffers(q, [this.partner], queryParams);
           if (data) {
             let dataToUse = data;
-            // if (!this.keepSelectedValue) {
-            //   dataToUse = data.filter((o) => o.code !== this.prerequisiteOffer.code);
-            // }
             return dataToUse.map((o) => ({
               id: o.code,
               label: o.workflowDescription,
@@ -98,7 +92,6 @@ export default {
           return [];
         }
       } else {
-        // this.selectedOffer = undefined;
         return [];
       }
 
@@ -132,6 +125,10 @@ export default {
       }
       if (value && value.label === '') {
         this.$emit('update:offer', undefined);
+        return;
+      }
+      if (value && !value.label) {
+        this.$emit('reset:offer', undefined);
         return;
       }
       if (value && value.id) {

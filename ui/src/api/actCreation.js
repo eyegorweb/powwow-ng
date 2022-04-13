@@ -1090,3 +1090,66 @@ export async function createGeoLocationMassAction(simCardId) {
   }
   `);
 }
+
+export async function createRadiusAdmin(params, action) {
+  const { tempDataUuid, partyId, customerAccountId, workflowId, apnCode } = params;
+
+  const queryStr = `
+  mutation{
+    radiusAdministration(
+      input: {
+        tempDataUuid: "${tempDataUuid}",
+        partyId: ${partyId},
+        customerAccountId: ${customerAccountId},
+        workflowId: ${workflowId},
+        apnCode: "${apnCode}",
+        action: ${action}
+      }
+    )
+    {
+      tempDataUuid
+      validated
+      errors {
+        key
+        number
+        message
+      }
+    }
+  }
+`;
+
+  const response = await query(queryStr);
+
+  if (response.errors) {
+    return {
+      errors: response.errors,
+    };
+  }
+  return response.data.radiusAdministration;
+}
+
+export async function fetchApn(partyId, workflowId) {
+  const queryStr = `
+  query {
+    radiusConfigurations(
+      input: {
+        partyId: ${partyId},
+        workflowId: ${workflowId}
+        }
+      )
+      {
+      apnCode
+      partyId
+      apnType
+    }
+  }`;
+
+  const response = await query(queryStr);
+
+  if (response.errors) {
+    return {
+      errors: response.errors,
+    };
+  }
+  return response.data.radiusConfigurations;
+}

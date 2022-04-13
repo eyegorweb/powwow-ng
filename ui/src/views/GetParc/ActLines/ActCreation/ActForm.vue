@@ -73,6 +73,9 @@
       <RechargeLinesOD
         v-if="act.title === 'getparc.actCreation.carouselItem.RECHARGE_LINES' && !isLoading"
       />
+      <RadiusAdmin
+        v-if="act.title === 'getparc.actCreation.carouselItem.RADIUS_ADMIN' && !isLoading"
+      />
     </div>
   </div>
 </template>
@@ -99,6 +102,7 @@ import EsimChangeProfile from './forms/EsimChangeProfile';
 import EsimPolicyRules from './forms/EsimPolicyRules';
 import EsimDownloadProfile from './forms/EsimDownloadProfile';
 import EsimAudit from './forms/EsimAudit';
+import RadiusAdmin from './forms/RadiusAdmin';
 
 const ChargeLVOffers = () =>
   import('@/views/GetParc/ActLines/ActCreation/forms/ChargeLVOffers.vue');
@@ -133,6 +137,7 @@ export default {
     RechargeLinesOD,
     EsimPolicyRules,
     EsimAudit,
+    RadiusAdmin,
   },
   props: {
     act: Object,

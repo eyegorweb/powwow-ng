@@ -56,6 +56,7 @@
   "noLinesToExport": "Aucune ligne à exporter",
   "needActiveLines": "Vous devez filtrer sur les lignes actives",
   "retry": "Veuillez réessayer",
+  "retryLater": "Veuillez réessayer ultérieurement.",
   "exportLoading": "Votre fichier est en cours de préparation",
   "exportFormat": "Veuillez choisir un format d'export",
   "logout": "Déconnexion",
@@ -1509,7 +1510,10 @@
         "DETAIL": "Voir le détail",
         "EXPORT": "Exporter l'acte",
         "EXPORT_LINES": "Exporter les lignes",
-        "CANCEL": "Annuler l'acte"
+        "CANCEL": "Annuler l'acte",
+        "UPDATE": "Mise à jour",
+        "CONSULT": "Consultation",
+        "SYNC": "Resynchronisation"
       }
     },
     "actDetail": {
@@ -1908,6 +1912,7 @@
         "CHANGE_SIMCARD": "Changer de carte SIM",
         "CHANGE_MSISDN": "Changer de MSISDN",
         "ACTIVATE_PREACTIVATE": "Préactiver / Activer des lignes",
+        "RADIUS_ADMIN": "Administration Radius",
         "esim": {
           "PAIRING": "Appairer des eSIM",
           "AUDIT": "Audit eSIM",
@@ -1934,6 +1939,7 @@
         "ACTIVATE_PREACTIVATE": "Configurer l'activation / Préactivation",
         "CHANGE_OFFER": "Configurer le changement d'offre",
         "PAIRING": "Configurer l'appairage des eSIM",
+        "RADIUS_ADMIN": "Configurer l'administration Radius",
         "configure": "Configuration"
       },
 
@@ -1985,6 +1991,9 @@
         "confirmationWarning": "Attention !  L'ancien MSISDN sera résilié.  Confirmez-vous le changement de MSISDN ?",
         "currentMSISDN": "MSISDN actuel",
         "newMSISDN": "Nouvel MSISDN"
+      },
+      "RADIUS_ADMIN": {
+        "confirmationWarning": "Attention ! Admin radius en cours"
       },
       "changeCustomFields": {
         "confirmationWarning": "Attention !  Les anciens champs libres seront résiliés.  Confirmez-vous le changement des champs libres ?",

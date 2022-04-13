@@ -11,8 +11,8 @@
         <slot>
           <option v-if="placeholder" selected value="none">{{ placeholder }}</option>
           <option
-            v-for="option in formattedOptions"
-            :key="option.value"
+            v-for="(option, index) in formattedOptions"
+            :key="`${option.value}_${index}`"
             :value="option.value"
             :disabled="option.disabled"
           >

@@ -143,6 +143,27 @@ export default excludeMocked([
     ],
   },
   {
+    icon: 'ic-Sim-Icon',
+    title: 'getparc.actCreation.carouselItem.RADIUS_ADMIN',
+    id: 'RADIUS_ADMIN',
+    stepTitle: 'getparc.actCreation.step2Titles.RADIUS_ADMIN',
+    selected: false,
+    containFile: true,
+    havePrereqs: true,
+    permission: { domain: 'act', action: 'manage_main' }, // replace action by radius_administration
+    filters: [
+      {
+        id: 'filters.lines.SIMCardStatus',
+        values: [
+          {
+            id: 'ACTIVATED',
+            label: 'Activée',
+          },
+        ],
+      },
+    ],
+  },
+  {
     icon: 'ic-Smartphone-Icon',
     title: 'getparc.actCreation.carouselItem.CHANGE_MSISDN',
     id: 'CHANGE_MSISDN',
