@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.904+20220413112308
+2022-04-13
+
+### Fixes
+
+- [3264] corriger le composant des messages (ba2e9ad44e199375e1d01b089c76bc64ee246c20)
+
 ## 1.17.0-master.903+20220411152142
 2022-04-12
 
