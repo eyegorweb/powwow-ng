@@ -2623,5 +2623,10 @@
   },
   "exportEmpty": "L'export demandé est vide.",
   "undefined": "Indéterminé",
-  "other": "Autre(s)"
+  "other": "Autre(s)",
+  "adminSection": {
+    "message": "Message",
+    "example": "Exemple",
+    "type": "Type"
+  }
 }

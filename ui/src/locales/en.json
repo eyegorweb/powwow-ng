@@ -2442,5 +2442,10 @@
   },
   "exportEmpty": "The export is empty.",
   "undefined": "Undefined",
-  "other": "Other"
+  "other": "Other",
+  "adminSection": {
+    "message": "Message",
+    "example": "Exemple",
+    "type": "Type"
+  }
 }
