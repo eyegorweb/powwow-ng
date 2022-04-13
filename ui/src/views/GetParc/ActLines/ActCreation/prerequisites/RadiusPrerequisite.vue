@@ -30,7 +30,7 @@
       </div>
       <div class="col">
         <div>
-          <h5>{{ $t('col.apn') }}</h5>
+          <h5>{{ $t('APN') }}</h5>
           <ApnPart
             :disabled="!selectedOffer || (selectedOffer && !selectedOffer.label)"
             :offer="selectedOffer"
