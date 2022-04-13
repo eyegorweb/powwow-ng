@@ -150,7 +150,7 @@ export default excludeMocked([
     selected: false,
     containFile: true,
     havePrereqs: true,
-    permission: { domain: 'act', action: 'manage_main' }, // replace action by radius_administration
+    permission: { domain: 'act', action: 'radius_administration' },
     filters: [
       {
         id: 'filters.lines.SIMCardStatus',
