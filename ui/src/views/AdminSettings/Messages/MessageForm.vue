@@ -1,14 +1,16 @@
 <template>
   <form>
     <div class="form-group">
-      <label>Type</label>
+      <label>{{ $t('adminSection.type') }}</label>
       <UiSelect class="text-gray" block v-model="selectedType" :options="types" />
     </div>
 
     <div class="form-group">
       <label for="messageContent">
-        Message
-        <button class="btn btn-sm btn-primary" @click.prevent="setExample()">Exemple</button>
+        {{ $t('adminSection.message') }}
+        <button class="btn btn-sm btn-primary" @click.prevent="setExample()">
+          {{ $t('adminSection.example') }}
+        </button>
       </label>
       <textarea v-model="messageTxt" class="form-control" id="messageContent" rows="10"></textarea>
     </div>
@@ -48,7 +50,7 @@ export default {
     return {
       selectedType: undefined,
       messageTxt: undefined,
-      types: ['MEP', 'INFO'],
+      types: ['EVENT', 'INFO'],
     };
   },
 

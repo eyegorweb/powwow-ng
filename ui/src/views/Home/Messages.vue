@@ -50,25 +50,13 @@ export default {
     const response = await fetchEventMessages();
 
     // EVENTS
-    if (this.userIsAdmin) {
-      this.events = response.filter((e) => e.type === 'EVENT');
-      this.eventsToShow = this.events.filter((evt) => evt.locale === this.$i18n.locale);
-    }
+    this.events = response.filter((e) => e.type === 'EVENT');
+    this.eventsToShow = this.events.filter((evt) => evt.locale === this.$i18n.locale);
 
     // INFOS
-    if (this.userIsM2MLight && this.userInfos && this.userInfos.partners) {
-      this.infos = response
-        .filter((e) => e.type.startsWith('INFO'))
-        .filter((e) => e.partyId === this.userInfos.partners[0].id);
-
-      this.infosToShow = this.infos.filter((inf) => inf.locale === this.$i18n.locale);
-    }
+    this.infos = response.filter((e) => e.type.startsWith('INFO'));
+    this.infosToShow = this.infos.filter((inf) => inf.locale === this.$i18n.locale);
   },
-
-  computed: {
-    ...mapGetters(['userIsAdmin', 'userIsM2MLight', 'userInfos']),
-  },
-
   watch: {
     async '$i18n.locale'(locale) {
       this.eventsToShow = this.events.filter((ev) => ev.locale === locale);
