@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.907+20220413165419
+2022-04-13
+
+### Fixes
+
+- [3297] Add regex control on Phone and MaxSize on address (90b2c129f7c57aa496d07ec55432cc0a77c41535)
+
 ## 1.17.0-master.906+20220413140532
 2022-04-13
 
