@@ -81,6 +81,7 @@ export default {
         'getparc.actCreation.carouselItem.CHANGE_MSISDN',
         'getparc.actCreation.carouselItem.CHANGE_SIMCARD',
         'getparc.actCreation.carouselItem.CHANGE_OFFER',
+        'getparc.actCreation.carouselItem.RADIUS_ADMIN',
       ];
       return !ignoredActs.find((a) => a === this.act.title);
     },

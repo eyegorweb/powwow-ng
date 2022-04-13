@@ -2,9 +2,12 @@
   <div class="card">
     <div class="card-body">
       <div class="row">
+        <div class="col-12">
+          <slot name="action" />
+        </div>
         <div class="col-7">
           <ff-wip>
-            <div class="row">
+            <div class="row" v-if="!ipFixUsage">
               <div class="col d-flex">
                 <UiCheckbox v-model="notificationCheck" />
                 <span>{{ $t('getparc.actCreation.NOTIFICATION_CHECK') }}</span>
@@ -13,7 +16,7 @@
           </ff-wip>
 
           <div class="row">
-            <div class="col">
+            <div class="col" v-if="!ipFixUsage">
               <UiDate
                 @change="onActDateChange"
                 :value="actDate"
@@ -140,6 +143,7 @@ export default {
     confirmationMessage: String,
     successMessage: String,
     alwaysShowReport: Boolean,
+    ipFixUsage: Boolean,
   },
   data() {
     return {
@@ -360,13 +364,24 @@ export default {
     },
 
     async confirmRequest(showMessage = false) {
-      const params = {
-        notifEmail: this.contextValues.notificationCheck,
-        dueDate: this.contextValues.actDate,
-        partyId: this.actCreationPrerequisites.partner.id, // partner id
+      let params;
+      if (!this.ipFixUsage) {
+        params = {
+          notifEmail: this.contextValues.notificationCheck,
+          dueDate: this.contextValues.actDate,
+          partyId: this.actCreationPrerequisites.partner.id,
+          tempDataUuid: this.tempDataUuid,
+        };
+      } else {
+        params = {
+          partyId: this.actCreationPrerequisites.partner.id,
+          tempDataUuid: this.tempDataUuid,
+          customerAccountId: this.actCreationPrerequisites.billingAccount.id,
+          workflowId: this.actCreationPrerequisites.offer.data.id,
+          apnCode: this.actCreationPrerequisites.apn.value,
+        };
+      }
 
-        tempDataUuid: this.tempDataUuid,
-      };
       this.requestExceptionsErrors = undefined;
       const response = await this.actMutationFn(params);
       if (response.errors) {
