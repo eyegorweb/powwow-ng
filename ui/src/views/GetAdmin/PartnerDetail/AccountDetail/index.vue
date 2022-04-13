@@ -40,7 +40,7 @@ export default {
           title: 'getadmin.partners.accountDescription',
           to: {
             name: 'partnerDetail.accountDetail.description',
-            meta:{label: 'Détail du partenaire - Description'},
+            meta: { label: 'Détail du partenaire - Description' },
             params: { partner: this.partner },
           },
         },
@@ -49,7 +49,7 @@ export default {
           title: 'getadmin.partners.options',
           to: {
             name: 'partnerDetail.accountDetail.options',
-            meta:{label: 'Détail du partenaire - Options'},
+            meta: { label: 'Détail du partenaire - Options' },
             params: { partner: this.partner },
           },
         },
@@ -68,7 +68,7 @@ export default {
           title: 'getadmin.partners.accountDescription',
           to: {
             name: 'partnerDetail.accountDetail.description',
-            meta:{label: 'Détail du partenaire - Description'},
+            meta: { label: 'Détail du partenaire - Description' },
             params: { partner: this.partner },
           },
         },
@@ -84,7 +84,7 @@ export default {
           title: 'getadmin.partners.options',
           to: {
             name: 'partnerDetail.accountDetail.options',
-            meta:{label: 'Détail du partenaire - Options'},
+            meta: { label: 'Détail du partenaire - Options' },
             params: { partner: this.partner },
           },
         },
@@ -98,7 +98,7 @@ export default {
         title: 'getadmin.partners.m2mRange.title',
         to: {
           name: 'partnerDetail.accountDetail.m2mRange',
-          meta:{label: 'Détail du partenaire - Plage MSISDN'},
+          meta: { label: 'Détail du partenaire - Plage MSISDN' },
           params: { partner: this.partner },
         },
       });

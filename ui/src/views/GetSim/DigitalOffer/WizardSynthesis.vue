@@ -1,6 +1,14 @@
 <template>
-  <div class="wizard-synthesis-wrapper">
-    <h6>{{ $t(title) }}</h6>
+  <div class="wizard-synthesis-wrapper" :class="{ open: showSynthesis }">
+    <h6 class="title title--responsiveNone" >{{ $t(title) }}</h6>
+    <h6 class="title title--responsive" @click="canShowSynthesis()">
+      {{
+        showSynthesis
+          ? $t('digitalOffer.synthesis.titleHide')
+          : $t('digitalOffer.synthesis.titleShow')
+      }}
+      <span></span>
+    </h6>
     <div class="synthesis-content">
       <CreateOrderPanelSynthesisItem
         :key="item.label"
@@ -117,6 +125,7 @@ export default {
   data() {
     return {
       accept: false,
+      showSynthesis: false,
     };
   },
 
@@ -125,6 +134,10 @@ export default {
       return formatCurrency(value);
     },
 
+    canShowSynthesis() {
+      this.showSynthesis = !this.showSynthesis;
+    },
+    
     getApnServices(services) {
       return services
         .filter((s) => {
@@ -362,13 +375,40 @@ $fontSize: 0.8rem;
   display: flex;
   flex-direction: column;
   height: 100%;
+  transition: 0.2s;
+  
   .synthesis-content {
     overflow-y: auto;
     flex-grow: 1;
   }
   h6 {
+    span {
+      width: 15px;
+      height: 15px;
+      border-right: 2px solid grey;
+      border-top: 2px solid grey;
+      border-left: 2px solid transparent;
+      border-bottom: 2px solid transparent;
+      transform: rotate(135deg);
+      position: absolute;
+      right: 30px;
+      top: 45px;
+      transition: 0.2s;
+    }
     &.title {
       margin-bottom: 2em;
+      &--responsive {
+        display: none;
+        @media screen and (max-width: 900px) {
+          display: block;
+          margin-top: 30px;
+        }
+      }
+      &--responsiveNone {
+        @media screen and (max-width: 900px) {
+          display: none;
+        }
+      }
     }
     &.subtitle {
       color: $gray-680;
@@ -376,8 +416,28 @@ $fontSize: 0.8rem;
       font-weight: 500;
     }
   }
+  &.open {
+    @media screen and (max-width: 900px) {
+      height: 100vh;
+
+      h6 span {
+        transform: rotate(-45deg);
+      }
+    }
+  }
   .footer {
     border-top: 1px solid $gray-400;
+
+    @media screen and (max-height: 768px) {
+      position: fixed;
+      background: white;
+      bottom: 10px;
+      right: 10px;
+      border: 0;
+      display: flex;
+      width: 70%;
+    }
+
     button {
       font-size: 1rem;
     }

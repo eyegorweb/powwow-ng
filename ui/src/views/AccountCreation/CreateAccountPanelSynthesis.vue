@@ -400,11 +400,6 @@ $fontSize: 0.8rem;
     width: 100%;
   }
 
-  &.open {
-    @media screen and (max-width: 900px) {
-      height: 100vh;
-    }
-  }
   .synthesis-content {
     overflow-y: auto;
     flex-grow: 1;

@@ -30,7 +30,7 @@ export default {
         title: 'filters.offers',
         to: {
           name: 'partnerDetail.offersAndSim.offers',
-          meta:{label: 'Détail du partenaire - Offres'},
+          meta: { label: 'Détail du partenaire - Offres' },
           params: { partner: this.partner },
         },
       });
@@ -41,7 +41,7 @@ export default {
         title: 'getadmin.users.simcards',
         to: {
           name: 'partnerDetail.offersAndSim.simCards',
-          meta:{label: 'Détail du partenaire - Cartes SIM'},
+          meta: { label: 'Détail du partenaire - Cartes SIM' },
           params: { partner: this.partner },
         },
       });
@@ -51,7 +51,7 @@ export default {
       title: 'getadmin.users.supervision',
       to: {
         name: 'partnerDetail.offersAndSim.supervisionOptions',
-        meta:{label: 'Détail du partenaire - Options de supervision'},
+        meta: { label: 'Détail du partenaire - Options de supervision' },
         params: { partner: this.partner },
       },
     });
