@@ -3,7 +3,11 @@
     <div v-if="!partner" class="row">
       <div class="col">
         <h5>{{ $t('getparc.actLines.step1Partner') }}</h5>
-        <PartnersPart @setpartner="setPartner" :have-lv-offers="haveLvOffers" />
+        <PartnersPart
+          @setpartner="setPartner"
+          :have-lv-offers="haveLvOffers"
+          :partner-type="partnerType"
+        />
       </div>
       <div v-if="canSelectBillingAccount" class="col">
         <h5>{{ $t('getparc.actLines.billingAccount') }}</h5>
@@ -87,6 +91,7 @@ export default {
     canSelectBillingAccount: Boolean,
     allOffers: Boolean,
     haveLvOffers: Boolean,
+    partnerType: String,
   },
   watch: {
     partner(newValue) {
