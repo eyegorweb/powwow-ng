@@ -150,10 +150,10 @@
         <div class="accountdetail-contact-img"></div>
         <div class="accountdetail-contact-txt">
           <div class="accountdetail-contact-txt-flexHalf">
-            <FormControl label="getadmin.partnerDetail.tel" v-model="form.phone" />
+            <FormControl label="getadmin.partnerDetail.tel" v-model="form.phone" :error="errors.phone"/>
             <FormControl label="getadmin.partnerDetail.fax" v-model="form.fax" />
           </div>
-          <FormControl label="getadmin.partnerDetail.address" v-model="form.address" />
+          <FormControl label="getadmin.partnerDetail.address" v-model="form.address" :max-size="35" />
           <FormControl label="getadmin.partnerDetail.address2" v-model="form.address2" />
           <div class="accountdetail-contact-txt-flex">
             <FormControl label="getadmin.partnerDetail.zipCode" v-model="form.zipCode" />
@@ -232,6 +232,9 @@ export default {
       accountDetail: Object,
       partyDetail: Object,
       openPopup: false,
+      errors: {
+        phone: undefined,
+      },
       form: {
         partnerName: undefined,
         siren: undefined,
@@ -329,6 +332,18 @@ export default {
     this.fetchLogo();
   },
 
+  watch: {
+    'form.phone'(phone) {
+      const regex = /^(?:[0-9] ?){6,16}[0-9]$/;
+      if(regex.test(phone)) {
+        this.errors.phone = ''
+      }
+      else {
+        this.errors.phone = this.$t('digitalOffer.errors.PHONE_NUMBER_INVALID');
+      }
+      return;
+    },
+  },
   methods: {
     ...mapMutations(['flashMessage', 'confirmAction']),
     ...mapGetters(['userIsPartner', 'userIsBO']),

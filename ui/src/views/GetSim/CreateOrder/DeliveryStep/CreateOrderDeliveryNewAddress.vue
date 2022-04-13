@@ -64,6 +64,7 @@
             no-filter-on-result
             v-model="selectedAddress"
             :error="errors.address"
+            :max-size="35"
             no-icon
           />
 
@@ -279,6 +280,16 @@ export default {
   },
 
   watch: {
+    'form.phone'(phone) {
+      const regex = /^(?:[0-9] ?){6,16}[0-9]$/;
+      if(regex.test(phone)) {
+        this.errors.phone = ''
+      }
+      else {
+        this.errors.phone = this.$t('digitalOffer.errors.PHONE_NUMBER_INVALID');
+      }
+      return;
+    },
     selectedAddress(address) {
       if (!address) {
         this.form.address = undefined;

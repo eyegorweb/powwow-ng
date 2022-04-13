@@ -135,7 +135,7 @@
           <UiApiAutocomplete
             :api-method="searchAddress"
             no-filter-on-result
-            :max-size="80"
+            :max-size="35"
             v-model="selectedAddress"
             :class="{ error: addressError }"
             no-icon
@@ -491,6 +491,16 @@ export default {
   },
 
   watch: {
+    'form.phone'(phone) {
+      const regex = /^(?:[0-9] ?){6,16}[0-9]$/;
+      if(regex.test(phone)) {
+        this.phoneError = false
+      }
+      else {
+        this.phoneError = true
+      }
+      return;
+    },
     selectedAddress(address) {
       if (!address) {
         this.form.address = undefined;
