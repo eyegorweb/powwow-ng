@@ -43,6 +43,7 @@ export default {
     },
     esim: Boolean,
     haveLvOffers: Boolean,
+    partnerType: String,
   },
   computed: {
     ...mapState('userContext', ['contextPartnersType', 'contextPartners']),
@@ -97,7 +98,7 @@ export default {
         const data = await fetchpartners(q, {
           page,
           limit: 10,
-          partnerType: this.contextPartnersType,
+          partnerType: this.contextPartnersType ? this.contextPartnersType : this.partnerType,
           esim: this.esim,
           haveLvOffers: this.haveLvOffers,
         });

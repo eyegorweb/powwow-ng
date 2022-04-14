@@ -52,6 +52,7 @@
         act.title === 'getparc.actCreation.carouselItem.esim.CHARGE_LV_LINES' ||
           act.title === 'getparc.actCreation.carouselItem.RECHARGE_LINES'
       "
+      :partner-type="getPartnerType"
     />
     <!-- add condition to display admin radius all prerequesites components -->
     <RadiusPrerequisite
@@ -88,6 +89,11 @@ export default {
     ...mapState('userContext', ['contextPartnersType', 'contextPartners']),
     ...mapState('actLines', ['defaultAppliedFilters']),
     ...mapGetters(['userIsPartner', 'userIsMVNO']),
+    getPartnerType() {
+      return this.act.title === 'getparc.actCreation.carouselItem.RECHARGE_LINES'
+        ? 'M2M_LIGHT'
+        : undefined;
+    },
   },
   watch: {
     contextPartnersType() {
