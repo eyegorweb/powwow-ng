@@ -334,7 +334,7 @@ export default {
           return [];
         }
 
-        if (response.errors && response.errors) {
+        if (response.errors && response.errors.length) {
           const errorMessages = response.errors.map((e) => {
             return { level: 'danger', message: e.message };
           });
