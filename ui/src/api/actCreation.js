@@ -693,7 +693,7 @@ export async function createRechargeLVOffer(filters, lines, params) {
 
     const queryStr = `
     mutation {
-      topUpLongLifeOffer(
+      topUpOffer(
         input: {
           filter: {${gqlFilter}},
           partyId: ${partyId},
@@ -701,7 +701,8 @@ export async function createRechargeLVOffer(filters, lines, params) {
           dueDate: "${dueDate}",
           workflowId: ${workflowId},
           packageLabel: "${packageLabel}",
-          ${gqlTempDataUuid}
+          ${gqlTempDataUuid},
+          type:LONG_LIFE
         })
         {
           tempDataUuid
@@ -723,7 +724,7 @@ export async function createRechargeLVOffer(filters, lines, params) {
           errors: response.errors,
         };
       }
-      return response.data.topUpLongLifeOffer;
+      return response.data.topUpOffer;
     } catch (e) {
       return {
         errors: [

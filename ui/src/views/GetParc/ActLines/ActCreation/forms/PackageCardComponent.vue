@@ -151,7 +151,7 @@ $box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14),
     padding: 1rem 2rem;
     font-size: 0.9125rem;
     text-align: center;
-    min-height: 120px;
+    min-height: 170px;
     &.minCard {
       min-height: 60px !important;
     }
