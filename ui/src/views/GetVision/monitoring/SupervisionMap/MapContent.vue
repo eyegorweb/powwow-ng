@@ -48,16 +48,7 @@ import AlarmMarker from './AlarmMarker';
 import { isEquivalent } from '@/utils.js';
 import { delay } from '@/api/utils.js';
 
-import {
-  fetchContinentData,
-  fetchCountriesData,
-  fetchStatesData,
-  fetchFrenchRegionsData,
-  fetchFrenchDepartmentsData,
-  fetchDataForCells,
-  fetchDataForCities,
-  fetchCockpitMarkers,
-} from '@/api/supervision.js';
+import { fetchCockpitMarkers, fetchGeoMapData } from '@/api/supervision.js';
 
 import { filterFormatter } from '@/views/GetVision/monitoring/index.vue';
 
@@ -390,6 +381,14 @@ export default {
       return filterFormatter(this.appliedFilters);
     },
 
+    buildLocationFilters(type, country) {
+      return {
+        type,
+        country,
+        frIncl: this.usage === 'ALARMS' ? true : false,
+      };
+    },
+
     formatFiltersForCockpit() {
       if (!this.appliedFilters) return {};
       return this.appliedFilters.reduce((filters, item) => {
@@ -427,7 +426,12 @@ export default {
     },
 
     async loadDataById() {
-      const data = await fetchDataForCells(this.usageForQuery, {}, this.formatFilters());
+      const data = await fetchGeoMapData(
+        this.buildLocationFilters('CELL'),
+        this.usageForQuery,
+        {},
+        this.formatFilters()
+      );
       const markers = this.formatMarkers(data);
       this.adjustPosition = defaultAdjustment;
 
@@ -528,7 +532,12 @@ export default {
         delete filters.iso3CountryCode;
       }
       filters.iso2CountryCode = countryCode;
-      const data = await fetchDataForCities(this.usageForQuery, this.getBounds(), filters);
+      const data = await fetchGeoMapData(
+        this.buildLocationFilters(this.locationType),
+        this.usageForQuery,
+        this.getBounds(),
+        filters
+      );
       this.markers = this.formatMarkers(data);
     },
 
@@ -542,7 +551,12 @@ export default {
         delete filters.iso3CountryCode;
       }
       filters.iso2CountryCode = countryCode;
-      const data = await fetchDataForCells(this.usageForQuery, this.getBounds(), filters);
+      const data = await fetchGeoMapData(
+        this.buildLocationFilters(this.locationType),
+        this.usageForQuery,
+        this.getBounds(),
+        filters
+      );
       this.markers = this.formatMarkers(data);
     },
 
@@ -550,7 +564,8 @@ export default {
       this.locationType = 'REGION';
 
       this.adjustPosition = defaultAdjustment;
-      const data = await fetchFrenchRegionsData(
+      const data = await fetchGeoMapData(
+        this.buildLocationFilters(this.locationType, 'FRA'),
         this.usageForQuery,
         this.getBounds(),
         this.formatFilters()
@@ -562,7 +577,8 @@ export default {
     async fetchDataForFrenchDepartments(ignoreBounds) {
       this.locationType = 'DEPARTMENT';
       this.adjustPosition = defaultAdjustment;
-      const data = await fetchFrenchDepartmentsData(
+      const data = await fetchGeoMapData(
+        this.buildLocationFilters(this.locationType, 'FRA'),
         this.usageForQuery,
         ignoreBounds ? {} : this.getBounds(),
         this.formatFilters()
@@ -578,7 +594,8 @@ export default {
       this.locationType = 'COUNTRY'; // maybe STATE ?
 
       this.adjustPosition = adjustPositionForStates;
-      const data = await fetchStatesData(
+      const data = await fetchGeoMapData(
+        this.buildLocationFilters('STATES', 'US'),
         this.usageForQuery,
         this.getBounds(),
         this.formatFilters()
@@ -593,7 +610,14 @@ export default {
 
       this.locationType = 'CONTINENT';
       this.adjustPosition = adjustPositionForContinent;
-      const data = await fetchContinentData(this.usageForQuery, this.formatFilters());
+      const location = this.buildLocationFilters(this.locationType);
+      console.log('location', location);
+      const data = await fetchGeoMapData(
+        this.buildLocationFilters(this.locationType),
+        this.usageForQuery,
+        {},
+        this.formatFilters()
+      );
       this.markers = data
         .map((d) => {
           const defaultData = CONTINENTS_CONF.find((m) => m.code === d.locationCode);
@@ -616,7 +640,12 @@ export default {
       this.locationType = 'COUNTRY';
 
       this.adjustPosition = adjustPositionForCoutries;
-      const data = await fetchCountriesData(this.usageForQuery, this.formatFilters());
+      const data = await fetchGeoMapData(
+        this.buildLocationFilters(this.locationType),
+        this.usageForQuery,
+        {},
+        this.formatFilters()
+      );
       this.markers = this.formatMarkers(data);
     },
 
