@@ -340,79 +340,15 @@ async function geoCounter(filters) {
   }
 }
 
-export async function fetchContinentData(usageType, filters = {}) {
-  return geoMap({
-    filter: {
-      scale: 'CONTINENT',
-      usageType,
-      ...filters,
-    },
-  });
-}
-
-export async function fetchCountriesData(usageType, filters = {}) {
-  return geoMap({
-    filter: {
-      scale: 'COUNTRY',
-      usageType,
-      ...filters,
-    },
-  });
-}
-
-export async function fetchStatesData(usageType, bounds, filters = {}) {
-  return geoMap({
-    filter: {
-      scale: 'STATES',
-      iso3CountryCode: 'US',
-      usageType,
-      ...bounds,
-      ...filters,
-    },
-  });
-}
-
-export async function fetchDataForCells(usageType, bounds, filters = {}) {
-  return geoMap({
-    filter: {
-      scale: 'CELL',
-      usageType,
-      ...bounds,
-      ...filters,
-    },
-  });
-}
-
-export async function fetchDataForCities(usageType, bounds, filters = {}) {
-  return geoMap({
-    filter: {
-      scale: 'CITY',
-      usageType,
-      ...bounds,
-      ...filters,
-    },
-  });
-}
-
 export async function fetchDataForAlarms() {}
 
-export async function fetchFrenchRegionsData(usageType, bounds, filters = {}) {
+export async function fetchGeoMapData(location, usageType, bounds, filters = {}) {
+  const country = location.country != undefined ? location.country : null;
   return geoMap({
     filter: {
-      scale: 'REGION',
-      iso3CountryCode: 'FRA',
-      usageType,
-      ...bounds,
-      ...filters,
-    },
-  });
-}
-
-export async function fetchFrenchDepartmentsData(usageType, bounds, filters = {}) {
-  return geoMap({
-    filter: {
-      scale: 'DEPARTMENT',
-      iso3CountryCode: 'FRA',
+      scale: location.type,
+      iso3CountryCode: country,
+      frIncl: location.frIncl,
       usageType,
       ...filters,
       ...bounds,
@@ -422,8 +358,8 @@ export async function fetchFrenchDepartmentsData(usageType, bounds, filters = {}
 
 async function geoMap(filters) {
   // ignorer la clé zone
+  console.log('filters', filters.filter);
   delete filters.zone;
-
   const queryStr = `
   query GeoMap($filter: GeolocMapFilterInput!) {
     geoMap(filter:$filter) {
