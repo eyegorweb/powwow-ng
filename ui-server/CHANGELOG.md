@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.911+20220415072803
+2022-04-15
+
+### Fixes
+
+- [3282] Gestion des marqueurs France dans la supervision pour les alarmes. (bcd35d5242d6a0a29f6bcc00139ea426f20b6de0)
+
 ## 1.17.0-master.910+20220414132740
 2022-04-14
 
