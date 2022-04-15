@@ -358,7 +358,6 @@ export async function fetchGeoMapData(location, usageType, bounds, filters = {})
 
 async function geoMap(filters) {
   // ignorer la clé zone
-  console.log('filters', filters.filter);
   delete filters.zone;
   const queryStr = `
   query GeoMap($filter: GeolocMapFilterInput!) {

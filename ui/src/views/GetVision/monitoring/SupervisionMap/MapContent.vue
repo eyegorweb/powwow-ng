@@ -610,8 +610,6 @@ export default {
 
       this.locationType = 'CONTINENT';
       this.adjustPosition = adjustPositionForContinent;
-      const location = this.buildLocationFilters(this.locationType);
-      console.log('location', location);
       const data = await fetchGeoMapData(
         this.buildLocationFilters(this.locationType),
         this.usageForQuery,
