@@ -159,6 +159,7 @@ export default {
       if (this.toggleValues && this.toggleValues.length === 1) {
         this.toggleValues.forEach((val) => {
           value = this.$t(val.label);
+          this.updateCurrentUsage(val.id);
         });
       }
       return value;
@@ -369,7 +370,10 @@ export default {
     },
 
     onUsageChange(usage) {
-      this.currentUsage = usage.id;
+      this.updateCurrentUsage(usage.id);
+    },
+    updateCurrentUsage(id) {
+      this.currentUsage = id;
     },
 
     async preselectCountry(payload) {
