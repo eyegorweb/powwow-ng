@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.913+20220419152346
+2022-04-19
+
+### Fixes
+
+- [3266] Appel api CountServicesStateByCountry. (ffbf2d8fb9d65ad5c37b0e4e79eb7a133ff18592)
+- [3266] Refresh indicateurs. (e523f182ec759d63f505a890870de0cd102d7bf4)
+
 ## 1.17.0-master.912+20220415103444
 2022-04-15
 
