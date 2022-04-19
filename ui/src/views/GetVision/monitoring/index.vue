@@ -270,7 +270,7 @@ export default {
       this.currentUsagePrevFilters = undefined;
       this.refreshLinesFn = undefined;
       this.indicatorTotal = undefined;
-      this.canShowIndicators = false;
+      this.canShowIndicators = true;
       this.cockpitMarkerToDetail = undefined;
       this.isFrozen = false;
       this.frozenValues = [];
