@@ -220,9 +220,12 @@ export default {
 
         if (item.id === 'filters.zone') {
           const selection = item.data;
-          if (selection.zone.world) {
+
+          if (selection.zone.value && selection.zone.value === 'world') {
             if (selection.country) {
               filters.iso3CountryCode = selection.country.codeIso3;
+            } else {
+              filters.excludeIso3CountryCode = 'FRA';
             }
           } else {
             filters.iso3CountryCode = 'FRA';
@@ -230,6 +233,10 @@ export default {
               filters.zipCode = selection.zipCode;
             }
           }
+        }
+
+        if (item.id === 'filters.country') {
+          filters.iso3CountryCode = item.data.codeIso3;
         }
 
         return filters;
