@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.914+20220420101518
+2022-04-20
+
+### Fixes
+
+- [3271] Ajout et modification de libellé offre digital. (d7798eb93070c784c651e2efe01cc785ce223c9b)
+
 ## 1.17.0-master.913+20220419152346
 2022-04-19
 
