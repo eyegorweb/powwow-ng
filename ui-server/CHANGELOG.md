@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.915+20220420145742
+2022-04-20
+
+### Fixes
+
+- [3292] Refresh des indicateurs dans la supervision et état des services. (681a20dd2b5983cec54b063ec9a867b298b2f243)
+
 ## 1.17.0-master.914+20220420101518
 2022-04-20
 
