@@ -11,6 +11,9 @@
       </template>
       <template v-if="!inEditMode">
         <div class="row mb-3 add-new">
+          <h2 class="panel-title text-center mt-2">
+            {{ $t('orders.new.deliveryStep.form.deliveryAddress') }}
+          </h2>
           <BlocList :items="address">
             <template slot-scope="{ item }">
               <CreateAccountDeliveryAddress

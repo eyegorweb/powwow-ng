@@ -1,6 +1,7 @@
 <template>
   <div class="step-container">
     <div class="simContainer">
+      <h2 class="font-weight-light text-center mt-4 mb-4">{{ $t('getsim.step-product') }}</h2>
       <div class="productChoices">
         <form>
           <GetSimTypeOption

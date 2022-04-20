@@ -13,6 +13,9 @@
         </template>
         <template v-if="!inEditMode">
           <div class="row mb-3 add-new">
+            <h2 class="panel-title text-center mt-2">
+              {{ $t('orders.new.deliveryStep.form.deliveryAddress') }}
+            </h2>
             <div v-if="lastSelectedAdress" class>
               <div class="col-md-12">
                 <h6>{{ $t('orders.new.deliveryStep.last') }}</h6>
@@ -173,7 +176,6 @@ export default {
 }
 
 .list-container .box {
-  
   @media only screen and (max-width: 700px) {
     width: 100%;
   }
