@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.916+20220421161001
+2022-04-21
+
+### Fixes
+
+- [3291] Centrage carte et affichage des marqueurs dans le cockpit M2M. (8df4af68fc6038db2b92b79b3c298111bcb0d2a8)
+
 ## 1.17.0-master.915+20220420145742
 2022-04-20
 
