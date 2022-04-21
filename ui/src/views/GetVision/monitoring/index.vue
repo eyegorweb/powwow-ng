@@ -498,8 +498,10 @@ export default {
           return this.isFrozen;
         },
         onChange(chosenValue) {
-          const country = chosenValue ? chosenValue.label : undefined;
-
+          let country = chosenValue ? chosenValue.label : undefined;
+          if (!country) {
+            country = '';
+          }
           return {
             id: 'filters.country',
             value: country,

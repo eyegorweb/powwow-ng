@@ -472,9 +472,32 @@ export default {
     },
 
     async loadDataForM2MCockpit() {
-      this.adjustPosition = defaultAdjustment;
+      const countryFilter = this.appliedFilters
+        ? this.appliedFilters.find((f) => f.id === 'filters.country')
+        : undefined;
 
-      // center to france
+      if (!this.markers || !this.markers.length) {
+        if (countryFilter) {
+          const countryName = countryFilter.data.name;
+          this.setZoom(6);
+          let longitude, latitude;
+          if (countryName === 'France') {
+            longitude = 3.2814;
+            latitude = 47.343482;
+          } else {
+            longitude = this.$loGet(countryFilter, 'data.longitude');
+            latitude = this.$loGet(countryFilter, 'data.latitude');
+          }
+          this.centerOnCoords(longitude, latitude);
+        } else {
+          // center to france
+          this.centerOnFrance(COUNTRY_ZOOM_LEVEL);
+        }
+
+        await delay(100);
+      }
+
+      this.adjustPosition = defaultAdjustment;
 
       const data = await fetchCockpitMarkers(this.formatFiltersForCockpit());
       const markers = data.map((d) => {
@@ -493,34 +516,7 @@ export default {
           data: d,
         };
       });
-
-      const countryFilter = this.appliedFilters
-        ? this.appliedFilters.find((f) => f.id === 'filters.country')
-        : undefined;
-
-      if (!this.markers || !this.markers.length) {
-        if (countryFilter) {
-          const countryName = countryFilter.data.name;
-          if (countryName === 'France') {
-            const franceCoords = new this.google.maps.LatLng(47.343482, 3.2814);
-            this.map.setCenter(franceCoords);
-            this.setZoom(6);
-          } else if (countryName !== 'France') {
-            const longitude = this.$loGet(countryFilter, 'data.longitude');
-            const latitude = this.$loGet(countryFilter, 'data.latitude');
-            const countryCoords = new this.google.maps.LatLng(latitude, longitude);
-            this.map.setCenter(countryCoords);
-            this.setZoom(6);
-          }
-        } else {
-          this.centerOnFrance(COUNTRY_ZOOM_LEVEL);
-        }
-
-        this.markers = markers;
-        return await delay(50);
-      } else {
-        this.markers = markers;
-      }
+      this.markers = markers;
     },
 
     async loadDataForCities(countryCode) {
