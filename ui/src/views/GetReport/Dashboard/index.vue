@@ -381,7 +381,7 @@ export default {
       this.selectedPartner = this.initialPartner;
       this.selectedBillingAccount = undefined;
       this.selectedOffer = undefined;
-
+      this.lastFiltersKey = undefined;
       this.appliedPartner = undefined;
       this.appliedBillingAccount = undefined;
       this.appliedOffer = undefined;
