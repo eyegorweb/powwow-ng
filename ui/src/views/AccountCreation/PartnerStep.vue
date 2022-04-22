@@ -501,6 +501,16 @@ export default {
       }
       return;
     },
+    'form.address'(value) {
+      const regex = /CEDEX|cedex/g;
+      if(!regex.test(value)) {
+        this.addressError = true
+      }
+      else {
+        this.addressError = false;
+      }
+      return;
+    },
     selectedAddress(address) {
       if (!address) {
         this.form.address = undefined;

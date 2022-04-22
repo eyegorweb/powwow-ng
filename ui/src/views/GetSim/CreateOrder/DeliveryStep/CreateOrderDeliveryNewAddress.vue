@@ -290,6 +290,16 @@ export default {
       }
       return;
     },
+    'form.address'(value) {
+      const regex = /CEDEX|cedex/g;
+      if(!regex.test(value)) {
+        this.errors.address = ''
+      }
+      else {
+        this.errors.address = this.$t('digitalOffer.errors.ADDRESS_CEDEX_INVALID');
+      }
+      return;
+    },
     selectedAddress(address) {
       if (!address) {
         this.form.address = undefined;
