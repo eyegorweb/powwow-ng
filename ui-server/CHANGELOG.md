@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.917+20220422074602
+2022-04-22
+
+### Fixes
+
+- [3297] Add regex for CEDEX on address and Address page regex (3b4a8378e1c59aaac809da3855de72509e85fa1a)
+- [3259] filters problems on Dashboard on reset (3f6f526341ed5ce2a4df1e84e06608d0be554a25)
+
 ## 1.17.0-master.916+20220421161001
 2022-04-21
 
