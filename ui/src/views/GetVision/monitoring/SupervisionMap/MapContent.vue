@@ -264,8 +264,7 @@ export default {
         const countryCode = await this.getCenteredCountry();
         this.$emit('centeredCountry', countryCode);
         const zoomLevel = this.map.getZoom();
-
-        this.setMaxZoom(CELL_ZOOM_LEVEL);
+        this.setMaxZoom(MAX_ZOOM_LEVEL);
         if (this.usage === 'COCKPIT') {
           this.setMaxZoom();
           await this.loadDataForM2MCockpit();
@@ -434,16 +433,7 @@ export default {
       );
       const markers = this.formatMarkers(data);
       this.adjustPosition = defaultAdjustment;
-
-      // Priorité donnée à l'id mais...
-      // ...si zone renseignée => CELL_ZOOM_LEVEL
-      // sinon MAX_ZOOM_LEVEL
-      const zoneFilter = this.appliedFilters.find((f) => f.id === 'filters.zone');
-      if (zoneFilter) {
-        this.setMarkersAndCenter(markers, CELL_ZOOM_LEVEL);
-      } else {
-        this.setMarkersAndCenter(markers, MAX_ZOOM_LEVEL);
-      }
+      this.setMarkersAndCenter(markers, CELL_ZOOM_LEVEL);
     },
 
     async setMarkersAndCenter(markers, zoomLevel, coords) {
