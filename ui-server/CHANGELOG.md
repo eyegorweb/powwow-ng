@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.918+20220426135508
+2022-04-26
+
+### Fixes
+
+- [3297] Zoom max sur la supervision. (2af0186b8a7bf2d3394276955f4c0ddb797c674a)
+
 ## 1.17.0-master.917+20220422074602
 2022-04-22
 
