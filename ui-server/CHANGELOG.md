@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.921+20220427130810
+2022-04-27
+
+### Fixes
+
+- [3069] Ajout d'une offre dans le partenaire. (bf9870c0c6cbf6017d5c26aa0b060ead657720e6)
+
 ## 1.17.0-master.920+20220427113907
 2022-04-27
 
