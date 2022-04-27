@@ -332,15 +332,14 @@ const defaultWidgets = [
 // new version
 
 export function loadWidgets() {
-  let homeWidgets = getHomeWidgetsStorage();
-  let savedWidgets = homeWidgets ? homeWidgets['widgets'] : null;
+  let savedWidgets = getHomeWidgetsStorage();
 
-  const savedVersion = homeWidgets ? homeWidgets['version'] : 0;
+  const savedVersion = savedWidgets ? savedWidgets['version'] : 0;
   const versionIsDifferent = savedVersion !== WIDGETS_STORAGE_VERSION;
 
   // const savedProfile = localStorage.getItem('_widgets_profile_');
   if (versionIsDifferent) {
-    homeWidgets = null;
+    savedWidgets = null;
   }
 
   // const currentProfile = getProfile();

@@ -29,12 +29,10 @@ export function setItemInStorage(key, value) {
   updateGetWayStorage(JSON.stringify(getWayStorage));
 }
 
-function getProfileStorage(usernameToSearch) {
+function getProfileStorage(username) {
   let getWayStorage = getGetWayStorage();
   if (getWayStorage['profiles']) {
-    return getWayStorage['profiles'].filter((p) => {
-      return p.username == usernameToSearch;
-    });
+    return getWayStorage['profiles'][username];
   } else {
     return null;
   }
@@ -44,23 +42,20 @@ function updateUserProfileStorage(username, attr, value) {
   let getWayStorage = getGetWayStorage();
   let profiles = getWayStorage['profiles'];
   if (!profiles) {
-    profiles = [];
+    profiles = {};
   }
 
-  let profile = getProfileStorage(username) ? getProfileStorage(username)[0] : null;
+  let profile = getProfileStorage(username);
   if (!profile) {
     profile = {
       username,
       homeWidgets: { version: undefined, widgets: undefined },
     };
-    profiles.push(profile);
   }
   if (attr) {
     profile[attr] = value;
   }
-  profiles = profiles.map((p) => {
-    return p.username === profile.username ? profile : p;
-  });
+  profiles['username'] = profile;
 
   getWayStorage['profiles'] = profiles;
   updateGetWayStorage(JSON.stringify(getWayStorage));
@@ -82,9 +77,7 @@ export function setCurrentUserStorage(username) {
 }
 
 export function getHomeWidgetsStorage() {
-  let profile = getProfileStorage(getCurrentUserStorage())
-    ? getProfileStorage(getCurrentUserStorage())[0]
-    : null;
+  let profile = getProfileStorage(getCurrentUserStorage());
   return profile ? profile['homeWidgets'] : null;
 }
 
