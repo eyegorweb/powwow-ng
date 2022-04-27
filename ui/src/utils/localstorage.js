@@ -1,4 +1,4 @@
-const CURRENT_VERSION = 1; // replace by 1.1
+const CURRENT_VERSION = '1.1'; // replace by 1.2
 
 function init() {
   let getWayStorage = {
@@ -29,10 +29,12 @@ export function setItemInStorage(key, value) {
   updateGetWayStorage(JSON.stringify(getWayStorage));
 }
 
-function getProfileStorage(username) {
+function getProfileStorage(usernameToSearch) {
   let getWayStorage = getGetWayStorage();
   if (getWayStorage['profiles']) {
-    return getWayStorage['profiles'][username];
+    return getWayStorage['profiles'].filter((p) => {
+      return p.username == usernameToSearch;
+    });
   } else {
     return null;
   }
@@ -42,20 +44,23 @@ function updateUserProfileStorage(username, attr, value) {
   let getWayStorage = getGetWayStorage();
   let profiles = getWayStorage['profiles'];
   if (!profiles) {
-    profiles = {};
+    profiles = [];
   }
 
-  let profile = getProfileStorage(username);
+  let profile = getProfileStorage(username) ? getProfileStorage(username)[0] : null;
   if (!profile) {
     profile = {
       username,
       homeWidgets: { version: undefined, widgets: undefined },
     };
+    profiles.push(profile);
   }
   if (attr) {
     profile[attr] = value;
   }
-  profiles['username'] = profile;
+  profiles = profiles.map((p) => {
+    return p.username === profile.username ? profile : p;
+  });
 
   getWayStorage['profiles'] = profiles;
   updateGetWayStorage(JSON.stringify(getWayStorage));
@@ -77,7 +82,9 @@ export function setCurrentUserStorage(username) {
 }
 
 export function getHomeWidgetsStorage() {
-  let profile = getProfileStorage(getCurrentUserStorage());
+  let profile = getProfileStorage(getCurrentUserStorage())
+    ? getProfileStorage(getCurrentUserStorage())[0]
+    : null;
   return profile ? profile['homeWidgets'] : null;
 }
 
@@ -92,17 +99,9 @@ export function checkLocalStorageProfile() {
   if (!getWayStorage) {
     updateGetWayStorage(JSON.stringify(init()));
   } else {
-    let savedVersion = localStorage.getItem('__st_version__') || 0;
-    savedVersion = parseInt(savedVersion);
-    if (savedVersion !== CURRENT_VERSION) {
-      localStorage.clear();
-    }
-    localStorage.setItem('__st_version__', CURRENT_VERSION);
-
     // new version
-    let savedVersionV2 = getWayStorage.__st_version__ || 0;
-    savedVersionV2 = parseInt(savedVersionV2);
-    if (savedVersionV2 !== CURRENT_VERSION) {
+    let savedVersion = getWayStorage.__st_version__ || 0;
+    if (savedVersion !== CURRENT_VERSION) {
       updateGetWayStorage(JSON.stringify(init()));
     }
   }
