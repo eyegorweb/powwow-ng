@@ -52,7 +52,7 @@
         <UiButton variant="import" @click="closePanel" block>{{ $t('cancel') }}</UiButton>
       </div>
       <div>
-        <UiButton disabled @click="save" variant="primary" block>{{ $t('save') }}</UiButton>
+        <UiButton @click="save" variant="primary" block>{{ $t('save') }}</UiButton>
       </div>
     </div>
   </BaseDetailPanelContent>
@@ -150,10 +150,25 @@ export default {
         }
       }
     },
-
+    getUnloadedOfferIds() {
+      let unloadedOfferIds = [];
+      if (this.partnerOffers || this.partnerOffers.length != 0) {
+        const offerIds = this.offers.map((f) => f.id);
+        this.partnerOffers.forEach((element) => {
+          if (!offerIds.includes(element.id)) {
+            unloadedOfferIds.push(element.id);
+          }
+        });
+      }
+      return unloadedOfferIds;
+    },
     async save() {
+      const unloadedOfferIds = this.getUnloadedOfferIds();
       const offerIds = this.offers.filter((f) => f.checked).map((f) => f.id);
-      const response = await updateOffers(this.content.partner.id, offerIds);
+      const response = await updateOffers(
+        this.content.partner.id,
+        offerIds.concat(unloadedOfferIds)
+      );
       if (!response) {
         this.flashMessage({ level: 'danger', message: this.$t('genericErrorMessage') });
       } else {
