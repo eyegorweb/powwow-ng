@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.919+20220427103645
+2022-04-27
+
+### Fixes
+
+- [3290] corriger le problème des widgets de la home (d7e7e0ddef593cc4f0577dc059873850909cec7a)
+
 ## 1.17.0-master.918+20220426135508
 2022-04-26
 
