@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.925+20220428095130
+2022-04-28
+
+### Fixes
+
+- [3282] Modification du filtre frIncl et api geoList. (e8fad4308845f79d2d851a090181a9f04c227727)
+
 ## 1.17.0-master.924+20220428093401
 2022-04-28
 
