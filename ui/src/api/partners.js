@@ -427,6 +427,13 @@ export async function fetchCustomerAccountsByPartnerId(
           number
           establishmentCode
         }
+        administrator {
+          contactInformation {
+            email
+            phone
+            mobile
+          }
+        }
         address {
           address1
           address2
