@@ -381,10 +381,15 @@ export default {
     },
 
     buildLocationFilters(type, country) {
+      let frIncl = this.usage === 'ALARMS' ? true : false;
+      // Ne pas supprimer le filtre sur la france si pay renseigné ou dans un niveau de zoom superieur à pays
+      if (country || (!frIncl && !['CONTINENT', 'COUNTRY'].includes(type))) {
+        frIncl = true;
+      }
       return {
         type,
         country,
-        frIncl: this.usage === 'ALARMS' ? true : false,
+        frIncl,
       };
     },
 
