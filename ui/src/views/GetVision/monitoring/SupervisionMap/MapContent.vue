@@ -457,12 +457,10 @@ export default {
         if (longitude && latitude && zoomLevel) {
           this.canSearch = false;
           this.centerZoom(longitude, latitude, zoomLevel);
-          this.markers = markers;
-          await delay(800);
+          await delay(200);
           this.canSearch = true;
-        } else {
-          this.markers = markers;
         }
+        this.markers = markers;
       }
     },
 
