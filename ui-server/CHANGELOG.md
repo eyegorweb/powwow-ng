@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.927+20220428144053
+2022-04-28
+
+### Fixes
+
+- [3291] Affichage des marqueurs dans la supervision tout usage. (52d3586af6bdc8068c70923c0a5d93203ce72ed3)
+
 ## 1.17.0-master.926+20220428122110
 2022-04-28
 
