@@ -204,7 +204,7 @@ export default {
           },
         },
       ],
-      filters: undefined,
+      filters: [],
       currentAppliedFilters: [],
       orderBy: {
         key: 'id',

@@ -35,7 +35,6 @@
 
 <script>
 import { fetchEventMessages } from '@/api/eventMessages.js';
-import { mapGetters } from 'vuex';
 
 export default {
   data() {

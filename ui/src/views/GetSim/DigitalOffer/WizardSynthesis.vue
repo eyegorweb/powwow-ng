@@ -1,6 +1,6 @@
 <template>
   <div class="wizard-synthesis-wrapper" :class="{ open: showSynthesis }">
-    <h6 class="title title--responsiveNone" >{{ $t(title) }}</h6>
+    <h6 class="title title--responsiveNone">{{ $t(title) }}</h6>
     <h6 class="title title--responsive" @click="canShowSynthesis()">
       {{
         showSynthesis
@@ -137,7 +137,7 @@ export default {
     canShowSynthesis() {
       this.showSynthesis = !this.showSynthesis;
     },
-    
+
     getApnServices(services) {
       return services
         .filter((s) => {
@@ -376,7 +376,7 @@ $fontSize: 0.8rem;
   flex-direction: column;
   height: 100%;
   transition: 0.2s;
-  
+
   .synthesis-content {
     overflow-y: auto;
     flex-grow: 1;

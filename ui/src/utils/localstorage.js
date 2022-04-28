@@ -1,4 +1,4 @@
-const CURRENT_VERSION = '1.1'; // replace by 1.2
+const CURRENT_VERSION = 1.1;
 
 function init() {
   let getWayStorage = {
@@ -101,6 +101,7 @@ export function checkLocalStorageProfile() {
   } else {
     // new version
     let savedVersion = getWayStorage.__st_version__ || 0;
+    savedVersion = parseInt(savedVersion);
     if (savedVersion !== CURRENT_VERSION) {
       updateGetWayStorage(JSON.stringify(init()));
     }
