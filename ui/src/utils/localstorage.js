@@ -101,7 +101,6 @@ export function checkLocalStorageProfile() {
   } else {
     // new version
     let savedVersion = getWayStorage.__st_version__ || 0;
-    savedVersion = parseInt(savedVersion);
     if (savedVersion !== CURRENT_VERSION) {
       updateGetWayStorage(JSON.stringify(init()));
     }
