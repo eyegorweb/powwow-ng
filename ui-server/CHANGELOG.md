@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.926+20220428122110
+2022-04-28
+
+### Fixes
+
+- [3298] synthesis order m2mlight (e424bc76b2b244df29945d4536cad1ce36e8da2b)
+
 ## 1.17.0-master.925+20220428095130
 2022-04-28
 
