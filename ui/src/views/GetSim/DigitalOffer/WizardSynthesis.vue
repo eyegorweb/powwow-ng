@@ -105,6 +105,8 @@ import CircleLoader from '@/components/ui/CircleLoader';
 import CreateOrderPanelSynthesisItem from '@/views/GetSim/CreateOrder/CreateOrderPanelSynthesisItem.vue';
 import { getOfferServices } from '@/components/Services/utils.js';
 import { formatCurrency } from '@/utils/numbers.js';
+import { fetchCustomerAccountsByPartnerId } from '@/api/partners.js';
+import { mapGetters } from 'vuex';
 
 export default {
   components: {
@@ -126,6 +128,7 @@ export default {
     return {
       accept: false,
       showSynthesis: false,
+      partnerInfo: undefined,
     };
   },
 
@@ -159,9 +162,47 @@ export default {
   },
 
   computed: {
+    ...mapGetters([
+      'userInfos',
+    ]),
     formattedItems() {
       const formatted = [];
-
+      // If user PARTNER
+      if (this.userInfos.type === "PARTNER") {
+        formatted.push({
+          label: 'digitalOffer.synthesis.company',
+          value: {
+            content: [`${this.userInfos.partners[0].name}`],
+          },
+        });
+      }
+      if (this.userInfos.type === "PARTNER") {
+        const civility = `${this.$loGet(this.partnerInfo, 'name', '')}`;
+        const assembledCityAddress = `${this.$loGet(
+          this.partnerInfo,
+          'address.zipCode',
+          ''
+        )} - ${this.$loGet(this.partnerInfo, 'address.city', '')}`;
+        formatted.push({
+          label: 'digitalOffer.synthesis.billingAddress',
+          value: {
+            content: [
+              civility,
+              `${this.$loGet(this.partnerInfo, 'address.address1', '-')}`,
+              assembledCityAddress,
+            ],
+          },
+        });
+        formatted.push({
+          label: 'digitalOffer.synthesis.contact',
+          value: {
+            content: [
+              `${this.$loGet(this.partnerInfo, 'administrator.contactInformation.email', '-')}`,
+              `${this.$loGet(this.partnerInfo, 'administrator.contactInformation.phone', '-')}`,
+            ],
+          },
+        });
+      }
       if (this.$loGet(this.synthesis, 'offerStep')) {
         if (this.$loGet(this.synthesis, 'offerStep.name')) {
           const services = getOfferServices(
@@ -213,7 +254,7 @@ export default {
         }
       }
 
-      if (this.$loGet(this.synthesis, 'deliveryStep.company')) {
+      if (this.$loGet(this.synthesis, 'deliveryStep.company' && this.userInfos.type != "PARTNER")) {
         formatted.push({
           label: 'digitalOffer.synthesis.company',
           value: {
@@ -222,7 +263,7 @@ export default {
         });
       }
 
-      if (this.$loGet(this.synthesis, 'deliveryStep.name')) {
+      if (this.$loGet(this.synthesis, 'deliveryStep.name' && this.userInfos.type != "PARTNER")) {
         const civility = `${this.$loGet(this.synthesis, 'deliveryStep.name.title', '')}`;
         const assembledCivility = `${this.$t('common.' + civility)} ${this.$loGet(
           this.synthesis,
@@ -254,7 +295,6 @@ export default {
           },
         });
       }
-
       return formatted;
     },
 
@@ -364,6 +404,12 @@ export default {
     displayTotal() {
       return this.formattedPrice[0] && this.formattedPrice[0].label === this.$t('common.quantity');
     },
+  },
+  async mounted () {    
+      if (this.userInfos.type === "PARTNER") {
+        const partnerResult = await fetchCustomerAccountsByPartnerId(this.userInfos.partners[0].id);
+        this.partnerInfo = partnerResult.items[0]
+      };
   },
 };
 </script>
