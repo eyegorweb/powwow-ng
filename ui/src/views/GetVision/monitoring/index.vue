@@ -14,7 +14,7 @@
         :disabled="!canFilter"
         :default-values="defaultValues"
         :frozen-values="frozenValues"
-        always-show-button
+        :always-show-button="alwaysShowButton"
         @applyFilters="doSearch"
         @currentFiltersChange="onCurrentChange"
       />
@@ -83,7 +83,7 @@
             :refresh-lines-fn="refreshLinesFn"
             :indicator-total="indicatorTotal"
             :filters-for-export="filtersForExport"
-            @gotomap="refreshLinesFn = undefined"
+            @gotomap="gotoUsageMap"
           />
         </div>
       </div>
@@ -183,6 +183,7 @@ export default {
       isCockpitClick: false,
       currentTab: 'graphs',
       lastCenteredCountry: undefined,
+      alwaysShowButton: true,
 
       // Garder les valeurs déjà utilisée dans d'autres usages
       allUsagesPreviousFilters: [],
@@ -225,7 +226,7 @@ export default {
             return this.isFrozen;
           },
           onChange(chosenValue, clearFilter) {
-            clearFilter('filters.offers');
+            if (!chosenValue) clearFilter('filters.offers');
             return {
               id: 'getadmin.users.filters.partners',
               value: chosenValue ? chosenValue.label : '',
@@ -371,6 +372,7 @@ export default {
 
     onUsageChange(usage) {
       this.updateCurrentUsage(usage.id);
+      this.alwaysShowButton = true;
     },
     updateCurrentUsage(id) {
       this.currentUsage = id;
@@ -407,6 +409,13 @@ export default {
       setTimeout(() => {
         this.refreshCockpitFilters();
       });
+    },
+
+    gotoUsageMap() {
+      this.refreshLinesFn = undefined;
+      this.isFrozen = false;
+      this.frozenValues = [];
+      this.alwaysShowButton = true;
     },
 
     async freezeFilterSelection(payload) {
@@ -693,11 +702,19 @@ export default {
     onActiveClick(payload) {
       this.onMarkerClick(payload, 'ACTIVE');
       this.indicatorTotal = payload.marker.activeCount;
+      this.freezeFilterSelection(payload);
+      this.alwaysShowButton = false;
+      this.defaultValues = [...this.frozenValues];
+      this.frozenValues = [];
     },
 
     onPassiveClick(payload) {
       this.onMarkerClick(payload, 'PASSIVE');
       this.indicatorTotal = payload.marker.passiveCount;
+      this.freezeFilterSelection(payload);
+      this.alwaysShowButton = false;
+      this.defaultValues = [...this.frozenValues];
+      this.frozenValues = [];
     },
 
     getFiltersForExport(clickedMarkerData, activityType) {
