@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.928+20220429155105
+2022-04-29
+
+### Fixes
+
+- [3283] modification de la gestion des filtres de supervision pour l'usage et l'usage data (777e0a2643c6b029a196d6bccc6823046c6ae2e5)
+
 ## 1.17.0-master.927+20220428144053
 2022-04-28
 
