@@ -1986,7 +1986,8 @@
       "changeICCID": {
         "confirmationWarning": "Attention ! Coupure de tous les services. Les anciennes cartes SIM seront définitivement désactivées.  Confirmez-vous le changement de SIM ?",
         "currentICCID": "ICCID actuel",
-        "newICCID": "Nouvel ICCID"
+        "newICCID": "Nouvel ICCID",
+        "radiusMessage": "Les informations Radius sur les lignes seront supprimées."
       },
       "changeMSISDN": {
         "confirmationWarning": "Attention !  L'ancien MSISDN sera résilié.  Confirmez-vous le changement de MSISDN ?",

@@ -1811,7 +1811,8 @@
       "changeICCID": {
         "confirmationWarning": "Warning ! Cut off of all services. Old SIM cards will be permanently deactivated. Do you confirm the change of SIM?",
         "currentICCID": "Current ICCID",
-        "newICCID": "New ICCID"
+        "newICCID": "New ICCID",
+        "radiusMessage": "Line Radius information will be removed."
       },
       "changeMSISDN": {
         "confirmationWarning": "Warning ! The old MSISDN will be terminated. Do you confirm the change of MSISDN?",

@@ -2,7 +2,6 @@
   <ActWithFileUploadContainer
     :act-mutation-fn="changeICCID"
     act-code="CHANGE_ICCID"
-    confirmation-message="getparc.actCreation.changeICCID.confirmationWarning"
     always-show-report
   />
 </template>
