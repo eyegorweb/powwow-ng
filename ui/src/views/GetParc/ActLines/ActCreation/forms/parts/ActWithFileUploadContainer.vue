@@ -43,7 +43,10 @@
                 <div slot="body">
                   <div class="text-danger">
                     <i class="ic-Alert-Icon"></i>
-                    {{ $t(confirmationMessage) }}
+                    <template v-if="actCode === 'CHANGE_ICCID'">{{
+                      $t(localConfirmationMessage)
+                    }}</template>
+                    <template v-else>{{ $t(confirmationMessage) }}</template>
                   </div>
                 </div>
                 <div slot="footer">
@@ -120,6 +123,7 @@
 <script>
 import { uploadSearchFile, exportLinesFromFileFilter } from '@/api/linesActions';
 import { mapState, mapMutations } from 'vuex';
+import { isFeatureAvailable } from '@/api/partners';
 
 import FormReport from './FormReport';
 import Modal from '@/components/Modal';
@@ -161,12 +165,14 @@ export default {
       dateError: null,
       notificationCheck: false,
       genericSuccessMessage: '',
+      hasStreamRadius: false,
     };
   },
 
-  mounted() {
+  async mounted() {
     this.actDate = moment().format('DD/MM/YYYY HH:mm:ss');
     this.genericSuccessMessage = this.$t('genericSuccessMessage');
+    await this.fetchPartyFeatures();
   },
 
   watch: {
@@ -198,6 +204,12 @@ export default {
     minDate() {
       return moment().format('DD/MM/YYYY HH:mm:ss');
     },
+    localConfirmationMessage() {
+      if (this.hasStreamRadius) {
+        return 'getparc.actCreation.changeICCID.radiusMessage';
+      }
+      return 'getparc.actCreation.changeICCID.confirmationWarning';
+    },
   },
   methods: {
     ...mapMutations('actLines', [
@@ -224,6 +236,16 @@ export default {
           this.tempDataUuid
         );
       };
+    },
+
+    async fetchPartyFeatures() {
+      if (this.$loGet(this.actCreationPrerequisites, 'partner.id', false)) {
+        this.hasStreamRadius = await isFeatureAvailable(
+          'RADIUS',
+          this.actCreationPrerequisites.partner.id
+        );
+      }
+      return this.hasStreamRadius;
     },
 
     validFile(file) {
