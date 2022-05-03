@@ -242,6 +242,7 @@ export default {
       if (this.$loGet(this.actCreationPrerequisites, 'partner.id', false)) {
         this.hasStreamRadius = await isFeatureAvailable(
           'RADIUS',
+          null,
           this.actCreationPrerequisites.partner.id
         );
       }

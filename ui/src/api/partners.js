@@ -1,13 +1,13 @@
 import { query, getFilterValues, getValuesIds, getFile, postFile, deleteFile } from './utils';
 import get from 'lodash.get';
 
-export async function isFeatureAvailable(optionType, lineId) {
+export async function isFeatureAvailable(optionType, lineId, partyId) {
   const queryStr = `
-  query IsFeatureAvailable($optionType: SubscriptionOptionTypeEnum!, $simcardInstanceId: Long){
-    isFeatureAvailable(optionType: $optionType, simcardInstanceId: $simcardInstanceId)
+  query IsFeatureAvailable($optionType: SubscriptionOptionTypeEnum!, $simcardInstanceId: Long, $partyId: Long){
+    isFeatureAvailable(optionType: $optionType, simcardInstanceId: $simcardInstanceId, partyId: $partyId)
   }
   `;
-  const response = await query(queryStr, { optionType, lineId });
+  const response = await query(queryStr, { optionType, lineId, partyId });
 
   if (response && response.errors) {
     return { errors: response.errors };
