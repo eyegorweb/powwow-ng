@@ -158,7 +158,7 @@ export default {
           clickable: false,
           total: '-',
           fetch: async () => {
-            return { total: await fetchCockpitIndicator(this.formatFilters(), 'DATA') };
+            return { total: await fetchCockpitIndicator(this.formatFiltersForCockpit(), 'DATA') };
           },
           counter: 'DATA',
         },
@@ -170,7 +170,7 @@ export default {
           clickable: false,
           total: '-',
           fetch: async () => {
-            return { total: await fetchCockpitIndicator(this.formatFilters(), 'SMS') };
+            return { total: await fetchCockpitIndicator(this.formatFiltersForCockpit(), 'SMS') };
           },
           counter: 'SMS',
         },
@@ -181,7 +181,7 @@ export default {
           clickable: false,
           total: '-',
           fetch: async () => {
-            return { total: await fetchCockpitIndicator(this.formatFilters(), 'VOICE') };
+            return { total: await fetchCockpitIndicator(this.formatFiltersForCockpit(), 'VOICE') };
           },
           counter: 'VOICE',
         },
@@ -194,6 +194,32 @@ export default {
       if (!isNaN(total)) {
         this.$emit('click', { indicator, total });
       }
+    },
+
+    formatFiltersForCockpit() {
+      if (!this.appliedFilters || !this.appliedFilters.length) return;
+
+      return this.appliedFilters.reduce((filters, item) => {
+        if (!item.data) return filters;
+
+        if (item.id === 'getadmin.users.filters.partnerGroup') {
+          filters.partiesDomain = item.data.value;
+        }
+
+        if (item.id === 'getadmin.users.filters.partners') {
+          filters.partyId = item.data.id;
+        }
+
+        if (item.id === 'filters.offers') {
+          filters.offerCode = item.data.meta.code;
+        }
+
+        if (item.id === 'filters.country') {
+          filters.countryCode = item.data.codeIso3;
+        }
+
+        return filters;
+      }, {});
     },
 
     formatFilters() {
