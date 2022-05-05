@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.931+20220505080331
+2022-05-05
+
+### Fixes
+
+- [000] correction du calcul des indicateurs sur la supervision cockpit (9a9f1424986a5f54d0e3199a18e648485a96a832)
+
 ## 1.17.0-master.930+20220503093100
 2022-05-03
 
