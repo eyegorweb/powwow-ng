@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.932+20220506093746
+2022-05-06
+
+### Features
+
+- [2816] Add storage to filterBar in GetSim, GetParc, actHistory (933c916f72956d63f7c009e225f67cfe6abff058)
+
 ## 1.17.0-master.931+20220505080331
 2022-05-05
 
