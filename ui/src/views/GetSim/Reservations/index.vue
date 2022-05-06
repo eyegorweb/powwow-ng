@@ -346,6 +346,7 @@ export default {
         {
           title: 'filters.partners',
           component: PartnerFilter,
+          id: 1,
           onChange(chosenValues) {
             return {
               id: 'filters.partners',
@@ -356,6 +357,7 @@ export default {
         {
           title: 'common.billingAccount',
           component: BillingAccountFilter,
+          id: 2,
           getPageContext: () => {
             return { partners: this.currentPartners };
           },
@@ -373,6 +375,7 @@ export default {
         {
           title: 'getsim.reservations.filters.reservationDate',
           component: DateRangeFilter,
+          id: 3,
           onChange(chosenValue) {
             return {
               id: 'getsim.reservations.filters.reservationDate',
@@ -386,6 +389,7 @@ export default {
         {
           title: 'filters.lines.typeSIMCard',
           component: SimcardTypeFilter,
+          id: 4,
           getPageContext: () => {
             return { partners: this.currentPartners, category: 'ESIM' };
           },
@@ -400,6 +404,7 @@ export default {
         {
           title: 'filters.offers',
           component: OffersFilter,
+          id: 5,
           onChange(chosenValues) {
             return {
               id: 'filters.offers',
@@ -415,6 +420,7 @@ export default {
         {
           title: 'filters.quantity',
           component: QuantityFilter,
+          id: 6,
           onChange({ from, to }) {
             return {
               id: 'filters.quantity',
@@ -428,6 +434,7 @@ export default {
         {
           title: 'filters.lines.customFileds',
           component: CustomFieldsFilter,
+          id: 7,
           onChange(chosenValues) {
             return {
               id: 'filters.lines.customFileds',
@@ -443,6 +450,7 @@ export default {
         {
           title: 'getsim.reservations.filters.creator',
           component: UsersFilter,
+          id: 8,
           onChange(chosenValue) {
             if (chosenValue) {
               return {
@@ -457,6 +465,7 @@ export default {
         {
           title: 'filters.action',
           component: ActionFilter,
+          id: 9,
           onChange(chosenValues) {
             return {
               id: 'filters.action',

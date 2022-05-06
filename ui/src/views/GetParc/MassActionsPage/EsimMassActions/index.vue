@@ -2,6 +2,8 @@
   <div>
     <TableWithFilter
       v-if="columns && defaultValues"
+      storage-id="actHistory.esim"
+      storage-version="001"
       :filters="filters"
       :columns="columns"
       :rows="rows"

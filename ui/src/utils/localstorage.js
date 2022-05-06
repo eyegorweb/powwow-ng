@@ -52,6 +52,7 @@ function updateUserProfileStorage(username, attr, value) {
     profile = {
       username,
       homeWidgets: { version: undefined, widgets: undefined },
+      filtersGetParc: { version: undefined, filters: undefined },
     };
     profiles.push(profile);
   }
@@ -91,6 +92,18 @@ export function getHomeWidgetsStorage() {
 export function saveHomeWidgetsStorage(widgetsToSave, WIDGETS_STORAGE_VERSION) {
   let homeWidgets = { version: WIDGETS_STORAGE_VERSION, widgets: widgetsToSave };
   updateProfileStorage('homeWidgets', homeWidgets);
+}
+
+export function getFiltersStorage(storageName) {
+  let profile = getProfileStorage(getCurrentUserStorage())
+  ? getProfileStorage(getCurrentUserStorage())[0]
+  : null;
+  return profile ? profile[storageName] : null;
+}
+
+export function setFiltersStorage(filtersToSave, FILTERS_STORAGE_VERSION, storageName) {
+  let filtersStorage = { version: FILTERS_STORAGE_VERSION, filters: filtersToSave };
+  updateProfileStorage(storageName, filtersStorage);
 }
 
 // pour vider le localstorage de tout les utilisateurs incrémenter la variable CURRENT_VERSION

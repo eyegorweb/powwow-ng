@@ -25,44 +25,11 @@
         </template>
       </SelectedFilters>
 
-      <draggable handle=".handle">
+      <draggable handle=".handle" :list="filtersName">
         <transition-group>
-          <FoldableBlock
-            v-if="!userIsPartner"
-            :title="$t('filters.partners')"
-            :key="'el1'"
-            draggable
-          >
-            <ActHistoryPartnersFilter />
-          </FoldableBlock>
-          <FoldableBlock :title="$t('filters.userCreator')" :key="'el2'" draggable>
-            <OrderCreatorFilter
-              :selected-partners-values="selectedPartnersValues"
-              :selected-order-creator-values="selectedOrderCreatorValues"
-              @setOrderCreatorFilter="setOrderCreatorFilter"
-            />
-          </FoldableBlock>
-          <FoldableBlock :title="$t('filters.actTypes')" :key="'el3'" draggable>
-            <ManagementActTypesFilter />
-          </FoldableBlock>
-          <FoldableBlock :title="$t('filters.actDateCreation')" :key="'el4'" draggable>
-            <DateCreation />
-          </FoldableBlock>
-          <FoldableBlock :title="$t('filters.actDateStart')" :key="'el5'" draggable>
-            <DateStart />
-          </FoldableBlock>
-          <FoldableBlock :title="$t('filters.actDateEnd')" :key="'el6'" draggable>
-            <DateEnd />
-          </FoldableBlock>
-          <FoldableBlock v-if="!userIsMVNO" :title="$t('filters.services')" :key="'el7'" draggable>
-            <ManagementActionServices />
-          </FoldableBlock>
-          <FoldableBlock :title="$t('filters.actStatus')" :key="'el8'" draggable>
-            <ManagementActStatusFilter />
-          </FoldableBlock>
-          <FoldableBlock :title="$t('filters.lines.error')" :key="'el9'" draggable>
-            <ActLinesErrorFilter />
-          </FoldableBlock>
+          <div v-for="item in filtersName" :key="item.id">
+            <Filters :key-name="item.key" />
+          </div>
         </transition-group>
       </draggable>
     </div>
@@ -95,41 +62,75 @@
 import FoldableBlock from '@/components/FoldableBlock';
 import draggable from 'vuedraggable';
 import { mapGetters, mapMutations, mapActions } from 'vuex';
-import ActHistoryPartnersFilter from './ActHistoryPartnersFilter';
-import ManagementActTypesFilter from './ManagementActTypesFilter';
-import ManagementActStatusFilter from './ManagementActStatusFilter';
-import ManagementActionServices from './ManagementActionServices';
 import SelectedFilters from '@/components/Filters/SelectedFilters';
-import ActLinesErrorFilter from './ActLinesErrorFilter';
-import OrderCreatorFilter from '@/components/Filters/OrderCreatorFilter';
-import DateCreation from './DateCreation';
-import DateStart from './DateStart';
-import DateEnd from './DateEnd';
 import UiButton from '@/components/ui/Button';
+import Filters from './Filters';
+import { getFiltersStorage, setFiltersStorage } from '@/utils/localstorage.js';
 
 export default {
   components: {
     draggable,
     FoldableBlock,
-    ActHistoryPartnersFilter,
     SelectedFilters,
-    OrderCreatorFilter,
-    ManagementActTypesFilter,
-    DateCreation,
-    DateStart,
-    DateEnd,
-    ManagementActStatusFilter,
-    ManagementActionServices,
     UiButton,
-    ActLinesErrorFilter,
+    Filters,
   },
   data() {
     return {
       allFiltersVisible: false,
+            filtersName: [
+        {
+            key: 'el1',
+            id: 1,
+        },
+        {
+            key: 'el2',
+            id: 2,
+        },
+        {
+            key: 'el3',
+            id: 3,
+        },
+        {
+            key: 'el4',
+            id: 4,
+        },
+        {
+            key: 'el5',
+            id: 5,
+        },
+        {
+            key: 'el6',
+            id: 6,  
+        },
+        {
+            key: 'el7',
+            id: 7,
+        },
+        {
+            key: 'el8',
+            id: 8,
+        },
+        {
+            key: 'el9',
+            id: 9,
+        },
+      ]
+    };
+  },
+  watch: {
+    filtersName(newValue) {
+      setFiltersStorage(newValue, 1, 'filtersHistoryAct')
+    }
+  },
+  mounted () {
+    if(getFiltersStorage('filtersHistoryAct')) {
+      const filtersFromStorage = getFiltersStorage('filtersHistoryAct');
+      this.filtersName  = filtersFromStorage.filters;
     };
   },
   computed: {
-    ...mapGetters(['userIsPartner', 'userInfos', 'userIsMVNO']),
+    ...mapGetters(['userInfos', 'userIsMVNO']),
     ...mapGetters('actHistory', [
       'currentFilters',
       'canShowSelectedFilter',

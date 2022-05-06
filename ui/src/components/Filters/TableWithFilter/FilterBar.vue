@@ -30,7 +30,7 @@
         </UiButton>
       </div>
 
-      <draggable handle=".handle">
+      <draggable handle=".handle" :list="filtersSort">
         <transition-group>
           <FoldableBlock
             v-for="filter in visibleComponents"
@@ -71,6 +71,7 @@ import draggable from 'vuedraggable';
 import UiButton from '@/components/ui/Button';
 import FilterBarSlot from './FilterBarSlot';
 import { areFiltersEmpty } from '@/store/filterUtils.js';
+import { getFiltersStorage, setFiltersStorage } from '@/utils/localstorage.js';
 
 export default {
   components: {
@@ -82,6 +83,8 @@ export default {
   },
 
   props: {
+    storageVersion: String,
+    storageId: String,
     filterComponents: Array,
     alwaysShowButton: Boolean,
     disabled: Boolean,
@@ -101,10 +104,14 @@ export default {
     return {
       allFiltersVisible: false,
       currentFilters: [],
+      filtersSort: [],
     };
   },
 
   watch: {
+    filtersSort(newValue) {
+      setFiltersStorage(newValue, this.storageVersion, this.storageId)
+    },
     currentFilters(currentFilters) {
       this.$emit('currentFiltersChange', currentFilters);
     },
@@ -136,16 +143,23 @@ export default {
     },
 
     visibleComponents() {
-      if (!this.filterComponents) return [];
-      return this.filterComponents.filter(
+      if (!this.filtersSort) return [];
+      return this.filtersSort.filter(
         (filter) => !filter.checkVisibleFn || filter.checkVisibleFn(this.currentFilters)
       );
     },
   },
 
   async mounted() {
-    for (let i = 0; i < this.filterComponents.length; i++) {
-      const filter = this.filterComponents[i];
+    this.filtersSort = this.filterComponents;
+
+    if(getFiltersStorage(this.storageId)) {
+      const filtersFromStorage = getFiltersStorage(this.storageId);
+      console.log(filtersFromStorage.filters)
+      this.filtersSort  = filtersFromStorage.filters;
+    }
+    for (let i = 0; i < this.filtersSort.length; i++) {
+      const filter = this.filtersSort[i];
       if (filter.initialize) {
         await filter.initialize(this.currentFilters);
       }
@@ -174,7 +188,7 @@ export default {
       this.$emit('applyFilters', this.currentFilters);
     },
     onRemoveFilter(filterId) {
-      const filterToRemove = this.filterComponents.find((f) => f.title === filterId);
+      const filterToRemove = this.filtersSort.find((f) => f.title === filterId);
       if (filterToRemove) {
         if (filterToRemove.onRemove) {
           filterToRemove.onRemove(this.clearFilter);
