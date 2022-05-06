@@ -8,6 +8,7 @@
       :error="error"
       scroll-for-next
       display-results-while-empty
+      :placeholder="$t('col.billingAccount')"
     />
   </div>
 </template>
