@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.933+20220506120625
+2022-05-06
+
+### Fixes
+
+- [3259] placeholder billingAccount on Dashboard (3fd109c73d8d3aa5a5ad4e90c29f064c5cdfa4a8)
+
 ## 1.17.0-master.932+20220506093746
 2022-05-06
 
