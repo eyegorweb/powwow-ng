@@ -179,7 +179,14 @@ export default {
       return this.$loGet(this.partnerOptions, 'suspensionAuto');
     },
     wsNotifyOption() {
-      return this.$loGet(this.partnerOptions, 'wsNotificationParam.notificationOption');
+      let notificationOption = this.$loGet(
+        this.partnerOptions,
+        'wsNotificationParam.notificationOption'
+      );
+      if (!notificationOption) {
+        notificationOption = 'NONE';
+      }
+      return notificationOption;
     },
     mailingLists() {
       if (!this.partner) return [];
