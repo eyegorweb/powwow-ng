@@ -14,410 +14,11 @@
       >
         <div v-if="!filtersHaveValues" class="alert alert-info">{{ $t('noFilter') }}</div>
       </SelectedFiltersManagement>
-      <draggable handle=".handle">
+      <draggable handle=".handle" :list="filtersName">
         <transition-group>
-          <FoldableBlock
-            v-if="!userIsPartner"
-            :title="$t('filters.partners')"
-            :key="'el1'"
-            :disabled="filtersAreDisabled"
-            draggable
-          >
-            <ActLinesPartnersFilter />
-          </FoldableBlock>
-          <FoldableBlock
-            :title="$t('filters.billingAccounts')"
-            :key="'el2'"
-            :disabled="filtersAreDisabled"
-            draggable
-          >
-            <ActLinesBillingAccountsFilter />
-          </FoldableBlock>
-          <FoldableBlock
-            :title="$t('filters.lines.fromFile.title')"
-            :key="'el3'"
-            :disabled="filtersAreDisabled"
-            draggable
-          >
-            <ActLinesFromFileFilter />
-          </FoldableBlock>
-          <FoldableBlock
-            :title="$t('filters.lines.typeSIMCard')"
-            :key="'el4'"
-            :disabled="filtersAreDisabled"
-            draggable
-          >
-            <TypeSimCard />
-          </FoldableBlock>
-          <FoldableBlock
-            :title="$t('filters.lines.associatedOffer')"
-            :key="'el5'"
-            :disabled="filtersAreDisabled"
-            draggable
-          >
-            <ActLinesOffersFilter />
-          </FoldableBlock>
-          <FoldableBlock
-            :title="$t('filters.lines.orderID')"
-            :key="'el6'"
-            :disabled="filtersAreDisabled"
-            draggable
-          >
-            <SimpleInputFilter
-              :selected-value="selectedOrderIdValue"
-              @update:value="selectOrderIdFilter($event)"
-            />
-          </FoldableBlock>
-          <FoldableBlock
-            :title="$t('filters.orderReference')"
-            :key="'el7'"
-            :disabled="filtersAreDisabled"
-            draggable
-          >
-            <SimpleInputFilter
-              :selected-value="selectedOrderRefValue"
-              @update:value="selectOrderRefFilter($event)"
-            />
-          </FoldableBlock>
-          <FoldableBlock
-            :title="$t('filters.lines.SIMCardStatus')"
-            :key="'el8'"
-            :disabled="filtersAreDisabled"
-            draggable
-          >
-            <ActLinesSimStatuses />
-          </FoldableBlock>
-          <FoldableBlock
-            :title="$t('filters.lines.commercialStatus')"
-            :key="'el9'"
-            :disabled="filtersAreDisabled"
-            draggable
-          >
-            <ActLinesCommercialStatusFilter />
-          </FoldableBlock>
-          <FoldableBlock
-            :title="$t('filters.lines.billingStatus')"
-            :key="'el10'"
-            :disabled="filtersAreDisabled"
-            draggable
-          >
-            <ActLinesBillingStatusFilter />
-          </FoldableBlock>
-          <FoldableBlock
-            :title="$t('filters.lines.networkStatus')"
-            :key="'el11'"
-            :disabled="filtersAreDisabled"
-            draggable
-          >
-            <ActLinesNetworkStatusFilter />
-          </FoldableBlock>
-          <FoldableBlock
-            :title="$t('filters.orderDate')"
-            :key="'el12'"
-            :disabled="filtersAreDisabled"
-            draggable
-          >
-            <DateFilter
-              ns="actLines"
-              getter="selectedDate"
-              setter="setDateFilter"
-              filter-key="filters.orderDate"
-            />
-          </FoldableBlock>
-          <FoldableBlock
-            :title="$t('filters.lines.importDate')"
-            :key="'el13'"
-            :disabled="filtersAreDisabled"
-            draggable
-          >
-            <DateFilter
-              ns="actLines"
-              getter="selectedDate"
-              setter="setDateFilter"
-              filter-key="filters.lines.importDate"
-            />
-          </FoldableBlock>
-          <FoldableBlock
-            :title="$t('filters.lines.endCommitmentDate')"
-            :key="'el14'"
-            :disabled="filtersAreDisabled"
-            draggable
-          >
-            <DateFilter
-              ns="actLines"
-              getter="selectedDate"
-              setter="setDateFilter"
-              filter-key="filters.lines.endCommitmentDate"
-            />
-          </FoldableBlock>
-          <FoldableBlock
-            :title="$t('filters.lines.activationDate')"
-            :key="'el15'"
-            :disabled="filtersAreDisabled"
-            draggable
-          >
-            <DateFilter
-              ns="actLines"
-              getter="selectedDate"
-              setter="setDateFilter"
-              filter-key="filters.lines.activationDate"
-            />
-          </FoldableBlock>
-          <FoldableBlock
-            :title="$t('filters.lines.preActivationDate')"
-            :key="'el16'"
-            :disabled="filtersAreDisabled"
-            draggable
-          >
-            <DateFilter
-              ns="actLines"
-              getter="selectedDate"
-              setter="setDateFilter"
-              filter-key="filters.lines.preActivationDate"
-            />
-          </FoldableBlock>
-          <FoldableBlock
-            :title="$t('filters.lines.statusDate')"
-            :key="'el17'"
-            :disabled="filtersAreDisabled"
-            draggable
-          >
-            <DateFilter
-              ns="actLines"
-              getter="selectedDate"
-              setter="setDateFilter"
-              filter-key="filters.lines.statusDate"
-            />
-          </FoldableBlock>
-          <FoldableBlock
-            :title="$t('filters.country')"
-            :key="'el18'"
-            :disabled="filtersAreDisabled"
-            draggable
-          >
-            <ActLinesCountries />
-          </FoldableBlock>
-          <FoldableBlock
-            :title="$t('filters.postalCode')"
-            :key="'el19'"
-            :disabled="filtersAreDisabled"
-            draggable
-          >
-            <SimpleInputFilter
-              :selected-value="selectedPostalCodeValue"
-              @update:value="selectPostalCodeFilter($event)"
-            />
-          </FoldableBlock>
-          <FoldableBlock
-            v-if="
-              !userIsMVNO &&
-                (havePermission('getParc', 'manage_esim') ||
-                  havePermission('getParc', 'manage_esim_light'))
-            "
-            :title="$t('filters.lines.profileEUICC')"
-            :key="'el20'"
-            :disabled="filtersAreDisabled"
-            draggable
-          >
-            <ActLineProfileStateFilter />
-          </FoldableBlock>
-          <FoldableBlock
-            v-if="!userIsMVNO"
-            :title="$t('filters.lines.customFileds')"
-            :key="'el21'"
-            :disabled="filtersAreDisabled"
-            draggable
-          >
-            <ActLinesCustomFields />
-          </FoldableBlock>
-          <FoldableBlock
-            :title="$t('filters.lines.rangeICCID')"
-            :key="'el22'"
-            :disabled="filtersAreDisabled"
-            draggable
-          >
-            <ActLinesRangeFilter
-              :values="selectedICCIDValue"
-              @update:values="selectICCIDFilter($event)"
-            />
-          </FoldableBlock>
-          <FoldableBlock
-            :title="$t('filters.lines.rangeIMSI')"
-            :key="'el23'"
-            :disabled="filtersAreDisabled"
-            draggable
-          >
-            <ActLinesRangeFilter
-              :values="selectedIMSIValue"
-              @update:values="selectIMSIFilter($event)"
-            />
-          </FoldableBlock>
-          <FoldableBlock
-            :title="$t('filters.lines.rangeMSISDN')"
-            :key="'el24'"
-            :disabled="filtersAreDisabled"
-            draggable
-          >
-            <ActLinesRangeFilter
-              :values="selectedMSISDNValue"
-              @update:values="selectMSISDNFilter($event)"
-            />
-          </FoldableBlock>
-          <FoldableBlock
-            :title="$t('filters.lines.rangeIMEI')"
-            :key="'el25'"
-            :disabled="filtersAreDisabled"
-            draggable
-          >
-            <ActLinesRangeFilter
-              :values="selectedIMEIValue"
-              @update:values="selectIMEIFilter($event)"
-            />
-          </FoldableBlock>
-          <FoldableBlock
-            v-if="!userIsMVNO && (userIsMultiCustomer || userIsOperator)"
-            :title="$t('filters.lines.siren')"
-            :key="'el26'"
-            :disabled="filtersAreDisabled"
-            draggable
-          >
-            <SimpleInputFilter
-              :selected-value="selectedSirensValue"
-              @update:value="selectSirensFilter($event)"
-            />
-          </FoldableBlock>
-          <FoldableBlock
-            :title="$t('orders.detail.manageID')"
-            :key="'el27'"
-            :disabled="filtersAreDisabled"
-            draggable
-          >
-            <SimpleInputFilter
-              :selected-value="selectedActionIDValue"
-              @update:value="setActionIdFilter($event)"
-            />
-          </FoldableBlock>
-          <FoldableBlock
-            v-if="!userIsMVNO"
-            :title="$t('filters.lines.traffic')"
-            :key="'el28'"
-            :disabled="filtersAreDisabled"
-            draggable
-          >
-            <UiCheckbox
-              :value="{
-                id: 'lineTrafficState',
-                label: $t(`common.true`),
-              }"
-              v-model="ligneTrafiquanteValue"
-              >{{ $t('filters.lines.trafficLabel') }}</UiCheckbox
-            >
-          </FoldableBlock>
-          <FoldableBlock
-            v-if="((userIsPartner || userIsGroupPartner) && ipFixeEnabled) || userIsBO"
-            :title="$t('filters.lines.ipFixe')"
-            :key="'el29'"
-            :disabled="filtersAreDisabled"
-            draggable
-          >
-            <SimpleInputFilter
-              :selected-value="selectedIPValue"
-              @update:value="selectIPFilter($event)"
-            />
-          </FoldableBlock>
-          <FoldableBlock
-            v-if="userIsBO"
-            :title="$t('filters.lines.terminationValidated')"
-            :key="'el30'"
-            :disabled="filtersAreDisabled"
-            draggable
-          >
-            <ActLinesTerminationFilter
-              :selected-value="selectedTerminationValue"
-              @update:value="selectTerminationFilter($event)"
-            />
-          </FoldableBlock>
-
-          <template v-if="userHaveEsimEnabled">
-            <FoldableBlock
-              :title="$t('indicators.getparc.lines.esim.id')"
-              :key="'esim1'"
-              :disabled="filtersAreDisabled"
-              draggable
-            >
-              <SimpleInputFilter
-                :selected-value="selectedEsimIdValue"
-                @update:value="selectEsimIdFilter($event)"
-              />
-            </FoldableBlock>
-
-            <FoldableBlock
-              :title="$t('indicators.getparc.lines.esim.category')"
-              :key="'esim2'"
-              :disabled="filtersAreDisabled"
-              draggable
-            >
-              <EsimCategoryFilter
-                :selected-value="selectedEsimCategoryValue"
-                @update:value="selectEsimCategoryFilter($event)"
-              />
-            </FoldableBlock>
-            <FoldableBlock
-              :title="$t('indicators.getparc.lines.esim.type')"
-              :key="'esim3'"
-              :disabled="filtersAreDisabled || !isEsimCategoryInFilter"
-              draggable
-            >
-              <TypeEsimFilter />
-            </FoldableBlock>
-            <FoldableBlock
-              :title="$t('indicators.getparc.lines.esim.downloadStatus')"
-              :key="'esim4'"
-              :disabled="filtersAreDisabled || !isEsimCategoryInFilter"
-              draggable
-            >
-              <EsimDownloadStatusFilter />
-            </FoldableBlock>
-            <FoldableBlock
-              :title="$t('filters.downloadedProfile')"
-              :key="'downloadedProfile'"
-              :disabled="filtersAreDisabled || !isEsimCategoryInFilter"
-              draggable
-            >
-              <DownloadProfileFilter />
-            </FoldableBlock>
-            <FoldableBlock
-              :title="$t('indicators.getparc.lines.esim.pairedLine')"
-              :key="'esim5'"
-              :disabled="filtersAreDisabled || !isEsimCategoryInFilter"
-              draggable
-            >
-              <EsimPairedLine />
-            </FoldableBlock>
-            <FoldableBlock
-              :title="$t('indicators.getparc.lines.esim.rid')"
-              :key="'esim6'"
-              :disabled="filtersAreDisabled || !isEsimCategoryInFilter"
-              draggable
-            >
-              <SimpleInputFilter
-                :selected-value="selectedSmsRid"
-                @update:value="selectSMSRidFilter($event)"
-              />
-            </FoldableBlock>
-            <FoldableBlock
-              :title="$t('indicators.getparc.lines.esim.family')"
-              :key="'esim7'"
-              :disabled="filtersAreDisabled || !isEsimCategoryInFilter"
-              draggable
-              v-if="havePermission('getParc', 'manage_esim')"
-            >
-              <EsimFamilyFilter
-                :selected-value="selectedSmsRid"
-                @update:value="selectEsimFamilyFilter($event)"
-              />
-            </FoldableBlock>
-          </template>
+          <div v-for="item in filtersName" :key="item.id">
+            <Filters :key-name="item.key" />
+          </div>
         </transition-group>
       </draggable>
     </div>
@@ -447,65 +48,20 @@
 </template>
 
 <script>
-import FoldableBlock from '@/components/FoldableBlock';
 import draggable from 'vuedraggable';
 import { mapActions, mapGetters, mapMutations, mapState } from 'vuex';
-import ActLinesPartnersFilter from './ActLinesPartnersFilter';
-import ActLinesBillingAccountsFilter from './ActLinesBillingAccountsFilter';
-import TypeSimCard from './TypeSimCard';
-import SimpleInputFilter from '@/components/Filters/SimpleInputFilter';
-import ActLinesOffersFilter from './ActLinesOffersFilter';
-import ActLineProfileStateFilter from './ActLineProfileStateFilter';
-import ActLinesSimStatuses from './ActLinesSimStatuses';
-import ActLinesBillingStatusFilter from './ActLinesBillingStatusFilter';
-import ActLinesNetworkStatusFilter from './ActLinesNetworkStatusFilter';
-import UiCheckbox from '@/components/ui/Checkbox';
-import ActLinesCountries from './ActLinesCountries';
-import ActLinesCustomFields from './ActLinesCustomFields';
-import ActLinesCommercialStatusFilter from './ActLinesCommercialStatusFilter';
-import ActLinesFromFileFilter from './ActLinesFromFileFilter';
-import DateFilter from '@/components/Filters/DateFilter';
-import ActLinesRangeFilter from './ActLinesRangeFilter';
-import ActLinesTerminationFilter from './ActLinesTerminationFilter';
-import TypeEsimFilter from '@/views/GetParc/ActLines/FilterBar/Esim/TypeEsimFilter.vue';
-import EsimDownloadStatusFilter from '@/views/GetParc/ActLines/FilterBar/Esim/EsimDownloadStatusFilter.vue';
-import EsimPairedLine from '@/views/GetParc/ActLines/FilterBar/Esim/EsimPairedLine.vue';
-import DownloadProfileFilter from '@/views/GetParc/ActLines/FilterBar/DownloadProfileFilter.vue';
-import EsimCategoryFilter from '@/views/GetParc/ActLines/FilterBar/Esim/EsimCategoryFilter.vue';
-import EsimFamilyFilter from '@/views/GetParc/ActLines/FilterBar/Esim/EsimFamilyFilter.vue';
+import Filters from './Filters';
 
 import SelectedFiltersManagement from '@/components/Filters/SelectedFiltersManagement.vue';
 import { getPartyOptions } from '@/api/partners.js';
 import { areFiltersEmpty } from '@/store/filterUtils.js';
+import { getFiltersStorage, setFiltersStorage } from '@/utils/localstorage.js';
 
 export default {
   components: {
     draggable,
-    FoldableBlock,
-    ActLinesPartnersFilter,
-    ActLinesBillingAccountsFilter,
-    TypeSimCard,
-    SimpleInputFilter,
-    ActLinesOffersFilter,
-    ActLineProfileStateFilter,
-    ActLinesSimStatuses,
-    ActLinesBillingStatusFilter,
-    ActLinesNetworkStatusFilter,
-    UiCheckbox,
-    DateFilter,
-    ActLinesCountries,
-    ActLinesCustomFields,
-    ActLinesCommercialStatusFilter,
-    ActLinesFromFileFilter,
-    ActLinesRangeFilter,
     SelectedFiltersManagement,
-    EsimCategoryFilter,
-    TypeEsimFilter,
-    EsimDownloadStatusFilter,
-    EsimPairedLine,
-    ActLinesTerminationFilter,
-    DownloadProfileFilter,
-    EsimFamilyFilter,
+    Filters,
   },
   props: {
     creationMode: Boolean,
@@ -514,42 +70,176 @@ export default {
     return {
       allFiltersVisible: false,
       ipFixeEnabled: false,
+      filtersName: [
+        {
+            key: 'el1',
+            id: 1,
+        },
+        {
+            key: 'el2',
+            id: 2,
+        },
+        {
+            key: 'el3',
+            id: 3,
+        },
+        {
+            key: 'el4',
+            id: 4,
+        },
+        {
+            key: 'el5',
+            id: 5,
+        },
+        {
+            key: 'el6',
+            id: 6,  
+        },
+        {
+            key: 'el7',
+            id: 7,
+        },
+        {
+            key: 'el8',
+            id: 8,
+        },
+        {
+            key: 'el9',
+            id: 9,
+        },
+        {
+            key: 'el10',
+            id: 10,
+        },
+        {
+            key: 'el11',
+            id: 11,
+        },
+        {
+            key: 'el12',
+            id: 12,
+        },
+        {
+            key: 'el13',
+            id: 13,
+        },
+        {
+            key: 'el14',
+            id: 14,
+        },
+        {
+            key: 'el15',
+            id: 15,
+        },
+        {
+            key: 'el16',
+            id: 16,
+        },
+        {
+            key: 'el17',
+            id: 17,
+        },
+        {
+            key: 'el18',
+            id: 18,
+        },
+        {
+            key: 'el19',
+            id: 19,
+        },
+        {
+            key: 'el20',
+            id: 20,
+        },
+        {
+            key: 'el21',
+            id: 21,
+        },
+        {
+            key: 'el22',
+            id: 22,
+        },
+        {
+            key: 'el23',
+            id: 23,
+        },
+        {
+            key: 'el24',
+            id: 24,
+        },
+        {
+            key: 'el25',
+            id: 25,
+        },
+        {
+            key: 'el26',
+            id: 26,
+        },
+        {
+            key: 'el27',
+            id: 27,
+        },
+        {
+            key: 'el28',
+            id: 28,
+        },
+        {
+            key: 'el29',
+            id: 29,
+        },
+        {
+            key: 'el30',
+            id: 30,
+        },
+        {
+            key: 'esim1',
+            id: 31,
+        },
+        {
+            key: 'esim2',
+            id: 32,
+        },
+        {
+            key: 'esim3',
+            id: 33,
+        },
+        {
+            key: 'esim4',
+            id: 34,
+        },
+        {
+            key: 'downloadedProfile',
+            id: 35,
+        },
+        {
+            key: 'esim5',
+            id: 36,
+        },
+        {
+            key: 'esim6',
+            id: 37,
+        },
+        {
+            key: 'esim7',
+            id: 38,
+        }
+      ]
     };
+  },
+  watch: {
+    filtersName(newValue) {
+      setFiltersStorage(newValue, 1, 'filtersGetParc')
+    }
   },
   computed: {
     ...mapState('actLines', ['actToCreate']),
     ...mapGetters([
       'userIsPartner',
       'userInfos',
-      'userIsMVNO',
-      'userIsBO',
-      'userIsGroupPartner',
-      'userHaveEsimEnabled',
-      'havePermission',
-      'userIsMultiCustomer',
-      'userIsOperator',
     ]),
     ...mapGetters('actLines', [
       'currentFilters',
       'canShowSelectedFilter',
-      'selectedOrderIdValue',
-      'selectedOrderRefValue',
-      'selectedPostalCodeValue',
-      'selectedSirensValue',
-      'selectedActionIDValue',
-      'selectedIPValue',
-      'selectedLigneTrafiquanteValue',
-      'selectedICCIDValue',
-      'selectedIMSIValue',
-      'selectedMSISDNValue',
-      'selectedIMEIValue',
-      'selectedEsimIdValue',
-      'selectedTerminationValue',
-      'selectedEsimCategoryValue',
-      'selectedSmsRid',
-      // 'selectedEsimFamilyValue'
-      // 'selectedIdTypeFromFileValue',
-      // 'selectedFileValue',
     ]),
     filtersHaveValues() {
       if (this.currentFilters) {
@@ -571,50 +261,25 @@ export default {
       }
       return this.canShowSelectedFilter;
     },
-    isEsimCategoryInFilter() {
-      return this.selectedEsimCategoryValue === 'eSim';
-    },
     fixedFilters() {
       if (this.actToCreate) {
         return this.actToCreate.filters;
       }
       return [];
     },
-    filtersAreDisabled() {
-      return this.actToCreate && this.actToCreate.containFile;
-    },
-    ligneTrafiquanteValue: {
-      get() {
-        return this.selectedLigneTrafiquanteValue;
-      },
-      set(newValue) {
-        this.setLligneTrafiquanteFilter(newValue);
-      },
-    },
+
   },
   mounted() {
     this.fetchPartnerOptions();
+    if(getFiltersStorage('filtersGetParc')) {
+      const filtersFromStorage = getFiltersStorage('filtersGetParc');
+      this.filtersName  = filtersFromStorage.filters;
+    }
   },
   methods: {
     ...mapMutations('actLines', [
       'applyFilters',
-      'selectOrderIdFilter',
-      'selectOrderRefFilter',
-      'selectPostalCodeFilter',
-      'selectSirensFilter',
-      'setActionIdFilter',
-      'setLligneTrafiquanteFilter',
-      'selectICCIDFilter',
-      'selectIMSIFilter',
-      'selectMSISDNFilter',
-      'selectIMEIFilter',
       'setCurrentFilters',
-      'selectEsimIdFilter',
-      'selectTerminationFilter',
-      'selectIPFilter',
-      'selectEsimCategoryFilter',
-      'selectSMSRidFilter',
-      'selectEsimFamilyFilter',
     ]),
     ...mapActions('actLines', ['clearFilter']),
 

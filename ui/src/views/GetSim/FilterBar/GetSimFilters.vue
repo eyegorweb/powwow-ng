@@ -15,70 +15,11 @@
         <div v-if="!filtersHaveValues" class="alert alert-info">{{ $t('noFilter') }}</div>
       </SelectedFiltersManagement>
 
-      <draggable handle=".handle">
+      <draggable handle=".handle" :list="filtersName">
         <transition-group>
-          <FoldableBlock
-            v-if="!userIsPartner"
-            :title="$t('filters.partners')"
-            :key="'el1'"
-            draggable
-          >
-            <GetSimPartnersFilter />
-          </FoldableBlock>
-          <FoldableBlock :title="$t('filters.billingAccounts')" :key="'el2'" draggable>
-            <GetSimPartnersBillingAccountsFilter />
-          </FoldableBlock>
-          <FoldableBlock :title="$t('filters.orderStatus')" :key="'el3'" draggable>
-            <div>
-              <UiCheckbox
-                v-for="(status, index) in statusMapResults"
-                :checked="status[1].checked"
-                :value="{ id: status[1], label: status[0] }"
-                :key="'orderStatus_' + index"
-                v-model="orderStatus"
-                >{{ status[0] }}</UiCheckbox
-              >
-            </div>
-          </FoldableBlock>
-          <FoldableBlock :title="$t('filters.lines.typeSIMCard')" :key="'el4'" draggable>
-            <TypeSimCard />
-          </FoldableBlock>
-          <FoldableBlock :title="$t('filters.orderDate')" :key="'el5'" draggable>
-            <GetSimDateFilter />
-          </FoldableBlock>
-          <FoldableBlock :title="$t('filters.offers')" :key="'el6'" draggable>
-            <GetSimOffersFilter />
-          </FoldableBlock>
-          <FoldableBlock :title="$t('filters.quantity')" :key="'el7'" draggable>
-            <GetSimQuantityFilter />
-          </FoldableBlock>
-          <FoldableBlock
-            v-if="!userIsMVNO"
-            :title="$t('filters.customFields')"
-            :key="'el8'"
-            draggable
-          >
-            <GetSimCustomFields />
-          </FoldableBlock>
-          <FoldableBlock :title="$t('filters.orderCreator')" :key="'el9'" draggable>
-            <OrderCreatorFilter
-              :selected-partners-values="selectedPartnersValues"
-              :selected-order-creator-values="selectedOrderCreatorValues"
-              @setOrderCreatorFilter="setOrderCreatorFilter"
-            />
-          </FoldableBlock>
-          <FoldableBlock :title="$t('filters.deliveryCountry')" :key="'el11'" draggable>
-            <GetSimDeliveryCountries />
-          </FoldableBlock>
-          <FoldableBlock :title="$t('filters.postalCode')" :key="'el12'" draggable>
-            <GetSimPostalCode />
-          </FoldableBlock>
-          <FoldableBlock :title="$t('filters.city')" :key="'el20'" draggable>
-            <GetSimCity />
-          </FoldableBlock>
-          <FoldableBlock :title="$t('filters.action')" :key="'e21'" draggable>
-            <GetSimActionFilter />
-          </FoldableBlock>
+          <div v-for="item in filtersName" :key="item.id">
+            <Filters :key-name="item.key" :status-map-results="statusMapResults" :order-status="orderStatus"/>
+          </div>
         </transition-group>
       </draggable>
     </div>
@@ -110,24 +51,13 @@
 <script>
 import draggable from 'vuedraggable';
 import { mapGetters, mapMutations, mapActions } from 'vuex';
-import FoldableBlock from '@/components/FoldableBlock';
-import UiCheckbox from '@/components/ui/Checkbox';
 import { fetchOrderStatuses } from '@/api/orderStatuses';
-import GetSimCustomFields from './GetSimCustomFields';
-import GetSimPartnersFilter from './GetSimPartnersFilter';
-import GetSimPartnersBillingAccountsFilter from './GetSimPartnersBillingAccountsFilter';
-import GetSimOffersFilter from './GetSimOffersFilter';
-import GetSimPostalCode from './GetSimPostalCode';
-import GetSimCity from './GetSimCity';
-import GetSimActionFilter from './GetSimActionFilter';
-import GetSimQuantityFilter from './GetSimQuantityFilter';
-import GetSimDateFilter from './GetSimDateFilter';
-import GetSimDeliveryCountries from './GetSimDeliveryCountries';
-import OrderCreatorFilter from '@/components/Filters/OrderCreatorFilter';
-import TypeSimCard from './TypeSimCard';
+
 import { areFiltersEmpty } from '@/store/filterUtils.js';
+import Filters from './Filters';
 
 import SelectedFiltersManagement from '@/components/Filters/SelectedFiltersManagement.vue';
+import { getFiltersStorage, setFiltersStorage } from '@/utils/localstorage.js';
 
 export default {
   data() {
@@ -135,17 +65,99 @@ export default {
       statusMapResults: [],
       allFiltersVisible: false,
       maximumNumberOfVisibleBlocksByDefault: 6,
+      filtersName: [
+        {
+            key: 'el1',
+            id: 1,
+        },
+        {
+            key: 'el2',
+            id: 2,
+        },
+        {
+            key: 'el3',
+            id: 3,
+        },
+        {
+            key: 'el4',
+            id: 4,
+        },
+        {
+            key: 'el5',
+            id: 5,
+        },
+        {
+            key: 'el6',
+            id: 6,  
+        },
+        {
+            key: 'el7',
+            id: 7,
+        },
+        {
+            key: 'el8',
+            id: 8,
+        },
+        {
+            key: 'el9',
+            id: 9,
+        },
+        {
+            key: 'el10',
+            id: 10,
+        },
+        {
+            key: 'el11',
+            id: 11,
+        },
+        {
+            key: 'el12',
+            id: 12,
+        },
+        {
+            key: 'el13',
+            id: 13,
+        },
+        {
+            key: 'el14',
+            id: 14,
+        },
+        {
+            key: 'el15',
+            id: 15,
+        },
+        {
+            key: 'el16',
+            id: 16,
+        },
+        {
+            key: 'el17',
+            id: 17,
+        },
+        {
+            key: 'el18',
+            id: 18,
+        },
+        {
+            key: 'el19',
+            id: 19,
+        },
+        {
+            key: 'el20',
+            id: 20,
+        },
+        {
+            key: 'el21',
+            id: 21,
+        },
+      ]
     };
   },
 
   computed: {
     ...mapGetters('getsim', [
       'currentFilters',
-      'canShowSelectedFilter',
-      'selectedOrderDate',
       'selectedOrderStatus',
-      'selectedPartnersValues',
-      'selectedOrderCreatorValues',
     ]),
     ...mapGetters(['userIsPartner', 'userInfos', 'userIsMVNO', 'userIsM2MLight']),
     orderStatus: {
@@ -166,7 +178,11 @@ export default {
       return false;
     },
   },
-
+  watch: {
+    filtersName(newValue) {
+      setFiltersStorage(newValue, 1, 'filtersGetSim')
+    }
+  },
   methods: {
     ...mapActions('getsim', ['setPartnersFilter', 'clearFilter']),
     ...mapMutations('getsim', [
@@ -218,26 +234,16 @@ export default {
 
   async mounted() {
     this.statusMapResults = await this.formatOrderStatuses();
+    if(getFiltersStorage('filtersGetSim')) {
+      const filtersFromStorage = getFiltersStorage('filtersGetSim');
+      this.filtersName  = filtersFromStorage.filters;
+    }
   },
 
   components: {
     draggable,
-    FoldableBlock,
-    GetSimPartnersFilter,
-    GetSimCustomFields,
-    GetSimPartnersBillingAccountsFilter,
-    GetSimOffersFilter,
-    UiCheckbox,
-    GetSimPostalCode,
-    GetSimCity,
-    GetSimActionFilter,
-    GetSimQuantityFilter,
-    GetSimDateFilter,
-    GetSimDeliveryCountries,
-    OrderCreatorFilter,
-    TypeSimCard,
-
     SelectedFiltersManagement,
+    Filters,
   },
 };
 </script>

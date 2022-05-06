@@ -7,6 +7,8 @@
         <FilterBar
           :filter-components="filters"
           :default-values="defaultValues"
+          :storage-version="storageVersion"
+          :storage-id="storageId"
           @applyFilters="doSearch"
           @noMoreFilters="onAllFiltersCleared"
           @currentFiltersChange="$emit('currentFiltersChange', $event)"
