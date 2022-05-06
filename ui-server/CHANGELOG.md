@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.934+20220506153838
+2022-05-06
+
+### Fixes
+
+- [3303] Notification des alarmes par webservice. (6697798a18673d9f939a3ca51aca6db3c73b3b3b)
+
 ## 1.17.0-master.933+20220506120625
 2022-05-06
 
