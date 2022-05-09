@@ -421,18 +421,18 @@ export async function fetchCustomerAccountsByPartnerId(
         }
         party {
           id
+          mainAdministrator {
+            contactInformation {
+              email
+              phone
+              mobile
+            }
+          }
         }
         bankAccount {
           name
           number
           establishmentCode
-        }
-        administrator {
-          contactInformation {
-            email
-            phone
-            mobile
-          }
         }
         address {
           address1
