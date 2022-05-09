@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.937+20220509125737
+2022-05-09
+
+### Fixes
+
+- [3303] Notification par webservice. (21a25739fb3186ff3db92d6dbfb73b9301c1e5b7)
+
 ## 1.17.0-master.936+20220509085435
 2022-05-09
 
