@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.935+20220509081842
+2022-05-09
+
+### Fixes
+
+- [3192] gestion de l'import de cartes SIM depuis le volet de la commande (065c20662f0d586091691f023af51764c94dfb15)
+
 ## 1.17.0-master.934+20220506153838
 2022-05-06
 
