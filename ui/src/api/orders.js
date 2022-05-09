@@ -284,22 +284,22 @@ function addIdsFilter(gqlFilters, selectedFilters) {
   const idOrder = selectedFilters.find((f) => f.id === 'filters.idOrder');
   const orderReference = selectedFilters.find((f) => f.id === 'filters.orderReference');
 
-  if (iccid) {
+  if (iccid && iccid.value) {
     gqlFilters.push(`iccid: {eq: "${iccid.value.trim()}"}`);
   }
-  if (imsi) {
+  if (imsi && imsi.value) {
     gqlFilters.push(`imsi: {eq: "${imsi.value.trim()}"}`);
   }
-  if (msisdn) {
+  if (msisdn && msisdn.value) {
     gqlFilters.push(`msisdn: {eq: "${msisdn.value.trim()}"}`);
   }
-  if (imei) {
+  if (imei && imei.value) {
     gqlFilters.push(`imei: {eq: "${imei.value.trim()}"}`);
   }
-  if (idOrder) {
+  if (idOrder && idOrder.value) {
     gqlFilters.push(`idOrder: {eq: "${('' + idOrder.value).trim()}"}`);
   }
-  if (orderReference) {
+  if (orderReference && orderReference.value) {
     gqlFilters.push(`orderReference: {eq: "${orderReference.value.trim()}"}`);
   }
 }
