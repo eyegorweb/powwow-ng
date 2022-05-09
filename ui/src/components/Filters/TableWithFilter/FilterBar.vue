@@ -155,15 +155,10 @@ export default {
 
     if (getFiltersStorage(this.storageId)) {
       const filtersFromStorage = getFiltersStorage(this.storageId);
-      console.log(filtersFromStorage.filters);
-      this.filtersSort = filtersFromStorage.filters;
+      console.log(filtersFromStorage.filters)
+      await filter.initialize(this.currentFilters);
     }
-    for (let i = 0; i < this.filtersSort.length; i++) {
-      const filter = this.filtersSort[i];
-      if (filter.initialize) {
-        await filter.initialize(this.currentFilters);
-      }
-    }
+
     if (!this.currentFilters.length) {
       this.currentFilters = [...this.frozenValues];
     }
