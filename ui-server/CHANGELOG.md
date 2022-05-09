@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.936+20220509085435
+2022-05-09
+
+### Fixes
+
+- [000] lint (70cbc0f9891d9c8eb8fdd1cca9ff5715e4a1e88c)
+- [000] correction de la gestion barre de recherche des commandes (1502d04433f60430d14abc28308be53d7d529979)
+
 ## 1.17.0-master.935+20220509081842
 2022-05-09
 
