@@ -2,6 +2,17 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.938+20220509132454
+2022-05-09
+
+### Features
+
+- [3226] gestion du message Radius lors du changement de cartes SIM (d3bbae2c30ba5d0b1d449351ba887d5a23cf132c)
+
+### Fixes
+
+- [2816] bug on moreFilters (451aaa9e0a301b2b076b4986cbd5cbb508bd3339)
+
 ## 1.17.0-master.937+20220509125737
 2022-05-09
 
