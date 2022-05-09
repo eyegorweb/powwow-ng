@@ -162,13 +162,11 @@ export default {
   },
 
   computed: {
-    ...mapGetters([
-      'userInfos',
-    ]),
+    ...mapGetters(['userInfos']),
     formattedItems() {
       const formatted = [];
       // If user PARTNER
-      if (this.userInfos.type === "PARTNER") {
+      if (this.userInfos.type === 'PARTNER') {
         formatted.push({
           label: 'digitalOffer.synthesis.company',
           value: {
@@ -176,7 +174,7 @@ export default {
           },
         });
       }
-      if (this.userInfos.type === "PARTNER") {
+      if (this.userInfos.type === 'PARTNER') {
         const civility = `${this.$loGet(this.partnerInfo, 'name', '')}`;
         const assembledCityAddress = `${this.$loGet(
           this.partnerInfo,
@@ -254,7 +252,7 @@ export default {
         }
       }
 
-      if (this.$loGet(this.synthesis, 'deliveryStep.company' && this.userInfos.type != "PARTNER")) {
+      if (this.$loGet(this.synthesis, 'deliveryStep.company' && this.userInfos.type != 'PARTNER')) {
         formatted.push({
           label: 'digitalOffer.synthesis.company',
           value: {
@@ -263,7 +261,7 @@ export default {
         });
       }
 
-      if (this.$loGet(this.synthesis, 'deliveryStep.name' && this.userInfos.type != "PARTNER")) {
+      if (this.$loGet(this.synthesis, 'deliveryStep.name' && this.userInfos.type != 'PARTNER')) {
         const civility = `${this.$loGet(this.synthesis, 'deliveryStep.name.title', '')}`;
         const assembledCivility = `${this.$t('common.' + civility)} ${this.$loGet(
           this.synthesis,
@@ -405,11 +403,11 @@ export default {
       return this.formattedPrice[0] && this.formattedPrice[0].label === this.$t('common.quantity');
     },
   },
-  async mounted () {    
-      if (this.userInfos.type === "PARTNER") {
-        const partnerResult = await fetchCustomerAccountsByPartnerId(this.userInfos.partners[0].id);
-        this.partnerInfo = partnerResult.items[0]
-      };
+  async mounted() {
+    if (this.userInfos.type === 'PARTNER') {
+      const partnerResult = await fetchCustomerAccountsByPartnerId(this.userInfos.partners[0].id);
+      this.partnerInfo = partnerResult.items[0];
+    }
   },
 };
 </script>

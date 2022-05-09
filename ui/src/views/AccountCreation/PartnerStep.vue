@@ -493,20 +493,18 @@ export default {
   watch: {
     'form.phone'(phone) {
       const regex = /^(?:[0-9] ?){6,16}[0-9]$/;
-      if(regex.test(phone)) {
-        this.phoneError = false
-      }
-      else {
-        this.phoneError = true
+      if (regex.test(phone)) {
+        this.phoneError = false;
+      } else {
+        this.phoneError = true;
       }
       return;
     },
     'form.address'(value) {
       const regex = /CEDEX|cedex/g;
-      if(!regex.test(value)) {
-        this.addressError = true
-      }
-      else {
+      if (!regex.test(value)) {
+        this.addressError = true;
+      } else {
         this.addressError = false;
       }
       return;

@@ -270,20 +270,18 @@ export default {
   watch: {
     'form.phone'(phone) {
       const regex = /^(?:[0-9] ?){6,16}[0-9]$/;
-      if(regex.test(phone)) {
-        this.errors.phone = ''
-      }
-      else {
+      if (regex.test(phone)) {
+        this.errors.phone = '';
+      } else {
         this.errors.phone = this.$t('digitalOffer.errors.PHONE_NUMBER_INVALID');
       }
       return;
     },
     'form.address'(value) {
       const regex = /CEDEX|cedex/g;
-      if(!regex.test(value)) {
-        this.errors.address = ''
-      }
-      else {
+      if (!regex.test(value)) {
+        this.errors.address = '';
+      } else {
         this.errors.address = this.$t('digitalOffer.errors.ADDRESS_CEDEX_INVALID');
       }
       return;

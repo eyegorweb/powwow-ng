@@ -18,7 +18,11 @@
       <draggable handle=".handle" :list="filtersName">
         <transition-group>
           <div v-for="item in filtersName" :key="item.id">
-            <Filters :key-name="item.key" :status-map-results="statusMapResults" :order-status="orderStatus"/>
+            <Filters
+              :key-name="item.key"
+              :status-map-results="statusMapResults"
+              :order-status="orderStatus"
+            />
           </div>
         </transition-group>
       </draggable>
@@ -67,98 +71,95 @@ export default {
       maximumNumberOfVisibleBlocksByDefault: 6,
       filtersName: [
         {
-            key: 'el1',
-            id: 1,
+          key: 'el1',
+          id: 1,
         },
         {
-            key: 'el2',
-            id: 2,
+          key: 'el2',
+          id: 2,
         },
         {
-            key: 'el3',
-            id: 3,
+          key: 'el3',
+          id: 3,
         },
         {
-            key: 'el4',
-            id: 4,
+          key: 'el4',
+          id: 4,
         },
         {
-            key: 'el5',
-            id: 5,
+          key: 'el5',
+          id: 5,
         },
         {
-            key: 'el6',
-            id: 6,  
+          key: 'el6',
+          id: 6,
         },
         {
-            key: 'el7',
-            id: 7,
+          key: 'el7',
+          id: 7,
         },
         {
-            key: 'el8',
-            id: 8,
+          key: 'el8',
+          id: 8,
         },
         {
-            key: 'el9',
-            id: 9,
+          key: 'el9',
+          id: 9,
         },
         {
-            key: 'el10',
-            id: 10,
+          key: 'el10',
+          id: 10,
         },
         {
-            key: 'el11',
-            id: 11,
+          key: 'el11',
+          id: 11,
         },
         {
-            key: 'el12',
-            id: 12,
+          key: 'el12',
+          id: 12,
         },
         {
-            key: 'el13',
-            id: 13,
+          key: 'el13',
+          id: 13,
         },
         {
-            key: 'el14',
-            id: 14,
+          key: 'el14',
+          id: 14,
         },
         {
-            key: 'el15',
-            id: 15,
+          key: 'el15',
+          id: 15,
         },
         {
-            key: 'el16',
-            id: 16,
+          key: 'el16',
+          id: 16,
         },
         {
-            key: 'el17',
-            id: 17,
+          key: 'el17',
+          id: 17,
         },
         {
-            key: 'el18',
-            id: 18,
+          key: 'el18',
+          id: 18,
         },
         {
-            key: 'el19',
-            id: 19,
+          key: 'el19',
+          id: 19,
         },
         {
-            key: 'el20',
-            id: 20,
+          key: 'el20',
+          id: 20,
         },
         {
-            key: 'el21',
-            id: 21,
+          key: 'el21',
+          id: 21,
         },
-      ]
+      ],
     };
   },
 
   computed: {
-    ...mapGetters('getsim', [
-      'currentFilters',
-      'selectedOrderStatus',
-    ]),
+    ...mapGetters('getsim', ['currentFilters', 'selectedOrderStatus']),
     ...mapGetters(['userIsPartner', 'userInfos', 'userIsMVNO', 'userIsM2MLight']),
     orderStatus: {
       get() {
@@ -180,8 +181,8 @@ export default {
   },
   watch: {
     filtersName(newValue) {
-      setFiltersStorage(newValue, 1, 'filtersGetSim')
-    }
+      setFiltersStorage(newValue, 1, 'filtersGetSim');
+    },
   },
   methods: {
     ...mapActions('getsim', ['setPartnersFilter', 'clearFilter']),
@@ -234,9 +235,9 @@ export default {
 
   async mounted() {
     this.statusMapResults = await this.formatOrderStatuses();
-    if(getFiltersStorage('filtersGetSim')) {
+    if (getFiltersStorage('filtersGetSim')) {
       const filtersFromStorage = getFiltersStorage('filtersGetSim');
-      this.filtersName  = filtersFromStorage.filters;
+      this.filtersName = filtersFromStorage.filters;
     }
   },
 

@@ -96,8 +96,8 @@ export function saveHomeWidgetsStorage(widgetsToSave, WIDGETS_STORAGE_VERSION) {
 
 export function getFiltersStorage(storageName) {
   let profile = getProfileStorage(getCurrentUserStorage())
-  ? getProfileStorage(getCurrentUserStorage())[0]
-  : null;
+    ? getProfileStorage(getCurrentUserStorage())[0]
+    : null;
   return profile ? profile[storageName] : null;
 }
 

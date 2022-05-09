@@ -110,7 +110,7 @@ export default {
 
   watch: {
     filtersSort(newValue) {
-      setFiltersStorage(newValue, this.storageVersion, this.storageId)
+      setFiltersStorage(newValue, this.storageVersion, this.storageId);
     },
     currentFilters(currentFilters) {
       this.$emit('currentFiltersChange', currentFilters);
@@ -153,10 +153,10 @@ export default {
   async mounted() {
     this.filtersSort = this.filterComponents;
 
-    if(getFiltersStorage(this.storageId)) {
+    if (getFiltersStorage(this.storageId)) {
       const filtersFromStorage = getFiltersStorage(this.storageId);
-      console.log(filtersFromStorage.filters)
-      this.filtersSort  = filtersFromStorage.filters;
+      console.log(filtersFromStorage.filters);
+      this.filtersSort = filtersFromStorage.filters;
     }
     for (let i = 0; i < this.filtersSort.length; i++) {
       const filter = this.filtersSort[i];

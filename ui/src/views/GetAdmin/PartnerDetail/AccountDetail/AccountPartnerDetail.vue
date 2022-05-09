@@ -150,10 +150,18 @@
         <div class="accountdetail-contact-img"></div>
         <div class="accountdetail-contact-txt">
           <div class="accountdetail-contact-txt-flexHalf">
-            <FormControl label="getadmin.partnerDetail.tel" v-model="form.phone" :error="errors.phone"/>
+            <FormControl
+              label="getadmin.partnerDetail.tel"
+              v-model="form.phone"
+              :error="errors.phone"
+            />
             <FormControl label="getadmin.partnerDetail.fax" v-model="form.fax" />
           </div>
-          <FormControl label="getadmin.partnerDetail.address" v-model="form.address" :max-size="35" />
+          <FormControl
+            label="getadmin.partnerDetail.address"
+            v-model="form.address"
+            :max-size="35"
+          />
           <FormControl label="getadmin.partnerDetail.address2" v-model="form.address2" />
           <div class="accountdetail-contact-txt-flex">
             <FormControl label="getadmin.partnerDetail.zipCode" v-model="form.zipCode" />
@@ -335,20 +343,18 @@ export default {
   watch: {
     'form.phone'(phone) {
       const regex = /^(?:[0-9] ?){6,16}[0-9]$/;
-      if(regex.test(phone)) {
-        this.errors.phone = ''
-      }
-      else {
+      if (regex.test(phone)) {
+        this.errors.phone = '';
+      } else {
         this.errors.phone = this.$t('digitalOffer.errors.PHONE_NUMBER_INVALID');
       }
       return;
     },
     'form.address'(value) {
       const regex = /CEDEX|cedex/g;
-      if(!regex.test(value)) {
-        this.errors.address = ''
-      }
-      else {
+      if (!regex.test(value)) {
+        this.errors.address = '';
+      } else {
         this.errors.address = this.$t('digitalOffer.errors.ADDRESS_CEDEX_INVALID');
       }
       return;

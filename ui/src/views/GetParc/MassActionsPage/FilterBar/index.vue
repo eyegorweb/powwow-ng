@@ -59,7 +59,6 @@
 </template>
 
 <script>
-import FoldableBlock from '@/components/FoldableBlock';
 import draggable from 'vuedraggable';
 import { mapGetters, mapMutations, mapActions } from 'vuex';
 import SelectedFilters from '@/components/Filters/SelectedFilters';
@@ -70,7 +69,6 @@ import { getFiltersStorage, setFiltersStorage } from '@/utils/localstorage.js';
 export default {
   components: {
     draggable,
-    FoldableBlock,
     SelectedFilters,
     UiButton,
     Filters,
@@ -78,56 +76,56 @@ export default {
   data() {
     return {
       allFiltersVisible: false,
-            filtersName: [
+      filtersName: [
         {
-            key: 'el1',
-            id: 1,
+          key: 'el1',
+          id: 1,
         },
         {
-            key: 'el2',
-            id: 2,
+          key: 'el2',
+          id: 2,
         },
         {
-            key: 'el3',
-            id: 3,
+          key: 'el3',
+          id: 3,
         },
         {
-            key: 'el4',
-            id: 4,
+          key: 'el4',
+          id: 4,
         },
         {
-            key: 'el5',
-            id: 5,
+          key: 'el5',
+          id: 5,
         },
         {
-            key: 'el6',
-            id: 6,  
+          key: 'el6',
+          id: 6,
         },
         {
-            key: 'el7',
-            id: 7,
+          key: 'el7',
+          id: 7,
         },
         {
-            key: 'el8',
-            id: 8,
+          key: 'el8',
+          id: 8,
         },
         {
-            key: 'el9',
-            id: 9,
+          key: 'el9',
+          id: 9,
         },
-      ]
+      ],
     };
   },
   watch: {
     filtersName(newValue) {
-      setFiltersStorage(newValue, 1, 'filtersHistoryAct')
-    }
+      setFiltersStorage(newValue, 1, 'filtersHistoryAct');
+    },
   },
-  mounted () {
-    if(getFiltersStorage('filtersHistoryAct')) {
+  mounted() {
+    if (getFiltersStorage('filtersHistoryAct')) {
       const filtersFromStorage = getFiltersStorage('filtersHistoryAct');
-      this.filtersName  = filtersFromStorage.filters;
-    };
+      this.filtersName = filtersFromStorage.filters;
+    }
   },
   computed: {
     ...mapGetters(['userInfos', 'userIsMVNO']),
