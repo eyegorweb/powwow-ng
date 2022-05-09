@@ -1,9 +1,5 @@
 <template>
-  <BaseForm
-    warning-msg="getparc.actCreation.changeICCID.confirmationWarning"
-    :validate-fn="doRequest"
-    :can-send="canSend"
-  >
+  <BaseForm :warning-msg="localConfirmationMessage" :validate-fn="doRequest" :can-send="canSend">
     <div class="overview-item mr-5">
       <h6>{{ $t('getparc.actCreation.changeICCID.currentICCID') }} :</h6>
       <p>{{ lineData.iccid }}</p>
@@ -25,6 +21,7 @@ import BaseForm from './BaseForm';
 import { changeSingleICCID } from '@/api/actCreation';
 import IdInput from '@/components/IdInput';
 import FormReport from './FormReport';
+import { isFeatureAvailable } from '@/api/partners';
 
 export default {
   components: {
@@ -41,7 +38,21 @@ export default {
     return {
       newICCID: undefined,
       canSend: false,
+      hasStreamRadius: false,
     };
+  },
+
+  async mounted() {
+    await this.fetchPartyFeatures();
+  },
+
+  computed: {
+    localConfirmationMessage() {
+      if (this.hasStreamRadius) {
+        return `${'getparc.actCreation.changeICCID.radiusMessage'}`;
+      }
+      return 'getparc.actCreation.changeICCID.confirmationWarning';
+    },
   },
 
   methods: {
@@ -67,6 +78,12 @@ export default {
       if (response) {
         return { report: { ...response.data.changeICCID }, errors: response.errors };
       }
+    },
+    async fetchPartyFeatures() {
+      if (this.$loGet(this.lineData, 'party.id', false)) {
+        this.hasStreamRadius = await isFeatureAvailable('RADIUS', null, this.lineData.party.id);
+      }
+      return this.hasStreamRadius;
     },
   },
 };
