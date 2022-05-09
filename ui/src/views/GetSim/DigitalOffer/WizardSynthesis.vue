@@ -195,8 +195,8 @@ export default {
           label: 'digitalOffer.synthesis.contact',
           value: {
             content: [
-              `${this.$loGet(this.partnerInfo, 'administrator.contactInformation.email', '-')}`,
-              `${this.$loGet(this.partnerInfo, 'administrator.contactInformation.phone', '-')}`,
+              `${this.$loGet(this.partnerInfo, 'party.mainAdministrator.contactInformation.email', '-')}`,
+              `${this.$loGet(this.partnerInfo, 'party.mainAdministrator.contactInformation.phone', '-')}`,
             ],
           },
         });
