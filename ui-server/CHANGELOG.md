@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.940+20220509150025
+2022-05-09
+
+### Fixes
+
+- [3226] configuration radius pour changement de cartes sim (f00a0ab2b76ffb8414fea076140cadc2dbc7e564)
+
 ## 1.17.0-master.939+20220509144144
 2022-05-09
 
