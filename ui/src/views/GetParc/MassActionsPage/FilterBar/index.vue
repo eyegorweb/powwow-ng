@@ -27,7 +27,7 @@
 
       <draggable handle=".handle" :list="filtersName">
         <transition-group>
-          <div v-for="item in filtersName" :key="item.id">
+          <div v-for="item in filtersNameSlice" :key="item.id">
             <Filters :key-name="item.key" />
           </div>
         </transition-group>
@@ -114,6 +114,7 @@ export default {
           id: 9,
         },
       ],
+      nbOfFilters: 10,
     };
   },
   watch: {
@@ -135,6 +136,10 @@ export default {
       'selectedPartnersValues',
       'selectedOrderCreatorValues',
     ]),
+
+    filtersNameSlice() {
+      return this.filtersName.slice(0, this.nbOfFilters);
+    },
 
     fixedFilters() {
       if (
@@ -165,6 +170,7 @@ export default {
 
     showAllFilters() {
       this.allFiltersVisible = !this.allFiltersVisible;
+      this.nbOfFilters = this.nbOfFilters === 10 ? 40 : 10;
     },
   },
 };

@@ -17,11 +17,10 @@
 
       <draggable handle=".handle" :list="filtersName">
         <transition-group>
-          <div v-for="item in filtersName" :key="item.id">
+          <div v-for="item in filtersNameSlice" :key="item.id">
             <Filters
               :key-name="item.key"
               :status-map-results="statusMapResults"
-              :order-status="orderStatus"
             />
           </div>
         </transition-group>
@@ -155,20 +154,18 @@ export default {
           id: 21,
         },
       ],
+      nbOfFilters: 10,
     };
   },
 
   computed: {
-    ...mapGetters('getsim', ['currentFilters', 'selectedOrderStatus']),
+    ...mapGetters('getsim', ['currentFilters']),
     ...mapGetters(['userIsPartner', 'userInfos', 'userIsMVNO', 'userIsM2MLight']),
-    orderStatus: {
-      get() {
-        return this.selectedOrderStatus;
-      },
-      set(newValue) {
-        this.setOrderStatusFilter(newValue);
-      },
+
+    filtersNameSlice() {
+      return this.filtersName.slice(0, this.nbOfFilters);
     },
+
     filtersHaveValues() {
       if (this.currentFilters) {
         const visibleFilters = this.currentFilters.filter((f) => !f.hidden);
@@ -197,6 +194,7 @@ export default {
     },
     showAllFilters() {
       this.allFiltersVisible = !this.allFiltersVisible;
+      this.nbOfFilters = this.nbOfFilters === 10 ? 40 : 10;
     },
     chooseFilter(savedFilters) {
       if (savedFilters && savedFilters.filter && savedFilters.filter.length) {

@@ -133,6 +133,16 @@ export default {
   computed: {
     ...mapGetters(['userIsPartner', 'userIsMVNO']),
     ...mapGetters('getsim', ['selectedPartnersValues', 'selectedOrderCreatorValues']),
+    ...mapGetters('getsim', ['selectedOrderStatus']),
+
+    orderStatus: {
+      get() {
+        return this.selectedOrderStatus;
+      },
+      set(newValue) {
+        this.setOrderStatusFilter(newValue);
+      },
+    },
   },
 
   props: {
@@ -143,11 +153,13 @@ export default {
       type: String,
       default: undefined,
     },
-    orderStatus: undefined,
   },
 
   methods: {
-    ...mapMutations('getsim', ['setOrderCreatorFilter']),
+    ...mapMutations('getsim', [
+      'setOrderStatusFilter',
+      'setOrderCreatorFilter',
+    ]),
   },
 };
 </script>
