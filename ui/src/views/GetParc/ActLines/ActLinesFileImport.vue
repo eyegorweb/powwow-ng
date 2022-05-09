@@ -44,20 +44,20 @@
       <ul class="list-unstyled m-0">
         <li class="item" v-for="e in fileResponse.errors" :key="e.key">
           <div
-            v-if="e.key === 400 && e.error === 'FILE_LINE_NUMBER_INVALID'"
+            v-if="e.key === 422 && e.error === 'FILE_LINE_NUMBER_INVALID'"
             class="alert alert-danger"
             role="alert"
           >
             {{ $t('getparc.actCreation.report.FILE_LINE_NUMBER_INVALID') }}
           </div>
           <div
-            v-else-if="e.key === 400 && e.error === 'FILE_MAX_LINE_NUMBER_INVALID'"
+            v-else-if="e.key === 422 && e.error === 'FILE_MAX_LINE_NUMBER_INVALID'"
             class="alert alert-danger"
             role="alert"
           >
             {{
               $t('getparc.actCreation.report.FILE_MAX_LINE_NUMBER_INVALID', {
-                count: e.data.maxNumbersPerFileUpload,
+                count: e.maxNumbersPerFileUpload,
               })
             }}
           </div>
@@ -135,7 +135,9 @@ export default {
     },
     requestErrors() {
       if (!this.fileResponse) return false;
-      return this.fileResponse.errors.find((f) => f.key === 400 || f.key === 500);
+      return this.fileResponse.errors.find(
+        (f) => f.key === 400 || f.key === 422 || f.key === 500 || f.error === 'unknown'
+      );
     },
     totalLinesFound() {
       return this.$loGet(this.fileMeta, 'validated', 0);

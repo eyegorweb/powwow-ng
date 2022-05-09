@@ -69,6 +69,11 @@ async function doAndRetryHTTPQuery(callFn) {
       if (responseStatus === 503 || responseStatus === 500) {
         throw responseStatus;
       }
+      if (e.response && e.response.data && responseStatus === 422) {
+        return {
+          errors: [{ ...e.response.data, key: responseStatus }],
+        };
+      }
       if (e && e.response && responseStatus) {
         if (
           responseStatus === 401 ||

@@ -66,20 +66,20 @@
           <ul class="list-unstyled m-0">
             <li class="item" v-for="(e, index) in fileResponse.errors" :key="index">
               <div
-                v-if="e.key === 400 && e.error === 'FILE_LINE_NUMBER_INVALID'"
+                v-if="e.key === 422 && e.error === 'FILE_LINE_NUMBER_INVALID'"
                 class="alert alert-danger"
                 role="alert"
               >
                 {{ $t('getparc.actCreation.report.FILE_LINE_NUMBER_INVALID') }}
               </div>
               <div
-                v-else-if="e.key === 400 && e.error === 'FILE_MAX_LINE_NUMBER_INVALID'"
+                v-else-if="e.key === 422 && e.error === 'FILE_MAX_LINE_NUMBER_INVALID'"
                 class="alert alert-danger"
                 role="alert"
               >
                 {{
                   $t('getparc.actCreation.report.FILE_MAX_LINE_NUMBER_INVALID', {
-                    count: e.data.maxNumbersPerFileUpload,
+                    count: e.maxNumbersPerFileUpload,
                   })
                 }}
               </div>
@@ -140,7 +140,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters('getsim', ['appliedFilters']),
+    ...mapGetters('getsim', ['appliedFilters', 'orderPage']),
     partner() {
       return this.content ? this.content.order.party.name : '';
     },
@@ -155,7 +155,7 @@ export default {
     requestErrors() {
       if (!this.fileResponse) return false;
       return this.fileResponse.errors.find(
-        (f) => f.key === 400 || f.key === 500 || f.error === 'unknown'
+        (f) => f.key === 400 || f.key === 422 || f.key === 500 || f.error === 'unknown'
       );
     },
     fileMeta: {
@@ -188,6 +188,12 @@ export default {
       return this.fileResponse.errors.reduce((total, e) => {
         return (total += e.number);
       }, 0);
+    },
+    getPageInfo() {
+      return { page: this.page - 1, limit: this.pageLimit };
+    },
+    page() {
+      return this.orderPage || 0;
     },
   },
 
