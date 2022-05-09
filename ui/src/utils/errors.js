@@ -2,7 +2,7 @@ import uuid from 'uuid/v1';
 
 /**
  * Formatte api response errors
- * @param {Array} response errors
+ * @param {Array} errors errors
  * @returns {Array} formatted response errors with pair key/value
  */
 export function formatBackErrors(errors) {
@@ -19,6 +19,21 @@ export function formatBackErrors(errors) {
     });
     return all;
   }, []);
+}
+
+// TODO: formatte POST errors from axios request
+// {
+//   "status":"UNPROCESSABLE_ENTITY",
+//   "error":"FILE_LINE_NUMBER_INVALID",
+//   "message":"InvalidFileLineNumber: Too much lines imported",
+//   "maxNumbersPerFileUpload":null
+// }
+/**
+ * Formatte axios post api rest response
+ * @returns {Array} formatted response
+ */
+export function formatPostErrors(errors) {
+  return errors;
 }
 
 /**
