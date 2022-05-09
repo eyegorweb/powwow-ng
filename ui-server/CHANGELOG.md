@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.939+20220509144144
+2022-05-09
+
+### Fixes
+
+- [3298] Change API target for admin info (f89f6e66a9f33f430277dc9170fcc94307729190)
+
 ## 1.17.0-master.938+20220509132454
 2022-05-09
 
