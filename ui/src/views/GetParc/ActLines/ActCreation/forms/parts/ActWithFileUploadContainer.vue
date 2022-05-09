@@ -206,7 +206,7 @@ export default {
     },
     localConfirmationMessage() {
       if (this.hasStreamRadius) {
-        return 'getparc.actCreation.changeICCID.radiusMessage';
+        return `${'getparc.actCreation.changeICCID.radiusMessage'}`;
       }
       return 'getparc.actCreation.changeICCID.confirmationWarning';
     },
