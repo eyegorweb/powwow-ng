@@ -169,10 +169,6 @@ export default {
       this.enableSuspension = this.duplicateFrom.suspensionAuto;
       this.enableReactivation = this.duplicateFrom.reactivationAuto;
     }
-
-    if (this.partner) {
-      this.partnerOptions = await getPartyOptions(this.partner.id);
-    }
   },
   computed: {
     suspensionAuto() {
@@ -202,7 +198,14 @@ export default {
       return notifCondition && this.alarmName && this.canSave;
     },
   },
-
+  watch: {
+    async partner(newPartner) {
+      this.partnerOptions = undefined;
+      if (newPartner) {
+        this.partnerOptions = await getPartyOptions(newPartner.id);
+      }
+    },
+  },
   methods: {
     saveAlarm() {
       this.$emit('save', {
