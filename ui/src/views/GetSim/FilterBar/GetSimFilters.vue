@@ -233,7 +233,7 @@ export default {
 
   async mounted() {
     this.statusMapResults = await this.formatOrderStatuses();
-    if (getFiltersStorage('filtersGetSim')) {
+    if (getFiltersStorage('filtersGetSim').filters) {
       const filtersFromStorage = getFiltersStorage('filtersGetSim');
       this.filtersName = filtersFromStorage.filters;
     }
