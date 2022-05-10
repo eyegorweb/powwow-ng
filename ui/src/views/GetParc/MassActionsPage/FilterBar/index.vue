@@ -114,7 +114,7 @@ export default {
           id: 9,
         },
       ],
-      nbOfFilters: 10,
+      nbOfFilters: 6,
     };
   },
   watch: {
@@ -170,7 +170,7 @@ export default {
 
     showAllFilters() {
       this.allFiltersVisible = !this.allFiltersVisible;
-      this.nbOfFilters = this.nbOfFilters === 10 ? 40 : 10;
+      this.nbOfFilters = this.nbOfFilters === 6 ? 40 : 6;
     },
   },
 };
