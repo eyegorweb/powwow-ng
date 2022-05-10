@@ -270,7 +270,7 @@ export default {
   },
   mounted() {
     this.fetchPartnerOptions();
-    if (getFiltersStorage('filtersGetParc')) {
+    if (getFiltersStorage('filtersGetParc').filters) { 
       const filtersFromStorage = getFiltersStorage('filtersGetParc');
       this.filtersName = filtersFromStorage.filters;
     }
