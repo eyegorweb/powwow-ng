@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.943+20220510144835
+2022-05-10
+
+### Fixes
+
+- [2816] problems of sort with storage on TableWithFilter (2a4a7e0fa04a91770c2c10254ebc8de8d8e7d9ab)
+
 ## 1.17.0-master.942+20220510142255
 2022-05-10
 
