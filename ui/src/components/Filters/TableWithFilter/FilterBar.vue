@@ -29,7 +29,6 @@
           {{ $t('applyFilters') }}
         </UiButton>
       </div>
-
       <draggable handle=".handle" :list="filtersSort">
         <transition-group>
           <FoldableBlock
@@ -151,14 +150,26 @@ export default {
   },
 
   async mounted() {
-    this.filtersSort = this.filterComponents;
-
-    if (getFiltersStorage(this.storageId)) {
+      this.filtersSort = this.filterComponents;
+    if(getFiltersStorage(this.storageId)) {
       const filtersFromStorage = getFiltersStorage(this.storageId);
-      console.log(filtersFromStorage.filters)
-      await filter.initialize(this.currentFilters);
+      
+      this.filtersSort = filtersFromStorage.filters.map( (e) => {
+        if(this.filterComponents) {
+          let validFilter = this.filterComponents.find((w) => w.id === e.id)
+          return validFilter;
+        }
+      })
     }
-
+    else {      
+      this.filtersSort = this.filterComponents;
+    }
+    for (let i = 0; i < this.filtersSort.length; i++) {
+      const filter = this.filterComponents[i];
+      if (filter.initialize) {
+        await filter.initialize(this.currentFilters);
+      }
+    }
     if (!this.currentFilters.length) {
       this.currentFilters = [...this.frozenValues];
     }
