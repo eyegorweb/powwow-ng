@@ -59,6 +59,7 @@ export default {
   },
   methods: {
     createCalendar() {
+      var self = this;
       this.canShowCalendar = true;
       this.$nextTick(() => {
         let startDate;
@@ -69,52 +70,42 @@ export default {
           endDate = moment(this.end, 'DD/MM/YYYY');
         }
 
-        const onDateSelected = (start, end) => {
+        // TODO: add i18n support
+        const localeParam = this.getLocaleParam();
+        $(this.$refs.daterange).daterangepicker({
+          startDate,
+          endDate,
+          drops: this.direction,
+          ...localeParam,
+        });
+
+        $(this.$refs.daterange).on('apply.daterangepicker', function(_evt, picker) {
           let limitDateError = false;
           if (this.oneYearLimit) {
-            if (start && end) {
-              const diff = end.diff(start, 'year', true);
+            if (picker.startDate && picker.endDate) {
+              const diff = picker.endDate.diff(picker.startDate, 'year', true);
               if (diff <= 1.003) {
                 this.$emit('change', {
-                  startDate: start.format('DD/MM/YYYY'),
-                  endDate: end.format('DD/MM/YYYY'),
+                  startDate: picker.startDate.format('DD/MM/YYYY'),
+                  endDate: picker.endDate.format('DD/MM/YYYY'),
                 });
               } else {
-                this.rangeInError = `${start.format('DD/MM/YYYY')} - ${end.format('DD/MM/YYYY')}`;
+                this.rangeInError = `${picker.startDate.format(
+                  'DD/MM/YYYY'
+                )} - ${picker.endDate.format('DD/MM/YYYY')}`;
+
                 limitDateError = true;
               }
             }
           } else {
-            this.$emit('change', {
-              startDate: start.format('DD/MM/YYYY'),
-              endDate: end.format('DD/MM/YYYY'),
+            self.$emit('change', {
+              startDate: picker.startDate.format('DD/MM/YYYY'),
+              endDate: picker.endDate.format('DD/MM/YYYY'),
             });
           }
 
           this.limitDateError = limitDateError;
-        };
-
-        const onDateShowCalendar = () => {
-          if (!this.start && !this.end) {
-            this.$emit('change', {
-              startDate: moment().format('DD/MM/YYYY'),
-              endDate: moment().format('DD/MM/YYYY'),
-            });
-          }
-        };
-
-        // TODO: add i18n support
-        const localeParam = this.getLocaleParam();
-        $(this.$refs.daterange).daterangepicker(
-          {
-            startDate,
-            endDate,
-            drops: this.direction,
-            ...localeParam,
-          },
-          onDateSelected
-        );
-        $(this.$refs.daterange).on('showCalendar.daterangepicker', onDateShowCalendar);
+        });
       });
     },
     getLocaleParam() {
