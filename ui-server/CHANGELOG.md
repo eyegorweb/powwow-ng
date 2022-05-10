@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.942+20220510142255
+2022-05-10
+
+### Fixes
+
+- [3308] correction du contexte du composant daterangepicker pour utiliser la date du jour en premier choix possible (082afe65c450acafed1ca06fa7ab2d51ed571383)
+
 ## 1.17.0-master.941+20220510063753
 2022-05-10
 
