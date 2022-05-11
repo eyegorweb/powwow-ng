@@ -10,6 +10,7 @@
       <GetSimCreateOrderPanelSynthesisItem :item="synthesis.delivery" />
       <GetSimCreateOrderPanelSynthesisItem :item="synthesis.orderReference" />
       <GetSimCreateOrderPanelSynthesisItem :item="synthesis.customFields" />
+      <GetSimCreateOrderPanelSynthesisItem :item="synthesis.emailNotif" />
     </div>
     <div class="footer pt-3" v-if="canSave">
       <UiCheckbox v-model="accept" :disabled="!canSave">{{

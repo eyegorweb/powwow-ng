@@ -492,7 +492,7 @@
     "months_12": "12 Mois",
     "months_24": "24 Mois",
     "months_36": "36 Mois",
-
+    "emailNotif": "Suivi livraison Chronopost",
     "billingAccount": "Compte de facturation",
     "delivery": "Livraison",
     "product": "Produit",
@@ -2290,6 +2290,8 @@
     }
   },
   "col": {
+    "emailNotifAsked": "Notification par email",
+    "emailNotif": "email",
     "id": "ID",
     "creationDate": "Date de création",
     "orderDate": "Date de commande",
@@ -2503,6 +2505,7 @@
     }
   },
   "orders": {
+    "choose-chronopost-tracking": "Suivi livraison Chronopost",
     "choose-account": "Choisir un compte de facturation",
     "choose-partner": "Choisir un partenaire",
     "choose-delivery": "Choisir une adresse de livraison",
@@ -2572,6 +2575,7 @@
       }
     },
     "detail": {
+      "packageNum": "numéro de colis",
       "information": "informations générales",
       "personalInformations": "informations personnelles",
       "partnerAndRoles": "Partenaire et rôles",

@@ -61,8 +61,8 @@
           </p>
         </div>
         <div class="overview-item">
-          <h6>{{ $t('orders.detail.deliveryNumber') }} :</h6>
-          <p>{{ getFromOrder('deliveryNum') }}</p>
+          <h6>{{ $t('orders.detail.packageNum') }} :</h6>
+          <p>{{ getFromOrder('packageNum') }}</p>
         </div>
       </div>
 
