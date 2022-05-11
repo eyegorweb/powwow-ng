@@ -427,6 +427,19 @@ export async function fetchCustomerAccountsByPartnerId(
               phone
               mobile
             }
+            address {
+              address1
+              address2
+              zipCode
+              city
+              country
+              state
+            }
+            name {
+              title
+              firstName
+              lastName
+            }
           }
         }
         bankAccount {
