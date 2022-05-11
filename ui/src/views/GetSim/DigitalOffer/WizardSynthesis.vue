@@ -103,7 +103,7 @@
 import UiCheckbox from '@/components/ui/Checkbox';
 import CircleLoader from '@/components/ui/CircleLoader';
 import CreateOrderPanelSynthesisItem from '@/views/GetSim/CreateOrder/CreateOrderPanelSynthesisItem.vue';
-import { getOfferServices } from '@/components/Services/utils.js';
+import { getActiveServicesWithoutAPN } from '@/components/Services/utils.js';
 import { formatCurrency } from '@/utils/numbers.js';
 import { fetchCustomerAccountsByPartnerId } from '@/api/partners.js';
 import { mapGetters } from 'vuex';
@@ -175,7 +175,7 @@ export default {
         });
       }
       if (this.userInfos.type === 'PARTNER') {
-        const civility = `${this.$loGet(this.partnerInfo, 'party.mainAdministrator.name.title', '')} ${this.$loGet(this.partnerInfo, 'party.mainAdministrator.name.lastName', '')} ${this.$loGet(this.partnerInfo, 'party.mainAdministrator.name.firstName', '')}`;
+        const civility = `${this.$t('common.' + this.$loGet(this.partnerInfo, 'party.mainAdministrator.name.title', ''))} ${this.$loGet(this.partnerInfo, 'party.mainAdministrator.name.lastName', '')} ${this.$loGet(this.partnerInfo, 'party.mainAdministrator.name.firstName', '')}`;
         const assembledCityAddress = `${this.$loGet(
           this.partnerInfo,
           'party.mainAdministrator.address.zipCode',
@@ -188,6 +188,7 @@ export default {
               civility,
               `${this.$loGet(this.partnerInfo, 'party.mainAdministrator.address.address1', '-')}`,
               assembledCityAddress,
+              `${this.$loGet(this.partnerInfo, 'party.mainAdministrator.address.countryName', '-')}`,
             ],
           },
         });
@@ -203,6 +204,11 @@ export default {
       }
       if (this.$loGet(this.synthesis, 'offerStep')) {
         if (this.$loGet(this.synthesis, 'offerStep.name')) {
+          const services = getActiveServicesWithoutAPN(
+            this.$loGet(this.synthesis, 'offerStep.initialOffer.marketingService')
+          )
+            .map((s) => ` ${s.labelService}`)
+            .toString();
           const apn = this.getApnServices(
             this.$loGet(this.synthesis, 'offerStep.initialOffer.marketingService')
           )[0]
@@ -211,7 +217,7 @@ export default {
           formatted.push({
             label: 'digitalOffer.offer',
             value: {
-              content: [this.$loGet(this.synthesis, 'offerStep.name'), apn],
+              content: [this.$loGet(this.synthesis, 'offerStep.name'), apn, services],
             },
           });
         }
