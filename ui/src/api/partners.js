@@ -434,6 +434,7 @@ export async function fetchCustomerAccountsByPartnerId(
               city
               country
               state
+              countryName
             }
             name {
               title
