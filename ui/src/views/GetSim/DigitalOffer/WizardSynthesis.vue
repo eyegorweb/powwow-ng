@@ -175,18 +175,18 @@ export default {
         });
       }
       if (this.userInfos.type === 'PARTNER') {
-        const civility = `${this.$loGet(this.partnerInfo, 'name', '')}`;
+        const civility = `${this.$loGet(this.partnerInfo, 'party.mainAdministrator.name.title', '')} ${this.$loGet(this.partnerInfo, 'party.mainAdministrator.name.lastName', '')} ${this.$loGet(this.partnerInfo, 'party.mainAdministrator.name.firstName', '')}`;
         const assembledCityAddress = `${this.$loGet(
           this.partnerInfo,
-          'address.zipCode',
+          'party.mainAdministrator.address.zipCode',
           ''
-        )} - ${this.$loGet(this.partnerInfo, 'address.city', '')}`;
+        )} - ${this.$loGet(this.partnerInfo, 'party.mainAdministrator.address.city', '')}`;
         formatted.push({
           label: 'digitalOffer.synthesis.billingAddress',
           value: {
             content: [
               civility,
-              `${this.$loGet(this.partnerInfo, 'address.address1', '-')}`,
+              `${this.$loGet(this.partnerInfo, 'party.mainAdministrator.address.address1', '-')}`,
               assembledCityAddress,
             ],
           },
@@ -203,11 +203,6 @@ export default {
       }
       if (this.$loGet(this.synthesis, 'offerStep')) {
         if (this.$loGet(this.synthesis, 'offerStep.name')) {
-          const services = getOfferServices(
-            this.$loGet(this.synthesis, 'offerStep.initialOffer.marketingService')
-          )
-            .map((s) => ` ${s.labelService}`)
-            .toString();
           const apn = this.getApnServices(
             this.$loGet(this.synthesis, 'offerStep.initialOffer.marketingService')
           )[0]
@@ -216,7 +211,7 @@ export default {
           formatted.push({
             label: 'digitalOffer.offer',
             value: {
-              content: [this.$loGet(this.synthesis, 'offerStep.name'), apn, services],
+              content: [this.$loGet(this.synthesis, 'offerStep.name'), apn],
             },
           });
         }
