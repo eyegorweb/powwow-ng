@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.945+20220511095046
+2022-05-11
+
+### Fixes
+
+- [3298] Change source for billing info and services offer (a5684eb382bfef7e28274661350e3145222aa024)
+
 ## 1.17.0-master.944+20220510152636
 2022-05-10
 
