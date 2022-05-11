@@ -5,20 +5,25 @@
         <ff-wip>
           <template v-if="!isPartnerMVNO">
             <h3 class="font-weight-light text-center mt-4 mb-4">
-              {{ $t('orders.choose-delivery-notification') }}
+              {{ $t('orders.choose-chronopost-tracking') }}
             </h3>
             <div class="toggles-container">
-              <UiToggle
-                :label="$t('orders.by-sms')"
-                v-model="smsNotification"
-                :editable="canEditSmsNofication"
-              />
-              <UiToggle
-                :label="$t('orders.by-mail')"
-                v-model="emailNotification"
-                :editable="canEditEmailNofication"
-              />
+              <UiToggle :label="$t('orders.by-mail')" v-model="emailNotifAsked" />
             </div>
+            <template v-if="emailNotifAsked">
+              <div class="form-entry">
+                <FormControl
+                  label="common.email"
+                  v-model="emailNotif"
+                  :max-size="50"
+                  :class="{ error: emailError }"
+                  :required="true"
+                />
+                <span v-if="emailNotif && !isEmailValid(emailNotif)" class="error-text">
+                  {{ $t('errors.password.email-error') }}
+                </span>
+              </div>
+            </template>
           </template>
         </ff-wip>
         <CreateOrderAddOrderReference
@@ -81,6 +86,7 @@ import { fetchCustomFields, createCustomField, addItemToCustomFieldList } from '
 import { mapMutations, mapGetters } from 'vuex';
 import CreateOrderStepContainer from '../CreateOrderStepContainer';
 import UiToggle from '@/components/ui/UiToggle';
+import FormControl from '@/components/ui/FormControl';
 
 export default {
   components: {
@@ -90,6 +96,7 @@ export default {
     PartnerFields,
     CreateOrderStepContainer,
     UiToggle,
+    FormControl,
   },
 
   data() {
@@ -102,8 +109,9 @@ export default {
       isOrderNumberMandatory: false,
       panel: 'order',
       label: 'libre',
-      smsNotification: false,
-      emailNotification: false,
+      emailNotifAsked: false,
+      emailNotif: undefined,
+      emailError: undefined,
     };
   },
 
@@ -135,51 +143,6 @@ export default {
         this.$loGet(this.synthesis, 'billingAccount.selection.partner.partyType', false) === 'MVNO'
       );
     },
-    canEditSmsNofication() {
-      return !this.isNotValidPhoneNumber;
-    },
-    canEditEmailNofication() {
-      const emailValue = this.$loGet(
-        this.synthesis,
-        'delivery.value.detail.contactInformation.email'
-      );
-      if (emailValue) return true;
-      return false;
-    },
-    isNotValidPhoneNumber() {
-      const exlcudedPrefixNumbers = [
-        '01',
-        '02',
-        '03',
-        '04',
-        '05',
-        '09',
-        '331',
-        '332',
-        '333',
-        '334',
-        '335',
-        '339',
-        '00331',
-        '00332',
-        '00333',
-        '00334',
-        '00335',
-        '00339',
-        '+331',
-        '+332',
-        '+333',
-        '+334',
-        '+335',
-        '+339',
-      ];
-      const phoneValue = this.$loGet(
-        this.synthesis,
-        'delivery.value.detail.contactInformation.phone',
-        false
-      );
-      return exlcudedPrefixNumbers.filter((p) => phoneValue.indexOf(p) === 0).length > 0;
-    },
   },
 
   methods: {
@@ -200,8 +163,7 @@ export default {
     },
 
     preFill() {
-      this.synthesis.smsNotification = this.smsNotification;
-      this.synthesis.emailNotification = this.emailNotification;
+      this.synthesis.emailNotif = this.emailNotif;
 
       if (!this.synthesis.customFields && this.order) {
         for (let i = 1, max = this.allCustomFields.length; i <= max; i++) {
@@ -292,11 +254,17 @@ export default {
 
     done() {
       this.$emit('done', this.assembleSynthesis());
+      if (this.emailNotifAsked) {
+        this.isEmailValid(this.emailNotif)
+          ? this.$emit('validated', true)
+          : this.$emit('validated', false);
+      } else {
+        this.$emit('validated', true);
+      }
     },
     prev() {
       this.$emit('prev', this.assembleSynthesis());
     },
-
     assembleSynthesis() {
       const customFieldsSynthesis = this.customFieldsValues
         .map((c) => {
@@ -348,9 +316,22 @@ export default {
       } else {
         synthesis.customFields = undefined;
       }
-
-      synthesis.smsNotification = this.smsNotification;
-      synthesis.emailNotification = this.emailNotification;
+      synthesis.emailNotif = {
+        label: 'common.emailNotif',
+        value: {
+          id: 'emailNotif',
+          content: [
+            `${this.$t('col.emailNotifAsked')}: ${
+              this.emailNotifAsked ? this.$t('common.YES') : this.$t('common.NO')
+            }`,
+            `${this.$t('col.emailNotif')}:  ${this.emailNotifAsked ? this.emailNotif : ''}`,
+          ],
+        },
+        selection: {
+          emailNotif: this.emailNotif,
+          emailNotifAsked: this.emailNotifAsked,
+        },
+      };
 
       return synthesis;
     },
@@ -359,14 +340,20 @@ export default {
       this.referenceValue = value;
       this.done();
     },
+
+    isEmailValid(email) {
+      var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return re.test(email);
+    },
   },
 
   watch: {
-    smsNotification(newValue) {
-      if (newValue) this.done();
+    emailNotifAsked(newValue, oldValue) {
+      if (newValue != oldValue) this.emailNotif = '';
+      this.done();
     },
-    emailNotification(newValue) {
-      if (newValue) this.done();
+    emailNotif(newValue, oldValue) {
+      if (newValue != oldValue) this.done();
     },
   },
 };

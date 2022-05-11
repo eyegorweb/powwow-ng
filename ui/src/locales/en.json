@@ -425,6 +425,7 @@
     "existingValue": "This name already exists in the mailing list. Please enter a different title."
   },
   "common": {
+    "emailNotif": "Chronopost delivery tracking",
     "billing": "Billing",
     "order": "Order",
     "export": "Export",
@@ -2094,6 +2095,8 @@
     "search": { "act-mass-id": "Id mass act", "act-unit-id": "Id unit act" }
   },
   "col": {
+    "emailNotifAsked": "Notification by email",
+    "emailNotif": "email",
     "id": "ID",
     "creationDate": "Creation date",
     "commercialStatus": "Commercial status",
@@ -2282,6 +2285,7 @@
     "deliveryCountry": "Delivery country"
   },
   "orders": {
+    "choose-chronopost-tracking": "Chronopost delivery tracking",
     "choose-account": "Choose a billing account",
     "choose-partner": "Choose a partner",
     "choose-shipping": "Choose a recipient",
@@ -2376,6 +2380,7 @@
       }
     },
     "detail": {
+      "packageNum": "numéro de colis",
       "information": "general informations",
       "personalInformations": "personal informations",
       "partnerAndRoles": "Partner and roles",

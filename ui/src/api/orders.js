@@ -22,6 +22,7 @@ export async function searchOrders(orderBy, pagination, filters = []) {
       items {
         id
         deliveryNum
+        packageNum
         simcardType
         creationDate
         activationAsked
@@ -488,12 +489,10 @@ export async function createOrder(synthesis) {
       simCardId: ${get(synthesis, 'product.value.id')},
       customFieldsDTO: ${customFieldsDTO}
       ${orderReferenceParam}${gqlWorkflowId}
-      smsNotification: ${smsNotification}
-      emailNotification: ${emailNotification}
+      emailNotifAsked: ${get(synthesis, 'emailNotif.selection.emailNotifAsked') ? 'true' : 'false'}
+      emailNotif: "${get(synthesis, 'emailNotif.selection.emailNotif')}"
     }${gqlServicesParamGql}) {
       id
-      smsNotification
-      emailNotification
     }
   }
   `;

@@ -45,6 +45,7 @@
           @done="lastStep"
           @customFieldsMeta="setCustomFieldsMeta"
           @saveSynthesis="saveSynthesis"
+          @validated="validateCreateOrderStepSettingsStep"
         />
       </div>
     </div>
@@ -54,7 +55,7 @@
       </div>
       <GetSimCreateOrderPanelSynthesis
         :synthesis="synthesis"
-        :can-save="currentStep === steps.length - 1"
+        :can-save="currentStep === steps.length - 1 && createOrderStepSettingsIsValidated"
         @save="saveOrder"
       />
     </div>
@@ -113,6 +114,7 @@ export default {
       customFieldsErrors: undefined,
       orderReferenceError: undefined,
       showLoader: false,
+      createOrderStepSettingsIsValidated: true,
     };
   },
 
@@ -202,6 +204,10 @@ export default {
 
     lastStep(payload) {
       this.saveSynthesis(payload);
+    },
+
+    validateCreateOrderStepSettingsStep(isValid) {
+      this.createOrderStepSettingsIsValidated = isValid;
     },
     async saveOrder() {
       this.checkForErrors();
