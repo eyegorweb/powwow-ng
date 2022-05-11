@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.947+20220511150417
+2022-05-11
+
+### Fixes
+
+- [3298] ISO on first and second orders for synthesis (10b8fadb7c16ddc223e823770386d082e0c98570)
+
 ## 1.17.0-master.946+20220511145526
 2022-05-11
 
