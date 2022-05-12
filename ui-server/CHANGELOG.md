@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.948+20220512122109
+2022-05-12
+
+### Fixes
+
+- [3309] correction de la gestion des rôles dans la partie getadmin (d99e9b5e191ec49262334504b24b770d4ddfe470)
+
 ## 1.17.0-master.947+20220511150417
 2022-05-11
 
