@@ -66,6 +66,7 @@ import UiSimpleToggle from '@/components/ui/UiSimpleToggle.vue';
 import UiButton from '@/components/ui/Button';
 import { mapMutations } from 'vuex';
 import union from 'lodash.union';
+import differencewith from 'lodash.differencewith';
 
 import {
   fetchRoles,
@@ -179,6 +180,19 @@ export default {
       this.isLoading = true;
       const rolePermissions = await fetchPermissionsByRole(this.selectedRole.Id);
       if (rolePermissions.length) {
+        const notMatchingDomain = differencewith(
+          this.domains,
+          rolePermissions,
+          (a, b) => a.labelDomain === b.labelDomain
+        );
+        if (notMatchingDomain) {
+          notMatchingDomain.forEach((localPermission) => {
+            localPermission.permissions.forEach((perm) => {
+              perm.checked = false;
+            });
+          });
+        }
+
         rolePermissions.forEach((domainByRole) => {
           const matchingDomain = this.domains.find(
             (d) => d.labelDomain === domainByRole.labelDomain
@@ -196,10 +210,15 @@ export default {
             });
           }
         });
+
         // Render domains array and remove duplicate values
         this.domains = union(this.domains, ...rolePermissions);
       } else {
-        await this.loadAllPermissions();
+        this.domains.forEach((localPermission) => {
+          localPermission.permissions.forEach((perm) => {
+            perm.checked = false;
+          });
+        });
       }
       this.isLoading = false;
     },
