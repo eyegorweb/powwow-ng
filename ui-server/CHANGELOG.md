@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.949+20220513090332
+2022-05-13
+
+### Fixes
+
+- [3304] Change on permission line multi customer (79ffb56b9cc20a8031590e35fcf1956da2e85e90)
+
 ## 1.17.0-master.948+20220512122109
 2022-05-12
 
