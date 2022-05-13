@@ -9,6 +9,7 @@
 <script>
 import SearchByLinesId from '@/views/GetParc/ActLines/SearchByLinesId';
 import { mapMutations } from 'vuex';
+import { mapGetters } from 'vuex';
 
 export default {
   components: {
@@ -20,18 +21,42 @@ export default {
       searchByIdValue: undefined,
     };
   },
-
+  
+  props: {
+    act: {
+      type: Object,
+      default: undefined
+    },
+  },
+  computed: {    
+    ...mapGetters(['userIsBO']),
+  },
   methods: {
     ...mapMutations('actLines', ['startSearchingById', 'setPage', 'setActCreationPrerequisites']),
+    ...mapGetters(['userIsAdmin']),
     searchById(params) {
       this.searchByIdValue = params.value;
       this.setPage(1);
-      this.startSearchingById([
-        {
-          id: params.id,
-          value: params.value,
-        },
-      ]);
+      if((this.userIsBO || this.userIsAdmin()) && this.act.id === "CHANGE_CF") {
+        this.startSearchingById([
+          {
+            id: params.id,
+            value: params.value,
+          },
+          {
+            id: 'partyType.ne',
+            value: 'MULTI_CUSTOMER'
+          }
+        ]);
+      }
+      else {        
+        this.startSearchingById([
+          {
+            id: params.id,
+            value: params.value,
+          },
+        ]);
+      }
 
       this.setActCreationPrerequisites({
         searchById: params,

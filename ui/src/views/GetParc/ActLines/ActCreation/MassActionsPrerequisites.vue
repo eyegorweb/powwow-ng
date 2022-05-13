@@ -53,6 +53,7 @@
           act.title === 'getparc.actCreation.carouselItem.RECHARGE_LINES'
       "
       :partner-type="getPartnerType"
+      :act-is-cf="act.id === 'CHANGE_CF'"
     />
     <!-- add condition to display admin radius all prerequesites components -->
     <RadiusPrerequisite

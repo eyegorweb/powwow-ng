@@ -189,7 +189,7 @@ export async function fetchpartners(q, params) {
 export async function fetchpartnersQuery(
   fields,
   q,
-  { page, limit, partnerType, partnerTypes, includeMailingLists, esim, haveLvOffers }
+  { page, limit, partnerType, partnerTypes, includeMailingLists, esim, haveLvOffers, partyTypeMC}
 ) {
   let partnerTypeGqlFilter = '';
   if (!partnerTypes && partnerType) {
@@ -210,6 +210,12 @@ export async function fetchpartnersQuery(
     lvOffers = `, longLifeOfferEnable: true`;
   }
 
+  let partyTypeMultiCustomer = '';
+
+  if (partyTypeMC) {
+    partyTypeMultiCustomer = `, partyType: {ne: MULTI_CUSTOMER}`;
+  }
+
   const extraFields = [];
   if (includeMailingLists) {
     extraFields.push(`mailingLists {
@@ -219,7 +225,7 @@ export async function fetchpartnersQuery(
   }
   const queryStr = `
   query{
-    partys(filter:{name: {startsWith: "${q}"}${partnerTypeGqlFilter}${esimGqlFilter}${lvOffers}}, pagination: {limit: ${limit}, page: ${page}}, sorting: {name: ASC}) {
+    partys(filter:{name: {startsWith: "${q}"}${partnerTypeGqlFilter}${esimGqlFilter}${lvOffers}${partyTypeMultiCustomer}}, pagination: {limit: ${limit}, page: ${page}}, sorting: {name: ASC}) {
       total,
       items {
         ${fields}

@@ -7,6 +7,7 @@
           @setpartner="setPartner"
           :have-lv-offers="haveLvOffers"
           :partner-type="partnerType"
+          :act-is-cf="actIsCf"
         />
       </div>
       <div v-if="canSelectBillingAccount" class="col">
@@ -92,6 +93,7 @@ export default {
     allOffers: Boolean,
     haveLvOffers: Boolean,
     partnerType: String,
+    actIsCf: Boolean,
   },
   watch: {
     partner(newValue) {
