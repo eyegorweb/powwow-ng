@@ -144,13 +144,15 @@ export default {
     visibleComponents() {
       if (!this.filtersSort) return [];
       return this.filtersSort.filter(
-        (filter) => !filter.checkVisibleFn || filter.checkVisibleFn(this.currentFilters)
+        (filter) => {
+          return !filter.checkVisibleFn || filter.checkVisibleFn(this.currentFilters)
+        }
       );
     },
   },
 
   async mounted() {
-      this.filtersSort = this.filterComponents;
+    this.filtersSort = this.filterComponents;
     if(getFiltersStorage(this.storageId)) {
       const filtersFromStorage = getFiltersStorage(this.storageId);
       

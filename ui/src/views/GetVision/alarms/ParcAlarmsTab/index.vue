@@ -307,6 +307,7 @@ export default {
         filters.push({
           title: 'filters.partners',
           component: PartnerFilter,
+          id: 1,
           onChange(chosenValues) {
             return {
               id: 'filters.partners',
@@ -320,6 +321,7 @@ export default {
         {
           title: 'common.billingAccount',
           component: BillingAccountFilter,
+          id: 2,
           getPageContext: () => {
             return { partners: this.currentPartners };
           },
@@ -334,6 +336,7 @@ export default {
         {
           title: 'filters.offers',
           component: OffersFilter,
+          id: 3,
           getPageContext: () => {
             return { partners: this.currentPartners };
           },
@@ -352,6 +355,7 @@ export default {
           {
             title: 'getvsion.filters.ALARMS_SCOPE',
             component: AlarmsRangeFilter,
+            id: 4,
             onChange(chosenValues) {
               return {
                 id: 'getvsion.filters.ALARMS_SCOPE',
@@ -363,6 +367,7 @@ export default {
           {
             title: 'getvsion.filters.ALARM_TYPE',
             component: AlarmType,
+            id: 5,
             onChange(chosenValue) {
               return {
                 id: 'getvsion.filters.ALARM_TYPE',
@@ -377,6 +382,7 @@ export default {
       filters.push({
         title: 'getvsion.filters.DATE_TRIGGER',
         component: DateTriggerAlarm,
+        id: 6,
         onChange(chosenValue) {
           return {
             id: 'getvsion.filters.DATE_TRIGGER',
