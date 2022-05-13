@@ -451,6 +451,11 @@ export function formatFilters(filters) {
     allFilters.push(`partyType: {in:[${partyTypeParam}]}`);
   }
 
+  const partyTypeNEParam = getFilterValue(filters, 'partyType.ne');
+  if (partyTypeNEParam) {
+    allFilters.push(`partyType: {ne:${partyTypeNEParam}}`);
+  }
+
   const customFields = getFilterValues(filters, 'filters.customFields');
   if (customFields && customFields.length > 0) {
     const customFeldsGQLparams = customFields

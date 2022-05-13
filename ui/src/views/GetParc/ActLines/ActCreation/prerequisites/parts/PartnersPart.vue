@@ -44,10 +44,16 @@ export default {
     esim: Boolean,
     haveLvOffers: Boolean,
     partnerType: String,
+    actIsCf: Boolean,
   },
   computed: {
     ...mapState('userContext', ['contextPartnersType', 'contextPartners']),
     ...mapGetters('actLines', ['selectedPartnersValues']),
+    ...mapGetters(['userIsBO']),
+
+    partyTypeMC() {
+      return ((this.userIsBO || this.userIsAdmin()) && this.actIsCf)
+    }
   },
   mounted() {
     if (this.initialParnter) {
@@ -87,6 +93,7 @@ export default {
     },
   },
   methods: {
+    ...mapGetters(['userIsAdmin']),
     getFetchFn() {
       if (this.limitedPartnersToSelectFrom) {
         return undefined;
@@ -101,6 +108,8 @@ export default {
           partnerType: this.contextPartnersType ? this.contextPartnersType : this.partnerType,
           esim: this.esim,
           haveLvOffers: this.haveLvOffers,
+          partyTypeMC: this.partyTypeMC,
+          
         });
         return data.map((p) => ({
           id: p.id,

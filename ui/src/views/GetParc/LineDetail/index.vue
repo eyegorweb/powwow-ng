@@ -164,6 +164,7 @@ export default {
   },
   methods: {
     ...mapMutations(['openPanel']),
+    ...mapGetters(['userIsAdmin']),
 
     openCoachPanel() {
       this.openPanel({
@@ -237,7 +238,7 @@ export default {
                 : undefined,
           });
 
-          this.carouselItems = excludeMocked([
+          let preCarouselItems = [
             {
               icon: 'ic-Sim-Icon',
               title: 'getparc.actCreation.carouselItem.lineDetail.CHANGE_SIMCARD',
@@ -257,13 +258,6 @@ export default {
               permission: { domain: 'act', action: 'manage_main' },
             },
             {
-              icon: 'ic-Wallet-Icon',
-              title: 'getparc.actCreation.carouselItem.lineDetail.CHANGE_CF',
-              selected: false,
-              permission: { domain: 'act', action: 'transfer_customer_account' },
-              hideForMultiCustomer: true,
-            },
-            {
               icon: 'ic-Ticket-Icon',
               title: 'getparc.actCreation.carouselItem.lineDetail.CHANGE_OFFER',
               selected: false,
@@ -279,7 +273,19 @@ export default {
               },
               permission: { domain: 'act', action: 'manage_main' },
             },
-          ])
+          ];
+
+          if(!(this.userIsAdmin() || this.userIsBO) && this.$loGet(this.lineData, 'party.partyType' !== 'MULTI_CUSTOMER')) {
+            preCarouselItems.splice(3, 0,
+            {
+              icon: 'ic-Wallet-Icon',
+              title: 'getparc.actCreation.carouselItem.lineDetail.CHANGE_CF',
+              selected: false,
+              permission: { domain: 'act', action: 'transfer_customer_account' },
+              hideForMultiCustomer: true,
+            },)
+          }
+          this.carouselItems = excludeMocked(preCarouselItems)
             .filter((i) => {
               if (i.hideForMultiCustomer) {
                 return !this.userIsMultiCustomer;
