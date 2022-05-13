@@ -144,6 +144,7 @@ export default {
       filters.push({
         title: 'getadmin.users.filters.partners',
         component: PartnerNameFilter,
+        id: 1,
         onChange(chosenValues) {
           return {
             id: 'getadmin.users.filters.partners',
@@ -170,9 +171,10 @@ export default {
       {
         title: 'documents.name',
         component: DocumentNameFilter,
+        id: 2,
         onChange(value) {
           return {
-            id: 'documents.name',
+            id: 'documents.name', 
             value,
           };
         },
@@ -180,6 +182,7 @@ export default {
       {
         title: 'documents.category',
         component: DocumentCategoryFilter,
+        id: 3,
         onChange(chosenValues) {
           return {
             id: 'documents.category',
@@ -190,6 +193,7 @@ export default {
       {
         title: 'documents.model',
         component: ReportModelFilter,
+        id: 4,
         onChange(selectedValue) {
           return {
             id: 'documents.model',

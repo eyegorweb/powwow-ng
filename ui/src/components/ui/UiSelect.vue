@@ -59,6 +59,11 @@ export default {
     block: Boolean,
     disabled: Boolean,
   },
+  // mounted () {
+  //   if(this.formattedOptions.length > 1) {
+  //     this.value = this.formattedOptions[0];
+  //   };
+  // },
   computed: {
     formattedOptions() {
       let options;
