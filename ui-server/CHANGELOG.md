@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.952+20220516120951
+2022-05-16
+
+### Fixes
+
+- [3312] gestion de la barre de filtres des documents getreport (4337c7a827eaf82264a5f260820c658c9583c341)
+
 ## 1.17.0-master.951+20220516075112
 2022-05-16
 
