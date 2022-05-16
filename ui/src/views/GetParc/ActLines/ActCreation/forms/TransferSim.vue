@@ -103,8 +103,8 @@ export default {
     },
 
     getFetchTransferSimDataFN() {
-      return async (limit, orderBy) => {
-        this.data = await fetchTransferSim(orderBy);
+      return async (pageInfo, orderBy) => {
+        this.data = await fetchTransferSim(pageInfo, orderBy);
         return {
           rows: this.data.transferSimRequests,
           total: this.data.transferSimRequests.length,
