@@ -2,8 +2,8 @@
   <div class="transferSim">
     <div>
       <PaginatedDataTable
-        v-if="columnsInfos"
-        :key="tableVersion"
+        storage-id="getparc.table.act-creation.sim-validation"
+        storage-version="004"
         :columns="columnsInfos"
         :order="orderBy"
         :fetch-data-fn="getFetchTransferSimDataFN()"
@@ -48,7 +48,6 @@ export default {
 
   data() {
     return {
-      tableVersion: 0,
       selectedRows: [],
       transferIds: [],
       orderBy: { key: 'transferId', direction: 'DESC' },
@@ -75,7 +74,6 @@ export default {
     async transferRequest(status) {
       this.fetchTransferId();
       await updateTransferSim(this.transferIds, status);
-      this.tableVersion++;
     },
 
     fetchTransferId() {
