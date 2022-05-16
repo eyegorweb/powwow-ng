@@ -17,9 +17,10 @@
     </div>
     <div class="mt-4 mb-4">
       <TableWithFilter
+        v-if="columns && filters"
+        :filters="filters"
         @applyFilters="applyFilters"
         :columns="columns"
-        :filters="filters"
         :rows="rows"
         :is-loading="isLoading"
         :total="total"
@@ -83,128 +84,8 @@ export default {
           label: 'Mensuel',
         },
       ],
-      columns: [
-        {
-          id: 2,
-          label: this.$t('common.lastName'),
-          orderable: true,
-          visible: true,
-          name: 'name',
-          noHandle: true,
-          format: {
-            type: 'OpenPanel',
-            getConfig: (row) => this.getPanelConfig(row),
-          },
-        },
-        {
-          id: 3,
-          label: this.$t('report.creationDate'),
-          orderable: true,
-          visible: true,
-          name: 'generationDate',
-          exportId: 'generationDate',
-          noHandle: true,
-          format: {
-            type: 'Getter',
-            getter: (row) => {
-              return row.generationDate;
-            },
-          },
-        },
-        {
-          id: 4,
-          label: this.$t('report.partenaire'),
-          orderable: true,
-          visible: true,
-          name: 'partner',
-          exportId: 'partner',
-          noHandle: true,
-          format: {
-            type: 'Getter',
-            getter: (row) => {
-              return row.party && row.party.name ? row.party.name : '';
-            },
-          },
-        },
-        {
-          id: 5,
-          label: this.$t('report.frequency'),
-          orderable: true,
-          visible: true,
-          name: 'frequency',
-          exportId: 'frequency',
-          noHandle: true,
-          format: {
-            type: 'Getter',
-            getter: (row) => {
-              const foundLabelFrequency = this.reportFrequencyChoices.find(
-                (r) => row.frequency === r.id
-              );
-              if (foundLabelFrequency) return foundLabelFrequency.label;
-              return undefined;
-            },
-          },
-        },
-        {
-          id: 6,
-          label: this.$t('report.generatedReports'),
-          orderable: true,
-          visible: true,
-          name: 'generatedReports',
-          exportId: 'generatedReports',
-          noHandle: true,
-          format: {
-            component: GeneratedReportsCell,
-          },
-        },
-        {
-          id: 7,
-          label: this.$t('report.creator'),
-          orderable: true,
-          visible: true,
-          name: 'creator',
-          exportId: 'creator',
-          noHandle: true,
-          format: {
-            component: GetSimOrdersCreatorCell,
-          },
-        },
-        {
-          id: 8,
-          label: this.$t('report.fields'),
-          orderable: true,
-          visible: false,
-          name: 'fields',
-          exportId: 'fields',
-          noHandle: true,
-          format: {
-            component: FieldsReportCell,
-          },
-          // format: {
-          //   type: 'Getter',
-          //   getter: (row) => {
-          //     return row.fields;
-          //   },
-          // },
-        },
-
-        {
-          id: 10,
-          label: this.$t('report.generationStatus'),
-          orderable: false,
-          visible: false,
-          name: 'generationStatus',
-          exportId: 'generationStatus',
-          noHandle: true,
-          format: {
-            type: 'Getter',
-            getter: (row) => {
-              return this.$t('getreport.report_statut.' + row.generationStatus);
-            },
-          },
-        },
-      ],
-      filters: [],
+      columns: undefined,
+      filters: undefined,
       currentAppliedFilters: [],
       orderBy: {
         key: 'id',
@@ -215,12 +96,134 @@ export default {
     };
   },
   mounted() {
+    this.columns = [
+      {
+        id: 2,
+        label: this.$t('common.lastName'),
+        orderable: true,
+        visible: true,
+        name: 'name',
+        noHandle: true,
+        format: {
+          type: 'OpenPanel',
+          getConfig: (row) => this.getPanelConfig(row),
+        },
+      },
+      {
+        id: 3,
+        label: this.$t('report.creationDate'),
+        orderable: true,
+        visible: true,
+        name: 'generationDate',
+        exportId: 'generationDate',
+        noHandle: true,
+        format: {
+          type: 'Getter',
+          getter: (row) => {
+            return row.generationDate;
+          },
+        },
+      },
+      {
+        id: 4,
+        label: this.$t('report.partenaire'),
+        orderable: true,
+        visible: true,
+        name: 'partner',
+        exportId: 'partner',
+        noHandle: true,
+        format: {
+          type: 'Getter',
+          getter: (row) => {
+            return row.party && row.party.name ? row.party.name : '';
+          },
+        },
+      },
+      {
+        id: 5,
+        label: this.$t('report.frequency'),
+        orderable: true,
+        visible: true,
+        name: 'frequency',
+        exportId: 'frequency',
+        noHandle: true,
+        format: {
+          type: 'Getter',
+          getter: (row) => {
+            const foundLabelFrequency = this.reportFrequencyChoices.find(
+              (r) => row.frequency === r.id
+            );
+            if (foundLabelFrequency) return foundLabelFrequency.label;
+            return undefined;
+          },
+        },
+      },
+      {
+        id: 6,
+        label: this.$t('report.generatedReports'),
+        orderable: true,
+        visible: true,
+        name: 'generatedReports',
+        exportId: 'generatedReports',
+        noHandle: true,
+        format: {
+          component: GeneratedReportsCell,
+        },
+      },
+      {
+        id: 7,
+        label: this.$t('report.creator'),
+        orderable: true,
+        visible: true,
+        name: 'creator',
+        exportId: 'creator',
+        noHandle: true,
+        format: {
+          component: GetSimOrdersCreatorCell,
+        },
+      },
+      {
+        id: 8,
+        label: this.$t('report.fields'),
+        orderable: true,
+        visible: false,
+        name: 'fields',
+        exportId: 'fields',
+        noHandle: true,
+        format: {
+          component: FieldsReportCell,
+        },
+        // format: {
+        //   type: 'Getter',
+        //   getter: (row) => {
+        //     return row.fields;
+        //   },
+        // },
+      },
+
+      {
+        id: 10,
+        label: this.$t('report.generationStatus'),
+        orderable: false,
+        visible: false,
+        name: 'generationStatus',
+        exportId: 'generationStatus',
+        noHandle: true,
+        format: {
+          type: 'Getter',
+          getter: (row) => {
+            return this.$t('getreport.report_statut.' + row.generationStatus);
+          },
+        },
+      },
+    ];
     let currentVisibleFilters = [];
 
     if (this.userIsBO || this.userIsGroupAccount || this.userIsMultiPartner) {
       currentVisibleFilters.push({
         title: 'filters.partner',
         component: PartnerFilter,
+        id: 1,
         onChange(chosenValue) {
           return {
             id: 'filters.partner',
@@ -234,6 +237,7 @@ export default {
     currentVisibleFilters.push({
       title: 'filters.reportOwner',
       component: UsersFilter,
+      id: 2,
       onChange(chosenValue) {
         if (chosenValue) {
           return {
@@ -275,8 +279,7 @@ export default {
         filters = [...filters, ...this.appliedFilters];
       }
 
-      let creatorInfos;
-      let partner;
+      let creatorInfos, partner, data;
       if (filters) {
         filters.forEach((e) => {
           e.id === 'filters.reportOwner' ? (creatorInfos = e.data.id) : undefined;
@@ -284,7 +287,6 @@ export default {
         });
       }
 
-      let data;
       this.isLoading = true;
       if (filters.length > 0) {
         data = await fetchReports(this.orderBy, pagination, partner, creatorInfos);

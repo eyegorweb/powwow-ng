@@ -143,27 +143,24 @@ export default {
 
     visibleComponents() {
       if (!this.filtersSort) return [];
-      return this.filtersSort.filter(
-        (filter) => {
-          return !filter.checkVisibleFn || filter.checkVisibleFn(this.currentFilters)
-        }
-      );
+      return this.filtersSort.filter((filter) => {
+        return !filter.checkVisibleFn || filter.checkVisibleFn(this.currentFilters);
+      });
     },
   },
 
   async mounted() {
     this.filtersSort = this.filterComponents;
-    if(getFiltersStorage(this.storageId)) {
+    if (getFiltersStorage(this.storageId)) {
       const filtersFromStorage = getFiltersStorage(this.storageId);
-      
-      this.filtersSort = filtersFromStorage.filters.map( (e) => {
-        if(this.filterComponents) {
-          let validFilter = this.filterComponents.find((w) => w.id === e.id)
+
+      this.filtersSort = filtersFromStorage.filters.map((e) => {
+        if (this.filterComponents) {
+          let validFilter = this.filterComponents.find((w) => w.id === e.id);
           return validFilter;
         }
-      })
-    }
-    else {      
+      });
+    } else {
       this.filtersSort = this.filterComponents;
     }
     for (let i = 0; i < this.filtersSort.length; i++) {
