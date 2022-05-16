@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.951+20220516075112
+2022-05-16
+
+### Fixes
+
+- [3061] uniform all modals (b7c1ee58dc9d8c8072e6bbf0148e34dafb953705)
+
 ## 1.17.0-master.950+20220513133818
 2022-05-13
 
