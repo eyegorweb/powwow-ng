@@ -86,6 +86,7 @@
   "madeModification": "Modification made",
   "requestError": "Error during processing the request",
   "status": "Status",
+  "privateUser": "Private",
   "lastUpdate": "Last update",
   "day": "Day",
   "week": "Week",
