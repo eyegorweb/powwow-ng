@@ -26,7 +26,9 @@ export async function fetchTransferSim(pagination, orderBy) {
   `;
 
   const response = await query(queryStr);
-  return response.data.transferSimRequests;
+  if (response && response.data && response.data.transferSimRequests)
+    return response.data.transferSimRequests;
+  return undefined;
 }
 export async function fetchlvConsumption(id) {
   const queryStr = `
