@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.955+20220518074025
+2022-05-18
+
+### Fixes
+
+- [3142] utilisateurs prives (655e7b84d9ecc612de0c2392e30360cc1f913f54)
+
 ## 1.17.0-master.954+20220516145650
 2022-05-16
 
