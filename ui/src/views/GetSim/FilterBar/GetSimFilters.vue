@@ -18,10 +18,7 @@
       <draggable handle=".handle" :list="filtersName">
         <transition-group>
           <div v-for="item in filtersNameSlice" :key="item.id">
-            <Filters
-              :key-name="item.key"
-              :status-map-results="statusMapResults"
-            />
+            <Filters :key-name="item.key" :status-map-results="statusMapResults" />
           </div>
         </transition-group>
       </draggable>
@@ -233,9 +230,10 @@ export default {
 
   async mounted() {
     this.statusMapResults = await this.formatOrderStatuses();
-    if (getFiltersStorage('filtersGetSim').filters) {
+    if (getFiltersStorage('filtersGetSim') && getFiltersStorage('filtersGetSim').filters) {
       const filtersFromStorage = getFiltersStorage('filtersGetSim');
-      this.filtersName = filtersFromStorage.filters;
+      if (filtersFromStorage && filtersFromStorage.filters)
+        this.filtersName = filtersFromStorage.filters;
     }
   },
 

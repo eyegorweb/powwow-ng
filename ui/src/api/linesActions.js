@@ -10,20 +10,23 @@ export async function fetchTransferSim(pagination, orderBy) {
   query {
     transferSimRequests(${paginationInfo}, ${orderingInfo})
     {
-      transferId
-      iccid
-      fromPartner
-      toPartner
-      fromCustAccount
-      toCustAccount
-      created
-      status
+      items {
+        transferId
+        iccid
+        fromPartner
+        toPartner
+        fromCustAccount
+        toCustAccount
+        created
+        status
+      },
+      total
     }
   }
   `;
 
   const response = await query(queryStr);
-  return response.data;
+  return response.data.transferSimRequests;
 }
 export async function fetchlvConsumption(id) {
   const queryStr = `
