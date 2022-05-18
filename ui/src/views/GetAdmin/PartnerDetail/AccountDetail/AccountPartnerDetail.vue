@@ -192,11 +192,11 @@
       <div class="text-left" slot="body">
         <p>{{ $t('changePartnerInfosSave') }}</p>
       </div>
-      <div slot="footer">
-        <button class="modal-default-button btn btn-danger btn-sm" @click.stop="openPopup = false">
+      <div slot="footer" class="btnsContainer">
+        <button class="btns btns--cancel" @click.stop="openPopup = false">
           {{ $t('cancel') }}
         </button>
-        <button class="modal-default-button btn btn-success btn-sm ml-1" @click.stop="save">
+        <button class="btns btns--confirm" @click.stop="save">
           {{ $t('save') }}
         </button>
       </div>
@@ -626,6 +626,33 @@ export default {
 </style>
 
 <style lang="scss" scoped>
+   .btnsContainer {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+  .btns {
+    border: none;
+    width: 48%;
+    border-radius: 5px;
+    padding: 10px;
+    transition: 0.3s;
+
+    &--confirm {
+      background-color: #0055a4;
+      color: white;
+
+      &:hover {
+        background-color: #00417e;
+      }
+    }
+
+    &--cancel {
+      border: 1px solid #0055a4;
+      color: #0055a4;
+      background-color: white;
+    }
+  }
 .accountdetail-legalInfos,
 .accountdetail-contact {
   h4 {
