@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.959+20220518132900
+2022-05-18
+
+### Fixes
+
+- [3313] correction de la table et de la pagination pour l'acte de gestion Valider les transferts (04ffd5ecd774ad98655c8b53bed262ef03effff7)
+
 ## 1.17.0-master.958+20220518130714
 2022-05-18
 
