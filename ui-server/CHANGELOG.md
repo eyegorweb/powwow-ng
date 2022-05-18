@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.957+20220518093235
+2022-05-18
+
+### Fixes
+
+- [3313] correction de la table et de la pagination pour l'acte de gestion Transfert Sim (da45baefd923dea30f91f2b193ce43e5f11ef5ae)
+
 ## 1.17.0-master.956+20220518084034
 2022-05-18
 
