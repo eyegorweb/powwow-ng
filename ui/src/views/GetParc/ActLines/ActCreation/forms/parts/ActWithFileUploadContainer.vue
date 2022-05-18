@@ -49,16 +49,16 @@
                     <template v-else>{{ $t(confirmationMessage) }}</template>
                   </div>
                 </div>
-                <div slot="footer">
+                <div slot="footer" class="btnsContainer">
                   <button
-                    class="modal-default-button btn btn-danger btn-sm"
+                    class="btns btns--cancel"
                     v-if="!isLoading"
                     @click.stop="showValidationModal = false"
                   >
                     {{ $t('cancel') }}
                   </button>
                   <button
-                    class="modal-default-button btn btn-success btn-sm ml-1"
+                    class="btns btns--confirm"
                     v-if="!isLoading"
                     @click.stop="validateFile()"
                   >
@@ -447,4 +447,32 @@ export default {
   border: none;
   background-color: transparent;
 }
+
+  .btnsContainer {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+  .btns {
+    border: none;
+    width: 48%;
+    border-radius: 5px;
+    padding: 10px;
+    transition: 0.3s;
+
+    &--confirm {
+      background-color: #0055a4;
+      color: white;
+
+      &:hover {
+        background-color: #00417e;
+      }
+    }
+
+    &--cancel {
+      border: 1px solid #0055a4;
+      color: #0055a4;
+      background-color: white;
+    }
+  }
 </style>
