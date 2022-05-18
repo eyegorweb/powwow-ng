@@ -270,9 +270,11 @@ export default {
   },
   mounted() {
     this.fetchPartnerOptions();
-    if (getFiltersStorage('filtersGetParc').filters) { 
+    if (getFiltersStorage('filtersGetParc') && getFiltersStorage('filtersGetParc').filters) {
       const filtersFromStorage = getFiltersStorage('filtersGetParc');
-      this.filtersName = filtersFromStorage.filters;
+      if (filtersFromStorage && filtersFromStorage.filters) {
+        this.filtersName = filtersFromStorage.filters;
+      }
     }
   },
   methods: {
@@ -356,9 +358,5 @@ export default {
       text-decoration: none;
     }
   }
-}
-
-.no-filters-message {
-  //border: 2px dashed $secondary;
 }
 </style>

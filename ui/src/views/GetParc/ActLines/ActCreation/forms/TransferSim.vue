@@ -2,8 +2,7 @@
   <div class="transferSim">
     <div>
       <PaginatedDataTable
-        storage-id="getparc.table.act-creation.sim-validation"
-        storage-version="004"
+        v-if="columnsInfos"
         :columns="columnsInfos"
         :order="orderBy"
         :fetch-data-fn="getFetchTransferSimDataFN()"
@@ -83,7 +82,7 @@ export default {
           this.transferIds.push(e.transferId);
         });
       } else {
-        this.data.transferSimRequests.forEach((e) => {
+        this.data.forEach((e) => {
           this.transferIds.push(e.transferId);
         });
       }
@@ -104,8 +103,8 @@ export default {
       return async (pageInfo, orderBy) => {
         this.data = await fetchTransferSim(pageInfo, orderBy);
         return {
-          rows: this.data.transferSimRequests,
-          total: this.data.transferSimRequests.length,
+          rows: this.data,
+          total: this.data.length,
         };
       };
     },
