@@ -61,6 +61,10 @@
         </div>
       </div>
 
+      <Checkbox v-if="userIsSuperAdmin" v-model="form.userPrivate">
+        {{ $t('privateUser') }}
+      </Checkbox>
+
       <div class="entries-line">
         <div class="form-entry">
           <FormControl class="firstname" label="common.firstName" v-model="form.firstName" />
@@ -196,6 +200,7 @@ import UiApiAutocomplete from '@/components/ui/UiApiAutocomplete';
 import Toggle from '@/components/ui/UiToggle2';
 import cloneDeep from 'lodash.clonedeep';
 import UiSelect from '@/components/ui/UiSelect';
+import Checkbox from '@/components/ui/Checkbox.vue';
 
 // API
 import { delay } from '@/api/utils.js';
@@ -246,6 +251,7 @@ export default {
     PartnerCombo,
     UiApiAutocomplete,
     Toggle,
+    Checkbox,
   },
   props: {
     content: Object,
@@ -294,6 +300,7 @@ export default {
         password: undefined,
         passwordConfirm: undefined,
         email: undefined,
+        userPrivate: false,
       },
       userDefaultLanguage: 'FR',
       requestErrors: undefined,
@@ -348,6 +355,7 @@ export default {
         lastName: this.form.lastName,
         email: this.form.email,
         username: this.form.username,
+        userPrivate: this.form.userPrivate,
         roles: this.selectedRoles.concat(wsRoles),
       };
       if (this.createMode || this.isDuplicateMode) {
@@ -429,6 +437,7 @@ export default {
     ...mapGetters([
       'userInfos',
       'userIsBO',
+      'userIsSuperAdmin',
       'userIsGroupAccount',
       'havePermission',
       'userIsPartner',
@@ -717,6 +726,7 @@ export default {
         this.form.title = this.content.duplicateFrom.name.title;
         this.form.firstName = this.content.duplicateFrom.name.firstName;
         this.form.lastName = this.content.duplicateFrom.name.lastName;
+        this.form.userPrivate = this.content.duplicateFrom.userPrivate;
       }
 
       this.form.username = this.content.duplicateFrom.username;

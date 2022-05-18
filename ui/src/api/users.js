@@ -66,6 +66,7 @@ export async function createUser(params) {
       username: "${params.username}",
       password: "${params.password}",
       confirmPassword: "${params.confirmPassword}",
+      userPrivate: ${params.userPrivate},
       ${partyParam}
       ${partyGroupParam}
       roles: [${params.roles.map((r) => r.code).join(',')}]
@@ -94,6 +95,7 @@ export async function updateUser(params) {
       username: params.username,
       password: params.password,
       confirmPassword: params.confirmPassword,
+      userPrivate: params.userPrivate,
       roles: params.roles.map((r) => r.code),
     },
   };
@@ -158,6 +160,7 @@ export async function searchUsers(q, orderBy, pagination, filters = []) {
         type
         email
         username
+        userPrivate
         preferredLocale
         name {
           title
