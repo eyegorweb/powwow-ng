@@ -2,8 +2,10 @@
   <div class="transferSim">
     <div>
       <PaginatedDataTable
-        v-if="columnsInfos"
-        :columns="columnsInfos"
+        v-if="columns"
+        storage-id="getparc.table.sim-validation"
+        storage-version="001"
+        :columns="columns"
         :order="orderBy"
         :fetch-data-fn="getFetchTransferSimDataFN()"
         :size="8"
@@ -51,22 +53,26 @@ export default {
       transferIds: [],
       orderBy: { key: 'transferId', direction: 'DESC' },
       data: {},
-      columnsInfos: [
-        col('', '', true, true, {
-          component: CheckBoxCell,
-        }),
-        col('ID', 'transferId', true, true),
-        col('ICCID', 'iccid', true, true),
-        col('Partenaire source', 'fromPartner', true, true, {
-          component: FromPartner,
-        }),
-        col('Partenaire cible', 'toPartner', true, true, {
-          component: ToPartner,
-        }),
-        col('Statut de la ligne', 'status', true, true),
-        col('Date de statut', 'created', true, true),
-      ],
+      columns: undefined,
     };
+  },
+
+  mounted() {
+    this.columns = [
+      col('', '', true, true, {
+        component: CheckBoxCell,
+      }),
+      col('ID', 'transferId', true, true),
+      col('ICCID', 'iccid', true, true),
+      col('Partenaire source', 'fromPartner', true, true, {
+        component: FromPartner,
+      }),
+      col('Partenaire cible', 'toPartner', true, true, {
+        component: ToPartner,
+      }),
+      col('Statut de la ligne', 'status', true, true),
+      col('Date de statut', 'created', true, true),
+    ];
   },
 
   methods: {
@@ -103,8 +109,8 @@ export default {
       return async (pageInfo, orderBy) => {
         this.data = await fetchTransferSim(pageInfo, orderBy);
         return {
-          rows: this.data,
-          total: this.data.length,
+          rows: this.data.items,
+          total: this.data.total,
         };
       };
     },
