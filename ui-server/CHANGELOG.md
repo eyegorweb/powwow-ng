@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.960+20220519120618
+2022-05-19
+
+### Fixes
+
+- [3317] Problems on act send SMS (c0c475f8be6db61166f8b716133fffdb6b7f5552)
+
 ## 1.17.0-master.959+20220518132900
 2022-05-18
 
