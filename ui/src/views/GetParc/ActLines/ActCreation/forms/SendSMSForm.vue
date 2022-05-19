@@ -136,10 +136,9 @@ export default {
         : false;
     },
     canSend() {
-      return this.acceptConditions && this.shortCodes && this.shortCodes.length > 0 && this.selectedShortCode;;
+      return (this.acceptConditions && this.shortCodes && this.shortCodes.length > 0) && this.selectedShortCode && this.selectedShortCode.highlighted;
     },
   },
-
   data() {
     return {
       selectedShortCode: undefined,
@@ -228,7 +227,7 @@ export default {
       let partnerId = get(this.userInfos, 'partners[0].id');
 
       if (!this.userIsPartner) {
-        partnerId = this.appliedFilters.find(e => e.id === 'filters.partners').values[0].id;
+        partnerId = this.$loGet(this.singleLineFound, 'party.id');
       }
 
       return fetchShortCodes(partnerId);
