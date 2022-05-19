@@ -136,7 +136,7 @@ export default {
         : false;
     },
     canSend() {
-      return this.acceptConditions && this.shortCodes && this.shortCodes.length > 0;
+      return this.acceptConditions && this.shortCodes && this.shortCodes.length > 0 && this.selectedShortCode;;
     },
   },
 
@@ -228,7 +228,7 @@ export default {
       let partnerId = get(this.userInfos, 'partners[0].id');
 
       if (!this.userIsPartner) {
-        partnerId = this.$loGet(this.actCreationPrerequisites, 'partner.id');
+        partnerId = this.appliedFilters.find(e => e.id === 'filters.partners').values[0].id;
       }
 
       return fetchShortCodes(partnerId);
