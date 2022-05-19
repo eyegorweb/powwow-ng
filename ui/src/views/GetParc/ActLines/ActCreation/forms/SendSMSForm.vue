@@ -227,7 +227,7 @@ export default {
       let partnerId = get(this.userInfos, 'partners[0].id');
 
       if (!this.userIsPartner) {
-        partnerId = this.$loGet(this.singleLineFound, 'party.id');
+        partnerId = this.$loGet(this.singleLineFound, 'party.id') || this.$loGet(this.actCreationPrerequisites, 'partner.id');;
       }
 
       return fetchShortCodes(partnerId);
