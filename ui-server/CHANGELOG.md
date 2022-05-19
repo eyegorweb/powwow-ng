@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.961+20220519140711
+2022-05-19
+
+### Fixes
+
+- [3317] Act SMS bug on Shortcode (37254e117c20eb8c430ee182b041467dbff9d109)
+
 ## 1.17.0-master.960+20220519120618
 2022-05-19
 
