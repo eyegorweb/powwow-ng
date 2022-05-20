@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.963+20220520084816
+2022-05-20
+
+### Features
+
+- [3314] Ajouter l'evol SAP dans les commandes M2MLight (ae4c17b7362e2a927f21c5e52047b649d604f3d3)
+
 ## 1.17.0-master.962+20220519143851
 2022-05-19
 
