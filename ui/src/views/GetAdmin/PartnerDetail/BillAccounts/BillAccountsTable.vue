@@ -21,7 +21,15 @@
         :order-by.sync="defaultOrderBy"
         :is-loading="isLoading"
         @applyFilters="applyFilters"
-      />
+      >
+        <template slot="topLeft">
+          <SearchByCFReference
+            @searchByLogin="searchByCF"
+            @inputIsEmpty="clearSearch"
+            :init-value="searchByCFValue"
+          />
+      </template>
+      </TableWithFilter>
     </div>
   </div>
 </template>
@@ -33,10 +41,13 @@ import TableWithFilter from '@/components/Filters/TableWithFilter';
 import TextFilter from '@/components/Filters/TextFilter.vue';
 import { fetchAllCustomerAccounts } from '@/api/customerAccounts';
 
+import SearchByCFReference from '../PartnerCustomers/SearchByCFReference';
+
 export default {
   components: {
     UiButton,
     TableWithFilter,
+    SearchByCFReference,
   },
   props: {
     partner: {
@@ -46,6 +57,7 @@ export default {
 
   data() {
     return {
+      searchByCFValue: undefined,
       filters: [
         {
           title: 'getadmin.cf.label',
@@ -155,12 +167,15 @@ export default {
   },
 
   methods: {
+    searchByCF(params) {
+      console.log(params)
+      this.applyFilters({pagination: {page: 0, limit: 20}, filters: [{id: 'getadmin.cf.filters.multiSearch', value: params}]});
+    },
     async applyFilters(payload) {
       const { pagination, filters } = payload || {
         pagination: { page: 0, limit: 20 },
         filters: [],
       };
-
       this.isLoading = true;
       const allFilters = [
         {
@@ -180,6 +195,12 @@ export default {
         name: 'getAdminPartnerDetails.billingAccounts.form',
         params: { id: this.$route.params.id, customerAccountCode: undefined },
       });
+    },
+    clearSearch() {
+      if (this.searchByCFValue) {
+        this.searchByCFValue = undefined;
+        this.refreshTable();
+      }
     },
   },
 };
