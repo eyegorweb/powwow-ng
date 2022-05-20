@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.965+20220520115057
+2022-05-20
+
+### Fixes
+
+- [3274] ajout des filtres Offre et persistance des filtres dans l'écran des graphes de l'état des services (47ee892e4ddbdd11e7fa5a4bb4759852c5f3481c)
+
 ## 1.17.0-master.964+20220520102122
 2022-05-20
 
