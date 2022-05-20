@@ -241,6 +241,9 @@ export default {
           title: 'filters.offers',
           component: OfferFilter,
           isHidden: () => {
+            if (!this.userIsPartner && this.isCockpitClick) {
+              return false;
+            }
             return this.isFrozen;
           },
           onChange(chosenValue) {
@@ -363,6 +366,7 @@ export default {
       this.filters = undefined;
       setTimeout(() => {
         this.refreshCockpitFilters();
+        this.setupDefaultValues();
       });
     },
 
