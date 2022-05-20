@@ -12,24 +12,22 @@
     </div>
 
     <div class="mt-4">
-      <TableWithFilter
-        v-if="filters"
-        :filters="filters"
+      <DataTable
         :columns="columns"
         :rows="rows"
         :total="total"
         :order-by.sync="defaultOrderBy"
         :is-loading="isLoading"
-        @applyFilters="applyFilters"
       >
-        <template slot="topLeft">
+        <template slot="topLeftCorner">
           <SearchByCFReference
             @searchByLogin="searchByCF"
             @inputIsEmpty="clearSearch"
             :init-value="searchByCFValue"
+            :place-holder="'searchByCFPartner'"
           />
       </template>
-      </TableWithFilter>
+      </DataTable>
     </div>
   </div>
 </template>
@@ -37,8 +35,7 @@
 <script>
 import BillAccountStatusCell from './BillAccountStatusCell';
 import UiButton from '@/components/ui/Button';
-import TableWithFilter from '@/components/Filters/TableWithFilter';
-import TextFilter from '@/components/Filters/TextFilter.vue';
+import DataTable from '@/components/DataTable/DataTable';
 import { fetchAllCustomerAccounts } from '@/api/customerAccounts';
 
 import SearchByCFReference from '../PartnerCustomers/SearchByCFReference';
@@ -46,7 +43,7 @@ import SearchByCFReference from '../PartnerCustomers/SearchByCFReference';
 export default {
   components: {
     UiButton,
-    TableWithFilter,
+    DataTable,
     SearchByCFReference,
   },
   props: {
@@ -58,48 +55,6 @@ export default {
   data() {
     return {
       searchByCFValue: undefined,
-      filters: [
-        {
-          title: 'getadmin.cf.label',
-          component: TextFilter,
-          onChange(chosenValue) {
-            return {
-              id: 'getadmin.cf.label',
-              value: chosenValue,
-            };
-          },
-        },
-        {
-          title: this.$t('getadmin.cf.marketLine'),
-          component: TextFilter,
-          onChange(chosenValue) {
-            return {
-              id: 'getadmin.cf.filters.marketLine',
-              value: chosenValue,
-            };
-          },
-        },
-        {
-          title: 'Siren',
-          component: TextFilter,
-          onChange(chosenValue) {
-            return {
-              id: 'getadmin.cf.filters.siren',
-              value: chosenValue,
-            };
-          },
-        },
-        {
-          title: 'Siret',
-          component: TextFilter,
-          onChange(chosenValue) {
-            return {
-              id: 'getadmin.cf.filters.siret',
-              value: chosenValue,
-            };
-          },
-        },
-      ],
       rows: [],
       total: 0,
       account: undefined,
@@ -168,8 +123,12 @@ export default {
 
   methods: {
     searchByCF(params) {
-      console.log(params)
       this.applyFilters({pagination: {page: 0, limit: 20}, filters: [{id: 'getadmin.cf.filters.multiSearch', value: params}]});
+    },
+
+    resetFilters() {
+      this.searchByCFValue = undefined;
+      this.applyFilters();
     },
     async applyFilters(payload) {
       const { pagination, filters } = payload || {
@@ -197,9 +156,9 @@ export default {
       });
     },
     clearSearch() {
-      if (this.searchByCFValue) {
+      if (!this.searchByCFValue) {
         this.searchByCFValue = undefined;
-        this.refreshTable();
+        this.applyFilters();
       }
     },
   },
