@@ -2,6 +2,32 @@
   <CreateOrderStepContainer no-next-button @done="done" @prev="prev">
     <div class="step-container">
       <div class="deliveryContainer">
+        <ff-wip>
+          <template>
+            <div class="row mb-3 add-new">
+              <h2 class="panel-title text-center mt-2">
+                {{ $t('orders.choose-chronopost-tracking') }}
+              </h2>
+              <div class="toggles-container">
+                <UiToggle :label="$t('orders.by-mail')" v-model="emailNotifAsked" />
+              </div>
+              <template v-if="emailNotifAsked">
+                <div class="form-entry">
+                  <FormControl
+                    label="common.email"
+                    v-model="emailNotif"
+                    :max-size="50"
+                    :class="{ error: emailError }"
+                    :required="true"
+                  />
+                  <span v-if="emailNotif && !isEmailValid(emailNotif)" class="error-text">
+                    {{ $t('errors.password.email-error') }}
+                  </span>
+                </div>
+              </template>
+            </div>
+          </template>
+        </ff-wip>
         <template v-if="inEditMode">
           <CreateOrderDeliveryNewAddress
             v-if="inEditMode"
@@ -76,6 +102,8 @@ import CreateOrderStepDeliveryAddress from '@/views/GetSim/CreateOrder/DeliveryS
 import CreateOrderDeliveryNewAddress from '@/views/GetSim/CreateOrder/DeliveryStep/CreateOrderDeliveryNewAddress'; // ui/src/views/GetSim/CreateOrder/DeliveryStep/CreateOrderDeliveryNewAddress.vue
 import { fetchpartnerAddresses } from '@/api/partners';
 import { mapGetters } from 'vuex';
+import UiToggle from '@/components/ui/UiToggle';
+import FormControl from '@/components/ui/FormControl';
 
 export default {
   components: {
@@ -84,6 +112,8 @@ export default {
     UiButton,
     CreateOrderStepDeliveryAddress,
     CreateOrderDeliveryNewAddress,
+    UiToggle,
+    FormControl,
   },
 
   props: {
@@ -107,6 +137,9 @@ export default {
       addressToEdit: undefined,
       selectedAddress: undefined,
       lastSelectedAdress: undefined,
+      emailNotifAsked: false,
+      emailNotif: undefined,
+      emailError: undefined,
     };
   },
 
@@ -149,7 +182,11 @@ export default {
 
     getSynthesis() {
       return {
-        deliveryStep: this.selectedAddress,
+        deliveryStep: {
+          ...this.selectedAddress,
+          emailNotifAsked: this.emailNotifAsked,
+          emailNotif: this.emailNotif,
+        },
       };
     },
     done() {
@@ -158,11 +195,43 @@ export default {
     prev() {
       this.$emit('prev', this.getSynthesis());
     },
+    isEmailValid(email) {
+      var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return re.test(email);
+    },
   },
 
   watch: {
     selectedAddress(newAddress) {
-      this.steps = { ...this.steps, deliveryStep: newAddress };
+      this.steps = {
+        ...this.steps,
+        deliveryStep: {
+          ...newAddress,
+          emailNotifAsked: this.emailNotifAsked,
+          emailNotif: this.emailNotif,
+        },
+      };
+      this.$emit('done', this.getSynthesis());
+    },
+    emailNotifAsked(isAsked) {
+      if (isAsked) {
+        this.emailNotif = this.userInfos.email;
+        this.isEmailValid(this.emailNotif)
+          ? this.$emit('validated:deliveryChoiceStep', true)
+          : this.$emit('validated:deliveryChoiceStep', false);
+      } else {
+        this.$emit('validated:deliveryChoiceStep', true);
+      }
+      this.$emit('done', this.getSynthesis());
+    },
+    emailNotif() {
+      if (this.emailNotifAsked) {
+        this.isEmailValid(this.emailNotif)
+          ? this.$emit('validated:deliveryChoiceStep', true)
+          : this.$emit('validated:deliveryChoiceStep', false);
+      } else {
+        this.$emit('validated:deliveryChoiceStep', true);
+      }
       this.$emit('done', this.getSynthesis());
     },
   },
@@ -170,6 +239,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.toggle {
+  padding: 0 0rem;
+}
 .deliveryContainer {
   width: 70%;
   margin: 0 auto;

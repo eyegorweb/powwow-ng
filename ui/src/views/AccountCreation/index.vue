@@ -11,6 +11,7 @@
                   <router-view
                     :key="$route.fullPath"
                     :synthesis="synthesis"
+                    @validated:deliveryStep="validateDeliveryStep"
                     @done="done"
                   ></router-view>
                 </keep-alive>
@@ -25,7 +26,7 @@
         </div>
         <CreateAccountPanelSynthesis
           :synthesis="synthesis"
-          :can-save="currentStep === steps.length - 1 && canSave"
+          :can-save="currentStep === steps.length - 1 && canSave && deliveryStepValidated"
           @save="saveAccount"
           :is-loading="isLoading"
           :is-success="isSuccess"
@@ -100,6 +101,7 @@ export default {
 
   data() {
     return {
+      deliveryStepValidated: true,
       synthesis: {},
       formattedData: {
         customerAccountId: null,
@@ -215,6 +217,9 @@ export default {
   },
 
   methods: {
+    validateDeliveryStep(isValid) {
+      this.deliveryStepValidated = isValid;
+    },
     async saveAccount() {
       this.formattedData = {
         customerAccountId: null,
@@ -275,6 +280,8 @@ export default {
             lastName: this.$loGet(this.synthesis, 'creationAccountStep.lastName'),
           },
         },
+        emailNotifAsked: this.$loGet(this.synthesis, 'deliveryStep.emailNotifAsked'),
+        emailNotif: this.$loGet(this.synthesis, 'deliveryStep.emailNotif'),
       };
       this.isLoading = true;
       try {
