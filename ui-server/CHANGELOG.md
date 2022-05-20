@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.964+20220520102122
+2022-05-20
+
+### Features
+
+- [2640] Add CF filters to CF table partner detail (5ec8bd9ec791390a99230392649839bae5061626)
+
 ## 1.17.0-master.963+20220520084816
 2022-05-20
 
