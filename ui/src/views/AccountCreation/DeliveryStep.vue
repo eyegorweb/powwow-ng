@@ -1,6 +1,32 @@
 <template>
   <div class="step-container">
     <div class="deliveryContainer">
+      <ff-wip>
+        <template>
+          <div class="row mb-3 add-new">
+            <h2 class="panel-title text-center mt-2">
+              {{ $t('orders.choose-chronopost-tracking') }}
+            </h2>
+            <div class="toggles-container">
+              <UiToggle :label="$t('orders.by-mail')" v-model="emailNotifAsked" />
+            </div>
+            <template v-if="emailNotifAsked">
+              <div class="form-entry">
+                <FormControl
+                  label="common.email"
+                  v-model="emailNotif"
+                  :max-size="50"
+                  :class="{ error: emailError }"
+                  :required="true"
+                />
+                <span v-if="emailNotif && !isEmailValid(emailNotif)" class="error-text">
+                  {{ $t('errors.password.email-error') }}
+                </span>
+              </div>
+            </template>
+          </div>
+        </template>
+      </ff-wip>
       <template v-if="inEditMode">
         <NewDeliveryAddress
           @cancel="(inEditMode = false), (addressToEdit = undefined)"
@@ -48,14 +74,17 @@ import BottomBar from './BottomBar.vue';
 import BlocList from '@/components/BlocList';
 import CreateAccountDeliveryAddress from './CreateAccountDeliveryAddress.vue';
 import NewDeliveryAddress from './NewDeliveryAddressStep.vue';
+import UiToggle from '@/components/ui/UiToggle';
+import FormControl from '@/components/ui/FormControl';
 
 export default {
   components: {
     BottomBar,
     BlocList,
-
     CreateAccountDeliveryAddress,
     NewDeliveryAddress,
+    UiToggle,
+    FormControl,
   },
   props: {
     synthesis: Object,
@@ -75,6 +104,9 @@ export default {
       addressToEdit: undefined,
       selectedAddress: undefined,
       lastSelectedAdress: undefined,
+      emailNotifAsked: false,
+      emailNotif: undefined,
+      emailError: undefined,
     };
   },
 
@@ -124,17 +156,63 @@ export default {
         name: 'createAccount.simChoice',
       });
     },
+    isEmailValid(email) {
+      var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return re.test(email);
+    },
+    refreshSteps() {
+      this.steps = {
+        ...this.steps,
+        deliveryStep: {
+          ...this.steps.deliveryStep,
+          emailNotifAsked: this.emailNotifAsked,
+          emailNotif: this.emailNotif,
+        },
+      };
+    },
   },
 
   watch: {
     selectedAddress(newAddress) {
-      this.steps = { ...this.steps, deliveryStep: newAddress };
+      this.steps = {
+        ...this.steps,
+        deliveryStep: {
+          ...newAddress,
+          emailNotifAsked: this.emailNotifAsked,
+          emailNotif: this.emailNotif,
+        },
+      };
+    },
+    emailNotifAsked(isAsked) {
+      if (isAsked) {
+        this.emailNotif = this.synthesis.creationAccountStep.email;
+        this.refreshSteps();
+        this.isEmailValid(this.emailNotif)
+          ? this.$emit('validated:deliveryStep', true)
+          : this.$emit('validated:deliveryStep', false);
+      } else {
+        this.refreshSteps();
+        this.$emit('validated:deliveryStep', true);
+      }
+    },
+    emailNotif() {
+      this.refreshSteps();
+      if (this.emailNotifAsked) {
+        this.isEmailValid(this.emailNotif)
+          ? this.$emit('validated:deliveryStep', true)
+          : this.$emit('validated:deliveryStep', false);
+      } else {
+        this.$emit('validated:deliveryStep', true);
+      }
     },
   },
 };
 </script>
 
 <style lang="scss" scoped>
+.toggle {
+  padding: 0 0rem;
+}
 .deliveryContainer {
   width: 70%;
   margin: 0 auto;

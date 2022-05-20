@@ -22,13 +22,14 @@
         @done="stepisDone"
         @prev="previousStep"
         @saveSynthesis="saveSynthesis"
+        @validated:deliveryChoiceStep="validateDeliveryChoiceStep"
       />
     </template>
     <template slot="synthesis">
       <WizardSynthesis
         title="digitalOffer.synthesis.title"
         :synthesis="synthesis"
-        :can-save="currentStep === steps.length - 1 && canSave"
+        :can-save="currentStep === steps.length - 1 && canSave && isDeliveryChoiceStepValidated"
         @save="saveOrder"
         :is-loading="isLoading"
         :is-error="isError"
@@ -134,6 +135,7 @@ export default {
       customerAccountId: null,
       partyId: null,
       isError: false,
+      isDeliveryChoiceStepValidated: true,
     };
   },
 
@@ -232,6 +234,8 @@ export default {
             lastName: this.$loGet(this.synthesis, 'deliveryStep.name.lastName'),
           },
         },
+        emailNotifAsked: this.$loGet(this.synthesis, 'deliveryStep.emailNotifAsked'),
+        emailNotif: this.$loGet(this.synthesis, 'deliveryStep.emailNotif'),
       };
       this.isLoading = true;
       try {
@@ -316,6 +320,9 @@ export default {
 
     redirectToPaynum(paynumUrl) {
       redirectTo(paynumUrl);
+    },
+    validateDeliveryChoiceStep(isValidated) {
+      this.isDeliveryChoiceStepValidated = isValidated;
     },
   },
 };
