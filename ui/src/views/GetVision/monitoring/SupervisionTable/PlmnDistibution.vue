@@ -16,7 +16,7 @@ export default {
     };
   },
   async mounted() {
-    this.linesByPlmn = await this.getPlmnDistribution();
+    if (this.show) this.linesByPlmn = await this.getPlmnDistribution();
   },
   props: {
     filtersForExport: Object,
