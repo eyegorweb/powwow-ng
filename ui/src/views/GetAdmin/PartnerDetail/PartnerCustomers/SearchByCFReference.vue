@@ -3,7 +3,7 @@
     <div class="form-row">
       <div class="form-group mb-0 col-md-8">
         <UiInput
-          :placeholder="$t('searchByCF')"
+          :placeholder="$t(placeHolder || 'searchByCF')"
           class="d-block"
           v-model="searchValue"
           have-cross-button
@@ -34,6 +34,7 @@ export default {
   },
   props: {
     initValue: String,
+    placeHolder: String,
   },
   mounted() {
     this.searchValue = this.initValue;
