@@ -60,6 +60,7 @@ export function formatFilters(filters) {
   addContainsFilter(formattedFilters, filters, 'marketLine', 'getadmin.cf.filters.marketLine');
   addContainsFilter(formattedFilters, filters, 'siret', 'getadmin.cf.filters.siret');
   addContainsFilter(formattedFilters, filters, 'siren', 'getadmin.cf.filters.siren');
+  addContainsFilter(formattedFilters, filters, 'multiSearch', 'getadmin.cf.filters.multiSearch');
 
   return formattedFilters.join(',');
 
