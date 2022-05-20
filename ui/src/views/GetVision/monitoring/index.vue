@@ -241,7 +241,7 @@ export default {
           title: 'filters.offers',
           component: OfferFilter,
           isHidden: () => {
-            if (!this.userIsPartner && this.isCockpitClick) {
+            if (this.isCockpitClick) {
               return false;
             }
             return this.isFrozen;
