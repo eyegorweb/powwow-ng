@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.966+20220520150334
+2022-05-20
+
+### Fixes
+
+- [3319] bug address cedex error (df3ec57593655e06b561ccafa1ab1c744571034c)
+- [2640] corrections (289d12557507512007a27b893cc447e34d466a46)
+
 ## 1.17.0-master.965+20220520115057
 2022-05-20
 
