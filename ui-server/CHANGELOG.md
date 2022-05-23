@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.968+20220523145207
+2022-05-23
+
+### Fixes
+
+- [3293] SAPSILV2 enlever sélection du résumé (32107a109ab17a9e7a337448bef0af6f6d501ca4)
+
 ## 1.17.0-master.967+20220520153417
 2022-05-20
 
