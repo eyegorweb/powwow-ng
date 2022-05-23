@@ -2,30 +2,28 @@
   <CreateOrderStepContainer @done="done" @prev="prev" no-next-button :no-buttons="isOpen">
     <template v-if="!isOpen">
       <div class="main-content2">
-        <ff-wip>
-          <template v-if="!isPartnerMVNO">
-            <h3 class="font-weight-light text-center mt-4 mb-4">
-              {{ $t('orders.choose-chronopost-tracking') }}
-            </h3>
-            <div class="toggles-container">
-              <UiToggle :label="$t('orders.by-mail')" v-model="emailNotifAsked" />
+        <template v-if="!isPartnerMVNO">
+          <h3 class="font-weight-light text-center mt-4 mb-4">
+            {{ $t('orders.choose-chronopost-tracking') }}
+          </h3>
+          <div class="toggles-container">
+            <UiToggle :label="$t('orders.by-mail')" v-model="emailNotifAsked" />
+          </div>
+          <template v-if="emailNotifAsked">
+            <div class="form-entry">
+              <FormControl
+                label="common.email"
+                v-model="emailNotif"
+                :max-size="50"
+                :class="{ error: emailError }"
+                :required="true"
+              />
+              <span v-if="emailNotif && !isEmailValid(emailNotif)" class="error-text">
+                {{ $t('errors.password.email-error') }}
+              </span>
             </div>
-            <template v-if="emailNotifAsked">
-              <div class="form-entry">
-                <FormControl
-                  label="common.email"
-                  v-model="emailNotif"
-                  :max-size="50"
-                  :class="{ error: emailError }"
-                  :required="true"
-                />
-                <span v-if="emailNotif && !isEmailValid(emailNotif)" class="error-text">
-                  {{ $t('errors.password.email-error') }}
-                </span>
-              </div>
-            </template>
           </template>
-        </ff-wip>
+        </template>
         <CreateOrderAddOrderReference
           :value="referenceValue"
           @input="onReferenceSet"

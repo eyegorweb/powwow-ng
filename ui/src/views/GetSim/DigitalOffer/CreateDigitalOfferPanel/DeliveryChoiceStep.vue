@@ -2,32 +2,30 @@
   <CreateOrderStepContainer no-next-button @done="done" @prev="prev">
     <div class="step-container">
       <div class="deliveryContainer">
-        <ff-wip>
-          <template>
-            <div class="row mb-3 add-new">
-              <h2 class="panel-title text-center mt-2">
-                {{ $t('orders.choose-chronopost-tracking') }}
-              </h2>
-              <div class="toggles-container">
-                <UiToggle :label="$t('orders.by-mail')" v-model="emailNotifAsked" />
-              </div>
-              <template v-if="emailNotifAsked">
-                <div class="form-entry">
-                  <FormControl
-                    label="common.email"
-                    v-model="emailNotif"
-                    :max-size="50"
-                    :class="{ error: emailError }"
-                    :required="true"
-                  />
-                  <span v-if="emailNotif && !isEmailValid(emailNotif)" class="error-text">
-                    {{ $t('errors.password.email-error') }}
-                  </span>
-                </div>
-              </template>
+        <template>
+          <div class="row mb-3 add-new">
+            <h2 class="panel-title text-center mt-2">
+              {{ $t('orders.choose-chronopost-tracking') }}
+            </h2>
+            <div class="toggles-container">
+              <UiToggle :label="$t('orders.by-mail')" v-model="emailNotifAsked" />
             </div>
-          </template>
-        </ff-wip>
+            <template v-if="emailNotifAsked">
+              <div class="form-entry">
+                <FormControl
+                  label="common.email"
+                  v-model="emailNotif"
+                  :max-size="50"
+                  :class="{ error: emailError }"
+                  :required="true"
+                />
+                <span v-if="emailNotif && !isEmailValid(emailNotif)" class="error-text">
+                  {{ $t('errors.password.email-error') }}
+                </span>
+              </div>
+            </template>
+          </div>
+        </template>
         <template v-if="inEditMode">
           <CreateOrderDeliveryNewAddress
             v-if="inEditMode"
