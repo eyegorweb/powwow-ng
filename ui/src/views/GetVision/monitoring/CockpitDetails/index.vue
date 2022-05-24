@@ -15,7 +15,7 @@
       <div class="pt-4 pl-4" slot="alerts">
         <UiButton variant="outline-primary" class="mb-4" @click="$emit('gotomap')">
           <i class="ic-Pin-Icon"></i>
-          Vue carte
+          {{ $t('getparc.lineDetail.tab2.supervisionContent.mapView') }}
         </UiButton>
         <CockpitAlerts :marker-data="markerData" :applied-filters="appliedFilters" />
       </div>
@@ -23,7 +23,7 @@
         <CockpitGraphs :marker-data="markerData" :applied-filters="appliedFilters">
           <UiButton variant="outline-primary" class="mb-4" @click="$emit('gotomap')">
             <i class="ic-Pin-Icon"></i>
-            Vue carte
+            {{ $t('getparc.lineDetail.tab2.supervisionContent.mapView') }}
           </UiButton>
         </CockpitGraphs>
       </div>
