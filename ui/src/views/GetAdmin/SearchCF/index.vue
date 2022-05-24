@@ -145,7 +145,7 @@ export default {
         component: TextFilter,
         onChange(chosenValue) {
           return {
-            id: 'getadmin.cf.filters.marketLine',
+            id: 'getadmin.cf.marketLine',
             value: chosenValue,
           };
         },
