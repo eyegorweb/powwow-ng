@@ -24,6 +24,7 @@
           :maxlength="maxSize"
         />
         <small v-if="required" class="form-text error-text">{{ $t('required') }}</small>
+        <span v-if="error" class="error-text">{{ $t(error) }}</span>
         <a v-if="value && !disabled" @click.prevent="resetValue" class="btn crossCancel">
           <i class="select-icon ic-Cross-Icon"></i>
         </a>
@@ -59,7 +60,6 @@
         </ul>
       </fieldset>
     </Promised>
-    <span v-if="error" class="error-text">{{ $t(error) }}</span>
   </div>
 </template>
 
@@ -398,6 +398,7 @@ export default {
     border: 1px solid $orange;
     border-radius: 3px;
   }
+
   .error-text {
     color: $orange;
     & + .crossCancel {

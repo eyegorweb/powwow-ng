@@ -295,7 +295,6 @@ export default {
   flex-direction: column;
   div.form-content {
     flex: 1;
-    max-height: 75vh;
     overflow-y: auto;
     overflow-x: hidden;
     padding-left: 5px;
@@ -303,13 +302,7 @@ export default {
   }
 }
 
-@media screen and (max-height: 768px) {
-  .form-container {
-    div.form-content {
-      max-height: 75vh;
-    }
-  }
-}
+
 @media screen and (min-height: 769px) {
   .form-container {
     div.form-content {
