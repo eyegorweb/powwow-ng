@@ -402,26 +402,6 @@ export default {
       }
     },
 
-    gotoCockpitMap() {
-      this.isFrozen = false;
-      this.defaultValues = [...this.frozenValues];
-      this.frozenValues = [];
-      this.cockpitMarkerToDetail = undefined;
-
-      // this.appliedFilters = undefined;
-      this.filters = undefined;
-      setTimeout(() => {
-        this.refreshCockpitFilters();
-      });
-    },
-
-    gotoUsageMap() {
-      this.refreshLinesFn = undefined;
-      this.isFrozen = false;
-      this.frozenValues = [];
-      this.alwaysShowButton = true;
-    },
-
     async freezeFilterSelection(payload) {
       this.isFrozen = true;
 
@@ -706,7 +686,6 @@ export default {
     onActiveClick(payload) {
       this.onMarkerClick(payload, 'ACTIVE');
       this.indicatorTotal = payload.marker.activeCount;
-      this.freezeFilterSelection(payload);
       this.alwaysShowButton = false;
       this.defaultValues = [...this.frozenValues];
       this.frozenValues = [];
@@ -715,7 +694,6 @@ export default {
     onPassiveClick(payload) {
       this.onMarkerClick(payload, 'PASSIVE');
       this.indicatorTotal = payload.marker.passiveCount;
-      this.freezeFilterSelection(payload);
       this.alwaysShowButton = false;
       this.defaultValues = [...this.frozenValues];
       this.frozenValues = [];
@@ -760,12 +738,32 @@ export default {
       };
     },
 
+    gotoUsageMap() {
+      this.refreshLinesFn = undefined;
+      this.isFrozen = false;
+      this.frozenValues = [];
+      this.alwaysShowButton = true;
+    },
+
     onCockpitClick(payload) {
       this.cockpitMarkerToDetail = payload;
       this.isCockpitClick = true;
       this.freezeFilterSelection(payload);
       this.defaultValues = [...this.frozenValues];
       this.frozenValues = [];
+    },
+
+    gotoCockpitMap() {
+      this.isFrozen = false;
+      this.defaultValues = [...this.frozenValues];
+      this.frozenValues = [];
+      this.cockpitMarkerToDetail = undefined;
+
+      // this.appliedFilters = undefined;
+      this.filters = undefined;
+      setTimeout(() => {
+        this.refreshCockpitFilters();
+      });
     },
   },
 };

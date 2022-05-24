@@ -284,7 +284,12 @@ export default {
               await this.loadDataForCountries();
             }
           } else if (zoomLevel >= 6 && zoomLevel < 8) {
-            if (countryCode == 'FR') {
+            const zoneFilter = this.appliedFilters.find((f) => f.id === 'filters.zone');
+            let zoneName;
+            if (zoneFilter) {
+              zoneName = zoneFilter.data.zone.value;
+            }
+            if (countryCode == 'FR' || (!countryCode && zoneName === 'france')) {
               await this.loadDataForFrenchRegions();
             } else if (countryCode == 'US') {
               await this.loadDataForUsStates();
@@ -355,6 +360,8 @@ export default {
           if (!isDragging) {
             const franceCoords = new this.google.maps.LatLng(47.343482, 3.2814);
             this.map.setCenter(franceCoords);
+          } else {
+            this.centerZoom(franceCoords.lng, franceCoords.lat, 6);
           }
           if (!this.isZoomClicked) {
             this.setZoom(6);
@@ -363,8 +370,15 @@ export default {
         } else if (zoneName === 'world') {
           const country = zoneFilter.data.country;
           if (country) {
-            const countryCoords = new this.google.maps.LatLng(country.latitude, country.longitude);
-            this.map.setCenter(countryCoords);
+            if (!isDragging) {
+              const countryCoords = new this.google.maps.LatLng(
+                country.latitude,
+                country.longitude
+              );
+              this.map.setCenter(countryCoords);
+            } else {
+              this.centerZoom(country.longitude, country.latitude, COUNTRY_ZOOM_LEVEL);
+            }
             if (!this.isZoomClicked) {
               this.setZoom(5);
               this.isZoomClicked = true;
@@ -559,8 +573,7 @@ export default {
         this.getBounds(),
         this.formatFilters()
       );
-      const markers = this.formatMarkers(data);
-      this.markers = markers;
+      this.markers = this.formatMarkers(data);
     },
 
     async fetchDataForFrenchDepartments(ignoreBounds) {
