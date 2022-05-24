@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.970+20220524121102
+2022-05-24
+
+### Fixes
+
+- [3304] bug with filters on CF act MB (4d5ac6f1d9eefe4012999700e8b2ad4134c6c967)
+
 ## 1.17.0-master.969+20220524095219
 2022-05-24
 
