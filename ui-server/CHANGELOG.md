@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.972+20220524123951
+2022-05-24
+
+### Fixes
+
+- [3325] Bug translate cf management filters (e3cd38ea5a86e50d5642af406968ba5c7ce2c4ff)
+
 ## 1.17.0-master.971+20220524122356
 2022-05-24
 
