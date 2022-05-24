@@ -274,8 +274,7 @@ export default {
               permission: { domain: 'act', action: 'manage_main' },
             },
           ];
-
-          if(!(this.userIsAdmin() || this.userIsBO) && this.$loGet(this.lineData, 'party.partyType' !== 'MULTI_CUSTOMER')) {
+          if((this.userIsAdmin() || this.userIsBO) && this.$loGet(this.lineData, 'party.partyType') !== 'MULTI_CUSTOMER') {
             preCarouselItems.splice(3, 0,
             {
               icon: 'ic-Wallet-Icon',
