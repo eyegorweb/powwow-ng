@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.969+20220524095219
+2022-05-24
+
+### Fixes
+
+- [3322] corrections sur le centrage des cartes pour les usages et autres correctifs (9675e257c63e6bfcaa4aba46b41433e4d18ebc72)
+
 ## 1.17.0-master.968+20220523145207
 2022-05-23
 
