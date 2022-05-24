@@ -23,6 +23,7 @@
           @keydown.enter.exact="selectValue(data[selectedItem])"
           :maxlength="maxSize"
         />
+        <small v-if="required" class="form-text error-text">{{ $t('required') }}</small>
         <a v-if="value && !disabled" @click.prevent="resetValue" class="btn crossCancel">
           <i class="select-icon ic-Cross-Icon"></i>
         </a>
@@ -92,6 +93,7 @@ export default {
 
   props: {
     apiMethod: Function,
+    required: Boolean,
     displayResultsWhileEmpty: Boolean,
     items: Array,
     // une string pour gere l'ajout de string arbitraires
@@ -398,6 +400,9 @@ export default {
   }
   .error-text {
     color: $orange;
+    & + .crossCancel {
+      top: 34%;
+    }
   }
 }
 </style>
