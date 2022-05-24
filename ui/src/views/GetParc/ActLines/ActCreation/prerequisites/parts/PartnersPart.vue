@@ -73,7 +73,7 @@ export default {
     ) {
       this.limitedPartnersToSelectFrom = [...this.selectedPartnersValues];
 
-      if (this.limitedPartnersToSelectFrom.length === 1) {
+      if (this.limitedPartnersToSelectFrom.length === 1 && this.limitedPartnersToSelectFrom[0].partyType !== 'MULTI_CUSTOMER') {
         this.selectedPartner = this.limitedPartnersToSelectFrom[0];
         this.$emit('setAndSearch', this.selectedPartner);
       }
