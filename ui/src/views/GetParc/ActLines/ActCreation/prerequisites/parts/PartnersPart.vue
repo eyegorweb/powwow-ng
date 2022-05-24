@@ -77,6 +77,9 @@ export default {
         this.selectedPartner = this.limitedPartnersToSelectFrom[0];
         this.$emit('setAndSearch', this.selectedPartner);
       }
+      else {
+        this.limitedPartnersToSelectFrom = undefined;
+      }
     } else {
       this.limitedPartnersToSelectFrom = undefined;
     }
