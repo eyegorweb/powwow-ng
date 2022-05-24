@@ -312,7 +312,6 @@ export default {
 @media screen and (max-height: 768px) {
   .panel-vertical-container {
     div.main-content {
-      max-height: 75vh;
       min-height: 60vh !important;
     }
   }
