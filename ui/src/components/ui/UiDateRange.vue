@@ -22,6 +22,7 @@
 </template>
 
 <script>
+
 import $ from 'jquery';
 import 'daterangepicker/daterangepicker.js';
 import 'daterangepicker/daterangepicker.css';
