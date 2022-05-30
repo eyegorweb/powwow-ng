@@ -40,6 +40,7 @@ import CheckBoxCell from '@/views/GetVision/alarmDetail/TargetedLinesByAlarmTab/
 import ToPartner from './parts/ToPartner.vue';
 import FromPartner from './parts/FromPartner.vue';
 import UiButton from '@/components/ui/Button';
+import { mapMutations } from 'vuex';
 
 export default {
   components: {
@@ -76,9 +77,19 @@ export default {
   },
 
   methods: {
+    ...mapMutations([
+      'flashMessage',
+    ]),
     async transferRequest(status) {
       this.fetchTransferId();
-      await updateTransferSim(this.transferIds, status);
+      const result = await updateTransferSim(this.transferIds, status);
+      if(result && result.updateTransferSimRequests) {
+        this.flashMessage({ level: 'success', message: this.$t('genericSuccessMessage') });
+      }
+      else {
+        this.flashMessage({ level: 'danger', message: this.$t('genericErrorMessage') });
+
+      }
     },
 
     fetchTransferId() {
