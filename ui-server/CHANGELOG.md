@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.974+20220530131803
+2022-05-30
+
+### Fixes
+
+- [2991] Add flashmessage to act transfersim (f855c2671925e90a032cebdba4f5ede3fd970d7c)
+
 ## 1.17.0-master.973+20220524142214
 2022-05-24
 
