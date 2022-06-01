@@ -98,7 +98,7 @@ const defaultAdjustment = (position) => {
   };
 };
 
-const franceCoords = { lat: 44.343482, lng: 3.2814 };
+const franceCoords = { lat: 47.343482, lng: 3.2814 };
 
 function extractFromAdress(components, type) {
   for (let i = 0; i < components.length; i++)
@@ -257,7 +257,7 @@ export default {
 
       try {
         this.isLoading = true;
-        if (!this.zipCodeFilter && !this.idFilter) {
+        if (!this.idFilter) {
           await this.initZoom(isDragging);
         }
 
@@ -271,7 +271,7 @@ export default {
         } else if (this.idFilter && !this.zipCodeFilter) {
           await this.loadDataById();
         } else if (this.zipCodeFilter && !this.idFilter) {
-          await this.loadDataByZipCode();
+          await this.loadDataByZipCode(isDragging);
         } else if (this.idFilter && this.zipCodeFilter) {
           await this.loadDataById();
         } else {
@@ -363,7 +363,7 @@ export default {
           } else {
             this.centerZoom(franceCoords.lng, franceCoords.lat, 6);
           }
-          if (!this.isZoomClicked) {
+          if (!this.zipCodeFilter) {
             this.setZoom(6);
             this.isZoomClicked = true;
           }
@@ -438,9 +438,13 @@ export default {
       }, {});
     },
 
-    async loadDataByZipCode() {
+    async loadDataByZipCode(isDragging) {
       const markers = await this.fetchDataForFrenchDepartments(true);
-      this.setMarkersAndCenter(markers, DEPARTMENT_ZOOM_LEVEL);
+      if (!isDragging) {
+        this.setMarkersAndCenter(markers, DEPARTMENT_ZOOM_LEVEL, markers[0]);
+      } else {
+        this.setMarkersAndCenter(markers, DEPARTMENT_ZOOM_LEVEL);
+      }
     },
 
     async loadDataById() {
@@ -459,8 +463,9 @@ export default {
       let longitude, latitude;
 
       if (coords) {
-        longitude = coords.longitude;
-        latitude = coords.latitude;
+        longitude = coords.lng;
+        latitude = coords.lat;
+        this.centerOnCoords(longitude, latitude);
       }
       if (markers && markers.length) {
         if (!longitude || !latitude) {
