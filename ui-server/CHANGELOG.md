@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.975+20220601112215
+2022-06-01
+
+### Fixes
+
+- [3291] résolution du centrage carte et affichage des marqueurs supervision (9e08f8c840cfdd2d66950e2e6e2d7403dd19da36)
+
 ## 1.17.0-master.974+20220530131803
 2022-05-30
 
