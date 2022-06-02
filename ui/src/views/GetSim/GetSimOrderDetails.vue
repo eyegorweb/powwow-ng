@@ -62,7 +62,11 @@
         </div>
         <div class="overview-item">
           <h6>{{ $t('orders.detail.packageNum') }} :</h6>
-          <p>{{ getFromOrder('packageNum') }}</p>
+          <p>
+            <a :href="packNumLink" target="_blank" class="m-0">
+              {{ getFromOrder('packageNum') }}
+            </a>
+          </p>
         </div>
       </div>
 
@@ -242,9 +246,12 @@ import UiButton from '@/components/ui/Button';
 import { mapMutations } from 'vuex';
 import { mapGetters } from 'vuex';
 
+const chronopostLink = 'https://www.chronopost.fr/tracking-no-cms/suivi-page?listeNumerosLT=';
+
 export default {
   data() {
     return {
+      packNumLink: '',
       orderData: undefined,
       confirmationStepper: [],
       cancelStepper: [
@@ -339,6 +346,7 @@ export default {
         },
       ];
     }
+    this.packNumLink = chronopostLink + this.getFromOrder('packageNum');
   },
 
   props: {
