@@ -77,18 +77,14 @@ export default {
   },
 
   methods: {
-    ...mapMutations([
-      'flashMessage',
-    ]),
+    ...mapMutations(['flashMessage']),
     async transferRequest(status) {
       this.fetchTransferId();
       const result = await updateTransferSim(this.transferIds, status);
-      if(result && result.updateTransferSimRequests) {
+      if (result && result.updateTransferSimRequests) {
         this.flashMessage({ level: 'success', message: this.$t('genericSuccessMessage') });
-      }
-      else {
+      } else {
         this.flashMessage({ level: 'danger', message: this.$t('genericErrorMessage') });
-
       }
     },
 
@@ -98,7 +94,7 @@ export default {
         this.selectedRows.forEach((e) => {
           this.transferIds.push(e.transferId);
         });
-      } else {
+      } else if (this.data.length > 0) {
         this.data.forEach((e) => {
           this.transferIds.push(e.transferId);
         });
