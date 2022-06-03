@@ -3,15 +3,71 @@
     <div class="row">
       <div
         v-if="servicesToShow && servicesToShow.length"
-        :class="{ 'col-md-8': !fullWidth, 'col-md-12': fullWidth }"
+        :class="{ 'col-md-8 displayFlex': !fullWidth, 'col-md-12': fullWidth }"
       >
         <div class="s-container">
           <div
             :key="service.code"
-            v-for="service in servicesToShow"
+            v-for="service in servicesToShowOthers"
             class="service"
             :class="service.name ? 'fullWidth' : { 'quarter-size': fullWidth }"
           >
+            <div v-if="service.name" class="serviceOptional">
+              <div class="serviceOptional-name">{{ service.name }} :</div>
+              <div :style="{ lineHeight: '1rem' }">
+                <div class="serviceOptional-status" :class="service.checked ? 'enable' : 'disable'">
+                  {{
+                    service.checked
+                      ? $t('getparc.lineDetail.tab1.activatedAt')
+                      : service.activationDate
+                      ? $t('getparc.lineDetail.tab1.disableAt')
+                      : $t('orders.detail.deActivate')
+                  }}
+                </div>
+                <div class="serviceOptional-date">{{ service.activationDate }}</div>
+              </div>
+            </div>
+            <div v-else-if="service.code !== 'ROAMING'">
+              <UiToggle
+                :label="service.labelService"
+                :editable="!noClick && service.editable"
+                :bold-label="isChanged(service)"
+                :no-click="noClick"
+                v-model="service.checked"
+                :can-change-fn="
+                  (value) => {
+                    return canChangeValue(service, value);
+                  }
+                "
+              />
+            </div>
+          </div>
+        <template v-if="canShowRoamingTypes && canChangeRoamingExtended">
+          <div class="row">
+            <div class="pl-4">
+              <p class="label_before_toggle">{{ $t('services.roaming.title') }}</p>
+            </div>
+            <div class="pl-4">
+              <MultiToggle
+                v-if="roamingValues"
+                @update="onRoamingExtChange"
+                :values="roamingValues"
+                :disabled="!canChangeRoamingExtended"
+                greenActive
+                block
+                class="mt-2"
+              />
+            </div>
+          </div>
+        </template>
+        </div>
+        <div class="s-container">
+          <div
+            :key="service.code"
+            v-for="service in servicesToShowData"
+            class="service"
+            :class="service.name ? 'fullWidth' : { 'quarter-size': fullWidth }"
+          >          
             <div v-if="service.name" class="serviceOptional">
               <div class="serviceOptional-name">{{ service.name }} :</div>
               <div :style="{ lineHeight: '1rem' }">
@@ -43,23 +99,6 @@
             </div>
           </div>
         </div>
-        <template v-if="canShowRoamingTypes && canChangeRoamingExtended">
-          <div class="row">
-            <div class="pl-4">
-              <p class="label_before_toggle">{{ $t('services.roaming.title') }}</p>
-            </div>
-            <div class="pl-4">
-              <MultiToggle
-                v-if="roamingValues"
-                @update="onRoamingExtChange"
-                :values="roamingValues"
-                :disabled="!canChangeRoamingExtended"
-                block
-                class="pl-2"
-              />
-            </div>
-          </div>
-        </template>
       </div>
       <div class="col-md-4">
         <template v-if="dataService">
@@ -76,9 +115,9 @@
     </div>
   </div>
   <div v-else>
-    <div>
-      <div class="services-container">
-        <div :key="service.id" v-for="service in servicesToShow" class="single-service">
+    <div class="displayFlex">
+      <div class="services-container s-container">
+        <div :key="service.id" v-for="service in servicesOthers" class="single-service">
           <UiToggle
             :label="service.labelService"
             :editable="isServiceEditable(service)"
@@ -93,18 +132,36 @@
           />
         </div>
       </div>
-      <div v-if="dataService" class="services-container mt-3">
-        <DataServiceToggle
-          :service="dataService"
-          :bold-label="isChanged(dataService)"
-          vertical
-          :data-params-needed="dataParamsNeeded"
-          @change="onDataServiceChange"
-          @apnChange="onApnChange"
-          :disabled="noClick"
-          :no-click="noClick"
-          :read-only="readOnly"
-        />
+      <div class="s-container">
+        <div class="services-container">
+          <div :key="service.id" v-for="service in servicesData" class="single-service">
+            <UiToggle
+              :label="service.labelService"
+              :editable="isServiceEditable(service)"
+              :bold-label="isChanged(service)"
+              :no-click="noClick"
+              v-model="service.checked"
+              :can-change-fn="
+                (value) => {
+                  return canChangeValue(service, value);
+                }
+              "
+            />
+          </div>
+        </div>
+        <div v-if="dataService" class="services-container mt-3">
+          <DataServiceToggle
+            :service="dataService"
+            :bold-label="isChanged(dataService)"
+            vertical
+            :data-params-needed="dataParamsNeeded"
+            @change="onDataServiceChange"
+            @apnChange="onApnChange"
+            :disabled="noClick"
+            :no-click="noClick"
+            :read-only="readOnly"
+          />
+        </div>
       </div>
     </div>
   </div>
@@ -140,6 +197,22 @@ export default {
   computed: {
     ...mapGetters(['userIsMVNO']),
 
+    servicesToShowOthers() {
+      return this.servicesToShow.filter((s) => s.type === "OTHER")
+    },
+
+    servicesToShowData() {
+      return this.servicesToShow.filter((s) => s.type === "DATA")
+    },
+
+    servicesOthers() {
+      return this.services.filter((s) => s.type === "OTHER")
+    },
+
+    servicesData() {
+      return this.services.filter((s) => s.type === "DATA")
+    },
+
     servicesToShow() {
       const excludedServicesForMVNO = [
         'INCOMING_VOICE',
@@ -164,6 +237,12 @@ export default {
     },
     roamingValues() {
       return [
+        {
+          id: 'off',
+          label: 'off',
+          default: this.roamingType === 'OFF',
+          value: 'OFF',
+        },
         {
           id: 'europe',
           label: 'services.roaming.europe',
@@ -308,13 +387,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.s-container {
+.displayFlex {
   display: flex;
-  flex-wrap: wrap;
   justify-content: space-between;
 }
+.s-container {
+  width: 50%;
+}
+  
 .service {
-  flex-basis: 45%;
   margin-bottom: 1.5rem;
 }
 
@@ -342,10 +423,6 @@ export default {
   max-width: 220px;
 }
 .services-container {
-  display: flex;
-  flex-wrap: wrap;
-  width: 80%;
-  margin: auto;
   .single-service {
     flex-basis: 50%;
     margin: 0.6rem 0;
@@ -375,10 +452,6 @@ export default {
   }
 }
 .services-container {
-  display: flex;
-  flex-wrap: wrap;
-  width: 80%;
-  margin: auto;
   .single-service {
     flex-basis: 50%;
   }

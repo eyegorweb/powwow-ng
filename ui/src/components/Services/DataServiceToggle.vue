@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!vertical" class="s-container">
+  <div v-if="!vertical" class="scontainer w80">
     <div class="line">
       <UiToggle
         :label="$t('services.DATA')"
@@ -9,18 +9,19 @@
       />
     </div>
     <div v-if="apns && apns.length" class="line">
-      <span class="mt-4 mb-4">Apn:</span>
+      <span class="mt-4 mb-4 ml-2">Apn:</span>
       <MultiChoiceList
         :items="apns"
         @change="toggleApn"
         :empty-error-message="needToChekForApn"
         :disabled="isApnDisabled"
+        class="ml-2"
       />
     </div>
   </div>
   <div v-else class="single-service" :style="{ 'flex-basis': '92%' }">
-    <div class="row">
-      <div class="col">
+    <div>
+      <div>
         <UiToggle
           :label="$t('services.DATA')"
           :editable="isEditable"
@@ -28,7 +29,7 @@
           :no-click="noClick"
         />
       </div>
-      <div class="col">
+      <div>
         <div v-if="apns && apns.length" class="apn-container">
           <span>Apn:</span>
           <MultiChoiceList
@@ -129,7 +130,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.s-container {
+.w80 {
+  width: 80%;
+}
+.scontainer {
   display: flex;
   flex-direction: column;
   .line {

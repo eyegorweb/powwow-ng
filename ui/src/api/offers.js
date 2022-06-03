@@ -107,6 +107,7 @@ export async function fetchOffers2(filters, pagination, sorting) {
             activated
             editable
             optional
+            type
             parameters {
               activated
               name
@@ -226,6 +227,7 @@ export async function fetchOffers(
             activated
             editable
             optional
+            type
             parameters {
               activated
               name

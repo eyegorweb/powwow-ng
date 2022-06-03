@@ -12,7 +12,7 @@
         v-for="item in values"
         :key="item.id"
         @click="chosenValue = item"
-        :class="{ active: item === chosenValue, disabled: disabled && item !== chosenValue }"
+        :class="{ active: item === chosenValue, disabled: disabled && item !== chosenValue, greenActive: item === chosenValue && greenActive }"
         :disabled="disabled"
       >
         <template v-if="noTranslation">
@@ -47,6 +47,7 @@ export default {
   },
   props: {
     noDefault: Boolean,
+    greenActive: Boolean,
     values: {
       type: Array,
       required: true,
@@ -89,6 +90,10 @@ export default {
       background-color: $primary;
       color: $white;
       transition: all 0.2s;
+    }
+
+    &.greenActive {
+      background-color: $success;
     }
 
     &.disabled {

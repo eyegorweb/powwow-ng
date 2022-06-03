@@ -1144,8 +1144,9 @@ export async function fetchLineServices(simCardInstanceId) {
       editable
       optional
       activationDate
-      preServiceCode
+      preServiceCode 
       roamingType
+      type
       parameters {
         activated
         name
