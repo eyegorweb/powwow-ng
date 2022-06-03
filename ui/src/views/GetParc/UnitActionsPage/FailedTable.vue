@@ -174,7 +174,7 @@ export default {
           visible: true,
           // exportId: 'UNKNOWN',
         },
-        col(this.$t('getparc.actDetail.col.startDate'), 'dueDate', false),
+        col(12, this.$t('getparc.actDetail.col.startDate'), 'dueDate', false),
         {
           id: 5,
           label: this.$t('getparc.actDetail.col.imsi'),

@@ -77,23 +77,23 @@ export default {
       pageLimit: 20,
       total: 0,
       columns: [
-        col(this.$t('col.id'), 'id', true, false, {
+        col(1, this.$t('col.id'), 'id', true, false, {
           component: IdCell,
         }),
-        col(this.$t('getparc.lineDetail.alarms.name'), 'name', true, false, {
+        col(2, this.$t('getparc.lineDetail.alarms.name'), 'name', true, false, {
           component: TypeCell,
         }),
-        col(this.$t('getparc.lineDetail.alarms.threshold'), 'threshold', true, false, {
+        col(3, this.$t('getparc.lineDetail.alarms.threshold'), 'threshold', true, false, {
           component: ThresholdTriggers,
         }),
-        col(this.$t('col.status'), 'status', true, false, {
+        col(4, this.$t('col.status'), 'status', true, false, {
           component: StatusCell,
         }),
-        col(this.$t('getparc.lineDetail.alarms.trigger'), 'trigger', true, false, {
+        col(5, this.$t('getparc.lineDetail.alarms.trigger'), 'trigger', true, false, {
           component: TriggerCell,
         }),
-        col(this.$t('getparc.lineDetail.alarms.scope'), 'scope', false, false),
-        col(this.$t('getparc.lineDetail.alarms.observationCycle'), 'alarm', false, false, {
+        col(6, this.$t('getparc.lineDetail.alarms.scope'), 'scope', false, false),
+        col(7, this.$t('getparc.lineDetail.alarms.observationCycle'), 'alarm', false, false, {
           type: 'ObjectAttribute',
           path: 'observationDelay',
         }),

@@ -76,7 +76,7 @@ export default {
           visible: true,
           // exportId: 'UNKNOWN',
         },
-        col(this.$t('getparc.actDetail.col.endDate'), 'statusDate', false),
+        col(7, this.$t('getparc.actDetail.col.endDate'), 'statusDate', false),
         {
           id: 8,
           label: this.$t('getparc.actDetail.col.imsi'),
