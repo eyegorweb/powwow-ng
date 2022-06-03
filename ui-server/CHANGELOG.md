@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.979+20220603072646
+2022-06-03
+
+### Features
+
+- [3104] Change services display (90e53b667bf6ee6e7b5f0edac48f48718b6b0e37)
+
 ## 1.17.0-master.978+20220602142153
 2022-06-02
 
