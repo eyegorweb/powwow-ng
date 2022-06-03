@@ -593,7 +593,6 @@ export async function changeService(filters, lines, params) {
       offerCode,
       newCommunityChange,
     } = params;
-
     let gqlTempDataUuid = '';
     if (tempDataUuid) {
       gqlTempDataUuid = `tempDataUuid: "${tempDataUuid}"`;
@@ -638,7 +637,7 @@ export async function changeService(filters, lines, params) {
       } else {
         roamingParam = '';
       }
-      roamingCodeParams = `{serviceCode: "ROAMING", action: ADD${roamingParam}}`;
+      roamingCodeParams = roamingParam === '' ? `{serviceCode: "ROAMING", action: DELETE}` : `{serviceCode: "ROAMING", action: ADD${roamingParam}}`;
       codesToaddToGqlQuery.push(roamingCodeParams);
     }
 

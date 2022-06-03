@@ -250,7 +250,6 @@ export default {
               code: 'DATA',
             }
           : undefined;
-
         const response = await changeService([], [this.content], {
           notifEmail: false,
           dueDate: formattedCurrentDate(true),
@@ -362,7 +361,7 @@ export default {
             default: true,
           };
         } else {
-          initialTypeRoaming = undefined;
+          initialTypeRoaming = null;
         }
       }
       if (!this.newCommunityChange || (this.newCommunityChange && !initialTypeRoaming))

@@ -25,6 +25,7 @@ function formatServices(s) {
     labelService: s.labelService,
     preServiceCode: s.preServiceCode,
     roamingType: s.roamingType,
+    type: s.type,
   };
   if (s.code === 'DATA') {
     service.parameters = s.parameters

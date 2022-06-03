@@ -5,6 +5,7 @@
   },
   "events": "Evennements:",
   "infos": "Messages:",
+  "off": "Off",
   "searchOrderById": "Rechercher une commande par identifiant",
   "searchActById": "Rechercher un acte par identifiant",
   "searchLineById": "Rechercher une ligne par identifiant",
