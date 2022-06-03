@@ -59,7 +59,7 @@
             trad-prefix="getparc.lineDetail.tab3.errors"
           />
         </div>
-        <div slot="footer" class="btnsContainer" >
+        <div slot="footer" class="btnsContainer">
           <button class="btns btns--cancel" @click.stop="cancel">
             {{ $t('cancel') }}
           </button>
@@ -181,20 +181,20 @@ export default {
       tableVersion: 0,
       formErrors: undefined,
       columns: [
-        col('Période d’observation', 'id', true, false, { component: ObservationRangeCol }),
-        col('Consommation réelle', 'id', true, false, { component: RealConsumtionCol }),
-        col('Statut', 'id', true, false, { component: StatutCol }),
-        col('DATA', 'id', true, false, { component: DataCol }),
-        col('SMS', 'id', true, false, { component: SMSCol }),
-        col('Voice', 'id', true, false, { component: VoiceCol }),
+        col(1, 'Période d’observation', 'id', true, false, { component: ObservationRangeCol }),
+        col(2, 'Consommation réelle', 'id', true, false, { component: RealConsumtionCol }),
+        col(3, 'Statut', 'id', true, false, { component: StatutCol }),
+        col(4, 'DATA', 'id', true, false, { component: DataCol }),
+        col(5, 'SMS', 'id', true, false, { component: SMSCol }),
+        col(6, 'Voice', 'id', true, false, { component: VoiceCol }),
       ],
       columnsSub: [
-        col('Période d’observation', 'id', true, false, { component: SubStream }),
-        col('Consommation réelle', 'id', true, false, { component: RealConsumtionCol }),
-        col('', 'empty', true, false),
-        col('DATA', 'id', true, false, { component: DataCol }),
-        col('', 'empty2', true, false),
-        col('', 'empty3', true, false),
+        col(1, 'Période d’observation', 'id', true, false, { component: SubStream }),
+        col(2, 'Consommation réelle', 'id', true, false, { component: RealConsumtionCol }),
+        col(3, '', 'empty', true, false),
+        col(4, 'DATA', 'id', true, false, { component: DataCol }),
+        col(5, '', 'empty2', true, false),
+        col(6, '', 'empty3', true, false),
       ],
     };
   },
@@ -202,31 +202,31 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .btnsContainer {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-  }
-  .btns {
-    border: none;
-    width: 48%;
-    border-radius: 5px;
-    padding: 10px;
-    transition: 0.3s;
+.btnsContainer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.btns {
+  border: none;
+  width: 48%;
+  border-radius: 5px;
+  padding: 10px;
+  transition: 0.3s;
 
-    &--confirm {
-      background-color: #0055a4;
-      color: white;
+  &--confirm {
+    background-color: #0055a4;
+    color: white;
 
-      &:hover {
-        background-color: #00417e;
-      }
-    }
-
-    &--cancel {
-      border: 1px solid #0055a4;
-      color: #0055a4;
-      background-color: white;
+    &:hover {
+      background-color: #00417e;
     }
   }
+
+  &--cancel {
+    border: 1px solid #0055a4;
+    color: #0055a4;
+    background-color: white;
+  }
+}
 </style>

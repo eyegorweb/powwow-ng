@@ -25,12 +25,14 @@ export default {
     return {
       columns: [
         col(
+          1,
           this.$t('getparc.lineDetail.tab3.localisation.requestDate'),
           'requestDate',
           true,
           false
         ),
         col(
+          2,
           this.$t('getparc.lineDetail.tab3.localisation.requestStatus'),
           'requestStatus',
           true,

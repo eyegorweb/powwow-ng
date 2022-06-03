@@ -77,6 +77,7 @@ export default {
       orderedColumns: undefined,
       columns: [
         col(
+          1,
           'ICCID',
           'geolocation',
           true,
@@ -85,6 +86,7 @@ export default {
           { exportId: 'ICCID' }
         ),
         col(
+          2,
           'MSISDN',
           'geolocation',
           true,
@@ -93,6 +95,7 @@ export default {
           { exportId: 'MSISDN' }
         ),
         col(
+          3,
           'Opérateur',
           'geolocation',
           true,
@@ -104,6 +107,7 @@ export default {
           { exportId: 'OPERATOR' }
         ),
         col(
+          4,
           'Pays',
           'geolocation',
           true,
@@ -112,6 +116,7 @@ export default {
           { exportId: 'COUNTRY' }
         ),
         col(
+          5,
           'Code postal',
           'geolocation',
           true,
@@ -123,6 +128,7 @@ export default {
           { exportId: 'ZIP_CODE' }
         ),
         col(
+          6,
           'Ville',
           'geolocation',
           true,
@@ -134,6 +140,7 @@ export default {
           { exportId: 'CITY' }
         ),
         col(
+          7,
           'Dernier usage',
           'geolocation',
           false,
@@ -156,6 +163,7 @@ export default {
           { exportId: 'IMSI' }
         ),
         col(
+          8,
           'IMEI',
           'geolocation',
           false,
@@ -167,6 +175,7 @@ export default {
           { exportId: 'IMEI' }
         ),
         col(
+          9,
           'PLMN',
           'geolocation',
           false,
@@ -178,6 +187,7 @@ export default {
           { exportId: 'PLMN' }
         ),
         col(
+          10,
           'Id de cellule',
           'geolocation',
           false,
@@ -189,6 +199,7 @@ export default {
           { exportId: 'CELL_ID' }
         ),
         col(
+          11,
           'Type usage',
           'geolocation',
           false,
@@ -200,6 +211,7 @@ export default {
           { exportId: 'USAGE_TYPE' }
         ),
         col(
+          12,
           'Technologie',
           'geolocation',
           false,
@@ -211,6 +223,7 @@ export default {
           { exportId: 'TECHNO' }
         ),
         col(
+          13,
           'Statut DATA',
           'geolocation',
           false,
@@ -222,6 +235,7 @@ export default {
           { exportId: 'CONNECTION_STATUS' }
         ),
         col(
+          14,
           'Date de début',
           'geolocation',
           false,
@@ -233,6 +247,7 @@ export default {
           { exportId: 'CONNECTION_START_DATE' }
         ),
         col(
+          15,
           'Date de fin',
           'geolocation',
           false,
@@ -244,6 +259,7 @@ export default {
           { exportId: 'CONNECTION_END_DATE' }
         ),
         col(
+          16,
           'Statut réseau',
           'geolocation',
           false,
@@ -255,6 +271,7 @@ export default {
           { exportId: 'NETWORKK_STATUS' }
         ),
         col(
+          17,
           'Offre',
           'geolocation',
           false,
@@ -266,6 +283,7 @@ export default {
           { exportId: 'OFFER_CODE' }
         ),
         col(
+          18,
           'Nom du partenaire',
           'geolocation',
           false,
@@ -277,6 +295,7 @@ export default {
           { exportId: 'PARTNER_NAME' }
         ),
         col(
+          19,
           'Référence commerciale',
           'deviceInstance',
           false,
@@ -288,6 +307,7 @@ export default {
           { exportId: 'DEVICE_REFERENCE' }
         ),
         col(
+          20,
           'Constructeur',
           'deviceInstance',
           false,
@@ -299,6 +319,7 @@ export default {
           { exportId: 'MANUFACTURER' }
         ),
         col(
+          21,
           'Type IP',
           'geolocation',
           false,
@@ -310,6 +331,7 @@ export default {
           { exportId: 'IP_TYPE' }
         ),
         col(
+          22,
           'Adresse IPv4',
           'geolocation',
           false,
@@ -321,6 +343,7 @@ export default {
           { exportId: 'IP_V4_ADDRESS' }
         ),
         col(
+          23,
           'Adresse IPv6',
           'geolocation',
           false,
@@ -332,6 +355,7 @@ export default {
           { exportId: 'IP_V6_ADDRESS' }
         ),
         col(
+          24,
           'APN',
           'geolocation',
           false,
@@ -343,6 +367,7 @@ export default {
           { exportId: 'APN' }
         ),
         col(
+          25,
           'Adresse',
           'geolocation',
           false,

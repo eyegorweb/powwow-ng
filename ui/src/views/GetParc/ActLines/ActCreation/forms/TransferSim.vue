@@ -14,20 +14,26 @@
     </div>
     <div class="mt-2">
       <UiButton
+        :disabled="isDisabled"
         @click="transferRequest('IN_PROGRESS')"
         :variant="'info'"
         class="transferSim-button"
         >{{ $t('processing') }}</UiButton
       >
       <UiButton
+        :disabled="isDisabled"
         @click="transferRequest('VALIDATE')"
         :variant="'primary'"
         class="transferSim-button"
         >{{ $t('getparc.actCreation.transferSIM.validate') }}</UiButton
       >
-      <UiButton @click="transferRequest('CANCEL')" :variant="'danger'" class="transferSim-button">{{
-        $t('getparc.actCreation.transferSIM.deny')
-      }}</UiButton>
+      <UiButton
+        :disabled="isDisabled"
+        @click="transferRequest('CANCEL')"
+        :variant="'danger'"
+        class="transferSim-button"
+        >{{ $t('getparc.actCreation.transferSIM.deny') }}</UiButton
+      >
     </div>
   </div>
 </template>
@@ -60,20 +66,26 @@ export default {
 
   mounted() {
     this.columns = [
-      col('', '', true, true, {
+      col(1, '', '', true, true, {
         component: CheckBoxCell,
       }),
-      col('ID', 'transferId', true, true),
-      col('ICCID', 'iccid', true, true),
-      col('Partenaire source', 'fromPartner', true, true, {
+      col(2, 'ID', 'transferId', true, true),
+      col(3, 'ICCID', 'iccid', true, true),
+      col(4, 'Partenaire source', 'fromPartner', true, true, {
         component: FromPartner,
       }),
-      col('Partenaire cible', 'toPartner', true, true, {
+      col(5, 'Partenaire cible', 'toPartner', true, true, {
         component: ToPartner,
       }),
-      col('Statut de la ligne', 'status', true, true),
-      col('Date de statut', 'created', true, true),
+      col(6, 'Statut de la ligne', 'status', true, true),
+      col(7, 'Date de statut', 'created', true, true),
     ];
+  },
+
+  computed: {
+    isDisabled() {
+      return this.selectedRows.length === 0;
+    },
   },
 
   methods: {
@@ -94,7 +106,7 @@ export default {
         this.selectedRows.forEach((e) => {
           this.transferIds.push(e.transferId);
         });
-      } else if (this.data.length > 0) {
+      } else {
         this.data.forEach((e) => {
           this.transferIds.push(e.transferId);
         });
