@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.980+20220603093224
+2022-06-03
+
+### Fixes
+
+- [2991] correction de l'acte de création Valider les transferts (fb9fcb6cd3bd10b06e7f03878c62b3481badc5ac)
+
 ## 1.17.0-master.979+20220603072646
 2022-06-03
 
