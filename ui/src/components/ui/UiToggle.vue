@@ -13,8 +13,8 @@
         @input="onChange"
       />
       <span class="slider" />
-      <span class="state state--on">{{ onText }}</span>
-      <span class="state state--off">{{ offText }}</span>
+      <span class="state state--on" :class="{'state--onEditable' : editable}">{{ onText }}</span>
+      <span class="state state--off" :class="{'state--offEditable' : editable}">{{ offText }}</span>
     </label>
   </div>
 </template>
@@ -216,11 +216,11 @@ export default {
     color: $white;
     user-select: none;
 
-    &--on {
+    &--onEditable {
       left: 8px;
     }
 
-    &--off {
+    &--offEditable {
       right: 3px;
     }
   }
