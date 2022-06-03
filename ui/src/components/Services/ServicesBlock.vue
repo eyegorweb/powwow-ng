@@ -27,7 +27,7 @@
                 <div class="serviceOptional-date">{{ service.activationDate }}</div>
               </div>
             </div>
-            <div v-else-if="service.code !== 'ROAMING'">
+            <div v-else-if="service.code !== 'ROAMING' || (service.code == 'ROAMING' && !canShowRoamingTypes)">
               <UiToggle
                 :label="service.labelService"
                 :editable="!noClick && service.editable"
@@ -42,7 +42,8 @@
               />
             </div>
           </div>
-        <template v-if="canShowRoamingTypes && canChangeRoamingExtended">
+        <!-- RoamingExtended is check in services toggles for the simple toggle -->
+        <template v-if="canShowRoamingTypes">
           <div class="row">
             <div class="pl-4">
               <p class="label_before_toggle">{{ $t('services.roaming.title') }}</p>

@@ -332,6 +332,7 @@ export default {
     ...mapGetters(['userIsMVNO', 'userIsM2MLight', 'havePermission']),
 
     isRoamingExtended() {
+      console.log(this.content)
       return this.$loGet(this.content, 'workflow.roamingExtended', false);
     },
 
