@@ -152,6 +152,7 @@ import ActHistoryButton from './ActHistoryButton';
 import { excludeMocked } from '@/featureFlipping/plugin.js';
 import { getBaseURL } from '@/utils.js';
 import { getAccessToGetSupport } from '@/api/getSupport';
+import { isFeatureAvailable } from '@/api/partners';
 
 export default {
   name: 'NavBar',
@@ -163,10 +164,11 @@ export default {
   props: {
     isBackofficeProfile: Boolean,
   },
-  mounted() {
+  async mounted() {
     this.changeAppLanguage(this.userLanguage || 'fr');
 
     this.currentUrlName = this.$route.name;
+    this.flagStatistics = await isFeatureAvailable('FLAG_STATISTICS_ENABLED');
 
     let getAdminExtra = [];
     if (this.userIsPartner) {
@@ -294,18 +296,8 @@ export default {
               label: 'menu.reportsDashboard',
               to: { name: 'reportsDashboard', meta: { label: 'Tableau de bord' } },
               permission: () => {
-                let canSeeMenu = this.havePermission('getReport', 'read_dashboard');
-                if (this.userIsPartner) {
-                  canSeeMenu =
-                    canSeeMenu &&
-                    !!this.$loGet(this.userInfos, 'partnerOptions.flagStatisticsEnabled');
-                }
-
-                if (this.userIsGroupPartner) {
-                  canSeeMenu =
-                    canSeeMenu && !!this.$loGet(this.userInfos, 'partyGroup.flagStatisticsEnabled');
-                }
-
+                let canSeeMenu = this.havePermission('getReport', 'read_dashboard') && this.flagStatistics;
+                
                 return canSeeMenu;
               },
             },
@@ -400,6 +392,7 @@ export default {
       currentIndexIsForced: false,
       navbarLinks: undefined,
       showNavMenu: false,
+      flagStatistics: undefined,
 
       userMenuVisible: false,
     };

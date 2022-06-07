@@ -159,7 +159,7 @@ export async function getNetworkWeatherUrl() {
 export async function getNetworkNbIotLteMUrl() {
   const response = await query(`
   {
-    getUrl(typeUrl: NB-IOT_ELEGIBILITY)
+    getUrl(typeUrl: NB_IOT_ELIGIBILITY)
   }
   `);
 
