@@ -294,6 +294,7 @@
     "widgets": {
       "orders": "My orders",
       "bills": "Last invoices",
+      "nbiotltem": "Eligibility NB-IoT and LTE-M",
       "orderStatus": "Order status",
       "acts": "Management acts",
       "activationAct": "Acts: Activation",
