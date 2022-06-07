@@ -342,6 +342,7 @@
     },
     "widgets": {
       "orders": "Mes commandes",
+      "nbiotltem": "Éligibilité NB-IoT et LTE-M",
       "bills": "Dernières factures",
       "currentUsage": {
         "title": "Suivi Conso",

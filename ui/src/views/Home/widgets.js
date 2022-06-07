@@ -18,6 +18,7 @@ import TopFlopCA from './widgets/AverageWidgets/TopFlopCA';
 import PriseOrdre from './widgets/AverageWidgets/PriseOrdre';
 import LinesConsumption from './widgets/AverageWidgets/LinesConsumption';
 import Weather from './widgets/Weather';
+import NbIotLteM from './widgets/NbIotLteM';
 import ActiveCustomerPark from './widgets/ActiveCustomerPark';
 
 import StatusActsWidget from './widgets/ActWidgets/precalculated/StatusActsWidget';
@@ -86,6 +87,15 @@ const defaultWidgets = [
     seeMore: false,
     component: Weather,
     permission: { domain: 'widget', action: 'network_weather' },
+  },
+  {
+    title: 'home.widgets.nbiotltem',
+    description: '',
+    checked: true,
+    large: false,
+    seeMore: false,
+    component: NbIotLteM,
+    permission: { domain: 'widget', action: 'ltem_nbiot_eligibility' },
   },
   {
     title: 'home.widgets.linesConsumption',
