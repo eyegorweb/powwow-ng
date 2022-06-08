@@ -19,7 +19,7 @@
       />
     </div>
   </div>
-  <div v-else class="single-service" :style="{ 'flex-basis': '92%' }">
+  <div v-else class="single-service">
     <div>
       <div>
         <UiToggle
@@ -132,6 +132,10 @@ export default {
 <style lang="scss" scoped>
 .w80 {
   width: 80%;
+}
+
+.single-service {
+  max-width: 220px;
 }
 .scontainer {
   display: flex;
