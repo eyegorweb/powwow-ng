@@ -2,6 +2,17 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.984+20220607153746
+2022-06-08
+
+### Features
+
+- [3331] Widget NB IOT and LTE M Egibility (0e222dff40387b5f38653b09efcb204dfdb2a16d)
+
+### Fixes
+
+- [3331/3268] bug dashboard navbar and fix api nbiot (cfd12cda053d8d6139440f9bf010dcaccce3cdfc)
+
 ## 1.17.0-master.983+20220603152249
 2022-06-03
 
