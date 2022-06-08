@@ -4,9 +4,9 @@
       <img src="@/assets/cartenblte.png" />
     </div>
     <a
-      v-if="NetworkNbIotLteMUrl"
+      v-if="networkNbIotLteMUrl"
       target="_blank"
-      :href="NetworkNbIotLteMUrl"
+      :href="networkNbIotLteMUrl"
       class="btn btn-block btn-outline-primary"
       >{{ $t('accessTo') }} {{ $t('home.widgets.nbiotltem') }}</a
     >
@@ -27,11 +27,12 @@ export default {
         title: 'home.widgets.nbiotltem',
         large: false,
       },
-      networkWeatherUrl: undefined,
+      networkNbIotLteMUrl: undefined,
     };
   },
   async mounted() {
-    this.NetworkNbIotLteMUrl = await getNetworkNbIotLteMUrl();
+    this.networkNbIotLteMUrl = await getNetworkNbIotLteMUrl();
+    console.log(this.networkNbIotLteMUrl)
   },
 };
 </script>
@@ -42,8 +43,9 @@ export default {
     display: flex;
     justify-content: center;
     img {
-      width: 100%;
-      max-width: 12rem;
+      width: 80%;
+      max-width: 11rem;
+      margin-bottom: 1rem;
     }
   }
 }
