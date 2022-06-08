@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.985+20220608085151
+2022-06-08
+
+### Fixes
+
+- [3276] max-size address on CF and delivery for partner detail (9a62591f31563c7b0d2dc9de31ca860ce11c94c0)
+
 ## 1.17.0-master.984+20220607153746
 2022-06-08
 
