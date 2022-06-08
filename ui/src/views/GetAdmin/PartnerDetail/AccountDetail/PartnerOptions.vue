@@ -865,13 +865,21 @@ export default {
         if (f.id === this.preactivationFormat) {
           f.default = true;
         }
+        else {
+          f.default = false;
+        }
         return f;
       });
 
       this.notificationChoice = get(this.partnerOptions, 'wsNotificationParam.notificationOption');
+      console.log(this.notificationChoice)
+      console.log(this.notificationChoices)
       this.notificationChoices = this.notificationChoices.map((f) => {
         if (f.id === this.notificationChoice) {
           f.default = true;
+        }
+        else {
+          f.default = false;
         }
         return f;
       });
