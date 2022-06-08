@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.987+20220608143440
+2022-06-08
+
+### Fixes
+
+- [3305] update problem on detail partner for multi toggle (3c2f0289a2f1e720edba22f46cc11008ae822b60)
+
 ## 1.17.0-master.986+20220608141106
 2022-06-08
 
