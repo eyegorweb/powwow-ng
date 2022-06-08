@@ -59,6 +59,7 @@
         no-filter-on-result
         v-model="selectedAddress"
         :error="errors.address"
+        :max-size="35"
         no-icon
       />
 
