@@ -53,6 +53,7 @@
             <FormControl
               label="getadmin.partnerDetail.address"
               v-model="form.address"
+              :max-size="35"
               :error="errors.address"
             />
             <FormControl
