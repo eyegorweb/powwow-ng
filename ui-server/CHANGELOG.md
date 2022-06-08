@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.988+20220608181503
+2022-06-08
+
+### Fixes
+
+- [2319] Style on data services APN (189ec83a0266bf8e75d7ab2fcc444eb2e01bbbf2)
+
 ## 1.17.0-master.987+20220608143440
 2022-06-08
 
