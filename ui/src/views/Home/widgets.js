@@ -91,7 +91,7 @@ const defaultWidgets = [
   {
     title: 'home.widgets.nbiotltem',
     description: '',
-    checked: true,
+    checked: false,
     large: false,
     seeMore: false,
     component: NbIotLteM,

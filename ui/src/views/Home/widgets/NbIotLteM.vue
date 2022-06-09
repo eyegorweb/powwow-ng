@@ -8,7 +8,7 @@
       target="_blank"
       :href="networkNbIotLteMUrl"
       class="btn btn-block btn-outline-primary"
-      >{{ $t('accessTo') }} {{ $t('home.widgets.nbiotltem') }}</a
+      >{{ $t('home.widgets.nbiotltem') }}</a
     >
   </WidgetBloc>
 </template>
