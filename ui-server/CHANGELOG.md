@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.989+20220609083500
+2022-06-09
+
+### Fixes
+
+- [3331] change translate of button widget nbiot (d379a0a5c9789508ec7b042028c4c1dc6714d793)
+
 ## 1.17.0-master.988+20220608181503
 2022-06-08
 
