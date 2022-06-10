@@ -236,15 +236,6 @@
         <div class="d-flex jcsb">
           <div class="half-size to-bottom pb-3">
             <UiToggle
-              :label="$t('getadmin.partners.optionsDetails.dataReporting')"
-              :editable="true"
-              :bold-label="consoReport"
-              v-model="consoReport"
-              small-label
-            />
-          </div>
-          <div class="half-size to-bottom pb-3">
-            <UiToggle
               :label="$t('getadmin.partners.optionsDetails.exportBSCS')"
               :editable="true"
               :bold-label="exportBSCS"
@@ -899,13 +890,16 @@ export default {
       this.canShowOptions = true;
 
       let reportConsoValue = 'no';
-      if (this.partnerOptions.consoReporting) {
-        reportConsoValue = this.partnerOptions.dailyOutstandingReporting ? 'detailed' : 'simple';
+      if (this.partnerOptions.dailyOutstandingReporting) {
+        reportConsoValue = this.partnerOptions.consoReporting ? 'detailed' : 'simple';
       }
       this.reportConsoValue = reportConsoValue;
       this.reportConsoValues = this.reportConsoValues.map((r) => {
         if (r.id === reportConsoValue) {
           r.default = true;
+        }
+        else {
+          r.default = false;
         }
         return r;
       });
@@ -935,6 +929,8 @@ export default {
           resilationSecurityDelay,
           esimEnable,
           ipFixeEnable: this.ipFixe,
+          dailyOutstandingReporting: this.reportConsoValue === 'no' ? false : true,
+          consoReporting: (this.reportConsoValue === 'simple'|| this.reportConsoValue)=== 'no' ? false : true,
           resilationSecurityNotificationEnabled: this.resilationSecurityNotificationEnabled,
           resilationSecurityNotificationMails,
           terminationDfeEnabled: this.getToggle(this.services, 'TERMINATION_DFE'),
