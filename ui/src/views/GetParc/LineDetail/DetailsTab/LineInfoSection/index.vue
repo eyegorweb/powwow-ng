@@ -329,7 +329,9 @@ export default {
     },
 
     formatDate(date) {
-      return date && date.length ? moment(date, 'DD-MM-YYYY').format('DD/MM/YYYY') : '';
+      return date && date.length && date != '-'
+        ? moment(date, 'DD-MM-YYYY').format('DD/MM/YYYY')
+        : '-';
     },
     getFromContent(path, defaultValue = '') {
       const value = get(this.content, path, defaultValue);
