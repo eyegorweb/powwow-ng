@@ -18,7 +18,7 @@
               <h6>{{ $t('getparc.lineDetail.tab1.billingOffer.offerName') }}:</h6>
               <p><LineOffer :line="content" /></p>
             </div>
-            <div class="item" v-if="!partnerTypeMVNO && dateCommitmentEnd">
+            <div class="item" v-if="partnerTypeMVNO && dateCommitmentEnd">
               <h6>{{ $t('getparc.lineDetail.tab1.billingOffer.endCommitmentDate') }}:</h6>
               <p>{{ dateCommitmentEnd }}</p>
             </div>
