@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.990+20220610075241
+2022-06-10
+
+### Fixes
+
+- [3341] modifier l'affichage des détails de la ligne (c032e513428632e779d9498a1fa1658f665a7aae)
+
 ## 1.17.0-master.989+20220609083500
 2022-06-09
 
