@@ -930,7 +930,7 @@ export default {
           esimEnable,
           ipFixeEnable: this.ipFixe,
           dailyOutstandingReporting: this.reportConsoValue === 'no' ? false : true,
-          consoReporting: (this.reportConsoValue === 'simple'|| this.reportConsoValue)=== 'no' ? false : true,
+          consoReporting: (this.reportConsoValue === 'simple'|| this.reportConsoValue=== 'no') ? false : true,
           resilationSecurityNotificationEnabled: this.resilationSecurityNotificationEnabled,
           resilationSecurityNotificationMails,
           terminationDfeEnabled: this.getToggle(this.services, 'TERMINATION_DFE'),
