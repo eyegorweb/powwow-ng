@@ -295,6 +295,7 @@
       "orders": "My orders",
       "bills": "Last invoices",
       "nbiotltem": "Eligibility NB-IoT and LTE-M",
+      "mapAccess": "Access to the map",
       "orderStatus": "Order status",
       "acts": "Management acts",
       "activationAct": "Acts: Activation",

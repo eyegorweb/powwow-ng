@@ -342,7 +342,8 @@
     },
     "widgets": {
       "orders": "Mes commandes",
-      "nbiotltem": "Accéder à la carte",
+      "nbiotltem": "Éligibilité NB-IoT et LTE-M",
+      "mapAccess": "Accéder à la carte",
       "bills": "Dernières factures",
       "currentUsage": {
         "title": "Suivi Conso",
