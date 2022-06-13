@@ -243,8 +243,6 @@
               small-label
             />
           </div>
-        </div>
-        <div class="d-flex jcsb">
           <div class="half-size to-bottom pb-3">
             <UiToggle
               :label="$t('getadmin.partners.optionsDetails.exportServices')"
@@ -254,9 +252,11 @@
               small-label
             />
           </div>
+        </div>
+        <div class="d-flex jcsb">
           <div class="half-size">
             <div class="form-group">
-              <label class="small-label">{{
+              <label class="small-label pl-2">{{
                 $t('getadmin.partners.optionsDetails.dataReporting')
               }}</label>
               <Toggle
