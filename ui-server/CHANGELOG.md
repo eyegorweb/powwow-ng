@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.994+20220614083153
+2022-06-14
+
+### Fixes
+
+- [3344] correction et amélioration de la gestion de l'acte Valider les transferts (b03f19dbfb263d6ce63125d132d68e56fa4b0ab5)
+
 ## 1.17.0-master.993+20220613204011
 2022-06-13
 
