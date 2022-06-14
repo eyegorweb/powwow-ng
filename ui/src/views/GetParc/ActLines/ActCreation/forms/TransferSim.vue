@@ -4,7 +4,7 @@
       <PaginatedDataTable
         v-if="columns"
         storage-id="getparc.table.sim-validation"
-        storage-version="001"
+        storage-version="002"
         :columns="columns"
         :order="orderBy"
         :fetch-data-fn="getFetchTransferSimDataFN()"
@@ -12,28 +12,22 @@
         @colEvent="onRowSelect"
       />
     </div>
-    <div class="mt-2">
+    <div class="mt-2" v-if="total">
       <UiButton
-        :disabled="isDisabled"
         @click="transferRequest('IN_PROGRESS')"
         :variant="'info'"
         class="transferSim-button"
         >{{ $t('processing') }}</UiButton
       >
       <UiButton
-        :disabled="isDisabled"
         @click="transferRequest('VALIDATE')"
         :variant="'primary'"
         class="transferSim-button"
         >{{ $t('getparc.actCreation.transferSIM.validate') }}</UiButton
       >
-      <UiButton
-        :disabled="isDisabled"
-        @click="transferRequest('CANCEL')"
-        :variant="'danger'"
-        class="transferSim-button"
-        >{{ $t('getparc.actCreation.transferSIM.deny') }}</UiButton
-      >
+      <UiButton @click="transferRequest('CANCEL')" :variant="'danger'" class="transferSim-button">{{
+        $t('getparc.actCreation.transferSIM.deny')
+      }}</UiButton>
     </div>
   </div>
 </template>
@@ -66,9 +60,18 @@ export default {
 
   mounted() {
     this.columns = [
-      col(1, '', '', true, true, {
-        component: CheckBoxCell,
-      }),
+      {
+        id: 99,
+        label: '',
+        name: '',
+        orderable: false,
+        visible: true,
+        noHandle: true,
+        notConfigurable: true,
+        format: {
+          component: CheckBoxCell,
+        },
+      },
       col(2, 'ID', 'transferId', true, true),
       col(3, 'ICCID', 'iccid', true, true),
       col(4, 'Partenaire source', 'fromPartner', true, true, {
@@ -83,31 +86,45 @@ export default {
   },
 
   computed: {
-    isDisabled() {
-      return this.selectedRows.length === 0;
+    total() {
+      if (this.data && this.data.total) return this.data.total;
+      return 0;
+    },
+    totalSelectedRows() {
+      return this.selectedRows.length;
+    },
+    confirmationMessage() {
+      let count = this.totalSelectedRows > 0 ? this.totalSelectedRows : '';
+      if (this.totalSelectedRows)
+        return `${this.$t('getparc.actCreation.transferSim.confirmationWarning', { count })}`;
+      return `${this.$t('getparc.actCreation.transferSim.confirmationWarningForAll')}`;
     },
   },
 
   methods: {
-    ...mapMutations(['flashMessage']),
+    ...mapMutations(['confirmAction', 'flashMessage']),
+    ...mapMutations('actLines', ['clearActSimTransfer']),
     async transferRequest(status) {
       this.fetchTransferId();
-      const result = await updateTransferSim(this.transferIds, status);
-      if (result && result.updateTransferSimRequests) {
-        this.flashMessage({ level: 'success', message: this.$t('genericSuccessMessage') });
-      } else {
-        this.flashMessage({ level: 'danger', message: this.$t('genericErrorMessage') });
-      }
+
+      this.confirmAction({
+        message: this.confirmationMessage,
+        actionFn: async () => {
+          const response = await updateTransferSim(this.transferIds, status);
+          if (response) {
+            this.flashMessage({ level: 'success', message: this.$t('genericSuccessMessage') });
+            this.resetState();
+          } else {
+            this.flashMessage({ level: 'danger', message: this.$t('genericErrorMessage') });
+          }
+        },
+      });
     },
 
     fetchTransferId() {
       this.transferIds = [];
       if (this.selectedRows.length > 0) {
         this.selectedRows.forEach((e) => {
-          this.transferIds.push(e.transferId);
-        });
-      } else {
-        this.data.forEach((e) => {
           this.transferIds.push(e.transferId);
         });
       }
@@ -132,6 +149,12 @@ export default {
           total: this.data.total,
         };
       };
+    },
+
+    resetState() {
+      this.data = {};
+      this.columns = undefined;
+      this.clearActSimTransfer();
     },
   },
 };

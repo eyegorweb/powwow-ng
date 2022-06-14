@@ -1984,7 +1984,7 @@
         "servicesToDisable": "Services à désactiver",
         "validateBtn": "Valider la modification",
         "confirmBtn": "Confirmer la modification",
-        "confirmationWarning": "Attention ! Cette action a un impact sur le réseau.Confirmez-vous la modification de services ?",
+        "confirmationWarning": "Attention ! Cette action a un impact sur le réseau. Confirmez-vous la modification de services ?",
         "servicesMandatory": "* Veuillez choisir une offre et services",
         "shouldChangeData": "Modifier le service data"
       },
@@ -1996,7 +1996,7 @@
         "radiusMessage": "Attention ! Coupure de tous les services. Les anciennes cartes SIM seront définitivement désactivées. Les informations Radius sur les lignes seront supprimées. Confirmez-vous le changement de SIM ?"
       },
       "changeMSISDN": {
-        "confirmationWarning": "Attention !  L'ancien MSISDN sera résilié.  Confirmez-vous le changement de MSISDN ?",
+        "confirmationWarning": "Attention ! L'ancien MSISDN sera résilié. Confirmez-vous le changement de MSISDN ?",
         "currentMSISDN": "MSISDN actuel",
         "newMSISDN": "Nouvel MSISDN"
       },
@@ -2004,13 +2004,18 @@
         "confirmationWarning": "Attention ! Admin radius en cours"
       },
       "changeCustomFields": {
-        "confirmationWarning": "Attention !  Les anciens champs libres seront résiliés.  Confirmez-vous le changement des champs libres ?",
+        "confirmationWarning": "Attention ! Les anciens champs libres seront résiliés.  Confirmez-vous le changement des champs libres ?",
         "currentCustomFields": "Champs libres actuels",
         "newCustomFields": "Nouveaux champs libres"
       },
 
       "preactivateActivate": {
-        "confirmationWarning": "Confirmer?"
+        "confirmationWarning": "Confirmer ?"
+      },
+
+      "transferSim": {
+        "confirmationWarning": "Confirmer la demande pour {count} ligne(s) ?",
+        "confirmationWarningForAll": "Confirmer la demande pour toutes les lignes ?"
       },
 
       "report": {

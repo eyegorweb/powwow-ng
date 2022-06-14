@@ -686,7 +686,6 @@ export default {
     onCarouselItemClick(item) {
       let isSelected = false;
       let newSelectionState = true;
-
       if (item.stepTitle === 'getparc.actCreation.carouselItem.SIM_TRANSFER' && !this.transferSim) {
         this.transferSim = true;
       } else {
@@ -696,10 +695,6 @@ export default {
       if (this.actToCreate) {
         isSelected = this.actToCreate.title === item.title;
         newSelectionState = !isSelected;
-        // fix transfer sim error
-        // if (this.actToCreate.title === 'getparc.actCreation.carouselItem.SIM_TRANSFER') {
-        //   this.transferSim = false;
-        // }
       }
 
       if (newSelectionState) {
@@ -786,6 +781,8 @@ export default {
     actToCreate(newValue, oldValue) {
       if (!newValue && oldValue) {
         this.resetState();
+        // Réinitialiser la valeur initiale de transferSim
+        if (this.transferSim) this.transferSim = false;
       }
       this.actToCreateFormVersionChange += 1;
     },
