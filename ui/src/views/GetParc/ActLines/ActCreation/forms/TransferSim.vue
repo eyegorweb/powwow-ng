@@ -12,34 +12,54 @@
         @colEvent="onRowSelect"
       />
     </div>
-    <div class="mt-2" v-if="total">
-      <UiButton
-        @click="transferRequest('IN_PROGRESS')"
-        :variant="'info'"
-        class="transferSim-button"
-        >{{ $t('processing') }}</UiButton
-      >
-      <UiButton
-        @click="transferRequest('VALIDATE')"
-        :variant="'primary'"
-        class="transferSim-button"
-        >{{ $t('getparc.actCreation.transferSIM.validate') }}</UiButton
-      >
-      <UiButton @click="transferRequest('CANCEL')" :variant="'danger'" class="transferSim-button">{{
-        $t('getparc.actCreation.transferSIM.deny')
-      }}</UiButton>
+    <div class="mt-2 row" v-if="total">
+      <div class="col-8">
+        <UiButton
+          @click="transferRequest('IN_PROGRESS')"
+          :variant="'info'"
+          class="transferSim-button"
+          >{{ $t('processing') }}</UiButton
+        >
+        <UiButton
+          @click="transferRequest('VALIDATE')"
+          :variant="'primary'"
+          class="transferSim-button"
+          >{{ $t('getparc.actCreation.transferSIM.validate') }}</UiButton
+        >
+        <UiButton
+          @click="transferRequest('CANCEL')"
+          :variant="'danger'"
+          class="transferSim-button"
+          >{{ $t('getparc.actCreation.transferSIM.deny') }}</UiButton
+        >
+      </div>
+      <div class="col-4">
+        <div class="text-right">
+          <button @click="clearForm" class="clear-form">
+            {{ $t('cancel') }}
+            <i class="ic-Cross-Icon" />
+          </button>
+        </div>
+        <div v-if="exceptionError" class="text-info">
+          <h6 class="text-danger">{{ $t('errors.all') }}</h6>
+          <div class="text-danger">
+            {{ exceptionError }}
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import PaginatedDataTable from '@/components/DataTable/PaginatedDataTable.vue';
-import { fetchTransferSim, updateTransferSim } from '@/api/linesActions.js';
-import { col } from '@/components/DataTable/utils';
 import CheckBoxCell from '@/views/GetVision/alarmDetail/TargetedLinesByAlarmTab/CheckBoxCell.vue';
 import ToPartner from './parts/ToPartner.vue';
 import FromPartner from './parts/FromPartner.vue';
 import UiButton from '@/components/ui/Button';
+import { fetchTransferSim, updateTransferSim } from '@/api/linesActions.js';
+import { formatBackErrors } from '@/utils/errors';
+import { col } from '@/components/DataTable/utils';
 import { mapMutations } from 'vuex';
 
 export default {
@@ -55,6 +75,7 @@ export default {
       orderBy: { key: 'transferId', direction: 'DESC' },
       data: {},
       columns: undefined,
+      exceptionError: undefined,
     };
   },
 
@@ -111,11 +132,44 @@ export default {
         message: this.confirmationMessage,
         actionFn: async () => {
           const response = await updateTransferSim(this.transferIds, status);
-          if (response) {
-            this.flashMessage({ level: 'success', message: this.$t('genericSuccessMessage') });
-            this.resetState();
+          if (response.errors && response.errors.length) {
+            let errorMessage = '',
+              massActionLimitError = '',
+              count;
+            const formatted = formatBackErrors(response.errors)
+              .map((e) => e.errors)
+              .flat();
+            formatted.forEach((e) => {
+              if (e.key === 'limit') {
+                count = e.value;
+              }
+              if (e.key === 'error') {
+                massActionLimitError = `${e.key}.${e.value}`;
+              } else {
+                errorMessage = `${e.key}: ${e.value}`;
+              }
+            });
+            if (massActionLimitError) {
+              this.exceptionError = `${this.$t(
+                'getparc.actCreation.report.errors.' + massActionLimitError,
+                {
+                  count,
+                }
+              )}`;
+            } else {
+              this.exceptionError = errorMessage;
+            }
+
+            return {
+              errors: response.errors,
+            };
           } else {
-            this.flashMessage({ level: 'danger', message: this.$t('genericErrorMessage') });
+            if (response) {
+              this.flashMessage({ level: 'success', message: this.$t('genericSuccessMessage') });
+              this.resetState();
+            } else {
+              this.flashMessage({ level: 'danger', message: this.$t('genericErrorMessage') });
+            }
           }
         },
       });
@@ -156,6 +210,10 @@ export default {
       this.columns = undefined;
       this.clearActSimTransfer();
     },
+
+    clearForm() {
+      this.resetState();
+    },
   },
 };
 </script>
@@ -166,6 +224,19 @@ export default {
 
   &-button {
     margin-right: 2rem;
+  }
+
+  > .row {
+    background: white;
+    margin-left: 0;
+    padding: 20px 0;
+  }
+
+  .clear-form {
+    appearance: none;
+    outline: none;
+    border: none;
+    background-color: transparent;
   }
 }
 </style>
