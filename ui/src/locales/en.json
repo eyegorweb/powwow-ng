@@ -1835,6 +1835,10 @@
         "newCustomFields": "New free fields"
       },
       "preactivateActivate": { "confirmationWarning": "Confirm?" },
+      "transferSim": {
+        "confirmationWarning": "Confirm action for {count} line(s) ?",
+        "confirmationWarningForAll": "Confirm action for all lines ?"
+      },
       "report": {
         "DATA_EXISTS": "Existing lines",
         "DATA_INVALID_FORMAT": "Invalid format",

@@ -13,11 +13,7 @@
       </div>
     </div>
     <div slot="footer" class="btnsContainer">
-      <button
-        class="btns btns--cancel"
-        v-if="!isLoading"
-        @click.stop="closeAction()"
-      >
+      <button class="btns btns--cancel" v-if="!isLoading" @click.stop="closeAction()">
         <template v-if="actionToConfirm.customCloseLabel">
           {{ $t(actionToConfirm.customCloseLabel) }}
         </template>
@@ -86,32 +82,31 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .btnsContainer {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-  }
-  .btns {
-    border: none;
-    width: 48%;
-    border-radius: 5px;
-    padding: 10px;
-    transition: 0.3s;
+.btnsContainer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.btns {
+  border: none;
+  width: 48%;
+  border-radius: 5px;
+  padding: 10px;
+  transition: 0.3s;
 
-    &--confirm {
-      background-color: #0055a4;
-      color: white;
+  &--confirm {
+    background-color: #0055a4;
+    color: white;
 
-      &:hover {
-        background-color: #00417e;
-      }
-    }
-
-    &--cancel {
-      border: 1px solid #0055a4;
-      color: #0055a4;
-      background-color: white;
+    &:hover {
+      background-color: #00417e;
     }
   }
 
+  &--cancel {
+    border: 1px solid #0055a4;
+    color: #0055a4;
+    background-color: white;
+  }
+}
 </style>

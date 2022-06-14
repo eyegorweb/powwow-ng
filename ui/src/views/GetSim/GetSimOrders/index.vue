@@ -102,7 +102,6 @@ export default {
       'setCurrentFilters',
       'applyFilters',
     ]),
-    ...mapMutations(['openModal']),
     getExportFn() {
       return async (columns, orderBy, exportFormat, asyncExportRequest, exportAll) => {
         let columnsToUse = columns;

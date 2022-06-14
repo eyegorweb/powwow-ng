@@ -59,7 +59,7 @@ export async function updateTransferSim(ids, status) {
   `;
 
   const response = await query(queryStr);
-  return response.data;
+  return response.data.updateTransferSimRequests;
 }
 
 export async function fetchSimCards(filters, pagination, sorting) {
@@ -1144,7 +1144,7 @@ export async function fetchLineServices(simCardInstanceId) {
       editable
       optional
       activationDate
-      preServiceCode 
+      preServiceCode
       roamingType
       type
       parameters {

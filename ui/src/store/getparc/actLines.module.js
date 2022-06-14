@@ -516,6 +516,10 @@ export const mutations = {
   stopSearchById(state) {
     state.searchingById = false;
   },
+
+  clearActSimTransfer(state) {
+    resetStateForActSimTransfer(state);
+  },
 };
 
 function resetState(state) {
@@ -529,4 +533,12 @@ function resetState(state) {
   state.actCreationPrerequisites = null;
 
   state.formVersion += 1;
+}
+/**
+ * Acte 'SIM_TRANSFER' bénéficiant d'un tableau de résultat indépendant des autres actes
+ * @param {*} state
+ */
+function resetStateForActSimTransfer(state) {
+  state.actToCreate = null;
+  state.actCreationPrerequisites = null;
 }
