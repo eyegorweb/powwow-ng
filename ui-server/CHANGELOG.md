@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.995+20220614120705
+2022-06-14
+
+### Fixes
+
+- [3344] gestion de l'erreur de limite de lignes (1428cad145322f549fe931bfc9c59379199bc884)
+
 ## 1.17.0-master.994+20220614083153
 2022-06-14
 
