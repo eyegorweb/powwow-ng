@@ -34,7 +34,7 @@
               </a>
             </template>
             <template v-else-if="tab.mailto"
-              ><a :href="'mailto:' + tab.mailto.email" v-if="userIsM2MLight" class="w100">
+              ><a :href="'mailto:' + tab.mailto.email" class="w100">
                 {{ $t(tab.label) }}
               </a>
             </template>
@@ -296,8 +296,9 @@ export default {
               label: 'menu.reportsDashboard',
               to: { name: 'reportsDashboard', meta: { label: 'Tableau de bord' } },
               permission: () => {
-                let canSeeMenu = this.havePermission('getReport', 'read_dashboard') && this.flagStatistics;
-                
+                let canSeeMenu =
+                  this.havePermission('getReport', 'read_dashboard') && this.flagStatistics;
+
                 return canSeeMenu;
               },
             },
@@ -371,15 +372,18 @@ export default {
           label: 'mainMenu.contact',
           to: { name: 'contact', meta: { label: 'Contact' } },
           mailto: {
-            email: 'objenious@bouyguestelecom.fr',
+            email: this.emailContact,
           },
         },
       ])
       .filter((i) => {
         if (this.userIsM2MLight) {
           return i.label !== 'mainMenu.help';
+        } else if (!this.userIsM2MLight) {
+          return i.label !== 'mainMenu.contact';
+        } else {
+          return true;
         }
-        return true;
       });
 
     this.navbarLinks = navbarLinks;
@@ -477,6 +481,10 @@ export default {
 
     logoutUrl() {
       return getBaseURL() + '/oauth/logout';
+    },
+
+    emailContact() {
+      return 'support-digital@objenious.com';
     },
   },
   watch: {
