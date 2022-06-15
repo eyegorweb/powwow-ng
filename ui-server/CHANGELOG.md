@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.997+20220615133914
+2022-06-15
+
+### Fixes
+
+- [3348] modification du lien de contact pour les partenaires M2M Light (626b2c051d15e76ffca93428da9c8a9be7730ebd)
+
 ## 1.17.0-master.996+20220615112826
 2022-06-15
 
