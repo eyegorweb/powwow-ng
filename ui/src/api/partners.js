@@ -23,6 +23,10 @@ export async function updatePartyOptions(params) {
     }`;
   const response = await query(queryStr, params);
 
+  if (response && response.errors) {
+    return { errors: response.errors };
+  }
+
   if (response.data) return response.data.updatePartyOptions;
 }
 
@@ -189,7 +193,7 @@ export async function fetchpartners(q, params) {
 export async function fetchpartnersQuery(
   fields,
   q,
-  { page, limit, partnerType, partnerTypes, includeMailingLists, esim, haveLvOffers, partyTypeMC}
+  { page, limit, partnerType, partnerTypes, includeMailingLists, esim, haveLvOffers, partyTypeMC }
 ) {
   let partnerTypeGqlFilter = '';
   if (!partnerTypes && partnerType) {

@@ -421,6 +421,12 @@
 
     <div class="d-flex">
       <div class="save-block">
+        <div v-if="exceptionError" class="text-info">
+          <h6 class="text-danger">{{ $t('errors.all') }}</h6>
+          <div class="text-danger">
+            {{ exceptionError }}
+          </div>
+        </div>
         <UiButton
           v-if="
             havePermission('party', 'update_main_options') ||
@@ -445,15 +451,16 @@ import UiToggle from '@/components/ui/UiToggle';
 import Toggle from '@/components/ui/UiToggle2';
 import OfferCombo from '@/components/CustomComboxes/OfferCombo.vue';
 import UiButton from '@/components/ui/Button';
-
+import BillingAccountAutocomplete from '@/components/CustomComboxes/BillingAccountAutocomplete.vue';
 import ToggleGroup from '@/components/ToggleGroup.vue';
 import UiInput from '@/components/ui/UiInput';
 import UiSelect from '@/components/ui/UiSelect';
-import get from 'lodash.get';
-import { mapGetters, mapMutations } from 'vuex';
 
 import { getPartyOptions, updatePartyOptions, fetchBroadcastLists } from '@/api/partners.js';
-import BillingAccountAutocomplete from '@/components/CustomComboxes/BillingAccountAutocomplete.vue';
+import { formatBackErrors } from '@/utils/errors';
+
+import get from 'lodash.get';
+import { mapGetters, mapMutations } from 'vuex';
 
 export default {
   components: {
@@ -855,21 +862,17 @@ export default {
       this.preactivationFormats = this.preactivationFormats.map((f) => {
         if (f.id === this.preactivationFormat) {
           f.default = true;
-        }
-        else {
+        } else {
           f.default = false;
         }
         return f;
       });
 
       this.notificationChoice = get(this.partnerOptions, 'wsNotificationParam.notificationOption');
-      console.log(this.notificationChoice)
-      console.log(this.notificationChoices)
       this.notificationChoices = this.notificationChoices.map((f) => {
         if (f.id === this.notificationChoice) {
           f.default = true;
-        }
-        else {
+        } else {
           f.default = false;
         }
         return f;
@@ -897,8 +900,7 @@ export default {
       this.reportConsoValues = this.reportConsoValues.map((r) => {
         if (r.id === reportConsoValue) {
           r.default = true;
-        }
-        else {
+        } else {
           r.default = false;
         }
         return r;
@@ -920,7 +922,7 @@ export default {
         : null;
       const coachM2m24h = this.getToggle(this.otherToggles, 'COACH_M2M') ? this.coachM2m24h : null;
 
-      await updatePartyOptions({
+      const response = await updatePartyOptions({
         partyOptions: {
           partyId: this.partner.id,
           flagMsisdnA: this.getToggle(this.services, 'AMSISDN'),
@@ -930,7 +932,8 @@ export default {
           esimEnable,
           ipFixeEnable: this.ipFixe,
           dailyOutstandingReporting: this.reportConsoValue === 'no' ? false : true,
-          consoReporting: (this.reportConsoValue === 'simple'|| this.reportConsoValue=== 'no') ? false : true,
+          consoReporting:
+            this.reportConsoValue === 'simple' || this.reportConsoValue === 'no' ? false : true,
           resilationSecurityNotificationEnabled: this.resilationSecurityNotificationEnabled,
           resilationSecurityNotificationMails,
           terminationDfeEnabled: this.getToggle(this.services, 'TERMINATION_DFE'),
@@ -981,9 +984,25 @@ export default {
         },
       });
 
-      await this.resetOptions();
+      if (!response) return;
 
-      this.onClose();
+      if (response.errors && response.errors.length) {
+        let errorMessage = '';
+        const formatted = formatBackErrors(response.errors)
+          .map((e) => e.errors)
+          .flat();
+        formatted.forEach((e) => {
+          errorMessage = `${e.key}: ${e.value}`;
+        });
+        this.exceptionError = errorMessage;
+        return {
+          errors: response.errors,
+        };
+      } else {
+        await this.resetOptions();
+        this.exceptionError = undefined;
+        this.onClose();
+      }
     },
     onClose() {
       setTimeout(() => {
@@ -1102,11 +1121,10 @@ export default {
       orderPreactivationMandatory: undefined,
       coachM2MFleetpromotion: undefined,
       coachM2m24h: undefined,
-
+      exceptionError: undefined,
       consoReport: false,
       exportBSCS: false,
       flagServicesAudit: false,
-
       reportConsoValue: undefined,
       reportConsoValues: [
         {
