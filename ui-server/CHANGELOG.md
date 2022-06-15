@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.996+20220615112826
+2022-06-15
+
+### Fixes
+
+- [3305] gestion de l'option Notification web services dans le détail partenaire (b55d1cfe9e91b0cb3e06a382e51a479d71145a00)
+
 ## 1.17.0-master.995+20220614120705
 2022-06-14
 
