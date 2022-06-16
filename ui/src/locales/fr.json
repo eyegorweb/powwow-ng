@@ -2015,8 +2015,7 @@
       },
 
       "transferSim": {
-        "confirmationWarning": "Confirmer la demande pour {count} ligne(s) ?",
-        "confirmationWarningForAll": "Confirmer la demande pour toutes les lignes ?"
+        "confirmationWarning": "Confirmer la demande pour {count} ligne(s) ?"
       },
 
       "report": {
