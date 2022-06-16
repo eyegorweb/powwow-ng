@@ -21,6 +21,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   props: {
     content: Object,
@@ -32,7 +34,7 @@ export default {
     };
   },
   mounted() {
-    this.menuItems = [
+    this.menuItems = this.filterByPermission([
       {
         section: 'line_info',
         title: 'getparc.lineDetail.tab1.lineInfo',
@@ -67,6 +69,7 @@ export default {
         section: 'alarm_list',
         title: 'getparc.lineDetail.tab1.alarmsList',
         compatiblePartnerTypes: ['CUSTOMER', 'MULTI_CUSTOMER', 'M2M_LIGHT'],
+        permission: [{ domain: 'alarm', action: 'read' }],
         to: {
           name: 'lineDetail.details.alarms',
           meta: { label: 'Détail de la ligne - Liste des alarmes' },
@@ -83,16 +86,33 @@ export default {
           params: { lineId: this.$route.params.lineId, meta: this.content },
         },
       },
-    ];
+    ]);
   },
 
   computed: {
+    ...mapGetters(['havePermission']),
     visibleMenuItems() {
       const typeForPartner = this.$loGet(this.content, 'party.partyType');
       let visibleItems = this.menuItems.filter((m) =>
         m.compatiblePartnerTypes.some((p) => p === typeForPartner)
       );
       return visibleItems;
+    },
+  },
+
+  methods: {
+    // Gestion des permissions sur les onglets
+    filterByPermission(arrayInput) {
+      let permit = false;
+      return arrayInput.filter((a) => {
+        if (!a.permission) return true;
+        a.permission.forEach((e) => {
+          if (this.havePermission(e.domain, e.action)) {
+            permit = true;
+          }
+        });
+        return permit;
+      });
     },
   },
 };

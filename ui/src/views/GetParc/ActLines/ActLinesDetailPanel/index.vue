@@ -7,7 +7,10 @@
       <template v-if="lineDetails">
         <UpcomingChanges :content="lineDetails" />
         <GeneralInfos :content="lineDetails" />
-        <AlarmsInfo :content="lineDetails" v-if="!partnerTypeMVNO" />
+        <AlarmsInfo
+          :content="lineDetails"
+          v-if="!partnerTypeMVNO && havePermission('alarm', 'read')"
+        />
         <PartnerInfo :content="lineDetails" />
       </template>
       <div slot="footer" class="action-buttons">
@@ -46,7 +49,7 @@ import UiButton from '@/components/ui/Button';
 import LoaderContainer from '@/components/LoaderContainer';
 import ModalSkeleton from '@/components/ui/skeletons/ModalSkeleton';
 import { searchLineById, searchLineByIccid } from '@/api/linesActions';
-import { mapState } from 'vuex';
+import { mapGetters, mapState } from 'vuex';
 
 import get from 'lodash.get';
 
@@ -73,6 +76,7 @@ export default {
     partnerTypeMVNO() {
       return get(this.content, 'party.partyType') === 'MVNO';
     },
+    ...mapGetters(['havePermission']),
   },
 
   data() {
