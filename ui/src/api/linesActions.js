@@ -58,8 +58,20 @@ export async function updateTransferSim(ids, status) {
     }
   `;
 
-  const response = await query(queryStr);
-  return response.data.updateTransferSimRequests;
+  try {
+    const response = await query(queryStr);
+
+    if (!response || response.errors) {
+      return {
+        errors: response.errors,
+      };
+    }
+    return response.data.updateTransferSimRequests;
+  } catch (e) {
+    return {
+      errors: [{ key: 'Unclassified', value: 'Please try again later.' }],
+    };
+  }
 }
 
 export async function fetchSimCards(filters, pagination, sorting) {

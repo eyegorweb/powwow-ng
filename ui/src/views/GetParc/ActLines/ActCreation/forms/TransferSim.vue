@@ -10,7 +10,17 @@
         :fetch-data-fn="getFetchTransferSimDataFN()"
         :size="8"
         @colEvent="onRowSelect"
-      />
+      >
+        <template slot="topLeftCorner">
+          <h2 class="text-gray font-weight-light" style="font-size: 2rem">
+            {{
+              $t('getparc.actLines.selected', {
+                total: $formatLargeNumber(formattedTotal),
+              })
+            }}
+          </h2>
+        </template>
+      </PaginatedDataTable>
     </div>
     <div class="mt-2 row" v-if="total">
       <div class="col-8">
@@ -115,10 +125,11 @@ export default {
       return this.selectedRows.length;
     },
     confirmationMessage() {
-      let count = this.totalSelectedRows > 0 ? this.totalSelectedRows : '';
-      if (this.totalSelectedRows)
-        return `${this.$t('getparc.actCreation.transferSim.confirmationWarning', { count })}`;
-      return `${this.$t('getparc.actCreation.transferSim.confirmationWarningForAll')}`;
+      let count = this.totalSelectedRows > 0 ? this.totalSelectedRows : this.total;
+      return `${this.$t('getparc.actCreation.transferSim.confirmationWarning', { count })}`;
+    },
+    formattedTotal() {
+      return this.totalSelectedRows || this.total;
     },
   },
 
