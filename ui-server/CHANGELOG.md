@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.998+20220616102301
+2022-06-16
+
+### Fixes
+
+- [3344] gestion de l'erreur technique pour l'acte Valider les transferts (036e1e6e73d951861370aa0f5ab53c742c45de53)
+
 ## 1.17.0-master.997+20220615133914
 2022-06-15
 
