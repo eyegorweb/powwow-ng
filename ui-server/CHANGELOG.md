@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.999+20220616140824
+2022-06-16
+
+### Fixes
+
+- [3349] gestion des permissions pour les alarmes dans le détail d'une ligne (c82754c747b7ecf23c1d0a21382d75b249edea63)
+
 ## 1.17.0-master.998+20220616102301
 2022-06-16
 
