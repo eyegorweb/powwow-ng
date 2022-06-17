@@ -29,7 +29,7 @@ import { excludeMocked } from '@/featureFlipping/plugin';
 
 import { getHomeWidgetsStorage } from '@/utils/localstorage.js';
 
-export const WIDGETS_STORAGE_VERSION = '4';
+export const WIDGETS_STORAGE_VERSION = '5';
 
 const checkSeeMoreForReport = ({
   havePermission,
