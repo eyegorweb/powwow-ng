@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1000+20220617131737
+2022-06-17
+
+### Fixes
+
+- [0000] widget storage version upgrade (11ecea534fa41b1398f9a8585e16d6db9a4f5083)
+
 ## 1.17.0-master.999+20220616140824
 2022-06-16
 
