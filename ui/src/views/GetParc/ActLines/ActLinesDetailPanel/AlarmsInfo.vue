@@ -7,13 +7,13 @@
     </div>
     <div class="overview-item mr-5">
       <h6>{{ $t('getparc.actLines.col.positionedAlarms') }} :</h6>
-      <p v-for="alarm in positionedAlarms" :key="'alarm_' + alarm.id">
+      <p v-for="(alarm, idx) in positionedAlarms" :key="'alarm_' + idx">
         {{ $t('getparc.lineDetail.alarms.ALARM_TYPE.' + alarm.type) }}
       </p>
     </div>
     <div class="overview-item mr-5">
       <h6>{{ $t('getparc.actLines.col.triggeredAlarms') }} :</h6>
-      <p v-for="alarm in triggeredAlarms" :key="'triggered_alarm_' + alarm.alarm.id">
+      <p v-for="(alarm, idx) in triggeredAlarms" :key="'triggered_alarm_' + idx">
         <template v-if="alarm.isTriggered">
           {{
             `${$t('getparc.lineDetail.alarms.ALARM_TYPE.' + alarm.alarm.type)} - ${

@@ -1557,6 +1557,7 @@
     "lineDetail": {
       "title": "Détail de la ligne {msisdn}",
       "header": "Détail de la ligne",
+      "offer": "Offre",
       "state": "Etat",
       "lastState": "Etat précédent",
       "lastChange": "Dernier changement",
