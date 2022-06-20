@@ -19,7 +19,7 @@
         </div>
         <DataTable
           :columns.sync="columns"
-          :rows="alarms || []"
+          :rows="rows || []"
           :order-by.sync="orderBy"
           @change-order="changeCellsOrder"
           @colEvent="openAlarmPanel"
@@ -54,7 +54,7 @@ import UiButton from '@/components/ui/Button';
 import LoaderContainer from '@/components/LoaderContainer';
 import TableSkeleton from '@/components/ui/skeletons/TableSkeleton';
 
-import { mapMutations } from 'vuex';
+import { mapMutations, mapState } from 'vuex';
 
 export default {
   components: {
@@ -74,7 +74,6 @@ export default {
     return {
       showExtraCells: false,
       page: 1,
-      pageLimit: 20,
       total: 0,
       columns: [
         col(1, this.$t('col.id'), 'id', true, false, {
@@ -102,7 +101,7 @@ export default {
         key: 'id',
         direction: 'DESC',
       },
-      alarms: undefined,
+      rows: [],
       showValidationModal: false,
       confirmationMessage: this.$t('getparc.actLines.alarmList.confirmationWarning'),
       isLoading: false,
@@ -110,6 +109,20 @@ export default {
       isActive: undefined,
       isTriggered: false,
     };
+  },
+  computed: {
+    ...mapState('actLines', ['limitPerPage']),
+    pageLimit: {
+      get() {
+        return this.limitPerPage;
+      },
+      set(value) {
+        this.setPageLimit(value);
+      },
+    },
+    getPageInfo() {
+      return { page: this.page - 1, limit: this.pageLimit };
+    },
   },
   watch: {
     page() {
@@ -126,6 +139,7 @@ export default {
   },
   methods: {
     ...mapMutations(['openPanel']),
+    ...mapMutations('actLines', ['setPageLimit']),
 
     createAlarm() {
       const doReset = () => {
@@ -151,7 +165,9 @@ export default {
 
     async fetchAlarms() {
       this.isLoading = true;
-      this.alarms = await fetchAlarmsWithInfos(this.content.id);
+      const response = await fetchAlarmsWithInfos(this.content.id, this.getPageInfo);
+      this.rows = response.items;
+      this.total = response.total;
       this.isLoading = false;
     },
     changeCellsOrder(orderedCells) {

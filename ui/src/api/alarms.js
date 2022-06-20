@@ -103,37 +103,44 @@ export async function searchSharedConsumptionAlarm(orderBy, pagination, filters)
   return response.data.sharedConsumptionAlarm;
 }
 
-export async function fetchAlarmsWithInfos(simCardInstanceId) {
+export async function fetchAlarmsWithInfos(simCardInstanceId, pagination) {
+  const paginationInfo = pagination
+    ? `, pagination: {page: ${pagination.page}, limit: ${pagination.limit}}`
+    : ',pagination: {page: 0, limit: 10}';
   const queryStr = `
   query {
-    alarmsWithInfo(simCardInstanceId: ${simCardInstanceId}) {
-      isTriggered
-      isActive
-      triggeringDate
-      alarm {
-        id
-        triggerCommercialStatus
-        startDate
-        expiryDate
-        type
-        party {
+    alarmsWithInfo(simCardInstanceId: ${simCardInstanceId} ${paginationInfo}) {
+      total
+      items
+      {
+        isTriggered
+        isActive
+        triggeringDate
+        alarm {
           id
+          triggerCommercialStatus
+          startDate
+          expiryDate
+          type
+          party {
+            id
+            name
+            partyType
+          }
+          observationDelay
           name
-          partyType
+          level1
+          level1Up
+          level1Down
+          level2
+          level2Up
+          level2Down
+          level3
+          level3Up
+          level3Down
+          observationCycle
+          alarmScope
         }
-        observationDelay
-        name
-        level1
-        level1Up
-        level1Down
-        level2
-        level2Up
-        level2Down
-        level3
-        level3Up
-        level3Down
-        observationCycle
-        alarmScope
       }
     }
   }
