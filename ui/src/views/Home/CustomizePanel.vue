@@ -36,6 +36,13 @@ export default {
 
   mounted() {
     this.localWidgets = cloneDeep(this.content.homeWidgets);
+    
+    const newWidgets = this.content.allWidgets.filter(w => {
+        return !this.localWidgets.some(e => {
+          return w.title === e.title;
+        });
+      })
+    this.localWidgets = [...this.localWidgets, ...newWidgets]  
   },
   computed: {
     ...mapGetters(['userIsPartner']),

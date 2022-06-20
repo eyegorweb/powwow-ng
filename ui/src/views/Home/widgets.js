@@ -51,7 +51,7 @@ const checkSeeMoreForReport = ({
 };
 
 // COACH M2M / DIAGNOSTIC
-const defaultWidgets = [
+export const defaultWidgets = [
   {
     title: 'home.widgets.topTriggeredAlarms',
     description: '',
