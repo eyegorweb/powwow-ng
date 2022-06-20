@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1001+20220620092925
+2022-06-20
+
+### Fixes
+
+- [3351] add newWidgets to localarray widgets (c9bb34cbbf09e1c1f3efd5820d02f56162ba5832)
+
 ## 1.17.0-master.1000+20220617131737
 2022-06-17
 
