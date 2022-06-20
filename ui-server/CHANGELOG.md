@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1006+20220620141304
+2022-06-20
+
+### Fixes
+
+- [3353] style of toggle and apn on services (2197f11ce3dd21564cec6c230fbf722015401976)
+
 ## 1.17.0-master.1005+20220620133355
 2022-06-20
 
