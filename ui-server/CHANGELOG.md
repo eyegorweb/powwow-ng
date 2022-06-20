@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1005+20220620133355
+2022-06-20
+
+### Fixes
+
+- [3305] gestion du mot de passe dans les options de partenaire (5a9c738c79419b8ade3b07b8cf5bf998407f3550)
+
 ## 1.17.0-master.1004+20220620124146
 2022-06-20
 
