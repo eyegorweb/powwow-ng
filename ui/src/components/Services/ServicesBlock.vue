@@ -285,8 +285,8 @@ export default {
       this.roamingService = this.services.find((s) => s.code === 'ROAMING');
     },
     isChanged(service) {
-      if (!this.initialServices || !this.initialServices.length) return false;
-      const initialService = this.initialServices.find((s) => s.code === service.code);
+      if (!this.defaultServices || !this.defaultServices.length) return false;
+      const initialService = this.defaultServices.find((s) => s.code === service.code);
       return initialService.checked !== service.checked;
     },
     canChangeValue(service) {
@@ -364,6 +364,7 @@ export default {
       extendedRoamingValue: undefined,
       roamingService: undefined,
       canChangeRoamingExtended: false,
+      defaultServices: undefined,
     };
   },
   watch: {
@@ -383,6 +384,7 @@ export default {
   },
   mounted() {
     this.setup();
+    this.defaultServices = cloneDeep(this.services)
   },
 };
 </script>
