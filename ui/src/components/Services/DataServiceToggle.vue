@@ -29,8 +29,8 @@
           :no-click="noClick"
         />
       </div>
-      <div>
-        <div v-if="apns && apns.length" class="apn-container">
+      <div class="apn-container">
+        <div v-if="apns && apns.length" class="apn-content">
           <span>Apn:</span>
           <MultiChoiceList
             :empty-error-message="needToChekForApn"
@@ -134,6 +134,18 @@ export default {
   width: 80%;
 }
 
+.apn {
+  &-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+  }
+
+  &-content {
+    max-width: 90%;
+    width: 100%;
+  }
+}
 .single-service {
   max-width: 220px;
 }
