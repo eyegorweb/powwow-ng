@@ -18,6 +18,7 @@
 <script>
 import { mapMutations, mapGetters, mapState, mapActions } from 'vuex';
 import HomePageDragDropGrid from './HomePageDragDropGrid';
+import {defaultWidgets} from './widgets.js';
 import Messages from './Messages';
 
 export default {
@@ -81,6 +82,7 @@ export default {
         panelId: 'home.customize.title',
         payload: {
           homeWidgets: this.permittedHomeWidgets,
+          allWidgets: defaultWidgets,
         },
         wide: false,
         backdrop: false,
