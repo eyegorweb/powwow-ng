@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1003+20220620120046
+2022-06-20
+
+### Fixes
+
+- [3351] change widgets version for 4 (607e2bcb61ae0541f011233a6038ee7aa24c2657)
+
 ## 1.17.0-master.1002+20220620101640
 2022-06-20
 
