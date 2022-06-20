@@ -907,7 +907,6 @@ export default {
       });
     },
     async saveOptions() {
-      this.showPassword = false;
       const esimEnable = this.partner.partyType == 'CUSTOMER' ? this.eSim : null;
       const resilationSecurityDelay = this.getToggle(this.services, 'SECU_RESIL')
         ? parseInt(this.resilationSecurityDelay)
@@ -975,6 +974,7 @@ export default {
           wsNotificationOption: this.notificationChoice,
           wsLogin: this.login,
           wsPassword: this.password,
+          showPassword: this.showPassword,
           wsUrl: this.webserviceAdress,
           coachM2MAvailable: this.getToggle(this.otherToggles, 'COACH_M2M'),
           coachM2MFleetpromotion,
