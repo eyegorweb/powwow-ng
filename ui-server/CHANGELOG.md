@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1007+20220622125334
+2022-06-22
+
+### Fixes
+
+- [3353] correction du nombre limites de lignes des tables de données (9573bd79afe99acad240df05be3a76626d70f920)
+
 ## 1.17.0-master.1006+20220620141304
 2022-06-20
 
