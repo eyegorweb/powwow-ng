@@ -436,7 +436,7 @@ export default {
     },
     async applyFilters(payload) {
       const { pagination, filters } = payload || {
-        pagination: { page: 0, limit: 30 },
+        pagination: { page: 0, limit: 20 },
         filters: [],
       };
       this.isLoading = true;
