@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1010+20220623103753
+2022-06-23
+
+### Fixes
+
+- [3354] gestion en mode consultation du détail de rapport (7cf9061d12a119f4097c4d85ad7e1de79c9ea9e7)
+
 ## 1.17.0-master.1009+20220623094611
 2022-06-23
 
