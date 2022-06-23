@@ -12,6 +12,7 @@ export async function fetchAlarmTriggersFor2Months(orderBy, pagination, filters 
     ) {
       total
       items {
+        simCardInstanceId
         iccid
         activationDate
         lastTriggerThisMonth {
