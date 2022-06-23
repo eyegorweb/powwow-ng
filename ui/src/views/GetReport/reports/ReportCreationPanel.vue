@@ -14,6 +14,7 @@
               :value.sync="selectedPartner"
               :options="partnerChoices"
               include-mailing-lists
+              :disabled="!inEditMode"
             />
           </template>
 
@@ -21,7 +22,7 @@
             $t('getreport.creation.chooseInfos')
           }}</SectionTitle>
           <p>{{ $t('getreport.creation.chooseInfosDescription') }}</p>
-          <div v-if="reportModels" class="mt-4 mb-2">
+          <div v-if="reportModels && inEditMode" class="mt-4 mb-2">
             <h6>{{ $t('getreport.creation.fromReport') }}</h6>
             <UiSelect
               class="report-model report-field"
@@ -217,6 +218,7 @@ export default {
         code: '',
         name: '',
       },
+      inEditMode: false,
       canShowForm: false,
       selectedItems: [],
       generationDate: undefined,
@@ -270,6 +272,7 @@ export default {
   },
 
   async mounted() {
+    if (!this.content) this.inEditMode = true;
     this.resetCheckboxes();
 
     let partnerID, partnerData;
@@ -320,7 +323,7 @@ export default {
           }
           return t;
         });
-        this.generationDate = this.content.generationDate + ' 00:00:00';
+        this.generationDate = this.content.generationDate;
         this.shouldNotify = this.content.notification;
         this.isActive = !this.content.disabled;
         this.notifList = this.content.mailingList ? this.content.mailingList.id : undefined;
