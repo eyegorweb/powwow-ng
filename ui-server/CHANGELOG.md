@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1013+20220623140248
+2022-06-23
+
+### Fixes
+
+- [3356] Bug height of dataGraphWidget (c9db6942f3956c834eca0938960b6f7c4bb65f3f)
+
 ## 1.17.0-master.1012+20220623131242
 2022-06-23
 
