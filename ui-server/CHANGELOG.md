@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1009+20220623094611
+2022-06-23
+
+### Features
+
+- [3359] add permission rule to filter models into documents manager (3d35576ed40e4d378b79861d13eb99723e45d41f)
+
 ## 1.17.0-master.1008+20220623090257
 2022-06-23
 
