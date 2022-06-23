@@ -170,6 +170,7 @@ export default {
   async mounted() {
     this.isLoadingServices = true;
     const services = await fetchLineServices(this.content.id);
+
     this.isLoadingServices = false;
     if (services && services.length) {
       const offerServices = getOfferServices(services);
@@ -181,6 +182,15 @@ export default {
     setTimeout(() => {
       this.componentInitialized = true;
     });
+    const ltem = this.services.find(s => s.code === 'LTE-M')
+    if(ltem && ltem.checked === false) {
+      this.services.forEach(e => {
+        if(e.code === 'NB-IoT') {
+          e.checked = false;
+          e.editable = false;
+        }
+      })
+    }
   },
   methods: {
     ...mapMutations(['flashMessage']),
