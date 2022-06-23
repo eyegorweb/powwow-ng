@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1011+20220623125659
+2022-06-23
+
+### Fixes
+
+- [3353] Error on change offer and style for apn services (2c3ea8a05e98062824a97ed8e24f6c3cbdde4662)
+
 ## 1.17.0-master.1010+20220623103753
 2022-06-23
 
