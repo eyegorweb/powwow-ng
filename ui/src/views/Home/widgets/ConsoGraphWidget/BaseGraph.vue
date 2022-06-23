@@ -59,11 +59,13 @@ export default {
       const downSerieData = this.graphData.map((d) => [d.date, d.in]);
       const usage = this.usage;
 
+      let heightGraph = window.innerWidth <= 1400 ? 170 : 250;
+
       this.chartOptions = {
         chart: {
           renderTo: 'container',
           zoomType: 'xy',
-          height: 230,
+          height: heightGraph,
           type: 'column',
         },
         title: {
