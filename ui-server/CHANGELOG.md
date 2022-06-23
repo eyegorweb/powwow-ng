@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1012+20220623131242
+2022-06-23
+
+### Fixes
+
+- [3353] hotfix for global services (c51f119de39c6ac92f1e9fd75caf2ed3515194b1)
+
 ## 1.17.0-master.1011+20220623125659
 2022-06-23
 
