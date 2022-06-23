@@ -138,7 +138,7 @@ export default {
   &-container {
     display: flex;
     justify-content: center;
-    margin-top: 10px;
+    margin: 10px 0;
   }
 
   &-content {
