@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1008+20220623090257
+2022-06-23
+
+### Fixes
+
+- [3246] Alarms triggers event in detail alarm (f4489171c58ce4dc55cbe24a70d761ad9449117f)
+- [3358] services line detail LTEM and NB-IoT hotfix (3ca02b052cd83ef16391a9dc77b4e8e7cb3eec93)
+
 ## 1.17.0-master.1007+20220622125334
 2022-06-22
 
