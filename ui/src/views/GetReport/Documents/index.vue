@@ -189,7 +189,11 @@ export default {
             values: chosenValues,
           };
         },
-      },
+      }
+    );
+
+    if(this.havePermission('getReport', 'read')) {
+      filters.push(
       {
         title: 'documents.model',
         component: ReportModelFilter,
@@ -226,8 +230,8 @@ export default {
             });
           }
         },
-      }
-    );
+      })
+    }
 
     this.filters = filters;
     this.applyFilters();
@@ -246,7 +250,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['userIsBO', 'userIsPartner', 'singlePartner']),
+    ...mapGetters(['userIsBO', 'userIsPartner', 'singlePartner', 'havePermission']),
   },
   methods: {
     async applyFilters(payload) {
