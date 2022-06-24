@@ -122,6 +122,8 @@
   "digitalOffer": {
     "accountCreation": "Account creation",
     "simType": "SIM",
+    "subTotal": "Sub-total",
+    "discount": "Discount",
     "offer": "Offer",
     "delivery": "Delivery",
     "doPayment": "Proceed to payment",
