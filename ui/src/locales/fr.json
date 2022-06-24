@@ -159,6 +159,8 @@
   },
   "digitalOffer": {
     "accountCreation": "Création de compte",
+    "discount": "Remise",
+    "subTotal": "Sous-total",
     "simType": "SIM",
     "offer": "Offre",
     "delivery": "Livraison",
@@ -187,7 +189,7 @@
       "contact": "Coordonnées ",
       "price": "Prix unitaire",
       "designation": "Désignation",
-      "topup": "Recharge"
+      "topup": "Recharge(s)"
     },
     "errors": {
       "CUSTOMER_ACCOUNT_MANDATORY": "CUSTOMER_ACCOUNT_MANDATORY",
