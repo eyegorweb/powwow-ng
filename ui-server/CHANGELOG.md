@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1015+20220624142832
+2022-06-24
+
+### Fixes
+
+- [0000] Correctif messages home MEP (fa41bf5ad368d2d8b27db911cb6f55b961260130)
+
 ## 1.17.0-master.1014+20220624141155
 2022-06-24
 
