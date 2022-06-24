@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1014+20220624141155
+2022-06-24
+
+### Fixes
+
+- [3246] fix on line detail list of alarms (4e02e4ece950b3f2fa8df47a3a5eda2f2b351987)
+- [3355] Discount order for M2M Light (39895fa638923b90906c93e666a8225ecd6050a6)
+
 ## 1.17.0-master.1013+20220623140248
 2022-06-23
 
