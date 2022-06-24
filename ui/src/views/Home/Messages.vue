@@ -9,19 +9,19 @@
               <li :key="'event_' + ev.id" v-for="ev in eventsToShow">
                 <span class="date">{{ ev.messageDate }}</span>
                 <span
-                  :class="{ 'm-warning': ev.level === 'WARNING', 'm-info': ev.level === 'INFO' }"
+                  :class="{ 'm-warning': ev.type === 'EVENT', 'm-info': ev.type === 'INFO' }"
                   >{{ ev.message }}</span
                 >
               </li>
             </ul>
           </div>
-          <div class="event-messages" v-if="infosToShow.length">
+          <div class="event-messages mt-2" v-if="infosToShow.length">
             <h6>{{ $t('infos') }}</h6>
             <ul>
               <li :key="'info_' + inf.id" v-for="inf in infosToShow">
                 <span class="date">{{ inf.messageDate }}</span>
                 <span
-                  :class="{ 'm-warning': inf.level === 'WARNING', 'm-info': inf.level === 'INFO' }"
+                  :class="{ 'm-warning': inf.type === 'EVENT', 'm-info': inf.type === 'INFO' }"
                   >{{ inf.message }}</span
                 >
               </li>
@@ -47,7 +47,6 @@ export default {
   },
   async mounted() {
     const response = await fetchEventMessages();
-
     // EVENTS
     this.events = response.filter((e) => e.type === 'EVENT');
     this.eventsToShow = this.events.filter((evt) => evt.locale === this.$i18n.locale);
