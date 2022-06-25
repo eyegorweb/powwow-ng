@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1016+20220625075427
+2022-06-25
+
+### Fixes
+
+- [3358] services LTEM and NBIOT hotfix toggle (7608837c428a58a3374b7005c613aef98b3c9f44)
+
 ## 1.17.0-master.1015+20220624142832
 2022-06-24
 
