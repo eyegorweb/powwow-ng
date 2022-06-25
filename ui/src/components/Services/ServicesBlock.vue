@@ -90,6 +90,7 @@
                 :editable="!noClick && service.editable"
                 :bold-label="isChanged(service)"
                 :no-click="noClick"
+                @change="checkServices"
                 v-model="service.checked"
                 :can-change-fn="
                   (value) => {
@@ -125,6 +126,7 @@
             :bold-label="isChanged(service)"
             :no-click="noClick"
             v-model="service.checked"
+            @change="checkServices"
             :can-change-fn="
               (value) => {
                 return canChangeValue(service, value);
@@ -142,6 +144,7 @@
               :bold-label="isChanged(service)"
               :no-click="noClick"
               v-model="service.checked"
+              @change="checkServices"
               :can-change-fn="
                 (value) => {
                   return canChangeValue(service, value);
@@ -265,6 +268,27 @@ export default {
   methods: {
     ...mapMutations(['popupMessage']),
 
+    checkServices() {
+      const ltem = this.otherServices.find(s => s.code === 'LTE-M');
+      if(ltem && ltem.checked === false) {
+        this.services.forEach(e => {
+          if(e.code === 'NB-IoT') {
+            e.checked = false;
+            e.editable = false;
+          }
+        })
+      }
+      else if(ltem) {
+        this.services.forEach(e => {
+          if(e.code === 'NB-IoT') {
+            const nbiot = this.services.find(s => s.code === 'NB-IoT')
+            e.checked = nbiot.checked;
+            e.editable = nbiot.editable;
+          }
+        })
+      }
+    },
+
     onRoamingExtChange(newValue) {
       this.extendedRoamingValue = newValue;
       this.$emit('communityChange', newValue);
@@ -378,20 +402,20 @@ export default {
       },
       deep: true,
     },
-    services() {
-      const ltem = this.services.find(s => s.code === 'LTE-M');
-      if(ltem && ltem.checked === false) {
-        this.services.forEach(e => {
-          if(e.code === 'NB-IoT') {
-            e.checked = false;
-            e.editable = false;
-          }
-        })
-      }
+    services() {      
       this.setup();
     },
   },
-  mounted() {
+  mounted() {    
+    const ltem = this.services.find(s => s.code === 'LTE-M');
+    if(ltem && ltem.checked === false) {
+      this.services.forEach(e => {
+        if(e.code === 'NB-IoT') {
+          e.checked = false;
+          e.editable = false;
+        }
+      })
+    }
     this.setup();
     this.defaultServices = cloneDeep(this.services)
   },
