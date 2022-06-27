@@ -270,20 +270,17 @@ export default {
 
     checkServices() {
       const ltem = this.otherServices.find(s => s.code === 'LTE-M');
-      if(ltem && ltem.checked === false) {
+      if(ltem) {
         this.services.forEach(e => {
-          if(e.code === 'NB-IoT') {
+          if(e.code === 'NB-IoT' && ltem.checked === false) {
             e.checked = false;
             e.editable = false;
           }
-        })
-      }
-      else if(ltem) {
-        this.services.forEach(e => {
-          if(e.code === 'NB-IoT') {
-            const nbiot = this.services.find(s => s.code === 'NB-IoT')
-            e.checked = nbiot.checked;
-            e.editable = nbiot.editable;
+          else {
+            if(ltem.serviceMandatory) {
+              const mandatory = ltem.serviceMandatory.find(m => m === 'NB-IoT');
+              e.editable = !mandatory;
+            }
           }
         })
       }
