@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1020+20220627145844
+2022-06-27
+
+### Fixes
+
+- [3358] hotfix for editable nbiot preserviceCode (40b6c4b4e6ed99c84c91020276c5af859a64ee84)
+
 ## 1.17.0-master.1019+20220627134015
 2022-06-27
 
