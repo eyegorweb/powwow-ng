@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1021+20220627152406
+2022-06-27
+
+### Fixes
+
+- [3358] hotfix for editable nbiot (6e190ff5f58af7a274d67eeb7205cec2eaa5f258)
+
 ## 1.17.0-master.1020+20220627145844
 2022-06-27
 
