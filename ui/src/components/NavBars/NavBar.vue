@@ -364,6 +364,7 @@ export default {
         {
           label: 'mainMenu.help',
           to: { name: 'help', meta: { label: 'Aide' } },
+          permission: { domain: 'admin', action: 'help' },
           external: {
             url: 'https://www.objenious.com/aide-getway/',
           },
