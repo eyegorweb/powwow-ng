@@ -281,6 +281,9 @@ export default {
               const mandatory = ltem.serviceMandatory.find(m => m === 'NB-IoT');
               e.editable = !mandatory;
             }
+            else {
+              e.editable = true;
+            }
           }
         })
       }
