@@ -276,7 +276,7 @@ export default {
             e.checked = false;
             e.editable = false;
           }
-          else {
+          else if(e.code === 'NB-IoT') {
             if(ltem.serviceMandatory) {
               const mandatory = ltem.serviceMandatory.find(m => m === 'NB-IoT');
               e.editable = !mandatory;
