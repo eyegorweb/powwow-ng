@@ -318,9 +318,9 @@ export default {
       if (service.preServiceCode) {
         // dependency chould be active to change value here
         const serviceThatIDependOn = this.services.find((s) => s.code === service.preServiceCode);
-        if (serviceThatIDependOn.checked) {
+        if (serviceThatIDependOn && serviceThatIDependOn.checked) {
           canChange = true;
-        } else {
+        } else if(serviceThatIDependOn) {
           this.popupMessage(
             this.$t('getadmin.partners.optionsDetails.services.mustBeActive', {
               service: serviceThatIDependOn.labelService,
