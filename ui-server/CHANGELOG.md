@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1017+20220627084453
+2022-06-27
+
+### Fixes
+
+- [3365] permission on help menu navbar (a95eb40e6f89fc8124f220535ec02f0916540a69)
+
 ## 1.17.0-master.1016+20220625075427
 2022-06-25
 
