@@ -121,6 +121,7 @@ import { mapGetters } from 'vuex';
 
 import { fetchDeliveryCountries } from '@/api/filters';
 import { delay } from '@/api/utils.js';
+import differencewith from 'lodash.differencewith';
 
 export default {
   components: {
@@ -223,7 +224,8 @@ export default {
             if (!this.userIsPartner && this.isCockpitClick) {
               return false;
             }
-            return this.isFrozen;
+            // change here
+            // return this.isFrozen;
           },
           onChange(chosenValue, clearFilter) {
             if (!chosenValue) clearFilter('filters.offers');
@@ -244,7 +246,8 @@ export default {
             if (this.isCockpitClick) {
               return false;
             }
-            return this.isFrozen;
+            // change here
+            // return this.isFrozen;
           },
           onChange(chosenValue) {
             return {
@@ -261,6 +264,10 @@ export default {
   watch: {
     cockpitMarkerToDetail(value) {
       if (value) {
+        // TODO: mettre en place la condition quand on vient de l'événement du bouton Graphe monde
+        // if (value.world && !value.type) {
+        //   this.currentTab = 'graphs';
+        // }
         if (value.type === 'ALERT') {
           this.currentTab = 'alerts';
         } else {
@@ -334,33 +341,38 @@ export default {
   },
 
   methods: {
+    // Permet de mémoriser les valeurs des filtres modifiées
+    // afin de les propager sur les autres onglets
     setupDefaultValues() {
       this.defaultValues = this.allUsagesPreviousFilters.filter((f) => {
         return !!this.filters.find((ff) => ff.title === f.id);
       });
+      // On mémorise le filtre à fixer en cas de changement d'usage et d'onglet Graphiques/alertes
+      // On doit ignorer les valeurs fixées des filtres non communs aux écrans
+      let excludedIds = [{ id: 'status' }, { id: 'types' }, { id: 'col.label' }];
+      // Ne pas intégrer la valeur du filtre pays pour le graphe monde uniquement
+      if (this.cockpitMarkerToDetail && this.cockpitMarkerToDetail.world) {
+        excludedIds.push({ id: 'filters.country' });
+      }
+      this.frozenValues = differencewith(this.defaultValues, excludedIds, (a, b) => a.id === b.id);
+      // On doit aussi ignorer les valeurs par défaut issues des filtres non communs aux écrans
+      this.defaultValues = differencewith(this.frozenValues, excludedIds, (a, b) => a.id === b.id);
     },
+
     showWorldM2MGraphs() {
-      this.filters = [
-        {
-          title: 'common.period',
-          component: DateRangeFilter,
-          onChange(chosen) {
-            return {
-              id: 'common.period',
-              startDate: chosen.startDate,
-              endDate: chosen.endDate,
-              data: chosen,
-            };
-          },
-        },
-      ];
+      this.cockpitMarkerToDetail = { world: true, type: undefined };
+      this.refreshCockpitFilters();
+
+      // timer pour se caler juste après le delay de la fonction freezeFilterSelection
       setTimeout(() => {
-        this.refreshCockpitFilters();
+        this.freezeFilterSelection({ world: true });
       });
-      this.cockpitMarkerToDetail = { world: true };
-      this.freezeFilterSelection({ world: true });
+
       this.doSearch([...this.appliedFilters]);
+
+      this.setupDefaultValues();
     },
+
     onTabChange(tab) {
       this.currentTab = tab.label;
       this.filters = undefined;
@@ -406,10 +418,16 @@ export default {
       this.isFrozen = true;
 
       let countryFilter;
+      // Filtre pays non disponible pour Graphe monde donc on détecte si on vient de Graphe monde {world: true} ou pas
       if (!payload.world) {
         countryFilter = await this.preselectCountry(payload);
       }
-      let frozenValues = cloneDeep(this.currentFilters);
+      let frozenValues;
+      if (!this.frozenValues.length) {
+        frozenValues = cloneDeep(this.currentFilters);
+      } else {
+        frozenValues = this.frozenValues;
+      }
 
       if (countryFilter) {
         frozenValues = frozenValues.filter((f) => f.id !== 'filters.country');
@@ -417,6 +435,8 @@ export default {
         frozenValues.push(countryFilter);
       }
 
+      // On mémorise le filtre à fixer en cas de changement d'usage et d'onglet Graphiques/alertes
+      // On doit ignorer les filtres non communs aux écrans
       this.frozenValues = frozenValues;
 
       const oldFilters = this.filters;
@@ -426,6 +446,7 @@ export default {
       await delay(20);
 
       this.filters = oldFilters;
+      return this.filters;
     },
 
     doSearch(appliedFilters) {
@@ -483,7 +504,7 @@ export default {
       }
 
       currentVisibleFilters.push(this.commonFilters.offers);
-
+      // Attention, on ne doit pas afficher le filtre pays pour le graphe monde
       currentVisibleFilters.push({
         title: 'filters.country',
         component: CountryFilter,
@@ -503,10 +524,7 @@ export default {
         },
       });
 
-      // Filters pour alerts
-
-      // StatusesFilter
-
+      // Filtres pour sous-onglets Graphiques et Aertes
       if (this.cockpitMarkerToDetail) {
         if (this.currentTab === 'alerts') {
           const createComboFilter = (name, component) => {
@@ -529,23 +547,37 @@ export default {
               },
             });
           };
-
           createComboFilter('status', StatusesFilter);
           createComboFilter('types', TypesFilter);
           createComboFilter('col.label', LabelFilter);
+          currentVisibleFilters.push({
+            title: 'common.period',
+            component: DateRangeFilter,
+            onChange(chosen) {
+              return {
+                id: 'common.period',
+                startDate: chosen.startDate,
+                endDate: chosen.endDate,
+                data: chosen,
+              };
+            },
+          });
+        } else {
+          // Ce cas est nécessaire, lorsque nous provenons de la route créée par le bouton Graphe Monde
+          // il nous faut ajouter ce filtre pour l'afficher et le combiner avec les filtres Partenaire et Offre
+          currentVisibleFilters.push({
+            title: 'common.period',
+            component: DateRangeFilter,
+            onChange(chosen) {
+              return {
+                id: 'common.period',
+                startDate: chosen.startDate,
+                endDate: chosen.endDate,
+                data: chosen,
+              };
+            },
+          });
         }
-        currentVisibleFilters.push({
-          title: 'common.period',
-          component: DateRangeFilter,
-          onChange(chosen) {
-            return {
-              id: 'common.period',
-              startDate: chosen.startDate,
-              endDate: chosen.endDate,
-              data: chosen,
-            };
-          },
-        });
 
         if (
           this.appliedFilters &&
@@ -764,6 +796,10 @@ export default {
       setTimeout(() => {
         this.refreshCockpitFilters();
       });
+      // TODO: voir si on garde pour cet écran la mémo des filtres
+      // si oui, attention car on a fordé filters à undefined => pourquoi ?
+      // la méthode setupDefaultValues parcourt le tableau filters donc si ce tableau est undefined, ajouter une gestion d'erreur
+      // this.setupDefaultValues();
     },
   },
 };
