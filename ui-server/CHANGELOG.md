@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1023+20220630141057
+2022-06-30
+
+### Fixes
+
+- [3338] gestion des filtres dans les différents écrans de la supervision (8755f74760b47fc51096a760515f08841d721510)
+
 ## 1.17.0-master.1022+20220630131935
 2022-06-30
 
