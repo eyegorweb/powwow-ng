@@ -791,15 +791,16 @@ export default {
       this.frozenValues = [];
       this.cockpitMarkerToDetail = undefined;
 
-      // this.appliedFilters = undefined;
+      // on réinitialise les filtres...
       this.filters = undefined;
+      // ...avant de leur réaffecter des valeurs
       setTimeout(() => {
         this.refreshCockpitFilters();
       });
-      // TODO: voir si on garde pour cet écran la mémo des filtres
-      // si oui, attention car on a fordé filters à undefined => pourquoi ?
-      // la méthode setupDefaultValues parcourt le tableau filters donc si ce tableau est undefined, ajouter une gestion d'erreur
-      // this.setupDefaultValues();
+      // ... on met un timer pour être sûr que filters ait eu le temps d'avoir les valeurs
+      setTimeout(() => {
+        this.setupDefaultValues();
+      }, 50);
     },
   },
 };
