@@ -133,7 +133,7 @@ export default {
             filters.endDate = item.data.endDate;
           }
 
-          if (item.id === 'filters.offers') {
+          if (item.id === 'filters.offers' && item.data && item.data.id) {
             filters.params.offerCode = item.data.id;
           }
 
