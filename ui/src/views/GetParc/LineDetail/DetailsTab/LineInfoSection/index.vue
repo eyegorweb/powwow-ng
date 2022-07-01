@@ -253,11 +253,11 @@ export default {
     currentCustomFields() {
       const customFields = get(this.content, 'accessPoint.customFields');
       const customLabels = get(this.content, 'party');
-      if (!customFields || !customLabels) return [];
+      if (!customFields) return [];
       let customFieldsArray = [];
       for (let i = 1; i <= 6; i++) {
         const value = customFields['custom' + i] || '-';
-        const labels = customLabels['custom' + i + 'FieldLabel'];
+        const labels = customLabels['custom' + i + 'FieldLabel'] || [];
         const label = this.getCustomFieldLabel(i);
         if (labels) {
           customFieldsArray.push({
@@ -325,6 +325,7 @@ export default {
     async fetchCustomFieldsForPartner() {
       const partnerId = get(this.content, 'party.id');
       const customFields = await fetchCustomFields(partnerId);
+
       this.allCustomFields = customFields.customFields;
     },
 
