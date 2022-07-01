@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1024+20220701090108
+2022-07-01
+
+### Fixes
+
+- [3370] correction de la récupération des labels de custom fields dans le détail de la ligne (3b5bfd418072e13f1d02fe57f4d1e8451ff8c5e7)
+
 ## 1.17.0-master.1023+20220630141057
 2022-06-30
 
