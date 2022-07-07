@@ -21,14 +21,14 @@ export default {
       searchByIdValue: undefined,
     };
   },
-  
+
   props: {
     act: {
       type: Object,
-      default: undefined
+      default: undefined,
     },
   },
-  computed: {    
+  computed: {
     ...mapGetters(['userIsBO']),
   },
   methods: {
@@ -37,7 +37,7 @@ export default {
     searchById(params) {
       this.searchByIdValue = params.value;
       this.setPage(1);
-      if((this.userIsBO || this.userIsAdmin()) && this.act.id === "CHANGE_CF") {
+      if ((this.userIsBO || this.userIsAdmin()) && this.act.id === 'CHANGE_CF') {
         this.startSearchingById([
           {
             id: params.id,
@@ -45,11 +45,10 @@ export default {
           },
           {
             id: 'partyType.ne',
-            value: 'MULTI_CUSTOMER'
-          }
+            value: 'MULTI_CUSTOMER',
+          },
         ]);
-      }
-      else {        
+      } else {
         this.startSearchingById([
           {
             id: params.id,

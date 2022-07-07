@@ -182,14 +182,14 @@ export default {
     setTimeout(() => {
       this.componentInitialized = true;
     });
-    const ltem = this.services.find(s => s.code === 'LTE-M')
-    if(ltem && ltem.checked === false) {
-      this.services.forEach(e => {
-        if(e.code === 'NB-IoT') {
+    const ltem = this.services.find((s) => s.code === 'LTE-M');
+    if (ltem && ltem.checked === false) {
+      this.services.forEach((e) => {
+        if (e.code === 'NB-IoT') {
           e.checked = false;
           e.editable = false;
         }
-      })
+      });
     }
   },
   methods: {
@@ -342,7 +342,6 @@ export default {
     ...mapGetters(['userIsMVNO', 'userIsM2MLight', 'havePermission']),
 
     isRoamingExtended() {
-      console.log(this.content)
       return this.$loGet(this.content, 'workflow.roamingExtended', false);
     },
 
