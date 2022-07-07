@@ -359,8 +359,10 @@ export default {
     },
 
     async loadCustomFields() {
-      this.allCustomFields = await fetchCustomFields(this.partner.id);
-      this.decideOnMandatoryCustomFields();
+      if (this.partner) {
+        this.allCustomFields = await fetchCustomFields(this.partner.id);
+        this.decideOnMandatoryCustomFields();
+      }
     },
 
     decideOnMandatoryCustomFields() {
