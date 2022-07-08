@@ -1,5 +1,9 @@
 <template>
-  <ActFormContainer :validate-fn="doRequest" :check-errors-fn="haveFieldErrors">
+  <ActFormContainer
+    :validate-fn="doRequest"
+    :check-errors-fn="haveFieldErrors"
+    :prevent-send="!canSend"
+  >
     <template v-if="partner">
       <div class="toggles-container">
         <UiToggle label="Préactivation" v-model="preActivation" :editable="false" />
@@ -131,8 +135,8 @@ export default {
       return this.billingAccount;
     },
     billingAccount() {
+      let data;
       if (this.actCreationPrerequisites.searchById) {
-        let data;
         if (this.singleLineFound && this.singleLineFound.customerAccountForActivation) {
           data = this.singleLineFound.customerAccountForActivation;
         } else if (
@@ -143,6 +147,11 @@ export default {
         ) {
           data = this.singleLineFound.accessPoint.offerGroup.customerAccount;
         }
+
+        if (!data) {
+          return null;
+        }
+
         const formatted = {
           id: data.id,
           label: `${data.code} - ${data.name}`,
@@ -154,6 +163,10 @@ export default {
         return formatted;
       }
       return this.actCreationPrerequisites.billingAccount;
+    },
+    canSend() {
+      if (this.billingAccount && this.billingAccount.id) return true;
+      return false;
     },
     isUserReferenceEnabled() {
       if (!this.actCreationPrerequisites) return false;
