@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1025+20220708092114
+2022-07-08
+
+### Fixes
+
+- [3381] correction gestion asynchrone pour récupérer le partenaire dans la... (7f70e7381acd8895c5e92953dbb6928e1cc3565e)
+- [3381] correction de l'acte préactivation pour la recherche par type d'ID (cfafe26cbfbae3a20762548a0db75993c39bad68)
+
 ## 1.17.0-master.1024+20220701090108
 2022-07-01
 
