@@ -95,7 +95,7 @@ export default new Router({
     {
       path: '/act-detail/:massActionId',
       name: 'actDetail',
-      meta: { label: "Détail d'un acte de gestion" },
+      meta: { label: "Détail acte de gestion" },
       component: GetParcActDetail,
     },
     {
@@ -107,7 +107,7 @@ export default new Router({
     {
       path: '/alarms',
       name: 'alarms',
-      meta: { label: " Recherche d'alarmes" },
+      meta: { label: " Recherche une alarme" },
       component: Alarms,
     },
     {

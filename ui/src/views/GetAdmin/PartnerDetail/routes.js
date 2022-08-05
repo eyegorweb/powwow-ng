@@ -149,7 +149,7 @@ export default {
                 {
                   name: 'getAdminPartnerDetails.customerList.detail.commercialOffers.form',
                   meta: {
-                    label: "Détail du partenaire - CF - Détail d'une offre commerciale (MB)",
+                    label: "Détail du partenaire - CF - Offre commerciale (MB)",
                   },
                   path: 'form/:comOfferId?',
                   component: () =>
