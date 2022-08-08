@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1028+20220808123830
+2022-08-08
+
+### Fixes
+
+- [3397] Offre digitale - Lors de la création d'un nouvel utilisateur, le prix total des SIM n'est pas renvoyé. (0e00290daddc0ce5c5d5333419f7696332780558)
+
 ## 1.17.0-master.1027+20220808084713
 2022-08-08
 
