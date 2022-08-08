@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1027+20220808084713
+2022-08-08
+
+### Fixes
+
+- [3279] Traduction anglaise manquante (8ad1eb4038423ccb3dd4017c6203c202be9ef68e)
+
 ## 1.17.0-master.1026+20220805114602
 2022-08-05
 
