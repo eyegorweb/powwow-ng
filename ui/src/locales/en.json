@@ -2141,6 +2141,7 @@
     "statuses": {
       "NOT_VALIDATED": "Not validated",
       "VALIDATED": "Validated",
+      "VALIDATION": "Validation",
       "TO_BE_CONFIRMED": "Automatic confirmation in progress",
       "TO_BE_CONFIRMED_BY_BO": "To be confirmed by the BO",
       "CONFIRMATION_IN_PROGRESS": "Order file transmitted",
@@ -2149,6 +2150,7 @@
       "TERMINATED": "Finished",
       "WAITING_FOR_PAYMENT": "Waiting for payment",
       "CANCELED": "Canceled",
+      "CREATED": "In progress",
       "m2mLight": {
         "TO_BE_CONFIRMED": "Validation",
         "TO_BE_CONFIRMED_BY_BO": "Validation",
