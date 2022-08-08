@@ -39,20 +39,34 @@
               {{ $t('bills.amount') }}
             </h6>
             <p class="text-right">
-              {{ formatCurrency($loGet(formattedPrice[1], 'value.content')) * $loGet(formattedPrice[0], 'value.content', '-')}} €
+              {{
+                formatCurrency(
+                  $loGet(formattedPrice[1], 'value.content') *
+                    $loGet(formattedPrice[0], 'value.content', '-')
+                )
+              }}
+              €
             </p>
           </div>
         </div>
         <div class="synthesis-item table-price d-flex flex-row">
           <div style="flex-basis: 33%" v-if="$loGet(formattedPrice[0], 'label')">
-            <p>{{ $loGet(formattedPrice[0], 'value.content', '-') }} {{ $t('digitalOffer.synthesis.topup') }}</p>
-          </div> 
+            <p>
+              {{ $loGet(formattedPrice[0], 'value.content', '-') }}
+              {{ $t('digitalOffer.synthesis.topup') }}
+            </p>
+          </div>
           <div v-if="$loGet(formattedPrice[1], 'label')" style="flex-basis: 33%">
             <p class="text-right">{{ formatCurrency(formattedOfferPackagePrice) }} €</p>
           </div>
           <div style="flex-basis: 33%">
             <p class="text-right">
-              {{ formatCurrency(formattedOfferPackagePrice *  $loGet(formattedPrice[0], 'value.content', '-'))}} €
+              {{
+                formatCurrency(
+                  formattedOfferPackagePrice * $loGet(formattedPrice[0], 'value.content', '-')
+                )
+              }}
+              €
             </p>
           </div>
         </div>
@@ -362,11 +376,10 @@ export default {
     },
 
     TotalDiscountHT() {
-      if(this.synthesis && this.synthesis.discount) {
-        return this.totalHT - this.synthesis.discount
-      }
-      else {
-        return this.totalHT
+      if (this.synthesis && this.synthesis.discount) {
+        return this.totalHT - this.synthesis.discount;
+      } else {
+        return this.totalHT;
       }
     },
 
