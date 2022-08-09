@@ -2,7 +2,7 @@
   <ActWithFileUploadContainer
     :act-mutation-fn="createRadiusAdmin"
     act-code="RADIUS"
-    confirmation-message="getparc.actCreation.RADIUS_ADMIN.confirmationWarning"
+    confirmation-message="confirmAction"
     ip-fix-usage
   >
     <div slot="action" class="mb-3">
