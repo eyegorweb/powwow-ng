@@ -1,7 +1,7 @@
 <template>
   <ActWithFileUploadContainer
     :act-mutation-fn="createRadiusAdmin"
-    act-code="RADIUS"
+    :act-code="actCode"
     confirmation-message="confirmAction"
     ip-fix-usage
   >
@@ -53,6 +53,15 @@ export default {
         label: 'getparc.history.actions.SYNC',
       },
     ];
+  },
+  computed: {
+    actCode() {
+      let code = 'RADIUS';
+      if ('READ' === this.currentAction) {
+        code += '_READ';
+      }
+      return code;
+    },
   },
 };
 </script>
