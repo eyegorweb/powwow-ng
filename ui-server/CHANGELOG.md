@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1030+20220810130738
+2022-08-10
+
+### Fixes
+
+- [3399] Gestion de la consultation. (a1719e36229b83c93e63f8c1854ff5dbe1371d29)
+
 ## 1.17.0-master.1029+20220809141232
 2022-08-09
 
