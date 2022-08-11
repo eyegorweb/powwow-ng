@@ -315,7 +315,11 @@
     "ACT_CREATE_GEOLOCATION": "ACT_CREATE_GEOLOCATION",
     "ACT_UNTHROTTLELINE": "ACT_UNTHROTTLELINE",
     "ACT_CHANGE_COMMUNITY": "ACT_CHANGE_COMMUNITY",
-    "ACT_VALIDATE_TRANSFERT": "Valider les transferts"
+    "ACT_VALIDATE_TRANSFERT": "Valider les transferts",
+
+    "ACT_RADIUS_READ": "Consultation radius",
+    "ACT_RADIUS_UPDATE": "Mise à jour radius",
+    "ACT_RADIUS_SYNCHRONIZE": "Resynchronisation radius"
   },
 
   "map": {
