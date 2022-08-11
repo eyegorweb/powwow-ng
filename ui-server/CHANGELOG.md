@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1031+20220811091200
+2022-08-11
+
+### Fixes
+
+- [3399] Ajout de la traduction des types d'actes radius pour le module tache de fond. (95e09cc56c671fc6c77f4793ffdc5ed5d1862e96)
+
 ## 1.17.0-master.1030+20220810130738
 2022-08-10
 
