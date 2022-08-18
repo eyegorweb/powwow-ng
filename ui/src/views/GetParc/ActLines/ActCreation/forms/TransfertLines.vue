@@ -155,7 +155,15 @@ export default {
     // Services activés à l'initialisation
     listActivatedServices() {
       if (!this.offerServices) return [];
-      return this.offerServices.filter((s) => s.checked).map((s) => s.code);
+      return this.offerServices
+        .filter(
+          (s) =>
+            s.checked &&
+            !this.changedServices.find((cs) => {
+              return s.code === cs.code;
+            })
+        )
+        .map((s) => s.code);
     },
     // Services activés automatiquement
     listAutoServiceMandatory() {

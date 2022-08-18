@@ -6,6 +6,7 @@
         :editable="isEditable"
         v-model="checked"
         :no-click="noClick"
+        :bold-label="boldLabel"
       />
     </div>
     <div v-if="apns && apns.length" class="line">
@@ -27,6 +28,7 @@
           :editable="isEditable"
           v-model="checked"
           :no-click="noClick"
+          :bold-label="boldLabel"
         />
       </div>
       <div class="apn-container">
@@ -60,6 +62,7 @@ export default {
     dataParamsNeeded: Boolean,
     noClick: Boolean,
     readOnly: Boolean,
+    boldLabel: Boolean,
   },
 
   data() {
