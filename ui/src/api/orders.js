@@ -127,6 +127,8 @@ export async function searchOrders(orderBy, pagination, filters = []) {
           optional
           name
           activationDate
+          serviceMandatory
+          serviceIncompatible
           parameters {
             name
             activated

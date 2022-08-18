@@ -108,6 +108,8 @@ export async function fetchOffers2(filters, pagination, sorting) {
             editable
             optional
             type
+            serviceMandatory
+            serviceIncompatible
             parameters {
               activated
               name
@@ -228,6 +230,8 @@ export async function fetchOffers(
             editable
             optional
             type
+            serviceMandatory
+            serviceIncompatible
             parameters {
               activated
               name
@@ -463,6 +467,8 @@ async function fetchOfferGroupByParams(params) {
             activated
             editable
             optional
+            serviceMandatory
+            serviceIncompatible
             parameters {
               activated
               name

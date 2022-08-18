@@ -27,7 +27,11 @@
                 <div class="serviceOptional-date">{{ service.activationDate }}</div>
               </div>
             </div>
-            <div v-else-if="service.code !== 'ROAMING' || (service.code == 'ROAMING' && !canShowRoamingTypes)">
+            <div
+              v-else-if="
+                service.code !== 'ROAMING' || (service.code == 'ROAMING' && !canShowRoamingTypes)
+              "
+            >
               <UiToggle
                 :label="service.labelService"
                 :editable="!noClick && service.editable"
@@ -42,25 +46,25 @@
               />
             </div>
           </div>
-        <!-- RoamingExtended is check in services toggles for the simple toggle -->
-        <template v-if="canShowRoamingTypes">
-          <div class="row">
-            <div class="pl-4">
-              <p class="label_before_toggle">{{ $t('services.roaming.title') }}</p>
+          <!-- RoamingExtended is check in services toggles for the simple toggle -->
+          <template v-if="canShowRoamingTypes">
+            <div class="row">
+              <div class="pl-4">
+                <p class="label_before_toggle">{{ $t('services.roaming.title') }}</p>
+              </div>
+              <div class="pl-4">
+                <MultiToggle
+                  v-if="roamingValues"
+                  @update="onRoamingExtChange"
+                  :values="roamingValues"
+                  :disabled="!canChangeRoamingExtended"
+                  green-active
+                  block
+                  class="mt-2"
+                />
+              </div>
             </div>
-            <div class="pl-4">
-              <MultiToggle
-                v-if="roamingValues"
-                @update="onRoamingExtChange"
-                :values="roamingValues"
-                :disabled="!canChangeRoamingExtended"
-                greenActive
-                block
-                class="mt-2"
-              />
-            </div>
-          </div>
-        </template>
+          </template>
         </div>
         <div class="s-container">
           <div
@@ -68,7 +72,7 @@
             v-for="service in servicesToShowData"
             class="service"
             :class="service.name ? 'fullWidth' : { 'quarter-size': fullWidth }"
-          >          
+          >
             <div v-if="service.name" class="serviceOptional">
               <div class="serviceOptional-name">{{ service.name }} :</div>
               <div :style="{ lineHeight: '1rem' }">
@@ -90,7 +94,7 @@
                 :editable="!noClick && service.editable"
                 :bold-label="isChanged(service)"
                 :no-click="noClick"
-                @change="checkServices"
+                @change="checkServices(service)"
                 v-model="service.checked"
                 :can-change-fn="
                   (value) => {
@@ -126,7 +130,7 @@
             :bold-label="isChanged(service)"
             :no-click="noClick"
             v-model="service.checked"
-            @change="checkServices"
+            @change="checkServices(service)"
             :can-change-fn="
               (value) => {
                 return canChangeValue(service, value);
@@ -144,7 +148,7 @@
               :bold-label="isChanged(service)"
               :no-click="noClick"
               v-model="service.checked"
-              @change="checkServices"
+              @change="checkServices(service)"
               :can-change-fn="
                 (value) => {
                   return canChangeValue(service, value);
@@ -197,24 +201,25 @@ export default {
     disabled: Boolean,
     readOnly: Boolean,
     roamingExtendedOnOffer: Boolean,
+    dataServiceVersion: Number,
   },
   computed: {
     ...mapGetters(['userIsMVNO']),
 
     servicesToShowOthers() {
-      return this.servicesToShow.filter((s) => s.type === "OTHER")
+      return this.servicesToShow.filter((s) => s.type === 'OTHER');
     },
 
     servicesToShowData() {
-      return this.servicesToShow.filter((s) => s.type === "DATA")
+      return this.servicesToShow.filter((s) => s.type === 'DATA');
     },
 
     servicesOthers() {
-      return this.services.filter((s) => s.type === "OTHER")
+      return this.services.filter((s) => s.type === 'OTHER');
     },
 
     servicesData() {
-      return this.services.filter((s) => s.type === "DATA")
+      return this.services.filter((s) => s.type === 'DATA');
     },
 
     servicesToShow() {
@@ -268,25 +273,149 @@ export default {
   methods: {
     ...mapMutations(['popupMessage']),
 
-    checkServices() {
-      const ltem = this.otherServices.find(s => s.code === 'LTE-M');
-      if(ltem) {
-        this.services.forEach(e => {
-          if(e.code === 'NB-IoT' && ltem.checked === false) {
-            e.checked = false;
-            e.editable = false;
-          }
-          else if(e.code === 'NB-IoT') {
-            if(ltem.serviceMandatory) {
-              const mandatory = ltem.serviceMandatory.find(m => m === 'NB-IoT');
-              e.editable = !mandatory;
-            }
-            else {
-              e.editable = true;
-            }
-          }
-        })
+    setup() {
+      const dataService = this.services.find((s) => s.code === 'DATA');
+      if (dataService) {
+        this.dataService = { ...dataService };
       }
+      this.otherServices = [...this.services.filter((s) => s.code !== 'DATA')];
+      this.roamingService = this.services.find((s) => s.code === 'ROAMING');
+    },
+
+    displayOnMounted() {
+      // const activatedServices = this.services.find((s) => s.checked);
+      const activatedServicesWithMandatoryServices = this.services.filter(
+        (s) => s.checked && s.listServiceMandatory.length > 0
+      );
+      const activatedServicesWithIncompatibleServices = this.services.filter(
+        (s) => s.checked && s.listServiceIncompatible && s.listServiceIncompatible.length > 0
+      );
+
+      if (activatedServicesWithMandatoryServices) {
+        activatedServicesWithMandatoryServices.forEach((s) => {
+          return s.listServiceMandatory.forEach((serv) => {
+            let service = this.services.find((s) => s.code === serv);
+            if (service) {
+              service.checked = true;
+            }
+            return service;
+          });
+        });
+      }
+
+      if (activatedServicesWithIncompatibleServices) {
+        activatedServicesWithIncompatibleServices.forEach((s) => {
+          return s.listServiceIncompatible.forEach((serv) => {
+            let service = this.services.find((s) => s.code === serv);
+            if (service) {
+              service.checked = false;
+            }
+            return service;
+          });
+        });
+      }
+
+      const ltemService = this.services.find((s) => s.code === 'LTE-M');
+      const nbiotService = this.services.find((s) => s.code === 'NB-IoT');
+      this.manageNbIoTDisplay(ltemService, nbiotService);
+    },
+
+    manageNbIoTDisplay(ltemService, nbiotService) {
+      if (ltemService && !ltemService.checked && nbiotService) {
+        nbiotService.checked = false;
+      }
+    },
+
+    /**
+     * Configurer les services dépendants obligatoires et incompatibles
+     * @param {Object} payload current service
+     */
+    setupDependencies(payload) {
+      // Cas d'une activation de service
+      if (payload.checked) {
+        // Traitement des services obligatoires
+        if (payload.listServiceMandatory) {
+          // on parcourt les services obligatoires
+          payload.listServiceMandatory.forEach((lsm) => {
+            let foundMandatoryService = this.services.find((serv) => serv.code === lsm);
+            // on ne prend que les services maîtres concernés
+            if (foundMandatoryService) {
+              // gestion erreur activation du service obligatoire impossible
+              if (!foundMandatoryService.editable && !foundMandatoryService.checked) {
+                // TODO: gérer erreur (popup d'erreur)
+                console.error(
+                  'activation automatique du service obligatoire ' +
+                    foundMandatoryService.code +
+                    ' impossible'
+                );
+              }
+              // activer (checked: true) ces services
+              foundMandatoryService.checked = true;
+              // Le service DATA est isolé des autres services
+              // Il faut vérifier s'il fait partie des services obligatoires pour autant
+              if (foundMandatoryService.code === 'DATA') {
+                if (this.dataService) {
+                  this.dataService.checked = true;
+                  this.autoDataServiceChange({
+                    checked: this.dataService.checked,
+                    parameters: this.dataService.parameters,
+                    code: 'DATA',
+                  });
+                }
+              }
+            }
+          });
+        }
+
+        // Traitement des services incompatibles
+        if (payload.listServiceIncompatible) {
+          payload.listServiceIncompatible.forEach((lsi) => {
+            let foundIncompatibleService = this.services.find((serv) => serv.code === lsi);
+            // pour chaque service incompatible
+            if (foundIncompatibleService) {
+              // gestion erreur désactivation du service incompatible impossible
+              if (!foundIncompatibleService.editable && foundIncompatibleService.checked) {
+                // TODO: gérer erreur (popup d'erreur)
+                console.error(
+                  'désactivation automatique du service incompatilbe ' +
+                    foundIncompatibleService.code +
+                    ' impossible'
+                );
+              }
+              // lorsque ce service est modifiable (editable: true)
+              // désactiver (checked: false) ces services
+              foundIncompatibleService.checked = false;
+              // Le service DATA est isolé des autres services
+              // Il faut vérifier s'il fait partie des services incompatibles pour autant
+              if (foundIncompatibleService.code === 'DATA') {
+                if (this.dataService) {
+                  this.dataService.checked = false;
+                  this.autoDataServiceChange({
+                    checked: this.dataService.checked,
+                    parameters: this.dataService.parameters,
+                    code: 'DATA',
+                  });
+                }
+              }
+            }
+          });
+        }
+      } else {
+        // Cas d'une désactivation de service
+        const foundDependantServices = this.services.filter(
+          (s) =>
+            s.checked &&
+            s.listServiceMandatory &&
+            s.listServiceMandatory.find((ss) => ss === payload.code)
+        );
+        if (foundDependantServices) {
+          foundDependantServices.forEach((s) => (s.checked = false));
+        }
+      }
+    },
+
+    checkServices(service) {
+      this.setupDependencies(service);
     },
 
     onRoamingExtChange(newValue) {
@@ -300,17 +429,9 @@ export default {
       return !this.noClick && service.editable;
     },
 
-    setup() {
-      const dataService = this.services.find((s) => s.code === 'DATA');
-      if (dataService) {
-        this.dataService = { ...dataService };
-      }
-      this.otherServices = [...this.services.filter((s) => s.code !== 'DATA')];
-      this.roamingService = this.services.find((s) => s.code === 'ROAMING');
-    },
     isChanged(service) {
-      if (!this.defaultServices || !this.defaultServices.length) return false;
-      const initialService = this.defaultServices.find((s) => s.code === service.code);
+      if (!this.initialServices || !this.initialServices.length) return false;
+      const initialService = this.initialServices.find((s) => s.code === service.code);
       return initialService.checked !== service.checked;
     },
     canChangeValue(service) {
@@ -323,7 +444,7 @@ export default {
         const serviceThatIDependOn = this.services.find((s) => s.code === service.preServiceCode);
         if (serviceThatIDependOn && serviceThatIDependOn.checked) {
           canChange = true;
-        } else if(serviceThatIDependOn) {
+        } else if (serviceThatIDependOn) {
           this.popupMessage(
             this.$t('getadmin.partners.optionsDetails.services.mustBeActive', {
               service: serviceThatIDependOn.labelService,
@@ -365,6 +486,13 @@ export default {
       this.services = [...newServices];
     },
 
+    autoDataServiceChange(dataService) {
+      this.$emit('datachange', {
+        services: [...this.otherServices],
+        dataService,
+      });
+    },
+
     onDataServiceChange(changes) {
       if (typeof changes !== 'object') return;
       const dataService = {
@@ -372,10 +500,8 @@ export default {
         checked: changes.checked,
         parameters: [...changes.apns],
       };
-      this.$emit('datachange', {
-        services: [...this.otherServices],
-        dataService,
-      });
+      this.autoDataServiceChange(dataService);
+      this.setupDependencies(dataService);
     },
     onApnChange(apns) {
       this.dataService = { ...this.dataService, parameters: [...apns] };
@@ -385,10 +511,13 @@ export default {
     return {
       otherServices: undefined,
       dataService: undefined,
+      defaultDataService: undefined,
       extendedRoamingValue: undefined,
       roamingService: undefined,
       canChangeRoamingExtended: false,
       defaultServices: undefined,
+      listServiceMandatory: undefined,
+      listServiceIncompatible: undefined,
     };
   },
   watch: {
@@ -402,22 +531,20 @@ export default {
       },
       deep: true,
     },
-    services() {      
+    services() {
       this.setup();
     },
   },
-  mounted() {    
-    const ltem = this.services.find(s => s.code === 'LTE-M');
-    if(ltem && ltem.checked === false) {
-      this.services.forEach(e => {
-        if(e.code === 'NB-IoT') {
-          e.checked = false;
-          e.editable = false;
-        }
-      })
-    }
+  mounted() {
     this.setup();
-    this.defaultServices = cloneDeep(this.services)
+    this.defaultServices = cloneDeep(this.services);
+    this.listServiceMandatory = this.defaultServices.filter(
+      (s) => !!s.listServiceMandatory && s.listServiceMandatory.length > 0
+    );
+    this.listServiceIncompatible = this.defaultServices.filter((s) => !!s.listServiceIncompatible);
+    this.defaultDataService = cloneDeep(this.initialServices.find((s) => s.code === 'DATA'));
+
+    this.displayOnMounted();
   },
 };
 </script>
@@ -430,7 +557,7 @@ export default {
 .s-container {
   width: 50%;
 }
-  
+
 .service {
   margin-bottom: 1.5rem;
 }

@@ -234,6 +234,7 @@ export default {
         this.confirmAction({
           message: this.warningMessage,
           actionFn,
+          listStyle: !!this.warningMessage,
         });
       }
     },

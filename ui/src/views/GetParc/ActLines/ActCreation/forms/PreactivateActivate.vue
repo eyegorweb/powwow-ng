@@ -3,6 +3,7 @@
     :validate-fn="doRequest"
     :check-errors-fn="haveFieldErrors"
     :prevent-send="!canSend"
+    :warning-message="warningMessage"
   >
     <template v-if="partner">
       <div class="toggles-container">
@@ -50,10 +51,11 @@
 
         <div v-if="selectedOffer && selectedOffer.data">
           <ServicesBlock
-            :key="selectedOffer.label"
             :services="offerServices"
+            :initial-services="initialServices"
             vertical
             @datachange="onServiceChange"
+            :data-params-needed="isDataParamsError"
           />
         </div>
         <label v-if="activation && selectedOffer && selectedOffer.data" class="font-weight-bold">{{
@@ -104,6 +106,8 @@ import { getMarketingOfferServices } from '@/components/Services/utils.js';
 import { searchLineById } from '@/api/linesActions';
 import { getPartyOptions } from '@/api/partners';
 import { formatBackErrors } from '@/utils/errors';
+
+import cloneDeep from 'lodash.clonedeep';
 
 export default {
   components: {
@@ -157,8 +161,8 @@ export default {
           label: `${data.code} - ${data.name}`,
           code: data.code,
           data,
-          partner: data.party,
-          partnerId: data.party.id,
+          // partner: data.party,
+          // partnerId: data.party.id,
         };
         return formatted;
       }
@@ -178,6 +182,55 @@ export default {
 
       return userReference;
     },
+    changedServices() {
+      if (!this.offerServices) return;
+      return this.offerServices.filter((s) => {
+        const initialService = this.initialServices.find((os) => os.code === s.code);
+        return initialService.checked !== s.checked;
+      });
+    },
+    // Services activés à l'initialisation
+    listActivatedServices() {
+      if (!this.offerServices) return [];
+      return this.offerServices.filter((s) => s.checked).map((s) => s.code);
+    },
+    // Services activés automatiquement
+    listAutoServiceMandatory() {
+      if (!this.offerServices) return [];
+      return this.changedServices.filter((s) => s.checked).map((s) => s.code);
+    },
+    // Services désactivés automatiquement
+    listAutoServiceIncompatible() {
+      if (!this.offerServices) return [];
+      return this.changedServices.filter((s) => !s.checked).map((s) => s.code);
+    },
+    warningMessage() {
+      let list = '';
+      let message = '';
+      if (this.listActivatedServices.length > 0) {
+        list += `${this.$t('services.listServiceMandatory')}: ${this.listActivatedServices
+          .map((s) => s)
+          .join(',')}`;
+      }
+      if (this.listAutoServiceMandatory.length > 0) {
+        list += `<br />${this.$t(
+          'services.listAutoServiceMandatory'
+        )}: ${this.listAutoServiceMandatory.map((s) => s).join(',')}`;
+      }
+      if (this.listAutoServiceIncompatible.length > 0) {
+        list += `<br />${this.$t(
+          'services.listAutoServiceIncompatible'
+        )}: ${this.listAutoServiceIncompatible.map((s) => s).join(',')}`;
+      }
+      if (!list) {
+        message = `${this.$t('getparc.actCreation.preactivateActivate.confirmAction')}`;
+      } else {
+        message = `${this.$t('getparc.actCreation.preactivateActivate.confirmationWarning', {
+          list,
+        })}`;
+      }
+      return message;
+    },
   },
   data() {
     return {
@@ -193,12 +246,15 @@ export default {
       isLoading: false,
       waitForReportConfirmation: false,
       offerServices: undefined,
+      initialServices: undefined,
       servicesChoice: undefined,
       chosenBillingAccount: undefined,
       singleLineFound: undefined,
       exceptionError: undefined,
       partnerOptions: undefined,
       userReferenceValue: undefined,
+      isDataParamsError: false,
+      dataService: undefined,
     };
   },
 
@@ -210,8 +266,11 @@ export default {
 
   watch: {
     selectedOffer(selectedOffer) {
-      if (selectedOffer && selectedOffer.data)
+      if (selectedOffer && selectedOffer.data) {
         this.offerServices = getMarketingOfferServices(selectedOffer.data.initialOffer);
+        this.initialServices = cloneDeep(this.offerServices);
+      }
+      this.setup();
     },
     activation(newValue) {
       this.decideOnMandatoryCustomFields();
@@ -243,11 +302,21 @@ export default {
     onServiceChange(servicesChoice) {
       this.servicesChoice = servicesChoice;
       this.offerServices = [...servicesChoice.services, servicesChoice.dataService];
+      this.setup();
+    },
+
+    setup() {
+      if (!this.offerServices) return;
+      const dataService = this.offerServices.find((s) => s.code === 'DATA');
+      if (dataService) {
+        this.dataService = { ...dataService };
+      }
     },
 
     haveFieldErrors() {
       const fieldErrors = {};
       let haveError = false;
+      this.isDataParamsError = false;
       if (this.activation) {
         let billingAccountToUse = this.preselectBillingAccount;
         if (!this.preselectBillingAccount) {
@@ -261,6 +330,13 @@ export default {
         if (!this.selectedOffer || !this.selectedOffer.data) {
           fieldErrors.offer = true;
           haveError = true;
+        }
+        if (this.$loGet(this.servicesChoice, 'dataService.checked')) {
+          this.isDataParamsError =
+            this.servicesChoice.dataService &&
+            this.servicesChoice.dataService.parameters &&
+            this.servicesChoice.dataService.parameters.filter((p) => p.selected).length === 0;
+          haveError = this.isDataParamsError;
         }
       }
 

@@ -125,6 +125,9 @@ export default {
     apns() {
       this.changeValue();
     },
+    service(value) {
+      this.checked = value.checked;
+    },
   },
 };
 </script>

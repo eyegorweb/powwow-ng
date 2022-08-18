@@ -34,7 +34,6 @@
                       <ServicesSkeleton />
                     </div>
                     <ServicesBlock
-                      :key="servicesVersion"
                       v-if="services"
                       :services="services"
                       :initial-services="initialServices"
@@ -165,6 +164,7 @@ export default {
       initDataCheck: false,
       dataCheck: false,
       componentInitialized: false,
+      dataService: undefined,
     };
   },
   async mounted() {
@@ -179,21 +179,20 @@ export default {
       this.services = offerServices;
       this.apnServices = getApnServices(services);
     }
+    this.setup();
     setTimeout(() => {
       this.componentInitialized = true;
     });
-    const ltem = this.services.find((s) => s.code === 'LTE-M');
-    if (ltem && ltem.checked === false) {
-      this.services.forEach((e) => {
-        if (e.code === 'NB-IoT') {
-          e.checked = false;
-          e.editable = false;
-        }
-      });
-    }
   },
   methods: {
     ...mapMutations(['flashMessage']),
+
+    setup() {
+      const dataService = this.services.find((s) => s.code === 'DATA');
+      if (dataService) {
+        this.dataService = { ...dataService };
+      }
+    },
 
     onCommunityChange(value) {
       // cette fonction est appelée durant le mount du composant ServiceBlocks, on veux ignorer la première valeur

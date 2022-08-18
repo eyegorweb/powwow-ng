@@ -637,7 +637,10 @@ export async function changeService(filters, lines, params) {
       } else {
         roamingParam = '';
       }
-      roamingCodeParams = roamingParam === '' ? `{serviceCode: "ROAMING", action: DELETE}` : `{serviceCode: "ROAMING", action: ADD${roamingParam}}`;
+      roamingCodeParams =
+        roamingParam === ''
+          ? `{serviceCode: "ROAMING", action: DELETE}`
+          : `{serviceCode: "ROAMING", action: ADD${roamingParam}}`;
       codesToaddToGqlQuery.push(roamingCodeParams);
     }
 
