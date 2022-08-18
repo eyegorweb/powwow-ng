@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1033+20220818151629
+2022-08-18
+
+### Features
+
+- [3334] mise en place de la compatibilité des services (5fb88fe88a981d83bc02344023a3401ba31ee0ca)
+
 ## 1.17.0-master.1032+20220818085649
 2022-08-18
 
