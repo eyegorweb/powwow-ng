@@ -1,5 +1,5 @@
 <template>
-  <ActFormContainer :validate-fn="onValidate">
+  <ActFormContainer :validate-fn="onValidate" :warning-message="warningMessage">
     <div slot="messages" class="text-info">
       <div v-if="exceptionError">
         <h6 class="text-danger">{{ $t('errors.all') }}</h6>
@@ -45,6 +45,48 @@ export default {
       }
       return this.actCreationPrerequisites.partner;
     },
+    // Services activés à l'initialisation
+    listActivatedServices() {
+      if (!this.offerServices) return [];
+      return this.offerServices.filter((s) => s.checked).map((s) => s.code);
+    },
+    // Services activés automatiquement
+    listAutoServiceMandatory() {
+      if (!this.offerServices) return [];
+      return this.changedServices.filter((s) => s.checked).map((s) => s.code);
+    },
+    // Services désactivés automatiquement
+    listAutoServiceIncompatible() {
+      if (!this.offerServices) return [];
+      return this.changedServices.filter((s) => !s.checked).map((s) => s.code);
+    },
+    warningMessage() {
+      let list = '';
+      let message = '';
+      if (this.listActivatedServices.length > 0) {
+        list += `${this.$t('services.listServiceMandatory')}: ${this.listActivatedServices
+          .map((s) => s)
+          .join(',')}`;
+      }
+      if (this.listAutoServiceMandatory.length > 0) {
+        list += `<br />${this.$t(
+          'services.listAutoServiceMandatory'
+        )}: ${this.listAutoServiceMandatory.map((s) => s).join(',')}`;
+      }
+      if (this.listAutoServiceIncompatible.length > 0) {
+        list += `<br />${this.$t(
+          'services.listAutoServiceIncompatible'
+        )}: ${this.listAutoServiceIncompatible.map((s) => s).join(',')}`;
+      }
+      if (!list) {
+        message = `${this.$t('getparc.actCreation.preactivateActivate.confirmAction')}`;
+      } else {
+        message = `${this.$t('getparc.actCreation.preactivateActivate.confirmationWarning', {
+          list,
+        })}`;
+      }
+      return message;
+    },
   },
   methods: {
     async loadSingleLineInfo() {
@@ -77,6 +119,7 @@ export default {
         const formatted = formatBackErrors(response.errors)
           .map((e) => e.errors)
           .flat();
+        console.log('formatted back errors', formatted);
         formatted.forEach((e) => {
           if (e.key === 'limit') {
             count = e.value;

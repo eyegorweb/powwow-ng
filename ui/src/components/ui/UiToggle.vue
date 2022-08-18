@@ -13,8 +13,10 @@
         @input="onChange"
       />
       <span class="slider" />
-      <span class="state state--on" :class="{'state--onEditable' : editable}">{{ onText }}</span>
-      <span class="state state--off" :class="{'state--offEditable' : editable}">{{ offText }}</span>
+      <span class="state state--on" :class="{ 'state--onEditable': editable }">{{ onText }}</span>
+      <span class="state state--off" :class="{ 'state--offEditable': editable }">{{
+        offText
+      }}</span>
     </label>
   </div>
 </template>

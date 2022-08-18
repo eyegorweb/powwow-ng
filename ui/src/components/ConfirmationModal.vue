@@ -7,6 +7,9 @@
       <div v-else-if="actionToConfirm.noStyle">
         {{ actionMessage }}
       </div>
+      <div v-else-if="actionToConfirm.listStyle">
+        <div v-html="actionMessage"></div>
+      </div>
       <div v-else class="text-danger">
         <i class="ic-Alert-Icon"></i>
         <span v-html="actionMessage"></span>

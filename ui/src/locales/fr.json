@@ -2018,7 +2018,8 @@
       },
 
       "preactivateActivate": {
-        "confirmationWarning": "Confirmer ?"
+        "confirmAction": "<div class=\"text-danger\"><i class=\"ic-Alert-Icon\"></i> Confirmer la demande ?</div>",
+        "confirmationWarning": "<div class=\"text-danger\"><i class=\"ic-Alert-Icon\"></i> Confirmer la demande ?<div class=\"alert alert-warning\">{list}</div></div>"
       },
 
       "transferSim": {
@@ -2111,6 +2112,7 @@
       },
       "selectOffer": {
         "confirmationWarning": "Attention ! Toutes les lignes sélectionnées vont perdre le roaming ! Cette action est irréversible si votre ligne est à l’étranger.",
+        "confirmationWarningList": "<div class=\"text-danger\"><i class=\"ic-Alert-Icon\"></i> Attention ! Toutes les lignes sélectionnées vont perdre le roaming ! Cette action est irréversible si votre ligne est à l’étranger.<br />Confirmez-vous le changement d'offre ?<div class=\"alert alert-warning\">{list}</div></div>",
         "save": "Transférer"
       },
 
@@ -2122,7 +2124,8 @@
         "successMessage": "La demande de changement d'offre a bien été prise en compte.",
         "currentOffer": "Offre actuelle",
         "changeServices": "Avec changement de services ?",
-        "warning": "Attention cet acte a un impact sur le réseau.<br /> Confirmez-vous le changement d'offre ?"
+        "warning": "Attention cet acte a un impact sur le réseau.<br /> Confirmez-vous le changement d'offre ?",
+        "confirmationWarningList": "<div class=\"text-danger\"><i class=\"ic-Alert-Icon\"></i> Attention cet acte a un impact sur le réseau.<br />Confirmez-vous le changement d'offre ?<div class=\"alert alert-warning\">{list}</div></div>"
       },
       "rechargeOD": {
         "confirm": "Voulez vous choisir l'enveloppe "
@@ -2436,7 +2439,10 @@
       "europe": "Europe",
       "world": "Monde",
       "title": "Type de roaming"
-    }
+    },
+    "listServiceMandatory": "Liste des services activés",
+    "listAutoServiceMandatory": "Liste des services activés automatiquement",
+    "listAutoServiceIncompatible": "Liste des services désactivés automatiquement"
   },
 
   "filters": {

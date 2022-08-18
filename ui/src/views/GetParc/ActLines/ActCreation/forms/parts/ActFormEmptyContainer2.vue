@@ -95,6 +95,7 @@ export default {
             this.flashMessage({ level: 'danger', message: this.$t('genericErrorMessage') });
           }
         },
+        listStyle: !!this.confirmMsg,
       });
     },
 

@@ -1840,7 +1840,10 @@
         "currentCustomFields": "Current free fields",
         "newCustomFields": "New free fields"
       },
-      "preactivateActivate": { "confirmationWarning": "Confirm?" },
+      "preactivateActivate": {
+        "confirmAction": "<div class=\"text-danger\"><i class=\"ic-Alert-Icon\"></i> Do you confirm ?</div>",
+        "confirmationWarning": "<div class=\"text-danger\"><i class=\"ic-Alert-Icon\"></i> Confirm ?<div class=\"alert alert-warning\">{list}</div></div>"
+      },
       "transferSim": {
         "confirmationWarning": "Confirm action for {count} line(s) ?"
       },
@@ -1920,6 +1923,7 @@
       },
       "selectOffer": {
         "confirmationWarning": "Warning ! All the lines selected will lose roaming! This action is irreversible if your line is abroad.",
+        "confirmationWarningList": "<div class=\"text-danger\"><i class=\"ic-Alert-Icon\"></i> Warning ! All the lines selected will lose roaming! This action is irreversible if your line is abroad.<br />Do you confirm  ?<div class=\"alert alert-warning\">{list}</div></div>",
         "save": "Transfer"
       },
       "changeBillingAccount": "Change the account",
@@ -1930,7 +1934,8 @@
         "successMessage": "The request for a change of supply has been taken into account.",
         "currentOffer": "Current offer",
         "changeServices": "With change of services?",
-        "warning": "Warning this act has an impact on the network.<br /> Do you confirm ?"
+        "warning": "Warning this act has an impact on the network.<br /> Do you confirm ?",
+        "confirmationWarningList": "<div class=\"text-danger\"><i class=\"ic-Alert-Icon\"></i> Warning this act has an impact on the network.<br />Do you confirm ?<div class=\"alert alert-warning\">{list}</div></div>"
       },
       "rechargeOD": {
         "confirm": "Choose the envelope "

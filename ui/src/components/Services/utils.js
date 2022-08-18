@@ -26,6 +26,8 @@ function formatServices(s) {
     preServiceCode: s.preServiceCode,
     roamingType: s.roamingType,
     type: s.type,
+    listServiceMandatory: s.serviceMandatory ? s.serviceMandatory.flat() : [],
+    listServiceIncompatible: s.serviceIncompatible,
   };
   if (s.code === 'DATA') {
     service.parameters = s.parameters

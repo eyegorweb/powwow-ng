@@ -2,7 +2,7 @@
   <ActFormEmptyContainer
     :validate-fn="validate"
     :check-errors-fn="checkErrors"
-    confirm-msg="getparc.actCreation.selectOffer.confirmationWarning"
+    :confirm-msg="warningMessage"
   >
     <div slot="main" slot-scope="{ containerValidationFn }">
       <div>
@@ -26,6 +26,7 @@
                 v-if="selectedOffer"
                 :key="selectedOffer.label"
                 :services="offerServices"
+                :initial-services="initialServices"
                 :data-params-needed="isDataParamsError"
                 vertical
                 @datachange="onServiceChange"
@@ -89,6 +90,7 @@ import { mapState, mapGetters } from 'vuex';
 import { searchLineById } from '@/api/linesActions';
 import { getMarketingOfferServices } from '@/components/Services/utils.js';
 import { formatBackErrors } from '@/utils/errors';
+import cloneDeep from 'lodash.clonedeep';
 
 export default {
   components: {
@@ -111,6 +113,7 @@ export default {
       offerEnabled: undefined,
       canChangeServices: false,
       offerServices: undefined,
+      initialServices: undefined,
       isDataParamsError: false,
       servicesChoice: undefined,
       exceptionError: undefined,
@@ -141,6 +144,55 @@ export default {
     },
     minDate() {
       return moment().format('DD/MM/YYYY HH:mm:ss');
+    },
+    changedServices() {
+      if (!this.offerServices) return;
+      return this.offerServices.filter((s) => {
+        const initialService = this.initialServices.find((os) => os.code === s.code);
+        return initialService.checked !== s.checked;
+      });
+    },
+    // Services activés à l'initialisation
+    listActivatedServices() {
+      if (!this.offerServices) return [];
+      return this.offerServices.filter((s) => s.checked).map((s) => s.code);
+    },
+    // Services activés automatiquement
+    listAutoServiceMandatory() {
+      if (!this.offerServices) return [];
+      return this.changedServices.filter((s) => s.checked).map((s) => s.code);
+    },
+    // Services désactivés automatiquement
+    listAutoServiceIncompatible() {
+      if (!this.offerServices) return [];
+      return this.changedServices.filter((s) => !s.checked).map((s) => s.code);
+    },
+    warningMessage() {
+      let list = '';
+      let message = '';
+      if (this.listActivatedServices.length > 0) {
+        list += `${this.$t('services.listServiceMandatory')}: ${this.listActivatedServices
+          .map((s) => s)
+          .join(',')}`;
+      }
+      if (this.listAutoServiceMandatory.length > 0) {
+        list += `<br />${this.$t(
+          'services.listAutoServiceMandatory'
+        )}: ${this.listAutoServiceMandatory.map((s) => s).join(',')}`;
+      }
+      if (this.listAutoServiceIncompatible.length > 0) {
+        list += `<br />${this.$t(
+          'services.listAutoServiceIncompatible'
+        )}: ${this.listAutoServiceIncompatible.map((s) => s).join(',')}`;
+      }
+      if (!list) {
+        message = `${this.$t('getparc.actCreation.selectOffer.confirmationWarning')}`;
+      } else {
+        message = `${this.$t('getparc.actCreation.selectOffer.confirmationWarningList', {
+          list,
+        })}`;
+      }
+      return message;
     },
   },
   methods: {
@@ -276,6 +328,7 @@ export default {
     selectedOffer(selectedOffer) {
       if (selectedOffer && selectedOffer.data) {
         this.offerServices = getMarketingOfferServices(selectedOffer.data.initialOffer);
+        this.initialServices = cloneDeep(this.offerServices);
       }
     },
   },
