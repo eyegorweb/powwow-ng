@@ -95,6 +95,7 @@
                 :bold-label="isChanged(service)"
                 :no-click="noClick"
                 @change="checkServices(service)"
+                @click="onClick(service)"
                 v-model="service.checked"
                 :can-change-fn="
                   (value) => {
@@ -131,6 +132,7 @@
             :no-click="noClick"
             v-model="service.checked"
             @change="checkServices(service)"
+            @click="onClick(service)"
             :can-change-fn="
               (value) => {
                 return canChangeValue(service, value);
@@ -149,6 +151,7 @@
               :no-click="noClick"
               v-model="service.checked"
               @change="checkServices(service)"
+              @click="onClick(service)"
               :can-change-fn="
                 (value) => {
                   return canChangeValue(service, value);
@@ -282,10 +285,14 @@ export default {
       this.roamingService = this.services.find((s) => s.code === 'ROAMING');
     },
 
+    handleError(code) {
+      console.error('modification automatique du service ' + code + ' impossible');
+    },
+
     displayOnMounted() {
-      // const activatedServices = this.services.find((s) => s.checked);
+      this.initNbIoT();
       const activatedServicesWithMandatoryServices = this.services.filter(
-        (s) => s.checked && s.listServiceMandatory.length > 0
+        (s) => s.checked && s.listServiceMandatory && s.listServiceMandatory.length > 0
       );
       const activatedServicesWithIncompatibleServices = this.services.filter(
         (s) => s.checked && s.listServiceIncompatible && s.listServiceIncompatible.length > 0
@@ -295,6 +302,11 @@ export default {
         activatedServicesWithMandatoryServices.forEach((s) => {
           return s.listServiceMandatory.forEach((serv) => {
             let service = this.services.find((s) => s.code === serv);
+            if (!service.editable && !service.checked) {
+              console.log('activatedServicesWithMandatoryServices >>>>>>>>>>', s);
+              this.handleError(service.code);
+              return;
+            }
             if (service) {
               service.checked = true;
             }
@@ -307,6 +319,10 @@ export default {
         activatedServicesWithIncompatibleServices.forEach((s) => {
           return s.listServiceIncompatible.forEach((serv) => {
             let service = this.services.find((s) => s.code === serv);
+            if (!service.editable && service.checked) {
+              this.handleError(service.code);
+              return;
+            }
             if (service) {
               service.checked = false;
             }
@@ -315,14 +331,40 @@ export default {
         });
       }
 
-      const ltemService = this.services.find((s) => s.code === 'LTE-M');
-      const nbiotService = this.services.find((s) => s.code === 'NB-IoT');
-      this.manageNbIoTDisplay(ltemService, nbiotService);
+      this.manageNbIoTDisplay();
     },
 
-    manageNbIoTDisplay(ltemService, nbiotService) {
-      if (ltemService && !ltemService.checked && nbiotService) {
-        nbiotService.checked = false;
+    initNbIoT() {
+      const nbiotService = this.services.find((s) => s.code === 'NB-IoT');
+      if (nbiotService) {
+        nbiotService.notify = false;
+      }
+    },
+
+    manageNbIoTDisplay() {
+      const ltemService = this.services.find((s) => s.code === 'LTE-M');
+      const nbiotService = this.services.find((s) => s.code === 'NB-IoT');
+      const initialNbiotService = this.defaultServices.find((s) => s.code === 'NB-IoT');
+      if (ltemService && nbiotService) {
+        // Si ltem est non activé
+        if (!ltemService.checked) {
+          // alors Nb-IoT est inactif
+          if (nbiotService.checked) {
+            nbiotService.checked = false;
+          }
+          // Sinon si ltem est actif
+        } else {
+          if (!initialNbiotService.checked) {
+            // alors Nb-IoT est actif si le baring Nb-IoT initial n'est pas actif
+            if (nbiotService.checked) {
+              nbiotService.checked = false;
+            }
+          } else {
+            if (!nbiotService.checked && !nbiotService.editable) {
+              nbiotService.checked = true;
+            }
+          }
+        }
       }
     },
 
@@ -343,11 +385,8 @@ export default {
               // gestion erreur activation du service obligatoire impossible
               if (!foundMandatoryService.editable && !foundMandatoryService.checked) {
                 // TODO: gérer erreur (popup d'erreur)
-                console.error(
-                  'activation automatique du service obligatoire ' +
-                    foundMandatoryService.code +
-                    ' impossible'
-                );
+                this.handleError(foundMandatoryService.code);
+                return;
               }
               // activer (checked: true) ces services
               foundMandatoryService.checked = true;
@@ -356,7 +395,9 @@ export default {
               if (foundMandatoryService.code === 'DATA') {
                 if (this.dataService) {
                   this.dataService.checked = true;
+                  // TODO: constructeur
                   this.autoDataServiceChange({
+                    editable: this.dataService.editable,
                     checked: this.dataService.checked,
                     parameters: this.dataService.parameters,
                     code: 'DATA',
@@ -375,12 +416,8 @@ export default {
             if (foundIncompatibleService) {
               // gestion erreur désactivation du service incompatible impossible
               if (!foundIncompatibleService.editable && foundIncompatibleService.checked) {
-                // TODO: gérer erreur (popup d'erreur)
-                console.error(
-                  'désactivation automatique du service incompatilbe ' +
-                    foundIncompatibleService.code +
-                    ' impossible'
-                );
+                this.handleError(foundIncompatibleService.code);
+                return;
               }
               // lorsque ce service est modifiable (editable: true)
               // désactiver (checked: false) ces services
@@ -392,6 +429,7 @@ export default {
                   this.dataService.checked = false;
                   this.autoDataServiceChange({
                     checked: this.dataService.checked,
+                    editable: this.dataService.editable,
                     parameters: this.dataService.parameters,
                     code: 'DATA',
                   });
@@ -412,6 +450,8 @@ export default {
           foundDependantServices.forEach((s) => (s.checked = false));
         }
       }
+
+      this.manageNbIoTDisplay();
     },
 
     checkServices(service) {
@@ -432,8 +472,14 @@ export default {
     isChanged(service) {
       if (!this.initialServices || !this.initialServices.length) return false;
       const initialService = this.initialServices.find((s) => s.code === service.code);
-      return initialService.checked !== service.checked;
+      let haveToNotify = service.notify;
+      return initialService.checked !== service.checked && haveToNotify;
     },
+
+    onClick(service) {
+      if (service.editable) service.notify = true;
+    },
+
     canChangeValue(service) {
       if (this.readOnly) return false;
 

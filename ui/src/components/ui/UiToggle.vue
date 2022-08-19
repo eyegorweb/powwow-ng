@@ -11,6 +11,7 @@
         :disabled="noClick"
         v-model="value"
         @input="onChange"
+        @click="onClick"
       />
       <span class="slider" />
       <span class="state state--on" :class="{ 'state--onEditable': editable }">{{ onText }}</span>
@@ -76,8 +77,8 @@ export default {
       if (this.value !== elem.target.checked) {
         if (this.canChangeFn) {
           if (this.canChangeFn(elem.target.checked)) {
-            this.$emit('change', elem.target.checked);
             this.value = elem.target.checked;
+            this.$emit('change', elem.target.checked);
           } else {
             // laisser remettre la valeur dans le dom
             // à ce stade la valeur n'est pas encore remontée niveau composant
@@ -90,6 +91,9 @@ export default {
           this.$emit('change', elem.target.checked);
         }
       }
+    },
+    onClick(elem) {
+      this.$emit('click', elem.target);
     },
   },
 

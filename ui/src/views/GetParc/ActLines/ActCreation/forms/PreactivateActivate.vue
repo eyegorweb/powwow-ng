@@ -183,7 +183,7 @@ export default {
       return userReference;
     },
     changedServices() {
-      if (!this.offerServices) return;
+      if (!this.offerServices) return [];
       return this.offerServices.filter((s) => {
         const initialService = this.initialServices.find((os) => os.code === s.code);
         return initialService.checked !== s.checked;
@@ -204,16 +204,22 @@ export default {
     },
     // Services activés automatiquement
     listAutoServiceMandatory() {
-      if (!this.offerServices) return [];
-      return this.changedServices.filter((s) => s.checked).map((s) => s.code);
+      if (!this.changedServices) return [];
+      return this.changedServices
+        .filter((s) => s.checked && this.listActivatedServices.find((serv) => serv !== s.code))
+        .map((s) => s.code);
     },
     // Services désactivés automatiquement
     listAutoServiceIncompatible() {
-      if (!this.offerServices) return [];
-      return this.changedServices.filter((s) => !s.checked).map((s) => s.code);
+      if (!this.changedServices) return [];
+      return this.changedServices
+        .filter((s) => !s.checked && s.listServiceIncompatible)
+        .map((s) => s.code);
     },
     warningMessage() {
-      let list = '';
+      let list = '',
+        newLine1 = '',
+        newLine2 = '';
       let message = '';
       if (this.listActivatedServices.length > 0) {
         list += `${this.$t('services.listServiceMandatory')}: ${this.listActivatedServices
@@ -221,12 +227,18 @@ export default {
           .join(',')}`;
       }
       if (this.listAutoServiceMandatory.length > 0) {
-        list += `<br />${this.$t(
+        if (this.listActivatedServices.length) {
+          newLine1 = '<br />';
+        }
+        list += `${newLine1}${this.$t(
           'services.listAutoServiceMandatory'
         )}: ${this.listAutoServiceMandatory.map((s) => s).join(',')}`;
       }
       if (this.listAutoServiceIncompatible.length > 0) {
-        list += `<br />${this.$t(
+        if (this.listAutoServiceIncompatible.length) {
+          newLine2 = '<br />';
+        }
+        list += `${newLine2}${this.$t(
           'services.listAutoServiceIncompatible'
         )}: ${this.listAutoServiceIncompatible.map((s) => s).join(',')}`;
       }
