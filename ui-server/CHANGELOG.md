@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1035+20220822090021
+2022-08-22
+
+### Fixes
+
+- [3334] Gestion du refresh de l'offre. (eb0c4c45a2ce1bd853be278b65821a087482a08b)
+
 ## 1.17.0-master.1034+20220819164055
 2022-08-19
 
