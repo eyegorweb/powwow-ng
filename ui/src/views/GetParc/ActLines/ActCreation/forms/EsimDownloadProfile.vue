@@ -53,6 +53,7 @@
         <ServicesBlock
           :key="selectedOffer.label"
           :services="offerServices"
+          :offer="selectedOffer"
           vertical
           @datachange="onServiceChange"
         />

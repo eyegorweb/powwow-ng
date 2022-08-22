@@ -148,7 +148,7 @@
       <ContentBlock v-if="services" no-handle>
         <template slot="title">{{ $t('common.services') }}</template>
         <template slot="content">
-          <ServicesBlock :services="services" no-click />
+          <ServicesBlock :services="services" no-click :offer="selectedCatalogOffer" />
         </template>
       </ContentBlock>
 

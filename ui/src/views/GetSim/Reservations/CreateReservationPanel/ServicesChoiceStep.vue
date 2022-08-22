@@ -28,6 +28,7 @@
               v-if="selectedOffer"
               :key="selectedOffer.label"
               :services="offerServices"
+              :offer="selectedOffer"
               :data-params-needed="isDataParamsError"
               vertical
               @datachange="onServiceChange"

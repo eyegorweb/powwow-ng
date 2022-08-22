@@ -205,6 +205,7 @@ export default {
     readOnly: Boolean,
     roamingExtendedOnOffer: Boolean,
     dataServiceVersion: Number,
+    offer: Object,
   },
   computed: {
     ...mapGetters(['userIsMVNO']),
@@ -289,7 +290,7 @@ export default {
       console.error('modification automatique du service ' + code + ' impossible');
     },
 
-    displayOnMounted() {
+    displayServices() {
       this.initNbIoT();
       const activatedServicesWithMandatoryServices = this.services.filter(
         (s) => s.checked && s.listServiceMandatory && s.listServiceMandatory.length > 0
@@ -580,6 +581,9 @@ export default {
     services() {
       this.setup();
     },
+    offer() {
+      this.displayServices();
+    },
   },
   mounted() {
     this.setup();
@@ -590,7 +594,7 @@ export default {
     this.listServiceIncompatible = this.defaultServices.filter((s) => !!s.listServiceIncompatible);
     this.defaultDataService = cloneDeep(this.initialServices.find((s) => s.code === 'DATA'));
 
-    this.displayOnMounted();
+    this.displayServices();
   },
 };
 </script>

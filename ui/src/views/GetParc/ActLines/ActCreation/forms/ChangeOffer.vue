@@ -41,6 +41,7 @@
           :key="selectedOffer.label"
           :services="offerServices"
           :initial-services="initialServices"
+          :offer="selectedOffer"
           :data-params-needed="isDataParamsError"
           vertical
           @datachange="onServiceChange"

@@ -56,6 +56,7 @@
             vertical
             @datachange="onServiceChange"
             :data-params-needed="isDataParamsError"
+            :offer="selectedOffer"
           />
         </div>
         <label v-if="activation && selectedOffer && selectedOffer.data" class="font-weight-bold">{{
