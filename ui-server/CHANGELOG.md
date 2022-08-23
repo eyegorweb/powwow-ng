@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1037+20220823124322
+2022-08-23
+
+### Fixes
+
+- [3334] récursivité de la gestion de la compatibilité des services (99ced2b69f9e152b6872943a58949dd67a5bee7a)
+
 ## 1.17.0-master.1036+20220823084650
 2022-08-23
 
