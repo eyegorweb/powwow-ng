@@ -392,6 +392,43 @@ export default {
               // activer (checked: true) ces services
               foundMandatoryService.checked = true;
               foundMandatoryService.isClicked = false;
+
+              // Désactiver les services incompatibles des services activés automatiquement
+              if (
+                foundMandatoryService.checked &&
+                foundMandatoryService.listServiceIncompatible &&
+                foundMandatoryService.listServiceIncompatible.length > 0
+              ) {
+                let foundIncompatibleService = this.services.find((serv) => {
+                  return foundMandatoryService.listServiceIncompatible.find((s) => serv.code === s);
+                });
+
+                // pour chaque service incompatible
+                if (foundIncompatibleService) {
+                  // gestion erreur désactivation du service incompatible impossible
+                  if (!foundIncompatibleService.editable && foundIncompatibleService.checked) {
+                    this.handleError(foundIncompatibleService.code);
+                    return;
+                  }
+                  // lorsque ce service est modifiable (editable: true)
+                  // désactiver (checked: false) ces services
+                  foundIncompatibleService.checked = false;
+                  foundIncompatibleService.isClicked = false;
+                  // Le service DATA est isolé des autres services
+                  // Il faut vérifier s'il fait partie des services incompatibles pour autant
+                  if (foundIncompatibleService.code === 'DATA') {
+                    if (this.dataService) {
+                      this.dataService.checked = false;
+                      this.autoDataServiceChange({
+                        checked: this.dataService.checked,
+                        editable: this.dataService.editable,
+                        parameters: this.dataService.parameters,
+                        code: 'DATA',
+                      });
+                    }
+                  }
+                }
+              }
               // Le service DATA est isolé des autres services
               // Il faut vérifier s'il fait partie des services obligatoires pour autant
               if (foundMandatoryService.code === 'DATA') {
