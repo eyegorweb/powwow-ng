@@ -36,6 +36,7 @@
               :services="offerServices"
               :offer="selectedOffer"
               :data-params-needed="isDataParamsError"
+              :initial-services="initialServices"
               vertical
               @datachange="onServiceChange"
             />
@@ -50,14 +51,15 @@
 import UiToggle from '@/components/ui/UiToggle';
 import OffersChoice from './OffersChoice';
 import ServicesBlock from '@/components/Services/ServicesBlock.vue';
+import CreateOrderStepContainer from '../CreateOrderStepContainer';
 import LoaderContainer from '@/components/LoaderContainer';
+
 import { fetchOrderState } from '@/api/partners';
 import { fetchOffers } from '@/api/offers';
-
-import CreateOrderStepContainer from '../CreateOrderStepContainer';
-
 import { getMarketingOfferServices } from '@/components/Services/utils.js';
 import { mapGetters } from 'vuex';
+
+import cloneDeep from 'lodash.clonedeep';
 
 export default {
   name: 'CreateOrderStepServices',
@@ -79,6 +81,7 @@ export default {
     selectedOffer(newOffer, oldOffer) {
       if (newOffer && oldOffer && newOffer.id !== oldOffer.id) {
         this.chosenServices = undefined;
+        this.initialServices = cloneDeep(this.offerServices);
       }
       this.offerServices = this.getOfferServices(this.selectedOffer);
     },
@@ -209,7 +212,17 @@ export default {
 
     onServiceChange(services) {
       this.servicesChoice = services;
+      this.offerServices = [...services.services, services.dataService];
+      // this.setup();
     },
+
+    // setup() {
+    //   if (!this.offerServices) return;
+    //   const dataService = this.offerServices.find((s) => s.code === 'DATA');
+    //   if (dataService) {
+    //     this.dataService = { ...dataService };
+    //   }
+    // },
 
     assembleSynthesis() {
       let offerCode = '';
@@ -250,6 +263,7 @@ export default {
       orderActivationMandatory: false,
       orderPreactivationMandatory: false,
       offerServices: undefined,
+      initialServices: undefined,
       chosenServices: undefined,
       selectedOffer: null,
       activation: false,
