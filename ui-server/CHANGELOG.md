@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1038+20220823132129
+2022-08-23
+
+### Fixes
+
+- [3334] mise à jour de la compatibilité des services dans la création de commandes (a134d21a5b1613406618c6b0414b9b6e58fb0733)
+
 ## 1.17.0-master.1037+20220823124322
 2022-08-23
 
