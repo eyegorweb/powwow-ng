@@ -26,6 +26,7 @@ function formatServices(s) {
     preServiceCode: s.preServiceCode,
     roamingType: s.roamingType,
     type: s.type,
+    isClicked: false,
     // TODO: Gérer le OU du deuxième tableau indexé (premier tableau => ET)
     listServiceMandatory: s.serviceMandatory ? s.serviceMandatory.flat() : [],
     listServiceIncompatible: s.serviceIncompatible,
