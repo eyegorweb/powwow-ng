@@ -391,6 +391,7 @@ export default {
               }
               // activer (checked: true) ces services
               foundMandatoryService.checked = true;
+              foundMandatoryService.isClicked = false;
               // Le service DATA est isolé des autres services
               // Il faut vérifier s'il fait partie des services obligatoires pour autant
               if (foundMandatoryService.code === 'DATA') {
@@ -423,6 +424,7 @@ export default {
               // lorsque ce service est modifiable (editable: true)
               // désactiver (checked: false) ces services
               foundIncompatibleService.checked = false;
+              foundIncompatibleService.isClicked = false;
               // Le service DATA est isolé des autres services
               // Il faut vérifier s'il fait partie des services incompatibles pour autant
               if (foundIncompatibleService.code === 'DATA') {
@@ -478,6 +480,12 @@ export default {
     },
 
     onClick(service) {
+      if (!service.checked) {
+        service.isClicked = true;
+      } else {
+        service.isClicked = false;
+      }
+
       if (service.editable) service.notify = true;
     },
 

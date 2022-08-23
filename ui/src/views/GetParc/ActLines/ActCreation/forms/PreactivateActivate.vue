@@ -187,7 +187,7 @@ export default {
       if (!this.offerServices) return [];
       return this.offerServices.filter((s) => {
         const initialService = this.initialServices.find((os) => os.code === s.code);
-        return initialService.checked !== s.checked;
+        return initialService.checked !== s.checked && initialService.isClicked !== !s.isClicked;
       });
     },
     // Services activés à l'initialisation
