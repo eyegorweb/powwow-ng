@@ -29,8 +29,12 @@ function formatServices(s) {
     isClicked: false,
     // TODO: Gérer le OU du deuxième tableau indexé (premier tableau => ET)
     listServiceMandatory: s.serviceMandatory ? s.serviceMandatory.flat() : [],
-    listServiceIncompatible: s.serviceIncompatible,
+    listServiceIncompatible: s.serviceIncompatible ? s.serviceIncompatible : [],
     notify: true,
+    // Utilisé pour les dépendances de services
+    managed: false,
+    // Utilisé si un service à été ajouté à la suppression
+    addedToDisable: false,
   };
   if (s.code === 'DATA') {
     service.parameters = s.parameters

@@ -15,6 +15,7 @@
           :offer="selectedOffer"
           :selected-items.sync="servicesToEnable"
           :items-to-disable="servicesToDisable"
+          :activated="true"
         />
       </div>
       <div class="serviceBox">
@@ -28,6 +29,7 @@
           :selected-items.sync="servicesToDisable"
           :items-to-disable="servicesToEnable"
           selected-color="bg-accent"
+          :activated="false"
         />
       </div>
     </div>

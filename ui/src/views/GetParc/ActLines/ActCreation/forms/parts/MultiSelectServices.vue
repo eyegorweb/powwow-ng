@@ -49,7 +49,7 @@
         <UiCheckbox
           v-for="result in results"
           v-model="selectedItems"
-          :value="result.item"
+          :value="updateServiceForCheckbox(result.item)"
           :key="'ms_' + result.item.id"
           :disabled="isItemDisabled(result.item)"
           @change="
@@ -169,7 +169,10 @@ export default {
     isItemDisabled(item) {
       if (this.disabled) return true;
       if (!this.disabledItems) return false;
-      return this.disabledItems.find((i) => item.id === i.id);
+      return (
+        this.disabledItems.find((i) => item.id === i.id) ||
+        this.selectedItems.find((i) => item.id === i.id && i.managed)
+      );
     },
     addAllToSelectedItems(items, displayedItems) {
       if (!items.length)
@@ -206,6 +209,19 @@ export default {
         this.canNotifyScrollLimit = false;
         this.$emit('scroll:limit');
       }
+    },
+    // En raison de la propriété 'managed' sur le service, la checkbox n'est pas coché
+    // Différence entre la liste de services et l'item
+    updateServiceForCheckbox(item) {
+      if (this.selectedItems && this.selectedItems.length > 0 && item) {
+        this.selectedItems.forEach((s) => {
+          if (s.code === item.code) {
+            item.managed = s.managed;
+            item.addedToDisable = s.addedToDisable;
+          }
+        });
+      }
+      return item;
     },
   },
 
