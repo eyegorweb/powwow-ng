@@ -213,16 +213,7 @@ export default {
     onServiceChange(services) {
       this.servicesChoice = services;
       this.offerServices = [...services.services, services.dataService];
-      // this.setup();
     },
-
-    // setup() {
-    //   if (!this.offerServices) return;
-    //   const dataService = this.offerServices.find((s) => s.code === 'DATA');
-    //   if (dataService) {
-    //     this.dataService = { ...dataService };
-    //   }
-    // },
 
     assembleSynthesis() {
       let offerCode = '';

@@ -187,35 +187,23 @@ export default {
       if (!this.offerServices) return [];
       return this.offerServices.filter((s) => {
         const initialService = this.initialServices.find((os) => os.code === s.code);
-        return initialService.checked !== s.checked && initialService.isClicked !== !s.isClicked;
+        return initialService.checked !== s.checked;
       });
     },
     // Services activés à l'initialisation
     listActivatedServices() {
       if (!this.offerServices) return [];
-      return this.offerServices
-        .filter(
-          (s) =>
-            s.checked &&
-            !this.changedServices.find((cs) => {
-              return s.code === cs.code;
-            })
-        )
-        .map((s) => s.code);
+      return this.offerServices.filter((s) => s.checked).map((s) => s.code);
     },
     // Services activés automatiquement
     listAutoServiceMandatory() {
       if (!this.changedServices) return [];
-      return this.changedServices
-        .filter((s) => s.checked && this.listActivatedServices.find((serv) => serv !== s.code))
-        .map((s) => s.code);
+      return this.changedServices.filter((s) => s.checked && !s.isClicked).map((s) => s.code);
     },
     // Services désactivés automatiquement
     listAutoServiceIncompatible() {
       if (!this.changedServices) return [];
-      return this.changedServices
-        .filter((s) => !s.checked && s.listServiceIncompatible)
-        .map((s) => s.code);
+      return this.changedServices.filter((s) => !s.checked && !s.isClicked).map((s) => s.code);
     },
     warningMessage() {
       let list = '',
