@@ -100,7 +100,7 @@ export default {
       return true;
     },
     changedServices() {
-      if (!this.offerServices) return;
+      if (!this.offerServices) return [];
       return this.offerServices.filter((s) => {
         const initialService = this.initialServices.find((os) => os.code === s.code);
         return initialService.checked !== s.checked;
@@ -109,25 +109,17 @@ export default {
     // Services activés à l'initialisation
     listActivatedServices() {
       if (!this.offerServices) return [];
-      return this.offerServices
-        .filter(
-          (s) =>
-            s.checked &&
-            !this.changedServices.find((cs) => {
-              return s.code === cs.code;
-            })
-        )
-        .map((s) => s.code);
+      return this.offerServices.filter((s) => s.checked).map((s) => s.code);
     },
     // Services activés automatiquement
     listAutoServiceMandatory() {
-      if (!this.offerServices) return [];
-      return this.changedServices.filter((s) => s.checked).map((s) => s.code);
+      if (!this.changedServices) return [];
+      return this.changedServices.filter((s) => s.checked && !s.isClicked).map((s) => s.code);
     },
     // Services désactivés automatiquement
     listAutoServiceIncompatible() {
-      if (!this.offerServices) return [];
-      return this.changedServices.filter((s) => !s.checked).map((s) => s.code);
+      if (!this.changedServices) return [];
+      return this.changedServices.filter((s) => !s.checked && !s.isClicked).map((s) => s.code);
     },
     warningMessage() {
       let list = '';

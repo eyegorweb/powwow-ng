@@ -374,6 +374,7 @@ export default {
      * @param {Object} payload current service
      */
     setupDependencies(payload) {
+      payload.isClicked = true;
       // Cas d'une activation de service
       if (payload.checked) {
         // Traitement des services obligatoires
@@ -517,12 +518,6 @@ export default {
     },
 
     onClick(service) {
-      if (!service.checked) {
-        service.isClicked = true;
-      } else {
-        service.isClicked = false;
-      }
-
       if (service.editable) service.notify = true;
     },
 
