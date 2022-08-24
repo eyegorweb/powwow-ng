@@ -384,9 +384,8 @@ export default {
             let foundMandatoryService = this.services.find((serv) => serv.code === lsm);
             // on ne prend que les services maîtres concernés
             if (foundMandatoryService) {
-              // gestion erreur activation du service obligatoire impossible
+              // gestion erreur activation du service obligatoire impossible lancée par écoute sur le service de canChangeValue
               if (!foundMandatoryService.editable && !foundMandatoryService.checked) {
-                // TODO: gérer erreur (popup d'erreur)
                 this.handleError(foundMandatoryService.code);
                 return;
               }
@@ -406,7 +405,7 @@ export default {
 
                 // pour chaque service incompatible
                 if (foundIncompatibleService) {
-                  // gestion erreur désactivation du service incompatible impossible
+                  // gestion erreur désactivation du service incompatible impossible lancée par écoute sur le service de canChangeValue
                   if (!foundIncompatibleService.editable && foundIncompatibleService.checked) {
                     this.handleError(foundIncompatibleService.code);
                     return;
@@ -454,7 +453,7 @@ export default {
             let foundIncompatibleService = this.services.find((serv) => serv.code === lsi);
             // pour chaque service incompatible
             if (foundIncompatibleService) {
-              // gestion erreur désactivation du service incompatible impossible
+              // gestion erreur désactivation du service incompatible impossible lancée par écoute sur le service de canChangeValue
               if (!foundIncompatibleService.editable && foundIncompatibleService.checked) {
                 this.handleError(foundIncompatibleService.code);
                 return;
@@ -527,7 +526,7 @@ export default {
       let canChange = true;
 
       if (service.preServiceCode) {
-        // dependency chould be active to change value here
+        // dependency should be active to change value here
         const serviceThatIDependOn = this.services.find((s) => s.code === service.preServiceCode);
         if (serviceThatIDependOn && serviceThatIDependOn.checked) {
           canChange = true;
@@ -541,11 +540,15 @@ export default {
           canChange = false;
         }
       } else {
-        const servicesThatDependOnMe = this.services.filter(
+        const servicesThatDependOnMeWithPreServiceCode = this.services.filter(
           (s) => s.preServiceCode === service.code
         );
-        if (servicesThatDependOnMe && servicesThatDependOnMe.length) {
-          const checkedServices = servicesThatDependOnMe.filter((s) => s.checked);
+        // Cas pour le détail de la ligne (preservice code étant renseigné)
+        if (
+          servicesThatDependOnMeWithPreServiceCode &&
+          servicesThatDependOnMeWithPreServiceCode.length
+        ) {
+          const checkedServices = servicesThatDependOnMeWithPreServiceCode.filter((s) => s.checked);
           if (checkedServices.length === 0) {
             canChange = true;
           } else {
@@ -557,6 +560,47 @@ export default {
             canChange = false;
           }
         }
+
+        // Cas pour les actes de gestion
+        // Gestion des services obligatoires
+        const servicesThatDependOnMe = service.listServiceMandatory
+          ? service.listServiceMandatory
+          : [];
+        if (servicesThatDependOnMe && servicesThatDependOnMe.length) {
+          const checkedServices = servicesThatDependOnMe.filter((s) => !s.checked && !s.editable);
+          if (checkedServices.length === 0) {
+            canChange = true;
+          } else {
+            this.popupMessage(
+              ' La modification du service ' +
+                service.code +
+                ' est impossible car ses services obligatoires ' +
+                checkedServices.map((s) => s).join(', ') +
+                ' ne sont pas modifiables.'
+            );
+            canChange = false;
+          }
+        }
+
+        // TODO: Gestion des services incompatibles
+        // const servicesIncompatibleOnMe = service.listServiceIncompatible
+        //   ? service.listServiceIncompatible
+        //   : [];
+        // if (servicesIncompatibleOnMe && servicesIncompatibleOnMe.length) {
+        //   const checkedServices = servicesIncompatibleOnMe.filter((s) => s.checked && !s.editable);
+        //   if (checkedServices.length === 0) {
+        //     canChange = true;
+        //   } else {
+        //     this.popupMessage(
+        //       ' La modification du service ' +
+        //         service.code +
+        //         ' est impossible car ses services incompatibles ' +
+        //         checkedServices.map((s) => s).join(', ') +
+        //         ' ne sont pas modifiables.'
+        //     );
+        //     canChange = false;
+        //   }
+        // }
       }
 
       return canChange;
