@@ -92,6 +92,7 @@ import { searchLineById } from '@/api/linesActions';
 import { getMarketingOfferServices } from '@/components/Services/utils.js';
 import { formatBackErrors } from '@/utils/errors';
 import cloneDeep from 'lodash.clonedeep';
+import differencewith from 'lodash.differencewith';
 
 export default {
   components: {
@@ -156,7 +157,15 @@ export default {
     // Services activés à l'initialisation
     listActivatedServices() {
       if (!this.offerServices) return [];
-      return this.offerServices.filter((s) => s.checked).map((s) => s.code);
+      const initialActivatedServices = this.offerServices
+        .filter((s) => s.checked)
+        .map((s) => s.code);
+      const unClickedServicesForActivation = this.changedServices.filter((cs) => !cs.isClicked);
+      return differencewith(
+        initialActivatedServices,
+        unClickedServicesForActivation,
+        (a, b) => a === b.code
+      );
     },
     // Services activés automatiquement
     listAutoServiceMandatory() {
