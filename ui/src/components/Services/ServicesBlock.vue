@@ -304,7 +304,10 @@ export default {
           return s.listServiceMandatory.forEach((serv) => {
             let service = this.services.find((s) => s.code === serv);
             if (!service.editable && !service.checked) {
-              this.handleError(service.code);
+              // this.handleError(service.code);
+              this.popupMessage(
+                ' La modification automatique du service ' + service.code + ' est impossible.'
+              );
               return;
             }
             if (service) {
@@ -320,7 +323,10 @@ export default {
           return s.listServiceIncompatible.forEach((serv) => {
             let service = this.services.find((s) => s.code === serv);
             if (!service.editable && service.checked) {
-              this.handleError(service.code);
+              // this.handleError(service.code);
+              this.popupMessage(
+                ' La modification automatique du service ' + service.code + ' est impossible.'
+              );
               return;
             }
             if (service) {
