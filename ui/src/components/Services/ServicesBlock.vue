@@ -417,9 +417,11 @@ export default {
             if (elem.length > 1) {
               // // Gestion niveau 1 'OU'
               if (subElem !== serviceCodeDesactivated) {
-                foundAnotherMandatoryService = !!this.services.find(
-                  (s) => s.code === subElem && s.checked
-                );
+                if (!foundAnotherMandatoryService) {
+                  foundAnotherMandatoryService = !!this.services.find(
+                    (s) => s.code === subElem && s.checked
+                  );
+                }
               } else {
                 foundMandatoryService = true;
               }
