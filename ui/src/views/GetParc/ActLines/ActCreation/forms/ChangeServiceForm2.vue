@@ -39,6 +39,10 @@
         class="services"
         v-if="servicesToEnable.length > 0 || shouldChangeData || servicesToDisable.length > 0"
       >
+        <span v-if="checkDataMandatory">
+          <i class="ic-Alert-Icon"></i>
+          {{ $t('getparc.actCreation.changeService.servicesToEnableWarning') }}
+        </span>
         <h4 v-if="servicesToEnable.length > 0">
           {{ $t('getparc.actCreation.changeService.servicesToEnable') }}
         </h4>
@@ -128,6 +132,22 @@ export default {
         (this.servicesToEnable && this.servicesToEnable.length) ||
         (this.servicesToDisable && this.servicesToDisable.length)
       );
+    },
+    checkDataMandatory() {
+      let mandatory = false;
+      if (this.servicesToEnable) {
+        const service = this.servicesToEnable.find((s) => {
+          let code = null;
+          if (s.listServiceMandatory) {
+            code = s.listServiceMandatory.find((sm) => 'DATA' === sm);
+          }
+          return code;
+        });
+        if (service) {
+          mandatory = true;
+        }
+      }
+      return mandatory;
     },
   },
   mounted() {
@@ -229,6 +249,11 @@ export default {
     font-size: 14px;
     font-weight: bold;
     margin: 0;
+  }
+  span {
+    font-size: 11px;
+    margin: 0;
+    color: #f00000da;
   }
 
   div {
