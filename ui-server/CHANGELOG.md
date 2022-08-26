@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1046+20220826112449
+2022-08-26
+
+### Features
+
+- [3334] gestion des compatibilités de services (316965870cdfa2b331721f1903608d620fdc55b9)
+
 ## 1.17.0-master.1045+20220826110731
 2022-08-26
 
