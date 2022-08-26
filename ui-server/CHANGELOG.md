@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1048+20220826143255
+2022-08-26
+
+### Fixes
+
+- [3334] Modification Array.prototype.push.apply (2a6f82d7944f353840c3d8826d15180c16628a04)
+
 ## 1.17.0-master.1047+20220826133150
 2022-08-26
 
