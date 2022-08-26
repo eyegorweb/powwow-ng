@@ -267,13 +267,19 @@ export default {
     updateServicesForActivatedAddedAction(handleMandatoryServices, handleIncompatibleServices) {
       handleMandatoryServices.addedServices.forEach((s) => (s.managed = true));
       handleMandatoryServices.servicesToManage.forEach((s) => (s.managed = true));
-      this.selectedServices = [...this.selectedServices, ...handleMandatoryServices.addedServices];
+      // this.selectedServices = [...this.selectedServices, ...handleMandatoryServices.addedServices];
+      Array.prototype.push.apply(this.selectedServices, handleMandatoryServices.addedServices);
       handleIncompatibleServices.addedServices.forEach((s) => (s.managed = true));
       handleIncompatibleServices.servicesToManage.forEach((s) => (s.managed = true));
-      this.selectedServicesToDisable = [
-        ...this.selectedServicesToDisable,
-        ...handleIncompatibleServices.addedServices,
-      ];
+      Array.prototype.push.apply(
+        this.selectedServicesToDisable,
+        handleIncompatibleServices.addedServices
+      );
+
+      // this.selectedServicesToDisable = [
+      //   ...this.selectedServicesToDisable,
+      //   ...handleIncompatibleServices.addedServices,
+      // ];
     },
   },
 
