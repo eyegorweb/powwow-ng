@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1045+20220826110731
+2022-08-26
+
+### Fixes
+
+- [3334] Ajout de la gestion des services de l'acte de modification des services. (1f6417088c5e786346c6d6f90155e7776091e5cb)
+
 ## 1.17.0-master.1044+20220825095525
 2022-08-25
 
