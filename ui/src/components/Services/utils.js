@@ -28,7 +28,7 @@ function formatServices(s) {
     type: s.type,
     isClicked: false,
     // TODO: Gérer le OU du deuxième tableau indexé (premier tableau => ET)
-    listServiceMandatory: s.serviceMandatory ? s.serviceMandatory.flat() : [],
+    listServiceMandatory: s.serviceMandatory ? s.serviceMandatory : [],
     listServiceIncompatible: s.serviceIncompatible ? s.serviceIncompatible : [],
     notify: true,
     // Utilisé pour les dépendances de services

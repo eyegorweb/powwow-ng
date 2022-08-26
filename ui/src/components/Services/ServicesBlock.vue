@@ -302,18 +302,23 @@ export default {
       if (activatedServicesWithMandatoryServices) {
         activatedServicesWithMandatoryServices.forEach((s) => {
           return s.listServiceMandatory.forEach((serv) => {
-            let service = this.services.find((s) => s.code === serv);
-            if (!service.editable && !service.checked) {
-              // this.handleError(service.code);
+            let foundMandatoryService = this.findMandatoryService(serv, false);
+
+            if (!foundMandatoryService) {
+              foundMandatoryService = this.findMandatoryService(serv, true);
               this.popupMessage(
-                ' La modification automatique du service ' + service.code + ' est impossible.'
+                ' La modification du service ' +
+                  s.labelService +
+                  ' est impossible car le service ' +
+                  foundMandatoryService.labelService +
+                  " n'est pas modifiable."
               );
               return;
             }
-            if (service) {
-              service.checked = true;
+            if (foundMandatoryService) {
+              foundMandatoryService.checked = true;
             }
-            return service;
+            return foundMandatoryService;
           });
         });
       }
@@ -325,7 +330,11 @@ export default {
             if (!service.editable && service.checked) {
               // this.handleError(service.code);
               this.popupMessage(
-                ' La modification automatique du service ' + service.code + ' est impossible.'
+                ' La modification du service ' +
+                  service.labelService +
+                  ' est impossible car les services ' +
+                  service.map((s) => s.labelService).join(', ') +
+                  ' ne sont pas modifiables.'
               );
               return;
             }
@@ -374,6 +383,57 @@ export default {
       }
     },
 
+    findMandatoryService(elem, desactivateControl) {
+      let foundMandatoryService = undefined;
+      if (elem) {
+        if (Array.isArray(elem)) {
+          // Gestion des services en mode "OU"
+          elem.find((sc) => {
+            if (typeof sc === 'string') {
+              let foundOrMandatoryService = this.findMandatoryService(sc, desactivateControl);
+              if (foundOrMandatoryService) {
+                foundMandatoryService = foundOrMandatoryService;
+                return true;
+              }
+            }
+          });
+        } else {
+          // Gestion d'un code de service
+          foundMandatoryService = this.services.find(
+            (service) =>
+              service.code === elem && (desactivateControl || service.checked || service.editable)
+          );
+        }
+      }
+      return foundMandatoryService;
+    },
+
+    findDependantService(elem, serviceCodeDesactivated) {
+      let foundAnotherMandatoryService = false,
+        foundMandatoryService = false;
+      if (elem) {
+        if (Array.isArray(elem)) {
+          elem.forEach((subElem) => {
+            if (elem.length > 1) {
+              // // Gestion niveau 1 'OU'
+              if (subElem !== serviceCodeDesactivated) {
+                foundAnotherMandatoryService = !!this.services.find(
+                  (s) => s.code === subElem && s.checked
+                );
+              } else {
+                foundMandatoryService = true;
+              }
+            } else {
+              // Gestion niveau 1 'ET'
+              foundMandatoryService = elem[0].code === serviceCodeDesactivated;
+            }
+          });
+          return foundMandatoryService && !foundAnotherMandatoryService;
+        }
+      }
+      return foundMandatoryService;
+    },
+
     /**
      * Configurer les services dépendants obligatoires et incompatibles
      * @param {Object} payload current service
@@ -386,67 +446,67 @@ export default {
         if (payload.listServiceMandatory) {
           // on parcourt les services obligatoires
           payload.listServiceMandatory.forEach((lsm) => {
-            let foundMandatoryService = this.services.find((serv) => serv.code === lsm);
+            let foundMandatoryService = this.findMandatoryService(lsm, false);
             // on ne prend que les services maîtres concernés
-            if (foundMandatoryService) {
-              // gestion erreur activation du service obligatoire impossible lancée par écoute sur le service de canChangeValue
-              if (!foundMandatoryService.editable && !foundMandatoryService.checked) {
-                this.handleError(foundMandatoryService.code);
-                return;
-              }
-              // activer (checked: true) ces services
-              foundMandatoryService.checked = true;
-              foundMandatoryService.isClicked = false;
+            // gestion erreur activation du service obligatoire impossible lancée par écoute sur le service de canChangeValue
+            if (!foundMandatoryService) {
+              foundMandatoryService = this.findMandatoryService(lsm, true);
+              this.handleError(foundMandatoryService.labelService);
+              return;
+            }
 
-              // Désactiver les services incompatibles des services activés automatiquement
-              if (
-                foundMandatoryService.checked &&
-                foundMandatoryService.listServiceIncompatible &&
-                foundMandatoryService.listServiceIncompatible.length > 0
-              ) {
-                let foundIncompatibleService = this.services.find((serv) => {
-                  return foundMandatoryService.listServiceIncompatible.find((s) => serv.code === s);
+            // activer (checked: true) ces services
+            foundMandatoryService.checked = true;
+            foundMandatoryService.isClicked = false;
+
+            // Désactiver les services incompatibles des services activés automatiquement
+            if (
+              foundMandatoryService.checked &&
+              foundMandatoryService.listServiceIncompatible &&
+              foundMandatoryService.listServiceIncompatible.length > 0
+            ) {
+              let foundIncompatibleService = this.services.find((serv) => {
+                return foundMandatoryService.listServiceIncompatible.find((s) => serv.code === s);
+              });
+
+              // pour chaque service incompatible
+              if (foundIncompatibleService) {
+                // gestion erreur désactivation du service incompatible impossible lancée par écoute sur le service de canChangeValue
+                if (!foundIncompatibleService.editable && foundIncompatibleService.checked) {
+                  this.handleError(foundIncompatibleService.code);
+                  return;
+                }
+                // lorsque ce service est modifiable (editable: true)
+                // désactiver (checked: false) ces services
+                foundIncompatibleService.checked = false;
+                foundIncompatibleService.isClicked = false;
+                // Le service DATA est isolé des autres services
+                // Il faut vérifier s'il fait partie des services incompatibles pour autant
+                if (foundIncompatibleService.code === 'DATA') {
+                  if (this.dataService) {
+                    this.dataService.checked = false;
+                    this.autoDataServiceChange({
+                      checked: this.dataService.checked,
+                      editable: this.dataService.editable,
+                      parameters: this.dataService.parameters,
+                      code: 'DATA',
+                    });
+                  }
+                }
+              }
+            }
+            // Le service DATA est isolé des autres services
+            // Il faut vérifier s'il fait partie des services obligatoires pour autant
+            if (foundMandatoryService.code === 'DATA') {
+              if (this.dataService) {
+                this.dataService.checked = true;
+                // TODO: constructeur
+                this.autoDataServiceChange({
+                  editable: this.dataService.editable,
+                  checked: this.dataService.checked,
+                  parameters: this.dataService.parameters,
+                  code: 'DATA',
                 });
-
-                // pour chaque service incompatible
-                if (foundIncompatibleService) {
-                  // gestion erreur désactivation du service incompatible impossible lancée par écoute sur le service de canChangeValue
-                  if (!foundIncompatibleService.editable && foundIncompatibleService.checked) {
-                    this.handleError(foundIncompatibleService.code);
-                    return;
-                  }
-                  // lorsque ce service est modifiable (editable: true)
-                  // désactiver (checked: false) ces services
-                  foundIncompatibleService.checked = false;
-                  foundIncompatibleService.isClicked = false;
-                  // Le service DATA est isolé des autres services
-                  // Il faut vérifier s'il fait partie des services incompatibles pour autant
-                  if (foundIncompatibleService.code === 'DATA') {
-                    if (this.dataService) {
-                      this.dataService.checked = false;
-                      this.autoDataServiceChange({
-                        checked: this.dataService.checked,
-                        editable: this.dataService.editable,
-                        parameters: this.dataService.parameters,
-                        code: 'DATA',
-                      });
-                    }
-                  }
-                }
-              }
-              // Le service DATA est isolé des autres services
-              // Il faut vérifier s'il fait partie des services obligatoires pour autant
-              if (foundMandatoryService.code === 'DATA') {
-                if (this.dataService) {
-                  this.dataService.checked = true;
-                  // TODO: constructeur
-                  this.autoDataServiceChange({
-                    editable: this.dataService.editable,
-                    checked: this.dataService.checked,
-                    parameters: this.dataService.parameters,
-                    code: 'DATA',
-                  });
-                }
               }
             }
           });
@@ -486,14 +546,26 @@ export default {
       } else {
         // Cas d'une désactivation de service
         const foundDependantServices = this.services.filter(
-          (s) =>
-            s.checked &&
-            s.listServiceMandatory &&
-            s.listServiceMandatory.find((ss) => ss === payload.code)
+          (s) => s.listServiceMandatory && s.listServiceMandatory.length
         );
-        if (foundDependantServices) {
-          foundDependantServices.forEach((s) => (s.checked = false));
-        }
+        let foundMandatoryService = false;
+        foundDependantServices.forEach((service) => {
+          service.listServiceMandatory.find((lsm) => {
+            foundMandatoryService = this.findDependantService(lsm, payload.code);
+            if (foundMandatoryService) {
+              return false;
+            }
+          });
+          // gestion erreur activation du service obligatoire impossible
+          if (foundMandatoryService) {
+            if (service.checked && !service.editable) {
+              this.handleError(payload.code);
+              return false;
+            } else {
+              service.checked = false;
+            }
+          }
+        });
       }
 
       this.manageNbIoTDisplay();
@@ -525,7 +597,7 @@ export default {
       if (service.editable) service.notify = true;
     },
 
-    canChangeValue(service) {
+    canChangeValue(service, checkValue) {
       if (this.readOnly) return false;
 
       let canChange = true;
@@ -567,56 +639,84 @@ export default {
         }
 
         // Cas pour les actes de gestion
-        // Gestion des services obligatoires
-        const foundMandatoryServices =
-          service.listServiceMandatory && service.listServiceMandatory.length > 0
-            ? service.listServiceMandatory
-            : [];
-        if (foundMandatoryServices.length) {
-          const checkedMandatoryServices = this.services.filter((s) => {
-            if (foundMandatoryServices.find((ss) => ss === s.code && !s.checked && !s.editable)) {
-              return s;
-            }
-          });
-          if (checkedMandatoryServices.length === 0) {
-            canChange = true;
-          } else {
-            this.popupMessage(
-              ' La modification du service ' +
-                service.code +
-                ' est impossible car ses services obligatoires ' +
-                checkedMandatoryServices.map((s) => s.code).join(', ') +
-                ' ne sont pas modifiables.'
-            );
-            canChange = false;
-            return canChange;
-          }
-        }
 
-        // Gestion des services incompatibles
-        const foundIncompatibleServices =
-          service.listServiceIncompatible && service.listServiceIncompatible.length > 0
-            ? service.listServiceIncompatible
-            : [];
-        if (foundIncompatibleServices.length) {
-          const checkedIncompatibleServices = this.services.filter((s) => {
-            if (foundIncompatibleServices.find((ss) => ss === s.code && s.checked && !s.editable)) {
-              return s;
+        let foundMandatoryService = undefined;
+        if (checkValue) {
+          // Gestion des services obligatoires
+          // Activation du service
+          if (service.listServiceMandatory) {
+            // on parcourt les services obligatoires
+            service.listServiceMandatory.forEach((lsm) => {
+              foundMandatoryService = this.findMandatoryService(lsm, false);
+              if (!foundMandatoryService) {
+                foundMandatoryService = this.findMandatoryService(lsm, true);
+                this.popupMessage(
+                  ' La modification du service ' +
+                    service.labelService +
+                    ' est impossible car le service ' +
+                    foundMandatoryService.labelService +
+                    " n'est pas modifiable."
+                );
+                canChange = false;
+                return;
+              }
+            });
+          }
+
+          // Gestion des services incompatibles
+          const foundIncompatibleServices =
+            service.listServiceIncompatible && service.listServiceIncompatible.length > 0
+              ? service.listServiceIncompatible
+              : [];
+          if (foundIncompatibleServices.length) {
+            const checkedIncompatibleServices = this.services.filter((s) => {
+              if (
+                foundIncompatibleServices.find((ss) => ss === s.code && s.checked && !s.editable)
+              ) {
+                return s;
+              }
+            });
+            if (checkedIncompatibleServices && checkedIncompatibleServices.length) {
+              this.popupMessage(
+                ' La modification du service ' +
+                  service.labelService +
+                  ' est impossible car les services ' +
+                  checkedIncompatibleServices.map((s) => s.labelService).join(', ') +
+                  ' ne sont pas modifiables.'
+              );
+              canChange = false;
+            }
+          }
+        } else {
+          // Désactivation du service
+          // Gestion des services obligatoires
+          const foundDependantServices = this.services.filter(
+            (s) => s.listServiceMandatory && s.listServiceMandatory.length
+          );
+          let foundMandatoryService = false;
+
+          foundDependantServices.forEach((serv) => {
+            serv.listServiceMandatory.find((lsm) => {
+              foundMandatoryService = this.findDependantService(lsm, service.code);
+              if (foundMandatoryService) {
+                return false;
+              }
+            });
+            // gestion erreur activation du service obligatoire impossible
+            if (foundMandatoryService) {
+              if (serv.checked && !serv.editable) {
+                this.popupMessage(
+                  ' La modification du service ' +
+                    service.labelService +
+                    ' est impossible car le service ' +
+                    serv.labelService +
+                    " n'est pas modifiable."
+                );
+                canChange = false;
+                return;
+              }
             }
           });
-          if (checkedIncompatibleServices.length === 0) {
-            canChange = true;
-          } else {
-            this.popupMessage(
-              ' La modification du service ' +
-                service.code +
-                ' est impossible car ses services incompatibles ' +
-                checkedIncompatibleServices.map((s) => s.code).join(', ') +
-                ' ne sont pas modifiables.'
-            );
-            canChange = false;
-            return canChange;
-          }
         }
       }
 
