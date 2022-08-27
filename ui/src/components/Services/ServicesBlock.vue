@@ -414,6 +414,7 @@ export default {
       if (elem) {
         if (Array.isArray(elem)) {
           elem.forEach((subElem) => {
+            console.log('subelem', subElem);
             if (elem.length > 1) {
               // // Gestion niveau 1 'OU'
               if (subElem !== serviceCodeDesactivated) {
@@ -427,7 +428,7 @@ export default {
               }
             } else {
               // Gestion niveau 1 'ET'
-              foundMandatoryService = elem[0].code === serviceCodeDesactivated;
+              foundMandatoryService = subElem === serviceCodeDesactivated;
             }
           });
           return foundMandatoryService && !foundAnotherMandatoryService;
@@ -547,11 +548,15 @@ export default {
         }
       } else {
         // Cas d'une désactivation de service
+
+        // Si je désactive LTE-M, NB-IoT doit être désactivé => KO
+        // Si je désactive 4G, LTE-M, doit être désactivé => KO
+
         const foundDependantServices = this.services.filter(
           (s) => s.listServiceMandatory && s.listServiceMandatory.length
         );
         let foundMandatoryService = false;
-        foundDependantServices.forEach((service) => {
+        foundDependantServices.find((service) => {
           service.listServiceMandatory.find((lsm) => {
             foundMandatoryService = this.findDependantService(lsm, payload.code);
             if (foundMandatoryService) {
