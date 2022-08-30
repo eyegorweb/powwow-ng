@@ -709,7 +709,7 @@ export default {
               }
             });
             // gestion erreur activation du service obligatoire impossible
-            if (foundMandatoryServicee) {
+            if (foundMandatoryService) {
               if (serv.checked && !serv.editable) {
                 this.popupMessage(
                   ' La modification du service ' +
