@@ -138,8 +138,9 @@ export default {
       if (this.servicesToEnable) {
         const service = this.servicesToEnable.find((s) => {
           let code = null;
+
           if (s.listServiceMandatory) {
-            code = s.listServiceMandatory.find((sm) => 'DATA' === sm);
+            code = s.listServiceMandatory.find((sm) => 'DATA' === sm[0]);
           }
           return code;
         });
