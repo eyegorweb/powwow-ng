@@ -332,6 +332,7 @@ export default {
       this.form.city = this.accountDetail.address.city;
       this.form.zipCode = this.accountDetail.address.zipCode;
       this.form.state = this.accountDetail.address.state;
+      this.form.tva = this.accountDetail.tva;
       this.form.country = this.checkCountry;
       this.form.contractDate = this.partnerDetail.party.contractDate;
       this.form.contractExpiration = this.partnerDetail.party.contractExpiration;
@@ -626,33 +627,33 @@ export default {
 </style>
 
 <style lang="scss" scoped>
-   .btnsContainer {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-  }
-  .btns {
-    border: none;
-    width: 48%;
-    border-radius: 5px;
-    padding: 10px;
-    transition: 0.3s;
+.btnsContainer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.btns {
+  border: none;
+  width: 48%;
+  border-radius: 5px;
+  padding: 10px;
+  transition: 0.3s;
 
-    &--confirm {
-      background-color: #0055a4;
-      color: white;
+  &--confirm {
+    background-color: #0055a4;
+    color: white;
 
-      &:hover {
-        background-color: #00417e;
-      }
-    }
-
-    &--cancel {
-      border: 1px solid #0055a4;
-      color: #0055a4;
-      background-color: white;
+    &:hover {
+      background-color: #00417e;
     }
   }
+
+  &--cancel {
+    border: 1px solid #0055a4;
+    color: #0055a4;
+    background-color: white;
+  }
+}
 .accountdetail-legalInfos,
 .accountdetail-contact {
   h4 {

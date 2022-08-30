@@ -461,7 +461,7 @@ export default {
       vertical-align: middle;
       text-align: center;
       font-size: 20px;
-      display: flex;
+      display: -webkit-inline-box;
       align-items: center;
       justify-content: center;
       border: 1px solid rgba(54, 56, 57, 0.125);

@@ -166,7 +166,7 @@
     "delivery": "Livraison",
     "doPayment": "Procéder au paiement",
     "validateParty": "Le partenaire doit être validé",
-    "successCreation": "Votre compte a été créé avec succès, nous allons vous redirigez vers la page de paiement.",
+    "successCreation": "Votre compte a été créé avec succès, nous allons vous rediriger vers la page de paiement.",
     "address": "Adresse de l'entreprise/raison sociale",
     "step1": {
       "company": "Nom de la société",
@@ -179,7 +179,7 @@
       "title": "Récapitulatif de la commande",
       "titleShow": "Afficher le récapitulatif de commande",
       "titleHide": "Masquer le récapitulatif de commande",
-      "successCreation1": "Votre compte a été créé avec succès, nous allons vous redirigez vers la page de paiement.",
+      "successCreation1": "Votre compte a été créé avec succès, nous allons vous rediriger vers la page de paiement.",
       "successCreation2": "Votre commande sera livrée dès réception de votre carte d’identité.",
       "onGoingCreation": "Votre compte est en cours de création.",
       "company": "Société",
