@@ -554,18 +554,16 @@ export default {
         const foundDependantServices = this.services.filter(
           (s) => s.listServiceMandatory && s.listServiceMandatory.length
         );
-        let foundMandatoryService = false,
-          anotherFoundMandatoryService = false;
+        let foundMandatoryService = false;
         foundDependantServices.forEach((service) => {
           service.listServiceMandatory.find((lsm) => {
             foundMandatoryService = this.findDependantService(lsm, payload.code);
-            anotherFoundMandatoryService = this.findMandatoryService(lsm, false);
             if (foundMandatoryService) {
               return false;
             }
           });
           // gestion erreur activation du service obligatoire impossible
-          if (foundMandatoryService || !!anotherFoundMandatoryService) {
+          if (foundMandatoryService) {
             if (service.checked && !service.editable) {
               this.handleError(payload.code);
               return false;
@@ -701,19 +699,17 @@ export default {
           const foundDependantServices = this.services.filter(
             (s) => s.listServiceMandatory && s.listServiceMandatory.length
           );
-          let foundMandatoryService = false,
-            anotherFoundMandatoryService = false;
+          let foundMandatoryService = false;
 
           foundDependantServices.forEach((serv) => {
             serv.listServiceMandatory.find((lsm) => {
               foundMandatoryService = this.findDependantService(lsm, service.code);
-              anotherFoundMandatoryService = this.findMandatoryService(lsm, false);
               if (foundMandatoryService) {
                 return false;
               }
             });
             // gestion erreur activation du service obligatoire impossible
-            if (foundMandatoryService || !!anotherFoundMandatoryService) {
+            if (foundMandatoryServicee) {
               if (serv.checked && !serv.editable) {
                 this.popupMessage(
                   ' La modification du service ' +
