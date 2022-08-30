@@ -331,9 +331,9 @@ export default {
               // this.handleError(service.code);
               this.popupMessage(
                 ' La modification du service ' +
-                  service.labelService +
+                  s.labelService +
                   ' est impossible car les services ' +
-                  service.map((s) => s.labelService).join(', ') +
+                  service.labelService +
                   ' ne sont pas modifiables.'
               );
               return;
@@ -414,7 +414,6 @@ export default {
       if (elem) {
         if (Array.isArray(elem)) {
           elem.forEach((subElem) => {
-            console.log('subelem', subElem);
             if (elem.length > 1) {
               // // Gestion niveau 1 'OU'
               if (subElem !== serviceCodeDesactivated) {
@@ -555,16 +554,18 @@ export default {
         const foundDependantServices = this.services.filter(
           (s) => s.listServiceMandatory && s.listServiceMandatory.length
         );
-        let foundMandatoryService = false;
-        foundDependantServices.find((service) => {
+        let foundMandatoryService = false,
+          anotherFoundMandatoryService = false;
+        foundDependantServices.forEach((service) => {
           service.listServiceMandatory.find((lsm) => {
             foundMandatoryService = this.findDependantService(lsm, payload.code);
+            anotherFoundMandatoryService = this.findMandatoryService(lsm, false);
             if (foundMandatoryService) {
               return false;
             }
           });
           // gestion erreur activation du service obligatoire impossible
-          if (foundMandatoryService) {
+          if (foundMandatoryService || !!anotherFoundMandatoryService) {
             if (service.checked && !service.editable) {
               this.handleError(payload.code);
               return false;
@@ -700,17 +701,19 @@ export default {
           const foundDependantServices = this.services.filter(
             (s) => s.listServiceMandatory && s.listServiceMandatory.length
           );
-          let foundMandatoryService = false;
+          let foundMandatoryService = false,
+            anotherFoundMandatoryService = false;
 
           foundDependantServices.forEach((serv) => {
             serv.listServiceMandatory.find((lsm) => {
               foundMandatoryService = this.findDependantService(lsm, service.code);
+              anotherFoundMandatoryService = this.findMandatoryService(lsm, false);
               if (foundMandatoryService) {
                 return false;
               }
             });
             // gestion erreur activation du service obligatoire impossible
-            if (foundMandatoryService) {
+            if (foundMandatoryService || !!anotherFoundMandatoryService) {
               if (serv.checked && !serv.editable) {
                 this.popupMessage(
                   ' La modification du service ' +
