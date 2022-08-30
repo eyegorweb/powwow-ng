@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1054+20220830153941
+2022-08-30
+
+### Fixes
+
+- [3420] Retours du 18/08/2022 sur l'offre digitale. (6f893caecbfd1119b660e4ef0303314c9a8925ef)
+
 ## 1.17.0-master.1053+20220830131651
 2022-08-30
 
