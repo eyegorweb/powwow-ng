@@ -309,11 +309,11 @@ export default {
             if (!foundMandatoryService) {
               foundMandatoryService = this.findMandatoryService(serv, true);
               this.popupMessage(
-                ' La modification du service ' +
-                  s.labelService +
-                  ' est impossible car le service ' +
-                  foundMandatoryService.labelService +
-                  " n'est pas modifiable."
+                'getadmin.partners.optionsDetails.services.yMustBeActiveToActivateX',
+                {
+                  serviceX: s.labelService,
+                  serviceY: foundMandatoryService.labelService,
+                }
               );
               return;
             }
@@ -330,13 +330,12 @@ export default {
           return s.listServiceIncompatible.forEach((serv) => {
             let service = this.services.find((s) => s.code === serv);
             if (!service.editable && service.checked) {
-              // this.handleError(service.code);
               this.popupMessage(
-                ' La modification du service ' +
-                  s.labelService +
-                  ' est impossible car les services ' +
-                  service.labelService +
-                  ' ne sont pas modifiables.'
+                'getadmin.partners.optionsDetails.services.yMustBeActiveToActivateX',
+                {
+                  serviceX: s.labelService,
+                  serviceY: service.labelService,
+                }
               );
               return;
             }
@@ -455,7 +454,13 @@ export default {
             // gestion erreur activation du service obligatoire impossible lancée par écoute sur le service de canChangeValue
             if (!foundMandatoryService) {
               foundMandatoryService = this.findMandatoryService(lsm, true);
-              this.handleError(foundMandatoryService.labelService);
+              this.popupMessage(
+                'getadmin.partners.optionsDetails.services.yMustBeActiveToActivateX',
+                {
+                  serviceX: payload.labelService,
+                  serviceY: foundMandatoryService.labelService,
+                }
+              );
               return;
             }
 
@@ -475,9 +480,15 @@ export default {
 
               // pour chaque service incompatible
               if (foundIncompatibleService) {
-                // gestion erreur désactivation du service incompatible impossible lancée par écoute sur le service de canChangeValue
+                // gestion erreur désactivation du service incompatible impossible
                 if (!foundIncompatibleService.editable && foundIncompatibleService.checked) {
-                  this.handleError(foundIncompatibleService.code);
+                  this.popupMessage(
+                    'getadmin.partners.optionsDetails.services.yMustBeActiveToActivateX',
+                    {
+                      serviceX: payload.labelService,
+                      serviceY: foundIncompatibleService.labelService,
+                    }
+                  );
                   return;
                 }
                 // lorsque ce service est modifiable (editable: true)
@@ -524,7 +535,13 @@ export default {
             if (foundIncompatibleService) {
               // gestion erreur désactivation du service incompatible impossible lancée par écoute sur le service de canChangeValue
               if (!foundIncompatibleService.editable && foundIncompatibleService.checked) {
-                this.handleError(foundIncompatibleService.code);
+                this.popupMessage(
+                  'getadmin.partners.optionsDetails.services.yMustBeActiveToActivateX',
+                  {
+                    serviceX: payload.labelService,
+                    serviceY: foundIncompatibleService.labelService,
+                  }
+                );
                 return;
               }
               // lorsque ce service est modifiable (editable: true)
@@ -561,11 +578,12 @@ export default {
           // gestion erreur activation du service obligatoire impossible
           if (foundMandatoryService) {
             if (service.checked && !service.editable) {
-              // this.handleError(payload.code);
               this.popupMessage(
-                ' La modification du service ' +
-                  service.labelService +
-                  " est impossible car il n'est pas modifiable."
+                'getadmin.partners.optionsDetails.services.yMustBeActiveToActivateX',
+                {
+                  serviceX: payload.labelService,
+                  serviceY: service.labelService,
+                }
               );
               return false;
             } else {
@@ -658,11 +676,11 @@ export default {
               if (!foundMandatoryService) {
                 foundMandatoryService = this.findMandatoryService(lsm, true);
                 this.popupMessage(
-                  ' La modification du service ' +
-                    service.labelService +
-                    ' est impossible car le service ' +
-                    foundMandatoryService.labelService +
-                    " n'est pas modifiable."
+                  'getadmin.partners.optionsDetails.services.yMustBeActiveToActivateX',
+                  {
+                    serviceX: service.labelService,
+                    serviceY: foundMandatoryService.labelService,
+                  }
                 );
                 canChange = false;
                 return;
@@ -685,11 +703,11 @@ export default {
             });
             if (checkedIncompatibleServices && checkedIncompatibleServices.length) {
               this.popupMessage(
-                ' La modification du service ' +
-                  service.labelService +
-                  ' est impossible car les services ' +
-                  checkedIncompatibleServices.map((s) => s.labelService).join(', ') +
-                  ' ne sont pas modifiables.'
+                'getadmin.partners.optionsDetails.services.yMustBeActiveToActivateX',
+                {
+                  serviceX: service.labelService,
+                  serviceY: checkedIncompatibleServices.map((s) => s.labelService).join(', '),
+                }
               );
               canChange = false;
             }
@@ -713,11 +731,11 @@ export default {
             if (foundMandatoryService) {
               if (serv.checked && !serv.editable) {
                 this.popupMessage(
-                  ' La modification du service ' +
-                    service.labelService +
-                    ' est impossible car le service ' +
-                    serv.labelService +
-                    " n'est pas modifiable."
+                  'getadmin.partners.optionsDetails.services.yMustBeActiveToActivateX',
+                  {
+                    serviceX: service.labelService,
+                    serviceY: serv.labelService,
+                  }
                 );
                 canChange = false;
                 return;
