@@ -34,10 +34,12 @@
             >
               <UiToggle
                 :label="service.labelService"
-                :editable="!noClick && service.editable"
+                :editable="isServiceEditable(service)"
                 :bold-label="isChanged(service)"
                 :no-click="noClick"
                 v-model="service.checked"
+                @change="checkServices(service)"
+                @click="onClick(service)"
                 :can-change-fn="
                   (value) => {
                     return canChangeValue(service, value);
