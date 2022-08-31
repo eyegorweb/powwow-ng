@@ -566,6 +566,7 @@ export default {
         );
         let foundMandatoryService = false;
         foundDependantServices.forEach((service) => {
+          foundMandatoryService = false;
           service.listServiceMandatory.find((lsm) => {
             foundMandatoryService =
               foundMandatoryService || this.findDependantService(lsm, payload.code);
@@ -621,119 +622,78 @@ export default {
 
       let canChange = true;
 
-      if (service.preServiceCode) {
-        // dependency should be active to change value here
-        const serviceThatIDependOn = this.services.find((s) => s.code === service.preServiceCode);
-        if (serviceThatIDependOn && serviceThatIDependOn.checked) {
-          canChange = true;
-        } else if (serviceThatIDependOn) {
-          this.popupMessage(
-            this.$t('getadmin.partners.optionsDetails.services.mustBeActive', {
-              service: serviceThatIDependOn.labelService,
-            })
-          );
-
-          canChange = false;
+      let foundMandatoryService = undefined;
+      if (checkValue) {
+        // Gestion des services obligatoires
+        // Activation du service
+        if (service.listServiceMandatory) {
+          // on parcourt les services obligatoires
+          service.listServiceMandatory.forEach((lsm) => {
+            foundMandatoryService = this.findMandatoryService(lsm, false);
+            if (!foundMandatoryService) {
+              foundMandatoryService = this.findMandatoryService(lsm, true);
+              this.popupMessage(
+                this.$t('getadmin.partners.optionsDetails.services.yMustBeActiveToActivateX', {
+                  serviceX: service.labelService,
+                  serviceY: foundMandatoryService.labelService,
+                })
+              );
+              canChange = false;
+              return;
+            }
+          });
         }
-      } else {
-        const servicesThatDependOnMeWithPreServiceCode = this.services.filter(
-          (s) => s.preServiceCode === service.code
-        );
-        // Cas pour le détail de la ligne (preservice code étant renseigné)
-        if (
-          servicesThatDependOnMeWithPreServiceCode &&
-          servicesThatDependOnMeWithPreServiceCode.length
-        ) {
-          const checkedServices = servicesThatDependOnMeWithPreServiceCode.filter((s) => s.checked);
-          if (checkedServices.length === 0) {
-            canChange = true;
-          } else {
+
+        // Gestion des services incompatibles
+        const foundIncompatibleServices =
+          service.listServiceIncompatible && service.listServiceIncompatible.length > 0
+            ? service.listServiceIncompatible
+            : [];
+        if (foundIncompatibleServices.length) {
+          const checkedIncompatibleServices = this.services.filter((s) => {
+            if (foundIncompatibleServices.find((ss) => ss === s.code && s.checked && !s.editable)) {
+              return s;
+            }
+          });
+          if (checkedIncompatibleServices && checkedIncompatibleServices.length) {
             this.popupMessage(
-              this.$t('getadmin.partners.optionsDetails.services.mustBeInactive', {
-                service: checkedServices[0].labelService,
+              this.$t('getadmin.partners.optionsDetails.services.yMustBeActiveToActivateX', {
+                serviceX: service.labelService,
+                serviceY: checkedIncompatibleServices.map((s) => s.labelService).join(', '),
               })
             );
             canChange = false;
           }
         }
+      } else {
+        // Désactivation du service
+        // Gestion des services obligatoires
+        const foundDependantServices = this.services.filter(
+          (s) => s.listServiceMandatory && s.listServiceMandatory.length
+        );
+        let foundMandatoryService = false;
 
-        // Cas pour les actes de gestion
-
-        let foundMandatoryService = undefined;
-        if (checkValue) {
-          // Gestion des services obligatoires
-          // Activation du service
-          if (service.listServiceMandatory) {
-            // on parcourt les services obligatoires
-            service.listServiceMandatory.forEach((lsm) => {
-              foundMandatoryService = this.findMandatoryService(lsm, false);
-              if (!foundMandatoryService) {
-                foundMandatoryService = this.findMandatoryService(lsm, true);
-                this.popupMessage(
-                  this.$t('getadmin.partners.optionsDetails.services.yMustBeActiveToActivateX', {
-                    serviceX: service.labelService,
-                    serviceY: foundMandatoryService.labelService,
-                  })
-                );
-                canChange = false;
-                return;
-              }
-            });
-          }
-
-          // Gestion des services incompatibles
-          const foundIncompatibleServices =
-            service.listServiceIncompatible && service.listServiceIncompatible.length > 0
-              ? service.listServiceIncompatible
-              : [];
-          if (foundIncompatibleServices.length) {
-            const checkedIncompatibleServices = this.services.filter((s) => {
-              if (
-                foundIncompatibleServices.find((ss) => ss === s.code && s.checked && !s.editable)
-              ) {
-                return s;
-              }
-            });
-            if (checkedIncompatibleServices && checkedIncompatibleServices.length) {
+        foundDependantServices.forEach((serv) => {
+          serv.listServiceMandatory.find((lsm) => {
+            foundMandatoryService = this.findDependantService(lsm, service.code);
+            if (foundMandatoryService) {
+              return false;
+            }
+          });
+          // gestion erreur activation du service obligatoire impossible
+          if (foundMandatoryService) {
+            if (serv.checked && !serv.editable) {
               this.popupMessage(
                 this.$t('getadmin.partners.optionsDetails.services.yMustBeActiveToActivateX', {
                   serviceX: service.labelService,
-                  serviceY: checkedIncompatibleServices.map((s) => s.labelService).join(', '),
+                  serviceY: serv.labelService,
                 })
               );
               canChange = false;
+              return;
             }
           }
-        } else {
-          // Désactivation du service
-          // Gestion des services obligatoires
-          const foundDependantServices = this.services.filter(
-            (s) => s.listServiceMandatory && s.listServiceMandatory.length
-          );
-          let foundMandatoryService = false;
-
-          foundDependantServices.forEach((serv) => {
-            serv.listServiceMandatory.find((lsm) => {
-              foundMandatoryService = this.findDependantService(lsm, service.code);
-              if (foundMandatoryService) {
-                return false;
-              }
-            });
-            // gestion erreur activation du service obligatoire impossible
-            if (foundMandatoryService) {
-              if (serv.checked && !serv.editable) {
-                this.popupMessage(
-                  this.$t('getadmin.partners.optionsDetails.services.yMustBeActiveToActivateX', {
-                    serviceX: service.labelService,
-                    serviceY: serv.labelService,
-                  })
-                );
-                canChange = false;
-                return;
-              }
-            }
-          });
-        }
+        });
       }
 
       return canChange;
