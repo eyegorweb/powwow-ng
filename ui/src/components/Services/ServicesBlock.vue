@@ -309,11 +309,10 @@ export default {
             if (!foundMandatoryService) {
               foundMandatoryService = this.findMandatoryService(serv, true);
               this.popupMessage(
-                'getadmin.partners.optionsDetails.services.yMustBeActiveToActivateX',
-                {
+                this.$t('getadmin.partners.optionsDetails.services.yMustBeActiveToActivateX', {
                   serviceX: s.labelService,
                   serviceY: foundMandatoryService.labelService,
-                }
+                })
               );
               return;
             }
@@ -331,11 +330,10 @@ export default {
             let service = this.services.find((s) => s.code === serv);
             if (!service.editable && service.checked) {
               this.popupMessage(
-                'getadmin.partners.optionsDetails.services.yMustBeActiveToActivateX',
-                {
+                this.$t('getadmin.partners.optionsDetails.services.yMustBeActiveToActivateX', {
                   serviceX: s.labelService,
                   serviceY: service.labelService,
-                }
+                })
               );
               return;
             }
@@ -455,11 +453,10 @@ export default {
             if (!foundMandatoryService) {
               foundMandatoryService = this.findMandatoryService(lsm, true);
               this.popupMessage(
-                'getadmin.partners.optionsDetails.services.yMustBeActiveToActivateX',
-                {
+                this.$t('getadmin.partners.optionsDetails.services.yMustBeActiveToActivateX', {
                   serviceX: payload.labelService,
                   serviceY: foundMandatoryService.labelService,
-                }
+                })
               );
               return;
             }
@@ -483,11 +480,10 @@ export default {
                 // gestion erreur désactivation du service incompatible impossible
                 if (!foundIncompatibleService.editable && foundIncompatibleService.checked) {
                   this.popupMessage(
-                    'getadmin.partners.optionsDetails.services.yMustBeActiveToActivateX',
-                    {
+                    this.$t('getadmin.partners.optionsDetails.services.yMustBeActiveToActivateX', {
                       serviceX: payload.labelService,
                       serviceY: foundIncompatibleService.labelService,
-                    }
+                    })
                   );
                   return;
                 }
@@ -536,11 +532,10 @@ export default {
               // gestion erreur désactivation du service incompatible impossible lancée par écoute sur le service de canChangeValue
               if (!foundIncompatibleService.editable && foundIncompatibleService.checked) {
                 this.popupMessage(
-                  'getadmin.partners.optionsDetails.services.yMustBeActiveToActivateX',
-                  {
+                  this.$t('getadmin.partners.optionsDetails.services.yMustBeActiveToActivateX', {
                     serviceX: payload.labelService,
                     serviceY: foundIncompatibleService.labelService,
-                  }
+                  })
                 );
                 return;
               }
@@ -579,11 +574,10 @@ export default {
           if (foundMandatoryService) {
             if (service.checked && !service.editable) {
               this.popupMessage(
-                'getadmin.partners.optionsDetails.services.yMustBeActiveToActivateX',
-                {
+                this.$t('getadmin.partners.optionsDetails.services.yMustBeActiveToActivateX', {
                   serviceX: payload.labelService,
                   serviceY: service.labelService,
-                }
+                })
               );
               return false;
             } else {
@@ -676,11 +670,10 @@ export default {
               if (!foundMandatoryService) {
                 foundMandatoryService = this.findMandatoryService(lsm, true);
                 this.popupMessage(
-                  'getadmin.partners.optionsDetails.services.yMustBeActiveToActivateX',
-                  {
+                  this.$t('getadmin.partners.optionsDetails.services.yMustBeActiveToActivateX', {
                     serviceX: service.labelService,
                     serviceY: foundMandatoryService.labelService,
-                  }
+                  })
                 );
                 canChange = false;
                 return;
@@ -703,11 +696,10 @@ export default {
             });
             if (checkedIncompatibleServices && checkedIncompatibleServices.length) {
               this.popupMessage(
-                'getadmin.partners.optionsDetails.services.yMustBeActiveToActivateX',
-                {
+                this.$t('getadmin.partners.optionsDetails.services.yMustBeActiveToActivateX', {
                   serviceX: service.labelService,
                   serviceY: checkedIncompatibleServices.map((s) => s.labelService).join(', '),
-                }
+                })
               );
               canChange = false;
             }
@@ -731,11 +723,10 @@ export default {
             if (foundMandatoryService) {
               if (serv.checked && !serv.editable) {
                 this.popupMessage(
-                  'getadmin.partners.optionsDetails.services.yMustBeActiveToActivateX',
-                  {
+                  this.$t('getadmin.partners.optionsDetails.services.yMustBeActiveToActivateX', {
                     serviceX: service.labelService,
                     serviceY: serv.labelService,
-                  }
+                  })
                 );
                 canChange = false;
                 return;
