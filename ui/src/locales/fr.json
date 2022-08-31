@@ -1050,8 +1050,8 @@
         "services": {
           "mustBeActive": "le service ' {service} ' doit être activé ",
           "mustBeInactive": "le service ' {service} ' doit être désactivé ",
-          "yMustBeActiveToActivateX": "Le service ' {serviceX} ' ne peut pas être activé car le service ' {serviceY} ' n'est pas modifiable ",
-          "offerMissingServiceToActivateX": "Le service ' {serviceX} ' ne peut pas être activé car le service code' {serviceY} ' est indisponible, merci de contacter le support ",
+          "yMustBeActiveToActivateX": "Le service ' {serviceX} ' ne peut pas être modifié car le service ' {serviceY} ' n'est pas modifiable ",
+          "offerMissingServiceToActivateX": "Le service ' {serviceX} ' ne peut pas être modifié car le service code' {serviceY} ' est indisponible, merci de contacter le support ",
           "labels": {
             "SECU_RESIL": "Sécurisation des résiliations",
             "COMPAT_OTA": "Compatibilité OTA",

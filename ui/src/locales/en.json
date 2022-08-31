@@ -960,8 +960,8 @@
         "services": {
           "mustBeActive": "Service ' {service} ' must be activated ",
           "mustBeInactive": "Service ' {service} ' must not be activated ",
-          "yMustBeActiveToActivateX": "Service ' {serviceX} ' can not be activated because service ' {serviceY} ' is not editable ",
-          "offerMissingServiceToActivateX": "Service ' {serviceX} ' can not be activated because service code' {serviceY} ' is unavailable. Please contact Wholesale support ",
+          "yMustBeActiveToActivateX": "Service ' {serviceX} ' can not be edited because service ' {serviceY} ' is not editable ",
+          "offerMissingServiceToActivateX": "Service ' {serviceX} ' can not be edited because service code' {serviceY} ' is unavailable. Please contact Wholesale support ",
           "labels": {
             "SECU_RESIL": "Securing of terminations",
             "COMPAT_OTA": "OTA compatibility",
