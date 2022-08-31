@@ -547,25 +547,24 @@ export default {
         }
       } else {
         // Cas d'une désactivation de service
-
-        // Si je désactive LTE-M, NB-IoT doit être désactivé => KO
-        // Si je désactive 4G, LTE-M, doit être désactivé => KO
-
         const foundDependantServices = this.services.filter(
           (s) => s.listServiceMandatory && s.listServiceMandatory.length
         );
         let foundMandatoryService = false;
         foundDependantServices.forEach((service) => {
           service.listServiceMandatory.find((lsm) => {
-            foundMandatoryService = this.findDependantService(lsm, payload.code);
-            if (foundMandatoryService) {
-              return false;
-            }
+            foundMandatoryService =
+              foundMandatoryService || this.findDependantService(lsm, payload.code);
           });
           // gestion erreur activation du service obligatoire impossible
           if (foundMandatoryService) {
             if (service.checked && !service.editable) {
-              this.handleError(payload.code);
+              // this.handleError(payload.code);
+              this.popupMessage(
+                ' La modification du service ' +
+                  service.labelService +
+                  " est impossible car il n'est pas modifiable."
+              );
               return false;
             } else {
               service.checked = false;
