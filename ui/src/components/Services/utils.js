@@ -35,6 +35,7 @@ function formatServices(s) {
     managed: false,
     // Utilisé si un service à été ajouté à la suppression
     addedToDisable: false,
+    barring: s.barring,
   };
   if (s.code === 'DATA') {
     service.parameters = s.parameters
