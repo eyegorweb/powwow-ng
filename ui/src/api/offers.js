@@ -110,6 +110,7 @@ export async function fetchOffers2(filters, pagination, sorting) {
             type
             serviceMandatory
             serviceIncompatible
+            barring
             parameters {
               activated
               name
@@ -232,6 +233,7 @@ export async function fetchOffers(
             type
             serviceMandatory
             serviceIncompatible
+            barring
             parameters {
               activated
               name
@@ -469,6 +471,7 @@ async function fetchOfferGroupByParams(params) {
             optional
             serviceMandatory
             serviceIncompatible
+            barring
             parameters {
               activated
               name

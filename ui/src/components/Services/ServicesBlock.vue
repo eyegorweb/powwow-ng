@@ -328,7 +328,11 @@ export default {
         activatedServicesWithIncompatibleServices.forEach((s) => {
           return s.listServiceIncompatible.forEach((serv) => {
             let service = this.services.find((s) => s.code === serv);
-            if (!service.editable && service.checked) {
+            // Activation
+            if (
+              !service.editable &&
+              ((service.checked && !service.barring) || (!service.checked && service.barring))
+            ) {
               this.popupMessage(
                 this.$t('getadmin.partners.optionsDetails.services.yMustBeActiveToActivateX', {
                   serviceX: s.labelService,
@@ -338,8 +342,9 @@ export default {
               return;
             }
             if (service) {
-              service.checked = false;
+              service.checked = service.barring;
             }
+
             return service;
           });
         });
@@ -357,7 +362,7 @@ export default {
 
     manageNbIoTDisplay() {
       const ltemService = this.services.find((s) => s.code === 'LTE-M');
-      const nbiotService = this.services.find((s) => s.code === 'NB-IoT');
+      let nbiotService = this.services.find((s) => s.code === 'NB-IoT');
       const initialNbiotService = this.defaultServices.find((s) => s.code === 'NB-IoT');
       if (ltemService && nbiotService) {
         // Si ltem est non activé
@@ -378,6 +383,19 @@ export default {
               nbiotService.checked = true;
             }
           }
+        }
+      }
+    },
+
+    handleNbIoT(service) {
+      if (service.code === 'LTE-M') {
+        let nbiotService = this.services.find((s) => s.code === 'NB-IoT');
+        if (!service.checked && nbiotService.checked) {
+          nbiotService.checked = false;
+        } else if (service.checked && !nbiotService.editable) {
+          // Si le service NbIoT n'est pas éditable, dans ce cas là on active NbIoT lorsqu'on active LTE-M
+          const initialNbiotService = this.defaultServices.find((s) => s.code === 'NB-IoT');
+          nbiotService.checked = initialNbiotService.checked;
         }
       }
     },
@@ -441,6 +459,7 @@ export default {
      */
     setupDependencies(payload) {
       payload.isClicked = true;
+      this.handleNbIoT(payload);
       // Cas d'une activation de service
       if (payload.checked) {
         // Traitement des services obligatoires
@@ -463,6 +482,7 @@ export default {
 
             // activer (checked: true) ces services
             foundMandatoryService.checked = true;
+            this.handleNbIoT(foundMandatoryService);
             foundMandatoryService.isClicked = false;
 
             // Désactiver les services incompatibles des services activés automatiquement
@@ -490,6 +510,7 @@ export default {
                 // lorsque ce service est modifiable (editable: true)
                 // désactiver (checked: false) ces services
                 foundIncompatibleService.checked = false;
+                this.handleNbIoT(foundIncompatibleService);
                 foundIncompatibleService.isClicked = false;
                 // Le service DATA est isolé des autres services
                 // Il faut vérifier s'il fait partie des services incompatibles pour autant
@@ -529,8 +550,12 @@ export default {
             let foundIncompatibleService = this.services.find((serv) => serv.code === lsi);
             // pour chaque service incompatible
             if (foundIncompatibleService) {
-              // gestion erreur désactivation du service incompatible impossible lancée par écoute sur le service de canChangeValue
-              if (!foundIncompatibleService.editable && foundIncompatibleService.checked) {
+              // gestion erreur désactivation du service incompatible impossible
+              if (
+                !foundIncompatibleService.editable &&
+                ((foundIncompatibleService.checked && !foundIncompatibleService.barring) ||
+                  (!foundIncompatibleService.checked && foundIncompatibleService.barring))
+              ) {
                 this.popupMessage(
                   this.$t('getadmin.partners.optionsDetails.services.yMustBeActiveToActivateX', {
                     serviceX: payload.labelService,
@@ -541,7 +566,8 @@ export default {
               }
               // lorsque ce service est modifiable (editable: true)
               // désactiver (checked: false) ces services
-              foundIncompatibleService.checked = false;
+              foundIncompatibleService.checked = foundIncompatibleService.barring;
+              this.handleNbIoT(foundIncompatibleService);
               foundIncompatibleService.isClicked = false;
               // Le service DATA est isolé des autres services
               // Il faut vérifier s'il fait partie des services incompatibles pour autant
@@ -560,12 +586,14 @@ export default {
           });
         }
       } else {
-        // Cas d'une désactivation de service
+        // Cas d'une désactivation
+        // Gestion des services dépendants
         const foundDependantServices = this.services.filter(
           (s) => s.listServiceMandatory && s.listServiceMandatory.length
         );
         let foundMandatoryService = false;
         foundDependantServices.forEach((service) => {
+          foundMandatoryService = false;
           foundMandatoryService = false;
           service.listServiceMandatory.find((lsm) => {
             foundMandatoryService =
@@ -583,12 +611,40 @@ export default {
               return false;
             } else {
               service.checked = false;
+              this.handleNbIoT(service);
             }
           }
         });
+
+        // Gestion des services incompatibles des services barring de la matrice
+        if (payload.barring) {
+          const foundServiceWithIncompatibleServices = this.services.filter(
+            (s) => s.listServiceIncompatible && s.listServiceIncompatible.length
+          );
+          let foundIncompatibleService = false;
+          foundServiceWithIncompatibleServices.forEach((service) => {
+            foundIncompatibleService = !!service.listServiceIncompatible.find((lsi) => {
+              return lsi === payload.code;
+            });
+            // gestion erreur activation du service obligatoire impossible
+            if (foundIncompatibleService) {
+              if (service.checked && !service.editable) {
+                this.popupMessage(
+                  this.$t('getadmin.partners.optionsDetails.services.yMustBeActiveToActivateX', {
+                    serviceX: payload.labelService,
+                    serviceY: service.labelService,
+                  })
+                );
+                return false;
+              } else {
+                service.checked = false;
+                this.handleNbIoT(service);
+              }
+            }
+          });
+        }
       }
 
-      this.manageNbIoTDisplay();
     },
 
     checkServices(service) {
@@ -651,7 +707,7 @@ export default {
             : [];
         if (foundIncompatibleServices.length) {
           const checkedIncompatibleServices = this.services.filter((s) => {
-            if (foundIncompatibleServices.find((ss) => ss === s.code && s.checked && !s.editable)) {
+            if (foundIncompatibleServices.find((ss) => ss === s.code && !s.editable && ((s.checked && !s.barring) || (!s.checked && s.barring)))) {
               return s;
             }
           });
@@ -694,6 +750,33 @@ export default {
             }
           }
         });
+
+        // gestion des services incompatibles
+        if (service.barring) {
+          const foundServiceWithIncompatibleServices = this.services.filter(
+            (s) => s.listServiceIncompatible && s.listServiceIncompatible.length
+          );
+          let foundIncompatibleService = false;
+          foundServiceWithIncompatibleServices.forEach((serv) => {
+            foundIncompatibleService = !!serv.listServiceIncompatible.find((lsi) => {
+              return lsi === service.code;
+            });
+            // gestion erreur activation du service obligatoire impossible
+            if (foundIncompatibleService) {
+              if (serv.checked && !serv.editable) {
+                this.popupMessage(
+                  this.$t('getadmin.partners.optionsDetails.services.yMustBeActiveToActivateX', {
+                    serviceX: service.labelService,
+                    serviceY: serv.labelService,
+                  })
+                );
+                return false;
+              } else {
+                serv.checked = false;
+              }
+            }
+          });
+        }
       }
 
       return canChange;
@@ -770,8 +853,6 @@ export default {
     );
     this.listServiceIncompatible = this.defaultServices.filter((s) => !!s.listServiceIncompatible);
     this.defaultDataService = cloneDeep(this.initialServices.find((s) => s.code === 'DATA'));
-
-    this.displayServices();
   },
 };
 </script>

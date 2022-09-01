@@ -109,7 +109,7 @@ import { getPartyOptions } from '@/api/partners';
 import { formatBackErrors } from '@/utils/errors';
 
 import cloneDeep from 'lodash.clonedeep';
-import differencewith from 'lodash.differencewith';
+// import differencewith from 'lodash.differencewith';
 
 export default {
   components: {
@@ -192,18 +192,18 @@ export default {
       });
     },
     // Services activés à l'initialisation
-    listActivatedServices() {
-      if (!this.offerServices) return [];
-      const initialActivatedServices = this.offerServices
-        .filter((s) => s.checked)
-        .map((s) => s.code);
-      const unClickedServicesForActivation = this.changedServices.filter((cs) => !cs.isClicked);
-      return differencewith(
-        initialActivatedServices,
-        unClickedServicesForActivation,
-        (a, b) => a === b.code
-      );
-    },
+    // listActivatedServices() {
+    //   if (!this.offerServices) return [];
+    //   const initialActivatedServices = this.offerServices
+    //     .filter((s) => s.checked)
+    //     .map((s) => s.code);
+    //   const unClickedServicesForActivation = this.changedServices.filter((cs) => !cs.isClicked);
+    //   return differencewith(
+    //     initialActivatedServices,
+    //     unClickedServicesForActivation,
+    //     (a, b) => a === b.code
+    //   );
+    // },
     // Services activés automatiquement
     listAutoServiceMandatory() {
       if (!this.changedServices) return [];
@@ -216,27 +216,18 @@ export default {
     },
     warningMessage() {
       let list = '',
-        newLine1 = '',
-        newLine2 = '';
+        newLine = '';
       let message = '';
-      if (this.listActivatedServices.length > 0) {
-        list += `${this.$t('services.listServiceMandatory')}: ${this.listActivatedServices
-          .map((s) => s)
-          .join(',')}`;
-      }
       if (this.listAutoServiceMandatory.length > 0) {
-        if (this.listActivatedServices.length) {
-          newLine1 = '<br />';
-        }
-        list += `${newLine1}${this.$t(
+        list += `${this.$t(
           'services.listAutoServiceMandatory'
         )}: ${this.listAutoServiceMandatory.map((s) => s).join(',')}`;
       }
       if (this.listAutoServiceIncompatible.length > 0) {
-        if (this.listAutoServiceIncompatible.length) {
-          newLine2 = '<br />';
+        if (this.listAutoServiceMandatory.length) {
+          newLine = '<br />';
         }
-        list += `${newLine2}${this.$t(
+        list += `${newLine}${this.$t(
           'services.listAutoServiceIncompatible'
         )}: ${this.listAutoServiceIncompatible.map((s) => s).join(',')}`;
       }

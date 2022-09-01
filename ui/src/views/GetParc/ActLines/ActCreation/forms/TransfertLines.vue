@@ -92,7 +92,7 @@ import { searchLineById } from '@/api/linesActions';
 import { getMarketingOfferServices } from '@/components/Services/utils.js';
 import { formatBackErrors } from '@/utils/errors';
 import cloneDeep from 'lodash.clonedeep';
-import differencewith from 'lodash.differencewith';
+// import differencewith from 'lodash.differencewith';
 
 export default {
   components: {
@@ -155,18 +155,18 @@ export default {
       });
     },
     // Services activés à l'initialisation
-    listActivatedServices() {
-      if (!this.offerServices) return [];
-      const initialActivatedServices = this.offerServices
-        .filter((s) => s.checked)
-        .map((s) => s.code);
-      const unClickedServicesForActivation = this.changedServices.filter((cs) => !cs.isClicked);
-      return differencewith(
-        initialActivatedServices,
-        unClickedServicesForActivation,
-        (a, b) => a === b.code
-      );
-    },
+    // listActivatedServices() {
+    //   if (!this.offerServices) return [];
+    //   const initialActivatedServices = this.offerServices
+    //     .filter((s) => s.checked)
+    //     .map((s) => s.code);
+    //   const unClickedServicesForActivation = this.changedServices.filter((cs) => !cs.isClicked);
+    //   return differencewith(
+    //     initialActivatedServices,
+    //     unClickedServicesForActivation,
+    //     (a, b) => a === b.code
+    //   );
+    // },
     // Services activés automatiquement
     listAutoServiceMandatory() {
       if (!this.changedServices) return [];
@@ -178,27 +178,26 @@ export default {
       return this.changedServices.filter((s) => !s.checked && !s.isClicked).map((s) => s.code);
     },
     warningMessage() {
-      let list = '';
+      let list = '',
+        newLine = '';
       let message = '';
-      if (this.listActivatedServices.length > 0) {
-        list += `${this.$t('services.listServiceMandatory')}: ${this.listActivatedServices
-          .map((s) => s)
-          .join(',')}`;
-      }
       if (this.listAutoServiceMandatory.length > 0) {
-        list += `<br />${this.$t(
+        list += `${this.$t(
           'services.listAutoServiceMandatory'
         )}: ${this.listAutoServiceMandatory.map((s) => s).join(',')}`;
       }
       if (this.listAutoServiceIncompatible.length > 0) {
-        list += `<br />${this.$t(
+        if (this.listAutoServiceMandatory.length) {
+          newLine = '<br />';
+        }
+        list += `${newLine}${this.$t(
           'services.listAutoServiceIncompatible'
         )}: ${this.listAutoServiceIncompatible.map((s) => s).join(',')}`;
       }
       if (!list) {
-        message = `${this.$t('getparc.actCreation.selectOffer.confirmationWarning')}`;
+        message = `${this.$t('getparc.actCreation.preactivateActivate.confirmAction')}`;
       } else {
-        message = `${this.$t('getparc.actCreation.selectOffer.confirmationWarningList', {
+        message = `${this.$t('getparc.actCreation.preactivateActivate.confirmationWarning', {
           list,
         })}`;
       }

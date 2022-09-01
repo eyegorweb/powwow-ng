@@ -129,6 +129,7 @@ export async function searchOrders(orderBy, pagination, filters = []) {
           activationDate
           serviceMandatory
           serviceIncompatible
+          barring
           parameters {
             name
             activated
