@@ -34,20 +34,32 @@
               {{ $t('bills.amount') }}
             </h6>
             <p class="text-right">
-              {{ formatCurrency($loGet(formattedPrice[1], 'value.content')) * $loGet(formattedPrice[0], 'value.content', '-')}} €
+              {{
+                formatCurrency($loGet(formattedPrice[1], 'value.content')) *
+                  $loGet(formattedPrice[0], 'value.content', '-')
+              }}
+              €
             </p>
           </div>
         </div>
         <div class="synthesis-item table-price d-flex flex-row">
           <div style="flex-basis: 33%" v-if="$loGet(formattedPrice[0], 'label')">
-            <p>{{ $loGet(formattedPrice[0], 'value.content', '-') }} {{ $t('digitalOffer.synthesis.topup') }}</p>
-          </div> 
+            <p>
+              {{ $loGet(formattedPrice[0], 'value.content', '-') }}
+              {{ $t('digitalOffer.synthesis.topup') }}
+            </p>
+          </div>
           <div v-if="$loGet(formattedPrice[1], 'label')" style="flex-basis: 33%">
             <p class="text-right">{{ formatCurrency(formattedOfferPackagePrice) }} €</p>
           </div>
           <div style="flex-basis: 33%">
             <p class="text-right">
-              {{ formatCurrency(formattedOfferPackagePrice *  $loGet(formattedPrice[0], 'value.content', '-'))}} €
+              {{
+                formatCurrency(
+                  formattedOfferPackagePrice * $loGet(formattedPrice[0], 'value.content', '-')
+                )
+              }}
+              €
             </p>
           </div>
         </div>
@@ -187,7 +199,13 @@ export default {
         });
       }
       if (this.userInfos.type === 'PARTNER') {
-        const civility = `${this.$t('common.' + this.$loGet(this.partnerInfo, 'party.mainAdministrator.name.title', ''))} ${this.$loGet(this.partnerInfo, 'party.mainAdministrator.name.lastName', '')} ${this.$loGet(this.partnerInfo, 'party.mainAdministrator.name.firstName', '')}`;
+        const civility = `${this.$t(
+          'common.' + this.$loGet(this.partnerInfo, 'party.mainAdministrator.name.title', '')
+        )} ${this.$loGet(
+          this.partnerInfo,
+          'party.mainAdministrator.name.lastName',
+          ''
+        )} ${this.$loGet(this.partnerInfo, 'party.mainAdministrator.name.firstName', '')}`;
         const assembledCityAddress = `${this.$loGet(
           this.partnerInfo,
           'party.mainAdministrator.address.zipCode',
@@ -200,7 +218,11 @@ export default {
               civility,
               `${this.$loGet(this.partnerInfo, 'party.mainAdministrator.address.address1', '-')}`,
               assembledCityAddress,
-              `${this.$loGet(this.partnerInfo, 'party.mainAdministrator.address.countryName', '-')}`,
+              `${this.$loGet(
+                this.partnerInfo,
+                'party.mainAdministrator.address.countryName',
+                '-'
+              )}`,
             ],
           },
         });
@@ -208,8 +230,16 @@ export default {
           label: 'digitalOffer.synthesis.contact',
           value: {
             content: [
-              `${this.$loGet(this.partnerInfo, 'party.mainAdministrator.contactInformation.email', '-')}`,
-              `${this.$loGet(this.partnerInfo, 'party.mainAdministrator.contactInformation.phone', '-')}`,
+              `${this.$loGet(
+                this.partnerInfo,
+                'party.mainAdministrator.contactInformation.email',
+                '-'
+              )}`,
+              `${this.$loGet(
+                this.partnerInfo,
+                'party.mainAdministrator.contactInformation.phone',
+                '-'
+              )}`,
             ],
           },
         });
@@ -413,11 +443,10 @@ export default {
     },
 
     TotalDiscountHT() {
-      if(this.synthesis && this.synthesis.discount) {
-        return this.totalHT - this.synthesis.discount
-      }
-      else {
-        return this.totalHT
+      if (this.synthesis && this.synthesis.discount) {
+        return this.totalHT - this.synthesis.discount;
+      } else {
+        return this.totalHT;
       }
     },
 

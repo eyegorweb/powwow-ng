@@ -132,6 +132,7 @@ export default {
     ...mapGetters('actLines', ['linesActionsResponse', 'appliedFilters', 'linePage', 'isLoading']),
     ...mapState('actLines', ['limitPerPage', 'apiError']),
     ...mapGetters([
+      'userIsBO',
       'userIsPartner',
       'userInfos',
       'userName',
@@ -193,18 +194,28 @@ export default {
         {
           id: 'CLASSIC',
           label: 'exportTable.classic',
+          disabled: false,
         },
         {
           id: 'FULL',
           label: 'exportTable.complete',
+          disabled: false,
         },
         {
           id: 'CONSUMPTION',
           label: 'exportTable.inProgress',
+          disabled: !this.isPartnerSelected,
         },
       ];
 
       return exportChoices;
+    },
+
+    isPartnerSelected() {
+      return (
+        (this.userIsBO && !!this.appliedFilters.find((f) => f.id === 'filters.partners')) ||
+        this.userIsPartner
+      );
     },
 
     otherExportChoices() {
@@ -361,6 +372,19 @@ export default {
           if (haveExportEmptyError) {
             return this.$t('exportEmpty');
           }
+          const haveIDPartnerError = formattedErrors[0].errorKeys.find(
+            (e) => e === 'idParty.Required'
+          );
+          if (haveIDPartnerError) {
+            return `${this.$t('getparc.actCreation.report.errors.partyId.idParty')}`;
+          }
+          const havePartnerNotAllowed = formattedErrors[0].errorKeys.find(
+            (e) => e === 'idParty.NotAllowed'
+          );
+          if (havePartnerNotAllowed) {
+            return `${this.$t('getparc.actCreation.report.errors.partyId.notAllowed')}`;
+          }
+
           return this.$t('exportError');
         }
       };

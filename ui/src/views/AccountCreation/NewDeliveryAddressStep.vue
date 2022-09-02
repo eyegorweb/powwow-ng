@@ -302,7 +302,6 @@ export default {
   }
 }
 
-
 @media screen and (min-height: 769px) {
   .form-container {
     div.form-content {

@@ -329,12 +329,11 @@ export default {
   display: flex;
   flex-direction: column;
   div.form-content {
-    flex: 1;    
+    flex: 1;
     padding-left: 5px;
     padding-right: 5px;
   }
 }
-
 
 @media screen and (min-height: 769px) {
   .form-container {

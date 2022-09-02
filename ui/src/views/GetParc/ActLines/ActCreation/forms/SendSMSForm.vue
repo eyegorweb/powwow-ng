@@ -136,7 +136,13 @@ export default {
         : false;
     },
     canSend() {
-      return (this.acceptConditions && this.shortCodes && this.shortCodes.length > 0) && this.selectedShortCode && this.selectedShortCode.highlighted;
+      return (
+        this.acceptConditions &&
+        this.shortCodes &&
+        this.shortCodes.length > 0 &&
+        this.selectedShortCode &&
+        this.selectedShortCode.highlighted
+      );
     },
   },
   data() {
@@ -227,7 +233,9 @@ export default {
       let partnerId = get(this.userInfos, 'partners[0].id');
 
       if (!this.userIsPartner) {
-        partnerId = this.$loGet(this.singleLineFound, 'party.id') || this.$loGet(this.actCreationPrerequisites, 'partner.id');;
+        partnerId =
+          this.$loGet(this.singleLineFound, 'party.id') ||
+          this.$loGet(this.actCreationPrerequisites, 'partner.id');
       }
 
       return fetchShortCodes(partnerId);

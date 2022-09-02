@@ -8,10 +8,9 @@
             <ul>
               <li :key="'event_' + ev.id" v-for="ev in eventsToShow">
                 <span class="date">{{ ev.messageDate }}</span>
-                <span
-                  :class="{ 'm-warning': ev.type === 'EVENT', 'm-info': ev.type === 'INFO' }"
-                  >{{ ev.message }}</span
-                >
+                <span :class="{ 'm-warning': ev.type === 'EVENT', 'm-info': ev.type === 'INFO' }">{{
+                  ev.message
+                }}</span>
               </li>
             </ul>
           </div>

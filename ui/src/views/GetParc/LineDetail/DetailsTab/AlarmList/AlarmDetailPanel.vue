@@ -64,7 +64,10 @@ export default {
 
   async mounted() {
     this.isLoading = true;
-    const triggerHistory = await fetchTriggerHistory(this.content.alarm.id, (this.content.sim.simCardInstanceId || this.content.sim.id));
+    const triggerHistory = await fetchTriggerHistory(
+      this.content.alarm.id,
+      this.content.sim.simCardInstanceId || this.content.sim.id
+    );
     this.isLoading = false;
 
     if (triggerHistory) {

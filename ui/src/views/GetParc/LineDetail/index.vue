@@ -274,15 +274,17 @@ export default {
               permission: { domain: 'act', action: 'manage_main' },
             },
           ];
-          if((this.userIsAdmin() || this.userIsBO) && this.$loGet(this.lineData, 'party.partyType') !== 'MULTI_CUSTOMER') {
-            preCarouselItems.splice(3, 0,
-            {
+          if (
+            (this.userIsAdmin() || this.userIsBO) &&
+            this.$loGet(this.lineData, 'party.partyType') !== 'MULTI_CUSTOMER'
+          ) {
+            preCarouselItems.splice(3, 0, {
               icon: 'ic-Wallet-Icon',
               title: 'getparc.actCreation.carouselItem.lineDetail.CHANGE_CF',
               selected: false,
               permission: { domain: 'act', action: 'transfer_customer_account' },
               hideForMultiCustomer: true,
-            },)
+            });
           }
           this.carouselItems = excludeMocked(preCarouselItems)
             .filter((i) => {

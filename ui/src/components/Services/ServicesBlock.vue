@@ -644,7 +644,6 @@ export default {
           });
         }
       }
-
     },
 
     checkServices(service) {
@@ -707,7 +706,14 @@ export default {
             : [];
         if (foundIncompatibleServices.length) {
           const checkedIncompatibleServices = this.services.filter((s) => {
-            if (foundIncompatibleServices.find((ss) => ss === s.code && !s.editable && ((s.checked && !s.barring) || (!s.checked && s.barring)))) {
+            if (
+              foundIncompatibleServices.find(
+                (ss) =>
+                  ss === s.code &&
+                  !s.editable &&
+                  ((s.checked && !s.barring) || (!s.checked && s.barring))
+              )
+            ) {
               return s;
             }
           });

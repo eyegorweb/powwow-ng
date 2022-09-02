@@ -222,7 +222,7 @@ export default {
         }
         if (f === 'country') {
           if (typeof this.form.country === 'object') {
-            console.log(!this.form.country.label)
+            console.log(!this.form.country.label);
             return !this.form.country.label;
           }
         }

@@ -12,7 +12,11 @@
         v-for="item in values"
         :key="item.id"
         @click="chosenValue = item"
-        :class="{ active: item === chosenValue, disabled: disabled && item !== chosenValue, greenActive: item === chosenValue && greenActive }"
+        :class="{
+          active: item === chosenValue,
+          disabled: (disabled && item !== chosenValue) || item.disabled,
+          greenActive: item === chosenValue && greenActive,
+        }"
         :disabled="disabled"
       >
         <template v-if="noTranslation">
