@@ -26,7 +26,7 @@
             :init-value="searchByCFValue"
             :place-holder="'searchByCFPartner'"
           />
-      </template>
+        </template>
       </DataTable>
     </div>
   </div>
@@ -123,7 +123,10 @@ export default {
 
   methods: {
     searchByCF(params) {
-      this.applyFilters({pagination: {page: 0, limit: 20}, filters: [{id: 'getadmin.cf.filters.multiSearch', value: params}]});
+      this.applyFilters({
+        pagination: { page: 0, limit: 20 },
+        filters: [{ id: 'getadmin.cf.filters.multiSearch', value: params }],
+      });
     },
 
     resetFilters() {

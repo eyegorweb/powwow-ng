@@ -53,9 +53,9 @@ describe(`LinesTable : Options d'export`, () => {
     storeParams.getters.havePermission.mockReturnValueOnce(true);
     expect(wrapper.vm.exportChoices).toEqual(
       expect.arrayContaining([
-        { id: 'CLASSIC', label: 'exportTable.classic' },
-        { id: 'FULL', label: 'exportTable.complete' },
-        { id: 'CONSUMPTION', label: 'exportTable.inProgress' },
+        { id: 'CLASSIC', label: 'exportTable.classic', disabled: false },
+        { id: 'FULL', label: 'exportTable.complete', disabled: false },
+        { id: 'CONSUMPTION', label: 'exportTable.inProgress', disabled: true },
       ])
     );
   });
@@ -64,8 +64,8 @@ describe(`LinesTable : Options d'export`, () => {
     storeParams.getters.havePermission.mockReturnValueOnce(false);
     expect(wrapper.vm.exportChoices).toEqual(
       expect.arrayContaining([
-        { id: 'CLASSIC', label: 'exportTable.classic' },
-        { id: 'FULL', label: 'exportTable.complete' },
+        { id: 'CLASSIC', label: 'exportTable.classic', disabled: false },
+        { id: 'FULL', label: 'exportTable.complete', disabled: false },
       ])
     );
   });

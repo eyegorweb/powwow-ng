@@ -52,8 +52,8 @@ export default {
     ...mapGetters(['userIsBO']),
 
     partyTypeMC() {
-      return ((this.userIsBO || this.userIsAdmin()) && this.actIsCf)
-    }
+      return (this.userIsBO || this.userIsAdmin()) && this.actIsCf;
+    },
   },
   mounted() {
     if (this.initialParnter) {
@@ -73,11 +73,13 @@ export default {
     ) {
       this.limitedPartnersToSelectFrom = [...this.selectedPartnersValues];
 
-      if (this.limitedPartnersToSelectFrom.length === 1 && this.limitedPartnersToSelectFrom[0].partyType !== 'MULTI_CUSTOMER') {
+      if (
+        this.limitedPartnersToSelectFrom.length === 1 &&
+        this.limitedPartnersToSelectFrom[0].partyType !== 'MULTI_CUSTOMER'
+      ) {
         this.selectedPartner = this.limitedPartnersToSelectFrom[0];
         this.$emit('setAndSearch', this.selectedPartner);
-      }
-      else {
+      } else {
         this.limitedPartnersToSelectFrom = undefined;
       }
     } else {
@@ -112,7 +114,6 @@ export default {
           esim: this.esim,
           haveLvOffers: this.haveLvOffers,
           partyTypeMC: this.partyTypeMC,
-          
         });
         return data.map((p) => ({
           id: p.id,

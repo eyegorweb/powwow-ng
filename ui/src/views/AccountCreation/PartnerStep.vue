@@ -57,7 +57,7 @@
             v-model="form.firstName"
             :max-size="100"
             :class="{ error: firstNameError && !form.firstName }"
-            :required="firstNameError && !form.firstName "
+            :required="firstNameError && !form.firstName"
           />
         </div>
       </div>
@@ -95,14 +95,14 @@
             :max-size="50"
             v-model="form.company"
             :error="businessErrors['PARTY_NAME_ALREADY_EXIST'] || companyInputError"
-            :class="{ error: companyError && !form.company}"
+            :class="{ error: companyError && !form.company }"
             :required="companyError && !form.company"
           />
         </div>
       </div>
 
       <div class="entries-line">
-        <div class="form-group" :class="{ error: siretNumberError && !form.siretValue}">
+        <div class="form-group" :class="{ error: siretNumberError && !form.siretValue }">
           <FormControl
             v-model="form.siretValue"
             label="siret-number"
@@ -118,7 +118,7 @@
             {{ $t('errors.maxlength') }}
           </span>
         </div>
-        <div class="form-group" :class="{ error: tvaNumberError && !form.tvaValue}">
+        <div class="form-group" :class="{ error: tvaNumberError && !form.tvaValue }">
           <FormControl
             v-model="form.tvaValue"
             label="tva-number"
@@ -149,7 +149,7 @@
             label="orders.new.deliveryStep.form.zipcode"
             v-model="form.zipCode"
             :max-size="15"
-            :class="{ error: zipCodeError && !form.zipCode}"
+            :class="{ error: zipCodeError && !form.zipCode }"
             :required="zipCodeError && !form.zipCode"
           />
         </div>
@@ -158,7 +158,7 @@
             label="filters.city"
             v-model="form.city"
             :max-size="50"
-            :class="{ error: cityError && !form.city}"
+            :class="{ error: cityError && !form.city }"
             :required="cityError && !form.city"
           />
         </div>
@@ -172,7 +172,7 @@
                 v-model="form.country"
                 display-results-while-empty
                 :required="countryError && !form.country"
-                :class="{ error: countryError && !form.country}"
+                :class="{ error: countryError && !form.country }"
               />
             </div>
           </div>
@@ -396,11 +396,10 @@ export default {
     },
     checkFieldFormError(field) {
       return !!Object.keys(this.form).find((key) => {
-        if(key === 'country') {
-          return key === field && !this.form[key].label
-        }
-        else {
-          return key === field && !this.form[key]
+        if (key === 'country') {
+          return key === field && !this.form[key].label;
+        } else {
+          return key === field && !this.form[key];
         }
       });
     },
@@ -501,15 +500,15 @@ export default {
 
   watch: {
     // 'form.country'(country) {
-    //   return country ? this.countryError = true : this.countryError = false; 
+    //   return country ? this.countryError = true : this.countryError = false;
     // },
     'form.phone'(phone) {
       const regex = /^(?:[0-9] ?){6,16}[0-9]$/;
-      return !regex.test(phone) ? this.phoneError = true : this.phoneError = false;
+      return !regex.test(phone) ? (this.phoneError = true) : (this.phoneError = false);
     },
     'form.address'(value) {
       const regex = /CEDEX|cedex/g;
-      return !regex.test(value) ? this.addressError = false : this.addressError = true;
+      return !regex.test(value) ? (this.addressError = false) : (this.addressError = true);
     },
     selectedAddress(address) {
       if (!address) {

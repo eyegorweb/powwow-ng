@@ -18,7 +18,7 @@
 <script>
 import { mapMutations, mapGetters, mapState, mapActions } from 'vuex';
 import HomePageDragDropGrid from './HomePageDragDropGrid';
-import {defaultWidgets} from './widgets.js';
+import { defaultWidgets } from './widgets.js';
 import Messages from './Messages';
 
 export default {

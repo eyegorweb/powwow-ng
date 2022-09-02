@@ -272,7 +272,7 @@ export default {
       .concat([
         {
           label: 'mainMenu.getAlarm',
-          to: { name: 'alarms', meta: { label: "Recherche des alarmes" } },
+          to: { name: 'alarms', meta: { label: 'Recherche des alarmes' } },
           permission: { domain: 'alarm', action: 'read' },
         },
         {

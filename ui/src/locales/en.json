@@ -1884,7 +1884,9 @@
             "NotFound": "La modification de service a rencontré une erreur."
           },
           "partyId": {
-            "DISABLED_AUDIT_OPTION": "The partner does not have the audit option."
+            "DISABLED_AUDIT_OPTION": "The partner does not have the audit option.",
+            "idParty": "The selection of a partner is mandatory.",
+            "notAllowed": "Export not allowed for this partner."
           },
           "service": {
             "CONNECTION": "Service connection problem."

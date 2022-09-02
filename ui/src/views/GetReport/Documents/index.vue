@@ -192,9 +192,8 @@ export default {
       }
     );
 
-    if(this.havePermission('getReport', 'read')) {
-      filters.push(
-      {
+    if (this.havePermission('getReport', 'read')) {
+      filters.push({
         title: 'documents.model',
         component: ReportModelFilter,
         id: 4,
@@ -230,7 +229,7 @@ export default {
             });
           }
         },
-      })
+      });
     }
 
     this.filters = filters;

@@ -32,7 +32,7 @@ export default {
   },
   async mounted() {
     this.networkNbIotLteMUrl = await getNetworkNbIotLteMUrl();
-    console.log(this.networkNbIotLteMUrl)
+    console.log(this.networkNbIotLteMUrl);
   },
 };
 </script>

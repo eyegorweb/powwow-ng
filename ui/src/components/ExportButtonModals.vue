@@ -287,14 +287,12 @@ export default {
             this.closeAndResetExportChoice();
           }
         } catch (err) {
-          console.error('Caught export error >>>>>', err);
           this.haveError = true;
           if (this.exportPanelParams.onErrorFn) {
             this.messageError = this.exportPanelParams.onErrorFn(err);
           } else {
             this.messageError = this.$t('exportError');
           }
-
           return this.messageError;
         }
       }

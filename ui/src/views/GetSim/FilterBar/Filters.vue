@@ -156,10 +156,7 @@ export default {
   },
 
   methods: {
-    ...mapMutations('getsim', [
-      'setOrderStatusFilter',
-      'setOrderCreatorFilter',
-    ]),
+    ...mapMutations('getsim', ['setOrderStatusFilter', 'setOrderCreatorFilter']),
   },
 };
 </script>
