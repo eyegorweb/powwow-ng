@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1061+20220902155845
+2022-09-02
+
+### Fixes
+
+- [3392] gestion d'erreur du partenaire requis pour l'export de lignes (c81aa0bda8209010b912fdaa26e2e389d6aaa279)
+
 ## 1.17.0-master.1060+20220902143236
 2022-09-02
 
