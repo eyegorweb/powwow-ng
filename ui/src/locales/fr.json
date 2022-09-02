@@ -2042,6 +2042,7 @@
         "NEW_DATA_INVALID_FORMAT": "Format de la nouvelle valeur invalide",
         "EMPTY_FILE": "Fichier vide",
         "FILE_EXTENSION_INVALID": "Extension de fichier invalide",
+        "MANDATORY_SERVICE_NOT_FOUND": "Le service {service} ne peut être activé. ",
         "FILE_CONTENT_INVALID": "Contenu de fichier invalide",
         "FILE_LINE_NUMBER_INVALID": "Votre fichier contient plus de SIM que le nombre de SIM restant à importer",
         "FILE_MAX_LINE_NUMBER_INVALID": "Le nombre de lignes est supérieure à la limite de {count} lignes",
