@@ -36,6 +36,10 @@ export default {
       type: Function,
       required: false,
     },
+    getExportTypeDisabledMessage: {
+      type: Function,
+      required: false,
+    },
   },
   methods: {
     ...mapMutations(['openExportChoice']),
@@ -52,6 +56,7 @@ export default {
         otherExportChoices: this.otherExportChoices,
         exportChoices: this.exportChoices,
         getExportChoiceDisabledMessage: this.getExportChoiceDisabledMessage,
+        getExportTypeDisabledMessage: this.getExportTypeDisabledMessage,
       });
     },
   },
