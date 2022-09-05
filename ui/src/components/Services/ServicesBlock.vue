@@ -859,6 +859,8 @@ export default {
     );
     this.listServiceIncompatible = this.defaultServices.filter((s) => !!s.listServiceIncompatible);
     this.defaultDataService = cloneDeep(this.initialServices.find((s) => s.code === 'DATA'));
+
+    this.displayServices();
   },
 };
 </script>
