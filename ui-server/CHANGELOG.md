@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1062+20220905101207
+2022-09-05
+
+### Fixes
+
+- [3392] gestion des erreurs dans les exports (2d7e739e1f4d8197a009298d761a9682c0eff235)
+
 ## 1.17.0-master.1061+20220902155845
 2022-09-02
 
