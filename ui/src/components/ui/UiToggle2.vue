@@ -17,14 +17,16 @@
           disabled: (disabled && item !== chosenValue) || item.disabled,
           greenActive: item === chosenValue && greenActive,
         }"
-        :disabled="disabled"
+        :disabled="item.disabled"
       >
-        <template v-if="noTranslation">
-          {{ item.label }}
-        </template>
-        <template v-else>
-          {{ $t(item.label) }}
-        </template>
+        <span v-tooltip="getMessage ? getMessage(item.label) : undefined">
+          <template v-if="noTranslation">
+            {{ item.label }}
+          </template>
+          <template v-else>
+            {{ $t(item.label) }}
+          </template>
+        </span>
       </button>
     </div>
   </div>
@@ -65,6 +67,10 @@ export default {
     disabled: Boolean,
     noTranslation: Boolean,
     center: Boolean,
+    getMessage: {
+      type: Function,
+      required: false,
+    },
   },
 };
 </script>

@@ -58,6 +58,7 @@
               @update="chooseExportChoice"
               no-default
               :key="'expo_togg_' + toggleVersion"
+              :get-message="getExportTypeDisabledMessage"
             />
             <UiDropDownChoicesButton
               v-if="
@@ -132,6 +133,15 @@ export default {
       return (option) => {
         if (this.exportPanelParams && this.exportPanelParams.getExportChoiceDisabledMessage) {
           return this.exportPanelParams.getExportChoiceDisabledMessage(option);
+        }
+        return false;
+      };
+    },
+
+    getExportTypeDisabledMessage() {
+      return (option) => {
+        if (this.exportPanelParams && this.exportPanelParams.getExportTypeDisabledMessage) {
+          return this.exportPanelParams.getExportTypeDisabledMessage(option);
         }
         return false;
       };

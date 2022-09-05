@@ -35,6 +35,7 @@
               :export-choices="exportChoices"
               :other-export-choices="otherExportChoices"
               :get-export-choice-disabled-message="getExportChoiceDisabledMessage"
+              :get-export-type-disabled-message="getExportTypeDisabledMessage"
               :nb-of-lines="total"
             >
               <span slot="title">
@@ -388,6 +389,14 @@ export default {
           return this.$t('exportError');
         }
       };
+    },
+
+    getExportTypeDisabledMessage(option) {
+      let message = '';
+      if (!this.isPartnerSelected && option === 'exportTable.inProgress') {
+        message = this.$t('getreport.errors.partnerRequired');
+      }
+      return message;
     },
 
     getExportChoiceDisabledMessage(option) {
