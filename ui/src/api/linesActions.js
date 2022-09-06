@@ -1153,6 +1153,7 @@ export async function fetchLineServices(simCardInstanceId) {
       code
       labelService
       activated
+      barring
       editable
       optional
       activationDate

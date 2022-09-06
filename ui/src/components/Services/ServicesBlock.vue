@@ -857,7 +857,9 @@ export default {
     this.listServiceMandatory = this.defaultServices.filter(
       (s) => !!s.listServiceMandatory && s.listServiceMandatory.length > 0
     );
-    this.listServiceIncompatible = this.defaultServices.filter((s) => !!s.listServiceIncompatible);
+    this.listServiceIncompatible = this.defaultServices.filter(
+      (s) => !!s.listServiceIncompatible && s.listServiceIncompatible.length > 0
+    );
     this.defaultDataService = cloneDeep(this.initialServices.find((s) => s.code === 'DATA'));
 
     this.displayServices();
