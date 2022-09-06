@@ -355,7 +355,7 @@ export default {
 
     initNbIoT() {
       const nbiotService = this.services.find((s) => s.code === 'NB-IoT');
-      if (nbiotService) {
+      if (nbiotService && !nbiotService.editable) {
         nbiotService.notify = false;
       }
     },
@@ -392,10 +392,12 @@ export default {
         let nbiotService = this.services.find((s) => s.code === 'NB-IoT');
         if (!service.checked && nbiotService.checked) {
           nbiotService.checked = false;
+          nbiotService.notify = true;
         } else if (service.checked && !nbiotService.editable) {
           // Si le service NbIoT n'est pas éditable, dans ce cas là on active NbIoT lorsqu'on active LTE-M
           const initialNbiotService = this.defaultServices.find((s) => s.code === 'NB-IoT');
           nbiotService.checked = initialNbiotService.checked;
+          nbiotService.notify = true;
         }
       }
     },
