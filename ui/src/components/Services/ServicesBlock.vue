@@ -330,6 +330,7 @@ export default {
             let service = this.services.find((s) => s.code === serv);
             // Activation
             if (
+              service &&
               !service.editable &&
               ((service.checked && !service.barring) || (!service.checked && service.barring))
             ) {
