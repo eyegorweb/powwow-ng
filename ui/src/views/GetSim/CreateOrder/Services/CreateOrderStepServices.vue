@@ -78,12 +78,12 @@ export default {
   },
 
   watch: {
-    selectedOffer(newOffer, oldOffer) {
-      if (newOffer && oldOffer && newOffer.id !== oldOffer.id) {
+    selectedOffer(selectedOffer) {
+      if (selectedOffer && selectedOffer.initialOffer) {
         this.chosenServices = undefined;
+        this.offerServices = this.getOfferServices(selectedOffer);
         this.initialServices = cloneDeep(this.offerServices);
       }
-      this.offerServices = this.getOfferServices(this.selectedOffer);
     },
   },
 
