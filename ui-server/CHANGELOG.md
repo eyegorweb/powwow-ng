@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1069+20220908124523
+2022-09-08
+
+### Features
+
+- [3334] mise en place de la réactivité des services (3b7a0eb755ca830f84b86efca964aa6819680902)
+
 ## 1.17.0-master.1068+20220908091046
 2022-09-08
 
