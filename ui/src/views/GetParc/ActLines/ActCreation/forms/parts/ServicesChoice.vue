@@ -14,6 +14,7 @@
 import MultiSelectServices from './MultiSelectServices';
 import { getMarketingOfferServices } from '@/components/Services/utils.js';
 import { mapMutations } from 'vuex';
+import cloneDeep from 'lodash.clonedeep';
 
 export default {
   props: {
@@ -89,13 +90,22 @@ export default {
 
       return false;
     },
+    addIncompatibleService(service, addedServiceList, deletedServiceList) {
+      if (service && service.code !== 'NB-IoT') {
+        if (service.barring) {
+          addedServiceList.push(service);
+        } else {
+          deletedServiceList.push(service);
+        }
+      }
+    },
     handleMandatoryServices(service) {
       var canChange = true;
       // Traitement des services obligatoires
       if (service.listServiceMandatory) {
         var addedServices = [];
         var servicesToManage = [];
-        let sourceServiceList = this.activated ? this.offerServices : this.selectedServices;
+        let sourceServiceList = this.activated ? this.allOfferServices : this.selectedServices;
         // on parcourt les services obligatoires
         for (var i = 0; i < service.listServiceMandatory.length; i++) {
           let lsmOrTab = service.listServiceMandatory[i];
@@ -113,6 +123,8 @@ export default {
               let lsm = lsmOrTab[j];
               if ('DATA' !== lsm) {
                 orServicesCode.push(lsm);
+              } else {
+                continue;
               }
               // console.log('handleMandatoryServices lsm', lsm);
               let deletedMandatoryService = undefined;
@@ -128,6 +140,7 @@ export default {
                       serviceLabel: service.label,
                       serviceMandatoryLabel: foundMandatoryService.label,
                     });
+                    continue;
                   }
                   deletedMandatoryService = this.selectedServicesToDisable.find(
                     (sd) => sd.code === foundMandatoryService.code
@@ -138,22 +151,24 @@ export default {
                 }
 
                 // activer (checked: true) ces services
-                const serviceFound = this.selectedServices.find(
-                  (serv) => serv.code === foundMandatoryService.code
-                );
+                if (foundMandatoryService.editable) {
+                  const serviceFound = this.selectedServices.find(
+                    (serv) => serv.code === foundMandatoryService.code
+                  );
 
-                if (this.activated && !deletedMandatoryService) {
-                  if (!serviceFound) {
-                    addedServices.push(foundMandatoryService);
+                  if (this.activated && !deletedMandatoryService) {
+                    if (!serviceFound) {
+                      addedServices.push(foundMandatoryService);
+                    } else {
+                      servicesToManage.push(foundMandatoryService);
+                    }
                   } else {
-                    servicesToManage.push(foundMandatoryService);
-                  }
-                } else {
-                  if (serviceFound) {
-                    const index = this.selectedServices.indexOf(serviceFound);
-                    foundMandatoryService.managed = false;
-                    foundMandatoryService.addedToDisable = false;
-                    this.selectedServices.splice(index, 1);
+                    if (serviceFound) {
+                      const index = this.selectedServices.indexOf(serviceFound);
+                      foundMandatoryService.managed = false;
+                      foundMandatoryService.addedToDisable = false;
+                      this.selectedServices.splice(index, 1);
+                    }
                   }
                 }
                 if (isOk) {
@@ -171,6 +186,7 @@ export default {
             }
             if (!isOk && errors.length > 0) {
               canChange = this.handleError(errors, offerMissingService);
+              break;
             }
           }
         }
@@ -179,10 +195,13 @@ export default {
       }
     },
     handleDependantServices(service) {
+      var canChange = true;
       // Cas d'une désactivation de service
       // Recherche des services dépendant
-      let sourceServiceList = this.activated ? this.selectedServices : this.offerServices;
+      let sourceServiceList = this.activated ? this.selectedServices : this.allOfferServices;
       // console.log('handleDependantServices sourceServiceList', sourceServiceList);
+      let addedServices = [];
+      let errors = [];
       const foundDependantServices = sourceServiceList.filter(
         (s) =>
           s.listServiceMandatory &&
@@ -191,7 +210,7 @@ export default {
             if (this.activated) {
               result = this.findDependantService(ss, service.code);
             } else {
-              result = this.findMandatoryServiceForDeletedAddedAction(ss, false, service.code);
+              result = this.findMandatoryServiceForDeletedAddedAction(ss, service.code);
             }
             return result;
           })
@@ -205,11 +224,28 @@ export default {
             const index = this.selectedServices.indexOf(serviceFound);
             this.selectedServices.splice(index, 1);
           } else if (!this.activated && !serviceFound) {
+            if (s.editable) {
+              addedServices.push(s);
+            } else if (s.checked) {
+              errors.push({
+                serviceLabel: service.label,
+                serviceMandatoryLabel: s.label,
+              });
+            }
+          }
+        });
+      }
+
+      if (!this.activated && canChange) {
+        if (errors.length > 0) {
+          canChange = this.handleError(errors);
+        } else {
+          addedServices.forEach((s) => {
             s.managed = false;
             s.addedToDisable = true;
             this.selectedServices.push(s);
-          }
-        });
+          });
+        }
       }
 
       if (this.activated) {
@@ -217,7 +253,8 @@ export default {
         const foundMandatoryServices = this.selectedServices.filter((s) => {
           if (service.listServiceMandatory) {
             // console.log('handleDependantServices start service ', s.code);
-            return service.listServiceMandatory.find((ms) => this.findDependantService(ms, s.code));
+            let listServiceMandatory = cloneDeep(service.listServiceMandatory).flat();
+            return listServiceMandatory.find((ms) => this.findDependantService([ms], s.code));
           }
           return false;
         });
@@ -241,14 +278,16 @@ export default {
           });
         }
       }
+      return canChange;
     },
     handleIncompatibleServicesForAddedAction(service) {
       var canChange = true;
 
       var addedServices = [];
+      var deletedServices = [];
       var servicesToManage = [];
       service.listServiceIncompatible.forEach((lsi) => {
-        if (canChange) {
+        if (canChange && !service.barring) {
           let foundIncompatibleService = this.offerServices.find((serv) => serv.code === lsi);
           // pour chaque service incompatible
           if (foundIncompatibleService) {
@@ -261,23 +300,68 @@ export default {
             }
             // lorsque ce service est modifiable (editable: true)
             // désactiver (checked: false) ces services
-            const found = this.selectedServicesToDisable.find(
+            const sourceServices = foundIncompatibleService.barring
+              ? this.selectedServices
+              : this.selectedServicesToDisable;
+            const found = sourceServices.find(
               (serv) => serv.code === foundIncompatibleService.code
             );
             if (!found) {
-              // foundIncompatibleService.managed = true;
-              // this.selectedServicesToDisable.push(foundIncompatibleService);
-              addedServices.push(foundIncompatibleService);
+              // addedServices.push(foundIncompatibleService);
+              this.addIncompatibleService(foundIncompatibleService, addedServices, deletedServices);
             } else {
               // found.managed = true;
               servicesToManage.push(found);
+            }
+            // PATCH NB-IOT
+            if (foundIncompatibleService.code === 'LTE-M') {
+              let foundServiceNbIot = this.offerServices.find((serv) => serv.code === 'NB-IoT');
+              const foundNbIot = this.selectedServicesToDisable.find(
+                (serv) => serv.code === 'NB-IoT'
+              );
+              if (!foundNbIot) {
+                deletedServices.push(foundServiceNbIot);
+              } else {
+                // found.managed = true;
+                servicesToManage.push(foundNbIot);
+              }
             }
             // Le service DATA est isolé des autres services
             // Il faut vérifier s'il fait partie des services incompatibles pour autant
           }
         }
       });
-      return { canChange, addedServices, servicesToManage };
+      return { canChange, addedServices, servicesToManage, deletedServices };
+    },
+    handleBarringIncompatibleServices(service) {
+      service.listServiceIncompatible.forEach((lsi) => {
+        if (!this.activated && service.barring) {
+          let foundIncompatibleService = this.offerServices.find((serv) => serv.code === lsi);
+          // pour chaque service incompatible
+          if (foundIncompatibleService) {
+            // gestion erreur désactivation du service incompatible impossible
+            if (!foundIncompatibleService.editable && foundIncompatibleService.checked) {
+              this.handleError({
+                serviceLabel: service.label,
+                serviceMandatoryLabel: foundIncompatibleService.label,
+              });
+            }
+
+            // lorsque ce service est modifiable (editable: true)
+            // désactiver (checked: false) ces services
+            const found = this.selectedServices.find(
+              (serv) => serv.code === foundIncompatibleService.code
+            );
+            if (!found) {
+              // foundIncompatibleService.managed = true;
+              // this.selectedServicesToDisable.push(foundIncompatibleService);
+              this.selectedServices.push(foundIncompatibleService);
+              foundIncompatibleService.managed = false;
+              foundIncompatibleService.addedToDisable = true;
+            }
+          }
+        }
+      });
     },
     handleIncompatibleServicesForDeletedAction(service) {
       service.listServiceIncompatible.forEach((lsi) => {
@@ -304,18 +388,40 @@ export default {
           });
 
           if (!foundAnother) {
-            let foundSelectedServiceToDisable = this.selectedServicesToDisable.find(
+            const sourceServices = foundIncompatibleService.barring
+              ? this.selectedServices
+              : this.selectedServicesToDisable;
+            let foundSelectedServiceToDisable = sourceServices.find(
               (serv) => serv.code === foundIncompatibleService.code
             );
-            const index = this.selectedServicesToDisable.indexOf(foundSelectedServiceToDisable);
-            if (!foundSelectedServiceToDisable.addedToDisable) {
-              this.selectedServicesToDisable.splice(index, 1);
+            if (foundSelectedServiceToDisable) {
+              // Suppression des services incompatibles
+              if (!foundIncompatibleService.barring) {
+                const index = sourceServices.indexOf(foundSelectedServiceToDisable);
+                // Suppression du service si la demande est lié à une dépendance d'un autre service
+                if (!foundSelectedServiceToDisable.addedToDisable) {
+                  sourceServices.splice(index, 1);
+                }
+              }
+              foundSelectedServiceToDisable.managed = false;
             }
-            foundSelectedServiceToDisable.managed = false;
-          }
+            // PATCH NB-IOT
+            if (foundIncompatibleService.code === 'LTE-M') {
+              const foundNbIot = this.selectedServicesToDisable.find(
+                (serv) => serv.code === 'NB-IoT'
+              );
+              if (foundNbIot) {
+                // Suppression du service NB-IoT
+                const index = this.selectedServicesToDisable.indexOf(foundNbIot);
+                // Suppression du service si la demande est lié à une dépendance d'un autre service
+                if (!foundNbIot.addedToDisable) {
+                  this.selectedServicesToDisable.splice(index, 1);
+                }
 
-          // Le service DATA est isolé des autres services
-          // Il faut vérifier s'il fait partie des services incompatibles pour autant
+                foundNbIot.managed = false;
+              }
+            }
+          }
         }
       });
     },
@@ -333,19 +439,12 @@ export default {
       let foundAnotherMandatoryService = false,
         foundMandatoryService = false;
 
-      console.log(
-        'handleDependantServices elem:' +
-          elem +
-          ', serviceCodeDesactivated: ' +
-          serviceCodeDesactivated
-      );
       if (elem) {
         let sourceServicesList = this.activated
           ? this.selectedServices
           : this.selectedServicesToDisable;
         elem.forEach((subElem) => {
           if (subElem.length > 1) {
-            console.log('handleDependantServices elem.length=', subElem.length);
             // // Gestion niveau 1 'OU'
             if (subElem !== serviceCodeDesactivated) {
               if (!foundAnotherMandatoryService) {
@@ -359,45 +458,41 @@ export default {
             foundMandatoryService = elem[0].code === serviceCodeDesactivated;
           }
         });
-        console.log(
-          'findDependantService  return foundMandatoryService && !foundAnotherMandatoryService',
-          foundMandatoryService,
-          foundAnotherMandatoryService
-        );
+
         return foundMandatoryService && !foundAnotherMandatoryService;
       }
       return foundMandatoryService;
     },
-    findMandatoryServiceForDeletedAddedAction(elem, desactivateControl, serviceCodeDesactivated) {
+    findMandatoryServiceForDeletedAddedAction(elem, serviceCodeDesactivated) {
       let foundMandatoryService = undefined;
       if (elem) {
         if (Array.isArray(elem) && elem.includes(serviceCodeDesactivated)) {
           // Gestion des services en mode "OU"
           foundMandatoryService = this.findMandatoryServiceForDeletedAddedAction(
-            serviceCodeDesactivated,
-            desactivateControl
+            serviceCodeDesactivated
           );
           elem.find((sc) => {
             if (sc !== serviceCodeDesactivated) {
               let foundOrMandatoryService = this.findMandatoryServiceForDeletedAddedAction(
                 sc,
-                desactivateControl,
                 serviceCodeDesactivated
               );
               if (foundOrMandatoryService) {
-                let foundDeletedMandatoryService = this.selectedServices.find(
-                  (s) => s.code === foundOrMandatoryService.code
-                );
-                if (!foundDeletedMandatoryService) {
-                  foundMandatoryService = undefined;
-                  return true;
+                if (foundOrMandatoryService.editable) {
+                  let foundDeletedMandatoryService = this.selectedServices.find(
+                    (s) => s.code === foundOrMandatoryService.code
+                  );
+                  if (!foundDeletedMandatoryService) {
+                    foundMandatoryService = undefined;
+                    return true;
+                  }
                 }
               }
             }
           });
         } else {
           // Gestion d'un code de service
-          foundMandatoryService = this.offerServices.find(
+          foundMandatoryService = this.allOfferServices.find(
             (service) => service.code === elem // && (desactivateControl || service.checked || service.editable)
           );
           console.log(
@@ -421,6 +516,10 @@ export default {
 
       handleIncompatibleServices.servicesToManage.forEach((s) => (s.managed = true));
       handleIncompatibleServices.addedServices.forEach((s) => {
+        s.managed = true;
+        this.selectedServices.push(s);
+      });
+      handleIncompatibleServices.deletedServices.forEach((s) => {
         s.managed = true;
         this.selectedServicesToDisable.push(s);
       });
@@ -471,7 +570,15 @@ export default {
               if (!oldList.includes(service)) {
                 service.addedToDisable = true;
                 service.managed = false;
-                this.handleDependantServices(service);
+                const canChange = this.handleDependantServices(service);
+                if (!canChange) {
+                  const index = newList.indexOf(service);
+                  if (index !== -1) {
+                    newList.splice(index, 1);
+                  }
+                } else {
+                  this.handleBarringIncompatibleServices(service);
+                }
               }
             });
           } else {
