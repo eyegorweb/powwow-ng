@@ -57,7 +57,7 @@ import LoaderContainer from '@/components/LoaderContainer';
 import { fetchOrderState } from '@/api/partners';
 import { fetchOffers } from '@/api/offers';
 import { getMarketingOfferServices } from '@/components/Services/utils.js';
-import { mapGetters } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 
 import cloneDeep from 'lodash.clonedeep';
 
@@ -116,6 +116,52 @@ export default {
         this.preActivationValue = newValue;
       },
     },
+    changedServices() {
+      if (!this.offerServices) return [];
+      return this.offerServices.filter((s) => {
+        const initialService = this.initialServices.find((os) => os.code === s.code);
+        return initialService.checked !== s.checked;
+      });
+    },
+    // Services activés automatiquement
+    listAutoServiceMandatory() {
+      if (!this.changedServices) return [];
+      return this.changedServices.filter((s) => s.checked && !s.isClicked).map((s) => s.code);
+    },
+    // Services désactivés automatiquement
+    listAutoServiceIncompatible() {
+      if (!this.changedServices) return [];
+      return this.changedServices.filter((s) => !s.checked && !s.isClicked).map((s) => s.code);
+    },
+    warningMessage() {
+      let list = '',
+        newLine = '';
+      let message = '';
+      if (this.listAutoServiceMandatory.length > 0) {
+        list += `${this.$t(
+          'services.listAutoServiceMandatory'
+        )}: ${this.listAutoServiceMandatory.map((s) => s).join(',')}`;
+      }
+      if (this.listAutoServiceIncompatible.length > 0) {
+        if (this.listAutoServiceMandatory.length) {
+          newLine = '<br />';
+        }
+        list += `${newLine}${this.$t(
+          'services.listAutoServiceIncompatible'
+        )}: ${this.listAutoServiceIncompatible.map((s) => s).join(',')}`;
+      }
+      if (!list) {
+        message = `${this.$t('getparc.actCreation.preactivateActivate.confirmAction')}`;
+      } else {
+        message = `${this.$t(
+          'getparc.actCreation.preactivateActivate.confirmationWarningForCommand',
+          {
+            list,
+          }
+        )}`;
+      }
+      return message;
+    },
   },
   async mounted() {
     this.partnerId = this.$loGet(this.synthesis, 'billingAccount.selection.partner.id');
@@ -171,6 +217,7 @@ export default {
     }
   },
   methods: {
+    ...mapMutations(['confirmAction']),
     getOfferServices(selectedOffer) {
       const offerServices = getMarketingOfferServices(selectedOffer.initialOffer);
 
@@ -203,6 +250,14 @@ export default {
     },
     done() {
       if (this.canGoNext()) {
+        if (this.activation && this.changedServices.length > 0) {
+          this.confirmAction({
+            message: this.warningMessage,
+            noOkButton: true,
+            customCloseLabel: 'close',
+            listStyle: !!this.warningMessage,
+          });
+        }
         this.$emit('done', this.assembleSynthesis());
       }
     },

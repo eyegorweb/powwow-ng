@@ -1847,7 +1847,9 @@
       },
       "preactivateActivate": {
         "confirmAction": "<div class=\"text-danger\"><i class=\"ic-Alert-Icon\"></i> Do you confirm ?</div>",
-        "confirmationWarning": "<div class=\"text-danger\"><i class=\"ic-Alert-Icon\"></i> Confirm ?<div class=\"alert alert-warning\">{list}</div></div>"
+        "confirmationWarning": "<div class=\"text-danger\"><i class=\"ic-Alert-Icon\"></i> Confirm ?<div class=\"alert alert-warning\">{list}</div></div>",
+        "confirmationWarningForDetail": "Confirm ?<div class=\"alert alert-warning\">{list}</div>",
+        "confirmationWarningForCommand": "<div class=\"alert alert-warning\">{list}</div>"
       },
       "transferSim": {
         "confirmationWarning": "Confirm action for {count} line(s) ?"

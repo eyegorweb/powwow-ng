@@ -185,7 +185,7 @@ export default {
     });
   },
   methods: {
-    ...mapMutations(['flashMessage']),
+    ...mapMutations(['flashMessage', 'confirmAction']),
 
     setup() {
       const dataService = this.services.find((s) => s.code === 'DATA');
@@ -241,17 +241,16 @@ export default {
         dataParams,
       } = this.changes;
 
-      try {
-        this.isDataParamsError =
-          this.dataCheck &&
-          this.lastDataParams &&
-          this.lastDataParams.filter((p) => p.selected).length === 0;
+      this.isDataParamsError =
+        this.dataCheck &&
+        this.lastDataParams &&
+        this.lastDataParams.filter((p) => p.selected).length === 0;
 
-        if (this.isDataParamsError) return;
+      if (this.isDataParamsError) return;
 
-        const canSaveData = dataChanged || (dataParams && dataParams.length);
-
+      const actionFn = async () => {
         this.savingChanges = true;
+        const canSaveData = dataChanged || (dataParams && dataParams.length);
         const dataService = canSaveData
           ? {
               checked: this.dataCheck,
@@ -259,6 +258,7 @@ export default {
               code: 'DATA',
             }
           : undefined;
+
         const response = await changeService([], [this.content], {
           notifEmail: false,
           dueDate: formattedCurrentDate(true),
@@ -271,7 +271,6 @@ export default {
           newCommunityChange: this.newCommunityChange ? this.newCommunityChange : undefined,
         });
 
-        this.savingChanges = false;
         if (response && response.errors && response.errors.length) {
           // TEMP: send OK, waiting for update ChangeServices api
           response.errors.forEach((e) => {
@@ -287,12 +286,15 @@ export default {
           });
         } else {
           this.flashMessage({ level: 'success', message: this.$t('genericSuccessMessage') });
+          this.justSaved = true;
         }
-      } catch (e) {
         this.savingChanges = false;
-        console.log(e);
-      }
-      this.justSaved = true;
+      };
+
+      this.confirmAction({
+        message: this.warningMessage,
+        actionFn,
+      });
     },
     revertServices() {
       this.services = cloneDeep(this.initialServices);
@@ -384,12 +386,6 @@ export default {
     canShowTable() {
       return this.apnServices && this.apnServices[0] && this.apnServices[0].length;
     },
-    changedServices() {
-      return this.services.filter((s) => {
-        const originalService = this.initialServices.find((os) => os.code === s.code);
-        return originalService.checked !== s.checked;
-      });
-    },
     changes() {
       if (!this.services) {
         return {
@@ -418,6 +414,52 @@ export default {
         dataChanged: this.dataCheck !== this.initDataCheck,
         dataParams,
       };
+    },
+    changedServices() {
+      if (!this.services) return [];
+      return this.services.filter((s) => {
+        const originalService = this.initialServices.find((os) => os.code === s.code);
+        return originalService.checked !== s.checked;
+      });
+    },
+    // Services activés automatiquement
+    listAutoServiceMandatory() {
+      if (!this.changedServices) return [];
+      return this.changedServices.filter((s) => s.checked && !s.isClicked).map((s) => s.code);
+    },
+    // Services désactivés automatiquement
+    listAutoServiceIncompatible() {
+      if (!this.changedServices) return [];
+      return this.changedServices.filter((s) => !s.checked && !s.isClicked).map((s) => s.code);
+    },
+    warningMessage() {
+      let list = '',
+        newLine = '';
+      let message = '';
+      if (this.listAutoServiceMandatory.length > 0) {
+        list += `${this.$t(
+          'services.listAutoServiceMandatory'
+        )}: ${this.listAutoServiceMandatory.map((s) => s).join(',')}`;
+      }
+      if (this.listAutoServiceIncompatible.length > 0) {
+        if (this.listAutoServiceMandatory.length) {
+          newLine = '<br />';
+        }
+        list += `${newLine}${this.$t(
+          'services.listAutoServiceIncompatible'
+        )}: ${this.listAutoServiceIncompatible.map((s) => s).join(',')}`;
+      }
+      if (!list) {
+        message = `${this.$t('getparc.actCreation.preactivateActivate.confirmAction')}`;
+      } else {
+        message = `${this.$t(
+          'getparc.actCreation.preactivateActivate.confirmationWarningForDetail',
+          {
+            list,
+          }
+        )}`;
+      }
+      return message;
     },
   },
 };
