@@ -22,7 +22,7 @@
         </ul>
       </div>
     </div>
-    <div v-if="emptyErrorMessage" class="text-danger">Veuillez choisir une valeur</div>
+    <div v-if="emptyErrorMessage" class="text-danger">{{ $t('needDefaultValue') }}</div>
   </div>
 </template>
 

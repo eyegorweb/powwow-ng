@@ -20,6 +20,7 @@
   "subject": "Sujet",
   "title": "Titre",
   "readMore": "En savoir plus",
+  "needDefaultValue": "Veuillez choisir une valeur",
   "disableExportLinesExceed": "Export excel indisponible au dessus de 500.000 lignes.",
   "date-over": "avant le {date}",
   "voice": "Voix",

@@ -18,6 +18,7 @@
   "date-over": "before {date}",
   "voice": "Voice",
   "readMore": "Read more",
+  "needDefaultValue": "Please choose a value",
   "chooseAPartner": "Choose a partner",
   "numberPerPage": "Nb per page",
   "partnerType": "Partner type",
