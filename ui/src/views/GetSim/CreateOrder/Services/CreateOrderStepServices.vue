@@ -153,12 +153,9 @@ export default {
       if (!list) {
         message = `${this.$t('getparc.actCreation.preactivateActivate.confirmAction')}`;
       } else {
-        message = `${this.$t(
-          'getparc.actCreation.preactivateActivate.confirmationWarningForCommand',
-          {
-            list,
-          }
-        )}`;
+        message = `${this.$t('getparc.actCreation.preactivateActivate.confirmationWarning', {
+          list,
+        })}`;
       }
       return message;
     },

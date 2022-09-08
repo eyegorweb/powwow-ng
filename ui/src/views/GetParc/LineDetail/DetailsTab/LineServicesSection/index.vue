@@ -288,6 +288,7 @@ export default {
       this.confirmAction({
         message: this.warningMessage,
         actionFn,
+        listStyle: !!this.warningMessage,
       });
     },
     revertServices() {
@@ -454,12 +455,9 @@ export default {
       if (!list) {
         message = `${this.$t('getparc.actCreation.preactivateActivate.confirmAction')}`;
       } else {
-        message = `${this.$t(
-          'getparc.actCreation.preactivateActivate.confirmationWarningForDetail',
-          {
-            list,
-          }
-        )}`;
+        message = `${this.$t('getparc.actCreation.preactivateActivate.confirmationWarning', {
+          list,
+        })}`;
       }
       return message;
     },
