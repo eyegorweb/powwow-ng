@@ -154,7 +154,6 @@ export default {
       isLoadingServices: true,
       savingChanges: false,
       servicesVersion: 1,
-      isDataParamsError: false,
       newCommunityChange: undefined,
 
       optionalServices: undefined,
@@ -240,11 +239,6 @@ export default {
         dataChanged,
         dataParams,
       } = this.changes;
-
-      this.isDataParamsError =
-        this.dataCheck &&
-        this.lastDataParams &&
-        this.lastDataParams.filter((p) => p.selected).length === 0;
 
       if (this.isDataParamsError) return;
 
@@ -352,6 +346,14 @@ export default {
           (this.changedServices && this.changedServices.length) ||
           this.isTypeRoamingChanged) &&
         !this.justSaved
+      );
+    },
+
+    isDataParamsError() {
+      return (
+        this.dataCheck &&
+        this.lastDataParams &&
+        this.lastDataParams.filter((p) => p.selected).length === 0
       );
     },
 
