@@ -126,12 +126,16 @@ export default {
     // Services activés automatiquement
     listAutoServiceMandatory() {
       if (!this.changedServices) return [];
-      return this.changedServices.filter((s) => s.checked && !s.isClicked).map((s) => s.code);
+      return this.changedServices
+        .filter((s) => s.checked && !s.isClicked)
+        .map((s) => s.labelService);
     },
     // Services désactivés automatiquement
     listAutoServiceIncompatible() {
       if (!this.changedServices) return [];
-      return this.changedServices.filter((s) => !s.checked && !s.isClicked).map((s) => s.code);
+      return this.changedServices
+        .filter((s) => !s.checked && !s.isClicked)
+        .map((s) => s.labelService);
     },
     warningMessage() {
       let list = '',
@@ -248,14 +252,14 @@ export default {
     done() {
       if (this.canGoNext()) {
         if (this.activation && this.changedServices.length > 0) {
-          this.confirmAction({
+          this.$emit('done', {
+            needToConfirm: this.changedServices,
             message: this.warningMessage,
-            noOkButton: true,
-            customCloseLabel: 'close',
-            listStyle: !!this.warningMessage,
+            ...this.assembleSynthesis(),
           });
+        } else {
+          this.$emit('done', this.assembleSynthesis());
         }
-        this.$emit('done', this.assembleSynthesis());
       }
     },
     prev() {
