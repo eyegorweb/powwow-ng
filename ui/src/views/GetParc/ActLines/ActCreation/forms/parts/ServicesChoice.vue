@@ -286,82 +286,108 @@ export default {
       var addedServices = [];
       var deletedServices = [];
       var servicesToManage = [];
-      service.listServiceIncompatible.forEach((lsi) => {
-        if (canChange && !service.barring) {
-          let foundIncompatibleService = this.offerServices.find((serv) => serv.code === lsi);
+
+      let listServiceIncompatible = service.listServiceIncompatible;
+      // PATCH NB-IoT
+      if (service.code === 'NB-IoT') {
+        const serviceLTEM = this.offerServices.find((serv) => serv.code === 'LTE-M');
+        if (serviceLTEM) {
+          listServiceIncompatible = serviceLTEM.listServiceIncompatible;
+        }
+      }
+      listServiceIncompatible.forEach((lsi) => {
+        if (canChange && (service.code === 'NB-IoT' || !service.barring)) {
+          let foundIncompatibleService = this.allOfferServices.find((serv) => serv.code === lsi);
           // pour chaque service incompatible
           if (foundIncompatibleService) {
             // gestion erreur désactivation du service incompatible impossible
-            if (!foundIncompatibleService.editable && foundIncompatibleService.checked) {
-              canChange = this.handleError({
-                serviceLabel: service.label,
-                serviceMandatoryLabel: foundIncompatibleService.label,
-              });
-            }
-            // lorsque ce service est modifiable (editable: true)
-            // désactiver (checked: false) ces services
-            const sourceServices = foundIncompatibleService.barring
-              ? this.selectedServices
-              : this.selectedServicesToDisable;
-            const found = sourceServices.find(
-              (serv) => serv.code === foundIncompatibleService.code
-            );
-            if (!found) {
-              // addedServices.push(foundIncompatibleService);
-              this.addIncompatibleService(foundIncompatibleService, addedServices, deletedServices);
+            if (!foundIncompatibleService.editable) {
+              if (
+                (!foundIncompatibleService.barring && foundIncompatibleService.checked) ||
+                (foundIncompatibleService.barring && !foundIncompatibleService.checked)
+              ) {
+                canChange = this.handleError([
+                  {
+                    serviceLabel: service.label,
+                    serviceMandatoryLabel: foundIncompatibleService.label,
+                  },
+                ]);
+              }
             } else {
-              // found.managed = true;
-              servicesToManage.push(found);
-            }
-            // PATCH NB-IOT
-            if (foundIncompatibleService.code === 'LTE-M') {
-              let foundServiceNbIot = this.offerServices.find((serv) => serv.code === 'NB-IoT');
-              const foundNbIot = this.selectedServicesToDisable.find(
-                (serv) => serv.code === 'NB-IoT'
+              // lorsque ce service est modifiable (editable: true)
+              // désactiver (checked: false) ces services
+              const sourceServices = foundIncompatibleService.barring
+                ? this.selectedServices
+                : this.selectedServicesToDisable;
+              const found = sourceServices.find(
+                (serv) => serv.code === foundIncompatibleService.code
               );
-              if (!foundNbIot) {
-                deletedServices.push(foundServiceNbIot);
+              if (!found) {
+                // addedServices.push(foundIncompatibleService);
+                this.addIncompatibleService(
+                  foundIncompatibleService,
+                  addedServices,
+                  deletedServices
+                );
               } else {
                 // found.managed = true;
-                servicesToManage.push(foundNbIot);
+                servicesToManage.push(found);
+              }
+              // PATCH NB-IOT
+              if (foundIncompatibleService.code === 'LTE-M') {
+                let foundServiceNbIot = this.offerServices.find((serv) => serv.code === 'NB-IoT');
+                const foundNbIot = this.selectedServicesToDisable.find(
+                  (serv) => serv.code === 'NB-IoT'
+                );
+                if (!foundNbIot) {
+                  if (foundServiceNbIot) {
+                    deletedServices.push(foundServiceNbIot);
+                  }
+                } else {
+                  // found.managed = true;
+                  servicesToManage.push(foundNbIot);
+                }
               }
             }
-            // Le service DATA est isolé des autres services
-            // Il faut vérifier s'il fait partie des services incompatibles pour autant
           }
         }
       });
       return { canChange, addedServices, servicesToManage, deletedServices };
     },
     handleBarringIncompatibleServices(service) {
+      var canChange = true;
+      var addedServices = [];
       service.listServiceIncompatible.forEach((lsi) => {
         if (!this.activated && service.barring) {
-          let foundIncompatibleService = this.offerServices.find((serv) => serv.code === lsi);
+          let foundIncompatibleService = this.allOfferServices.find((serv) => serv.code === lsi);
           // pour chaque service incompatible
           if (foundIncompatibleService) {
             // gestion erreur désactivation du service incompatible impossible
-            if (!foundIncompatibleService.editable && foundIncompatibleService.checked) {
-              this.handleError({
-                serviceLabel: service.label,
-                serviceMandatoryLabel: foundIncompatibleService.label,
-              });
-            }
-
-            // lorsque ce service est modifiable (editable: true)
-            // désactiver (checked: false) ces services
-            const found = this.selectedServices.find(
-              (serv) => serv.code === foundIncompatibleService.code
-            );
-            if (!found) {
-              // foundIncompatibleService.managed = true;
-              // this.selectedServicesToDisable.push(foundIncompatibleService);
-              this.selectedServices.push(foundIncompatibleService);
-              foundIncompatibleService.managed = false;
-              foundIncompatibleService.addedToDisable = true;
+            if (!foundIncompatibleService.editable) {
+              if (foundIncompatibleService.checked) {
+                canChange = this.handleError([
+                  {
+                    serviceLabel: service.label,
+                    serviceMandatoryLabel: foundIncompatibleService.label,
+                  },
+                ]);
+              }
+            } else {
+              // lorsque ce service est modifiable (editable: true)
+              // désactiver (checked: false) ces services
+              const found = this.selectedServices.find(
+                (serv) => serv.code === foundIncompatibleService.code
+              );
+              if (!found) {
+                // foundIncompatibleService.managed = true;
+                // this.selectedServicesToDisable.push(foundIncompatibleService);
+                addedServices.push(foundIncompatibleService);
+              }
             }
           }
         }
       });
+      return { canChange, addedServices };
     },
     handleIncompatibleServicesForDeletedAction(service) {
       service.listServiceIncompatible.forEach((lsi) => {
@@ -568,16 +594,27 @@ export default {
           if (newList.length > oldList.length) {
             newList.forEach((service) => {
               if (!oldList.includes(service)) {
-                service.addedToDisable = true;
-                service.managed = false;
-                const canChange = this.handleDependantServices(service);
+                let handleBarringIncompatibleServices = this.handleBarringIncompatibleServices(
+                  service
+                );
+
+                let canChange = false;
+                if (handleBarringIncompatibleServices.canChange) {
+                  canChange = this.handleDependantServices(service);
+                }
                 if (!canChange) {
                   const index = newList.indexOf(service);
                   if (index !== -1) {
                     newList.splice(index, 1);
                   }
                 } else {
-                  this.handleBarringIncompatibleServices(service);
+                  service.addedToDisable = true;
+                  service.managed = false;
+                  handleBarringIncompatibleServices.addedServices.forEach((aService) => {
+                    newList.push(aService);
+                    aService.managed = false;
+                    aService.addedToDisable = true;
+                  });
                 }
               }
             });
