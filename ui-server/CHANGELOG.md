@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1072+20220909092507
+2022-09-09
+
+### Fixes
+
+- [3334] Ajout patch NB-IOT et gestion des services non modifiable pour l'acte de modification de services. (60e750fecf029724356fc4c7cd13324d28f3d71e)
+
 ## 1.17.0-master.1071+20220909080435
 2022-09-09
 
