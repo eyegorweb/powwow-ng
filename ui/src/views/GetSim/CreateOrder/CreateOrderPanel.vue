@@ -134,7 +134,7 @@ export default {
   },
 
   methods: {
-    ...mapMutations(['openPanel', 'closePanel']),
+    ...mapMutations(['openPanel', 'closePanel', 'confirmAction']),
     ...mapMutations('getsim', ['refreshIndicators']),
     ...mapActions('getsim', ['resetOrderFilters']),
 
@@ -192,8 +192,21 @@ export default {
       this.currentStep--;
     },
     stepisDone(payload) {
-      this.saveSynthesis(payload);
-      this.currentStep++;
+      if (payload.needToConfirm && payload.needToConfirm.length > 0) {
+        this.confirmAction({
+          message: payload.message,
+          listStyle: !!payload.message,
+          actionFn: async () => {
+            this.saveSynthesis(payload);
+          },
+          doAfterFn: () => {
+            this.currentStep++;
+          },
+        });
+      } else {
+        this.saveSynthesis(payload);
+        this.currentStep++;
+      }
     },
     saveSynthesis(payload) {
       this.synthesis = {
