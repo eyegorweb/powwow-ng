@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1073+20220909140716
+2022-09-09
+
+### Fixes
+
+- [3334] gestion de l'incompatibilité du service 12 (027d5e1c946f3ae8bd18baf964e1fd3c6935e7ea)
+
 ## 1.17.0-master.1072+20220909092507
 2022-09-09
 
