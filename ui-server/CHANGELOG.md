@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1074+20220912093925
+2022-09-12
+
+### Fixes
+
+- [3334] Ajout de la traduction des erreurs des services incompatible. (2f6bdcb4fd0b27f0e1346019277ee06692964982)
+
 ## 1.17.0-master.1073+20220909140716
 2022-09-09
 
