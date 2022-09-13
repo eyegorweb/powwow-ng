@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1075+20220913152847
+2022-09-13
+
+### Fixes
+
+- [3334] Modification de service d'une ligne, gestion du nb-iot et annulation. (fbb31eacdeb34e09071088875e261ee22a181310)
+
 ## 1.17.0-master.1074+20220912093925
 2022-09-12
 
