@@ -350,15 +350,14 @@ export default {
           });
         });
       }
-
-      this.manageNbIoTDisplay();
     },
 
     initNbIoT() {
       const nbiotService = this.services.find((s) => s.code === 'NB-IoT');
-      if (nbiotService && !nbiotService.editable) {
+      if (nbiotService) {
         nbiotService.notify = false;
       }
+      this.manageNbIoTDisplay();
     },
 
     manageNbIoTDisplay() {
@@ -393,11 +392,14 @@ export default {
         let nbiotService = this.services.find((s) => s.code === 'NB-IoT');
         if (!service.checked && nbiotService.checked) {
           nbiotService.checked = false;
-          nbiotService.notify = true;
+          // nbiotService.notify = true;
         } else if (service.checked && !nbiotService.editable) {
           // Si le service NbIoT n'est pas éditable, dans ce cas là on active NbIoT lorsqu'on active LTE-M
           const initialNbiotService = this.defaultServices.find((s) => s.code === 'NB-IoT');
           nbiotService.checked = initialNbiotService.checked;
+          // nbiotService.notify = true;
+        }
+        if (nbiotService.editable) {
           nbiotService.notify = true;
         }
       }
@@ -849,6 +851,7 @@ export default {
     },
     services() {
       this.setup();
+      this.displayServices();
     },
     offer() {
       this.displayServices();

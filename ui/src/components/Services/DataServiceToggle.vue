@@ -94,8 +94,6 @@ export default {
         ...s,
         code: s.code,
         label: s.label,
-        selectable: s.editable,
-        selected: s.active,
       })),
     };
     this.apns = data.apns;
@@ -105,12 +103,17 @@ export default {
   },
   methods: {
     toggleApn(apn) {
+      let apnChanged = false;
       this.apns = this.apns.map((a) => {
         if (a.selectable && a.label === apn.label) {
           a.selected = !a.selected;
+          apnChanged = true;
         }
         return a;
       });
+      if (apnChanged) {
+        this.changeValue();
+      }
       this.$emit('apnChange', this.apns);
     },
     changeValue() {
@@ -126,10 +129,15 @@ export default {
       this.changeValue();
     },
     apns() {
-      this.changeValue();
+      // this.changeValue();
     },
     service(value) {
       this.checked = value.checked;
+      this.apns = value.parameters.map((s) => ({
+        ...s,
+        code: s.code,
+        label: s.label,
+      }));
     },
   },
 };

@@ -47,6 +47,8 @@ function formatServices(s) {
           editable: p.editable,
           code: p.code,
           name: p.code,
+          selected: p.activated,
+          selectable: p.editable,
         };
       });
   }

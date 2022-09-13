@@ -293,6 +293,11 @@ export default {
     },
     revertServices() {
       this.services = cloneDeep(this.initialServices);
+
+      const dataService = this.services.find((s) => s.code === 'DATA');
+      if (dataService) {
+        this.lastDataParams = cloneDeep(dataService.parameters);
+      }
       setTimeout(() => {
         this.componentInitialized = true;
         this.newCommunityChange = undefined;
@@ -422,7 +427,7 @@ export default {
       if (!this.services) return [];
       return this.services.filter((s) => {
         const originalService = this.initialServices.find((os) => os.code === s.code);
-        return originalService.checked !== s.checked;
+        return originalService.checked !== s.checked && (s.code !== 'NB-IoT' || s.notify);
       });
     },
     // Services activés automatiquement
