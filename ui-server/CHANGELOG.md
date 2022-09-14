@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1076+20220914095723
+2022-09-14
+
+### Fixes
+
+- correction de la gestion d'erreur sur le watcher (53046b4bf9e3638540af6a410c7a294dc8193948)
+
 ## 1.17.0-master.1075+20220913152847
 2022-09-13
 
