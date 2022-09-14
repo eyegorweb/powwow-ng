@@ -275,7 +275,7 @@ export default {
         }
       } catch (e) {
         this.isLoading = false;
-        console.error('request error from API "doPayument"', e);
+        console.error('request error from API "doPayment"', e);
       }
     },
 
