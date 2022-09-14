@@ -397,7 +397,11 @@ export default {
     },
 
     synthesis(stepData) {
-      if (stepData && stepData.businessErrors) {
+      if (
+        stepData &&
+        stepData.businessErrors &&
+        Object.keys(stepData.businessErrors).length !== 0
+      ) {
         let previousForm = [];
         const currentForm = [
           stepData.creationAccountStep.company,
