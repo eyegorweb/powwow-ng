@@ -137,6 +137,10 @@
       "firstName": "First name of the responsible",
       "phone": "Mobile phone"
     },
+    "simStep": {
+      "displayDiscount": "You get a {nbSimDiscount}% discount for a maximum quantity of {nbRemainingSim} SIMs.",
+      "warningDiscount": "Attention ! The discount will not be applied because the order is greater than {nbRemainingSim} SIM granted."
+    },
     "synthesis": {
       "title": "Order Summary",
       "titleShow": "Show order summary",
