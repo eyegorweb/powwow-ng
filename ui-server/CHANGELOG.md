@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1077+20220916114003
+2022-09-16
+
+### Fixes
+
+- [3394] gestion de la remise sur une offre digitale à la création de commande (c812d00b24ee3504236815c8ffda4a780075a4a5)
+
 ## 1.17.0-master.1076+20220914095723
 2022-09-14
 
