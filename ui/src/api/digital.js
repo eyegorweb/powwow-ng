@@ -73,8 +73,9 @@ export function validateAccount(paymentId, status) {
   }
 }
 
-export function fetchWorkflows() {
-  return publicApiRoute.get('/api/public/digital-offer/workflows').then((res) => res.data.items);
+export function fetchWorkflows(siret) {
+  const siretUrl = '/api/public/digital-offer/workflows?siret=' + siret;
+  return publicApiRoute.get(siretUrl).then((res) => res.data.items);
 }
 
 export function validatePartner(fields) {

@@ -72,7 +72,7 @@
         </div>
       </template>
       <hr class="separator" />
-      <div v-if="total">
+      <div v-if="displayTotal">
         <div class="total bold">
           <span class="flex-grow-1">{{ formattedSubTotalHT }}</span>
           <span>{{ formatCurrency(totalHT) }} €</span>
@@ -85,13 +85,13 @@
           <span class="flex-grow-1">{{ $t('shippingOfferedCost') }}</span>
           <span>- {{ formatCurrency(10) }} €</span>
         </div>
-        <div class="total" v-if="synthesis && synthesis.discount">
+        <div class="total" v-if="displayDiscount">
           <span class="flex-grow-1">{{ $t('digitalOffer.discount') }}</span>
-          <span>- {{ $loGet(synthesis, 'discount', '-') }} €</span>
+          <span>- {{ formatCurrency(formattedDiscount) }} €</span>
         </div>
         <div class="total bold">
           <span class="flex-grow-1">{{ formattedTotalHT }}</span>
-          <span>{{ formatCurrency(TotalDiscountHT) }} €</span>
+          <span>{{ formatCurrency(totalDiscountHT) }} €</span>
         </div>
         <div class="total">
           <span class="flex-grow-1">{{ formattedTotalTVA }}</span>
@@ -346,10 +346,7 @@ export default {
     },
 
     total() {
-      // total TTC : nb SIM * (prix SIM TTC + prix enveloppe TTC)
-      const quantity = this.$loGet(this.synthesis, 'simStep.selectedNumberOfSims', 0);
-      if (!quantity) return 0;
-      return quantity * (this.priceTTC + this.simPriceTTC);
+      return this.totalDiscountHT + this.totalTVA;
     },
 
     totalHT() {
@@ -360,7 +357,11 @@ export default {
     },
 
     totalTVA() {
-      return this.total - this.totalHT;
+      const quantity = this.$loGet(this.synthesis, 'simStep.selectedNumberOfSims', 0);
+      if (!quantity) return 0;
+      if (!this.totalDiscountHT) return 0;
+      const total = quantity * (this.priceTTC + this.simPriceTTC);
+      return total - this.totalHT;
     },
 
     formattedTotalTTC() {
@@ -375,9 +376,33 @@ export default {
       return `${this.$t('total').toUpperCase()} HT`;
     },
 
-    TotalDiscountHT() {
-      if (this.synthesis && this.synthesis.discount) {
-        return this.totalHT - this.synthesis.discount;
+    formattedDiscount() {
+      let totalDiscount = 0;
+      const quantity = this.$loGet(this.synthesis, 'simStep.selectedNumberOfSims', 0);
+      if (this.$loGet(this.synthesis, 'simStep')) {
+        if (this.$loGet(this.synthesis, 'simStep.discounts')) {
+          if (this.$loGet(this.synthesis, 'simStep.discounts.simDiscount')) {
+            totalDiscount = this.$loGet(this.synthesis, 'simStep.discounts.simDiscount');
+          }
+        }
+      }
+      const total = quantity * (this.priceHT * (totalDiscount / 100));
+      return total;
+    },
+
+    displayDiscount() {
+      return (
+        this.synthesis &&
+        this.synthesis.simStep &&
+        this.synthesis.simStep.discounts &&
+        this.synthesis.simStep.selectedNumberOfSims <= this.synthesis.simStep.discounts.remainingSim
+      );
+    },
+
+    totalDiscountHT() {
+      if (!this.synthesis) return 0;
+      if (this.displayDiscount) {
+        return this.totalHT - this.formattedDiscount;
       } else {
         return this.totalHT;
       }

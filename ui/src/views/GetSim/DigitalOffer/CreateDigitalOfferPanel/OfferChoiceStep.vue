@@ -52,12 +52,12 @@ export default {
     },
   },
   async mounted() {
+    if (!this.synthesis) return false;
     this.offers = await fetchWorkflows();
     this.preFill();
   },
   methods: {
     preFill() {
-      if (!this.synthesis) return false;
       if (this.synthesis && this.synthesis.offerStep) {
         return this.offers.map((o) => {
           if (o.code === this.synthesis.offerStep.code) {

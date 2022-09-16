@@ -36,10 +36,10 @@ export default {
     synthesis: Object,
   },
   async mounted() {
-    this.offers = await fetchWorkflows();
     if (!this.synthesis) {
       this.$router.push({ name: 'createAccount.partner' });
     }
+    this.offers = await fetchWorkflows(this.siretValue);
   },
   data() {
     return {
@@ -50,6 +50,9 @@ export default {
   computed: {
     canNext() {
       return !!this.currentOffer;
+    },
+    siretValue() {
+      return this.synthesis.creationAccountStep.siretValue;
     },
   },
   methods: {

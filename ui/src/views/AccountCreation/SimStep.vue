@@ -49,6 +49,23 @@
           {{ $t('getsim.nb-of-sim') }}:
           {{ selectedNumberOfSims * selectedSimTypeValue.simCard.number }}
         </p>
+        <div v-if="hasDiscounts" class="mt-3">
+          <div class="alert alert-success">
+            {{
+              $t('digitalOffer.simStep.displayDiscount', {
+                nbSimDiscount: discounts.simDiscount,
+                nbRemainingSim: discounts.remainingSim,
+              })
+            }}
+          </div>
+          <div v-if="limitDiscounts" class="alert alert-warning">
+            {{
+              $t('digitalOffer.simStep.warningDiscount', {
+                nbRemainingSim: discounts.remainingSim,
+              })
+            }}
+          </div>
+        </div>
       </div>
     </div>
     <BottomBar @next="gotoNext" @prev="gotoPrev" :can-prev="true" :can-next="canNext" />
@@ -83,13 +100,12 @@ export default {
   },
 
   async mounted() {
+    if (!this.synthesis) {
+      this.$router.push({ name: 'createAccount.partner' });
+    }
     this.simTypes = await fetchSimTypes();
     if (this.simTypes.length) {
       this.selectedSimTypeValue = this.simTypes[0];
-    }
-
-    if (!this.synthesis) {
-      this.$router.push({ name: 'createAccount.partner' });
     }
   },
 
@@ -105,6 +121,24 @@ export default {
         parseInt(this.selectedNumberOfSims) <= this.maxValue &&
         parseInt(this.selectedNumberOfSims) > 0
       );
+    },
+    hasDiscounts() {
+      return (
+        this.synthesis.offerStep.discounts &&
+        !!this.synthesis.offerStep.discounts.find((d) => d.step === 'ORDER')
+      );
+    },
+    discounts() {
+      if (this.hasDiscounts) {
+        return this.synthesis.offerStep.discounts.find((d) => d.step === 'ORDER');
+      }
+      return undefined;
+    },
+    limitDiscounts() {
+      if (this.hasDiscounts) {
+        return !!(this.selectedNumberOfSims > this.discounts.remainingSim);
+      }
+      return undefined;
     },
   },
   methods: {
@@ -130,6 +164,7 @@ export default {
             simStep: {
               selectedSimTypeValue: this.selectedSimTypeValue,
               selectedNumberOfSims: this.selectedNumberOfSims,
+              discounts: this.discounts,
             },
           },
         },
