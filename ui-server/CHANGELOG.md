@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1078+20220919142000
+2022-09-19
+
+### Features
+
+- [3394] création de la remise pour les commandes d'offre digitale suivant la première (c3f12ccf7919874a50ac6e9299e8b001c7af7eff)
+
 ## 1.17.0-master.1077+20220916114003
 2022-09-16
 
