@@ -428,7 +428,8 @@ export default {
       this.countryError = this.checkFieldFormError('country');
       this.loginError = this.checkFieldFormError('login');
       this.civilityError = this.checkFieldFormError('title');
-      this.siretNumberError = this.checkFieldFormError('siretValue') && countryCode === 'fr';
+      this.siretNumberError =
+        (this.checkFieldFormError('siretValue') && countryCode === 'fr') || !this.reachedMaxLength;
       this.tvaNumberError = this.checkFieldFormError('tvaValue');
 
       return (

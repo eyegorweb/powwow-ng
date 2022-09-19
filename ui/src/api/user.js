@@ -19,6 +19,7 @@ export async function fetchCurrentUserInfos() {
           id
           name
           partyType
+          siret
           flagMsisdnA
           optionViewCellId
           flagStatisticsEnabled

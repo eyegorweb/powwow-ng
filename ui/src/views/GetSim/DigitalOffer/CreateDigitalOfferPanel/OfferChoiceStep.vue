@@ -28,6 +28,7 @@
 import CreateOrderStepContainer from '@/views/GetSim/CreateOrder/CreateOrderStepContainer.vue';
 import OfferCard from '@/views/AccountCreation/OfferCard.vue';
 import { fetchWorkflows } from '@/api/digital.js';
+import { mapGetters } from 'vuex';
 
 export default {
   components: {
@@ -47,13 +48,14 @@ export default {
     };
   },
   computed: {
+    ...mapGetters(['userInfos']),
     canGoToNextStep() {
       return !!this.currentOffer;
     },
   },
   async mounted() {
     if (!this.synthesis) return false;
-    this.offers = await fetchWorkflows();
+    this.offers = await fetchWorkflows(this.userInfos.partners[0].siret);
     this.preFill();
   },
   methods: {

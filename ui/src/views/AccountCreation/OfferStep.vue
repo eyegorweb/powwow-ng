@@ -71,6 +71,14 @@ export default {
       this.currentOffer = selectedOffer.selectedOffer;
     },
   },
+  watch: {
+    async siretValue(newValue, oldValue) {
+      if (oldValue && newValue !== oldValue) {
+        this.offers = await fetchWorkflows(newValue);
+        this.currentOffer = undefined;
+      }
+    },
+  },
 };
 </script>
 
