@@ -138,7 +138,7 @@
       "phone": "Mobile phone"
     },
     "simStep": {
-      "displayDiscount": "You get a {nbSimDiscount}% discount for a maximum quantity of {nbRemainingSim} SIMs.",
+      "displayDiscount": "You get a discount for a maximum quantity of {nbRemainingSim} SIMs.",
       "warningDiscount": "Attention ! The discount will not be applied because the order is greater than {nbRemainingSim} SIM granted."
     },
     "synthesis": {
