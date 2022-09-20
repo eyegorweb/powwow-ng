@@ -54,7 +54,6 @@
           <div class="alert alert-success">
             {{
               $t('digitalOffer.simStep.displayDiscount', {
-                nbSimDiscount: discounts.simDiscount,
                 nbRemainingSim: discounts.remainingSim,
               })
             }}

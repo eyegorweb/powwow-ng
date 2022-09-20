@@ -177,7 +177,7 @@
       "phone": "Téléphone mobile"
     },
     "simStep": {
-      "displayDiscount": "Vous bénéficiez d'une remise de {nbSimDiscount} % pour une quantité maximale de {nbRemainingSim} SIM.",
+      "displayDiscount": "Vous bénéficiez d'une remise pour une quantité maximale de {nbRemainingSim} SIM.",
       "warningDiscount": "Attention ! La remise ne sera pas appliquée car la commande est supérieure à {nbRemainingSim} SIM accordées."
     },
     "synthesis": {
