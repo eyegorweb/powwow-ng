@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1080+20220920143758
+2022-09-20
+
+### Features
+
+- [3394] correction et amélioration du calcul de la remise pour offre digitale (f4528364d9c49046fe7600be51e239247f2e6281)
+
 ## 1.17.0-master.1079+20220920094844
 2022-09-20
 
