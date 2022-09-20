@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1079+20220920094844
+2022-09-20
+
+### Fixes
+
+- [3394] correction format nombre sur la synthèse d'une seconde commande (5c2f726da5822c5584989b547df24cfd8e0133f1)
+
 ## 1.17.0-master.1078+20220919142000
 2022-09-19
 
