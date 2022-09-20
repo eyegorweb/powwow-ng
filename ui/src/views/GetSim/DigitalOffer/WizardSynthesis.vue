@@ -35,8 +35,10 @@
             </h6>
             <p class="text-right">
               {{
-                formatCurrency($loGet(formattedPrice[1], 'value.content')) *
-                  $loGet(formattedPrice[0], 'value.content', '-')
+                formatCurrency(
+                  $loGet(formattedPrice[1], 'value.content') *
+                    $loGet(formattedPrice[0], 'value.content', '-')
+                )
               }}
               €
             </p>
