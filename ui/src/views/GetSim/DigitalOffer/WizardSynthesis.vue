@@ -446,17 +446,30 @@ export default {
     },
 
     formattedDiscount() {
-      let totalDiscount = 0;
-      const quantity = this.$loGet(this.synthesis, 'simStep.selectedNumberOfSims', 0);
+      let totalSimDiscount = 0;
+      const quantitySimDiscount = this.$loGet(this.synthesis, 'simStep.selectedNumberOfSims', 0);
       if (this.$loGet(this.synthesis, 'simStep')) {
         if (this.$loGet(this.synthesis, 'simStep.discounts')) {
           if (this.$loGet(this.synthesis, 'simStep.discounts.simDiscount')) {
-            totalDiscount = this.$loGet(this.synthesis, 'simStep.discounts.simDiscount');
+            totalSimDiscount = this.$loGet(this.synthesis, 'simStep.discounts.simDiscount');
           }
         }
       }
-      const total = quantity * (this.priceHT * (totalDiscount / 100));
-      return total;
+
+      let totalTopUpDiscount = 0;
+      const quantityTopUpDiscount = this.$loGet(this.synthesis, 'simStep.selectedNumberOfSims', 0);
+      if (this.$loGet(this.synthesis, 'simStep')) {
+        if (this.$loGet(this.synthesis, 'simStep.discounts')) {
+          if (this.$loGet(this.synthesis, 'simStep.discounts.topUpDiscount')) {
+            totalTopUpDiscount = this.$loGet(this.synthesis, 'simStep.discounts.topUpDiscount');
+          }
+        }
+      }
+
+      const totalSim = quantitySimDiscount * (this.simPriceHT * (totalSimDiscount / 100));
+      const totalPopUp =
+        quantityTopUpDiscount * (this.formattedOfferPackagePrice * (totalTopUpDiscount / 100));
+      return totalSim + totalPopUp;
     },
 
     displayDiscount() {
