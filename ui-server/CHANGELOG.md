@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1082+20220922144733
+2022-09-22
+
+### Fixes
+
+- [3394] Calcul de la TVA avec prise en compte de la remise pour la commande. (59ccd4301cfd9a43ddba0e16f2399ca5f1390fe4)
+
 ## 1.17.0-master.1081+20220921131357
 2022-09-21
 
