@@ -82,7 +82,7 @@
         </div>
         <div class="total" v-if="displayDiscount">
           <span class="flex-grow-1">{{ $t('digitalOffer.discount') }}</span>
-          <span>- {{ formatCurrency(formattedDiscount) }} €</span>
+          <span>- {{ formatCurrency(formattedDiscountHT) }} €</span>
         </div>
         <div class="total bold">
           <span class="flex-grow-1">{{ formattedTotalHT }}</span>
@@ -184,6 +184,31 @@ export default {
           });
           return parameters;
         });
+    },
+    formattedDiscount(simPrice, topUpPrice) {
+      let totalSimDiscount = 0;
+      const quantitySimDiscount = this.$loGet(this.synthesis, 'simStep.selectedNumberOfSims', 0);
+      if (this.$loGet(this.synthesis, 'simStep')) {
+        if (this.$loGet(this.synthesis, 'simStep.discounts')) {
+          if (this.$loGet(this.synthesis, 'simStep.discounts.simDiscount')) {
+            totalSimDiscount = this.$loGet(this.synthesis, 'simStep.discounts.simDiscount');
+          }
+        }
+      }
+
+      let totalTopUpDiscount = 0;
+      const quantityTopUpDiscount = this.$loGet(this.synthesis, 'simStep.selectedNumberOfSims', 0);
+      if (this.$loGet(this.synthesis, 'simStep')) {
+        if (this.$loGet(this.synthesis, 'simStep.discounts')) {
+          if (this.$loGet(this.synthesis, 'simStep.discounts.topUpDiscount')) {
+            totalTopUpDiscount = this.$loGet(this.synthesis, 'simStep.discounts.topUpDiscount');
+          }
+        }
+      }
+
+      const totalSim = quantitySimDiscount * (simPrice * (totalSimDiscount / 100));
+      const totalTopUp = quantityTopUpDiscount * (topUpPrice * (totalTopUpDiscount / 100));
+      return totalSim + totalTopUp;
     },
   },
 
@@ -429,8 +454,8 @@ export default {
       const quantity = this.$loGet(this.synthesis, 'simStep.selectedNumberOfSims', 0);
       if (!quantity) return 0;
       if (!this.totalDiscountHT) return 0;
-      const total = quantity * (this.priceTTC + this.simPriceTTC);
-      return total - this.totalHT;
+      const total = quantity * (this.priceTTC + this.simPriceTTC) - this.formattedDiscountTTC;
+      return total - this.totalDiscountHT;
     },
 
     formattedTotalTTC() {
@@ -445,33 +470,12 @@ export default {
       return `${this.$t('total').toUpperCase()} HT`;
     },
 
-    formattedDiscount() {
-      let totalSimDiscount = 0;
-      const quantitySimDiscount = this.$loGet(this.synthesis, 'simStep.selectedNumberOfSims', 0);
-      if (this.$loGet(this.synthesis, 'simStep')) {
-        if (this.$loGet(this.synthesis, 'simStep.discounts')) {
-          if (this.$loGet(this.synthesis, 'simStep.discounts.simDiscount')) {
-            totalSimDiscount = this.$loGet(this.synthesis, 'simStep.discounts.simDiscount');
-          }
-        }
-      }
-
-      let totalTopUpDiscount = 0;
-      const quantityTopUpDiscount = this.$loGet(this.synthesis, 'simStep.selectedNumberOfSims', 0);
-      if (this.$loGet(this.synthesis, 'simStep')) {
-        if (this.$loGet(this.synthesis, 'simStep.discounts')) {
-          if (this.$loGet(this.synthesis, 'simStep.discounts.topUpDiscount')) {
-            totalTopUpDiscount = this.$loGet(this.synthesis, 'simStep.discounts.topUpDiscount');
-          }
-        }
-      }
-
-      const totalSim = quantitySimDiscount * (this.simPriceHT * (totalSimDiscount / 100));
-      const totalPopUp =
-        quantityTopUpDiscount * (this.formattedOfferPackagePrice * (totalTopUpDiscount / 100));
-      return totalSim + totalPopUp;
+    formattedDiscountHT() {
+      return this.formattedDiscount(this.simPriceHT, this.priceHT);
     },
-
+    formattedDiscountTTC() {
+      return this.formattedDiscount(this.simPriceTTC, this.priceTTC);
+    },
     displayDiscount() {
       return (
         this.synthesis &&
@@ -484,7 +488,7 @@ export default {
     totalDiscountHT() {
       if (!this.synthesis) return 0;
       if (this.displayDiscount) {
-        return this.totalHT - this.formattedDiscount;
+        return this.totalHT - this.formattedDiscountHT;
       } else {
         return this.totalHT;
       }
