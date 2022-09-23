@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1083+20220923083746
+2022-09-23
+
+### Features
+
+- [3394] calcul TVA en fonction de la remise ou pas (2cb28105a7eaace66652e0236e930183b57a5332)
+
 ## 1.17.0-master.1082+20220922144733
 2022-09-22
 
