@@ -1,7 +1,7 @@
 <template>
   <div class="step-container">
     <div class="offerContainer">
-      <div class="row">
+      <div class="row" :class="cardCSSStyleCenter">
         <div class="col-4" v-for="offer in offers" :key="offer.id">
           <OfferCard
             :offer="offer"
@@ -53,6 +53,15 @@ export default {
     },
     siretValue() {
       return this.synthesis.creationAccountStep.siretValue;
+    },
+    cardCSSStyleCenter() {
+      let nbCardOffers = this.offers.length;
+      if (nbCardOffers === 3) {
+        return '';
+      } else if (nbCardOffers === 2) {
+        return 'justify-content-center';
+      }
+      return 'justify-content-center';
     },
   },
   methods: {

@@ -7,7 +7,7 @@
   >
     <div class="step-container">
       <div class="offerContainer">
-        <div class="row">
+        <div class="row" :class="cardCSSStyleCenter">
           <div class="col-4" v-for="offer in offers" :key="offer.id">
             <OfferCard
               :offer="offer"
@@ -51,6 +51,15 @@ export default {
     ...mapGetters(['userInfos']),
     canGoToNextStep() {
       return !!this.currentOffer;
+    },
+    cardCSSStyleCenter() {
+      let nbCardOffers = this.offers.length;
+      if (nbCardOffers === 3) {
+        return '';
+      } else if (nbCardOffers === 2) {
+        return 'justify-content-center';
+      }
+      return 'justify-content-center';
     },
   },
   async mounted() {
