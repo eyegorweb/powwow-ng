@@ -123,7 +123,7 @@ export default {
     },
   },
   mounted() {
-    if (getFiltersStorage('filtersHistoryAct').filters) {
+    if (getFiltersStorage('filtersHistoryAct') && getFiltersStorage('filtersHistoryAct').filters) {
       const filtersFromStorage = getFiltersStorage('filtersHistoryAct');
       this.filtersName = filtersFromStorage.filters;
     }

@@ -6,6 +6,16 @@
   >
     <div slot="main">
       <div class="pricing">
+        <div v-if="hasDiscounts" class="pricing-container">
+          <div class="alert alert-success pricing-container">
+            {{
+              $t('digitalOffer.simStep.displayDiscount', {
+                nbSimDiscount: topUpdiscount.topUpDiscount,
+                nbRemainingSim: topUpdiscount.remainingSim,
+              })
+            }}
+          </div>
+        </div>
         <div v-if="packages" class="pricing-container">
           <div class="card" v-for="(offer, index) in packages" :key="index">
             <OfferCard
@@ -14,6 +24,56 @@
               :is-active="offer === currentOffer"
               @select:offer="getCurrentOffer"
             />
+          </div>
+          <div class="synthesis-content mb-3">
+            <template v-if="displayTotal">
+              <div class="d-flex flex-row">
+                <div style="flex-basis: 33%">
+                  <h6 class="subtitle">{{ $t('digitalOffer.synthesis.designation') }}</h6>
+                  <p>1 {{ $t('digitalOffer.synthesis.topup') }}</p>
+                </div>
+                <div v-if="$loGet(formattedPrice[0], 'label')" style="flex-basis: 33%">
+                  <h6 class="subtitle text-right">
+                    {{ $t('digitalOffer.synthesis.price') }}
+                  </h6>
+                  <p class="text-right">
+                    {{ formatCurrency($loGet(formattedPrice[0], 'value.content')) }} €
+                  </p>
+                </div>
+                <div style="flex-basis: 33%">
+                  <h6 class="subtitle text-right">
+                    {{ $t('bills.amount') }}
+                  </h6>
+                  <p class="text-right">
+                    {{ formatCurrency(1 * $loGet(formattedPrice[0], 'value.content', '-')) }}
+                    €
+                  </p>
+                </div>
+              </div>
+            </template>
+            <hr class="separator" />
+            <div v-if="displayTotal">
+              <div class="total bold d-flex flex-row">
+                <span class="flex-grow-1">{{ formattedSubTotalHT }}</span>
+                <span>{{ formatCurrency(subTotalHT) }} €</span>
+              </div>
+              <div class="total d-flex flex-row" v-if="displayDiscount">
+                <span class="flex-grow-1">{{ $t('digitalOffer.discount') }}</span>
+                <span>- {{ formatCurrency(formattedDiscountHT) }} €</span>
+              </div>
+              <div class="total bold d-flex flex-row">
+                <span class="flex-grow-1">{{ formattedTotalHT }}</span>
+                <span>{{ formatCurrency(totalHT) }} €</span>
+              </div>
+              <div class="total d-flex flex-row">
+                <span class="flex-grow-1">{{ formattedTotalTVA }}</span>
+                <span>{{ formatCurrency(totalTVA) }} €</span>
+              </div>
+              <div class="total bold d-flex flex-row">
+                <span class="flex-grow-1">{{ formattedTotalTTC }}</span>
+                <span>{{ formatCurrency(total) }} €</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -66,6 +126,7 @@ import { fetchODOffers, rechargeLineOD } from '@/api/offers.js';
 import { mapState, mapGetters } from 'vuex';
 import { formattedCurrentDateExtended } from '@/utils/date.js';
 import { formatBackErrors } from '@/utils/errors';
+import { formatCurrency } from '@/utils/numbers.js';
 
 export default {
   components: {
@@ -78,6 +139,7 @@ export default {
   data() {
     return {
       packages: undefined,
+      discounts: undefined,
       exceptionError: undefined,
       actDate: null,
       dateError: null,
@@ -105,6 +167,95 @@ export default {
 
       return '';
     },
+    hasDiscounts() {
+      return (
+        this.discounts && this.discounts.length && !!this.discounts.find((d) => d.step === 'TOP_UP')
+      );
+    },
+    topUpdiscount() {
+      if (this.hasDiscounts) {
+        return this.discounts.find((d) => d.step === 'TOP_UP');
+      }
+      return undefined;
+    },
+    displayTotal() {
+      return (
+        this.formattedPrice[0] &&
+        this.formattedPrice[0].label === this.$t('digitalOffer.synthesis.price')
+      );
+    },
+    formattedPrice() {
+      const formatted = [];
+
+      if (this.$loGet(this.currentOffer, 'buyingPriceInEuroCentHT')) {
+        const price = this.$loGet(this.currentOffer, 'buyingPriceInEuroCentHT', 0) / 100;
+        formatted.push({
+          label: this.$t('digitalOffer.synthesis.price'),
+          value: {
+            content: price,
+          },
+        });
+      }
+
+      return formatted;
+    },
+    subTotalHT() {
+      return this.$loGet(this.formattedPrice[0], 'value.content');
+    },
+    totalHT() {
+      return this.subTotalHT - this.formattedDiscountHT;
+    },
+    total() {
+      return this.totalDiscountHT + this.totalTVA;
+    },
+    totalTVA() {
+      let total = 0;
+      if (!this.totalDiscountHT) return 0;
+      if (this.displayDiscount) {
+        total = 1 * this.priceTTC - this.formattedDiscountTTC;
+        return total - this.totalDiscountHT;
+      } else {
+        total = 1 * this.priceTTC;
+        return total - this.totalHT;
+      }
+    },
+    formattedSubTotalHT() {
+      return `${this.$t('digitalOffer.subTotal').toUpperCase()} HT`;
+    },
+    formattedTotalHT() {
+      return `${this.$t('total').toUpperCase()} HT`;
+    },
+    formattedTotalTVA() {
+      return `${this.$t('bills.amount')} TVA`;
+    },
+    formattedTotalTTC() {
+      return `${this.$t('total').toUpperCase()} TTC`;
+    },
+    displayDiscount() {
+      return !!this.topUpdiscount;
+    },
+    formattedDiscountHT() {
+      return this.formattedDiscount(this.priceHT);
+    },
+    formattedDiscountTTC() {
+      return this.formattedDiscount(this.priceTTC);
+    },
+    priceHT() {
+      const price = this.$loGet(this.currentOffer, 'buyingPriceInEuroCentHT', 0);
+      return price / 100;
+    },
+    priceTTC() {
+      const price = this.$loGet(this.currentOffer, 'buyingPriceInEuroCentTTC', 0);
+      return price / 100;
+    },
+    totalDiscountHT() {
+      if (!this.topUpdiscount) return 0;
+      if (this.displayDiscount) {
+        return this.totalHT - this.formattedDiscountHT;
+      } else {
+        return this.totalHT;
+      }
+    },
   },
   async mounted() {
     let response = undefined;
@@ -122,6 +273,7 @@ export default {
     }
     if (response.items && response.items.length) {
       this.packages = this.$loGet(response.items[0], 'offerPackages', []);
+      this.discounts = this.$loGet(response.items[0], 'discounts', []);
       this.packages.forEach((aPackage) => {
         aPackage.name = this.$loGet(response.items[0], 'name');
         aPackage.workflowDescription = this.$loGet(response.items[0], 'workflowDescription');
@@ -136,6 +288,18 @@ export default {
     },
     onActDateChange(value) {
       this.actDate = value;
+    },
+    formatCurrency(value) {
+      return formatCurrency(value);
+    },
+    formattedDiscount(topUpPrice) {
+      const topUpValue =
+        this.topUpdiscount && this.topUpdiscount.topUpDiscount
+          ? this.topUpdiscount.topUpDiscount
+          : 0;
+      const totalTopUp = 1 * (topUpPrice * (topUpValue / 100));
+      console.log('formattedDiscount', totalTopUp);
+      return totalTopUp;
     },
     async validate() {
       this.isLoading = true;
@@ -199,11 +363,16 @@ export default {
 $main-font-color: #808080;
 $main-font-weight: 300;
 $primary-color: #57e2b2;
+$fontSize: 0.8rem;
+.bold {
+  font-weight: bold;
+}
 
 .pricing {
   .pricing-container {
     display: flex;
     flex-wrap: wrap;
+    font-size: $fontSize;
   }
   .entry {
     flex-basis: 24.3333333%;
@@ -215,21 +384,6 @@ $primary-color: #57e2b2;
   .card {
     border: none;
     margin-right: 10px;
-  }
-  // Price
-  .display-2 {
-    font-size: 2rem;
-    & .currency {
-      font-size: 0.95rem;
-      position: relative;
-      font-weight: $main-font-weight + 100;
-      letter-spacing: 0px;
-    }
-    & .period {
-      font-size: 1rem;
-      color: lighten($main-font-color, 20%);
-      letter-spacing: 0px;
-    }
   }
 
   // Buttons
@@ -250,6 +404,15 @@ $primary-color: #57e2b2;
     &:hover {
       color: white;
       background-color: $primary;
+    }
+  }
+  .synthesis-content {
+    overflow-y: auto;
+    flex-grow: 1;
+    max-width: 90%;
+
+    .separator {
+      border: 1px solid #000;
     }
   }
 }
