@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1084+20220923090345
+2022-09-23
+
+### Features
+
+- [3394] centrage des cartes d'offre selon leur nombre (48852a643c0a544b64574026387b71cdc1266708)
+
 ## 1.17.0-master.1083+20220923083746
 2022-09-23
 
