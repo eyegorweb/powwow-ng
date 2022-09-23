@@ -357,11 +357,17 @@ export default {
     },
 
     totalTVA() {
+      let total = 0;
       const quantity = this.$loGet(this.synthesis, 'simStep.selectedNumberOfSims', 0);
       if (!quantity) return 0;
       if (!this.totalDiscountHT) return 0;
-      const total = quantity * (this.priceTTC + this.simPriceTTC) - this.formattedDiscountTTC;
-      return total - this.totalDiscountHT;
+      if (this.displayDiscount) {
+        total = quantity * (this.priceTTC + this.simPriceTTC) - this.formattedDiscountTTC;
+        return total - this.totalDiscountHT;
+      } else {
+        total = quantity * (this.priceTTC + this.simPriceTTC);
+        return total - this.totalHT;
+      }
     },
 
     formattedTotalTTC() {
