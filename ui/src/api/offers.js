@@ -603,6 +603,12 @@ export async function fetchODOffers(partyId, offer) {
       items {
         id
         code
+        discounts {
+          step
+          remainingSim
+          simDiscount
+          topUpDiscount
+        } 
         initialOffer {
           code
           id

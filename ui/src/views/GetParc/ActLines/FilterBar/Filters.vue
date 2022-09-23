@@ -457,6 +457,8 @@ import DownloadProfileFilter from '@/views/GetParc/ActLines/FilterBar/DownloadPr
 import EsimCategoryFilter from '@/views/GetParc/ActLines/FilterBar/Esim/EsimCategoryFilter.vue';
 import EsimFamilyFilter from '@/views/GetParc/ActLines/FilterBar/Esim/EsimFamilyFilter.vue';
 
+import { getPartyOptions } from '@/api/partners.js';
+
 export default {
   props: {
     keyName: {
@@ -522,6 +524,7 @@ export default {
       'havePermission',
       'userIsMultiCustomer',
       'userIsOperator',
+      'userInfos',
     ]),
     filtersAreDisabled() {
       return this.actToCreate && this.actToCreate.containFile;
@@ -558,6 +561,10 @@ export default {
       'selectSMSRidFilter',
       'selectEsimFamilyFilter',
     ]),
+    async ipFixeEnabled() {
+      const optionsPartner = await getPartyOptions(this.userInfos.id);
+      return optionsPartner.ipFixeEnable;
+    },
   },
 };
 </script>
