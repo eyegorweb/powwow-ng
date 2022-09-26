@@ -9,8 +9,7 @@
         <div v-if="hasDiscounts" class="pricing-container">
           <div class="alert alert-success pricing-container">
             {{
-              $t('digitalOffer.simStep.displayDiscount', {
-                nbSimDiscount: topUpdiscount.topUpDiscount,
+              $t('digitalOffer.simStep.displayTopUpDiscount', {
                 nbRemainingSim: topUpdiscount.remainingSim,
               })
             }}

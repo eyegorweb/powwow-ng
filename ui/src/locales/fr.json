@@ -178,6 +178,7 @@
     },
     "simStep": {
       "displayDiscount": "Vous bénéficiez d'une remise pour une quantité maximale de {nbRemainingSim} SIM.",
+      "displayTopUpDiscount": "Vous bénéficiez d'une remise pour une quantité maximale de {nbRemainingSim} ligne(s).",
       "warningDiscount": "Attention ! La remise ne sera pas appliquée car la commande est supérieure à {nbRemainingSim} SIM accordées."
     },
     "synthesis": {
