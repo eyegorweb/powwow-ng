@@ -250,11 +250,7 @@ export default {
     },
     totalDiscountHT() {
       if (!this.topUpdiscount) return 0;
-      if (this.displayDiscount) {
-        return this.totalHT - this.formattedDiscountHT;
-      } else {
-        return this.totalHT;
-      }
+      return this.totalHT;
     },
   },
   async mounted() {
@@ -298,7 +294,6 @@ export default {
           ? this.topUpdiscount.topUpDiscount
           : 0;
       const totalTopUp = 1 * (topUpPrice * (topUpValue / 100));
-      console.log('formattedDiscount', totalTopUp);
       return totalTopUp;
     },
     async validate() {
