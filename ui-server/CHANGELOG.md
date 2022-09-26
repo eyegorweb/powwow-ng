@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1086+20220926092302
+2022-09-26
+
+### Features
+
+- [3395] application de la remise lors de la recharge d'offre digitale (ec87efb3a8f8dd514e4209da8d39570c3555ad43)
+
 ## 1.17.0-master.1085+20220923143244
 2022-09-23
 
