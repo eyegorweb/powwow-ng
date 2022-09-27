@@ -29,7 +29,7 @@
     </div>
     <div slot="bottom" slot-scope="{ containerValidationFn }">
       <template v-if="displayTotal">
-        <div class="row">
+        <div class="pricing">
           <div class="synthesis-content mb-3">
             <div class="d-flex flex-row">
               <div style="flex-basis: 33%">
