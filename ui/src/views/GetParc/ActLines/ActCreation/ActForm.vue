@@ -72,6 +72,7 @@
       />
       <RechargeLinesOD
         v-if="act.title === 'getparc.actCreation.carouselItem.RECHARGE_LINES' && !isLoading"
+        :total-selected="totalSelected"
       />
       <RadiusAdmin
         v-if="act.title === 'getparc.actCreation.carouselItem.RADIUS_ADMIN' && !isLoading"
@@ -142,6 +143,7 @@ export default {
   props: {
     act: Object,
     useFileImportAsInput: Boolean,
+    totalSelected: Number,
     fileImportAsInputContext: {
       type: Object,
       required: false,

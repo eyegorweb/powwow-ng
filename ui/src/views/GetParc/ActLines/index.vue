@@ -128,6 +128,7 @@
               :key="actToCreateFormVersionChange"
               :use-file-import-as-input="useFileImportAsInput"
               :file-import-as-input-context="fileImportAsInputContext"
+              :total-selected="totalSelected"
             />
           </template>
         </div>

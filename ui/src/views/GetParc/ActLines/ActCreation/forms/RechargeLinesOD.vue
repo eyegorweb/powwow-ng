@@ -6,10 +6,19 @@
   >
     <div slot="main">
       <div class="pricing">
-        <div v-if="hasDiscounts" class="pricing-container">
+        <div v-if="hasDiscounts && !limitDiscounts" class="pricing-container">
           <div class="alert alert-success pricing-container">
             {{
-              $t('digitalOffer.simStep.displayTopUpDiscount', {
+              $t('digitalOffer.topUp.displayDiscount', {
+                nbRemainingSim: topUpdiscount.remainingSim,
+              })
+            }}
+          </div>
+        </div>
+        <div v-if="limitDiscounts" class="pricing-container">
+          <div class="alert alert-warning">
+            {{
+              $t('digitalOffer.topUp.warningDiscount', {
                 nbRemainingSim: topUpdiscount.remainingSim,
               })
             }}
@@ -34,7 +43,7 @@
             <div class="d-flex flex-row">
               <div style="flex-basis: 33%">
                 <h6 class="subtitle">{{ $t('digitalOffer.synthesis.designation') }}</h6>
-                <p>1 {{ $t('digitalOffer.synthesis.topup') }}</p>
+                <p>{{ totalSelected }} {{ $t('digitalOffer.synthesis.topup') }}</p>
               </div>
               <div v-if="$loGet(formattedPrice[0], 'label')" style="flex-basis: 33%">
                 <h6 class="subtitle text-right">
@@ -49,7 +58,9 @@
                   {{ $t('bills.amount') }}
                 </h6>
                 <p class="text-right">
-                  {{ formatCurrency(1 * $loGet(formattedPrice[0], 'value.content', '-')) }}
+                  {{
+                    formatCurrency(totalSelected * $loGet(formattedPrice[0], 'value.content', '-'))
+                  }}
                   €
                 </p>
               </div>
@@ -148,6 +159,9 @@ export default {
       isLoading: false,
     };
   },
+  props: {
+    totalSelected: Number,
+  },
   computed: {
     ...mapState('actLines', [
       'linesActionsResponse',
@@ -171,6 +185,12 @@ export default {
       return (
         this.discounts && this.discounts.length && !!this.discounts.find((d) => d.step === 'TOP_UP')
       );
+    },
+    limitDiscounts() {
+      if (this.hasDiscounts) {
+        return !!(this.totalSelected > this.topUpdiscount.remainingSim);
+      }
+      return undefined;
     },
     topUpdiscount() {
       if (this.hasDiscounts) {
@@ -200,41 +220,22 @@ export default {
       return formatted;
     },
     subTotalHT() {
-      return this.$loGet(this.formattedPrice[0], 'value.content');
+      return this.$loGet(this.formattedPrice[0], 'value.content') * this.totalSelected;
     },
     totalHT() {
       return this.subTotalHT - this.formattedDiscountHT;
     },
     totalTVA() {
       let total = 0;
+      let totalTTC = this.priceTTC * this.totalSelected;
       if (!this.totalDiscountHT) return 0;
       if (this.displayDiscount) {
-        total = 1 * this.priceTTC - this.formattedDiscountTTC;
+        total = totalTTC - this.formattedDiscountTTC;
         return total - this.totalDiscountHT;
       } else {
-        total = 1 * this.priceTTC;
-        return total - this.totalHT;
+        return totalTTC - this.totalHT;
       }
     },
-    // totalHT() {
-    //   const quantity = this.selectedLinesForActCreation.length;
-    //   if (!quantity) return 0;
-    //   // return quantity * (this.priceHT + this.simPriceHT);
-    //   return quantity * (this.subTotalHT - this.formattedDiscountHT);
-    // },
-    // totalTVA() {
-    //   let total = 0;
-    //   const quantity = this.selectedLinesForActCreation.length;
-    //   if (!quantity) return 0;
-    //   if (!this.totalDiscountHT) return 0;
-    //   if (this.displayDiscount) {
-    //     total = quantity * this.priceTTC - this.formattedDiscountTTC;
-    //     return total - this.totalDiscountHT;
-    //   } else {
-    //     total = quantity * this.priceTTC;
-    //     return total - this.totalHT;
-    //   }
-    // },
     total() {
       return this.totalDiscountHT + this.totalTVA;
     },
@@ -251,7 +252,11 @@ export default {
       return `${this.$t('total').toUpperCase()} TTC`;
     },
     displayDiscount() {
-      return !!this.topUpdiscount;
+      return (
+        !!this.topUpdiscount &&
+        this.topUpdiscount.remainingSim &&
+        this.topUpdiscount.remainingSim >= this.totalSelected
+      );
     },
     formattedDiscountHT() {
       return this.formattedDiscount(this.priceHT);
@@ -312,7 +317,7 @@ export default {
         this.topUpdiscount && this.topUpdiscount.topUpDiscount
           ? this.topUpdiscount.topUpDiscount
           : 0;
-      const totalTopUp = 1 * (topUpPrice * (topUpValue / 100));
+      const totalTopUp = this.totalSelected * (topUpPrice * (topUpValue / 100));
       return totalTopUp;
     },
     async validate() {

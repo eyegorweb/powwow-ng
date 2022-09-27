@@ -49,7 +49,7 @@
           {{ $t('getsim.nb-of-sim') }}:
           {{ selectedNumberOfSims * selectedSimTypeValue.simCard.number }}
         </p>
-        <div v-if="hasDiscounts" class="mt-3">
+        <div v-if="hasDiscounts && !limitDiscounts" class="mt-3">
           <div class="alert alert-success">
             {{
               $t('digitalOffer.simStep.displayDiscount', {
@@ -57,7 +57,9 @@
               })
             }}
           </div>
-          <div v-if="limitDiscounts" class="alert alert-warning">
+        </div>
+        <div v-if="limitDiscounts" class="mt-3">
+          <div class="alert alert-warning">
             {{
               $t('digitalOffer.simStep.warningDiscount', {
                 nbRemainingSim: discounts.remainingSim,

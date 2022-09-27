@@ -139,8 +139,11 @@
     },
     "simStep": {
       "displayDiscount": "You get a discount for a maximum quantity of {nbRemainingSim} SIMs.",
-      "displayTopUpDiscount": "You get a discount for a maximum quantity of {nbRemainingSim} line(s).",
-      "warningDiscount": "Attention ! The discount will not be applied because the order is greater than {nbRemainingSim} SIM granted."
+      "warningDiscount": "Attention ! The discount will not be applied because the order is greater than {nbRemainingSim} SIM."
+    },
+    "topUp": {
+      "displayDiscount": "You get a discount for a maximum quantity of {nbRemainingSim} line(s).",
+      "warningDiscount": "Attention ! The discount will not be applied because the total is greater than {nbRemainingSim}."
     },
     "synthesis": {
       "title": "Order Summary",
