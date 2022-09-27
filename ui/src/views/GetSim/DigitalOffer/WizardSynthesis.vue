@@ -581,15 +581,15 @@ $fontSize: 0.8rem;
   .footer {
     border-top: 1px solid $gray-400;
 
-    @media screen and (max-height: 768px) {
-      position: fixed;
-      background: white;
-      bottom: 10px;
-      right: 10px;
-      border: 0;
-      display: flex;
-      width: 70%;
-    }
+    // @media screen and (max-height: 768px) {
+    //   position: fixed;
+    //   background: white;
+    //   bottom: 10px;
+    //   right: 10px;
+    //   border: 0;
+    //   display: flex;
+    //   width: 70%;
+    // }
 
     button {
       font-size: 1rem;
