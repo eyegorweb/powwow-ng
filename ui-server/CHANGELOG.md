@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1091+20220927143903
+2022-09-27
+
+### Features
+
+- [3395] disposition de la table de calcul de la remise pour une recharge d'offre digitale (44f601ecd5c159d6b1e08ca597b6266ded803046)
+
 ## 1.17.0-master.1090+20220927140915
 2022-09-27
 
