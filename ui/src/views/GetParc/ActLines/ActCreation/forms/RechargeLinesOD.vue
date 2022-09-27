@@ -24,60 +24,61 @@
               @select:offer="getCurrentOffer"
             />
           </div>
-          <div class="synthesis-content mb-3">
-            <template v-if="displayTotal">
-              <div class="d-flex flex-row">
-                <div style="flex-basis: 33%">
-                  <h6 class="subtitle">{{ $t('digitalOffer.synthesis.designation') }}</h6>
-                  <p>1 {{ $t('digitalOffer.synthesis.topup') }}</p>
-                </div>
-                <div v-if="$loGet(formattedPrice[0], 'label')" style="flex-basis: 33%">
-                  <h6 class="subtitle text-right">
-                    {{ $t('digitalOffer.synthesis.price') }}
-                  </h6>
-                  <p class="text-right">
-                    {{ formatCurrency($loGet(formattedPrice[0], 'value.content')) }} €
-                  </p>
-                </div>
-                <div style="flex-basis: 33%">
-                  <h6 class="subtitle text-right">
-                    {{ $t('bills.amount') }}
-                  </h6>
-                  <p class="text-right">
-                    {{ formatCurrency(1 * $loGet(formattedPrice[0], 'value.content', '-')) }}
-                    €
-                  </p>
-                </div>
-              </div>
-            </template>
-            <hr class="separator" />
-            <div v-if="displayTotal">
-              <div class="total bold d-flex flex-row">
-                <span class="flex-grow-1">{{ formattedSubTotalHT }}</span>
-                <span>{{ formatCurrency(subTotalHT) }} €</span>
-              </div>
-              <div class="total d-flex flex-row" v-if="displayDiscount">
-                <span class="flex-grow-1">{{ $t('digitalOffer.discount') }}</span>
-                <span>- {{ formatCurrency(formattedDiscountHT) }} €</span>
-              </div>
-              <div class="total bold d-flex flex-row">
-                <span class="flex-grow-1">{{ formattedTotalHT }}</span>
-                <span>{{ formatCurrency(totalHT) }} €</span>
-              </div>
-              <div class="total d-flex flex-row">
-                <span class="flex-grow-1">{{ formattedTotalTVA }}</span>
-                <span>{{ formatCurrency(totalTVA) }} €</span>
-              </div>
-              <div class="total bold d-flex flex-row">
-                <span class="flex-grow-1">{{ formattedTotalTTC }}</span>
-                <span>{{ formatCurrency(total) }} €</span>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>
     <div slot="bottom" slot-scope="{ containerValidationFn }">
+      <template v-if="displayTotal">
+        <div class="row">
+          <div class="synthesis-content mb-3">
+            <div class="d-flex flex-row">
+              <div style="flex-basis: 33%">
+                <h6 class="subtitle">{{ $t('digitalOffer.synthesis.designation') }}</h6>
+                <p>1 {{ $t('digitalOffer.synthesis.topup') }}</p>
+              </div>
+              <div v-if="$loGet(formattedPrice[0], 'label')" style="flex-basis: 33%">
+                <h6 class="subtitle text-right">
+                  {{ $t('digitalOffer.synthesis.price') }}
+                </h6>
+                <p class="text-right">
+                  {{ formatCurrency($loGet(formattedPrice[0], 'value.content')) }} €
+                </p>
+              </div>
+              <div style="flex-basis: 33%">
+                <h6 class="subtitle text-right">
+                  {{ $t('bills.amount') }}
+                </h6>
+                <p class="text-right">
+                  {{ formatCurrency(1 * $loGet(formattedPrice[0], 'value.content', '-')) }}
+                  €
+                </p>
+              </div>
+            </div>
+            <hr class="separator" />
+            <div class="total bold d-flex flex-row">
+              <span class="flex-grow-1">{{ formattedSubTotalHT }}</span>
+              <span>{{ formatCurrency(subTotalHT) }} €</span>
+            </div>
+            <div class="total d-flex flex-row" v-if="displayDiscount">
+              <span class="flex-grow-1">{{ $t('digitalOffer.discount') }}</span>
+              <span>- {{ formatCurrency(formattedDiscountHT) }} €</span>
+            </div>
+            <div class="total bold d-flex flex-row">
+              <span class="flex-grow-1">{{ formattedTotalHT }}</span>
+              <span>{{ formatCurrency(totalHT) }} €</span>
+            </div>
+            <div class="total d-flex flex-row">
+              <span class="flex-grow-1">{{ formattedTotalTVA }}</span>
+              <span>{{ formatCurrency(totalTVA) }} €</span>
+            </div>
+            <div class="total bold d-flex flex-row">
+              <span class="flex-grow-1">{{ formattedTotalTTC }}</span>
+              <span>{{ formatCurrency(total) }} €</span>
+            </div>
+          </div>
+        </div>
+      </template>
+
       <div class="row">
         <div class="col-md-4">
           <UiDate
@@ -204,9 +205,6 @@ export default {
     totalHT() {
       return this.subTotalHT - this.formattedDiscountHT;
     },
-    total() {
-      return this.totalDiscountHT + this.totalTVA;
-    },
     totalTVA() {
       let total = 0;
       if (!this.totalDiscountHT) return 0;
@@ -217,6 +215,28 @@ export default {
         total = 1 * this.priceTTC;
         return total - this.totalHT;
       }
+    },
+    // totalHT() {
+    //   const quantity = this.selectedLinesForActCreation.length;
+    //   if (!quantity) return 0;
+    //   // return quantity * (this.priceHT + this.simPriceHT);
+    //   return quantity * (this.subTotalHT - this.formattedDiscountHT);
+    // },
+    // totalTVA() {
+    //   let total = 0;
+    //   const quantity = this.selectedLinesForActCreation.length;
+    //   if (!quantity) return 0;
+    //   if (!this.totalDiscountHT) return 0;
+    //   if (this.displayDiscount) {
+    //     total = quantity * this.priceTTC - this.formattedDiscountTTC;
+    //     return total - this.totalDiscountHT;
+    //   } else {
+    //     total = quantity * this.priceTTC;
+    //     return total - this.totalHT;
+    //   }
+    // },
+    total() {
+      return this.totalDiscountHT + this.totalTVA;
     },
     formattedSubTotalHT() {
       return `${this.$t('digitalOffer.subTotal').toUpperCase()} HT`;
