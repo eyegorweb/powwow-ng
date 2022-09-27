@@ -228,7 +228,6 @@ export default {
     totalTVA() {
       let total = 0;
       let totalTTC = this.priceTTC * this.totalSelected;
-      if (!this.totalDiscountHT) return 0;
       if (this.displayDiscount) {
         total = totalTTC - this.formattedDiscountTTC;
         return total - this.totalDiscountHT;
@@ -237,7 +236,10 @@ export default {
       }
     },
     total() {
-      return this.totalDiscountHT + this.totalTVA;
+      if (this.displayDiscount) {
+        return this.totalDiscountHT + this.totalTVA;
+      }
+      return this.totalHT + this.totalTVA;
     },
     formattedSubTotalHT() {
       return `${this.$t('digitalOffer.subTotal').toUpperCase()} HT`;
