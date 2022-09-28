@@ -16,7 +16,7 @@
                 v-model="emailNotif"
                 :max-size="50"
                 :class="{ error: emailError }"
-                :required="true"
+                :required="emailNotif && !isEmailValid(emailNotif)"
               />
               <span v-if="emailNotif && !isEmailValid(emailNotif)" class="error-text">
                 {{ $t('errors.password.email-error') }}
