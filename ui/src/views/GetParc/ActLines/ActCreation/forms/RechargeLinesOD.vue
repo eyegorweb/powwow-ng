@@ -95,11 +95,10 @@
           <UiDate
             @change="onActDateChange"
             :value="actDate"
-            :error="dateError"
             class="d-block"
             :min-date="minDate"
             time-picker
-            fixed
+            disabled
           >
             <em slot="icon" class="select-icon ic-Flag-Icon" />
           </UiDate>
@@ -153,7 +152,6 @@ export default {
       discounts: undefined,
       exceptionError: undefined,
       actDate: null,
-      dateError: null,
       currentOffer: undefined,
       workflowId: undefined,
       isLoading: false,
