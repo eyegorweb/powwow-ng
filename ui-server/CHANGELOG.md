@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1094+20220928163533
+2022-09-28
+
+### Fixes
+
+- [3448] correction de l'adresse email requise pour la création d'une offre digitale (cbfc1a9709b0aa79141b99515c746aec8e23d53b)
+
 ## 1.17.0-master.1093+20220928074811
 2022-09-28
 
