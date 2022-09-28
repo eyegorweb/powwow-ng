@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1093+20220928074811
+2022-09-28
+
+### Features
+
+- [3395] désactivation de la date pour une recharge d'offre digitale (329cda33e61b9a0194f824a0ae465b73ab609c3c)
+
 ## 1.17.0-master.1092+20220927145953
 2022-09-27
 
