@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1095+20220930123236
+2022-09-30
+
+### Features
+
+- [3449] Modification des cartes de commande et libellés offre m2m light + masquer le sous-menu « Services de la ligne » dans le détail de la ligne. (a5e6adceaec07f2da8aa068ecc1f9020f939e7e4)
+
 ## 1.17.0-master.1094+20220928163533
 2022-09-28
 
