@@ -4,6 +4,7 @@
       <div class="row" :class="cardCSSStyleCenter">
         <div class="col-4" v-for="offer in offers" :key="offer.id">
           <OfferCard
+            :displayed-offer="displayOffer(offer)"
             :offer="offer"
             :is-active="offer === currentOffer"
             @select:offer="getCurrentOffer"
@@ -25,7 +26,7 @@
 <script>
 import BottomBar from './BottomBar.vue';
 import OfferCard from './OfferCard.vue';
-import { fetchWorkflows } from '@/api/digital.js';
+import { fetchWorkflows, displayedOffer } from '@/api/digital.js';
 
 export default {
   components: {
@@ -78,6 +79,12 @@ export default {
     },
     getCurrentOffer(selectedOffer) {
       this.currentOffer = selectedOffer.selectedOffer;
+    },
+    displayOffer(anOffer) {
+      if (anOffer) {
+        return displayedOffer(anOffer.code);
+      }
+      return undefined;
     },
   },
   watch: {

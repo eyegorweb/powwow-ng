@@ -1,6 +1,12 @@
 <template>
   <div class="pricing-table" :class="[{ active: isActive }, { minCard: recharge }]" v-if="offerUse">
-    <div class="package-title" v-if="offer && offer.name" :class="isActive ? 'active' : ''">
+    <div class="logo" v-if="displayedOffer">
+      <a>
+        <img :src="require(`@/assets/${displayedOffer.img}.png`)" />
+      </a>
+      <div class="divider"></div>
+    </div>
+    <div class="package-title" v-else-if="offer && offer.name" :class="isActive ? 'active' : ''">
       <span>{{ offer.workflowDescription || '-' }}</span>
     </div>
     <div class="package-layout">
@@ -23,27 +29,36 @@
     }}</a>
     <div class="divider"></div>
     <div class="terms" :class="recharge ? 'minCard' : ''">
-      <div class="term details">
-        <template v-if="allUsage('DATA')">{{ allUsage('DATA') }}</template>
-        <template v-if="allUsage('SMS')">, {{ allUsage('SMS') }}</template>
-        <template v-if="allUsage('VOICE')">, {{ allUsage('VOICE') }}</template>
-      </div>
-      <div v-if="offer.initialOffer">
-        <div v-for="(service, index) in activeServices" :key="service.id">
-          <div class="term" v-if="index < maxServicesShow && !service.parameters">
-            {{ service.labelService }}
+      <div v-if="displayedOffer">
+        <div v-for="service in displayedOffer.services" :key="service.id">
+          <div class="term">
+            {{ service }}
           </div>
-          <div
-            class="term"
-            v-if="
-              index < maxServicesShow &&
-                service &&
-                service.parameters &&
-                service.parameters.length &&
-                service.parameters[0].name
-            "
-          >
-            {{ $t('digitalOffer.offerPackages.' + service.parameters[0].name) }}
+        </div>
+      </div>
+      <div v-else>
+        <div class="term details">
+          <template v-if="allUsage('DATA')">{{ allUsage('DATA') }}</template>
+          <template v-if="allUsage('SMS')">, {{ allUsage('SMS') }}</template>
+          <template v-if="allUsage('VOICE')">, {{ allUsage('VOICE') }}</template>
+        </div>
+        <div v-if="offer.initialOffer && !displayedOffer">
+          <div v-for="(service, index) in activeServices" :key="service.id">
+            <div class="term" v-if="index < maxServicesShow && !service.parameters">
+              {{ service.labelService }}
+            </div>
+            <div
+              class="term"
+              v-if="
+                index < maxServicesShow &&
+                  service &&
+                  service.parameters &&
+                  service.parameters.length &&
+                  service.parameters[0].name
+              "
+            >
+              {{ $t('digitalOffer.offerPackages.' + service.parameters[0].name) }}
+            </div>
           </div>
         </div>
       </div>
@@ -74,6 +89,7 @@ export default {
   },
   props: {
     offer: Object,
+    displayedOffer: Object,
     isActive: Boolean,
     recharge: Boolean,
     readMore: Boolean,
@@ -230,6 +246,7 @@ $box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14),
     display: flex;
     justify-content: center;
     padding: 2rem 2rem 1rem;
+    padding-top: 16px;
 
     .package-currency {
       padding-right: 4px;
@@ -337,6 +354,14 @@ $box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14),
     text-align: center;
     font-size: 14px;
     color: $blue;
+  }
+  .logo {
+    text-align: center;
+  }
+  img {
+    max-width: 70%;
+    max-height: 50px;
+    height: auto;
   }
 }
 </style>
