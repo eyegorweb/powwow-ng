@@ -58,7 +58,7 @@ export default {
       {
         section: 'line_services',
         title: 'getparc.lineDetail.tab1.lineServices',
-        compatiblePartnerTypes: ['CUSTOMER', 'MVNO', 'MULTI_CUSTOMER', 'M2M_LIGHT'],
+        compatiblePartnerTypes: ['CUSTOMER', 'MVNO', 'MULTI_CUSTOMER'],
         to: {
           name: 'lineDetail.details.services',
           meta: { label: 'Détail de la ligne - Services de la ligne' },

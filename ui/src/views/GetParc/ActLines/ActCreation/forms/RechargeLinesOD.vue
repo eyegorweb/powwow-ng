@@ -27,6 +27,7 @@
         <div v-if="packages" class="pricing-container">
           <div class="card" v-for="(offer, index) in packages" :key="index">
             <OfferCard
+              :displayed-offer="displayOffer(offer)"
               :offer="offer"
               :recharge="true"
               :is-active="offer === currentOffer"
@@ -137,6 +138,7 @@ import { mapState, mapGetters } from 'vuex';
 import { formattedCurrentDateExtended } from '@/utils/date.js';
 import { formatBackErrors } from '@/utils/errors';
 import { formatCurrency } from '@/utils/numbers.js';
+import { displayedOffer } from '@/api/digital';
 
 export default {
   components: {
@@ -296,6 +298,7 @@ export default {
       this.discounts = this.$loGet(response.items[0], 'discounts', []);
       this.packages.forEach((aPackage) => {
         aPackage.name = this.$loGet(response.items[0], 'name');
+        aPackage.code = this.$loGet(response.items[0], 'code');
         aPackage.workflowDescription = this.$loGet(response.items[0], 'workflowDescription');
       });
       this.workflowId = this.$loGet(response.items[0], 'id', []);
@@ -373,6 +376,12 @@ export default {
         window.location.href = response.url;
       }
       return response;
+    },
+    displayOffer(anOffer) {
+      if (anOffer) {
+        return displayedOffer(anOffer.code);
+      }
+      return undefined;
     },
   },
 };

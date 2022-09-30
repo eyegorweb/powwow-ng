@@ -138,7 +138,7 @@ import CreateAccountPanelSynthesisItem from '@/views/GetSim/CreateOrder/CreateOr
 import CircleLoader from '@/components/ui/CircleLoader';
 import { formatCurrency } from '@/utils/numbers.js';
 import { getActiveServicesWithoutAPN } from '@/components/Services/utils.js';
-import { getOrderConditionUrl } from '@/api/digital';
+import { getOrderConditionUrl, displayedOffer } from '@/api/digital';
 import UiCheckbox from '@/components/ui/Checkbox';
 
 export default {
@@ -217,24 +217,36 @@ export default {
 
       if (this.$loGet(this.synthesis, 'offerStep')) {
         if (this.$loGet(this.synthesis, 'offerStep.name')) {
-          const services = getActiveServicesWithoutAPN(
-            this.$loGet(this.synthesis, 'offerStep.initialOffer.marketingService')
-          )
-            .map((s) => ` ${s.labelService}`)
-            .toString();
-          const apn = this.getApnServices(
-            this.$loGet(this.synthesis, 'offerStep.initialOffer.marketingService')
-          )
-            ? this.getApnServices(
-                this.$loGet(this.synthesis, 'offerStep.initialOffer.marketingService')
-              )[0]
-                .map((s) => ` ${this.$t('digitalOffer.offerPackages.' + s.name)}`)
-                .toString()
-            : [];
+          const diplayOffer = displayedOffer(this.$loGet(this.synthesis, 'offerStep.code'));
+          // const packageLabel = this.$loGet(this.synthesis.offerStep.offerPackages[0], 'label');
+          let contentValue;
+          if (diplayOffer) {
+            contentValue = [
+              this.$loGet(this.synthesis, 'offerStep.workflowDescription'),
+              diplayOffer.services.join(', '),
+            ];
+          } else {
+            const services = getActiveServicesWithoutAPN(
+              this.$loGet(this.synthesis, 'offerStep.initialOffer.marketingService')
+            )
+              .map((s) => ` ${s.labelService}`)
+              .toString();
+            const apn = this.getApnServices(
+              this.$loGet(this.synthesis, 'offerStep.initialOffer.marketingService')
+            )
+              ? this.getApnServices(
+                  this.$loGet(this.synthesis, 'offerStep.initialOffer.marketingService')
+                )[0]
+                  .map((s) => ` ${this.$t('digitalOffer.offerPackages.' + s.name)}`)
+                  .toString()
+              : [];
+            contentValue = [this.$loGet(this.synthesis, 'offerStep.name'), apn, services];
+          }
+
           formatted.push({
             label: 'digitalOffer.offer',
             value: {
-              content: [this.$loGet(this.synthesis, 'offerStep.name'), apn, services],
+              content: contentValue,
             },
           });
         }

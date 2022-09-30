@@ -10,6 +10,7 @@
         <div class="row" :class="cardCSSStyleCenter">
           <div class="col-4" v-for="offer in offers" :key="offer.id">
             <OfferCard
+              :displayed-offer="displayOffer(offer)"
               :offer="offer"
               :is-active="
                 offer === currentOffer ||
@@ -27,7 +28,7 @@
 <script>
 import CreateOrderStepContainer from '@/views/GetSim/CreateOrder/CreateOrderStepContainer.vue';
 import OfferCard from '@/views/AccountCreation/OfferCard.vue';
-import { fetchWorkflows } from '@/api/digital.js';
+import { fetchWorkflows, displayedOffer } from '@/api/digital.js';
 import { mapGetters } from 'vuex';
 
 export default {
@@ -89,6 +90,12 @@ export default {
       this.$emit('done', {
         offerStep: this.currentOffer,
       });
+    },
+    displayOffer(anOffer) {
+      if (anOffer) {
+        return displayedOffer(anOffer.code);
+      }
+      return undefined;
     },
   },
 };
