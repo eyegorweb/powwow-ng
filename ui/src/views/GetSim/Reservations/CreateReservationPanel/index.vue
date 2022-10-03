@@ -116,14 +116,19 @@ export default {
     },
 
     async saveReservation(synthesis) {
-      console.log(this.$loGet(synthesis, 'pairingStep.profile.id'));
       const esimReservationInput = {
         customerAccountId: this.$loGet(synthesis, 'stepClient.billingAccount.id'),
         simCardQuantity: parseInt(this.$loGet(synthesis, 'stepProduct.quantity')),
         preActivationAsked: this.$loGet(synthesis, 'serviceStep.preActivation'),
         activationAsked: this.$loGet(synthesis, 'serviceStep.activation'),
         pairingAsked: !!this.$loGet(synthesis, 'pairingStep.response.tempDataUuid'),
-        downloadProfilAsked: this.$loGet(synthesis, 'pairingStep.profile.id') === 'ENABLED',
+        downloadProfilAsked:
+          this.$loGet(synthesis, 'pairingStep.profile.id') === 'ENABLED' ||
+          this.$loGet(synthesis, 'pairingStep.profile.id') === 'DISABLED',
+        downloadState:
+          this.$loGet(synthesis, 'pairingStep.profile.id') === 'NO'
+            ? null
+            : this.$loGet(synthesis, 'pairingStep.profile.id'),
         simCardId: this.$loGet(synthesis, 'stepProduct.selectedSimTypeValue.simCard.id'),
       };
 
@@ -183,7 +188,7 @@ export default {
         selectedServicesInput,
       };
       const response = await createEsimReservation(input);
-      if (!response) {
+      if (response.errors && response.errors.length) {
         this.flashMessage({ level: 'danger', message: this.$t('genericErrorMessage') });
       } else {
         this.flashMessage({ level: 'success', message: this.$t('genericSuccessMessage') });
