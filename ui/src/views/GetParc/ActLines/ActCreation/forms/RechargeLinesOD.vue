@@ -316,6 +316,9 @@ export default {
       return formatCurrency(value);
     },
     formattedDiscount(topUpPrice) {
+      if (this.limitDiscounts) {
+        return 0;
+      }
       const topUpValue =
         this.topUpdiscount && this.topUpdiscount.topUpDiscount
           ? this.topUpdiscount.topUpDiscount
