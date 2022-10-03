@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1097+20221003150057
+2022-10-03
+
+### Fixes
+
+- [3458] Remise OD appliquée alors que le nombre de SIM sélectionnées est supérieur à la limite. (70b08bd6173086a4a56fba2796a12c474eca81b6)
+
 ## 1.17.0-master.1096+20221003083933
 2022-10-03
 
