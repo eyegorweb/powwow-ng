@@ -24,6 +24,8 @@ variables:
 before_script:
   - export GRADLE_USER_HOME=`pwd`/.gradle
   # - echo "registry=https://outils.docapost.tech/nexus/repository/npm-central/" > ~/.npmrc
+  - export CI_COMMIT_REF_NAME_FORMAT="$(echo $CI_COMMIT_REF_NAME | sed "s/\//_/")"
+  - echo $CI_COMMIT_REF_NAME_FORMAT
 
 version:
   stage: version
@@ -275,3 +277,48 @@ e2e_integration:
       - ui/cypress/screenshots
       - ui/TestReport
       - ui/cypress/flaky-test/flaky-tests.json
+
+branch_release:
+  stage: release
+  script:
+    - gradle --build-cache jib -PregistryImageName=$CI_REGISTRY_IMAGE -PregistryImageTag=$CI_COMMIT_REF_NAME_FORMAT -PregistryUsername=$CI_REGISTRY_USER -PregistryPassword=$CI_REGISTRY_PASSWORD --info
+  cache:
+    key: "$CI_COMMIT_REF_SLUG"
+    paths:
+      - .gradle/wrapper
+      - .gradle/caches
+    policy: pull
+  when: manual
+  only:
+    - branches
+  except:
+    - tags
+    - master
+
+deploy_branch:
+  stage: deploy
+  image: m2m-registry.by-docapost.com/powwow-ng/envs/toolbox
+  variables:
+    KUBECONFIG: /etc/deploy/config
+  before_script:
+    - mkdir -p /etc/deploy
+    - echo ${KUBE_CONFIG} | base64 -d > ${KUBECONFIG}
+    - kubectl config view -o jsonpath='{.contexts[*].name}' | tr " " "\n"
+    - kubectl config use-context m2m-node-tst
+    - export CI_COMMIT_REF_NAME_FORMAT="$(echo $CI_COMMIT_REF_NAME | sed "s/\//_/")"
+    - echo $CI_COMMIT_REF_NAME_FORMAT
+  script:
+    - kubectl get po
+    - kubectl set image deployments/api api=$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME_FORMAT --record=true
+    - kubectl set image deployments/ui ui=$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME_FORMAT --record=true
+  when: manual
+  environment:
+    name: testing
+    url: http://172.20.157.115:8080
+  only:
+    - branches
+  except:
+    - tags
+    - master
+  dependencies: []
+  resource_group: test
