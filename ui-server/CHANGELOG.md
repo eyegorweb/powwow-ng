@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1096+20221003083933
+2022-10-03
+
+### Fixes
+
+- [000] Add branch release & deploy (61c840570a4a673941a61b61cc403ab0f850f13d)
+
 ## 1.17.0-master.1095+20220930123236
 2022-09-30
 
