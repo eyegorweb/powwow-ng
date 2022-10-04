@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1098+20221004075703
+2022-10-04
+
+### Fixes
+
+- [3431] corriger la création d'une  réservation esim (917dcb44a727bb8044ec5b82fbf60843f1d1bef0)
+
 ## 1.17.0-master.1097+20221003150057
 2022-10-03
 
