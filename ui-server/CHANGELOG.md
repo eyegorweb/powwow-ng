@@ -2,12 +2,13 @@
 
 <!--- next entry here -->
 
-## 1.17.0-master.1099+20221005143429
+## 1.17.0-master.1100+20221005144206
 2022-10-05
 
 ### Fixes
 
 - [000] Deploy branch (423c1ecee23b9f7d54ef12bae42fd74d98623d43)
+- [000] patch deployment (12b9f4e0e1f26f8bcd79ce37138ef2d750021edd)
 
 ## 1.17.0-master.1098+20221004075703
 2022-10-04
