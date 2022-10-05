@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1101+20221005185305
+2022-10-05
+
+### Fixes
+
+- [3463] corriger La recherche des lignes dans la création d'une alarme (4fb88beb6a878e9880747798881082ced61349a4)
+
 ## 1.17.0-master.1100+20221005144206
 2022-10-05
 
