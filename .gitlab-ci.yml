@@ -310,6 +310,7 @@ deploy_branch:
   script:
     - kubectl get po
     - kubectl set image deployments/ui ui=$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME_FORMAT --record=true
+    - kubectl patch deployment ui -p "{\"spec\":{\"template\":{\"metadata\":{\"labels\":{\"date\":\"`date +'%Y%m%d%H%M%S'`\"}}}}}"
   when: manual
   environment:
     name: testing
