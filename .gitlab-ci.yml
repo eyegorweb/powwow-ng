@@ -309,7 +309,6 @@ deploy_branch:
     - echo $CI_COMMIT_REF_NAME_FORMAT
   script:
     - kubectl get po
-    - kubectl set image deployments/api api=$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME_FORMAT --record=true
     - kubectl set image deployments/ui ui=$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME_FORMAT --record=true
   when: manual
   environment:
