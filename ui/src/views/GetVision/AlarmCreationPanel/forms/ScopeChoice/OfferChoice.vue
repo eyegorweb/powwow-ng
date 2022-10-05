@@ -97,10 +97,9 @@ export default {
       if (this.selectedBillingAccount) {
         filters.push({
           id: 'filters.billingAccounts',
-          values: [{ id: this.selectedBillingAccount.value }],
+          values: [{ id: this.selectedBillingAccount.id }],
         });
       }
-
       this.totalLines = await countLines(filters);
 
       this.showButton = false;
