@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1102+20221007081831
+2022-10-07
+
+### Features
+
+- [3465] Retour sur le format des cartes. (44e3e5886f0c80aa280c222da1b20504d553fbc6)
+
 ## 1.17.0-master.1101+20221005185305
 2022-10-05
 
