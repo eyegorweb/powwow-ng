@@ -99,9 +99,25 @@ export function validatePartner(fields) {
 export function displayedOffer(offerCode) {
   let displayOffer;
   if (offerCode === 'OD1_NBIOT_LPWA') {
-    displayOffer = { img: 'NBioT_logo', services: ['Data NB-IoT', 'LPWA', 'APN: Ido.net'] };
+    displayOffer = {
+      img: 'NBioT_logo',
+      services: [
+        'Data NB-IoT only',
+        'EC "extended coverage"',
+        'Sobrieté énergetique (LPWA)',
+        'APN: ido.net',
+      ],
+    };
   } else {
-    displayOffer = { img: 'ltem_logo', services: ['Data LTE-M', 'LPWA', 'APN: Ido.net'] };
+    displayOffer = {
+      img: 'ltem_logo',
+      services: [
+        'Data 1Go',
+        'EC "extended coverage"',
+        'Sobrieté énergetique (LPWA)',
+        'APN: ido.net',
+      ],
+    };
   }
   return displayOffer;
 }
