@@ -1,14 +1,17 @@
 <template>
   <div class="pricing-table" :class="[{ active: isActive }, { minCard: recharge }]" v-if="offerUse">
-    <div class="logo" v-if="displayedOffer">
+    <div class="logo" v-if="recharge && displayedOffer">
       <a>
         <img :src="require(`@/assets/${displayedOffer.img}.png`)" />
       </a>
-      <div class="divider"></div>
     </div>
-    <div class="package-title" v-else-if="offer && offer.name" :class="isActive ? 'active' : ''">
+    <!-- <div class="package-title" v-if="offer && offer.name" :class="isActive ? 'active' : ''">
+      <span>{{ offer.workflowDescription || '-' }}</span>
+    </div> -->
+    <div class="title" v-else-if="offer && offer.name" :class="isActive ? 'active' : ''">
       <span>{{ offer.workflowDescription || '-' }}</span>
     </div>
+    <hr class="divider" />
     <div class="package-layout">
       <div class="package-value">
         <div class="euro-value">{{ offerPrice('EURO_PART') }}</div>
@@ -27,11 +30,16 @@
     <a class="readMore" v-if="readMore" href="https://objenious.com/" target="_blank">{{
       $t('readMore')
     }}</a>
-    <div class="divider"></div>
+    <hr class="divider" />
     <div class="terms" :class="recharge ? 'minCard' : ''">
-      <div v-if="displayedOffer">
+      <div v-if="displayedOffer" class="term">
+        <div v-if="!recharge" class="logo">
+          <a>
+            <img :src="require(`@/assets/${displayedOffer.img}.png`)" />
+          </a>
+        </div>
         <div v-for="service in displayedOffer.services" :key="service.id">
-          <div class="term">
+          <div>
             {{ service }}
           </div>
         </div>
@@ -240,6 +248,14 @@ $box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14),
       color: $dark-gray;
       line-height: 1.7;
     }
+  }
+  .title {
+    display: flex;
+    justify-content: center;
+    padding: 16px 24px;
+    background-color: #fff;
+    font-size: 1.225rem;
+    color: $black;
   }
 
   .package-layout {
