@@ -204,7 +204,6 @@ export default {
           label: 'menu.rolesManagement',
           to: { name: 'getAdminRoles', meta: { label: 'Gestion des rôles' } },
           permission: { domain: 'party', action: 'read' },
-          mock: true,
         },
       ]);
     }
