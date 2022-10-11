@@ -218,20 +218,18 @@ export default {
       if (foundDependantServices) {
         // Pour chaque service dépendant trouvé, on le recherche dans les selected
         foundDependantServices.forEach((s) => {
-          if (this.activated || s.code !== 'NB-IoT') {
-            const serviceFound = this.selectedServices.find((serv) => serv.code === s.code);
-            if (this.activated && serviceFound) {
-              const index = this.selectedServices.indexOf(serviceFound);
-              this.selectedServices.splice(index, 1);
-            } else if (!this.activated && !serviceFound) {
-              if (s.editable) {
-                addedServices.push(s);
-              } else if (s.checked) {
-                errors.push({
-                  serviceLabel: service.label,
-                  serviceMandatoryLabel: s.label,
-                });
-              }
+          const serviceFound = this.selectedServices.find((serv) => serv.code === s.code);
+          if (this.activated && serviceFound) {
+            const index = this.selectedServices.indexOf(serviceFound);
+            this.selectedServices.splice(index, 1);
+          } else if (!this.activated && !serviceFound) {
+            if (s.editable) {
+              addedServices.push(s);
+            } else if (s.checked) {
+              errors.push({
+                serviceLabel: service.label,
+                serviceMandatoryLabel: s.label,
+              });
             }
           }
         });
