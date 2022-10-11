@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1104+20221011092737
+2022-10-11
+
+### Fixes
+
+- [3334] Modification de service, désactivation du Nb-IoT. (b632dabcc6e7537e7f80afee0dc72c6b1192a2f7)
+
 ## 1.17.0-master.1103+20221010095552
 2022-10-10
 
