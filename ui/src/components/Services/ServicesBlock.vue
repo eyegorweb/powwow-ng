@@ -7,8 +7,8 @@
       >
         <div class="s-container">
           <div
-            :key="service.code"
-            v-for="service in servicesToShowOthers"
+            :key="service.code + '_' + index"
+            v-for="(service, index) in servicesToShowOthers"
             class="service"
             :class="service.name ? 'fullWidth' : { 'quarter-size': fullWidth }"
           >
@@ -70,8 +70,8 @@
         </div>
         <div class="s-container">
           <div
-            :key="service.code"
-            v-for="service in servicesToShowData"
+            :key="service.code + '_' + index"
+            v-for="(service, index) in servicesToShowData"
             class="service"
             :class="service.name ? 'fullWidth' : { 'quarter-size': fullWidth }"
           >
@@ -126,7 +126,11 @@
   <div v-else>
     <div class="displayFlex">
       <div class="services-container s-container">
-        <div :key="service.id" v-for="service in servicesOthers" class="single-service">
+        <div
+          :key="service.code + '_' + index"
+          v-for="(service, index) in servicesOthers"
+          class="single-service"
+        >
           <UiToggle
             :label="service.labelService"
             :editable="isServiceEditable(service)"
@@ -145,7 +149,11 @@
       </div>
       <div class="s-container">
         <div class="services-container">
-          <div :key="service.id" v-for="service in servicesData" class="single-service">
+          <div
+            :key="service.code + '_' + index"
+            v-for="(service, index) in servicesData"
+            class="single-service"
+          >
             <UiToggle
               :label="service.labelService"
               :editable="isServiceEditable(service)"
@@ -288,12 +296,23 @@ export default {
       this.roamingService = this.services.find((s) => s.code === 'ROAMING');
     },
 
+    setupOffer() {
+      this.defaultServices = cloneDeep(this.services);
+      this.listServiceMandatory = this.defaultServices.filter(
+        (s) => !!s.listServiceMandatory && s.listServiceMandatory.length > 0
+      );
+      this.listServiceIncompatible = this.defaultServices.filter(
+        (s) => !!s.listServiceIncompatible && s.listServiceIncompatible.length > 0
+      );
+      this.defaultDataService = cloneDeep(this.initialServices.find((s) => s.code === 'DATA'));
+    },
+
     handleError(code) {
       console.error('modification automatique du service ' + code + ' impossible');
     },
 
-    displayServices() {
-      this.initNbIoT();
+    displayServices(doInitNbiot = true) {
+      this.initNbIoT(doInitNbiot);
       const activatedServicesWithMandatoryServices = this.services.filter(
         (s) => s.checked && s.listServiceMandatory && s.listServiceMandatory.length > 0
       );
@@ -352,18 +371,18 @@ export default {
       }
     },
 
-    initNbIoT() {
-      const nbiotService = this.services.find((s) => s.code === 'NB-IoT');
+    initNbIoT(doManageNbiot = true) {
+      let nbiotService = this.services.find((s) => s.code === 'NB-IoT');
       if (nbiotService) {
         nbiotService.notify = false;
       }
-      this.manageNbIoTDisplay();
+      if (doManageNbiot) this.manageNbIoTDisplay();
     },
 
     manageNbIoTDisplay() {
       const ltemService = this.services.find((s) => s.code === 'LTE-M');
       let nbiotService = this.services.find((s) => s.code === 'NB-IoT');
-      const initialNbiotService = this.defaultServices.find((s) => s.code === 'NB-IoT');
+      const initialNbiotService = this.initialServices.find((s) => s.code === 'NB-IoT');
       if (ltemService && nbiotService) {
         // Si ltem est non activé
         if (!ltemService.checked) {
@@ -390,17 +409,19 @@ export default {
     handleNbIoT(service) {
       if (service.code === 'LTE-M') {
         let nbiotService = this.services.find((s) => s.code === 'NB-IoT');
-        if (!service.checked && nbiotService.checked) {
-          nbiotService.checked = false;
-          // nbiotService.notify = true;
-        } else if (service.checked && !nbiotService.editable) {
-          // Si le service NbIoT n'est pas éditable, dans ce cas là on active NbIoT lorsqu'on active LTE-M
-          const initialNbiotService = this.defaultServices.find((s) => s.code === 'NB-IoT');
-          nbiotService.checked = initialNbiotService.checked;
-          // nbiotService.notify = true;
-        }
-        if (nbiotService.editable) {
-          nbiotService.notify = true;
+        if (nbiotService) {
+          if (!service.checked && nbiotService.checked) {
+            nbiotService.checked = false;
+            // nbiotService.notify = true;
+          } else if (service.checked && !nbiotService.editable) {
+            // Si le service NbIoT n'est pas éditable, dans ce cas là on active NbIoT lorsqu'on active LTE-M
+            const initialNbiotService = this.defaultServices.find((s) => s.code === 'NB-IoT');
+            nbiotService.checked = initialNbiotService.checked;
+            // nbiotService.notify = true;
+          }
+          if (nbiotService.editable) {
+            nbiotService.notify = true;
+          }
         }
       }
     },
@@ -851,23 +872,16 @@ export default {
     },
     services() {
       this.setup();
-      this.displayServices();
+      this.displayServices(false);
     },
     offer() {
+      this.setupOffer();
       this.displayServices();
     },
   },
   mounted() {
     this.setup();
-    this.defaultServices = cloneDeep(this.services);
-    this.listServiceMandatory = this.defaultServices.filter(
-      (s) => !!s.listServiceMandatory && s.listServiceMandatory.length > 0
-    );
-    this.listServiceIncompatible = this.defaultServices.filter(
-      (s) => !!s.listServiceIncompatible && s.listServiceIncompatible.length > 0
-    );
-    this.defaultDataService = cloneDeep(this.initialServices.find((s) => s.code === 'DATA'));
-
+    this.setupOffer();
     this.displayServices();
   },
 };
