@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1105+20221012143514
+2022-10-12
+
+### Fixes
+
+- [3334] correction sur la gestion du service Nb-IoT (f0ceaa4083f9cd258ced1bb304f2326e0b02a295)
+
 ## 1.17.0-master.1104+20221011092737
 2022-10-11
 
