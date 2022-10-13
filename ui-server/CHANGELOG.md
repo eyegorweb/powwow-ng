@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1106+20221013084709
+2022-10-13
+
+### Fixes
+
+- [3480] correction des paramètres à passer pour la recherche de documents (073079956ac35b684161ae3d73eaf67a5dc5328a)
+
 ## 1.17.0-master.1105+20221012143514
 2022-10-12
 
