@@ -242,7 +242,7 @@ export default {
         id: 1,
         title: undefined,
         company: undefined,
-        siretValue: undefined,
+        siretValue: '',
         tvaValue: undefined,
         firstName: undefined,
         lastName: undefined,
@@ -429,7 +429,7 @@ export default {
       this.loginError = this.checkFieldFormError('login');
       this.civilityError = this.checkFieldFormError('title');
       this.siretNumberError =
-        (this.checkFieldFormError('siretValue') && countryCode === 'fr') || !this.reachedMaxLength;
+        countryCode === 'fr' && (this.checkFieldFormError('siretValue') || !this.reachedMaxLength);
       this.tvaNumberError = this.checkFieldFormError('tvaValue');
 
       return (
@@ -471,7 +471,7 @@ export default {
     },
 
     onInputBlur() {
-      if (this.hasSiretValue) {
+      if (this.hasSiretValue || !this.form.siretValue || this.form.siretValue.length === 0) {
         this.hide = true;
       } else {
         this.hide = false;

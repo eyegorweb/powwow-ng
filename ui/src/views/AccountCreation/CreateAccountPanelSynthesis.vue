@@ -36,7 +36,7 @@
           </div>
           <div style="flex-basis: 33%">
             <h6 class="subtitle text-right">
-              {{ $t('bills.amount') }}
+              {{ $t('digitalOffer.synthesis.amount') }}
             </h6>
             <p class="text-right">
               {{
@@ -383,15 +383,15 @@ export default {
     },
 
     formattedTotalTTC() {
-      return `${this.$t('total').toUpperCase()} TTC`;
+      return `${this.$t('total').toUpperCase()} ${this.$t('digitalOffer.TTC')}`;
     },
 
     formattedSubTotalHT() {
-      return `${this.$t('digitalOffer.subTotal').toUpperCase()} HT`;
+      return `${this.$t('digitalOffer.subTotal').toUpperCase()} ${this.$t('digitalOffer.HT')}`;
     },
 
     formattedTotalHT() {
-      return `${this.$t('total').toUpperCase()} HT`;
+      return `${this.$t('total').toUpperCase()} ${this.$t('digitalOffer.HT')}`;
     },
     formattedDiscountHT() {
       return this.formattedDiscount(this.simPriceHT, this.priceHT);
@@ -418,7 +418,7 @@ export default {
     },
 
     formattedTotalTVA() {
-      return `${this.$t('bills.amount')} TVA`;
+      return `${this.$t('bills.amount')} ${this.$t('digitalOffer.TVA')}`;
     },
 
     displayTotal() {
