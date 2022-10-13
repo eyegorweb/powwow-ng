@@ -1,4 +1,4 @@
-import { query, getFilterValue, getValuesIdsWithoutQuotes } from './utils';
+import { query, getFilterValue, getValuesIdsWithoutQuotes, getValuesIds } from './utils';
 
 export async function fetchAllDocumentsCategory() {
   const queryStr = `
@@ -101,10 +101,10 @@ function addDocumentNameFilter(gqlFilters, selectedFilters) {
 }
 
 function addCategoryFilter(gqlFilters, selectedFilters) {
-  const categories = getValuesIdsWithoutQuotes(selectedFilters, 'documents.category');
+  const categories = getValuesIds(selectedFilters, 'documents.category');
 
   if (categories) {
-    gqlFilters.push(`category: {in: ["${categories}"]}`);
+    gqlFilters.push(`category: {in: [${categories}]}`);
   }
 }
 
