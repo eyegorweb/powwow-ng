@@ -1910,6 +1910,9 @@
       "autoPairing": "Appairage auto",
       "filePairing": "Appairage par fichier d'EID",
       "filePairingEidIccid": "Appairage par fichier d'ICCID",
+      "radius": {
+        "RADIUS_EMPTY_OPTION": "Supprimer le(s) champ(s) vide(s) du fichier ?"
+      },
       "carouselItem": {
         "CONSUMING": "En cours consommation",
         "EXPORT_CONS": "Export consommation",
