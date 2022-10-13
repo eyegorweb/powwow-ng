@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1108+20221013150240
+2022-10-13
+
+### Features
+
+- [3457] Retour Bouygues Radius, ajout du flag RESET des champs vides. (286363a57a2e1601ab086b80bbb9613d4924bcb5)
+
 ## 1.17.0-master.1107+20221013090628
 2022-10-13
 
