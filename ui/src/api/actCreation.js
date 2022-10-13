@@ -1094,7 +1094,7 @@ export async function createGeoLocationMassAction(simCardId) {
   `);
 }
 
-export async function createRadiusAdmin(params, action) {
+export async function createRadiusAdmin(params, action, resetEmptyField) {
   const { tempDataUuid, partyId, customerAccountId, workflowId, apnCode } = params;
 
   const queryStr = `
@@ -1106,6 +1106,7 @@ export async function createRadiusAdmin(params, action) {
         customerAccountId: ${customerAccountId},
         workflowId: ${workflowId},
         apnCode: "${apnCode}",
+        resetEmptyField: ${resetEmptyField},
         action: ${action}
       }
     )

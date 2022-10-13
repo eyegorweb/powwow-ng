@@ -1744,6 +1744,9 @@
     "actCreation": {
       "mass": "Mass action",
       "byId": "By id",
+      "radius": {
+        "RADIUS_EMPTY_OPTION": "Delete empty fields from file ?"
+      },
       "carouselItem": {
         "CONSUMING": "Outstanding consumption",
         "EXPORT_CONS": "Export consumption",
