@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1109+20221017091447
+2022-10-17
+
+### Fixes
+
+- [3487] correction de la permission du lien de configuration des rôles (edd6c8fb9de29867f540f681bb92c1e51421d9bc)
+
 ## 1.17.0-master.1108+20221013150240
 2022-10-13
 
