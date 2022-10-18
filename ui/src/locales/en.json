@@ -888,7 +888,8 @@
         "AccessDeniedForThisUser": "You don't have permission.",
         "USER_D_PASSWORD_OLD_ENTERED_IS_INCORRECT": "Old password is incorrect",
         "USER_D_PASSWORD_MUST_BE_DIFFERENT_FROM_OLD_ONE": "Password must be different from old one",
-        "username": "Login already exists."
+        "username": "Login already exists.",
+        "CUSTOMER_ACCOUNT_USER_NOT_ALLOWED": "Access denied for the current user"
       },
       "searchPlaceholder": "Enter a name, first name or login",
       "export": "Export {total} user(s)",
@@ -1073,11 +1074,19 @@
         "default": "Enabled by default",
         "modifiedServices": "Modified services"
       },
-      "userForm": { "title": "Add user", "modify-title": "Editing a user" },
+      "userForm": { 
+        "title": "Add user", 
+        "modify-title": "Editing a user"
+      },
       "changePassword": {
         "title": "Change the password",
         "warning": "The changes will be lost, do you want to continue?",
         "notification": "Terminations request notification"
+      },
+      "customerAccountsPanel": {
+        "title": "Link billing accounts",
+        "ba_list": "All billing accounts",
+        "chosen_ba": "Linked billing accounts"
       },
       "errors": {
         "MAILING_LIST_CANNOT_BE_DELETED": "Cannot delete a mailing list, if it is used elsewhere.",

@@ -8,6 +8,7 @@ export default excludeMocked([
     stepTitle: 'getparc.actCreation.step2Titles.ACTIVATE_PREACTIVATE',
     selected: false,
     permission: { domain: 'act', action: 'manage_main' },
+    canShowActAsUserByCF: true,
     filters: [
       {
         id: 'filters.lines.SIMCardStatus',
@@ -33,6 +34,7 @@ export default excludeMocked([
     selected: false,
     hideForMVNO: true,
     permission: { domain: 'act', action: 'manage_main' },
+    canShowActAsUserByCF: true,
     filters: [
       {
         id: 'filters.lines.SIMCardStatus',
@@ -58,6 +60,7 @@ export default excludeMocked([
     selected: false,
     havePrereqs: true,
     permission: { domain: 'act', action: 'manage_main' },
+    canShowActAsUserByCF: true,
     filters: [
       {
         id: 'filters.lines.SIMCardStatus',
@@ -80,6 +83,7 @@ export default excludeMocked([
     selected: false,
     color: 'blue',
     permission: { domain: 'act', action: 'manage_main' },
+    canShowActAsUserByCF: true,
     filters: [
       {
         id: 'filters.lines.SIMCardStatus',
@@ -130,6 +134,7 @@ export default excludeMocked([
     selected: false,
     containFile: true,
     permission: { domain: 'act', action: 'manage_main' },
+    canShowActAsUserByCF: true,
     filters: [
       {
         id: 'filters.lines.SIMCardStatus',
@@ -172,6 +177,7 @@ export default excludeMocked([
     containFile: true,
     hideForMVNO: true,
     permission: { domain: 'act', action: 'msisdn_change' },
+    canShowActAsUserByCF: true,
     filters: [
       {
         id: 'filters.lines.SIMCardStatus',
@@ -195,6 +201,7 @@ export default excludeMocked([
     color: 'blue',
     hideForMVNO: true,
     permission: { domain: 'act', action: 'manage_main' },
+    canShowActAsUserByCF: true,
     filters: [
       {
         id: 'filters.lines.SIMCardStatus',
@@ -207,6 +214,7 @@ export default excludeMocked([
       },
     ],
   },
+
   {
     icon: 'ic-Wallet-Icon',
     title: 'getparc.actCreation.carouselItem.CHANGE_CF',
@@ -218,6 +226,7 @@ export default excludeMocked([
     hideForMVNO: true,
     hideForMultiCustomer: true,
     permission: { domain: 'act', action: 'transfer_customer_account' },
+    canShowActAsUserByCF: true,
     filters: [
       {
         id: 'filters.lines.SIMCardStatus',
@@ -239,6 +248,7 @@ export default excludeMocked([
     selected: false,
     color: 'blue',
     permission: { domain: 'act', action: 'manage_main' },
+    canShowActAsUserByCF: true,
     filters: [
       {
         id: 'filters.lines.SIMCardStatus',
@@ -331,6 +341,7 @@ export default excludeMocked([
     selected: false,
     hideForMVNO: true,
     permission: { domain: 'act', action: 'manage_main' },
+    canShowActAsUserByCF: true,
     filters: [
       {
         id: 'filters.lines.SIMCardStatus',
@@ -399,6 +410,7 @@ export default excludeMocked([
     selected: false,
     color: 'orange',
     permission: { domain: 'act', action: 'manage_main' },
+    canShowActAsUserByCF: true,
     filters: [
       {
         id: 'filters.lines.SIMCardStatus',

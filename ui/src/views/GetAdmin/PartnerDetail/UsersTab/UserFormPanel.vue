@@ -97,31 +97,59 @@
         </div>
       </div>
 
-      <div v-if="isEditMode" class="entries-line">
-        <div class="form-entry">
-          <button class="btn pt-0 pl-0 btn-link" @click.stop="() => openChangePasswordPanel()">
-            <em class="arrow ic-Plus-Icon" />
-            {{ $t('getadmin.partnerDetail.changePassword.title') }}
-          </button>
+      <div v-if="isEditMode">
+        <div class="entries-line">
+          <div class="form-entry">
+            <button class="btn pt-0 pl-0 btn-link" @click.stop="() => openChangePasswordPanel()">
+              <em class="arrow ic-Plus-Icon" />
+              {{ $t('getadmin.partnerDetail.changePassword.title') }}
+            </button>
+          </div>
+        </div>
+        <!-- TODO: ATTENTION DE NE PAS POUSSER LA NÉGATION DE LA PERMISSION MAIS SON AFFIRMATION -->
+        <div
+          class="entries-line"
+          v-if="havePermission('user', 'set_ca') && canShowCustomerAccounsList"
+        >
+          <div class="form-entry">
+            <button class="btn pt-0 pl-0 btn-link" @click.stop="() => openCustomerAccountsPanel()">
+              <em class="arrow ic-Plus-Icon" />
+              {{ $t('getadmin.partnerDetail.customerAccountsPanel.title') }}
+            </button>
+          </div>
         </div>
       </div>
-      <div v-else class="entries-line">
-        <div class="form-entry">
-          <input type="password" name="password" class="hidden" autocomplete="off" />
-          <FormControl
-            class="password"
-            label="password"
-            input-type="password"
-            v-model="form.password"
-          />
+      <div v-else>
+        <div class="entries-line">
+          <div class="form-entry">
+            <input type="password" name="password" class="hidden" autocomplete="off" />
+            <FormControl
+              class="password"
+              label="password"
+              input-type="password"
+              v-model="form.password"
+            />
+          </div>
+          <div class="form-entry pl-2">
+            <FormControl
+              class="password-confirm"
+              label="passwordConfirm"
+              input-type="password"
+              v-model="form.passwordConfirm"
+            />
+          </div>
         </div>
-        <div class="form-entry pl-2">
-          <FormControl
-            class="password-confirm"
-            label="passwordConfirm"
-            input-type="password"
-            v-model="form.passwordConfirm"
-          />
+        <!-- TODO: ATTENTION DE NE PAS POUSSER LA NÉGATION DE LA PERMISSION MAIS SON AFFIRMATION -->
+        <div
+          class="entries-line"
+          v-if="havePermission('user', 'set_ca') && canShowCustomerAccounsList"
+        >
+          <div class="form-entry">
+            <button class="btn pt-0 pl-0 btn-link" @click.stop="() => openCustomerAccountsPanel()">
+              <em class="arrow ic-Plus-Icon" />
+              {{ $t('getadmin.partnerDetail.customerAccountsPanel.title') }}
+            </button>
+          </div>
         </div>
       </div>
 
@@ -176,6 +204,15 @@
         </div>
       </div>
     </div>
+    <div
+      v-if="requestErrors && requestErrors.length"
+      slot="error"
+      class="alert alert-danger"
+      role="alert"
+    >
+      <i class="ic-Alert-Icon"> </i>
+      {{ requestErrors[0].message }}
+    </div>
     <div slot="footer" class="action-buttons" v-if="havePermission('user', 'create')">
       <div>
         <UiButton variant="import" @click="closePanel" block>{{ $t('cancel') }}</UiButton>
@@ -207,6 +244,7 @@ import { delay } from '@/api/utils.js';
 import { fetchAllowedRoles, createUser, updateUser, fetchPartnerGroups } from '@/api/users.js';
 import { fetchpartnerById } from '@/api/partners.js';
 import { fetchAllLanguages } from '@/api/language.js';
+import { fetchBillingAccounts } from '@/api/billingAccounts';
 
 export function checkPasswordErrors(password, passwordConfirm) {
   const errors = [];
@@ -272,6 +310,7 @@ export default {
       selectedGroupPartner: undefined,
       groupPartners: [],
       partnerChoices: [],
+      customerAccounts: [],
       userTypes: [
         {
           id: 'OPERATOR',
@@ -345,6 +384,47 @@ export default {
       }
     },
 
+    async openCustomerAccountsPanel() {
+      const title = this.$t('getadmin.partnerDetail.customerAccountsPanel.title');
+
+      const formattedOptions = {
+        customerAccounts: this.customerAccounts,
+        roles: this.selectedRoles,
+        partner: this.selectedPartner,
+        form: this.form,
+        lastPanelPayload: this.content,
+      };
+
+      const openTrigger = () => {
+        this.openPanel({
+          title,
+          panelId: 'getadmin.partnerDetail.customerAccountsPanel.title',
+          backdrop: true,
+          width: '40rem',
+          payload: formattedOptions,
+          ignoreClickAway: true,
+        });
+      };
+
+      this.closePanel();
+      await delay(500);
+      openTrigger();
+    },
+
+    async fetchCustomerAccounts(q = '', page = 0) {
+      const partners = [];
+      if (this.selectedPartner) {
+        partners.push(this.selectedPartner);
+      }
+      const data = await fetchBillingAccounts(q, partners, { page, limit: 10 });
+      return data.map((ba) => ({
+        id: ba.id,
+        label: `${ba.code} - ${ba.name}`,
+        partnerId: ba.party.id,
+        partner: ba.party,
+      }));
+    },
+
     async save() {
       let lang = this.resultLanguages.find((e) => e.label === this.form.language);
       let wsRoles = this.selectedRolesWsActions.concat(this.selectedRolesWsConsultation);
@@ -358,6 +438,14 @@ export default {
         userPrivate: this.form.userPrivate,
         roles: this.selectedRoles.concat(wsRoles),
       };
+      if (
+        this.content &&
+        this.content.customerAccountIds &&
+        this.content.customerAccountIds.length > 0
+      ) {
+        params.customerAccountIds = this.content.customerAccountIds;
+      }
+
       if (this.createMode || this.isDuplicateMode) {
         params.password = this.form.password;
         params.confirmPassword = this.form.passwordConfirm;
@@ -438,7 +526,7 @@ export default {
       'userInfos',
       'userIsBO',
       'userIsSuperAdmin',
-      'userIsGroupAccount',
+      'userIsMultiPartner',
       'havePermission',
       'userIsPartner',
       'userIsGroupPartner',
@@ -507,6 +595,10 @@ export default {
         this.fromPage === 'users' &&
         (this.userInfos.type === 'PARTNER' || this.userInfos.type === 'PARTNER_GROUP')
       );
+    },
+
+    canShowCustomerAccounsList() {
+      return this.customerAccounts.length > 0;
     },
 
     canShowRoles() {
@@ -613,9 +705,19 @@ export default {
     }
 
     // récupération des langues
-    let langArray = [];
-    this.resultLanguages = await fetchAllLanguages();
-
+    let langArray = [],
+      errorMessage;
+    const response = await fetchAllLanguages();
+    if (response && response.errors) {
+      errorMessage = this.$t('getadmin.users.errors.CUSTOMER_ACCOUNT_USER_NOT_ALLOWED');
+      this.requestErrors = [
+        {
+          message: errorMessage,
+        },
+      ];
+      return;
+    }
+    this.resultLanguages = response;
     this.resultLanguages.forEach((e) => {
       langArray.push(e.label);
     });
@@ -631,6 +733,7 @@ export default {
 
     if (this.content.fromPartnerMenu) {
       this.canShowForm = true;
+      this.customerAccounts = await this.fetchCustomerAccounts();
       return;
     }
 
@@ -642,6 +745,7 @@ export default {
       rolesWs = await fetchAllowedRoles(null, this.singlePartner.id, null, true);
       this.roles = this.formattedRoles(roles);
       this.rolesWs = this.formattedRoles(rolesWs);
+      this.customerAccounts = await this.fetchCustomerAccounts();
       return;
     } else if (this.content.fromUserMenu && this.userInfos.type === 'PARTNER_GROUP') {
       this.canShowForm = true;
@@ -664,6 +768,7 @@ export default {
           label: this.content.duplicateFrom.partners[0].name,
           highlighted: this.content.duplicateFrom.partners[0].name,
         };
+        this.customerAccounts = await this.fetchCustomerAccounts();
       } else if (this.userType === 'PARTNER_GROUP') {
         if (this.content.duplicateFrom.partners && this.content.duplicateFrom.partners.length) {
           this.selectedPartner = this.content.duplicateFrom.partners[0];
@@ -734,7 +839,7 @@ export default {
       let lang = this.resultLanguages.find(
         (e) => e.language === this.$loGet(this.content, 'duplicateFrom.preferredLocale')
       );
-      this.form.language = lang.label;
+      if (lang) this.form.language = lang.label;
 
       this.userTypes = this.userTypes.map((u) => {
         if (u.id === userType) {
@@ -744,6 +849,26 @@ export default {
       });
 
       this.formDataBeforeChange = cloneDeep(this.form);
+    }
+
+    // Route depuis l'association des CF (donc création ou modification en cours)
+    if (this.content.fromPanelCustomerAccounts) {
+      this.form.title = this.content.form.title;
+      this.form.firstName = this.content.form.firstName;
+      this.form.lastName = this.content.form.lastName;
+      this.form.language = this.content.form.language;
+      this.form.username = this.content.form.username;
+      this.form.password = this.content.form.password;
+      this.form.passwordConfirm = this.content.form.passwordConfirm;
+      this.form.email = this.content.form.email;
+      this.form.userPrivate = this.content.form.userPrivate;
+      this.userTypes = this.userTypes.map((u) => {
+        if (u.id === 'PARTNER') {
+          u.default = true;
+        }
+        return u;
+      });
+      this.selectedPartner = this.content.partner;
     }
 
     this.canShowForm = true;
@@ -757,6 +882,10 @@ export default {
         const rolesWs = await fetchAllowedRoles(null, id, null, true);
         this.roles = this.formattedRoles(roles);
         this.rolesWs = this.formattedRoles(rolesWs);
+        // Ajouter un fetch sur les CF par le partyId
+        if (!this.fromPagePartner) {
+          this.customerAccounts = await this.fetchCustomerAccounts();
+        }
       }
     },
     async selectedGroupPartner() {

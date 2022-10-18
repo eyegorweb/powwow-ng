@@ -246,7 +246,7 @@ export default {
       'searchingById',
     ]),
     ...mapGetters('actLines', ['appliedFilters', 'linesActionsResponse']),
-    ...mapGetters(['userIsPartner', 'singlePartner']),
+    ...mapGetters(['userIsPartner', 'singlePartner', 'userIsByCustomerAccount']),
     ...mapGetters([
       'userIsPartner',
       'userInfos',
@@ -301,7 +301,11 @@ export default {
     carouselItems() {
       // esimAct: true,
       let itemsToReturn;
-      if (this.userIsPartner || this.userInfos.type === 'PARTNER_GROUP') {
+      if (this.userIsPartner && this.userIsByCustomerAccount) {
+        itemsToReturn = carouselItems.filter((i) => {
+          return i.canShowActAsUserByCF;
+        });
+      } else if (this.userIsPartner || this.userInfos.type === 'PARTNER_GROUP') {
         itemsToReturn = carouselItems
           .filter((i) => {
             return !i.boOnly;
