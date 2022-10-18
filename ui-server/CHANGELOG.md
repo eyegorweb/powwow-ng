@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1110+20221018055759
+2022-10-18
+
+### Features
+
+- [3372] gestion de l'association de CF d'un utilisateur (9bcee1f87ab87b88f91f046b2446a1e5660ff39b)
+
 ## 1.17.0-master.1109+20221017091447
 2022-10-17
 
