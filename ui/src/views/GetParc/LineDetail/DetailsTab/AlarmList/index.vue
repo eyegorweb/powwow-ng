@@ -4,7 +4,7 @@
       <div class="col-md-8">
         <h4 class="text-primary text-uppercase">{{ $t('getparc.actLines.alarmList.title') }}</h4>
       </div>
-      <div class="col-md-4">
+      <div class="col-md-4" v-if="!userIsByCustomerAccount">
         <UiButton variant="secondary" block class="float-right" @click="createAlarm()">
           <i class="select-icon ic-Amplifier-Icon" />
           {{ $t('getvsion.table.create-alarm') }}
@@ -29,7 +29,7 @@
           :size="5"
           :show-extra-columns.sync="showExtraCells"
         >
-          <template slot="actions" slot-scope="{ row }">
+          <template v-if="!userIsByCustomerAccount" slot="actions" slot-scope="{ row }">
             <ActionsCell :alarm="row" :simcard="content" />
           </template>
         </DataTable>
@@ -54,7 +54,7 @@ import UiButton from '@/components/ui/Button';
 import LoaderContainer from '@/components/LoaderContainer';
 import TableSkeleton from '@/components/ui/skeletons/TableSkeleton';
 
-import { mapMutations, mapState } from 'vuex';
+import { mapMutations, mapState, mapGetters } from 'vuex';
 
 export default {
   components: {
@@ -112,6 +112,7 @@ export default {
   },
   computed: {
     ...mapState('actLines', ['limitPerPage']),
+    ...mapGetters(['userIsByCustomerAccount']),
     pageLimit: {
       get() {
         return this.limitPerPage;

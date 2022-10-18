@@ -71,6 +71,7 @@ export const getters = {
     }
     return false;
   },
+  // TODO: replace by userIsAdmin (faire attention aux régressions)
   userIsSuperAdmin: (state) => {
     // Admin docapost
     if (state.userInfos) {
@@ -107,7 +108,10 @@ export const getters = {
   userIsBO: (state) => {
     return state.userInfos && state.userInfos.isAdminOrBackOffice;
   },
+  // WARNING: si utilisateur admin ou BO, renvoie false au lieu de true
   userIsMultiPartner: (state) => {
+    // TODO ajouter la condition pour gérer l'utilsateur BO ou admin
+    // Example: if (this.userIsBO || this.userIsAdmin) return true;
     return state.userInfos && state.userInfos.partners && state.userInfos.partners.length > 1;
   },
   userIsGroupAccount: (state) => {
@@ -124,6 +128,9 @@ export const getters = {
     }
 
     return {};
+  },
+  userIsByCustomerAccount: (state) => {
+    return state.userInfos && state.userInfos.isUserByCustomerAccount;
   },
 };
 

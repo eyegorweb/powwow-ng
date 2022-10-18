@@ -24,6 +24,11 @@ export async function fetchAllowedRoles(userId, partyId, partyGroupId, ws) {
   }`;
 
   const response = await query(queryStr);
+  if (response.errors) {
+    return {
+      errors: response.errors,
+    };
+  }
   return response.data.userAllowedRolesV2;
 }
 
@@ -55,6 +60,10 @@ export async function createUser(params) {
   if (params.partyId) {
     partyParam = `partyId: ${params.partyId},`;
   }
+  let customerAccountIdsParam = '';
+  if (params.customerAccountIds) {
+    customerAccountIdsParam = `customerAccountIds: [${params.customerAccountIds}]`;
+  }
   const queryStr = `
   mutation {
     createUser(userCreationInput: {
@@ -69,7 +78,8 @@ export async function createUser(params) {
       userPrivate: ${params.userPrivate},
       ${partyParam}
       ${partyGroupParam}
-      roles: [${params.roles.map((r) => r.code).join(',')}]
+      roles: [${params.roles.map((r) => r.code).join(',')}],
+      ${customerAccountIdsParam}
     }){
       id
     }
@@ -97,6 +107,7 @@ export async function updateUser(params) {
       confirmPassword: params.confirmPassword,
       userPrivate: params.userPrivate,
       roles: params.roles.map((r) => r.code),
+      customerAccountIds: params.customerAccountIds,
     },
   };
 
@@ -184,6 +195,9 @@ export async function searchUsers(q, orderBy, pagination, filters = []) {
         partyGroup{
           id
           label: name
+        }
+        customerAccounts {
+          id
         }
       }
     }

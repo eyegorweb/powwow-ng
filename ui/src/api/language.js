@@ -20,5 +20,22 @@ export async function fetchAllLanguages() {
   `;
 
   const response = await query(queryStr);
+  // const response2 = {
+  //   errors: [
+  //     {
+  //       message: 'Access denied for the current user',
+  //       extensions: {
+  //         user: 'CUSTOMER_ACCOUNT_USER_NOT_ALLOWED',
+  //         classification: 'ExecutionAborted',
+  //       },
+  //     },
+  //   ],
+  //   data: null,
+  // };
+  if (response.errors) {
+    return {
+      errors: response.errors,
+    };
+  }
   return response.data.getAvailableLanguages;
 }

@@ -252,7 +252,7 @@ export default {
         ],
       },
     ]);
-    if (this.userInfos.isFleetEnabled) {
+    if (this.userInfos && this.userInfos.isFleetEnabled) {
       navbarLinks.push({
         label: 'mainMenu.getVision',
         to: { name: 'getVisionMonitoring', meta: { label: 'Supervision' } },

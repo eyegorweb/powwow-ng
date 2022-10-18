@@ -55,6 +55,10 @@
         v-if="panelId === 'getadmin.partnerDetail.changePassword.title'"
         :content="payload"
       />
+      <UserCustomerAccountsPanel
+        v-if="panelId === 'getadmin.partnerDetail.customerAccountsPanel.title'"
+        :content="payload"
+      />
       <BroadcastListFormPanel v-if="panelId === 'getadmin.customize.addList'" :content="payload" />
       <CustomFieldFormPanel
         v-if="panelId === 'getadmin.customize.addCustomField'"
@@ -118,6 +122,8 @@ export default {
     AdminFormPanel: () => import('@/views/GetAdmin/PartnerDetail/UsersTab/AdminFormPanel.vue'),
     ChangeUserPasswordPanel: () =>
       import('@/views/GetAdmin/PartnerDetail/UsersTab/ChangeUserPasswordPanel.vue'),
+    UserCustomerAccountsPanel: () =>
+      import('@/views/GetAdmin/PartnerDetail/UsersTab/UserCustomerAccountsPanel.vue'),
     PartnerOfferPanel: () =>
       import('@/views/GetAdmin/PartnerDetail/OffersTab/PartnerOfferPanel.vue'),
     SimCardsPanel: () => import('@/views/GetAdmin/PartnerDetail/OffersTab/SimCardsPanel.vue'),

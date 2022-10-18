@@ -7,6 +7,9 @@
       @scroll="$emit('scroll', $refs.panelMainContainer)"
     >
       <slot></slot>
+      <div>
+        <slot name="error"></slot>
+      </div>
     </div>
     <div class="footer-panel-buttons">
       <slot name="footer"></slot>

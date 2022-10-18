@@ -361,31 +361,6 @@ export default {
       });
     },
 
-    async searchByLogin(value) {
-      this.searchByLoginValue = value;
-      const data = await searchUsers('', this.orderBy, { page: 0, limit: 20 }, [
-        {
-          id: 'getadmin.users.filters.login',
-          value,
-        },
-      ]);
-      this.total = data.total;
-      this.rows = data.items;
-    },
-    clearSearch() {
-      if (this.searchByLoginValue) {
-        this.searchByLoginValue = undefined;
-        this.applyFilters();
-      }
-    },
-    getExportFn() {
-      return async (columnsParam, orderBy, exportFormat) => {
-        return exportUsers(columnsParam, this.orderBy, exportFormat, [
-          ...this.currentAppliedFilters,
-          { id: 'getadmin.users.filters.userName', value: this.searchByLoginValue },
-        ]);
-      };
-    },
     onDuplicateUser(user) {
       const doReset = () => {
         this.applyFilters(this.lastPayload);
@@ -427,6 +402,32 @@ export default {
           }
         },
       });
+    },
+
+    async searchByLogin(value) {
+      this.searchByLoginValue = value;
+      const data = await searchUsers('', this.orderBy, { page: 0, limit: 20 }, [
+        {
+          id: 'getadmin.users.filters.login',
+          value,
+        },
+      ]);
+      this.total = data.total;
+      this.rows = data.items;
+    },
+    clearSearch() {
+      if (this.searchByLoginValue) {
+        this.searchByLoginValue = undefined;
+        this.applyFilters();
+      }
+    },
+    getExportFn() {
+      return async (columnsParam, orderBy, exportFormat) => {
+        return exportUsers(columnsParam, this.orderBy, exportFormat, [
+          ...this.currentAppliedFilters,
+          { id: 'getadmin.users.filters.userName', value: this.searchByLoginValue },
+        ]);
+      };
     },
     async refreshUser(user) {
       user.disabled = !user.disabled;

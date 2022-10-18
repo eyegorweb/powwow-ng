@@ -3,7 +3,7 @@
     "title": "EVENEMENT:",
     "content": "Attention - Jeudi 24 juin de 19h00 à 21h00, le service sera indisponible en raison d'une opération de maintenance. Nous vous prions de bien vouloir nous excuser pour la gêne occasionnée."
   },
-  "events": "Evennements:",
+  "events": "Evènements:",
   "infos": "Messages:",
   "off": "Off",
   "searchOrderById": "Rechercher une commande par identifiant",
@@ -185,7 +185,7 @@
     },
     "topUp": {
       "displayDiscount": "Vous bénéficiez d'une remise pour une quantité maximale de {nbRemainingSim} ligne(s).",
-      "warningDiscount": "Attention ! La remise ne sera pas appliquée car le nombre de ligne est supérieure à {nbRemainingSim}."
+      "warningDiscount": "Attention ! La remise ne sera pas appliquée car le nombre de lignes est supérieur à {nbRemainingSim}."
     },
     "synthesis": {
       "title": "Récapitulatif de la commande",
@@ -978,7 +978,8 @@
         "AccessDeniedForThisUser": "Vous n'avez pas la permission.",
         "USER_D_PASSWORD_OLD_ENTERED_IS_INCORRECT": "L'ancien mot de passe est incorrect",
         "USER_D_PASSWORD_MUST_BE_DIFFERENT_FROM_OLD_ONE": "Le mot de passe doit être différent de l'ancien",
-        "username": "Le login existe déjà."
+        "username": "Le login existe déjà.",
+        "CUSTOMER_ACCOUNT_USER_NOT_ALLOWED": "Accès refusé pour l'utilisateur actuel"
       },
       "export": "Exporter {total} utilisateur(s)",
       "tooltip-text": "Cette page permet de rechercher un utilisateur."
@@ -1234,6 +1235,12 @@
         "title": "Modifier le mot de passe",
         "warning": "Les modifications seront perdues, voulez-vous continuer ?",
         "notification": "Notification des demandes de résiliation"
+      },
+      "customerAccountsPanel": {
+        "title": "Associer des comptes de facturation",
+        "ba_list": "Tous les CF",
+        "chosen_ba": "CF associés"
+
       },
       "errors": {
         "MAILING_LIST_CANNOT_BE_DELETED": "Impossible de supprimer une liste de diffusion, si elle est utilisée autre part.",

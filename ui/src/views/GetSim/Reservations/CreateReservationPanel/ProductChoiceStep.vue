@@ -43,7 +43,7 @@
             value
             class="d-block w-50 mx-auto"
             input-type="number"
-            :min-value="1"
+            :min-value="0"
           />
           <p v-if="selectedSimIsOfTapeType" class="text-center display-nb-bobines">
             {{ $t('getsim.nb-of-sim') }}:
@@ -92,7 +92,7 @@ export default {
 
   computed: {
     canGoToNextStep() {
-      return !!this.$loGet(this.selectedSimTypeValue, 'simCard') && !!this.selectedNumberOfSims;
+      return !!this.$loGet(this.selectedSimTypeValue, 'simCard') && this.selectedNumberOfSims > 0;
     },
     filteredSimTypes: {
       get() {
