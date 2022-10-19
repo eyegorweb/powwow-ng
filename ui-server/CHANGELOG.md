@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1112+20221019174410
+2022-10-19
+
+### Fixes
+
+- [3491] Renommer champs Brevets (6f07b9a29103fc0d40b513e2351dde781baf8854)
+
 ## 1.17.0-master.1111+20221019100805
 2022-10-19
 
