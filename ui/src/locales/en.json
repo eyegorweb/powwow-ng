@@ -163,7 +163,8 @@
       "price": "Price (excl. taxes)",
       "amount": "Amount (excl. taxes)",
       "designation": "Designation",
-      "topup": "Topup"
+      "topup": " x Topup",
+      "sim": " x SIM"
     },
     "errors": {
       "CUSTOMER_ACCOUNT_MANDATORY": "CUSTOMER_ACCOUNT_MANDATORY",

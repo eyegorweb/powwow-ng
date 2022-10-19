@@ -202,7 +202,8 @@
       "price": "Prix unitaire HT",
       "amount": "Montant HT",
       "designation": "Désignation",
-      "topup": "Recharge(s)"
+      "topup": " x Recharge",
+      "sim": " x SIM"
     },
     "errors": {
       "CUSTOMER_ACCOUNT_MANDATORY": "CUSTOMER_ACCOUNT_MANDATORY",

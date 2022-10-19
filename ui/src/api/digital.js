@@ -101,22 +101,16 @@ export function displayedOffer(offerCode) {
   if (offerCode === 'OD1_NBIOT_LPWA') {
     displayOffer = {
       img: 'NBioT_logo',
-      services: [
-        'Data NB-IoT only',
-        'EC "extended coverage"',
-        'Sobrieté énergetique (LPWA)',
-        'APN: ido.net',
-      ],
+      services: ['Data NB-IoT only', 'EC "extended coverage"', 'LPWA : Sobriété énergétique'],
+      link:
+        'https://objenious.com/le-nb-iot-la-nouvelle-technologie-iot-alliant-autonomie-et-performance/',
     };
   } else {
     displayOffer = {
-      img: 'ltem_logo',
-      services: [
-        'Data 1Go',
-        'EC "extended coverage"',
-        'Sobrieté énergetique (LPWA)',
-        'APN: ido.net',
-      ],
+      img: '4G_ltem_logo',
+      services: ['Data 1Go', 'EC "extended coverage"', 'LPWA : Sobriété énergétique'],
+      link:
+        'https://objenious.com/optez-pour-le-lte-m-la-technologie-adaptee-a-la-plupart-des-usages-iot/',
     };
   }
   return displayOffer;

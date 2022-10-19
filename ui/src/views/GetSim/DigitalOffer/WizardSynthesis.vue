@@ -19,7 +19,10 @@
         <div class="synthesis-item table-price d-flex flex-row">
           <div style="flex-basis: 33%">
             <h6 class="subtitle">{{ $t('digitalOffer.synthesis.designation') }}</h6>
-            <p>{{ $loGet(formattedPrice[0], 'value.content', '-') }} SIM</p>
+            <p>
+              {{ $loGet(formattedPrice[0], 'value.content', '-') }}
+              {{ $t('digitalOffer.synthesis.sim') }}
+            </p>
           </div>
           <div v-if="$loGet(formattedPrice[1], 'label')" style="flex-basis: 33%">
             <h6 class="subtitle text-right">
@@ -104,9 +107,13 @@
         <slot name="errors"></slot>
       </template>
       <template v-if="canSave">
-        <UiCheckbox v-model="accept" :disabled="!canSave">{{
-          $t('orders.new.acceptConditions')
-        }}</UiCheckbox>
+        <UiCheckbox v-model="accept" :disabled="!canSave">
+          <span v-if="!conditionUrl">{{ $t('orders.new.acceptConditions') }}</span>
+          <span v-if="conditionUrl"
+            >{{ $t('orders.new.accept') }}
+            <a :href="conditionUrl" target="_blank">{{ $t('orders.new.conditions') }}</a>
+          </span>
+        </UiCheckbox>
         <button
           v-if="!isLoading"
           type="button"
@@ -132,7 +139,7 @@ import CreateOrderPanelSynthesisItem from '@/views/GetSim/CreateOrder/CreateOrde
 import { getActiveServicesWithoutAPN } from '@/components/Services/utils.js';
 import { formatCurrency } from '@/utils/numbers.js';
 import { fetchCustomerAccountsByPartnerId } from '@/api/partners.js';
-import { displayedOffer } from '@/api/digital';
+import { getOrderConditionUrl, displayedOffer } from '@/api/digital';
 import { mapGetters } from 'vuex';
 
 export default {
@@ -156,6 +163,7 @@ export default {
       accept: false,
       showSynthesis: false,
       partnerInfo: undefined,
+      conditionUrl: '',
     };
   },
 
@@ -214,7 +222,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['userInfos']),
+    ...mapGetters(['userInfos', 'userIsM2MLight']),
     formattedItems() {
       const formatted = [];
       // If user PARTNER
@@ -526,6 +534,9 @@ export default {
     },
   },
   async mounted() {
+    if (this.userIsM2MLight) {
+      this.conditionUrl = await getOrderConditionUrl();
+    }
     if (this.userInfos.type === 'PARTNER') {
       const partnerResult = await fetchCustomerAccountsByPartnerId(this.userInfos.partners[0].id);
       this.partnerInfo = partnerResult.items[0];
