@@ -27,13 +27,13 @@
         </div>
       </div>
     </div>
-    <a class="readMore" v-if="readMore" href="https://objenious.com/" target="_blank">{{
+    <a class="readMore" v-if="readMore" :href="displayedOffer.link" target="_blank">{{
       $t('readMore')
     }}</a>
     <hr class="divider" />
     <div class="terms" :class="recharge ? 'minCard' : ''">
       <div v-if="displayedOffer" class="term">
-        <div v-if="!recharge" class="logo">
+        <div v-if="!recharge" class="logo_order">
           <a>
             <img :src="require(`@/assets/${displayedOffer.img}.png`)" />
           </a>
@@ -300,7 +300,7 @@ $box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14),
   .terms {
     display: flex;
     flex-direction: column;
-    padding: 1rem 2rem;
+    padding: 0.5rem 2rem;
     font-size: 0.9125rem;
     text-align: center;
     min-height: 120px;
@@ -373,10 +373,15 @@ $box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14),
   }
   .logo {
     text-align: center;
+    padding: 0.25rem;
+  }
+  .logo_order {
+    text-align: center;
+    padding-bottom: 1rem;
   }
   img {
     max-width: 70%;
-    max-height: 50px;
+    max-height: 29px;
     height: auto;
   }
 }

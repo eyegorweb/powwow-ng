@@ -17,6 +17,7 @@
                   (synthesis && synthesis.offerStep ? offer.code === currentOffer.code : false)
               "
               @select:offer="getCurrentOffer"
+              read-more
             />
           </div>
         </div>

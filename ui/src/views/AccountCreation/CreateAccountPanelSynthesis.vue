@@ -24,7 +24,10 @@
         <div class="synthesis-item table-price d-flex flex-row">
           <div style="flex-basis: 33%">
             <h6 class="subtitle">{{ $t('digitalOffer.synthesis.designation') }}</h6>
-            <p>{{ $loGet(formattedPrice[0], 'value.content', '-') }} SIM</p>
+            <p>
+              {{ $loGet(formattedPrice[0], 'value.content', '-') }}
+              {{ $t('digitalOffer.synthesis.sim') }}
+            </p>
           </div>
           <div v-if="$loGet(formattedPrice[1], 'label')" style="flex-basis: 33%">
             <h6 class="subtitle text-right">
@@ -112,7 +115,7 @@
           <span v-if="!conditionUrl">{{ $t('orders.new.acceptConditions') }}</span>
           <span v-if="conditionUrl"
             >{{ $t('orders.new.accept') }}
-            <a :href="conditionUrl">{{ $t('orders.new.conditions') }}</a>
+            <a :href="conditionUrl" target="_blank">{{ $t('orders.new.conditions') }}</a>
           </span>
         </UiCheckbox>
         <button
