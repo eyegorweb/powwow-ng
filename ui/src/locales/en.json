@@ -587,7 +587,7 @@
     "export-warning": "The export will be generated offline and will be accessible in document management. Do you want to continue?",
     "sim-type-labels": {
       "format": "Format",
-      "licence": "Licences",
+      "licence": "Licences and functionnality",
       "patent": "Licence and functionnality",
       "orderDate": "Last order"
     },
@@ -1075,8 +1075,8 @@
         "default": "Enabled by default",
         "modifiedServices": "Modified services"
       },
-      "userForm": { 
-        "title": "Add user", 
+      "userForm": {
+        "title": "Add user",
         "modify-title": "Editing a user"
       },
       "changePassword": {
