@@ -101,6 +101,15 @@ export async function fetchOffers2(filters, pagination, sorting) {
             upperBoundDiscount
             unit
           }
+          offerRangesSorted {
+            lowerBound
+            upperBound
+            unitPrice
+            fixedPrice
+            lowerBoundDiscount
+            upperBoundDiscount
+            unit
+          }
           marketingServices {
             labelService
             code
@@ -215,7 +224,7 @@ export async function fetchOffers(
             envelopeLabel
             unit
           }
-          offerRanges {
+          offerRangesSorted {
             lowerBound
             upperBound
             unitPrice
@@ -608,7 +617,7 @@ export async function fetchODOffers(partyId, offer) {
           remainingSim
           simDiscount
           topUpDiscount
-        } 
+        }
         initialOffer {
           code
           id
