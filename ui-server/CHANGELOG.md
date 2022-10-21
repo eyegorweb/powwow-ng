@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1113+20221021082118
+2022-10-21
+
+### Fixes
+
+- [3474] Modification du contrat "offerRanges" en "offerRangesSorted" dans l'api workflow. (a010dcd207aaededf27e6191277837d45dc4c9ee)
+
 ## 1.17.0-master.1112+20221019174410
 2022-10-19
 
