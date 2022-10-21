@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1114+20221021130956
+2022-10-21
+
+### Fixes
+
+- [3497] Etape 1: masquer le bouton "changement d'offre" dans le carrousel du détail de la ligne. (f7140c55aaf660304b5f56136b5e0009290b7f5e)
+
 ## 1.17.0-master.1113+20221021082118
 2022-10-21
 
