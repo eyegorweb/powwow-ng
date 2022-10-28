@@ -381,7 +381,7 @@ $box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14),
   }
   img {
     max-width: 70%;
-    max-height: 29px;
+    max-height: 30px;
     height: auto;
   }
 }

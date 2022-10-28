@@ -1,22 +1,27 @@
 <template>
-  <div class="container p-4" :class="{ reverse: noPrev }">
+  <div class="container p-4">
     <slot name="prevBtn">
-      <UiButton
-        v-if="!noPrev"
-        variant="round-button"
-        @click="$emit('prev')"
-        :disabled="!canPrev"
-        class="ic-Arrow-Previous-Icon prev-btn creationAccountBtn"
-      />
+      <div class="buttonContainer">
+        <UiButton
+          v-if="!noPrev"
+          variant="round-button"
+          @click="$emit('prev')"
+          :disabled="!canPrev"
+          class="ic-Arrow-Previous-Icon prev-btn creationAccountBtn"
+        />
+      </div>
     </slot>
+    <img class="logo--center logoSvg " src="@/assets/logo_objenious.svg" alt="Logo" />
     <slot name="nextBtn">
-      <UiButton
-        v-if="!noNext"
-        variant="round-button"
-        @click="$emit('next')"
-        :disabled="!canNext"
-        class="ic-Arrow-Next-Icon next-btn creationAccountBtn"
-      />
+      <div class="buttonContainer">
+        <UiButton
+          v-if="!noNext"
+          variant="round-button"
+          @click="$emit('next')"
+          :disabled="!canNext"
+          class="ic-Arrow-Next-Icon next-btn creationAccountBtn"
+        />
+      </div>
     </slot>
   </div>
 </template>
@@ -66,5 +71,20 @@ export default {
   &.reverse {
     flex-direction: row-reverse !important;
   }
+}
+.buttonContainer {
+  width: 3rem;
+  height: 3rem;
+}
+.logo {
+  &--center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+.logoSvg {
+  width: 100px;
+  height: 60px;
 }
 </style>
