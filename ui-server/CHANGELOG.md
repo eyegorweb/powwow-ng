@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1115+20221028142505
+2022-10-28
+
+### Features
+
+- [3486] Retour OD du 17/10/2022 Ajout logo. (ac58bb41ae3ca1a879c95a23abd8afd5f4345dd9)
+
 ## 1.17.0-master.1114+20221021130956
 2022-10-21
 
