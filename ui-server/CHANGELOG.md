@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1117+20221102141653
+2022-11-02
+
+### Features
+
+- [3372] mise à jour des liens cliquables concernant l'identifiant (70e7879e55b5891a8fac8e24cb323699ca6b432c)
+
 ## 1.17.0-master.1116+20221102110241
 2022-11-02
 
