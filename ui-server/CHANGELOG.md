@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1116+20221102110241
+2022-11-02
+
+### Fixes
+
+- [3504] ajout du gestionnaire d'erreur dans le cas d'import de fichier pour l'acte de modification des champs libres (ebde4eb037c0e9c43c549443b35d3f09d57e473b)
+
 ## 1.17.0-master.1115+20221028142505
 2022-10-28
 
