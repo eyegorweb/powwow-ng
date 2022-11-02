@@ -246,6 +246,43 @@ export default {
           this.fileImportAsInputContext.customFieldTypeToggle
         );
       }
+      if (response.errors && response.errors.length) {
+        this.waitForConfirmation = false;
+        let errorMessage = '',
+          massActionLimitError = '',
+          count;
+        const formatted = formatBackErrors(response.errors)
+          .map((e) => e.errors)
+          .flat();
+        formatted.forEach((e) => {
+          if (e.key === 'limit') {
+            count = e.value;
+          }
+          if (e.key === 'error') {
+            massActionLimitError = `${e.key}.${e.value}`;
+          } else {
+            errorMessage = `${e.key}: ${e.value}`;
+          }
+        });
+        if (massActionLimitError) {
+          this.exceptionError = `${this.$t(
+            'getparc.actCreation.report.errors.' + massActionLimitError,
+            {
+              count,
+            }
+          )}`;
+        } else {
+          this.exceptionError = errorMessage;
+        }
+
+        return {
+          errors: response.errors,
+          validationError: {
+            validated: response.validated,
+            tempDataUuid: response.tempDataUuid,
+          },
+        };
+      }
 
       return response;
     },
