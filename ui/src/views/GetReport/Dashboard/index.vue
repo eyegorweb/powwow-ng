@@ -29,7 +29,7 @@
       </div>
       <div class="action-btn pl-2">
         <UiButton variant="primary" @click="doFilter" :disabled="filtersKey === lastFiltersKey">
-          Filtrer
+          {{ $t('filter') }}
         </UiButton>
       </div>
       <div class="action-btn pl-2">
@@ -43,14 +43,14 @@
       <transition-group>
         <FoldableBlock default-open :title="'Consommation'" :key="'Consommation'" draggable>
           <div>
-            <div class="row" v-if="!userIsM2MLight">
+            <div class="row" v-if="!userIsM2MLight && !isUserByCF">
               <ReportGauges
                 :partner="appliedPartner"
                 :offer="appliedOffer"
                 :billing-account="appliedBillingAccount"
               />
             </div>
-            <div class="row">
+            <div class="row" v-if="!isUserByCF">
               <ConsoHistoryGraphs
                 :partner="appliedPartner"
                 :offer="appliedOffer"
@@ -105,7 +105,7 @@
           </div>
         </FoldableBlock>
         <FoldableBlock
-          v-if="!userIsM2MLight"
+          v-if="!userIsM2MLight && !isUserByCF"
           default-open
           :title="'Alarme'"
           :key="'Alarme'"
@@ -123,7 +123,7 @@
         </FoldableBlock>
         <div :key="'Facturation'">
           <permission domain="getReport" action="read_dashboard_billing">
-            <FoldableBlock default-open :title="'Facturation'" draggable>
+            <FoldableBlock default-open :title="'Facturation'" draggable v-if="!isUserByCF">
               <div>
                 <div class="row">
                   <BilledAmountsGraph
@@ -293,7 +293,11 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['userIsPartner', 'singlePartner', 'userIsM2MLight']),
+    ...mapGetters(['userIsPartner', 'singlePartner', 'userIsM2MLight', 'userIsByCustomerAccount']),
+    isUserByCF() {
+      return this.userIsByCustomerAccount;
+    },
+
     canCancel() {
       return !!this.selectedPartner || !!(this.singlePartner && this.singlePartner.length);
     },

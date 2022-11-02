@@ -106,7 +106,6 @@
             </button>
           </div>
         </div>
-        <!-- TODO: ATTENTION DE NE PAS POUSSER LA NÉGATION DE LA PERMISSION MAIS SON AFFIRMATION -->
         <div
           class="entries-line"
           v-if="havePermission('user', 'set_ca') && canShowCustomerAccounsList"
@@ -139,7 +138,6 @@
             />
           </div>
         </div>
-        <!-- TODO: ATTENTION DE NE PAS POUSSER LA NÉGATION DE LA PERMISSION MAIS SON AFFIRMATION -->
         <div
           class="entries-line"
           v-if="havePermission('user', 'set_ca') && canShowCustomerAccounsList"
@@ -204,15 +202,11 @@
         </div>
       </div>
     </div>
-    <div
-      v-if="requestErrors && requestErrors.length"
-      slot="error"
-      class="alert alert-danger"
-      role="alert"
-    >
+    <div v-if="exceptionError" slot="error" class="alert alert-danger" role="alert">
       <i class="ic-Alert-Icon"> </i>
-      {{ requestErrors[0].message }}
+      {{ exceptionError }}
     </div>
+
     <div slot="footer" class="action-buttons" v-if="havePermission('user', 'create')">
       <div>
         <UiButton variant="import" @click="closePanel" block>{{ $t('cancel') }}</UiButton>
@@ -245,6 +239,7 @@ import { fetchAllowedRoles, createUser, updateUser, fetchPartnerGroups } from '@
 import { fetchpartnerById } from '@/api/partners.js';
 import { fetchAllLanguages } from '@/api/language.js';
 import { fetchBillingAccounts } from '@/api/billingAccounts';
+import { formatBackErrors } from '@/utils/errors';
 
 export function checkPasswordErrors(password, passwordConfirm) {
   const errors = [];
@@ -343,6 +338,7 @@ export default {
       },
       userDefaultLanguage: 'FR',
       requestErrors: undefined,
+      exceptionError: undefined,
     };
   },
 
@@ -444,6 +440,8 @@ export default {
         this.content.customerAccountIds.length > 0
       ) {
         params.customerAccountIds = this.content.customerAccountIds;
+      } else {
+        params.customerAccountIds = [];
       }
 
       if (this.createMode || this.isDuplicateMode) {
@@ -670,7 +668,11 @@ export default {
         !passwordError &&
         !roleError &&
         this.isEmailValid(this.form.email) &&
-        userTypeValid
+        userTypeValid &&
+        (this.selectedRoles.length > 0 ||
+          this.selectedRolesWs.length > 0 ||
+          this.selectedRolesWsActions.length > 0 ||
+          this.selectedRolesWsConsultation.length > 0)
       );
     },
 
@@ -705,18 +707,24 @@ export default {
     }
 
     // récupération des langues
-    let langArray = [],
-      errorMessage;
+    let langArray = [];
     const response = await fetchAllLanguages();
-    if (response && response.errors) {
-      errorMessage = this.$t('getadmin.users.errors.CUSTOMER_ACCOUNT_USER_NOT_ALLOWED');
-      this.requestErrors = [
-        {
-          message: errorMessage,
-        },
-      ];
+    if (response.errors && response.errors.length) {
+      let errorMessage = '';
+      const formatted = formatBackErrors(response.errors)
+        .map((e) => e.errors)
+        .flat();
+      formatted.forEach((e) => {
+        if (e.key === 'user') {
+          errorMessage = `${this.$t('getadmin.users.errors.CUSTOMER_ACCOUNT_USER_NOT_ALLOWED')}`;
+        } else {
+          errorMessage = `${e.key}: ${e.value}`;
+        }
+      });
+      this.exceptionError = errorMessage;
       return;
     }
+
     this.resultLanguages = response;
     this.resultLanguages.forEach((e) => {
       langArray.push(e.label);
@@ -742,7 +750,37 @@ export default {
       this.canShowForm = true;
 
       roles = await fetchAllowedRoles(null, this.singlePartner.id, null);
+      if (roles.errors && roles.errors.length) {
+        let errorMessage = '';
+        const formatted = formatBackErrors(roles.errors)
+          .map((e) => e.errors)
+          .flat();
+        formatted.forEach((e) => {
+          if (e.key === 'user') {
+            errorMessage = `${this.$t('getadmin.users.errors.CUSTOMER_ACCOUNT_USER_NOT_ALLOWED')}`;
+          } else {
+            errorMessage = `${e.key}: ${e.value}`;
+          }
+        });
+        this.exceptionError = errorMessage;
+        return;
+      }
       rolesWs = await fetchAllowedRoles(null, this.singlePartner.id, null, true);
+      if (rolesWs.errors && rolesWs.errors.length) {
+        let errorMessage = '';
+        const formatted = formatBackErrors(rolesWs.errors)
+          .map((e) => e.errors)
+          .flat();
+        formatted.forEach((e) => {
+          if (e.key === 'user') {
+            errorMessage = `${this.$t('getadmin.users.errors.CUSTOMER_ACCOUNT_USER_NOT_ALLOWED')}`;
+          } else {
+            errorMessage = `${e.key}: ${e.value}`;
+          }
+        });
+        this.exceptionError = errorMessage;
+        return;
+      }
       this.roles = this.formattedRoles(roles);
       this.rolesWs = this.formattedRoles(rolesWs);
       this.customerAccounts = await this.fetchCustomerAccounts();
@@ -761,20 +799,6 @@ export default {
       const userType = this.content.duplicateFrom.type;
       this.userType = userType;
 
-      if (this.userType === 'PARTNER') {
-        this.selectedPartner = {
-          id: this.content.duplicateFrom.partners[0].id,
-          value: this.content.duplicateFrom.partners[0].name,
-          label: this.content.duplicateFrom.partners[0].name,
-          highlighted: this.content.duplicateFrom.partners[0].name,
-        };
-        this.customerAccounts = await this.fetchCustomerAccounts();
-      } else if (this.userType === 'PARTNER_GROUP') {
-        if (this.content.duplicateFrom.partners && this.content.duplicateFrom.partners.length) {
-          this.selectedPartner = this.content.duplicateFrom.partners[0];
-        }
-      }
-
       if (this.userType === 'OPERATOR') {
         roles = await fetchAllowedRoles(this.content.duplicateFrom.id, null, null);
         rolesWs = await fetchAllowedRoles(this.content.duplicateFrom.id, null, null, true);
@@ -783,22 +807,67 @@ export default {
         this.selectedRoles = this.roles.filter((r) => r.data.activated);
         this.selectedRolesWs = this.rolesWs.filter((r) => r.data.activated);
       } else if (this.userType === 'PARTNER') {
+        this.selectedPartner = {
+          id: this.content.duplicateFrom.partners[0].id,
+          value: this.content.duplicateFrom.partners[0].name,
+          label: this.content.duplicateFrom.partners[0].name,
+          highlighted: this.content.duplicateFrom.partners[0].name,
+        };
+        this.customerAccounts = await this.fetchCustomerAccounts();
+
         roles = await fetchAllowedRoles(
           this.content.duplicateFrom.id,
           this.selectedPartner.id,
           null
         );
+        if (roles.errors && roles.errors.length) {
+          let errorMessage = '';
+          const formatted = formatBackErrors(roles.errors)
+            .map((e) => e.errors)
+            .flat();
+          formatted.forEach((e) => {
+            if (e.key === 'user') {
+              errorMessage = `${this.$t(
+                'getadmin.users.errors.CUSTOMER_ACCOUNT_USER_NOT_ALLOWED'
+              )}`;
+            } else {
+              errorMessage = `${e.key}: ${e.value}`;
+            }
+          });
+          this.exceptionError = errorMessage;
+          return;
+        }
         rolesWs = await fetchAllowedRoles(
           this.content.duplicateFrom.id,
           this.selectedPartner.id,
           null,
           true
         );
+        if (rolesWs.errors && rolesWs.errors.length) {
+          let errorMessage = '';
+          const formatted = formatBackErrors(rolesWs.errors)
+            .map((e) => e.errors)
+            .flat();
+          formatted.forEach((e) => {
+            if (e.key === 'user') {
+              errorMessage = `${this.$t(
+                'getadmin.users.errors.CUSTOMER_ACCOUNT_USER_NOT_ALLOWED'
+              )}`;
+            } else {
+              errorMessage = `${e.key}: ${e.value}`;
+            }
+          });
+          this.exceptionError = errorMessage;
+          return;
+        }
         this.roles = this.formattedRoles(roles);
         this.rolesWs = this.formattedRoles(rolesWs);
         this.selectedRoles = this.roles.filter((r) => r.data.activated);
         this.selectedRolesWs = this.rolesWs.filter((r) => r.data.activated);
       } else if (this.userType === 'PARTNER_GROUP') {
+        if (this.content.duplicateFrom.partners && this.content.duplicateFrom.partners.length) {
+          this.selectedPartner = this.content.duplicateFrom.partners[0];
+        }
         const groupPartnersResponse = await fetchPartnerGroups();
         this.groupPartners = groupPartnersResponse.map((p) => {
           return {

@@ -62,7 +62,11 @@ export async function fetchAllDocuments(orderBy, pagination, filters = []) {
   }
   `;
   const response = await query(queryStr);
-
+  if (response.errors) {
+    return {
+      errors: response.errors,
+    };
+  }
   return response.data.documents;
 }
 

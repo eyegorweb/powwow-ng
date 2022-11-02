@@ -104,8 +104,8 @@ export const mutations = {
     configureHighcharts(lang);
     await setLanguage(lang);
   },
-  initHomeWidgets(state) {
-    state.homeWidgets = loadWidgets();
+  initHomeWidgets(state, userByCustomerAccount) {
+    state.homeWidgets = loadWidgets(userByCustomerAccount);
     saveFormattedWidgets(state.homeWidgets);
   },
   openExportChoice(state, params) {

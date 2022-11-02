@@ -18,7 +18,7 @@
 <script>
 import { mapMutations, mapGetters, mapState, mapActions } from 'vuex';
 import HomePageDragDropGrid from './HomePageDragDropGrid';
-import { defaultWidgets } from './widgets.js';
+import { defaultWidgets, userByCustomerAccountWidgets } from './widgets.js';
 import Messages from './Messages';
 
 export default {
@@ -29,7 +29,7 @@ export default {
   computed: {
     ...mapGetters('userContext', ['contextFilters']),
     ...mapState('userContext', ['contextPartnersType', 'contextPartners']),
-    ...mapGetters(['userIsPartner', 'havePermission']),
+    ...mapGetters(['userIsPartner', 'havePermission', 'userIsByCustomerAccount']),
     ...mapGetters(['activeWidgets']),
 
     ...mapState({
@@ -60,7 +60,7 @@ export default {
     };
   },
   mounted() {
-    this.initHomeWidgets();
+    this.initHomeWidgets(this.userIsByCustomerAccount);
     this.initFilterForContext();
 
     /**
@@ -82,7 +82,7 @@ export default {
         panelId: 'home.customize.title',
         payload: {
           homeWidgets: this.permittedHomeWidgets,
-          allWidgets: defaultWidgets,
+          allWidgets: this.userIsByCustomerAccount ? userByCustomerAccountWidgets : defaultWidgets,
         },
         wide: false,
         backdrop: false,

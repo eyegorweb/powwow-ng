@@ -83,6 +83,10 @@ describe('UserFormPanel : Gestion des erreurs du formulaire', () => {
         passwordConfirm: 'WXCqsdaze123*',
         email: 'mail@mail.com',
       },
+      selectedRoles: [1],
+      selectedRolesWs: [],
+      selectedRolesWsActions: [],
+      selectedRolesWsConsultation: [],
     });
     expect(wrapper.vm.canSave).toBe(true);
   });

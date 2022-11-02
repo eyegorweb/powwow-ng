@@ -85,6 +85,13 @@ export default {
 
   computed: {
     canSave() {
+      if (
+        this.content &&
+        this.content.lastPanelPayload &&
+        this.content.lastPanelPayload.duplicateFrom
+      ) {
+        return true;
+      }
       return this.selectedOptions && this.selectedOptions.length;
     },
 
@@ -133,6 +140,8 @@ export default {
             customerAccountIds,
             fromPanelCustomerAccounts: true,
             partner: this.content.partner,
+            roles: this.content.roles,
+            rolesWs: this.content.rolesWs,
           },
           ignoreClickAway: false,
         });
@@ -156,6 +165,8 @@ export default {
             customerAccountIds: [],
             fromPanelCustomerAccounts: true,
             partner: this.content.partner,
+            roles: this.content.roles,
+            rolesWs: this.content.rolesWs,
           },
           ignoreClickAway: false,
         });
