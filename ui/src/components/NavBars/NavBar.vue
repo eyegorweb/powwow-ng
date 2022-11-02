@@ -171,7 +171,15 @@ export default {
     this.flagStatistics = await isFeatureAvailable('FLAG_STATISTICS_ENABLED');
 
     let getAdminExtra = [];
-    if (this.userIsPartner) {
+    if (this.userIsByCustomerAccount) {
+      getAdminExtra = [
+        {
+          label: 'menu.users',
+          to: { name: 'getAdminUsers', meta: { label: 'Recherche des utilisateurs' } },
+          permission: { domain: 'user', action: 'read' },
+        },
+      ];
+    } else if (this.userIsPartner) {
       getAdminExtra = [
         {
           label: 'menu.account',
@@ -272,7 +280,9 @@ export default {
         {
           label: 'mainMenu.getAlarm',
           to: { name: 'alarms', meta: { label: 'Recherche des alarmes' } },
-          permission: { domain: 'alarm', action: 'read' },
+          permission: () => {
+            return this.havePermission('alarm', 'read') && !this.userIsByCustomerAccount;
+          },
         },
         {
           label: 'mainMenu.getReport',
@@ -284,7 +294,9 @@ export default {
             {
               label: 'menu.modelReports',
               to: { name: 'getReportsModels', meta: { label: 'Modèles de rapports' } },
-              permission: { domain: 'getReport', action: 'read' },
+              permission: () => {
+                return this.havePermission('getReport', 'read') && !this.userIsByCustomerAccount;
+              },
             },
             {
               label: 'menu.documents',
@@ -316,7 +328,9 @@ export default {
         {
           label: 'mainMenu.getSupport',
           to: { name: 'exemples', meta: { label: 'getSupport' } },
-          permission: { domain: 'getSupport', action: 'access' },
+          permission: () => {
+            return this.havePermission('getSupport', 'access') && !this.userIsByCustomerAccount;
+          },
           onClick: async (targetName) => {
             if (waitingForGetSupportLink) return;
 
@@ -358,7 +372,9 @@ export default {
         {
           label: 'mainMenu.getDevice',
           to: { name: 'getDevice', meta: { label: 'getDevice' } },
-          permission: { domain: 'getDevice', action: 'read' },
+          permission: () => {
+            return this.havePermission('getDevice', 'read') && !this.userIsByCustomerAccount;
+          },
         },
         {
           label: 'mainMenu.help',
@@ -477,6 +493,7 @@ export default {
       'havePermission',
       'havePermissionDomain',
       'userLanguage',
+      'userIsByCustomerAccount',
     ]),
 
     logoutUrl() {

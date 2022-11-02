@@ -8,7 +8,7 @@
           <Tooltip direction="right">{{ $t('getadmin.users.tooltip-text') }}</Tooltip>
         </h4>
       </div>
-      <div class="col-md-3" v-if="canShow">
+      <div class="col-md-3" v-if="canCreate">
         <UiButton variant="accent" block class="float-right" @click="createUserPanel()">
           {{ $t('getadmin.users.addUser') }}
         </UiButton>
@@ -47,6 +47,7 @@
 
       <template slot="actions" slot-scope="{ row }">
         <Actions
+          v-if="!userIsByCustomerAccount"
           :user="row"
           @duplicateUser="onDuplicateUser(row)"
           @modifyUser="onModifyUser(row)"
@@ -101,6 +102,10 @@ export default {
             onClick: (id, user) => {
               this.onModifyUser(user);
             },
+            isEditable: true,
+            // isEditable: (user) => {
+            //   return this.editUser(user);
+            // },
           },
         },
         {
@@ -213,7 +218,7 @@ export default {
       currentAppliedFilters: [],
     };
   },
-  mounted() {
+  async mounted() {
     let currentVisibleFilters = [
       {
         title: 'getadmin.users.filters.fullName',
@@ -298,9 +303,18 @@ export default {
     this.applyFilters();
   },
   computed: {
-    ...mapGetters(['userIsBO', 'userIsGroupAccount', 'userInfos', 'havePermission']),
-    canShow() {
+    ...mapGetters([
+      'userIsBO',
+      'userIsGroupAccount',
+      'userInfos',
+      'havePermission',
+      'userIsByCustomerAccount',
+    ]),
+    canUpdate() {
       return this.havePermission('user', 'create');
+    },
+    canCreate() {
+      return this.canUpdate && !this.userIsByCustomerAccount;
     },
   },
   methods: {
@@ -403,6 +417,9 @@ export default {
         },
       });
     },
+    // editUser(user) {
+    //   return !this.userIsByCustomerAccount || this.userInfos.id === user.id;
+    // },
 
     async searchByLogin(value) {
       this.searchByLoginValue = value;

@@ -10,6 +10,8 @@
     </div>
     <TableWithFilter
       v-if="columns && filters"
+      :storage-id="'getreport.documents'"
+      :storage-version="'002'"
       :filters="filters"
       :default-values="defaultValues"
       :columns="columns"
@@ -69,7 +71,7 @@ export default {
             return get(row, 'party.name', '-');
           },
         },
-        orderable: true,
+        orderable: false,
         visible: true,
       },
       {
@@ -102,7 +104,7 @@ export default {
             }
           },
         },
-        orderable: true,
+        orderable: false,
         visible: true,
       },
       {
@@ -115,7 +117,7 @@ export default {
             return get(row, 'report.name', '-');
           },
         },
-        orderable: true,
+        orderable: false,
         visible: true,
       },
       {
@@ -132,7 +134,7 @@ export default {
             );
           },
         },
-        orderable: true,
+        orderable: false,
         visible: true,
       },
     ];
@@ -257,6 +259,7 @@ export default {
         pagination: { page: 0, limit: 20 },
         filters: [],
       };
+      console.log('search documents with filters', filters);
 
       const data = await fetchAllDocuments(this.orderBy, pagination, filters);
       this.total = data.total;

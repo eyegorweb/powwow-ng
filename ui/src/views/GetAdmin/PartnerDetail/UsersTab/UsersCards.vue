@@ -9,14 +9,14 @@
       />
     </div>
     <div class="cards">
-      <CardButton v-if="canUpdate" @click="openCreationPanel">{{
+      <CardButton v-if="canCreate" @click="openCreationPanel">{{
         $t('getadmin.users.addUser')
       }}</CardButton>
       <Card
         v-for="user in visibleUsers"
         :key="user.id"
-        :can-delete="canUpdate"
-        :can-modify="canUpdate"
+        :can-delete="canDelete"
+        :can-modify="canModify(user)"
         @delete="deleteUser(user)"
         @modify="modifyUser(user)"
       >
@@ -42,11 +42,8 @@
 <script>
 import Card from '@/components/Card';
 import CardButton from '@/components/CardButton';
-
 import UiInput from '@/components/ui/UiInput';
-
 import { fetchUsersByPartnerId, deactivateUser } from '@/api/users.js';
-
 import { mapMutations, mapGetters } from 'vuex';
 
 export default {
@@ -118,6 +115,17 @@ export default {
       }
     },
 
+    isSelfUser(user) {
+      if (user) {
+        return user.id === this.userInfos.id;
+      }
+      return false;
+    },
+
+    canModify(user) {
+      return (this.canUpdate && !this.userIsByCustomerAccount) || this.isSelfUser(user);
+    },
+
     modifyUser(user) {
       const doReset = () => {
         this.refreshUsers();
@@ -182,9 +190,15 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['userInfos', 'havePermission']),
+    ...mapGetters(['userInfos', 'havePermission', 'userIsByCustomerAccount']),
     canUpdate() {
       return this.havePermission('user', 'create');
+    },
+    canCreate() {
+      return this.canUpdate && !this.userIsByCustomerAccount;
+    },
+    canDelete() {
+      return this.canUpdate && !this.userIsByCustomerAccount;
     },
   },
 

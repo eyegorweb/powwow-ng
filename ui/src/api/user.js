@@ -50,6 +50,7 @@ export async function fetchCurrentUserInfos() {
           domain
           action
         }
+        isUserByCustomerAccount
       }
     }
     `

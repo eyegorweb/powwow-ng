@@ -224,6 +224,15 @@ export async function fetchOffers(
             envelopeLabel
             unit
           }
+          offerRanges {
+            lowerBound
+            upperBound
+            unitPrice
+            fixedPrice
+            lowerBoundDiscount
+            upperBoundDiscount
+            unit
+          }
           offerRangesSorted {
             lowerBound
             upperBound
