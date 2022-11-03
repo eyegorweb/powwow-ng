@@ -101,15 +101,6 @@ export async function fetchOffers2(filters, pagination, sorting) {
             upperBoundDiscount
             unit
           }
-          offerRangesSorted {
-            lowerBound
-            upperBound
-            unitPrice
-            fixedPrice
-            lowerBoundDiscount
-            upperBoundDiscount
-            unit
-          }
           marketingServices {
             labelService
             code
@@ -225,15 +216,6 @@ export async function fetchOffers(
             unit
           }
           offerRanges {
-            lowerBound
-            upperBound
-            unitPrice
-            fixedPrice
-            lowerBoundDiscount
-            upperBoundDiscount
-            unit
-          }
-          offerRangesSorted {
             lowerBound
             upperBound
             unitPrice

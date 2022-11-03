@@ -596,7 +596,7 @@ export default {
     },
 
     canShowCustomerAccounsList() {
-      return this.customerAccounts.length > 0;
+      return this.selectedPartner && this.customerAccounts.length > 0;
     },
 
     canShowRoles() {

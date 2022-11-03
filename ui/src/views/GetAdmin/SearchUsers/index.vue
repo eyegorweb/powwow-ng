@@ -102,10 +102,9 @@ export default {
             onClick: (id, user) => {
               this.onModifyUser(user);
             },
-            isEditable: true,
-            // isEditable: (user) => {
-            //   return this.editUser(user);
-            // },
+            isClickable: (user) => {
+              return this.editUser(user);
+            },
           },
         },
         {
@@ -417,9 +416,9 @@ export default {
         },
       });
     },
-    // editUser(user) {
-    //   return !this.userIsByCustomerAccount || this.userInfos.id === user.id;
-    // },
+    editUser(user) {
+      return !this.userIsByCustomerAccount || this.userInfos.id === user.id;
+    },
 
     async searchByLogin(value) {
       this.searchByLoginValue = value;

@@ -104,6 +104,7 @@ export default {
                 params: { billingAccountId: row.id },
               });
             },
+            isClickable: true,
           },
         },
         {
