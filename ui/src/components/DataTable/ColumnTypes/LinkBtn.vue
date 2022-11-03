@@ -1,5 +1,5 @@
 <template>
-  <span v-if="format.isEditable || canEdit">
+  <span v-if="format.isClickable">
     <a href="#" @click.prevent="format.onClick(item, row)">
       <template v-if="!format.getLabel">{{ item }}</template>
       <template v-else>{{ format.getLabel(item) }}</template>
@@ -27,9 +27,6 @@ export default {
   },
   computed: {
     ...mapGetters(['userInfos', 'userIsByCustomerAccount']),
-    canEdit() {
-      return !this.userIsByCustomerAccount || this.userInfos.id === this.item.id;
-    },
   },
 };
 </script>

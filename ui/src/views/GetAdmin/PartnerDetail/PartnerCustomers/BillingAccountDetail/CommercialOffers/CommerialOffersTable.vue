@@ -64,9 +64,6 @@ export default {
         format: {
           type: 'LinkBtn',
           onClick: (code, row) => {
-            // this.showForm = true;
-            // this.currentComOffer = row;
-            // this.disabledForm = false;
             this.$router.push({
               name: 'getAdminPartnerDetails.customerList.detail.commercialOffers.form',
               params: {
@@ -76,6 +73,7 @@ export default {
               },
             });
           },
+          isClickable: true,
         },
       },
       {
