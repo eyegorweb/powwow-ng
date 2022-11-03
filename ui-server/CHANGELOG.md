@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1119+20221103112204
+2022-11-03
+
+### Fixes
+
+- [3492] application de la visibilité des graphes visibles pour un utilisateur par cf dans le tableau de bord (9ea89c743612845f89cefeda02b3d75497d19408)
+
 ## 1.17.0-master.1118+20221103103808
 2022-11-03
 
