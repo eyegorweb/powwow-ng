@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1118+20221103103808
+2022-11-03
+
+### Features
+
+- [3372] mise à jour de l'association de comptes de facturation pour un partenaire utilisateur (1d26cfe1e6ca05d6c5e2201136e4ff99fa0f1e00)
+
 ## 1.17.0-master.1117+20221102141653
 2022-11-02
 
