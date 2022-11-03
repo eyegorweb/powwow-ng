@@ -50,7 +50,7 @@
                 :billing-account="appliedBillingAccount"
               />
             </div>
-            <div class="row" v-if="!isUserByCF">
+            <div class="row">
               <ConsoHistoryGraphs
                 :partner="appliedPartner"
                 :offer="appliedOffer"
