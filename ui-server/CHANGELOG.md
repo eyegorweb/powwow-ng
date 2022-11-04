@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1120+20221104111944
+2022-11-04
+
+### Fixes
+
+- [3480] ajout du loader sur la table des documents (b308cf05ff16815787b7f7d1d9fbaadb55190248)
+
 ## 1.17.0-master.1119+20221103112204
 2022-11-03
 
