@@ -389,7 +389,7 @@ export default {
       return this.content ? this.content.targetActionNumber : 0;
     },
     actStatus() {
-      return this.content ? this.content.massAction.status : '';
+      return this.content ? this.content.statusCode : '';
     },
     createdDate() {
       return this.content ? this.content.massAction.created : '';

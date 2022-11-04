@@ -220,6 +220,7 @@ export async function searchMassActions(orderBy, pagination, filters = []) {
         creatorUsername
         info
         type
+        statusCode
         partyName
         creatorEmail
         cancellable
