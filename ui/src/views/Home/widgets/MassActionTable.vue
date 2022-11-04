@@ -109,7 +109,7 @@ export default {
                 },
               });
             },
-            isClickable: true,
+            isClickable: () => true,
           },
         },
         {

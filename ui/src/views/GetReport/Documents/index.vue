@@ -9,16 +9,14 @@
       </div>
     </div>
     <TableWithFilter
-      v-if="columns && filters"
-      :storage-id="'getreport.documents'"
-      :storage-version="'002'"
+      v-if="filters"
       :filters="filters"
       :default-values="defaultValues"
       :columns="columns"
       :rows="rows"
       :total="total"
       :order-by.sync="orderBy"
-      :size="8"
+      :is-loading="isLoading"
       @applyFilters="applyFilters"
     >
       <div slot="title" class="total">
@@ -248,6 +246,7 @@ export default {
         key: 'creationDate',
         direction: 'DESC',
       },
+      isLoading: true,
     };
   },
   computed: {
@@ -259,9 +258,10 @@ export default {
         pagination: { page: 0, limit: 20 },
         filters: [],
       };
-      console.log('search documents with filters', filters);
-
+      this.isLoading = true;
       const data = await fetchAllDocuments(this.orderBy, pagination, filters);
+      this.isLoading = false;
+
       this.total = data.total;
       this.rows = data.items;
     },

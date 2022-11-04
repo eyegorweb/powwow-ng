@@ -121,7 +121,7 @@ export default {
             getLabel: (actType) => {
               return this.$t('getparc.actTypes.' + actType);
             },
-            isClickable: true,
+            isClickable: () => true,
           },
 
           tootltipText: (item, row) => {
