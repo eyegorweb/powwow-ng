@@ -79,7 +79,7 @@ export default {
                 params: { id: this.$route.params.id, customerAccountCode: code },
               });
             },
-            isClickable: true,
+            isClickable: () => true,
           },
         },
         {
