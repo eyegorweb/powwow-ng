@@ -123,6 +123,7 @@ export default {
   },
 
   computed: {
+    ...mapGetters(['userIsAdmin']),
     currentTabToShow() {
       if (this.$route.name.includes('ongoing')) return 1;
       if (this.$route.name.includes('diagnosis')) return 2;
@@ -165,7 +166,6 @@ export default {
   },
   methods: {
     ...mapMutations(['openPanel']),
-    ...mapGetters(['userIsAdmin']),
 
     openCoachPanel() {
       this.openPanel({
@@ -277,10 +277,7 @@ export default {
             //   permission: { domain: 'act', action: 'manage_main' },
             // },
           ];
-          if (
-            (this.userIsAdmin() || this.userIsBO) &&
-            this.$loGet(this.lineData, 'party.partyType') !== 'MULTI_CUSTOMER'
-          ) {
+          if (this.$loGet(this.lineData, 'party.partyType') !== 'MULTI_CUSTOMER') {
             preCarouselItems.splice(3, 0, {
               icon: 'ic-Wallet-Icon',
               title: 'getparc.actCreation.carouselItem.lineDetail.CHANGE_CF',
