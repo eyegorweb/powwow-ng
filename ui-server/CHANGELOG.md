@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1121+20221107093537
+2022-11-07
+
+### Fixes
+
+- [3389] checkboxcell bug on datatable columns config (0f40a50c63bb3e22e2cf762c2a8e500c7e9fc3ad)
+
 ## 1.17.0-master.1120+20221104111944
 2022-11-04
 
