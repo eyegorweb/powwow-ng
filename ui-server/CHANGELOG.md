@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1122+20221107140255
+2022-11-07
+
+### Fixes
+
+- [3499] configuration du changement de compte de facturantion dans le détail de la ligne (aebbd6a476e391f0a2fd871d648407825d7fe210)
+- [3486] changement du code OD1. (58d8612d08eb2134d197a8d3299fc98d6e6a0cb7)
+
 ## 1.17.0-master.1121+20221107093537
 2022-11-07
 
