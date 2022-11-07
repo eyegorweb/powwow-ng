@@ -98,7 +98,7 @@ export function validatePartner(fields) {
 
 export function displayedOffer(offerCode) {
   let displayOffer;
-  if (offerCode === 'OD1_NBIOT_LPWA') {
+  if (offerCode === 'OD1_NBIOT') {
     displayOffer = {
       img: 'NBioT_logo',
       services: ['Data NB-IoT only', 'EC "extended coverage"', 'LPWA : Sobriété énergétique'],
