@@ -303,8 +303,8 @@ export default {
       }
     },
     setColumns(newColumns) {
-      this.usableColumns = newColumns;
       const columnsWithCondition = this.columns.filter((c) => c.visibleWhen);
+      this.usableColumns = [...columnsWithCondition, ...newColumns];
       this.saveColumnsToLocalStorage([...columnsWithCondition, ...newColumns]);
       this.close();
     },
