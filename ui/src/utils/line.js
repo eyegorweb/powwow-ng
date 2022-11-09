@@ -14,3 +14,15 @@ export function getFromLatestLineFromAccessPoint(accessPoint, attribute) {
   }
   return '';
 }
+
+export function getFromLatestLineFromAccessPointWithDefaultValue(
+  accessPoint,
+  attribute,
+  defaultValue = '-'
+) {
+  let value = getFromLatestLineFromAccessPoint(accessPoint, attribute);
+  if (!value) {
+    value = defaultValue;
+  }
+  return value;
+}

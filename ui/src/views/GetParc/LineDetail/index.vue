@@ -12,7 +12,7 @@
       <div class="col-md-9">
         <h4>
           <b>GetParc</b>
-          - {{ $t('getparc.lineDetail.title', { msisdn: msisdn }) }}
+          - {{ $t('getparc.lineDetail.title', { lineId: iccid }) }}
           <i class="ic-Info-Icon" />
         </h4>
       </div>
@@ -158,6 +158,10 @@ export default {
         this.lineData.accessPoint !== 'null'
         ? getFromLatestLineFromAccessPoint(this.lineData.accessPoint, 'msisdn')
         : '';
+    },
+
+    iccid() {
+      return this.lineData ? get(this.lineData, 'iccid') : '';
     },
 
     canShowCarousel() {

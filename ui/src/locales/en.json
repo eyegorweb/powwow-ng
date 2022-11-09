@@ -1459,7 +1459,7 @@
       }
     },
     "lineDetail": {
-      "title": "Detail of the line {msisdn}",
+      "title": "Detail of the line {lineId}",
       "header": "Detail of the line",
       "offer": "Offer",
       "lineStatus": "Line status",

@@ -20,8 +20,8 @@
         <hr />
         <div class="d-flex">
           <div class="item">
-            <h6>{{ $t('getparc.actDetail.col.iccid') }}:</h6>
-            <p>{{ getFromContent('iccid') }}</p>
+            <h6>{{ $t('getparc.actDetail.col.msisdn') }}:</h6>
+            <p>{{ msisdn }}</p>
           </div>
           <div class="item" v-if="!partnerTypeMVNO">
             <h6>{{ $t('getparc.lineDetail.manufacturer') }}:</h6>
@@ -126,6 +126,7 @@ import { formatBytes, resumeFormattedValueFromSeconds } from '@/api/utils';
 import moment from 'moment';
 import { fetchAlarmsWithInfos } from '@/api/alarms';
 import { fetchCurrentConsumption } from '@/api/linesActions';
+import { getFromLatestLineFromAccessPointWithDefaultValue } from '@/utils/line.js';
 
 export default {
   components: {
@@ -169,6 +170,13 @@ export default {
         return resumeFormattedValueFromSeconds(parseInt(this.consumption.voiceTotal));
       }
       return this.totalDefault;
+    },
+    msisdn() {
+      return getFromLatestLineFromAccessPointWithDefaultValue(
+        this.content.accessPoint,
+        'msisdn',
+        ''
+      );
     },
   },
   methods: {
