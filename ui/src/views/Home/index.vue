@@ -2,8 +2,8 @@
   <div class="mt-2">
     <Messages />
     <HomePageDragDropGrid
-      v-if="permittedHomeWidgets && canShowGrid"
-      :widgets="permittedHomeWidgets"
+      v-if="getWidgetsByPermission && canShowGrid"
+      :widgets="getWidgetsByPermission"
       :context-filters="contextFilters"
       @change="onWidgetsChange"
     />
@@ -33,33 +33,42 @@ export default {
     ...mapGetters(['activeWidgets']),
 
     ...mapState({
-      homeWidgets: (state) => state.ui.homeWidgets,
+      localWidgets: (state) => state.ui.homeWidgets,
     }),
 
-    permittedHomeWidgets() {
-      if (!this.homeWidgets) {
-        return undefined;
+    getWidgetsByPermission() {
+      if (!this.defaultWidgets.length) return;
+
+      const isWidgetAccessible = (widget) => {
+        if (!widget || !widget.permission) return false;
+        return this.havePermission(widget.permission.domain, widget.permission.action);
+      };
+
+      const defaultAcessibleWidgets = this.defaultWidgets.filter(isWidgetAccessible);
+
+      if (this.localWidgets && this.localWidgets.length === defaultAcessibleWidgets.length) {
+        const checkWidgets = defaultAcessibleWidgets.every((accessibleWidget) => {
+          return this.localWidgets.filter((localStorageWidget) => localStorageWidget.title === accessibleWidget.title);
+        });
+
+        return checkWidgets ? this.localWidgets.filter(isWidgetAccessible) : defaultAcessibleWidgets;
       }
-      return this.homeWidgets.filter((w) => {
-        if (!w || !w.permission) return false;
-        return this.havePermission(w.permission.domain, w.permission.action);
-      });
+
+      return defaultAcessibleWidgets;
     },
-
-    // activeWidgets() {
-    //   if (!this.permittedHomeWidgets) return [];
-
-    //   return this.permittedHomeWidgets.filter((w) => w.checked);
-    // },
   },
   data() {
     return {
       version: 0,
       updating: false,
       canShowGrid: false,
+      defaultWidgets: [],
     };
   },
   mounted() {
+    this.defaultWidgets = this.userIsByCustomerAccount
+      ? userByCustomerAccountWidgets
+      : defaultWidgets;
     this.initHomeWidgets(this.userIsByCustomerAccount);
     this.initFilterForContext();
 
@@ -81,8 +90,7 @@ export default {
         title: this.$t('home.customize.title'),
         panelId: 'home.customize.title',
         payload: {
-          homeWidgets: this.permittedHomeWidgets,
-          allWidgets: this.userIsByCustomerAccount ? userByCustomerAccountWidgets : defaultWidgets,
+          homeWidgets: this.getWidgetsByPermission,
         },
         wide: false,
         backdrop: false,

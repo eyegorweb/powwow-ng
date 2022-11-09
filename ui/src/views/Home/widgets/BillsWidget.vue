@@ -1,6 +1,6 @@
 <template>
   <WidgetBloc :widget="widget" v-if="userIsPartner" @seeMore="onSeeMore">
-    <div v-if="bills && bills.items.length > 0">
+    <div v-if="bills && bills.items && bills.items.length > 0">
       <table class="table">
         <tbody>
           <tr :key="bill.reference" v-for="bill in bills.items">
