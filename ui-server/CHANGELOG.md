@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1123+20221109094514
+2022-11-09
+
+### Features
+
+- [3502] Permuter les affichages ICCID et MSISDN dans le détail de la ligne. (98e2c8c1ec15016ffb4221d213bfa6fde1a183cc)
+
 ## 1.17.0-master.1122+20221107140255
 2022-11-07
 
