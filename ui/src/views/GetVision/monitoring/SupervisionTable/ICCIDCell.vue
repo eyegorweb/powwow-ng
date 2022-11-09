@@ -17,11 +17,11 @@ export default {
   methods: {
     ...mapMutations(['openPanel']),
     openDetailPanel() {
-      const msisdn = get(this.row, 'msisdn');
+      const lineId = get(this.row, 'msisdn');
       const openTrigger = () => {
         this.openPanel({
           title: this.$t('getparc.lineDetail.title', {
-            msisdn,
+            lineId,
           }),
           panelId: 'getparc.actLines.details.title',
           payload: {

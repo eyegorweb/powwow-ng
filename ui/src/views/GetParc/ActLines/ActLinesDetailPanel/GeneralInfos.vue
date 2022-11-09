@@ -6,8 +6,8 @@
       </h4>
     </div>
     <div class="overview-item mr-5">
-      <h6>{{ $t('getparc.actDetail.col.iccid') }}:</h6>
-      <p>{{ get('iccid') }}</p>
+      <h6>{{ $t('getparc.actDetail.col.msisdn') }}:</h6>
+      <p>{{ getMsisdn() }}</p>
     </div>
     <div class="overview-item mr-5" v-if="!partnerTypeMVNO">
       <h6>{{ $t('getparc.actLines.col.manufacturer') }} :</h6>
@@ -68,6 +68,7 @@ import UsageCounter from './UsageCounter';
 import BillingStatus from './parts/BillingStatus';
 import LineOffer from '@/views/GetParc/ActLines/LineOffer.vue';
 import { fetchCustomFields } from '@/api/customFields';
+import { getFromLatestLineFromAccessPointWithDefaultValue } from '@/utils/line.js';
 
 export default {
   components: {
@@ -104,6 +105,13 @@ export default {
     },
     get(path, defaultVal = '-') {
       return get(this.content, path, defaultVal);
+    },
+    getMsisdn() {
+      return getFromLatestLineFromAccessPointWithDefaultValue(
+        this.content.accessPoint,
+        'msisdn',
+        '-'
+      );
     },
   },
 

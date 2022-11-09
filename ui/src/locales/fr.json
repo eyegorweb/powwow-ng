@@ -1583,7 +1583,7 @@
       }
     },
     "lineDetail": {
-      "title": "Détail de la ligne {msisdn}",
+      "title": "Détail de la ligne {lineId}",
       "header": "Détail de la ligne",
       "offer": "Offre",
       "state": "Etat",

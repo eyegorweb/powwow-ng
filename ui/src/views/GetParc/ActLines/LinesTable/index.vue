@@ -98,7 +98,7 @@ import DataTable from '@/components/DataTable/DataTable';
 import LoaderContainer from '@/components/LoaderContainer';
 import SearchByLinesId from '@/views/GetParc/ActLines/SearchByLinesId';
 // import Title from '../Title';
-import IdCell from './IdCell';
+import IccidCell from './IccidCell';
 // import LinkTo from './LinkTo';
 import DateStatus from '@/views/GetParc/UnitActionsPage/DateStatus';
 import ExportButton from '@/components/ExportButton';
@@ -554,7 +554,7 @@ export default {
           noHandle: true,
           fixed: true,
           format: {
-            component: IdCell,
+            component: IccidCell,
           },
         },
         {
