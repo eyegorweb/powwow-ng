@@ -1,7 +1,7 @@
 <template>
   <div>
     <h4 class="text-primary text-uppercase">
-      Offres Commerciales :
+      {{ $t('getadmin.partnerDetail.mb.commercialOffer') }} :
       <template v-if="billingAccountToDetail">
         {{ billingAccountToDetail.code }} / {{ billingAccountToDetail.company }}
       </template>

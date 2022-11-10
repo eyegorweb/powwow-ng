@@ -4,7 +4,7 @@
     <div class="row">
       <div class="col-2">
         <UiButton variant="outline-primary" class="mb-4" @click="goBack()">
-          Retour à la liste
+          {{ $t('backToList') }}
         </UiButton>
       </div>
       <div class="col-10">
@@ -147,7 +147,10 @@
 
       <ContentBlock v-if="services" no-handle>
         <template slot="title">{{ $t('common.services') }}</template>
-        <template slot="content">
+        <template slot="content" v-if="initOffer">
+          <ServicesBlock :services="services" no-click :offer="initOffer" />
+        </template>
+        <template slot="content" v-else>
           <ServicesBlock :services="services" no-click :offer="selectedCatalogOffer" />
         </template>
       </ContentBlock>
