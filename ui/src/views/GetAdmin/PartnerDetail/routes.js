@@ -20,6 +20,10 @@ const BroadcastLists = () =>
   import('@/views/GetAdmin/PartnerDetail/CustomizeTab/BroadcastLists.vue');
 const SpecificFields = () =>
   import('@/views/GetAdmin/PartnerDetail/CustomizeTab/SpecificFields.vue');
+const CommercialOfferForm = () =>
+  import(
+    '@/views/GetAdmin/PartnerDetail/PartnerCustomers/BillingAccountDetail/CommercialOffers/CommercialOfferForm.vue'
+  );
 // Offers and Sim
 const OffersCards = () => import('@/views/GetAdmin/PartnerDetail/OffersTab/OffersCards.vue');
 const SimCards = () => import('@/views/GetAdmin/PartnerDetail/OffersTab/SimCards.vue');
@@ -152,10 +156,7 @@ export default {
                     label: 'Détail du partenaire - CF - Offre commerciale (MB)',
                   },
                   path: 'form/:comOfferId?',
-                  component: () =>
-                    import(
-                      '@/views/GetAdmin/PartnerDetail/PartnerCustomers/BillingAccountDetail/CommercialOffers/CommercialOfferForm.vue'
-                    ),
+                  component: CommercialOfferForm,
                 },
               ],
             },
