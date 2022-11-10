@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1125+20221110103451
+2022-11-10
+
+### Fixes
+
+- [3519] gestion de l'offre commerciale pour afficher les services (17ff06f42bd69046d748fbca58412fbb070cb6fd)
+
 ## 1.17.0-master.1124+20221109173254
 2022-11-09
 
