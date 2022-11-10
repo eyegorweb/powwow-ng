@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1126+20221110142738
+2022-11-10
+
+### Fixes
+
+- [2590] Bug on toggle ipfixe filter for getParc (df70b1830abbefb19e60209fa5853535b4633f54)
+
 ## 1.17.0-master.1125+20221110103451
 2022-11-10
 
