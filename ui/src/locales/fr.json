@@ -148,7 +148,7 @@
   "designation": "Désignation",
   "siren": "Numéro SIREN :",
   "privateUser": "Privé",
-  "backToLIst": "Retour à la liste",
+  "backToList": "Retour à la liste",
   "pending-actions": {
     "title": "Opérations en cours",
     "preparing": "Préparation de l'opération ...",

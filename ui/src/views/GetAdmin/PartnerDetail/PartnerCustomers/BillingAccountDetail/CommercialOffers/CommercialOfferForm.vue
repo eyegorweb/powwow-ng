@@ -205,7 +205,6 @@ export default {
       initOffer: undefined,
       disabled: false,
       selectedCatalogOffer: undefined,
-      test: true,
       services: undefined,
       isDiscountsValid: false,
       isPackagesValid: false,

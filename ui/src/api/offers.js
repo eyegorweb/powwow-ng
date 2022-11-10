@@ -464,6 +464,7 @@ async function fetchOfferGroupByParams(params) {
           billingOfferCode
           description
           marketingServices {
+            type
             labelService
             code
             activated
