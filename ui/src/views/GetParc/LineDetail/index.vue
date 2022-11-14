@@ -62,8 +62,7 @@ import get from 'lodash.get';
 import { excludeMocked } from '@/featureFlipping/plugin';
 import { getPartyOptions } from '@/api/partners.js';
 import { getFromLatestLineFromAccessPoint } from '@/utils/line.js';
-// TODO FIXME désactivé temporairement ticket 3497
-// import { fetchOffers } from '@/api/offers.js';
+import { fetchOffers } from '@/api/offers.js';
 
 export default {
   components: {
@@ -233,16 +232,15 @@ export default {
           : undefined;
 
         if (this.lineData.party && this.lineData.party.partyType !== 'MVNO') {
-          // TODO FIXME désactivé temporairement ticket 3497
-          // const availableOffers = await fetchOffers('', [{ id: this.lineData.party.id }], {
-          //   page: 0,
-          //   limit: 20,
-          //   customerAccountCode:
-          //     this.partnerOptions.defaultCustomerForActivation &&
-          //     this.partnerOptions.defaultCustomerForActivation.code
-          //       ? this.partnerOptions.defaultCustomerForActivation.code
-          //       : undefined,
-          // });
+          const availableOffers = await fetchOffers('', [{ id: this.lineData.party.id }], {
+            page: 0,
+            limit: 20,
+            customerAccountCode:
+              this.partnerOptions.defaultCustomerForActivation &&
+              this.partnerOptions.defaultCustomerForActivation.code
+                ? this.partnerOptions.defaultCustomerForActivation.code
+                : undefined,
+          });
 
           let preCarouselItems = [
             {
@@ -263,23 +261,22 @@ export default {
               selected: false,
               permission: { domain: 'act', action: 'manage_main' },
             },
-            // TODO FIXME désactivé temporairement ticket 3497
-            // {
-            //   icon: 'ic-Ticket-Icon',
-            //   title: 'getparc.actCreation.carouselItem.lineDetail.CHANGE_OFFER',
-            //   selected: false,
-            //   isDisable: () => {
-            //     if (
-            //       (availableOffers && availableOffers.length <= 1) ||
-            //       availableOffers.errors ||
-            //       !this.offerChangeEnabled
-            //     ) {
-            //       return true;
-            //     }
-            //     return false;
-            //   },
-            //   permission: { domain: 'act', action: 'manage_main' },
-            // },
+            {
+              icon: 'ic-Ticket-Icon',
+              title: 'getparc.actCreation.carouselItem.lineDetail.CHANGE_OFFER',
+              selected: false,
+              isDisable: () => {
+                if (
+                  (availableOffers && availableOffers.length <= 1) ||
+                  availableOffers.errors ||
+                  !this.offerChangeEnabled
+                ) {
+                  return true;
+                }
+                return false;
+              },
+              permission: { domain: 'act', action: 'manage_main' },
+            },
           ];
           if (this.$loGet(this.lineData, 'party.partyType') !== 'MULTI_CUSTOMER') {
             preCarouselItems.splice(3, 0, {
