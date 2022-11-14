@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1128+20221114150127
+2022-11-14
+
+### Fixes
+
+- [3497] ajout des services lors du changement d'offre d'un acte unitaire (9d60f24c9fcc3576e3d43a579580a231ae363c2c)
+
 ## 1.17.0-master.1127+20221110143610
 2022-11-10
 
