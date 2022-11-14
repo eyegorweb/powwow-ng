@@ -2152,7 +2152,8 @@
 
       "changeBillingAccount": "Changer le compte",
       "changeOffer": {
-        "confirmationWarning": "Confirmez-vous le changement d'offre ?",
+        "confirmAction": "Confirmez-vous le changement d'offre ?",
+        "confirmationWarning": "Confirmer le changement d'offre ?<div class=\"alert alert-warning\">{list}</div>",
         "chooseOffer": "Choisir une offre cible",
         "validateButton": "Changer d'offre",
         "successMessage": "La demande de changement d'offre a bien été prise en compte.",

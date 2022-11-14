@@ -1967,7 +1967,8 @@
       },
       "changeBillingAccount": "Change the account",
       "changeOffer": {
-        "confirmationWarning": "Do you confirm the change of offer?",
+        "confirmAction": "Do you confirm the change of offer ?",
+        "confirmationWarning": "Do you confirm the change of offer ?<div class=\"alert alert-warning\">{list}</div>",
         "chooseOffer": "Choose a target offer",
         "validateButton": "Change offer",
         "successMessage": "The request for a change of supply has been taken into account.",

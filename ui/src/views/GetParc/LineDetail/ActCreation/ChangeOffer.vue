@@ -1,6 +1,6 @@
 <template>
   <BaseForm
-    warning-msg="getparc.actCreation.changeOffer.confirmationWarning"
+    :warning-msg="warningMessage"
     :validate-fn="doRequest"
     :can-send="canSend"
     :change-offer="true"
@@ -14,10 +14,22 @@
       <p>
         <UiApiAutocomplete
           :api-method="fetchApi"
-          v-model="newSelectedOffer"
+          v-model="selectedOffer"
           display-results-while-empty
         />
       </p>
+
+      <div v-if="selectedOffer">
+        <ServicesBlock
+          v-if="selectedOffer"
+          :key="selectedOffer.label"
+          :services="offerServices"
+          :initial-services="initialServices"
+          :offer="selectedOffer"
+          vertical
+          @datachange="onServiceChange"
+        />
+      </div>
     </div>
     <div slot="after" slot-scope="{ report }">
       <FormReport v-if="report" :data="report" />
@@ -29,15 +41,19 @@
 import BaseForm from './BaseForm';
 import FormReport from './FormReport';
 import UiApiAutocomplete from '@/components/ui/UiApiAutocomplete';
-import get from 'lodash.get';
+import ServicesBlock from '@/components/Services/ServicesBlock.vue';
 import { fetchOffers } from '@/api/offers';
 import { changeSingleOffer } from '@/api/actCreation';
+import { getMarketingOfferServices } from '@/components/Services/utils.js';
+import get from 'lodash.get';
+import cloneDeep from 'lodash.clonedeep';
 
 export default {
   components: {
     BaseForm,
     FormReport,
     UiApiAutocomplete,
+    ServicesBlock,
   },
 
   props: {
@@ -50,12 +66,19 @@ export default {
 
   data() {
     return {
-      newSelectedOffer: undefined,
+      selectedOffer: undefined,
       currentWorkflowId: undefined,
+      offerServices: undefined,
+      initialServices: undefined,
+      servicesChoice: undefined,
     };
   },
 
   methods: {
+    onServiceChange(servicesChoice) {
+      this.servicesChoice = servicesChoice;
+      this.offerServices = [...servicesChoice.services, servicesChoice.dataService];
+    },
     async doRequest(context) {
       const { notificationCheck, actDate } = context;
       const params = {
@@ -65,7 +88,8 @@ export default {
         simCardInstanceId: this.lineData.id,
         customerAccountID: this.lineData.accessPoint.offerGroup.customerAccount.id,
         sourceWorkflowID: this.lineData.workflow.id,
-        targetWorkflowID: this.newSelectedOffer.data.id,
+        targetWorkflowID: this.selectedOffer.data.id,
+        servicesChoice: this.servicesChoice,
       };
 
       const response = await changeSingleOffer(params);
@@ -129,8 +153,67 @@ export default {
     },
 
     canSend() {
-      if (this.newSelectedOffer && this.newSelectedOffer.id) return true;
+      if (this.selectedOffer && this.selectedOffer.id) return true;
       return false;
+    },
+
+    changedServices() {
+      if (!this.offerServices) return [];
+      return this.offerServices.filter((s) => {
+        const initialService = this.initialServices.find((os) => os.code === s.code);
+        return initialService.checked !== s.checked;
+      });
+    },
+    listAutoServiceMandatory() {
+      if (!this.changedServices) return [];
+      return this.changedServices
+        .filter((s) => s.checked && !s.isClicked)
+        .map((s) => s.labelService);
+    },
+    listAutoServiceIncompatible() {
+      if (!this.changedServices) return [];
+      return this.changedServices
+        .filter((s) => !s.checked && !s.isClicked)
+        .map((s) => s.labelService);
+    },
+    warningMessage() {
+      let list = '',
+        newLine = '';
+      let message = '';
+      if (this.listAutoServiceMandatory.length > 0) {
+        list += `${this.$t(
+          'services.listAutoServiceMandatory'
+        )}: ${this.listAutoServiceMandatory.map((s) => s).join(',')}`;
+      }
+      if (this.listAutoServiceIncompatible.length > 0) {
+        if (this.listAutoServiceMandatory.length) {
+          newLine = '<br />';
+        }
+        list += `${newLine}${this.$t(
+          'services.listAutoServiceIncompatible'
+        )}: ${this.listAutoServiceIncompatible.map((s) => s).join(',')}`;
+      }
+      if (!list) {
+        message = `${this.$t('getparc.actCreation.changeOffer.confirmAction')}`;
+      } else {
+        message = `${this.$t('getparc.actCreation.changeOffer.confirmationWarning', {
+          list,
+        })}`;
+      }
+      return message;
+    },
+  },
+
+  watch: {
+    selectedOffer(selectedOffer) {
+      console.log('watch selected offer', selectedOffer);
+      if (selectedOffer && selectedOffer.data) {
+        this.offerServices = getMarketingOfferServices(selectedOffer.data.initialOffer);
+        this.initialServices = cloneDeep(this.offerServices);
+      } else {
+        this.offerServices = undefined;
+        this.initialServices = undefined;
+      }
     },
   },
 };
