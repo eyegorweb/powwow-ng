@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1129+20221115140128
+2022-11-15
+
+### Fixes
+
+- [3506] hide indicators on getparc for cf user (0539ba91a47e36bf8da242ca00908b01c2b0fb22)
+
 ## 1.17.0-master.1128+20221114150127
 2022-11-14
 
