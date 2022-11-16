@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1133+20221116151737
+2022-11-16
+
+### Fixes
+
+- [3530] gestion du message d'erreur dans la modification des champs libres (05eb60b8e40bba50a78e48d419c70d5cdb1b6f72)
+
 ## 1.17.0-master.1132+20221116144919
 2022-11-16
 
