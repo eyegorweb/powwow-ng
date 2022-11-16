@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1131+20221116100256
+2022-11-16
+
+### Fixes
+
+- [3506] change page the condition on getSim (eb25e0854206d6a5c237b19975ae4f84db301e0b)
+
 ## 1.17.0-master.1130+20221116091310
 2022-11-16
 
