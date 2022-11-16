@@ -18,7 +18,7 @@
 
     <div class="row">
       <div class="col-md-3">
-        <GetSimIndicators @click="setCurrentFiltersForIndicator" />
+        <GetSimIndicators @click="setCurrentFiltersForIndicator" v-if=" !userIsByCustomerAccount"/>
         <br />
         <GetSimFilters />
       </div>
@@ -83,6 +83,7 @@ export default {
   },
   computed: {
     ...mapState('userContext', ['contextPartnersType', 'contextPartners']),
+    ...mapGetters(['userIsPartner', 'singlePartner', 'userIsByCustomerAccount']),
     ...mapState({
       isPanelOpen: (state) => state.ui.isPanelOpen,
     }),
