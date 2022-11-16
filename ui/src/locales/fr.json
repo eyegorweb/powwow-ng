@@ -2074,6 +2074,7 @@
         "FILE_CONTENT_INVALID": "Contenu de fichier invalide",
         "FILE_LINE_NUMBER_INVALID": "Votre fichier contient plus de SIM que le nombre de SIM restant à importer",
         "FILE_MAX_LINE_NUMBER_INVALID": "Le nombre de lignes est supérieure à la limite de {count} lignes",
+        "IMPORT_CUSTOM_FIELDS_NOT_AUTHORIZED": "La modification des champs libres par import de fichier n'est pas autorisée",
         "MassActionLimit": "Le nombre de lignes est supérieure à la limite de {count} lignes",
         "InvalidFileExtension": "Extension de fichier invalide",
         "InvalidFileContent": "Contenu de fichier invalide",
