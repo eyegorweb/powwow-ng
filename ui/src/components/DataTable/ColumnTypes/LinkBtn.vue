@@ -1,5 +1,5 @@
 <template>
-  <span v-if="format.isClickable">
+  <span v-if="format.isClickable(item)">
     <a href="#" @click.prevent="format.onClick(item, row)">
       <template v-if="!format.getLabel">{{ item }}</template>
       <template v-else>{{ format.getLabel(item) }}</template>
