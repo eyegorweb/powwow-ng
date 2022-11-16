@@ -1,6 +1,6 @@
 <template>
   <div class="data-detail-container">
-    <div class="overview-container m-3 bg-white">
+    <div class="overview-container m-3 bg-white" v-if="creator">
       <div class="overview-item">
         <h4 class="font-weight-normal text-uppercase">
           {{ $t('orders.detail.personalInformations') }}
@@ -31,7 +31,7 @@
         <p>{{ getFromCreator('username') }}</p>
       </div>
     </div>
-    <div class="overview-container m-3 bg-white">
+    <div class="overview-container m-3 bg-white" v-if="partners && roles">
       <div class="overview-item">
         <h4 class="font-weight-normal text-uppercase">{{ $t('orders.detail.partnerAndRoles') }}</h4>
       </div>
@@ -51,6 +51,9 @@
           >
         </p>
       </div>
+    </div>
+    <div class="overview-container m-3 bg-white">
+      {{ $t('noAvailableInformations') }}
     </div>
   </div>
 </template>
