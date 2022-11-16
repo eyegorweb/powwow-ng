@@ -102,8 +102,8 @@ export default {
             onClick: (id, user) => {
               this.onModifyUser(user);
             },
-            isClickable: (user) => {
-              return this.editUser(user);
+            isClickable: (userId) => {
+              return this.editUser(userId);
             },
           },
         },
@@ -416,8 +416,8 @@ export default {
         },
       });
     },
-    editUser(user) {
-      return !this.userIsByCustomerAccount || this.userInfos.id === user.id;
+    editUser(userId) {
+      return !this.userIsByCustomerAccount || this.userInfos.id === userId;
     },
 
     async searchByLogin(value) {

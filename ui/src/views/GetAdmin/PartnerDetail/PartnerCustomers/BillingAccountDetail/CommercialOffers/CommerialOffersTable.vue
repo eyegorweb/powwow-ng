@@ -73,7 +73,9 @@ export default {
               },
             });
           },
-          isClickable: true,
+          isClickable: () => {
+            return true;
+          },
         },
       },
       {
