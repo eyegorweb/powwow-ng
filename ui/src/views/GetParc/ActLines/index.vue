@@ -29,6 +29,7 @@
       v-if="!transferSim && creationMode"
       :act="actToCreate"
       @toggle="onToggleChange"
+      :toggle-disabled="toggleDisabled"
     />
 
     <div class="row">
@@ -412,6 +413,15 @@ export default {
         }
       }
       return true;
+    },
+    toggleDisabled() {
+      // Infos des options du partenaire disponible pour pour des utilisateurs partenaires
+      if (!this.userIsPartner) return false;
+      return (
+        this.userInfos &&
+        this.userInfos.partnerOptions &&
+        !this.userInfos.partnerOptions.importCustomFieldsEnabled
+      );
     },
   },
   beforeRouteEnter(to, from, next) {

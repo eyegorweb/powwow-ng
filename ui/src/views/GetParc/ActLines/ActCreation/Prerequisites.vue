@@ -66,6 +66,7 @@ export default {
   },
   props: {
     act: Object,
+    toggleDisabled: Boolean,
   },
   data() {
     return {
@@ -105,7 +106,7 @@ export default {
           label: 'getparc.actCreation.byId',
         },
       ];
-      if (this.act.id === 'CUSTOM_FIELDS') {
+      if (this.act.id === 'CUSTOM_FIELDS' && !this.toggleDisabled) {
         this.toggleValues = [
           ...this.toggleValues,
           {
