@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1132+20221116144919
+2022-11-16
+
+### Features
+
+- [3371] Ajout Utilisateur par CF (1d958a4495f2dddee1dc5add51e9560f4c3e33fa)
+
 ## 1.17.0-master.1131+20221116100256
 2022-11-16
 
