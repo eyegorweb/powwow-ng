@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1135+20221116155932
+2022-11-16
+
+### Fixes
+
+- [3464] detail creator getsim no information available (f68d2b821035ccbd4ecaab454422348708428c0c)
+
 ## 1.17.0-master.1134+20221116154617
 2022-11-16
 
