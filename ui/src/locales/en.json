@@ -112,6 +112,7 @@
   "oldPassword": "Old password",
   "password": "New Password",
   "passwordConfirm": "Password confirmation",
+  "noAvailableInformations": "Information not available",
   "pending-actions": {
     "preparing": "Preparing operations ...",
     "ready": "operation ready",
