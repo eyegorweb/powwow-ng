@@ -299,7 +299,7 @@ export default {
     },
 
     carouselItems() {
-      // esimAct: true,
+      // esimAct: true, 
       let itemsToReturn;
       if (this.userIsPartner && this.userIsByCustomerAccount) {
         itemsToReturn = carouselItems.filter((i) => {

@@ -83,7 +83,7 @@ export default {
   },
   computed: {
     ...mapState('userContext', ['contextPartnersType', 'contextPartners']),
-    ...mapGetters(['userIsPartner', 'singlePartner', 'userIsByCustomerAccount']),
+    ...mapGetters(['userIsPartner', 'singlePartner', 'userIsByCustomerAccount']), 
     ...mapState({
       isPanelOpen: (state) => state.ui.isPanelOpen,
     }),
