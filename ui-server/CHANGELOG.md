@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1138+20221117145307
+2022-11-17
+
+### Fixes
+
+- [3534] add id to filters on esim act (189c2b6fa799a79858f6f97373d52bc454676a56)
+
 ## 1.17.0-master.1137+20221117133746
 2022-11-17
 
