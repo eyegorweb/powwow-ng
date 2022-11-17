@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1140+20221117164221
+2022-11-17
+
+### Fixes
+
+- [3507] Utilisateurs par CF - Gestion des commandes - Adresses de livraison (f5a9a120874ff6a4c590690347c562e22e953538)
+
 ## 1.17.0-master.1139+20221117151312
 2022-11-17
 
