@@ -325,6 +325,7 @@ export default {
         {
           title: 'filters.partners',
           component: PartnerFilter,
+          id: 1,
           onChange(chosenValues) {
             return {
               id: 'filters.partners',
@@ -335,6 +336,7 @@ export default {
         {
           title: 'filters.userCreator',
           component: UsersMultiSelectFilter,
+          id: 2,
           getPageContext: () => {
             return { partners: this.currentPartners };
           },
@@ -348,6 +350,7 @@ export default {
         {
           title: 'filters.actDateCreation',
           component: RangeAndSingleDate,
+          id: 3,
           onChange(chosenValues) {
             return {
               id: 'filters.actDateCreation',
@@ -358,6 +361,7 @@ export default {
         {
           title: 'filters.actTypes',
           component: ManagementActTypesFilter,
+          id: 4,
           onChange(chosenValues) {
             return {
               id: 'filters.actTypes',
@@ -368,6 +372,7 @@ export default {
         {
           title: 'filters.actDateStart',
           component: RangeAndSingleDate,
+          id: 5,
           onChange(chosenValues) {
             return {
               id: 'filters.actDateStart',
@@ -378,6 +383,7 @@ export default {
         {
           title: 'filters.actDateEnd',
           component: RangeAndSingleDate,
+          id: 6,
           onChange(chosenValues) {
             return {
               id: 'filters.actDateEnd',
@@ -401,6 +407,7 @@ export default {
         {
           title: 'filters.actStatus',
           component: ManagementActStatusFilter,
+          id: 7,
           onChange(chosenValues) {
             return {
               id: 'filters.actStatus',
@@ -411,6 +418,7 @@ export default {
         {
           title: 'filters.lines.error',
           component: ActLinesErrorFilter,
+          id: 8,
           onChange(chosenValues) {
             return {
               id: 'filters.lines.error',
