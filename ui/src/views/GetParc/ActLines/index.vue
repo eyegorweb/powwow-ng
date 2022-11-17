@@ -453,7 +453,13 @@ export default {
     ...mapMutations(['openPanel']),
     async fetchPartyFeatures() {
       this.lvFeature = await isFeatureAvailable('LV');
-      this.isCustomFieldsEnabled = await isFeatureAvailable('importCustomFieldsEnabled');
+      const isCustomFieldsEnabled = await isFeatureAvailable('UPDATE_CUSTOM_FILEDS_BY_IMPORT');
+      // isFeatyreAvailable renvoie un booléan sauf en cas d'erreur où il retourne un objet
+      if (typeof isCustomFieldsEnabled === 'boolean') {
+        this.isCustomFieldsEnabled = isCustomFieldsEnabled;
+      } else {
+        this.isCustomFieldsEnabled = false;
+      }
     },
     configureDisableConstraint(carouselInputItems) {
       let response;

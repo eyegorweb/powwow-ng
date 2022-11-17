@@ -1,6 +1,13 @@
 import { query, getFilterValues, getValuesIds, getFile, postFile, deleteFile } from './utils';
 import get from 'lodash.get';
 
+/**
+ * Fonction utilisée pour afficher une fonctionnalité en fonction d'une option partenaire
+ * @param {*} optionType
+ * @param {*} lineId
+ * @param {*} partyId
+ * @returns Boolean
+ */
 export async function isFeatureAvailable(optionType, lineId, partyId) {
   const queryStr = `
   query IsFeatureAvailable($optionType: SubscriptionOptionTypeEnum!, $simcardInstanceId: Long, $partyId: Long){
@@ -16,20 +23,12 @@ export async function isFeatureAvailable(optionType, lineId, partyId) {
   return response.data.isFeatureAvailable;
 }
 
-export async function updatePartyOptions(params) {
-  const queryStr = `
-  mutation UpdatePartyOptions($partyOptions: PartyOptionsInput) {
-    updatePartyOptions(partyOptions: $partyOptions)
-    }`;
-  const response = await query(queryStr, params);
-
-  if (response && response.errors) {
-    return { errors: response.errors };
-  }
-
-  if (response.data) return response.data.updatePartyOptions;
-}
-
+/**
+ * Fonction réservée à la consultation des options partenaires en fonction de la permission de l'utilisateur dans l'écran détail GetAdmin/DÉTAIL DU COMPTE/Options du partenaire
+ * Pour voir s'il faut afficher une fonctionnalité en fonction d'une option partenaire => Utiliser isFeatureAvailable
+ * @param {*} partyId
+ * @returns Object
+ */
 export async function getPartyOptions(partyId) {
   const queryStr = `{
   getPartyOptions(partyId: ${partyId}) {
@@ -102,6 +101,26 @@ export async function getPartyOptions(partyId) {
 
   const response = await query(queryStr);
   return response.data.getPartyOptions;
+}
+
+/**
+ * Fonction réservée à la mise à jour des options partenaires en fonction de la permission de l'utilisateur dans l'écran détail GetAdmin/DÉTAIL DU COMPTE/Options du partenaire
+ * Pour voir s'il faut afficher une fonctionnalité en fonction d'une option partenaire => Utiliser isFeatureAvailable
+ * @param {*} params
+ * @returns Object
+ */
+export async function updatePartyOptions(params) {
+  const queryStr = `
+  mutation UpdatePartyOptions($partyOptions: PartyOptionsInput) {
+    updatePartyOptions(partyOptions: $partyOptions)
+    }`;
+  const response = await query(queryStr, params);
+
+  if (response && response.errors) {
+    return { errors: response.errors };
+  }
+
+  if (response.data) return response.data.updatePartyOptions;
 }
 
 export async function getPartnerFlux(id) {
