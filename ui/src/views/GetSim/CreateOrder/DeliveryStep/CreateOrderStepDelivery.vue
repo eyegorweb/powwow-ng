@@ -159,7 +159,7 @@ export default {
       if (data) {
         this.lastSelectedAdress = data.last;
         this.adresses = data.all;
-        this.filteredAdresses = [...this.adresses];
+        this.filteredAdresses = this.adresses ? [...this.adresses] : [];
       }
 
       if (savedId) {
