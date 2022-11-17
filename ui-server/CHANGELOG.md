@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1137+20221117133746
+2022-11-17
+
+### Fixes
+
+- [3533] Change api call on idreservation for getParc (33c912938ffa0053c6bd05bd0a2f5b9332a383da)
+
 ## 1.17.0-master.1136+20221116202245
 2022-11-16
 
