@@ -106,7 +106,7 @@ export default {
           label: 'getparc.actCreation.byId',
         },
       ];
-      if (this.act.id === 'CUSTOM_FIELDS' && !this.customFieldsEnabled) {
+      if (this.act.id === 'CUSTOM_FIELDS' && this.customFieldsEnabled) {
         this.toggleValues = [
           ...this.toggleValues,
           {
