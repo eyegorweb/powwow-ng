@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1139+20221117151312
+2022-11-17
+
+### Fixes
+
+- [3530] gestion de l'import de fichier dans la modification des champs libres (06664812d9817edfbb32e6da6ab719e634745b42)
+
 ## 1.17.0-master.1138+20221117145307
 2022-11-17
 
