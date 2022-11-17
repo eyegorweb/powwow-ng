@@ -726,7 +726,7 @@ function addOrderId(gqlFilters, selectedFilters) {
 function addEsimId(gqlFilters, selectedFilters) {
   const id = getFilterValue(selectedFilters, 'indicators.getparc.lines.esim.id');
   if (id) {
-    gqlFilters.push(`eId: {eq: "${id}"}`);
+    gqlFilters.push(`esimReservationId : {eq: "${id}"}`);
   }
 }
 
