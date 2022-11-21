@@ -1157,3 +1157,44 @@ export async function fetchApn(partyId, workflowId) {
   }
   return response.data.radiusConfigurations;
 }
+
+export async function resetNetwork(filters, lines, params) {
+  return actCreationMutation(filters, lines, async (gqlFilter, gqlLines) => {
+    const { partyId, dueDate, notifEmail, customerAccountId, tempDataUuid } = params;
+    let gqlTempDataUuid = '';
+    if (tempDataUuid) {
+      gqlTempDataUuid = `tempDataUuid: "${tempDataUuid}"`;
+    }
+    const queryStr = `
+    mutation {
+      networkReset(
+        input: {
+          filter: {${gqlFilter}},
+          partyId: ${partyId},
+          simCardInstanceIds: [${gqlLines}],
+          notification: ${boolStr(notifEmail)},
+          dueDate: "${dueDate}",
+          customerAccountID: ${customerAccountId},
+          ${gqlTempDataUuid}
+        })
+        {
+          tempDataUuid
+          validated
+          errors{
+            key
+            number
+            message
+          }
+        }
+    }
+    `;
+    const response = await query(queryStr, undefined, true);
+
+    if (response.errors) {
+      return {
+        errors: response.errors,
+      };
+    }
+    return response.data.networkReset;
+  });
+}
