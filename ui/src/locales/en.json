@@ -108,6 +108,7 @@
   "lastMassActions": "Latest management acts",
   "showAllHistory": "View full history",
   "groupAccount": "Group account",
+  "noActiveLine": "Line is not active",
   "login": "Login",
   "loginWanted": "Desired login",
   "oldPassword": "Old password",

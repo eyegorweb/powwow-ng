@@ -147,7 +147,7 @@ export async function fetchAlarmsWithInfos(simCardInstanceId, pagination) {
   `;
 
   const response = await query(queryStr);
-  if (!response.data) return;
+  if (response.errors) return response.errors;
 
   return response.data.alarmsWithInfo;
 }
