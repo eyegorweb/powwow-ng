@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1142+20221121152149
+2022-11-21
+
+### Fixes
+
+- [3379] alarm list on getParc detail no active line (1f295d191948f5965d121e9914f40c9a1b1ac28e)
+
 ## 1.17.0-master.1141+20221121143426
 2022-11-21
 
