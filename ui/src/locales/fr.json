@@ -148,6 +148,7 @@
   "price": "Prix",
   "designation": "Désignation",
   "siren": "Numéro SIREN :",
+  "noActiveLine": "La ligne n'est pas active",
   "privateUser": "Privé",
   "backToList": "Retour à la liste",
   "noAvailableInformations": "Information non disponible",

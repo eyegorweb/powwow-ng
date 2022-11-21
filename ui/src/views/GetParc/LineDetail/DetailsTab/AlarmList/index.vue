@@ -11,8 +11,12 @@
         </UiButton>
       </div>
     </div>
-
-    <div class="bg-white p-4 rounded">
+    <div v-if="hasNoActiveLines" class="noActiveLine">
+      <span>
+        {{$t('noActiveLine')}}
+      </span>
+    </div>
+    <div class="bg-white p-4 rounded" v-if="!hasNoActiveLines">
       <LoaderContainer :is-loading="isLoading">
         <div slot="on-loading">
           <TableSkeleton :columns="columns" :size="5" paginated />
@@ -48,6 +52,7 @@ import ActionsCell from './ActionsCell';
 import TypeCell from './TypeCell';
 import { col } from '@/components/DataTable/utils';
 import { fetchAlarmsWithInfos, searchAlarmById } from '@/api/alarms';
+import { formatBackErrors } from '@/utils/errors';
 
 import UiButton from '@/components/ui/Button';
 
@@ -108,6 +113,7 @@ export default {
       dueDate: undefined,
       isActive: undefined,
       isTriggered: false,
+      hasNoActiveLines: false,
     };
   },
   computed: {
@@ -167,8 +173,21 @@ export default {
     async fetchAlarms() {
       this.isLoading = true;
       const response = await fetchAlarmsWithInfos(this.content.id, this.getPageInfo);
-      this.rows = response.items;
-      this.total = response.total;
+
+      if (response.errors && response.errors.length) {
+        let errorMessage = '';
+        const formatted = formatBackErrors(response.errors)
+          .map((e) => e.errors)
+          .flat();
+        formatted.forEach((e) => {
+          errorMessage = `${e.key}: ${e.value}`;
+        });
+        this.hasNoActiveLines = errorMessage.includes('SIMCARDINSTANCES_D_SIMCARDS_MUST_BE_ACTIVE');
+      }
+      else {
+        this.rows = response.items;
+        this.total = response.total;
+      }
       this.isLoading = false;
     },
     changeCellsOrder(orderedCells) {
@@ -234,4 +253,12 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+  .noActiveLine {
+    text-align: center;
+    font-size: 30px;
+    margin-top: 60px;
+    font-weight: 600;
+    color: #ffb900;
+  }
+</style>
