@@ -270,6 +270,7 @@
     "ACT_SPECIFIC": "Modifier les champs libres",
     "ACT_CUSTOM_AND_SPECIFIC": "Modifier les champs libres",
     "ACT_PREACTIVATE_SIMCARD_INSTANCE": "Préactiver simcard",
+    "ACT_NETWORK_RESET": "Reset Network",
 
     "ACT_VALIDATE_RESILIATION": "Résilier",
     "ACT_REFUSE_RESILIATION": "Refuser résiliation",
@@ -531,7 +532,8 @@
       "isTraced": "Has the line been located?",
       "history": "History",
       "linePing": "Ping the line",
-      "showSupervision": "Visualiser l'historique de supervision"
+      "showSupervision": "Visualiser l'historique de supervision",
+      "resetNetwork": "Reset network"
     }
   },
   "getsim": {

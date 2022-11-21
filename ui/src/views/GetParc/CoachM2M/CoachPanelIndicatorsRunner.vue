@@ -51,6 +51,10 @@ import CoachPanelndicatorItem from './CoachPanelndicatorItem';
 import { startAnalysis } from '@/api/coach';
 import { mapGetters } from 'vuex';
 import StarsNotation from '@/components/StarsNotation.vue';
+import { resetNetwork } from '@/api/actCreation';
+import get from 'lodash.get';
+import moment from 'moment';
+import { mapMutations } from 'vuex';
 
 export default {
   name: 'CoachpanelIndicators',
@@ -60,6 +64,7 @@ export default {
   },
   props: {
     apId: Number,
+    lineInfos: Object,
   },
 
   async mounted() {
@@ -252,6 +257,15 @@ export default {
         {
           id: 'i_6',
           title: 'coach.indicators.networkTest',
+          action: {
+            title: 'coach.indicators.resetNetwork',
+            onClick: () => {
+              this.createResetNetwork(this.$route.params.lineId);
+            },
+          },
+          showActionFn: () => {
+            return this.havePermission('act', 'reset_network');
+          },
         },
         {
           id: 'i_8',
@@ -283,6 +297,42 @@ export default {
       advancedIndicators: undefined,
       version: 0,
     };
+  },
+  methods: {
+    ...mapMutations(['flashMessage', 'setPendingExportsStatus']),
+    ...mapMutations(['resetState', 'closePanel']),
+
+    async createResetNetwork(lineId) {
+      let dueDate = moment()
+        .add(1, 'hours')
+        .format('DD/MM/YYYY HH:mm:ss');
+      const params = {
+        partyId: get(this.lineInfos, 'party.id'),
+        dueDate,
+        notifEmail: true,
+        customerAccountId: get(this.lineInfos, 'accessPoint.offerGroup.customerAccount.id'),
+      };
+
+      const response = resetNetwork(null, [{ id: lineId }], params);
+
+      if (response) {
+        if (response.errors && response.errors.length) {
+          this.flashMessage({ level: 'danger', message: this.$t('genericErrorMessage') });
+        } else {
+          this.onSuccess();
+        }
+      } else {
+        this.flashMessage({ level: 'danger', message: this.$t('genericErrorMessage') });
+      }
+    },
+    onSuccess() {
+      this.closePanel();
+      const successMessage = this.successMessage
+        ? this.$t(this.successMessage)
+        : this.$t('genericSuccessMessage');
+      this.flashMessage({ level: 'success', message: successMessage });
+      this.setPendingExportsStatus(true);
+    },
   },
 };
 </script>

@@ -6,6 +6,7 @@
         <CoachPanelIndicatorsRunner
           :key="testNumber"
           :ap-id="line1ApId"
+          :line-infos="content"
           @apiError="canCompare = false"
           @coachData="line1CoachData = $event"
         />
