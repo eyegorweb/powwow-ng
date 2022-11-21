@@ -91,6 +91,12 @@ export default {
           label: 'IMEI',
           checkFn: (value) => !isNaN(value) && value.length === 15,
         },
+        {
+          code: 'c6',
+          value: 'esimReservationId',
+          label: 'ID',
+          checkFn: (value) => !isNaN(value) && value.length > 0,
+        },
       ],
     };
   },
