@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1141+20221121143426
+2022-11-21
+
+### Fixes
+
+- [3539] Add search by ID to Resa on GetSim (7fc99862836b05dea016b828e45059b201c1a95c)
+
 ## 1.17.0-master.1140+20221117164221
 2022-11-17
 
