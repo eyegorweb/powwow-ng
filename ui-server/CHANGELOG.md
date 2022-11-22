@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1148+20221122144342
+2022-11-22
+
+### Fixes
+
+- [3411] check on idParty on simCardInstance API (ba55e7d904c37350e75b86fe8cdf821a5e9a144f)
+
 ## 1.17.0-master.1147+20221122142327
 2022-11-22
 
