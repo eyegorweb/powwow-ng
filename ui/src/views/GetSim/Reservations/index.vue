@@ -53,7 +53,7 @@
       </div>
 
       <div slot="topLeft">
-        <SearchById @searchById="searchById" :init-value="searchByIdValue" placeholder="resaSearchLine" />
+        <SearchById @searchById="searchById" :init-value="searchByIdValue" placeholder="resaSearchLine" :additional-ids="additionalFilters" />
       </div>
     </TableWithFilter>
   </div>
@@ -109,6 +109,14 @@ export default {
       indicators: undefined,
       lastPayload: undefined,
       orderedColumns: undefined,
+      additionalFilters: [        
+        {
+          code: 'c6',
+          value: 'esimReservationId',
+          label: this.$t('getsim.reservations.columns.id'),
+          checkFn: (value) => !isNaN(value) && value.length > 0,
+        },
+      ]
     };
   },
 
