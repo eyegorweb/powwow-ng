@@ -654,7 +654,7 @@ function addIdsFilter(gqlFilters, selectedFilters) {
   if (accessPointId && accessPointId.value) {
     // Regex to delete space on value
     const value = accessPointId.value.replace(/\s/g,'');
-    gqlFilters.push(`accessPointId: {eq: "${value}"`);
+    gqlFilters.push(`accessPointId: {eq: ${value}`);
   }
 }
 
