@@ -368,6 +368,7 @@ export default {
         {
           title: 'getdevice.partners',
           component: PartnerNameFilter,
+          id: 1,
           onChange(chosenValues) {
             return {
               id: 'getdevice.partners',
@@ -378,6 +379,7 @@ export default {
         {
           title: 'getdevice.imeiRange',
           component: IMEIRange,
+          id: 2,
           onChange(values) {
             return {
               id: 'getdevice.imeiRange',
@@ -389,6 +391,7 @@ export default {
         {
           title: 'getdevice.manufacturer',
           component: Manufacturer,
+          id: 3,
           onChange(values) {
             return {
               id: 'getdevice.manufacturer',
@@ -399,6 +402,7 @@ export default {
         {
           title: 'getdevice.deviceReference',
           component: DeviceReference,
+          id: 4,
           onChange(values) {
             return {
               id: 'getdevice.deviceReference',
