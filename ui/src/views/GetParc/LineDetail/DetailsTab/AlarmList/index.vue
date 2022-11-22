@@ -13,7 +13,7 @@
     </div>
     <div v-if="hasNoActiveLines" class="noActiveLine">
       <span>
-        {{$t('noActiveLine')}}
+        {{ $t('noActiveLine') }}
       </span>
     </div>
     <div class="bg-white p-4 rounded" v-if="!hasNoActiveLines">
@@ -183,8 +183,7 @@ export default {
           errorMessage = `${e.key}: ${e.value}`;
         });
         this.hasNoActiveLines = errorMessage.includes('SIMCARDINSTANCES_D_SIMCARDS_MUST_BE_ACTIVE');
-      }
-      else {
+      } else {
         this.rows = response.items;
         this.total = response.total;
       }
@@ -254,11 +253,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .noActiveLine {
-    text-align: center;
-    font-size: 30px;
-    margin-top: 60px;
-    font-weight: 600;
-    color: #ffb900;
-  }
+.noActiveLine {
+  text-align: center;
+  font-size: 30px;
+  margin-top: 60px;
+  font-weight: 600;
+  color: #ffb900;
+}
 </style>
