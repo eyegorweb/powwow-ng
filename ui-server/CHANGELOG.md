@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1147+20221122142327
+2022-11-22
+
+### Fixes
+
+- [3524] mise à jour de l'api de recherche d'adresses pour éviter les appels avant l'entrée du 3ème caractère (0ef989200826409d3969d28d17b05f5896ef54cf)
+- [3406] delete space on value of accessPointId for API simCardInstance (57db471268c6b6ea09b0e3ff0e7b2d7a5f1aaafc)
+
 ## 1.17.0-master.1146+20221122110354
 2022-11-22
 
