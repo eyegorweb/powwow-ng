@@ -652,7 +652,9 @@ function addIdsFilter(gqlFilters, selectedFilters) {
     gqlFilters.push(`msisdnA: {eq: "${trim(msisdnA.value)}"}`);
   }
   if (accessPointId && accessPointId.value) {
-    gqlFilters.push(`accessPointId: {eq: "${trim(accessPointId.value)}"}`);
+    // Regex to delete space on value
+    const value = accessPointId.value.replace(/\s+/g, '');
+    gqlFilters.push(`accessPointId: {eq: "${value}"`);
   }
 }
 
