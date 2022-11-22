@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1144+20221122094209
+2022-11-22
+
+### Fixes
+
+- [3543] Bug on filters for GetDevice all in partners (c752d7ab1ae166a0e86813d792f8515c4f3759e6)
+
 ## 1.17.0-master.1143+20221121154403
 2022-11-21
 
