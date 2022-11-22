@@ -14,7 +14,7 @@
   "searchByCF": "Recherche d'un client par numéro, libellé, siret, siren ou ligne de marché",
   "searchByCFPartner": "Recherche d'un C.F. par code, libellé, siret, siren",
   "searchLine": "Rechercher une ligne",
-  "resaSearchLine": "Rechercher une réservation",
+  "resaSearchLine": "Rechercher une réservation par",
   "ResfuseLineError": "1 ligne est encore dans le délai de carence et sa demande de validation ne peut pas être validée.",
   "ResfuseLinesError": "{nb} lignes sont encore dans le délai de carence et ne peuvent pas être validées.",
   "search": "Rechercher",
