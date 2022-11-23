@@ -53,7 +53,7 @@
       </div>
 
       <div slot="topLeft">
-        <SearchByLinesId @searchById="searchById" :init-value="searchByIdValue" />
+        <SearchById @searchById="searchById" :init-value="searchByIdValue" placeholder="resaSearchLine" :additional-ids="additionalFilters" />
       </div>
     </TableWithFilter>
   </div>
@@ -69,7 +69,7 @@ import CustomFieldsFilter from '@/components/Filters/filterbar/CustomFieldsFilte
 import QuantityFilter from '@/components/Filters/filterbar/QuantityFilter.vue';
 import GetSimReservationIdCell from './GetSimReservationIdCell';
 import DateRangeFilter from '@/components/Filters/filterbar/DateRangeFilter.vue';
-import SearchByLinesId from '@/components/SearchById';
+import SearchById from '@/components/SearchById';
 import Indicators from '@/components/Indicators';
 import UiButton from '@/components/ui/Button';
 import ExportButton from '@/components/ExportButton';
@@ -88,7 +88,7 @@ export default {
   components: {
     TableWithFilter,
     ExportButton,
-    SearchByLinesId,
+    SearchById,
     Indicators,
     UiButton,
   },
@@ -109,6 +109,14 @@ export default {
       indicators: undefined,
       lastPayload: undefined,
       orderedColumns: undefined,
+      additionalFilters: [        
+        {
+          code: 'c6',
+          value: 'esimReservationId',
+          label: this.$t('getsim.reservations.columns.id'),
+          checkFn: (value) => !isNaN(value) && value.length > 0,
+        },
+      ]
     };
   },
 
@@ -181,6 +189,11 @@ export default {
         if (filter.id === 'filters.imei') {
           formatted.imei = {
             startsWith: filter.value.trim(),
+          };
+        }
+        if (filter.id === 'filters.esimReservationId' && filter.value) {
+          formatted.esimReservationId = {
+            eq: filter.value.trim(),
           };
         }
         if (filter.id === 'filters.partners') {

@@ -35,7 +35,6 @@ export async function fetchCurrentUserInfos() {
           name
           flagStatisticsEnabled
         }
-        isUserByCustomerAccount
         type
         isAdminOrBackOffice
         disabled
@@ -50,7 +49,6 @@ export async function fetchCurrentUserInfos() {
           domain
           action
         }
-        isUserByCustomerAccount
       }
     }
     `

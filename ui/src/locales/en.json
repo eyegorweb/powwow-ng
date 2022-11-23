@@ -10,6 +10,7 @@
   "searchLineById": "Search for a line by identifier",
   "searchByLoginPlaceholder": "Search for a user by login",
   "searchLine": "Search a line",
+  "resaSearchLine": "Search for a reservation",
   "search": "Search",
   "accessTo": "Access to",
   "title": "Title",
@@ -107,6 +108,7 @@
   "lastMassActions": "Latest management acts",
   "showAllHistory": "View full history",
   "groupAccount": "Group account",
+  "noActiveLine": "Line is not active",
   "login": "Login",
   "loginWanted": "Desired login",
   "oldPassword": "Old password",
@@ -269,6 +271,7 @@
     "ACT_SPECIFIC": "Modifier les champs libres",
     "ACT_CUSTOM_AND_SPECIFIC": "Modifier les champs libres",
     "ACT_PREACTIVATE_SIMCARD_INSTANCE": "Préactiver simcard",
+    "ACT_NETWORK_RESET": "Reset Network",
 
     "ACT_VALIDATE_RESILIATION": "Résilier",
     "ACT_REFUSE_RESILIATION": "Refuser résiliation",
@@ -332,7 +335,7 @@
         "title": "Parc status",
         "stockLines": "Stock Lines",
         "preactivatedLines": "Preactivated lines",
-        "activatedLines": "Activated lines",
+      "activatedLines": "Activated lines",
         "suspendedLines": "Suspended lines",
         "cancellationLines": "Termination in progress",
         "suspendedAndNotBilledLines": "Suspended lines « not charged »",
@@ -530,7 +533,8 @@
       "isTraced": "Has the line been located?",
       "history": "History",
       "linePing": "Ping the line",
-      "showSupervision": "Visualiser l'historique de supervision"
+      "showSupervision": "Visualiser l'historique de supervision",
+      "resetNetwork": "Reset network"
     }
   },
   "getsim": {
@@ -1326,6 +1330,7 @@
       "ACTIVATION": "Activation",
       "STATUS_CHANGE": "Status change",
       "ICCID_CHANGE": "SIM card change",
+      "RADIUS_UPDATE": "Radius update",
       "EUICC_NOTIFICATION": "EUICC notification",
       "EUICC_AUDIT": "EUICC Audit",
       "MSISDN_CHANGE": "MSISDN Change",

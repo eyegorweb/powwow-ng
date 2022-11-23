@@ -462,7 +462,7 @@ export async function searchLines(orderBy, pagination, filters = []) {
 export function formatFilters(filters) {
   const allFilters = [];
   const partyIds = getValuesIdsWithoutQuotes(filters, 'filters.partners');
-  if (partyIds) {
+  if (partyIds && partyIds.length) {
     allFilters.push(`idParty: {in: [${partyIds}]}`);
   }
 
@@ -652,7 +652,9 @@ function addIdsFilter(gqlFilters, selectedFilters) {
     gqlFilters.push(`msisdnA: {eq: "${trim(msisdnA.value)}"}`);
   }
   if (accessPointId && accessPointId.value) {
-    gqlFilters.push(`accessPointId: {eq: "${trim(accessPointId.value)}"}`);
+    // Regex to delete space on value
+    const value = accessPointId.value.replace(/\s/g,'');
+    gqlFilters.push(`accessPointId: {eq: ${value}`);
   }
 }
 

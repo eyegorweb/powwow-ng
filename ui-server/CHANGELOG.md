@@ -2,6 +2,78 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1152+20221123072628
+2022-11-23
+
+## 1.17.0-master.1151+20221122182955
+2022-11-22
+
+## 1.17.0-master.1150+20221122161824
+2022-11-22
+
+## 1.17.0-master.1149+20221122153157
+2022-11-22
+
+## 1.17.0-master.1148+20221122144342
+2022-11-22
+
+### Fixes
+
+- [3411] check on idParty on simCardInstance API (ba55e7d904c37350e75b86fe8cdf821a5e9a144f)
+
+## 1.17.0-master.1147+20221122142327
+2022-11-22
+
+### Fixes
+
+- [3524] mise à jour de l'api de recherche d'adresses pour éviter les appels avant l'entrée du 3ème caractère (0ef989200826409d3969d28d17b05f5896ef54cf)
+- [3406] delete space on value of accessPointId for API simCardInstance (57db471268c6b6ea09b0e3ff0e7b2d7a5f1aaafc)
+
+## 1.17.0-master.1146+20221122110354
+2022-11-22
+
+### Fixes
+
+- [3539] bug on id filter (806191944a244059ac343542f0e12c20f2c257b7)
+
+## 1.17.0-master.1145+20221122103453
+2022-11-22
+
+## 1.17.0-master.1144+20221122094209
+2022-11-22
+
+### Fixes
+
+- [3543] Bug on filters for GetDevice all in partners (c752d7ab1ae166a0e86813d792f8515c4f3759e6)
+
+## 1.17.0-master.1143+20221121154403
+2022-11-21
+
+### Features
+
+- [3511] resetNetwork act (ba8df05249642da0f640964404a713bc56cc8f64)
+
+## 1.17.0-master.1142+20221121152149
+2022-11-21
+
+### Fixes
+
+- [3379] alarm list on getParc detail no active line (1f295d191948f5965d121e9914f40c9a1b1ac28e)
+
+## 1.17.0-master.1141+20221121143426
+2022-11-21
+
+### Fixes
+
+- [3539] Add search by ID to Resa on GetSim (7fc99862836b05dea016b828e45059b201c1a95c)
+
+## 1.17.0-master.1140+20221117164221
+2022-11-17
+
+### Fixes
+
+- [3507] Utilisateurs par CF - Gestion des commandes - Adresses de livraison (f5a9a120874ff6a4c590690347c562e22e953538)
+
 ## 1.17.0-master.1139+20221117151312
 2022-11-17
 
