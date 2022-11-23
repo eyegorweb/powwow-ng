@@ -18,7 +18,7 @@
 
     <div class="row">
       <div class="col-md-3">
-        <GetSimIndicators @click="setCurrentFiltersForIndicator" v-if=" !userIsByCustomerAccount"/>
+        <GetSimIndicators @click="setCurrentFiltersForIndicator" v-if="!userIsByCustomerAccount"/>
         <br />
         <GetSimFilters />
       </div>
