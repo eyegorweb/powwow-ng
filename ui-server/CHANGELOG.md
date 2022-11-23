@@ -2,6 +2,34 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1156+20221123155355
+2022-11-23
+
+### Fixes
+
+- [3549] correction de la modification d'un utilisateur par cf (d0e13aaa85c837628aa967748cf6964fdf4db880)
+
+## 1.17.0-master.1155+20221123151352
+2022-11-23
+
+### Fixes
+
+- [3506] bug graphQL isUserByCustomerAccount on getCurrentUser (c835f334ddc8140135a7e5c947ea6c15aabe470b)
+
+## 1.17.0-master.1154+20221123124302
+2022-11-23
+
+### Features
+
+- [3501] mise à jour des options de partenaire avec l'ajout du dual sim (9a9cd5340d9bfaef277ec60974dc61c9231c9558)
+
+## 1.17.0-master.1153+20221123095955
+2022-11-23
+
+### Fixes
+
+- [3511] resetNetwork act (c5d152e1c7f2a2e693f2cd3b37df29e5b18c17f5)
+
 ## 1.17.0-master.1152+20221123072628
 2022-11-23
 

@@ -435,11 +435,11 @@ export default {
         roles: this.selectedRoles.concat(wsRoles),
       };
       if (
-        this.content &&
-        this.content.customerAccountIds &&
-        this.content.customerAccountIds.length > 0
+        this.isEditMode &&
+        this.content.duplicateFrom.customerAccountIds &&
+        this.content.duplicateFrom.customerAccountIds.length > 0
       ) {
-        params.customerAccountIds = this.content.customerAccountIds;
+        params.customerAccountIds = this.content.duplicateFrom.customerAccountIds;
       } else {
         params.customerAccountIds = [];
       }

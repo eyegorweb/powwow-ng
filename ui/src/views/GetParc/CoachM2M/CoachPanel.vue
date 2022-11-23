@@ -6,7 +6,7 @@
         <CoachPanelIndicatorsRunner
           :key="testNumber"
           :ap-id="line1ApId"
-          :line-infos="content"
+          :line-infos="lineInfos"
           @apiError="canCompare = false"
           @coachData="line1CoachData = $event"
         />
@@ -183,6 +183,9 @@ export default {
     },
     line2ApId() {
       return get(this.line2, 'accessPoint.id');
+    },
+    lineInfos() {
+      return this.content;
     },
   },
 };
