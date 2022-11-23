@@ -273,6 +273,7 @@
     </ContentBlock>
 
     <ContentBlock no-handle>
+      <!-- Add Dual Sim toggles -->
       <template slot="title">{{ $t('common.others') }}</template>
       <template slot="content">
         <ToggleGroup :services="otherToggles" :size="3" />
@@ -395,6 +396,15 @@
             </div>
           </div>
         </div>
+        <!-- Dual Sim -->
+        <div class="d-flex" v-if="(userIsBO || userIsAdmin) && partyType !== 'MVNO'">
+          <div class="third-size pr-4">
+            <div class="form-group">
+              <label class="small-label">{{ $t('getparc.lineDetail.tab1.dualSim') }}</label>
+              <Toggle block @update="dualSimChoice = $event.id" :values="dualSimChoices" />
+            </div>
+          </div>
+        </div>
         <!-- TODO: temporary disabled -->
         <div v-if="!disabled">
           <div class="d-flex" v-if="partyType === 'CUSTOMER'">
@@ -476,7 +486,7 @@ export default {
   },
   computed: {
     ...mapGetters(['havePermission']),
-    ...mapGetters(['userIsBO']),
+    ...mapGetters(['userIsBO', 'userIsAdmin']),
     mailingLists() {
       if (!this.partner) return [];
       if (this.diffusionListEmails) {
@@ -878,6 +888,16 @@ export default {
         return f;
       });
 
+      this.dualSimChoice = this.$loGet(this.partnerOptions, 'dualSimCardPartyType');
+      this.dualSimChoices = this.dualSimChoices.map((f) => {
+        if (f.id === this.dualSimChoice) {
+          f.default = true;
+        } else {
+          f.default = false;
+        }
+        return f;
+      });
+
       this.checkToggle(this.otherToggles, 'AUTO_SUSPEND', this.partnerOptions.suspensionAuto);
       this.checkToggle(this.otherToggles, 'HIDE_ADRESS', this.partnerOptions.optionViewCellId);
       this.checkToggle(this.otherToggles, 'COACH_M2M', this.partnerOptions.coachM2MAvailable);
@@ -971,6 +991,7 @@ export default {
           msisdnFormatPreactivation: this.preactivationFormat,
           suspensionAuto: this.getToggle(this.otherToggles, 'AUTO_SUSPEND'),
           optionViewCellId: this.getToggle(this.otherToggles, 'HIDE_ADRESS'),
+          dualSimCardPartyType: this.dualSimChoice,
           wsNotificationOption: this.notificationChoice,
           wsLogin: this.login,
           wsPassword: this.password,
@@ -1170,6 +1191,21 @@ export default {
         {
           id: 'MASS',
           label: 'common.mass',
+        },
+      ],
+      dualSimChoice: undefined,
+      dualSimChoices: [
+        {
+          id: 'FACTORY',
+          label: 'Usine',
+        },
+        {
+          id: 'FRANCE',
+          label: 'France',
+        },
+        {
+          id: 'ROAMING',
+          label: 'Roaming',
         },
       ],
       services: [],
