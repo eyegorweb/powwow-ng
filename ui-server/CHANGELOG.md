@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1157+20221123171801
+2022-11-23
+
+### Fixes
+
+- [3549] correction de la modification d'un utilisateur par cf (2a84c299fa2a2a0030ce14d85b0b615cc8702665)
+
 ## 1.17.0-master.1156+20221123155355
 2022-11-23
 

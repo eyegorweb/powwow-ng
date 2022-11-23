@@ -434,14 +434,10 @@ export default {
         userPrivate: this.form.userPrivate,
         roles: this.selectedRoles.concat(wsRoles),
       };
-      if (
-        this.isEditMode &&
-        this.content.duplicateFrom.customerAccountIds &&
-        this.content.duplicateFrom.customerAccountIds.length > 0
-      ) {
-        params.customerAccountIds = this.content.duplicateFrom.customerAccountIds;
+      if (this.isEditMode && this.customerAccounts.length > 0) {
+        params.customerAccounts = this.customerAccounts;
       } else {
-        params.customerAccountIds = [];
+        params.customerAccounts = [];
       }
 
       if (this.createMode || this.isDuplicateMode) {
