@@ -223,6 +223,11 @@ export default {
   },
   computed: {
     ...mapGetters(['havePermission']),
+    isLigneActive() {
+      const networkStatus = this.$loGet(this.lineInfos, 'accessPoint.networkStatus');
+      const simStatus = this.$loGet(this.lineInfos, 'statuts');
+      return simStatus === 'ALLOCATED' && networkStatus === 'ACTIVATED';
+    },
   },
   data() {
     return {
@@ -264,7 +269,7 @@ export default {
             },
           },
           showActionFn: () => {
-            return this.havePermission('act', 'reset_network');
+            return this.havePermission('act', 'reset_network') && this.isLigneActive;
           },
         },
         {
@@ -303,14 +308,12 @@ export default {
     ...mapMutations(['resetState', 'closePanel']),
 
     async createResetNetwork(lineId) {
-      let dueDate = moment()
-        .add(1, 'hours')
-        .format('DD/MM/YYYY HH:mm:ss');
+      let dueDate = moment().format('DD/MM/YYYY HH:mm:ss');
       const params = {
-        partyId: get(this.lineInfos, 'party.id'),
+        partyId: this.$loGet(this.lineInfos, 'party.id'),
         dueDate,
         notifEmail: true,
-        customerAccountId: get(this.lineInfos, 'accessPoint.offerGroup.customerAccount.id'),
+        customerAccountId: this.$loGet(this.lineInfos, 'accessPoint.offerGroup.customerAccount.id'),
       };
 
       const response = resetNetwork(null, [{ id: lineId }], params);
