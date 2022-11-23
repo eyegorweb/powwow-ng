@@ -1447,6 +1447,7 @@
       "PREACTIVATION_ACTIVATION": "Pré-activation et Activation",
       "ACTIVATION": "Activation",
       "STATUS_CHANGE": "Changement de statut",
+      "RADIUS_UPDATE": "Mise à jour radius",
       "ICCID_CHANGE": "Changement de carte SIM",
       "EUICC_NOTIFICATION": "Notification EUICC",
       "EUICC_AUDIT": "Audit EUICC",

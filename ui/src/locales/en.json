@@ -1330,6 +1330,7 @@
       "ACTIVATION": "Activation",
       "STATUS_CHANGE": "Status change",
       "ICCID_CHANGE": "SIM card change",
+      "RADIUS_UPDATE": "Radius update",
       "EUICC_NOTIFICATION": "EUICC notification",
       "EUICC_AUDIT": "EUICC Audit",
       "MSISDN_CHANGE": "MSISDN Change",
