@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1153+20221123095955
+2022-11-23
+
+### Fixes
+
+- [3511] resetNetwork act (c5d152e1c7f2a2e693f2cd3b37df29e5b18c17f5)
+
 ## 1.17.0-master.1152+20221123072628
 2022-11-23
 
