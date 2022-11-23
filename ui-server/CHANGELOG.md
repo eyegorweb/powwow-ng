@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1155+20221123151352
+2022-11-23
+
+### Fixes
+
+- [3506] bug graphQL isUserByCustomerAccount on getCurrentUser (c835f334ddc8140135a7e5c947ea6c15aabe470b)
+
 ## 1.17.0-master.1154+20221123124302
 2022-11-23
 
