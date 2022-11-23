@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1154+20221123124302
+2022-11-23
+
+### Features
+
+- [3501] mise à jour des options de partenaire avec l'ajout du dual sim (9a9cd5340d9bfaef277ec60974dc61c9231c9558)
+
 ## 1.17.0-master.1153+20221123095955
 2022-11-23
 
