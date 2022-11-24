@@ -42,7 +42,7 @@
     </div>
     <div slot="footer" class="action-buttons" v-if="canCompare">
       <template v-if="!compareMode">
-        <div class="p-0" v-if="exportOptions">
+        <div v-if="exportOptions">
           <UiDropDownChoicesButton
             :options="exportOptions"
             @click="doExport($event, [line1CoachData.id])"
