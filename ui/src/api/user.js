@@ -1,5 +1,5 @@
 import { query } from './utils';
-
+ 
 export async function fetchCurrentUserInfos() {
   const response = await query(
     `
