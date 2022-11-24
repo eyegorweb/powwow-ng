@@ -2,6 +2,20 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1159+20221124063538
+2022-11-24
+
+### Fixes
+
+- [3549] gestion du changement de cf dans la modification des utilisateurs (9e3a4989c8276d49406218111169cee67673d026)
+
+## 1.17.0-master.1158+20221123193212
+2022-11-23
+
+### Fixes
+
+- [3549] correction de la modification d'un utilisateur par cf (1a88edc29977638878dedbc9cda2c60598895fac)
+
 ## 1.17.0-master.1157+20221123171801
 2022-11-23
 

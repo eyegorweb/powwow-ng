@@ -434,10 +434,21 @@ export default {
         userPrivate: this.form.userPrivate,
         roles: this.selectedRoles.concat(wsRoles),
       };
-      if (this.isEditMode && this.customerAccounts.length > 0) {
-        params.customerAccounts = this.customerAccounts;
+      if (
+        this.content &&
+        this.content.customerAccountIds &&
+        this.content.customerAccountIds.length > 0
+      ) {
+        params.customerAccountIds = this.content.customerAccountIds;
+      } else if (
+        this.content &&
+        this.content.duplicateFrom &&
+        this.content.duplicateFrom.customerAccounts &&
+        this.content.duplicateFrom.customerAccounts.length > 0
+      ) {
+        params.customerAccountIds = this.content.duplicateFrom.customerAccounts.map((c) => c.id);
       } else {
-        params.customerAccounts = [];
+        params.customerAccountIds = [];
       }
 
       if (this.createMode || this.isDuplicateMode) {
