@@ -448,7 +448,7 @@ export default {
       ) {
         params.customerAccountIds = this.content.duplicateFrom.customerAccounts.map((c) => c.id);
       } else {
-        params.customerAccounts = [];
+        params.customerAccountIds = [];
       }
 
       if (this.createMode || this.isDuplicateMode) {

@@ -107,7 +107,7 @@ export async function updateUser(params) {
       confirmPassword: params.confirmPassword,
       userPrivate: params.userPrivate,
       roles: params.roles.map((r) => r.code),
-      customerAccountIds: params.customerAccounts.map((cf) => cf.id),
+      customerAccountIds: params.customerAccountIds,
     },
   };
 
