@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1162+20221124154744
+2022-11-24
+
+### Fixes
+
+- [3521] correction de l'espacement des boutons du volet Coach (5e49d1c9b5f7130f29efffb2213eaeedf1a58efd)
+
 ## 1.17.0-master.1161+20221124112837
 2022-11-24
 
