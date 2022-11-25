@@ -48,12 +48,22 @@
       </div>
 
       <div slot="before-filters">
-        <Indicators v-if="indicators && !userIsByCustomerAccount" :meta="indicators" disable-click precalculated />
+        <Indicators
+          v-if="indicators && !userIsByCustomerAccount"
+          :meta="indicators"
+          disable-click
+          precalculated
+        />
         <br />
       </div>
 
       <div slot="topLeft">
-        <SearchById @searchById="searchById" :init-value="searchByIdValue" placeholder="resaSearchLine" :additional-ids="additionalFilters" />
+        <SearchById
+          @searchById="searchById"
+          :init-value="searchByIdValue"
+          placeholder="resaSearchLine"
+          :additional-ids="additionalFilters"
+        />
       </div>
     </TableWithFilter>
   </div>
@@ -116,7 +126,7 @@ export default {
           label: this.$t('getsim.reservations.columns.id'),
           checkFn: (value) => !isNaN(value) && value.length > 0,
         },
-      ]
+      ],
     };
   },
 
