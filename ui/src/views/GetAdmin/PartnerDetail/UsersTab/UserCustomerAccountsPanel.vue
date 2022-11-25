@@ -27,6 +27,8 @@ import UiButton from '@/components/ui/Button';
 import GroupMultiSelect from '@/components/GroupMultiSelect';
 import { mapMutations } from 'vuex';
 import { delay } from '@/api/utils.js';
+import cloneDeep from 'lodash.clonedeep';
+import isEqual from 'lodash.isequal';
 
 export default {
   components: {
@@ -68,6 +70,7 @@ export default {
     return {
       options: [],
       selectedOptions: [],
+      initialSelectedOptions: [],
       form: {
         title: undefined,
         language: undefined,
@@ -80,6 +83,7 @@ export default {
         userPrivate: false,
       },
       lastPanelPayload: undefined,
+      hasSelectedCustomerAccountsChanged: false,
     };
   },
 
@@ -90,7 +94,7 @@ export default {
         this.content.lastPanelPayload &&
         this.content.lastPanelPayload.duplicateFrom
       ) {
-        return true;
+        return this.hasSelectedCustomerAccountsChanged;
       }
       return this.selectedOptions && this.selectedOptions.length;
     },
@@ -119,11 +123,35 @@ export default {
             return o;
           }
         });
+        this.initialSelectedOptions = cloneDeep(this.selectedOptions);
       }
     },
 
     updateOptions(values) {
+      const selectedValues = values.filter((o) => o.selected);
       this.selectedOptions = values.filter((o) => o.selected);
+      this.hasSelectedCustomerAccountsChanged = this.checkSelectedCustomerAccounts(selectedValues);
+    },
+    /**
+     * Comparer les "CA" présélectionnés avec ceux en cours de sélection/désélection
+     * @param {Array} options liste générale des CA
+     */
+    checkSelectedCustomerAccounts(options) {
+      if (!options.length && !this.initialSelectedOptions.length) {
+        return false;
+      } else if (
+        this.initialSelectedOptions.length &&
+        this.initialSelectedOptions.length !== options.length
+      ) {
+        return true;
+      } else if (
+        this.initialSelectedOptions.length &&
+        this.initialSelectedOptions.length === options.length
+      ) {
+        return !isEqual(this.initialSelectedOptions, options);
+      } else {
+        return false;
+      }
     },
 
     async validate() {
@@ -172,7 +200,7 @@ export default {
         });
       };
 
-      if (this.selectedOptions.length > 0) {
+      if (this.selectedOptions.length > 0 && this.hasSelectedCustomerAccountsChanged) {
         this.confirmAction({
           message: 'getadmin.partnerDetail.changePassword.warning',
           actionFn: async () => {
