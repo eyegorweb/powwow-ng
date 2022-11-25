@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1166+20221125132432
+2022-11-25
+
+### Fixes
+
+- [3553] gestion des indicateurs de lignes pour utilisateur par CF (a752980a5c43375a2e71836f2a64d8899c51c9c2)
+
 ## 1.17.0-master.1165+20221125104248
 2022-11-25
 
