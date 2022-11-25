@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1165+20221125104248
+2022-11-25
+
+### Fixes
+
+- [3552] gestion des exports de lignes pour les utilisateurs par CF (6b4be95cbce5a4593190486ef381b0e620685d32)
+
 ## 1.17.0-master.1164+20221125091337
 2022-11-25
 
