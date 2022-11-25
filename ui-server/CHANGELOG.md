@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1163+20221125085222
+2022-11-25
+
+### Fixes
+
+- [3549] amélioration de l'IHM Association des customer accounts (8989196aead14a8550751104c9f31e13dc6d7e3d)
+
 ## 1.17.0-master.1162+20221124154744
 2022-11-24
 
