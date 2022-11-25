@@ -48,7 +48,7 @@
       </div>
 
       <div slot="before-filters">
-        <Indicators v-if="indicators" :meta="indicators" disable-click precalculated />
+        <Indicators v-if="indicators && !userIsByCustomerAccount" :meta="indicators" disable-click precalculated />
         <br />
       </div>
 
@@ -109,7 +109,7 @@ export default {
       indicators: undefined,
       lastPayload: undefined,
       orderedColumns: undefined,
-      additionalFilters: [        
+      additionalFilters: [
         {
           code: 'c6',
           value: 'esimReservationId',
@@ -140,7 +140,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['userIsPartner', 'singlePartner', 'userName']),
+    ...mapGetters(['userIsPartner', 'singlePartner', 'userName', 'userIsByCustomerAccount']),
     ...mapGetters('getsim', ['appliedFilters']),
     formattedTotal() {
       return formatLargeNumber(this.total);
