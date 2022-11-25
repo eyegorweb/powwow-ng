@@ -140,6 +140,7 @@ export default {
       'singlePartner',
       'havePermission',
       'userIsOperator',
+      'userIsByCustomerAccount',
     ]),
     ...mapState({
       isOpen: (state) => state.ui.isPanelOpen,
@@ -200,7 +201,7 @@ export default {
         {
           id: 'FULL',
           label: 'exportTable.complete',
-          disabled: false,
+          disabled: this.userIsByCustomerAccount,
         },
         {
           id: 'CONSUMPTION',
@@ -222,14 +223,18 @@ export default {
     otherExportChoices() {
       const otherExportChoices = [];
 
-      if (this.havePermission('getParc', 'export_service')) {
+      if (this.havePermission('getParc', 'export_service') && !this.userIsByCustomerAccount) {
         otherExportChoices.push({
           id: 'SERVICES',
           label: 'exportTable.services',
         });
       }
 
-      if (this.havePermission('getParc', 'export_service') && this.hasStreamPDP) {
+      if (
+        this.havePermission('getParc', 'export_service') &&
+        this.hasStreamPDP &&
+        !this.userIsByCustomerAccount
+      ) {
         otherExportChoices.push({
           id: 'STREAM_SERVICES',
           label: 'exportTable.streamServices',
@@ -243,14 +248,18 @@ export default {
         });
       }
 
-      if (this.havePermission('getParc', 'export_last_usage') && this.hasStreamPDP) {
+      if (
+        this.havePermission('getParc', 'export_last_usage') &&
+        this.hasStreamPDP &&
+        !this.userIsByCustomerAccount
+      ) {
         otherExportChoices.push({
           id: 'STREAM_LAST_USAGE',
           label: 'exportTable.streamLastUsage',
         });
       }
 
-      if (this.havePermission('getParc', 'export_bo')) {
+      if (this.havePermission('getParc', 'export_bo') && !this.userIsByCustomerAccount) {
         otherExportChoices.push({
           id: 'BACKOFFICE',
           label: 'exportTable.BO',

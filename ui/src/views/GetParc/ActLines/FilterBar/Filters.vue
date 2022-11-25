@@ -317,7 +317,8 @@
     </FoldableBlock>
     <FoldableBlock
       v-if="
-        (((userIsPartner || userIsGroupPartner) && hasOptionIpFixe) || userIsBO) && keyName === 'el29'
+        (((userIsPartner || userIsGroupPartner) && hasOptionIpFixe) || userIsBO) &&
+          keyName === 'el29'
       "
       :title="$t('filters.lines.ipFixe')"
       :key="'el29'"
@@ -544,11 +545,11 @@ export default {
   data() {
     return {
       hasOptionIpFixe: false,
-    }
+    };
   },
-  async mounted () {
+  async mounted() {
     // Check for IPFixe filter
-    if(this.keyName === 'el29') {
+    if (this.keyName === 'el29') {
       const optionsPartner = await getPartyOptions(this.userInfos.id);
       this.hasOptionIpFixe = optionsPartner.ipFixeEnable;
     }
