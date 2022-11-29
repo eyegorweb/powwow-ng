@@ -118,6 +118,11 @@
             :data-params-needed="dataParamsNeeded"
             :bold-label="isChanged(dataService)"
             :no-click="noClick"
+            :can-change-fn="
+              (value) => {
+                return canChangeValue(dataService, value);
+              }
+            "
           />
         </template>
       </div>
@@ -181,6 +186,11 @@
             :disabled="noClick"
             :no-click="noClick"
             :read-only="readOnly"
+            :can-change-fn="
+              (value) => {
+                return canChangeValue(dataService, value);
+              }
+            "
           />
         </div>
       </div>
@@ -620,7 +630,6 @@ export default {
         let foundMandatoryService = false;
         foundDependantServices.forEach((service) => {
           foundMandatoryService = false;
-          foundMandatoryService = false;
           service.listServiceMandatory.find((lsm) => {
             foundMandatoryService =
               foundMandatoryService || this.findDependantService(lsm, payload.code);
@@ -760,10 +769,11 @@ export default {
           (s) => s.listServiceMandatory && s.listServiceMandatory.length
         );
         let foundMandatoryService = false;
-
         foundDependantServices.forEach((serv) => {
+          foundMandatoryService = false;
           serv.listServiceMandatory.find((lsm) => {
-            foundMandatoryService = this.findDependantService(lsm, service.code);
+            foundMandatoryService =
+              foundMandatoryService || this.findDependantService(lsm, service.code);
             if (foundMandatoryService) {
               return false;
             }

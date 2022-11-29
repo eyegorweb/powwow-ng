@@ -7,6 +7,7 @@
         v-model="checked"
         :no-click="noClick"
         :bold-label="boldLabel"
+        :can-change-fn="canChangeFn"
       />
     </div>
     <div v-if="apns && apns.length" class="line">
@@ -29,6 +30,7 @@
           v-model="checked"
           :no-click="noClick"
           :bold-label="boldLabel"
+          :can-change-fn="canChangeFn"
         />
       </div>
       <div class="apn-container">
@@ -63,6 +65,10 @@ export default {
     noClick: Boolean,
     readOnly: Boolean,
     boldLabel: Boolean,
+    canChangeFn: {
+      type: Function,
+      required: false,
+    },
   },
 
   data() {
