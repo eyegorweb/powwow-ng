@@ -927,7 +927,7 @@ export default {
       });
     },
     async saveOptions() {
-      const esimEnable = this.partner.partyType == 'CUSTOMER' ? this.eSim : null;
+      const esimEnable = this.partyType === 'CUSTOMER' ? this.eSim : null;
       const resilationSecurityDelay = this.getToggle(this.services, 'SECU_RESIL')
         ? parseInt(this.resilationSecurityDelay)
         : null;
@@ -940,6 +940,7 @@ export default {
         ? this.coachM2MFleetpromotion
         : null;
       const coachM2m24h = this.getToggle(this.otherToggles, 'COACH_M2M') ? this.coachM2m24h : null;
+      const dualSimCardPartyType = this.partyType !== 'MVNO' ? this.dualSimChoice : null;
 
       const response = await updatePartyOptions({
         partyOptions: {
@@ -991,7 +992,7 @@ export default {
           msisdnFormatPreactivation: this.preactivationFormat,
           suspensionAuto: this.getToggle(this.otherToggles, 'AUTO_SUSPEND'),
           optionViewCellId: this.getToggle(this.otherToggles, 'HIDE_ADRESS'),
-          dualSimCardPartyType: this.dualSimChoice,
+          dualSimCardPartyType,
           wsNotificationOption: this.notificationChoice,
           wsLogin: this.login,
           wsPassword: this.password,
