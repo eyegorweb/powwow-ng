@@ -2,6 +2,18 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1168+20221129152758
+2022-11-29
+
+### Features
+
+- [3501] gestion du type de dual sim (dcf0cd1d1dd7bfbefb73e20d6ecf3c201d46e5c2)
+
+### Fixes
+
+- [3132] Add pagination to GetVision Offer filter (5aa4fa03c733a2fe2ef552ec7a46ca7d81afa33d)
+- [3433] gestion du service DATA dans la compatibilité des services (f221f794781a4dcb82ec1aef93dcda9564efda8c)
+
 ## 1.17.0-master.1167+20221129095042
 2022-11-29
 
