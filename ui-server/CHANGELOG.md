@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1167+20221129095042
+2022-11-29
+
+### Fixes
+
+- [3474] sort range table on commercial offer (d7d9954536d6232901d43efae49a0ff54dbbb503)
+
 ## 1.17.0-master.1166+20221125132432
 2022-11-25
 
