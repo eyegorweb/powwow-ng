@@ -48,10 +48,14 @@ export default {
 
       if (this.localWidgets && this.localWidgets.length === defaultAcessibleWidgets.length) {
         const checkWidgets = defaultAcessibleWidgets.every((accessibleWidget) => {
-          return this.localWidgets.filter((localStorageWidget) => localStorageWidget.title === accessibleWidget.title);
+          return this.localWidgets.filter(
+            (localStorageWidget) => localStorageWidget.title === accessibleWidget.title
+          );
         });
 
-        return checkWidgets ? this.localWidgets.filter(isWidgetAccessible) : defaultAcessibleWidgets;
+        return checkWidgets
+          ? this.localWidgets.filter(isWidgetAccessible)
+          : defaultAcessibleWidgets;
       }
 
       return defaultAcessibleWidgets;

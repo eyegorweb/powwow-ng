@@ -27,6 +27,7 @@ describe(`LinesTable : Options d'export`, () => {
       },
       havePermission: jest.fn(),
       userIsOperator: false,
+      userIsByCustomerAccount: false,
       isOpen: false,
       nextPage: false,
     },

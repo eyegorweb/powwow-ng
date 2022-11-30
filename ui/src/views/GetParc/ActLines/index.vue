@@ -35,7 +35,7 @@
     <div class="row">
       <div class="col-md-3">
         <Indicators
-          v-if="indicators"
+          v-if="indicators && !userIsByCustomerAccount"
           :meta="indicators"
           :applied-filters-value="appliedFiltersValue"
           :on-click="onClick"
@@ -301,7 +301,7 @@ export default {
     },
 
     carouselItems() {
-      // esimAct: true, 
+      // esimAct: true,
       let itemsToReturn;
       if (this.userIsPartner && this.userIsByCustomerAccount) {
         itemsToReturn = carouselItems.filter((i) => {

@@ -2,6 +2,60 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1168+20221129152758
+2022-11-29
+
+### Features
+
+- [3501] gestion du type de dual sim (dcf0cd1d1dd7bfbefb73e20d6ecf3c201d46e5c2)
+
+### Fixes
+
+- [3132] Add pagination to GetVision Offer filter (5aa4fa03c733a2fe2ef552ec7a46ca7d81afa33d)
+- [3433] gestion du service DATA dans la compatibilité des services (f221f794781a4dcb82ec1aef93dcda9564efda8c)
+
+## 1.17.0-master.1167+20221129095042
+2022-11-29
+
+### Fixes
+
+- [3474] sort range table on commercial offer (d7d9954536d6232901d43efae49a0ff54dbbb503)
+
+## 1.17.0-master.1166+20221125132432
+2022-11-25
+
+### Fixes
+
+- [3553] gestion des indicateurs de lignes pour utilisateur par CF (a752980a5c43375a2e71836f2a64d8899c51c9c2)
+
+## 1.17.0-master.1165+20221125104248
+2022-11-25
+
+### Fixes
+
+- [3552] gestion des exports de lignes pour les utilisateurs par CF (6b4be95cbce5a4593190486ef381b0e620685d32)
+
+## 1.17.0-master.1164+20221125091337
+2022-11-25
+
+### Fixes
+
+- [3506] add condition on resa (0c35dc983fca8c201d60156c5586a075b7b4f40c)
+
+## 1.17.0-master.1163+20221125085222
+2022-11-25
+
+### Fixes
+
+- [3549] amélioration de l'IHM Association des customer accounts (8989196aead14a8550751104c9f31e13dc6d7e3d)
+
+## 1.17.0-master.1162+20221124154744
+2022-11-24
+
+### Fixes
+
+- [3521] correction de l'espacement des boutons du volet Coach (5e49d1c9b5f7130f29efffb2213eaeedf1a58efd)
+
 ## 1.17.0-master.1161+20221124112837
 2022-11-24
 
