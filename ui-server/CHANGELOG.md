@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1169+20221130134550
+2022-11-30
+
+### Fixes
+
+- [3501] gestion de la modification du dualSimCardPartyType dans les options du partenaire (9581d70fbbe93dbf7edef9aa77df1523e470bba0)
+
 ## 1.17.0-master.1168+20221129152758
 2022-11-29
 
