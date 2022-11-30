@@ -54,6 +54,7 @@ export async function getPartyOptions(partyId) {
     crEmail
     switchRcard
     dualSimBilling
+    dualSimCardPartyType
     diffusionList
     diffusionListEnabled
     flagBillingPDPCellHistory
