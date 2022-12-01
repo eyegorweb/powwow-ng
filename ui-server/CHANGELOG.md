@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1170+20221201115000
+2022-12-01
+
+### Features
+
+- [3526] Add widget last reports (54ad6525c1ec7bf4309e18f7b770a148124f6995)
+
 ## 1.17.0-master.1169+20221130134550
 2022-11-30
 
