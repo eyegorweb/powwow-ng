@@ -81,6 +81,7 @@
   "set": "Appliquer",
   "noResult": "Aucun résultat",
   "noResultBill": "Aucune facture",
+  "noResultExport": "Aucun export",
   "noConso": "Pas de consommation",
   "back": "Retour",
   "searching": "Recherche en cours ...",
@@ -370,6 +371,7 @@
       "nbiotltem": "Éligibilité NB-IoT et LTE-M",
       "mapAccess": "Accéder à la carte",
       "bills": "Dernières factures",
+      "exports": "Derniers exports",
       "currentUsage": {
         "title": "Suivi Conso",
         "chooseOffer": "Veuillez choisir une offre",

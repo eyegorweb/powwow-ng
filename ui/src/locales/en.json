@@ -58,6 +58,7 @@
   "set": "Apply",
   "noResult": "No result",
   "noResultBill": "No invoice",
+  "noResultExport": "No export",
   "noConso": "No consumption",
   "back": "Back",
   "searching": "Search in progress ...",
@@ -319,6 +320,7 @@
     "widgets": {
       "orders": "My orders",
       "bills": "Last invoices",
+      "exports": "Last exports",
       "nbiotltem": "Eligibility NB-IoT and LTE-M",
       "mapAccess": "Access to the map",
       "orderStatus": "Order status",

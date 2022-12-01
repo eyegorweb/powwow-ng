@@ -3,6 +3,7 @@ import ConsoWidget from './widgets/ConsoWidget';
 import CoachM2MWidget from './widgets/CoachM2MWidget';
 import ConsoGraphWidget from './widgets/ConsoGraphWidget';
 import BillsWidget from './widgets/BillsWidget';
+import LastExportWidget from './widgets/LastExportWidget';
 import OrdersStatusesWidget from './widgets/OrdersStatusesWidget';
 import MassActionTable from './widgets/MassActionTable';
 import SearchLinesByIdWidget from './widgets/SearchLinesByIdWidget';
@@ -151,6 +152,15 @@ export const defaultWidgets = [
     seeMore: { domain: 'getReport', action: 'read_bill' },
     component: BillsWidget,
     permission: { domain: 'widget', action: 'bill_history' },
+  },
+  {
+    title: 'home.widgets.exports',
+    description: '',
+    checked: true,
+    large: false,
+    seeMore: { domain: 'getReport', action: 'manage_document' },
+    component: LastExportWidget,
+    permission: { domain: 'widget', action: 'report_history' },
   },
   {
     title: 'home.widgets.currentUsage.title',
