@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1171+20221201134409
+2022-12-01
+
+### Fixes
+
+- [3433] gestion du service DATA dans la compatibilité des services (75e465b30b818da9f35624a35ea9549d3deb342b)
+
 ## 1.17.0-master.1170+20221201115000
 2022-12-01
 
