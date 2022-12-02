@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1173+20221202152351
+2022-12-02
+
+### Fixes
+
+- [3574] mise à jour de la permission pour modifier les champs libres (00262e967b955cf797dcf83bbd3f57b446b713d3)
+
 ## 1.17.0-master.1172+20221202142437
 2022-12-02
 
