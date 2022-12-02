@@ -49,7 +49,7 @@
               />
             </div>
             <UiButton
-              v-if="allCustomFields.length < MAX_ALLOWED_CUSTOM_FIELDS"
+              v-if="allCustomFields.length < MAX_ALLOWED_CUSTOM_FIELDS && canUpdate"
               variant="adder"
               block
               class
@@ -106,7 +106,7 @@ export default {
       MAX_ALLOWED_CUSTOM_FIELDS: 6,
       isOrderNumberMandatory: false,
       panel: 'order',
-      label: 'libre',
+      label: this.$t('free'),
       emailNotifAsked: false,
       emailNotif: undefined,
       emailError: undefined,
@@ -135,11 +135,14 @@ export default {
 
   computed: {
     ...mapGetters('getsim', ['selectedPartnersValues']),
-    ...mapGetters(['userIsMVNO']),
+    ...mapGetters(['userIsMVNO', 'havePermission']),
     isPartnerMVNO() {
       return (
         this.$loGet(this.synthesis, 'billingAccount.selection.partner.partyType', false) === 'MVNO'
       );
+    },
+    canUpdate() {
+      return this.havePermission('party', 'update_custom_field');
     },
   },
 
