@@ -11,15 +11,7 @@ import { Chart } from 'highcharts-vue';
 import { fetchSupervisionGraphData, exportRequestFleetSupervision } from '@/api/supervision.js';
 import { formatBytes } from '@/api/utils.js';
 import { formatLargeNumber } from '@/utils/numbers';
-import {
-  formatUTCtoStrDate,
-  getFirstDay,
-  currentDateMinusMounts,
-  isAfter,
-  DATE_FORMAT,
-  shortMonthsEn,
-  shortMonthsFr,
-} from '@/utils/date.js';
+import { formatUTCtoStrDate, currentDateMinusMounts, isAfter, DATE_FORMAT } from '@/utils/date.js';
 import { mapMutations } from 'vuex';
 
 export default {
@@ -229,18 +221,7 @@ export default {
                     chart.lbl.on('click', (evt) => {
                       const elem = chart.series[0].options.data.filter((e) => e.x === this.x);
                       const dateSplitted = elem[0].myData.formatDate.split(' ');
-                      let date;
-                      if (that.supervisionType == 'MONTH') {
-                        var month = dateSplitted[0];
-                        var year = dateSplitted[1];
-                        var monthNumber =
-                          shortMonthsFr.indexOf(month) == -1
-                            ? shortMonthsEn.indexOf(month)
-                            : shortMonthsFr.indexOf(month);
-                        date = getFirstDay(monthNumber, year);
-                      } else {
-                        date = dateSplitted[0];
-                      }
+                      let date = formatUTCtoStrDate(new Date(elem[0].myData.date));
                       const params = {
                         dateSplitted,
                         date,
