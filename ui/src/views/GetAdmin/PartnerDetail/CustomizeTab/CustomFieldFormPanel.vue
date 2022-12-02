@@ -1,7 +1,7 @@
 <template>
   <AddCustomField
     panel="admin"
-    label-title="libre"
+    :label-title="label"
     :is-updating="!!content.modifyCustomField"
     fixheight
     :close="closePanel"
@@ -23,6 +23,12 @@ export default {
 
   props: {
     content: Object,
+  },
+
+  data() {
+    return {
+      label: this.$t('free'),
+    };
   },
 
   computed: {
