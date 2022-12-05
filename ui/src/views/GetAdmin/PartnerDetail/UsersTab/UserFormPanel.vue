@@ -106,10 +106,7 @@
             </button>
           </div>
         </div>
-        <div
-          class="entries-line"
-          v-if="havePermission('user', 'set_ca') && canShowCustomerAccounsList"
-        >
+        <div class="entries-line" v-if="haveSetCaPermission && canShowCustomerAccounsList">
           <div class="form-entry">
             <button class="btn pt-0 pl-0 btn-link" @click.stop="() => openCustomerAccountsPanel()">
               <em class="arrow ic-Plus-Icon" />
@@ -138,10 +135,7 @@
             />
           </div>
         </div>
-        <div
-          class="entries-line"
-          v-if="havePermission('user', 'set_ca') && canShowCustomerAccounsList"
-        >
+        <div class="entries-line" v-if="haveSetCaPermission && canShowCustomerAccounsList">
           <div class="form-entry">
             <button class="btn pt-0 pl-0 btn-link" @click.stop="() => openCustomerAccountsPanel()">
               <em class="arrow ic-Plus-Icon" />
@@ -548,6 +542,10 @@ export default {
 
     haveWsPermission() {
       return this.havePermission('user', 'webservice_permissions');
+    },
+
+    haveSetCaPermission() {
+      return !this.havePermission('user', 'set_ca');
     },
 
     haveMailError() {
