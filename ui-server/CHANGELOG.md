@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1174+20221205162443
+2022-12-05
+
+### Fixes
+
+- [3581] gestion de la permission (user/set_ca) (62443a53e0b34a03665baf4da28209bdbe4c26e5)
+
 ## 1.17.0-master.1173+20221202152351
 2022-12-02
 
