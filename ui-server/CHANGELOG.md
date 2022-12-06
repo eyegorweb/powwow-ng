@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1176+20221206113150
+2022-12-06
+
+### Fixes
+
+- [3581] gestion de la modification des associations de cf pour un utilisateur (2d7d6522d03e85c9c9e1bacaf4693e6ec58f931c)
+
 ## 1.17.0-master.1175+20221206095007
 2022-12-06
 
