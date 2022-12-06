@@ -428,22 +428,8 @@ export default {
         userPrivate: this.form.userPrivate,
         roles: this.selectedRoles.concat(wsRoles),
       };
-      if (
-        this.content &&
-        this.content.customerAccountIds &&
-        this.content.customerAccountIds.length > 0
-      ) {
-        params.customerAccountIds = this.content.customerAccountIds;
-      } else if (
-        this.content &&
-        this.content.duplicateFrom &&
-        this.content.duplicateFrom.customerAccounts &&
-        this.content.duplicateFrom.customerAccounts.length > 0
-      ) {
-        params.customerAccountIds = this.content.duplicateFrom.customerAccounts.map((c) => c.id);
-      } else {
-        params.customerAccountIds = [];
-      }
+
+      params.customerAccountIds = this.content.customerAccountIds;
 
       if (this.createMode || this.isDuplicateMode) {
         params.password = this.form.password;
