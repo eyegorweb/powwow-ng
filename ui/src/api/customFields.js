@@ -98,7 +98,7 @@ export async function addItemToCustomFieldList(partyId, newItem, customFieldCode
 export async function fetchCustomFields(partnerId) {
   const queryStr = `
   query{
-    party(id: ${partnerId}) {
+    partyCustomFields(partyId: ${partnerId}) {
       custom1FieldLabel
       custom1FieldType
     	custom1FieldMandatory
@@ -135,7 +135,7 @@ export async function fetchCustomFields(partnerId) {
   }
   `;
   const response = await query(queryStr);
-  return formatCustomFieldsResponse(get(response, 'data.party'));
+  return formatCustomFieldsResponse(get(response, 'data.partyCustomFields'));
 }
 
 function formatCustomFieldsResponse(response) {
