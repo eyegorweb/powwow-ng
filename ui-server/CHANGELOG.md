@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1177+20221207154738
+2022-12-07
+
+### Fixes
+
+- [3585] correction du filtre partenaire automatisé sur les actes de gestion en tant qu'utilisateur partenaire (c3d0df15161999060152e06cb15494aeca98ee44)
+
 ## 1.17.0-master.1176+20221206113150
 2022-12-06
 
