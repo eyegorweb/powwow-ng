@@ -8,6 +8,7 @@ describe('GetSimOrdersActions.vue', () => {
   const store = new Store({
     getters: {
       userIsBO: false,
+      userIsM2MLight: false,
       havePermission: () => {
         return true;
       },

@@ -46,9 +46,7 @@ describe('DataTableRow.vue', () => {
 
   it('matches attributes to column names in rows', () => {
     expect(wrapper.findAll('tbody tr')).toHaveLength(1);
-    expect(
-      wrapper.contains('datatablecolumntypeswitcher-stub')
-    ).toBe(true);
+    expect(wrapper.contains('datatablecolumntypeswitcher-stub')).toBe(true);
     expect(
       wrapper
         .findAll('tbody tr')

@@ -88,7 +88,7 @@ export default {
               productCode: o.code,
             }));
           }
-        } else if (this.partner.label.length) {
+        } else if (this.partner.label && this.partner.label.length) {
           return [];
         }
       } else {
