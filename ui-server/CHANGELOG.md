@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1178+20221208084929
+2022-12-08
+
+### Fixes
+
+- [3496] confirmation button on act radius admin (9dd1147a7c35d68c1b5527a11cb8c7e767ba3e52)
+- [3550] change API for CustomFields (1b41659f48bdd7ae25c2287a11465aca46e7ac22)
+
 ## 1.17.0-master.1177+20221207154738
 2022-12-07
 
