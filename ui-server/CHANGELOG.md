@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1180+20221208125235
+2022-12-08
+
+### Fixes
+
+- [3584] gestion erreur 400 pour l'acte Changement d'offre (5a1fe985ac6b9783cd08dc7e79d999c0879d2b66)
+
 ## 1.17.0-master.1179+20221208110510
 2022-12-08
 
