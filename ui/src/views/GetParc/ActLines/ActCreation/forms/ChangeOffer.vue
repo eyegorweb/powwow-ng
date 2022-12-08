@@ -295,48 +295,6 @@ export default {
           },
         };
       }
-      // if (response.errors && response.errors.length) {
-      //   response.errors.forEach((r) => {
-      //     if (r.extensions) {
-      //       if (r.extensions.error && r.extensions.error === 'MassActionLimit') {
-      //         const count = r.extensions && r.extensions.limit ? r.extensions.limit : '';
-      //         const messageErrorMaxLine = this.$t(
-      //           'getparc.actCreation.report.FILE_MAX_LINE_NUMBER_INVALID',
-      //           {
-      //             count,
-      //           }
-      //         );
-      //         this.requestErrors = [
-      //           {
-      //             message: messageErrorMaxLine,
-      //           },
-      //         ];
-      //       } else if (
-      //         r.extensions.sourceWorkflowID === 'LONG_LIFE_NOT_ALLOWED' ||
-      //         r.extensions.targetWorkflowID === 'LONG_LIFE_NOT_ALLOWED'
-      //       ) {
-      //         this.requestErrors = [
-      //           {
-      //             message: this.$t('getparc.actCreation.errors.workflow.LONG_LIFE_NOT_ALLOWED'),
-      //           },
-      //         ];
-      //       } else {
-      //         this.requestErrors = [
-      //           {
-      //             message: r.message,
-      //           },
-      //         ];
-      //       }
-      //     }
-      //   });
-      //   return {
-      //     errors: response.errors,
-      //     validationError: {
-      //       validated: response.validated,
-      //       tempDataUuid: response.tempDataUuid,
-      //     },
-      //   };
-      // }
       return response;
     },
   },

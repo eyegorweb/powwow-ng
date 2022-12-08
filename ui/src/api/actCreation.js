@@ -910,6 +910,11 @@ export async function changeOffer(filters, lines, params, keepServices) {
     `;
 
     const response = await query(queryStr, undefined, true);
+    if (!response || !response.data) {
+      return {
+        errors: ['unknown'],
+      };
+    }
     if (response.errors) {
       return {
         errors: response.errors,
@@ -1082,8 +1087,18 @@ export async function changeSingleOffer(params) {
         }
     }
     `;
-
-  return query(queryStr);
+  const response = await query(queryStr);
+  if (!response || !response.data) {
+    return {
+      errors: ['unknown'],
+    };
+  }
+  if (response.errors) {
+    return {
+      errors: response.errors,
+    };
+  }
+  return response.data.changeOfferV2;
 }
 
 export async function createGeoLocationMassAction(simCardId) {
@@ -1123,7 +1138,11 @@ export async function createRadiusAdmin(params, action, resetEmptyField) {
 `;
 
   const response = await query(queryStr);
-
+  if (!response || !response.data) {
+    return {
+      errors: ['unknown'],
+    };
+  }
   if (response.errors) {
     return {
       errors: response.errors,
