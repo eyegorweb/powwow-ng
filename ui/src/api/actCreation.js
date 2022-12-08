@@ -912,7 +912,16 @@ export async function changeOffer(filters, lines, params, keepServices) {
     const response = await query(queryStr, undefined, true);
     if (!response || !response.data) {
       return {
-        errors: ['unknown'],
+        // errors: ['unknown'],
+        errors: [
+          {
+            message: 'Request failed with status code unknown',
+            extensions: {
+              BAD_REQUEST: 'unknown',
+              classification: 'ExecutionAborted',
+            },
+          },
+        ],
       };
     }
     if (response.errors) {
