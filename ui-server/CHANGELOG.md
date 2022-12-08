@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1179+20221208110510
+2022-12-08
+
+### Fixes
+
+- [3496] act radius confirmation button and CR (bac2c44ad66044e66c2156890baf585215194550)
+
 ## 1.17.0-master.1178+20221208084929
 2022-12-08
 
