@@ -910,27 +910,50 @@ export async function changeOffer(filters, lines, params, keepServices) {
     }
     `;
 
-    const response = await query(queryStr, undefined, true);
-    if (!response || !response.data) {
+    try {
+      const response = await query(queryStr, undefined, true);
+      if (response.errors) {
+        return {
+          errors: response.errors,
+        };
+      }
+      return response.data.changeOfferV2;
+    } catch (e) {
       return {
-        // errors: ['unknown'],
         errors: [
           {
-            message: 'Request failed with status code unknown',
+            message: "Erreur inconnue. La demande n'a pas pu aboutir.",
+            // / "Unknown error. The request could not be completed.",
             extensions: {
-              BAD_REQUEST: 'unknown',
-              classification: 'ExecutionAborted',
+              UNKNOWN_ERROR: "Erreur inconnue. La demande n'a pas pu aboutir.",
+              classification: 'UNKNOWN_ERROR',
             },
           },
         ],
       };
     }
-    if (response.errors) {
-      return {
-        errors: response.errors,
-      };
-    }
-    return response.data.changeOfferV2;
+
+    // const response = await query(queryStr, undefined, true);
+    // if (!response || !response.data) {
+    //   return {
+    //     // errors: ['unknown'],
+    //     errors: [
+    //       {
+    //         message: 'Request failed with status code unknown',
+    //         extensions: {
+    //           BAD_REQUEST: 'unknown',
+    //           classification: 'ExecutionAborted',
+    //         },
+    //       },
+    //     ],
+    //   };
+    // }
+    // if (response.errors) {
+    //   return {
+    //     errors: response.errors,
+    //   };
+    // }
+    // return response.data.changeOfferV2;
   });
 }
 
