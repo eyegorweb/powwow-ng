@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1185+20221209120808
+2022-12-09
+
+### Fixes
+
+- [3584] gestion erreur api inconnue pour l'acte Changement d'offre (f7b6d5a510ca701b9f44cc63557d002b092589fa)
+
 ## 1.17.0-master.1184+20221209104533
 2022-12-09
 
