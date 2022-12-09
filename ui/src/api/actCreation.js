@@ -919,6 +919,7 @@ export async function changeOffer(filters, lines, params, keepServices) {
       }
       return response.data.changeOfferV2;
     } catch (e) {
+      console.info("Erreur inconnue. La demande n'a pas pu aboutir.", e);
       return {
         errors: [
           {
