@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1184+20221209104533
+2022-12-09
+
+### Fixes
+
+- [3584] gestion erreur requête POST inconuue pour l'acte Changement d'offre (9cb31e1787afd69f075db81379b326471b8ce5bb)
+
 ## 1.17.0-master.1183+20221209102550
 2022-12-09
 
