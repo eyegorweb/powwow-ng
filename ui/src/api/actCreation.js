@@ -141,6 +141,7 @@ export async function changeSingleCustomFields(params) {
           custom6: "${custom6}",
           spec1: "${spec1}",
           spec2: "${spec2}",
+          unitAction: true,
         }
         ){
           tempDataUuid
