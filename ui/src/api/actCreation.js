@@ -910,34 +910,9 @@ export async function changeOffer(filters, lines, params, keepServices) {
     }
     `;
 
-    try {
-      const response = await query(queryStr, undefined, true);
-      if (response.errors) {
-        return {
-          errors: response.errors,
-        };
-      }
-      return response.data.changeOfferV2;
-    } catch (e) {
-      console.info("Erreur inconnue. La demande n'a pas pu aboutir.", e);
-      return {
-        errors: [
-          {
-            message: "Erreur inconnue. La demande n'a pas pu aboutir.",
-            // / "Unknown error. The request could not be completed.",
-            extensions: {
-              UNKNOWN_ERROR: "Erreur inconnue. La demande n'a pas pu aboutir.",
-              classification: 'UNKNOWN_ERROR',
-            },
-          },
-        ],
-      };
-    }
-
-    // const response = await query(queryStr, undefined, true);
+    const response = await query(queryStr, undefined, true);
     // if (!response || !response.data) {
     //   return {
-    //     // errors: ['unknown'],
     //     errors: [
     //       {
     //         message: 'Request failed with status code unknown',
@@ -949,12 +924,12 @@ export async function changeOffer(filters, lines, params, keepServices) {
     //     ],
     //   };
     // }
-    // if (response.errors) {
-    //   return {
-    //     errors: response.errors,
-    //   };
-    // }
-    // return response.data.changeOfferV2;
+    if (response.errors) {
+      return {
+        errors: response.errors,
+      };
+    }
+    return response.data.changeOfferV2;
   });
 }
 
