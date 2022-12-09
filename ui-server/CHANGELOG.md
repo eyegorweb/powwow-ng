@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1182+20221209094539
+2022-12-09
+
+### Fixes
+
+- [3568] add search by ID to eSim acts (8a7985070c9600d629abd04e21c5ed471c0a86cc)
+- [3588] Add unitAction params to ChangeCustomField Single line (30d3e38db65afc47b4896d43d27e75d08ada7367)
+
 ## 1.17.0-master.1181+20221208135106
 2022-12-08
 
