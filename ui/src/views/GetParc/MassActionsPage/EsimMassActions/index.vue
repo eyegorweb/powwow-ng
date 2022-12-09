@@ -47,7 +47,11 @@
       </div>
 
       <div slot="topLeft">
-        <SearchByLinesId @searchById="searchById" :init-value="searchByIdValue" :additional-ids="additionalIds"/>
+        <SearchByLinesId
+          @searchById="searchById"
+          :init-value="searchByIdValue"
+          :additional-ids="additionalIds"
+        />
       </div>
     </TableWithFilter>
   </div>
@@ -466,8 +470,8 @@ export default {
     },
     searchById(params) {
       this.searchByIdValue = params.value;
-      // TODO: API call to search by id      
-      this.applyFilters({ pagination: {page: 0, limit: 1}, filters: [params]});
+      // TODO: API call to search by id
+      this.applyFilters({ pagination: { page: 0, limit: 1 }, filters: [params] });
     },
   },
 };
