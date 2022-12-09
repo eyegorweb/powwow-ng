@@ -272,6 +272,8 @@ export default {
             errorMessage = `${this.$t('getparc.actCreation.report.' + e.value, {
               service,
             })}`;
+          } else if (e.key === 'API_ERROR') {
+            errorMessage = `${this.$t('getparc.actCreation.report.' + e.key)}`;
           } else {
             errorMessage = `${e.key}: ${e.value}`;
           }

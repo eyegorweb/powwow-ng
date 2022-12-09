@@ -2065,6 +2065,7 @@
       },
 
       "report": {
+        "API_ERROR": "Erreur inconnue. La demande n'a pas pu aboutir.",
         "DATA_EXISTS": "Lignes existantes",
         "DATA_INVALID_FORMAT": "Format invalide",
         "FILE_SIZE_LIMIT_EXCEEDED": "Le fichier est trop volumineux",

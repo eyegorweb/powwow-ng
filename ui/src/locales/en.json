@@ -1890,6 +1890,7 @@
         "confirmationWarning": "Confirm action for {count} line(s) ?"
       },
       "report": {
+        "API_ERROR": "Unknown error. The request could not be completed.",
         "DATA_EXISTS": "Existing lines",
         "DATA_INVALID_FORMAT": "Invalid format",
         "FILE_SIZE_LIMIT_EXCEEDED": "The file is too large",
