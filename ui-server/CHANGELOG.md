@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1189+20221212143251
+2022-12-12
+
+### Fixes
+
+- [0000] gestion des infos d'alarmes à masquer pour les lignes non activées (72c54e1fdce67318b7a72421b17f1f7d400edb87)
+
 ## 1.17.0-master.1188+20221212133442
 2022-12-12
 
