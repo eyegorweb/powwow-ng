@@ -55,7 +55,9 @@ export default {
 
   mounted() {
     // Sort array by integers
-    this.offerRanges.sort((a, b) => {return a.lowerBound - b.lowerBound})
+    this.offerRanges.sort((a, b) => {
+      return a.lowerBound - b.lowerBound;
+    });
   },
 
   computed: {
