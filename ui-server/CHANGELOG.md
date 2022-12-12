@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1188+20221212133442
+2022-12-12
+
+### Features
+
+- [3568] Add others unique id search and currentFilter to act esim (e52053f8e5e51b0aa9214b933a6734c671fcb1da)
+
 ## 1.17.0-master.1187+20221209153540
 2022-12-09
 
