@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1191+20221213105645
+2022-12-13
+
+### Fixes
+
+- [3568] permission on tab eSim for acts (c3098d258075e1fa5b294997e0edda4da3818952)
+
 ## 1.17.0-master.1190+20221213103235
 2022-12-13
 
