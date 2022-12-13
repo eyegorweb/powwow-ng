@@ -54,6 +54,7 @@ export default {
       return 0;
     },
     ...mapGetters(['userHaveEsimEnabled']),
+    ...mapGetters(['userInfos', 'havePermission']),
   },
 
   methods: {
@@ -67,6 +68,10 @@ export default {
             meta: { label: 'Historique des actes' },
           },
         },
+      ];
+
+      if(this.havePermission('act', 'manage_esim')) {
+        this.tabs.push(
         {
           label: 'esim',
           title: this.$t('getparc.esim-acts'),
@@ -74,8 +79,8 @@ export default {
             name: 'actHistory.esim',
             meta: { label: 'Historique des actes eSIM' },
           },
-        },
-      ];
+        },)
+      }
     },
   },
 
