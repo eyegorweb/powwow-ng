@@ -3,7 +3,7 @@
     <div
       class="data-detail-container"
       ref="panelMainContainer"
-      :class="{ 'main-content': !main }"
+      :class="{ 'main-content': !main, 'withButtons': !noButtons }"
       @scroll="$emit('scroll', $refs.panelMainContainer)"
     >
       <slot></slot>
@@ -22,6 +22,10 @@ export default {
   props: {
     white: Boolean,
     main: Boolean,
+    noButtons: {
+      type: Boolean,
+      default: false,
+    }
   },
 };
 </script>
@@ -34,8 +38,12 @@ export default {
 <style lang="scss">
 $fontSize: 0.8rem;
 
+.withButtons {  
+  margin-bottom: 80px;
+}
+
 .panel-vertical-container {
-  overflow-y: scroll;
+  overflow-y: hidden;
 
   @media only screen and (max-width: 1024px) {
     width: 100%;

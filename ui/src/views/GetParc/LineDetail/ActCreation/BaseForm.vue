@@ -1,5 +1,7 @@
 <template>
-  <BaseDetailPanelContent>
+  <BaseDetailPanelContent
+    :no-buttons="noButtons"
+  >
     <div class="overview-container m-3 bg-white">
       <slot></slot>
 
@@ -59,7 +61,12 @@ export default {
     warningMsg: String,
     canSend: Boolean,
     changeOffer: Boolean,
+    noButtons: {
+      type: Boolean,
+      default: false,
+    }
   },
+
   components: {
     BaseDetailPanelContent,
     UiDate,
