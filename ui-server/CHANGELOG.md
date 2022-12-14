@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1193+20221214111703
+2022-12-14
+
+### Features
+
+- [3586] ajout du filtre Communauté pour rechercher des lignes (763f749866a6c4b383c694edef5724167913098b)
+
 ## 1.17.0-master.1192+20221214102934
 2022-12-14
 
