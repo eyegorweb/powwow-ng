@@ -193,36 +193,40 @@ export default {
           id: 30,
         },
         {
-          key: 'esim1',
+          key: 'el31',
           id: 31,
         },
         {
-          key: 'esim2',
+          key: 'esim1',
           id: 32,
         },
         {
-          key: 'esim3',
+          key: 'esim2',
           id: 33,
         },
         {
-          key: 'esim4',
+          key: 'esim3',
           id: 34,
         },
         {
-          key: 'downloadedProfile',
+          key: 'esim4',
           id: 35,
         },
         {
-          key: 'esim5',
+          key: 'downloadedProfile',
           id: 36,
         },
         {
-          key: 'esim6',
+          key: 'esim5',
           id: 37,
         },
         {
-          key: 'esim7',
+          key: 'esim6',
           id: 38,
+        },
+        {
+          key: 'esim7',
+          id: 39,
         },
       ],
       nbOfFilters: 10,

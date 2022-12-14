@@ -637,6 +637,42 @@ export async function fetchODOffers(partyId, offer) {
   return response.data.workflows;
 }
 
+export async function fetchYorkCommunity(q, partners, { page, limit, partnerType }) {
+  return await searchYorkCommunity(q, partners, { page, limit, partnerType });
+}
+
+export async function searchYorkCommunity(q, partners, { page, limit, partnerType }) {
+  let partnersIds,
+    partnerGqlParam = '';
+
+  if (partners && partners.length > 0) {
+    partnersIds = partners
+      .filter((i) => i && i.id)
+      .map((i) => `"${i.id}"`)
+      .join(',');
+    partnerGqlParam = `, partyId:{in: [${partnersIds}]}`;
+  }
+
+  let partnerTypeGqlFilter = '';
+  if (partnerType) {
+    partnerTypeGqlFilter = `, partyType: {in: [${partnerType}]}`;
+  }
+
+  const queryStr = `
+  query{
+    yorkCommunities(filter:{cosCommunityCode: {startsWith: "${q}"}${partnerGqlParam}${partnerTypeGqlFilter}}, pagination: {limit: ${limit}, page: ${page}}) {
+      total,
+      items {
+        id
+        code
+      }
+    }
+  }
+  `;
+  const response = await query(queryStr);
+  return response.data.yorkCommunities.items;
+}
+
 function formatDateForGql(inDate) {
   if (!inDate) return '';
   const startDate = inDate.replace(/\//g, '-');

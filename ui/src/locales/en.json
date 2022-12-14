@@ -1797,6 +1797,7 @@
         "CHANGE_SIMCARD": "Change SIM card",
         "RADIUS_ADMIN": "Radius admin",
         "CHANGE_MSISDN": "Change MSISDN",
+        "UPDATE_YORK_COMMUNITY": "Modif CoS",
         "ACTIVATE_PREACTIVATE": "Preactivate / Activate lines",
         "esim": {
           "PAIRING": "Pairing eSIM",
@@ -1821,6 +1822,7 @@
         "CHANGE_SIMCARD": "Configure the change of SIM cards",
         "ACTIVATE_PREACTIVATE": "Configure activation / Pre-activation",
         "CHANGE_OFFER": "Configure change of offer",
+        "UPDATE_YORK_COMMUNITY": "Configure CoS modification",
         "RADIUS_ADMIN": "Configure Radius administration"
       },
       "modal": {
@@ -2330,6 +2332,7 @@
       "commercialStatus": "Commercial status",
       "billingStatus": "Billing status",
       "networkStatus": "Network status",
+      "community": "Community",
       "importDate": "Date of import",
       "endCommitmentDate": "Package end date",
       "activationDate": "Activation date",
