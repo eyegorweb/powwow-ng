@@ -106,10 +106,7 @@
             </button>
           </div>
         </div>
-        <div
-          class="entries-line"
-          v-if="havePermission('user', 'set_ca') && canShowCustomerAccounsList"
-        >
+        <div class="entries-line" v-if="haveSetCaPermission && canShowCustomerAccounsList">
           <div class="form-entry">
             <button class="btn pt-0 pl-0 btn-link" @click.stop="() => openCustomerAccountsPanel()">
               <em class="arrow ic-Plus-Icon" />
@@ -138,10 +135,7 @@
             />
           </div>
         </div>
-        <div
-          class="entries-line"
-          v-if="havePermission('user', 'set_ca') && canShowCustomerAccounsList"
-        >
+        <div class="entries-line" v-if="haveSetCaPermission && canShowCustomerAccounsList">
           <div class="form-entry">
             <button class="btn pt-0 pl-0 btn-link" @click.stop="() => openCustomerAccountsPanel()">
               <em class="arrow ic-Plus-Icon" />
@@ -434,22 +428,8 @@ export default {
         userPrivate: this.form.userPrivate,
         roles: this.selectedRoles.concat(wsRoles),
       };
-      if (
-        this.content &&
-        this.content.customerAccountIds &&
-        this.content.customerAccountIds.length > 0
-      ) {
-        params.customerAccountIds = this.content.customerAccountIds;
-      } else if (
-        this.content &&
-        this.content.duplicateFrom &&
-        this.content.duplicateFrom.customerAccounts &&
-        this.content.duplicateFrom.customerAccounts.length > 0
-      ) {
-        params.customerAccountIds = this.content.duplicateFrom.customerAccounts.map((c) => c.id);
-      } else {
-        params.customerAccountIds = [];
-      }
+
+      params.customerAccountIds = this.content.customerAccountIds;
 
       if (this.createMode || this.isDuplicateMode) {
         params.password = this.form.password;
@@ -548,6 +528,10 @@ export default {
 
     haveWsPermission() {
       return this.havePermission('user', 'webservice_permissions');
+    },
+
+    haveSetCaPermission() {
+      return this.havePermission('user', 'set_ca');
     },
 
     haveMailError() {

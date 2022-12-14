@@ -429,6 +429,7 @@ function addIdsFilter(gqlFilters, selectedFilters) {
   const imei = selectedFilters.find((f) => f.id === 'filters.imei');
   const massActionID = selectedFilters.find((f) => f.id === 'filters.massActionID');
   const unitActionId = selectedFilters.find((f) => f.id === 'filters.unitActionId');
+  const reservationId = selectedFilters.find((f) => f.id === 'filters.reservationId');
 
   if (iccid) {
     gqlFilters.push(`identifierFilter: {iccid: "${iccid.value}"}`);
@@ -450,6 +451,9 @@ function addIdsFilter(gqlFilters, selectedFilters) {
   }
   if (unitActionId) {
     gqlFilters.push(`unitActionId: ${unitActionId.value}`);
+  }
+  if (reservationId) {
+    gqlFilters.push(`reservationId: ${reservationId.value}`);
   }
 }
 

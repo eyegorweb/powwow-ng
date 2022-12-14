@@ -5,7 +5,7 @@
         <li
           v-for="item in visibleMenuItems"
           :key="item.title"
-          :class="`menu_${item.section}`"
+          :class="({ '-inactive': !isLineActive }, `menu_${item.section}`)"
           class="list-group-item"
         >
           <router-link :to="item.to" :class="{ active: $route.name == item.to.name }">
@@ -98,6 +98,14 @@ export default {
       );
       return visibleItems;
     },
+    isLineActive() {
+      const networkStatus = this.$loGet(this.content, 'accessPoint.networkStatus');
+      const simStatus = this.$loGet(this.content, 'statuts');
+      return (
+        simStatus === 'ALLOCATED' &&
+        (networkStatus === 'ACTIVATED' || networkStatus === 'SUSPENDED')
+      );
+    },
   },
 
   methods: {
@@ -111,7 +119,7 @@ export default {
             permit = true;
           }
         });
-        return permit;
+        return permit && this.isLineActive;
       });
     },
   },

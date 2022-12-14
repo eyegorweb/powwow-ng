@@ -105,10 +105,21 @@
     >
       <ActLinesNetworkStatusFilter />
     </FoldableBlock>
+
     <FoldableBlock
       v-if="keyName === 'el12'"
-      :title="$t('filters.orderDate')"
+      :title="$t('filters.lines.community')"
       :key="'el12'"
+      :disabled="filtersAreDisabled"
+      draggable
+    >
+      <ActLinesCommunityFilter />
+    </FoldableBlock>
+
+    <FoldableBlock
+      v-if="keyName === 'el13'"
+      :title="$t('filters.orderDate')"
+      :key="'el13'"
       :disabled="filtersAreDisabled"
       draggable
     >
@@ -120,9 +131,9 @@
       />
     </FoldableBlock>
     <FoldableBlock
-      v-if="keyName === 'el13'"
+      v-if="keyName === 'el14'"
       :title="$t('filters.lines.importDate')"
-      :key="'el13'"
+      :key="'el14'"
       :disabled="filtersAreDisabled"
       draggable
     >
@@ -134,9 +145,9 @@
       />
     </FoldableBlock>
     <FoldableBlock
-      v-if="keyName === 'el14'"
+      v-if="keyName === 'el15'"
       :title="$t('filters.lines.endCommitmentDate')"
-      :key="'el14'"
+      :key="'el15'"
       :disabled="filtersAreDisabled"
       draggable
     >
@@ -148,9 +159,9 @@
       />
     </FoldableBlock>
     <FoldableBlock
-      v-if="keyName === 'el15'"
+      v-if="keyName === 'el16'"
       :title="$t('filters.lines.activationDate')"
-      :key="'el15'"
+      :key="'el16'"
       :disabled="filtersAreDisabled"
       draggable
     >
@@ -162,9 +173,9 @@
       />
     </FoldableBlock>
     <FoldableBlock
-      v-if="keyName === 'el16'"
+      v-if="keyName === 'el17'"
       :title="$t('filters.lines.preActivationDate')"
-      :key="'el16'"
+      :key="'el17'"
       :disabled="filtersAreDisabled"
       draggable
     >
@@ -176,9 +187,9 @@
       />
     </FoldableBlock>
     <FoldableBlock
-      v-if="keyName === 'el17'"
+      v-if="keyName === 'el18'"
       :title="$t('filters.lines.statusDate')"
-      :key="'el17'"
+      :key="'el18'"
       :disabled="filtersAreDisabled"
       draggable
     >
@@ -190,18 +201,18 @@
       />
     </FoldableBlock>
     <FoldableBlock
-      v-if="keyName === 'el18'"
+      v-if="keyName === 'el19'"
       :title="$t('filters.country')"
-      :key="'el18'"
+      :key="'el19'"
       :disabled="filtersAreDisabled"
       draggable
     >
       <ActLinesCountries />
     </FoldableBlock>
     <FoldableBlock
-      v-if="keyName === 'el19'"
+      v-if="keyName === 'el20'"
       :title="$t('filters.postalCode')"
-      :key="'el19'"
+      :key="'el20'"
       :disabled="filtersAreDisabled"
       draggable
     >
@@ -215,28 +226,28 @@
         !userIsMVNO &&
           (havePermission('getParc', 'manage_esim') ||
             havePermission('getParc', 'manage_esim_light')) &&
-          keyName === 'el20'
+          keyName === 'el21'
       "
       :title="$t('filters.lines.profileEUICC')"
-      :key="'el20'"
+      :key="'el21'"
       :disabled="filtersAreDisabled"
       draggable
     >
       <ActLineProfileStateFilter />
     </FoldableBlock>
     <FoldableBlock
-      v-if="!userIsMVNO && keyName === 'el21'"
+      v-if="!userIsMVNO && keyName === 'el22'"
       :title="$t('filters.lines.customFileds')"
-      :key="'el21'"
+      :key="'el22'"
       :disabled="filtersAreDisabled"
       draggable
     >
       <ActLinesCustomFields />
     </FoldableBlock>
     <FoldableBlock
-      v-if="keyName === 'el22'"
+      v-if="keyName === 'el23'"
       :title="$t('filters.lines.rangeICCID')"
-      :key="'el22'"
+      :key="'el23'"
       :disabled="filtersAreDisabled"
       draggable
     >
@@ -246,18 +257,18 @@
       />
     </FoldableBlock>
     <FoldableBlock
-      v-if="keyName === 'el23'"
+      v-if="keyName === 'el24'"
       :title="$t('filters.lines.rangeIMSI')"
-      :key="'el23'"
+      :key="'el24'"
       :disabled="filtersAreDisabled"
       draggable
     >
       <ActLinesRangeFilter :values="selectedIMSIValue" @update:values="selectIMSIFilter($event)" />
     </FoldableBlock>
     <FoldableBlock
-      v-if="keyName === 'el24'"
+      v-if="keyName === 'el25'"
       :title="$t('filters.lines.rangeMSISDN')"
-      :key="'el24'"
+      :key="'el25'"
       :disabled="filtersAreDisabled"
       draggable
     >
@@ -267,18 +278,18 @@
       />
     </FoldableBlock>
     <FoldableBlock
-      v-if="keyName === 'el25'"
+      v-if="keyName === 'el26'"
       :title="$t('filters.lines.rangeIMEI')"
-      :key="'el25'"
+      :key="'el26'"
       :disabled="filtersAreDisabled"
       draggable
     >
       <ActLinesRangeFilter :values="selectedIMEIValue" @update:values="selectIMEIFilter($event)" />
     </FoldableBlock>
     <FoldableBlock
-      v-if="!userIsMVNO && (userIsMultiCustomer || userIsOperator) && keyName === 'el26'"
+      v-if="!userIsMVNO && (userIsMultiCustomer || userIsOperator) && keyName === 'el27'"
       :title="$t('filters.lines.siren')"
-      :key="'el26'"
+      :key="'el27'"
       :disabled="filtersAreDisabled"
       draggable
     >
@@ -288,9 +299,9 @@
       />
     </FoldableBlock>
     <FoldableBlock
-      v-if="keyName === 'el27'"
+      v-if="keyName === 'el28'"
       :title="$t('orders.detail.manageID')"
-      :key="'el27'"
+      :key="'el28'"
       :disabled="filtersAreDisabled"
       draggable
     >
@@ -300,9 +311,9 @@
       />
     </FoldableBlock>
     <FoldableBlock
-      v-if="!userIsMVNO && keyName === 'el28'"
+      v-if="!userIsMVNO && keyName === 'el29'"
       :title="$t('filters.lines.traffic')"
-      :key="'el28'"
+      :key="'el29'"
       :disabled="filtersAreDisabled"
       draggable
     >
@@ -318,19 +329,19 @@
     <FoldableBlock
       v-if="
         (((userIsPartner || userIsGroupPartner) && hasOptionIpFixe) || userIsBO) &&
-          keyName === 'el29'
+          keyName === 'el30'
       "
       :title="$t('filters.lines.ipFixe')"
-      :key="'el29'"
+      :key="'el30'"
       :disabled="filtersAreDisabled"
       draggable
     >
       <SimpleInputFilter :selected-value="selectedIPValue" @update:value="selectIPFilter($event)" />
     </FoldableBlock>
     <FoldableBlock
-      v-if="userIsBO && keyName === 'el30'"
+      v-if="userIsBO && keyName === 'el31'"
       :title="$t('filters.lines.terminationValidated')"
-      :key="'el30'"
+      :key="'el31'"
       :disabled="filtersAreDisabled"
       draggable
     >
@@ -443,6 +454,7 @@ import ActLineProfileStateFilter from './ActLineProfileStateFilter';
 import ActLinesSimStatuses from './ActLinesSimStatuses';
 import ActLinesBillingStatusFilter from './ActLinesBillingStatusFilter';
 import ActLinesNetworkStatusFilter from './ActLinesNetworkStatusFilter';
+import ActLinesCommunityFilter from './ActLinesCommunityFilter';
 import UiCheckbox from '@/components/ui/Checkbox';
 import ActLinesCountries from './ActLinesCountries';
 import ActLinesCustomFields from './ActLinesCustomFields';
@@ -478,6 +490,7 @@ export default {
     ActLinesSimStatuses,
     ActLinesBillingStatusFilter,
     ActLinesNetworkStatusFilter,
+    ActLinesCommunityFilter,
     UiCheckbox,
     DateFilter,
     ActLinesCountries,
@@ -512,6 +525,7 @@ export default {
       'selectedTerminationValue',
       'selectedEsimCategoryValue',
       'selectedSmsRid',
+      'selectedCommunityValues',
       // 'selectedEsimFamilyValue'
       // 'selectedIdTypeFromFileValue',
       // 'selectedFileValue',

@@ -157,7 +157,7 @@ export default {
         ) {
           this.setPrerequisites({
             search: true,
-            isPartnerHidden: true,
+            isHidden: true,
             partner: this.defaultAppliedFilters[0].values[0],
           });
         }
@@ -177,7 +177,7 @@ export default {
       if (allPrereq.partner) {
         this.setPartnersFilter({
           partners: [allPrereq.partner],
-          isHidden: !!allPrereq.isPartnerHidden,
+          isHidden: this.userIsPartner,
         });
       }
 

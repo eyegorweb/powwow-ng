@@ -47,7 +47,11 @@
       </div>
 
       <div slot="topLeft">
-        <SearchByLinesId @searchById="searchById" :init-value="searchByIdValue" />
+        <SearchByLinesId
+          @searchById="searchById"
+          :init-value="searchByIdValue"
+          :additional-ids="additionalIds"
+        />
       </div>
     </TableWithFilter>
   </div>
@@ -99,6 +103,30 @@ export default {
       currentFilters: undefined,
       lastPayload: undefined,
       defaultValues: undefined,
+      additionalIds: [
+        {
+          code: 'c6',
+          value: 'massActionID',
+          label: this.$t('getparc.search.act-mass-id'),
+          checkFn: (value) => {
+            if (isNaN(value)) return true;
+            return (
+              value.length !== 0 &&
+              (value.length !== 19 || value.length !== 15 || value.length !== 11)
+            );
+          },
+        },
+        {
+          code: 'c7',
+          value: 'unitActionId',
+          label: this.$t('getparc.search.act-unit-id'),
+        },
+        {
+          code: 'c8',
+          value: 'reservationId',
+          label: this.$t('getsim.reservations.columns.id'),
+        },
+      ],
     };
   },
   async mounted() {
@@ -435,7 +463,6 @@ export default {
     },
     async applyFilters(payload) {
       this.lastPayload = payload;
-
       const { pagination, filters, orderBy } = payload || {
         pagination: { page: 0, limit: 20 },
         filters: this.defaultValues,
@@ -460,7 +487,8 @@ export default {
     },
     searchById(params) {
       this.searchByIdValue = params.value;
-      // TODO: API call to search by id
+      const filters = [...this.currentFilters, params];
+      this.applyFilters({ pagination: { page: 0, limit: 1 }, filters });
     },
   },
 };

@@ -3,6 +3,7 @@
     warning-msg="getparc.actCreation.changeCustomFields.confirmationWarning"
     :validate-fn="doRequest"
     :can-send="canSend"
+    no-buttons
   >
     <div class="overview-item mr-5">
       <h6>{{ $t('getparc.actCreation.step2Titles.CUSTOM_FIELDS') }} :</h6>

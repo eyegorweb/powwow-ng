@@ -2,6 +2,168 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1193+20221214111703
+2022-12-14
+
+### Features
+
+- [3586] ajout du filtre Communauté pour rechercher des lignes (763f749866a6c4b383c694edef5724167913098b)
+
+## 1.17.0-master.1192+20221214102934
+2022-12-14
+
+### Fixes
+
+- [3593] Change IP_FIXE filter api for condition on ActLine (3a6155e11db42b1d81978cf193b807dc5935497e)
+
+## 1.17.0-master.1191+20221213105645
+2022-12-13
+
+### Fixes
+
+- [3568] permission on tab eSim for acts (c3098d258075e1fa5b294997e0edda4da3818952)
+
+## 1.17.0-master.1190+20221213103235
+2022-12-13
+
+## 1.17.0-master.1189+20221212143251
+2022-12-12
+
+### Fixes
+
+- [0000] gestion des infos d'alarmes à masquer pour les lignes non activées (72c54e1fdce67318b7a72421b17f1f7d400edb87)
+
+## 1.17.0-master.1188+20221212133442
+2022-12-12
+
+### Features
+
+- [3568] Add others unique id search and currentFilter to act esim (e52053f8e5e51b0aa9214b933a6734c671fcb1da)
+
+## 1.17.0-master.1187+20221209153540
+2022-12-09
+
+### Fixes
+
+- [3584] gestion erreur api inconnue pour l'acte Changement d'offre (4f5920051e7e432d7d38724750af0659d299d45c)
+
+## 1.17.0-master.1186+20221209125656
+2022-12-09
+
+### Fixes
+
+- [3584] gestion erreur api inconnue pour l'acte Changement d'offre (a5fea3d274a8dfbd6203b94392ce396ab05dd34d)
+
+## 1.17.0-master.1185+20221209120808
+2022-12-09
+
+### Fixes
+
+- [3584] gestion erreur api inconnue pour l'acte Changement d'offre (f7b6d5a510ca701b9f44cc63557d002b092589fa)
+
+## 1.17.0-master.1184+20221209104533
+2022-12-09
+
+### Fixes
+
+- [3584] gestion erreur requête POST inconuue pour l'acte Changement d'offre (9cb31e1787afd69f075db81379b326471b8ce5bb)
+
+## 1.17.0-master.1183+20221209102550
+2022-12-09
+
+## 1.17.0-master.1182+20221209094539
+2022-12-09
+
+### Fixes
+
+- [3568] add search by ID to eSim acts (8a7985070c9600d629abd04e21c5ed471c0a86cc)
+- [3588] Add unitAction params to ChangeCustomField Single line (30d3e38db65afc47b4896d43d27e75d08ada7367)
+
+## 1.17.0-master.1181+20221208135106
+2022-12-08
+
+### Fixes
+
+- [3584] gestion erreur requête POST inconuue pour l'acte Changement d'offre (88fb4fa05bfb1686d76ee563ebd3c657d8ffa4f7)
+
+## 1.17.0-master.1180+20221208125235
+2022-12-08
+
+### Fixes
+
+- [3584] gestion erreur 400 pour l'acte Changement d'offre (5a1fe985ac6b9783cd08dc7e79d999c0879d2b66)
+
+## 1.17.0-master.1179+20221208110510
+2022-12-08
+
+### Fixes
+
+- [3496] act radius confirmation button and CR (bac2c44ad66044e66c2156890baf585215194550)
+
+## 1.17.0-master.1178+20221208084929
+2022-12-08
+
+### Fixes
+
+- [3496] confirmation button on act radius admin (9dd1147a7c35d68c1b5527a11cb8c7e767ba3e52)
+- [3550] change API for CustomFields (1b41659f48bdd7ae25c2287a11465aca46e7ac22)
+
+## 1.17.0-master.1177+20221207154738
+2022-12-07
+
+### Fixes
+
+- [3585] correction du filtre partenaire automatisé sur les actes de gestion en tant qu'utilisateur partenaire (c3d0df15161999060152e06cb15494aeca98ee44)
+
+## 1.17.0-master.1176+20221206113150
+2022-12-06
+
+### Fixes
+
+- [3581] gestion de la modification des associations de cf pour un utilisateur (2d7d6522d03e85c9c9e1bacaf4693e6ec58f931c)
+
+## 1.17.0-master.1175+20221206095007
+2022-12-06
+
+### Fixes
+
+- [3581] gestion de la permission (user/set_ca) (3f66bc7c9c3062054f2d4daaa2e517a1bc33f45d)
+
+## 1.17.0-master.1174+20221205162443
+2022-12-05
+
+### Fixes
+
+- [3581] gestion de la permission (user/set_ca) (62443a53e0b34a03665baf4da28209bdbe4c26e5)
+
+## 1.17.0-master.1173+20221202152351
+2022-12-02
+
+### Fixes
+
+- [3574] mise à jour de la permission pour modifier les champs libres (00262e967b955cf797dcf83bbd3f57b446b713d3)
+
+## 1.17.0-master.1172+20221202142437
+2022-12-02
+
+### Fixes
+
+- [3561] corriger l'export des états de services (6440d1a2703ed680eb3cd9cc8df6a4595218be9f)
+
+## 1.17.0-master.1171+20221201134409
+2022-12-01
+
+### Fixes
+
+- [3433] gestion du service DATA dans la compatibilité des services (75e465b30b818da9f35624a35ea9549d3deb342b)
+
+## 1.17.0-master.1170+20221201115000
+2022-12-01
+
+### Features
+
+- [3526] Add widget last reports (54ad6525c1ec7bf4309e18f7b770a148124f6995)
+
 ## 1.17.0-master.1169+20221130134550
 2022-11-30
 

@@ -46,9 +46,18 @@ export async function query(q, variables, careful = false) {
         const response = await api.post(process.env.VUE_APP_GQL_SERVER_URL, payload);
         return response.data;
       } catch (e) {
-        console.log(e);
+        // Format clé/valeur de l'exception retournée à respecter pour la mise en place du gestionnaire d'erreur côté IHM
+        console.error("Erreur inconnue. La demande n'a pas pu aboutir.", e);
         return {
-          errors: [{ code: 'API_ERROR', message: 'API Error' }],
+          errors: [
+            {
+              message: "Erreur inconnue. La demande n'a pas pu aboutir.",
+              extensions: {
+                API_ERROR: "Erreur inconnue. La demande n'a pas pu aboutir.",
+                classification: 'API_ERROR',
+              },
+            },
+          ],
         };
       }
     } else {

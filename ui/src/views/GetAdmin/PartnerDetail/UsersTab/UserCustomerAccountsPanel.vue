@@ -139,10 +139,7 @@ export default {
     checkSelectedCustomerAccounts(options) {
       if (!options.length && !this.initialSelectedOptions.length) {
         return false;
-      } else if (
-        this.initialSelectedOptions.length &&
-        this.initialSelectedOptions.length !== options.length
-      ) {
+      } else if (this.initialSelectedOptions.length !== options.length) {
         return true;
       } else if (
         this.initialSelectedOptions.length &&

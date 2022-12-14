@@ -27,7 +27,7 @@
               />
             </div>
             <UiButton
-              v-if="allCustomFields.length < MAX_ALLOWED_CUSTOM_FIELDS"
+              v-if="allCustomFields.length < MAX_ALLOWED_CUSTOM_FIELDS && canUpdate"
               variant="adder"
               block
               class
@@ -81,7 +81,7 @@ export default {
       MAX_ALLOWED_CUSTOM_FIELDS: 6,
       isOrderNumberMandatory: false,
       panel: 'order',
-      label: 'libre',
+      label: this.$t('free'),
     };
   },
 
@@ -107,7 +107,10 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['userIsMVNO']),
+    ...mapGetters(['userIsMVNO', 'havePermission']),
+    canUpdate() {
+      return this.havePermission('party', 'update_custom_field');
+    },
   },
 
   methods: {

@@ -48,6 +48,7 @@ export const getters = {
   selectedSimStatuses: findFilterById('filters.lines.SIMCardStatus'),
   selectedDownloadProfile: findFilterById('filters.downloadedProfile'),
   selectedBillingAccountsValues: findFilterValuesById('filters.billingAccounts'),
+  selectedCommunityValues: findFilterValuesById('filters.lines.community'),
   selectedNetworkStatusesValues: findFilterValuesById('filters.lines.networkStatus'),
   selectedBilligStatusesValues: findFilterValuesById('filters.lines.billingStatus'),
   selectedTypeSimCardValues: (state) => {
@@ -258,6 +259,12 @@ export const mutations = {
     selectFilterValue(state, {
       id: 'filters.billingAccounts',
       values: billingAccounts,
+    });
+  },
+  setCommunityFilter(state, communities) {
+    selectFilterValue(state, {
+      id: 'filters.lines.community',
+      values: communities,
     });
   },
   setTypeSimCardFilter(s, types) {

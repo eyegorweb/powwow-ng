@@ -1,7 +1,7 @@
 <template>
   <PrereqContainer @validate="validatePrerequisites" :can-validate="canValidate">
     <div class="row">
-      <div class="col">
+      <div class="col" v-if="!partner">
         <h5>{{ $t('getparc.actLines.step1Partner') }}</h5>
         <PartnersPart @setpartner="setPartner" />
       </div>

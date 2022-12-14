@@ -18,6 +18,7 @@ describe(`LinesTable : Options d'export`, () => {
       'actLines/appliedFilters': [],
       'actLines/isLoading': false,
       limitPerPage: false,
+      userIsBO: false,
       apiError: false,
       userIsPartner: false,
       userInfos: false,

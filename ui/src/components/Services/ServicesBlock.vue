@@ -337,6 +337,7 @@ export default {
 
             if (!foundMandatoryService) {
               foundMandatoryService = this.findMandatoryService(serv, true);
+              this.setupDependencies(foundMandatoryService);
               this.popupMessage(
                 this.$t('getadmin.partners.optionsDetails.services.yMustBeActiveToActivateX', {
                   serviceX: s.labelService,
