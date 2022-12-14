@@ -26,7 +26,7 @@ export default {
       const data = await fetchYorkCommunity(q, partners, { page, limit, partnerType });
       if (data) {
         return data.map((d) => ({
-          id: d.id,
+          id: d.code,
           label: `${d.code}`,
           data: d,
         }));
