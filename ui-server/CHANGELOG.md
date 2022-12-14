@@ -2,6 +2,23 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1196+20221214172539
+2022-12-14
+
+## 1.17.0-master.1195+20221214154306
+2022-12-14
+
+### Fixes
+
+- [3366] Evolution of tabs permission for linedetail (d8de3b3640b525ea0f737952a25e84527dac7a1f)
+
+## 1.17.0-master.1194+20221214140258
+2022-12-14
+
+### Features
+
+- [3586] ajout du filtre Communauté pour rechercher des lignes (9d4b293b10a209e667d0d0eca40bb422fb3119c5)
+
 ## 1.17.0-master.1193+20221214111703
 2022-12-14
 

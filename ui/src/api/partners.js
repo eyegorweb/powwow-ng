@@ -952,37 +952,32 @@ export async function fetchpartnerAddresses(id) {
 
   const queryForAddresses = `
   query {
-    party(id:${id}) {
-      partyShippingAddresses(
-        addressFilter:{stringToFind:{contains:""}},
-        adressSorting: {id: ASC},
-        addressPagination: {limit: 999, page: 0}){
-          total
-          items{
-            id
-            company
-            name {
-              title
-              firstName
-              lastName
-            }
-            contactInformation {
-              email
-              phone
-              mobile
-            }
-            address {
-              address1
-              address2
-              address3
-              zipCode
-              city
-              state
-              country
-              countryName
-              }
+    partyShippingAddresses(partyId:${id}){
+        total
+        items{
+          id
+          company
+          name {
+            title
+            firstName
+            lastName
           }
-      }
+          contactInformation {
+            email
+            phone
+            mobile
+          }
+          address {
+            address1
+            address2
+            address3
+            zipCode
+            city
+            state
+            country
+            countryName
+            }
+        }
     }
   }`;
 
@@ -993,8 +988,8 @@ export async function fetchpartnerAddresses(id) {
     last = lastAddressResp.data.orders.items[0];
   }
 
-  if (allAddressesResp && allAddressesResp.data.party.partyShippingAddresses.items.length > 0) {
-    all = allAddressesResp.data.party.partyShippingAddresses.items;
+  if (allAddressesResp && allAddressesResp.data.partyShippingAddresses.items.length > 0) {
+    all = allAddressesResp.data.partyShippingAddresses.items;
   }
 
   return { last, all };
