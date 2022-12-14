@@ -12,6 +12,7 @@
 <script>
 import SearchLinesByFileImportFilter from '@/components/Filters/SearchLinesByFileImportFilter.vue';
 import { mapMutations, mapGetters, mapActions } from 'vuex';
+import { isFeatureAvailable } from '@/api/partners';
 
 export default {
   data() {
@@ -47,10 +48,10 @@ export default {
     },
   },
 
-  mounted() {
+  async mounted() {
     let ipFixeEnabled = false;
     if (this.userIsPartner || this.userInfos.type === 'PARTNER_GROUP') {
-      ipFixeEnabled = this.userPartnerOptions.ipFixeEnable;
+      ipFixeEnabled = await isFeatureAvailable('IP_FIXE_ENABLED');
     }
 
     if (((this.userIsPartner || this.userIsGroupPartner) && ipFixeEnabled) || this.userIsBO) {

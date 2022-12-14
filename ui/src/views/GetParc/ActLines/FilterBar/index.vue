@@ -56,6 +56,7 @@ import SelectedFiltersManagement from '@/components/Filters/SelectedFiltersManag
 import { getPartyOptions } from '@/api/partners.js';
 import { areFiltersEmpty } from '@/store/filterUtils.js';
 import { getFiltersStorage, setFiltersStorage } from '@/utils/localstorage.js';
+import { isFeatureAvailable } from '@/api/partners';
 
 export default {
   components: {
@@ -282,10 +283,8 @@ export default {
     ...mapActions('actLines', ['clearFilter']),
 
     async fetchPartnerOptions() {
-      let response;
       if (this.userIsPartner || this.userInfos.type === 'PARTNER_GROUP') {
-        response = await getPartyOptions(this.userInfos.partners[0].id);
-        this.ipFixeEnabled = response ? response.ipFixeEnable : true;
+        this.ipFixeEnabled = await isFeatureAvailable('IP_FIXE_ENABLED');
       } else {
         this.ipFixeEnabled = true;
       }
