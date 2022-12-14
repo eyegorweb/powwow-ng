@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1192+20221214102934
+2022-12-14
+
+### Fixes
+
+- [3593] Change IP_FIXE filter api for condition on ActLine (3a6155e11db42b1d81978cf193b807dc5935497e)
+
 ## 1.17.0-master.1191+20221213105645
 2022-12-13
 
