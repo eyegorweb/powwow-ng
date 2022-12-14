@@ -94,6 +94,15 @@ export default {
           params: { lineId: this.$route.params.lineId },
         },
       },
+    ].filter((i) => {
+      if (this.userIsM2MLight) {
+        return i.label !== 'diagnosis';
+      }
+      return true;
+    });
+
+    if(this.hasPermissionForDiag) {
+      this.tabs = [...this.tabs, 
       {
         label: 'diagnosis',
         title: 'getparc.lineDetail.analysingTool', // ne pas afficher l'onglet si on n'a pas les permissions
@@ -102,13 +111,8 @@ export default {
           meta: { label: 'Détail de la ligne - Analyser la ligne' },
           params: { lineId: this.$route.params.lineId },
         },
-      },
-    ].filter((i) => {
-      if (this.userIsM2MLight) {
-        return i.label !== 'diagnosis';
-      }
-      return true;
-    });
+      }]
+    }
   },
   data() {
     return {
@@ -135,6 +139,16 @@ export default {
       'userIsMultiCustomer',
       'userIsM2MLight',
     ]),
+
+    async hasPermissionForDiag() {
+      return (
+        this.havePermission('getParc', 'manage_coach') ||
+        this.havePermission('getVision', 'read') ||
+        await isFeatureAvailable('AUTODIAGNOSTIC_ENABLED') ||
+        await isFeatureAvailable('REQUEST_CONSO_ENABLED') ||
+        await isFeatureAvailable('GEOLOCATION_ENABLED') 
+      )
+    },
 
     canRunCoach() {
       return (
