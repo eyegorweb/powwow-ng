@@ -192,6 +192,30 @@ export default excludeMocked([
   },
   {
     icon: 'ic-Ticket-Icon',
+    title: 'getparc.actCreation.carouselItem.UPDATE_YORK_COMMUNITY',
+    id: 'UPDATE_YORK_COMMUNITY',
+    stepTitle: 'getparc.actCreation.step2Titles.UPDATE_YORK_COMMUNITY',
+    subtitle: '',
+    permission: { domain: 'act', action: 'change_cos' },
+    selected: false,
+    havePrereqs: true,
+    color: 'blue',
+    hideForMVNO: true,
+    canShowActAsUserByCF: true,
+    filters: [
+      {
+        id: 'filters.lines.SIMCardStatus',
+        values: [
+          {
+            id: 'ACTIVATED',
+            label: 'Activée',
+          },
+        ],
+      },
+    ],
+  },
+  {
+    icon: 'ic-Ticket-Icon',
     title: 'getparc.actCreation.carouselItem.CHANGE_OFFER',
     id: 'CHANGE_OFFER',
     stepTitle: 'getparc.actCreation.step2Titles.CHANGE_OFFER',

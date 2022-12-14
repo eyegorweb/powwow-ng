@@ -499,6 +499,7 @@ export function formatFilters(filters) {
   valuesFromMutiselectFilter(allFilters, filters, 'billingStatus', 'filters.lines.billingStatus');
   valuesFromMutiselectFilter(allFilters, filters, 'networkStatus', 'filters.lines.networkStatus');
   valuesFromMutiselectFilter(allFilters, filters, 'simCardName', 'filters.lines.typeSIMCard', true);
+  valuesFromMutiselectFilter(allFilters, filters, 'cosCommunity', 'filters.lines.community', true);
   valuesFromMutiselectFilter(
     allFilters,
     filters,

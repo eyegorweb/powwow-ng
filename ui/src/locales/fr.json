@@ -1961,6 +1961,7 @@
         "TRANSFERT_LINES": "Transférer vers un partenaire",
         "CHANGE_SIMCARD": "Changer de carte SIM",
         "CHANGE_MSISDN": "Changer de MSISDN",
+        "UPDATE_YORK_COMMUNITY": "Modif CoS",
         "ACTIVATE_PREACTIVATE": "Préactiver / Activer des lignes",
         "RADIUS_ADMIN": "Administration Radius",
         "esim": {
@@ -1990,6 +1991,7 @@
         "CHANGE_OFFER": "Configurer le changement d'offre",
         "PAIRING": "Configurer l'appairage des eSIM",
         "RADIUS_ADMIN": "Configurer l'administration Radius",
+        "UPDATE_YORK_COMMUNITY": "Configurer la modification de CoS",
         "configure": "Configuration"
       },
 
@@ -2548,6 +2550,7 @@
       "commercialStatus": "Statut commercial",
       "billingStatus": "Statut de facturation",
       "networkStatus": "Statut réseau",
+      "community": "Communauté",
       "importDate": "Date d’intégration de la SIM",
       "endCommitmentDate": "Date de fin d’engagement",
       "activationDate": "Date d’activation",
