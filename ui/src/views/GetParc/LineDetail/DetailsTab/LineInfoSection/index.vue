@@ -156,7 +156,7 @@
             </div>
           </template>
         </ContentBlock>
-        <ContentBlock :key="'block4'">
+        <ContentBlock :key="'block4'" v-if="canSeeMsisdnHistory">
           <template slot="title">
             <span>{{ $t('getparc.lineDetail.tab1.msisdnHistory') }}</span>
           </template>
@@ -239,7 +239,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['userIsBO', 'havePermission']),
+    ...mapGetters(['userIsBO', 'havePermission', 'userDualPartyType']),
 
     msisdn() {
       return getFromLatestLineFromAccessPoint(
@@ -319,6 +319,16 @@ export default {
     },
     canSeeAllEsimInfos() {
       return this.havePermission('getParc', 'manage_esim');
+    },
+    canSeeMsisdnHistory() {
+      if (this.userDualPartyType && this.userDualPartyType.length > 0) {
+        // search the dualPartyType of party of line if exists
+        const userDualPartyTypeFounded = this.userDualPartyType.find(
+          (elem) => elem.partyId === this.content.party.id
+        );
+        return userDualPartyTypeFounded.type === 'ROAMING';
+      }
+      return true;
     },
   },
   methods: {
