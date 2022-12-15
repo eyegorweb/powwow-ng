@@ -53,10 +53,8 @@ import { mapActions, mapGetters, mapMutations, mapState } from 'vuex';
 import Filters from './Filters';
 
 import SelectedFiltersManagement from '@/components/Filters/SelectedFiltersManagement.vue';
-import { getPartyOptions } from '@/api/partners.js';
 import { areFiltersEmpty } from '@/store/filterUtils.js';
 import { getFiltersStorage, setFiltersStorage } from '@/utils/localstorage.js';
-import { isFeatureAvailable } from '@/api/partners';
 
 export default {
   components: {
@@ -70,7 +68,6 @@ export default {
   data() {
     return {
       allFiltersVisible: false,
-      ipFixeEnabled: false,
       filtersName: [
         {
           key: 'el1',
@@ -274,7 +271,6 @@ export default {
     },
   },
   mounted() {
-    this.fetchPartnerOptions();
     if (getFiltersStorage('filtersGetParc') && getFiltersStorage('filtersGetParc').filters) {
       const filtersFromStorage = getFiltersStorage('filtersGetParc');
       if (filtersFromStorage && filtersFromStorage.filters) {
@@ -285,14 +281,6 @@ export default {
   methods: {
     ...mapMutations('actLines', ['applyFilters', 'setCurrentFilters']),
     ...mapActions('actLines', ['clearFilter']),
-
-    async fetchPartnerOptions() {
-      if (this.userIsPartner || this.userInfos.type === 'PARTNER_GROUP') {
-        this.ipFixeEnabled = await isFeatureAvailable('IP_FIXE_ENABLED');
-      } else {
-        this.ipFixeEnabled = true;
-      }
-    },
 
     showAllFilters() {
       this.nbOfFilters = this.nbOfFilters === 10 ? 40 : 10;
