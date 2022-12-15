@@ -132,6 +132,9 @@ export const getters = {
   userIsByCustomerAccount: (state) => {
     return state.userInfos && state.userInfos.isUserByCustomerAccount;
   },
+  userDualPartyType: (state) => {
+    return state.userInfos && state.userInfos.dualPartyType;
+  },
 };
 
 export const actions = {

@@ -50,6 +50,10 @@ export async function fetchCurrentUserInfos() {
           domain
           action
         }
+        dualPartyType{
+          partyId
+          type
+        }
       }
     }
     `
