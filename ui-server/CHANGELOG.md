@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1198+20221215144500
+2022-12-15
+
+### Fixes
+
+- [3593] ipfixe check available feature (a3e8a1338293e33980c56decd39a1cc9563fc99d)
+
 ## 1.17.0-master.1197+20221215090806
 2022-12-15
 
