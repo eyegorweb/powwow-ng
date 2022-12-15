@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1197+20221215090806
+2022-12-15
+
+### Features
+
+- [3517]  pas afficher le bloc HISTORIQUE DES MSISDN DE LA LIGNE si un partenaire dont le type de dual est paramétré (3cf9617ee6a7f0ccf1ac97ec85afb65563fd9f4d)
+
 ## 1.17.0-master.1196+20221214172539
 2022-12-14
 
