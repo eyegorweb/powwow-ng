@@ -470,7 +470,7 @@ import DownloadProfileFilter from '@/views/GetParc/ActLines/FilterBar/DownloadPr
 import EsimCategoryFilter from '@/views/GetParc/ActLines/FilterBar/Esim/EsimCategoryFilter.vue';
 import EsimFamilyFilter from '@/views/GetParc/ActLines/FilterBar/Esim/EsimFamilyFilter.vue';
 
-import { getPartyOptions } from '@/api/partners.js';
+import { isFeatureAvailable } from '@/api/partners';
 
 export default {
   props: {
@@ -563,9 +563,8 @@ export default {
   },
   async mounted() {
     // Check for IPFixe filter
-    if (this.keyName === 'el29') {
-      const optionsPartner = await getPartyOptions(this.userInfos.id);
-      this.hasOptionIpFixe = optionsPartner.ipFixeEnable;
+    if (this.keyName === 'el30') {        
+      this.hasOptionIpFixe = await isFeatureAvailable('IP_FIXE_ENABLED');
     }
   },
   methods: {
