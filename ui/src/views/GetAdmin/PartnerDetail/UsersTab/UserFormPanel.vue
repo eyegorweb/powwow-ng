@@ -756,24 +756,30 @@ export default {
         this.exceptionError = errorMessage;
         return;
       }
-      rolesWs = await fetchAllowedRoles(null, this.singlePartner.id, null, true);
-      if (rolesWs.errors && rolesWs.errors.length) {
-        let errorMessage = '';
-        const formatted = formatBackErrors(rolesWs.errors)
-          .map((e) => e.errors)
-          .flat();
-        formatted.forEach((e) => {
-          if (e.key === 'user') {
-            errorMessage = `${this.$t('getadmin.users.errors.CUSTOMER_ACCOUNT_USER_NOT_ALLOWED')}`;
-          } else {
-            errorMessage = `${e.key}: ${e.value}`;
-          }
-        });
-        this.exceptionError = errorMessage;
-        return;
-      }
       this.roles = this.formattedRoles(roles);
-      this.rolesWs = this.formattedRoles(rolesWs);
+
+      if (this.havePermission('user', 'webservice_permissions')) {
+        rolesWs = await fetchAllowedRoles(null, this.singlePartner.id, null, true);
+        if (rolesWs.errors && rolesWs.errors.length) {
+          let errorMessage = '';
+          const formatted = formatBackErrors(rolesWs.errors)
+            .map((e) => e.errors)
+            .flat();
+          formatted.forEach((e) => {
+            if (e.key === 'user') {
+              errorMessage = `${this.$t(
+                'getadmin.users.errors.CUSTOMER_ACCOUNT_USER_NOT_ALLOWED'
+              )}`;
+            } else {
+              errorMessage = `${e.key}: ${e.value}`;
+            }
+          });
+          this.exceptionError = errorMessage;
+          return;
+        }
+        this.rolesWs = this.formattedRoles(rolesWs);
+      }
+
       this.customerAccounts = await this.fetchCustomerAccounts();
       return;
     } else if (this.content.fromUserMenu && this.userInfos.type === 'PARTNER_GROUP') {
@@ -792,11 +798,14 @@ export default {
 
       if (this.userType === 'OPERATOR') {
         roles = await fetchAllowedRoles(this.content.duplicateFrom.id, null, null);
-        rolesWs = await fetchAllowedRoles(this.content.duplicateFrom.id, null, null, true);
         this.roles = this.formattedRoles(roles);
-        this.rolesWs = this.formattedRoles(rolesWs);
         this.selectedRoles = this.roles.filter((r) => r.data.activated);
-        this.selectedRolesWs = this.rolesWs.filter((r) => r.data.activated);
+
+        if (this.havePermission('user', 'webservice_permissions')) {
+          rolesWs = await fetchAllowedRoles(this.content.duplicateFrom.id, null, null, true);
+          this.rolesWs = this.formattedRoles(rolesWs);
+          this.selectedRolesWs = this.rolesWs.filter((r) => r.data.activated);
+        }
       } else if (this.userType === 'PARTNER') {
         this.selectedPartner = {
           id: this.content.duplicateFrom.partners[0].id,
@@ -828,33 +837,36 @@ export default {
           this.exceptionError = errorMessage;
           return;
         }
-        rolesWs = await fetchAllowedRoles(
-          this.content.duplicateFrom.id,
-          this.selectedPartner.id,
-          null,
-          true
-        );
-        if (rolesWs.errors && rolesWs.errors.length) {
-          let errorMessage = '';
-          const formatted = formatBackErrors(rolesWs.errors)
-            .map((e) => e.errors)
-            .flat();
-          formatted.forEach((e) => {
-            if (e.key === 'user') {
-              errorMessage = `${this.$t(
-                'getadmin.users.errors.CUSTOMER_ACCOUNT_USER_NOT_ALLOWED'
-              )}`;
-            } else {
-              errorMessage = `${e.key}: ${e.value}`;
-            }
-          });
-          this.exceptionError = errorMessage;
-          return;
-        }
         this.roles = this.formattedRoles(roles);
-        this.rolesWs = this.formattedRoles(rolesWs);
         this.selectedRoles = this.roles.filter((r) => r.data.activated);
-        this.selectedRolesWs = this.rolesWs.filter((r) => r.data.activated);
+
+        if (this.havePermission('user', 'webservice_permissions')) {
+          rolesWs = await fetchAllowedRoles(
+            this.content.duplicateFrom.id,
+            this.selectedPartner.id,
+            null,
+            true
+          );
+          if (rolesWs.errors && rolesWs.errors.length) {
+            let errorMessage = '';
+            const formatted = formatBackErrors(rolesWs.errors)
+              .map((e) => e.errors)
+              .flat();
+            formatted.forEach((e) => {
+              if (e.key === 'user') {
+                errorMessage = `${this.$t(
+                  'getadmin.users.errors.CUSTOMER_ACCOUNT_USER_NOT_ALLOWED'
+                )}`;
+              } else {
+                errorMessage = `${e.key}: ${e.value}`;
+              }
+            });
+            this.exceptionError = errorMessage;
+            return;
+          }
+          this.rolesWs = this.formattedRoles(rolesWs);
+          this.selectedRolesWs = this.rolesWs.filter((r) => r.data.activated);
+        }
       } else if (this.userType === 'PARTNER_GROUP') {
         if (this.content.duplicateFrom.partners && this.content.duplicateFrom.partners.length) {
           this.selectedPartner = this.content.duplicateFrom.partners[0];
@@ -874,16 +886,36 @@ export default {
           null,
           this.$loGet(this.selectedGroupPartner, 'id')
         );
-        rolesWs = await fetchAllowedRoles(
-          this.content.duplicateFrom.id,
-          null,
-          this.$loGet(this.selectedGroupPartner, 'id'),
-          true
-        );
         this.roles = this.formattedRoles(roles);
-        this.rolesWs = this.formattedRoles(rolesWs);
         this.selectedRoles = this.roles.filter((r) => r.data.activated);
-        this.selectedRolesWs = this.rolesWs.filter((r) => r.data.activated);
+
+        if (this.havePermission('user', 'webservice_permissions')) {
+          rolesWs = await fetchAllowedRoles(
+            this.content.duplicateFrom.id,
+            null,
+            this.$loGet(this.selectedGroupPartner, 'id'),
+            true
+          );
+          if (rolesWs.errors && rolesWs.errors.length) {
+            let errorMessage = '';
+            const formatted = formatBackErrors(rolesWs.errors)
+              .map((e) => e.errors)
+              .flat();
+            formatted.forEach((e) => {
+              if (e.key === 'user') {
+                errorMessage = `${this.$t(
+                  'getadmin.users.errors.CUSTOMER_ACCOUNT_USER_NOT_ALLOWED'
+                )}`;
+              } else {
+                errorMessage = `${e.key}: ${e.value}`;
+              }
+            });
+            this.exceptionError = errorMessage;
+            return;
+          }
+          this.rolesWs = this.formattedRoles(rolesWs);
+          this.selectedRolesWs = this.rolesWs.filter((r) => r.data.activated);
+        }
       }
 
       // Pré-remplissage formulaire
@@ -939,9 +971,13 @@ export default {
       if (!this.content.duplicateFrom && this.selectedPartner && this.selectedPartner.id) {
         const id = this.selectedPartner.id;
         const roles = await fetchAllowedRoles(null, id, null);
-        const rolesWs = await fetchAllowedRoles(null, id, null, true);
         this.roles = this.formattedRoles(roles);
-        this.rolesWs = this.formattedRoles(rolesWs);
+
+        if (this.havePermission('user', 'webservice_permissions')) {
+          const rolesWs = await fetchAllowedRoles(null, id, null, true);
+          this.rolesWs = this.formattedRoles(rolesWs);
+        }
+
         // Ajouter un fetch sur les CF par le partyId
         if (!this.fromPagePartner) {
           this.customerAccounts = await this.fetchCustomerAccounts();
@@ -955,14 +991,17 @@ export default {
           null,
           this.$loGet(this.selectedGroupPartner, 'id')
         );
-        const rolesWs = await fetchAllowedRoles(
-          null,
-          null,
-          this.$loGet(this.selectedGroupPartner, 'id'),
-          true
-        );
         this.roles = this.formattedRoles(roles);
-        this.rolesWs = this.formattedRoles(rolesWs);
+
+        if (this.havePermission('user', 'webservice_permissions')) {
+          const rolesWs = await fetchAllowedRoles(
+            null,
+            null,
+            this.$loGet(this.selectedGroupPartner, 'id'),
+            true
+          );
+          this.rolesWs = this.formattedRoles(rolesWs);
+        }
       }
     },
     async userType(value) {
@@ -975,10 +1014,14 @@ export default {
         this.selectedGroupPartner = undefined;
         if (this.content.fromUserMenu) {
           roles = await fetchAllowedRoles(null, null, null);
-          rolesWs = await fetchAllowedRoles(null, null, null, true);
+          if (this.havePermission('user', 'webservice_permissions')) {
+            rolesWs = await fetchAllowedRoles(null, null, null, true);
+          }
         } else if (this.content.fromPartnerMenu) {
           roles = await fetchAllowedRoles(null, this.content.partnerId, null);
-          rolesWs = await fetchAllowedRoles(null, this.content.partnerId, null, true);
+          if (this.havePermission('user', 'webservice_permissions')) {
+            rolesWs = await fetchAllowedRoles(null, this.content.partnerId, null, true);
+          }
         }
         this.roles = this.formattedRoles(roles);
         this.rolesWs = this.formattedRoles(rolesWs);
