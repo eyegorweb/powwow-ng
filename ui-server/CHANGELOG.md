@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1202+20221216105201
+2022-12-16
+
+### Fixes
+
+- [3366] evolution tabs permission linedetail (0d06fa2eb5279195cdd3325d4e709cdd2857f08f)
+
 ## 1.17.0-master.1201+20221216101014
 2022-12-16
 
