@@ -179,14 +179,14 @@
             v-model="selectedRoles"
             v-if="!showWebservices"
           />
-          <h3 v-if="rolesWsActions && showWebservices">Actions</h3>
+          <h6 v-if="rolesWsActions && showWebservices">Actions</h6>
           <MultiChoices
             class="roles"
             :options="rolesWsActions"
             v-model="selectedRolesWsActions"
             v-if="showWebservices && rolesWs.length > 0 && haveWsPermission"
           />
-          <h3 v-if="rolesWsConsultation && showWebservices">Consultation</h3>
+          <h6 v-if="rolesWsConsultation && showWebservices">Consultation</h6>
           <MultiChoices
             class="roles"
             :options="rolesWsConsultation"
@@ -785,9 +785,29 @@ export default {
     } else if (this.content.fromUserMenu && this.userInfos.type === 'PARTNER_GROUP') {
       this.canShowForm = true;
       roles = await fetchAllowedRoles(null, null, this.userInfos.partyGroup.id);
-      rolesWs = await fetchAllowedRoles(null, null, this.userInfos.partyGroup.id, true);
       this.roles = this.formattedRoles(roles);
-      this.rolesWs = this.formattedRoles(rolesWs);
+
+      if (this.havePermission('user', 'webservice_permissions')) {
+        rolesWs = await fetchAllowedRoles(null, null, this.userInfos.partyGroup.id, true);
+        if (rolesWs.errors && rolesWs.errors.length) {
+          let errorMessage = '';
+          const formatted = formatBackErrors(rolesWs.errors)
+            .map((e) => e.errors)
+            .flat();
+          formatted.forEach((e) => {
+            if (e.key === 'user') {
+              errorMessage = `${this.$t(
+                'getadmin.users.errors.CUSTOMER_ACCOUNT_USER_NOT_ALLOWED'
+              )}`;
+            } else {
+              errorMessage = `${e.key}: ${e.value}`;
+            }
+          });
+          this.exceptionError = errorMessage;
+          return;
+        }
+        this.rolesWs = this.formattedRoles(rolesWs);
+      }
       return;
     }
 
@@ -803,6 +823,23 @@ export default {
 
         if (this.havePermission('user', 'webservice_permissions')) {
           rolesWs = await fetchAllowedRoles(this.content.duplicateFrom.id, null, null, true);
+          if (rolesWs.errors && rolesWs.errors.length) {
+            let errorMessage = '';
+            const formatted = formatBackErrors(rolesWs.errors)
+              .map((e) => e.errors)
+              .flat();
+            formatted.forEach((e) => {
+              if (e.key === 'user') {
+                errorMessage = `${this.$t(
+                  'getadmin.users.errors.CUSTOMER_ACCOUNT_USER_NOT_ALLOWED'
+                )}`;
+              } else {
+                errorMessage = `${e.key}: ${e.value}`;
+              }
+            });
+            this.exceptionError = errorMessage;
+            return;
+          }
           this.rolesWs = this.formattedRoles(rolesWs);
           this.selectedRolesWs = this.rolesWs.filter((r) => r.data.activated);
         }
