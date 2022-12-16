@@ -1049,6 +1049,7 @@ export default {
         // Appelé en plus de l'initialisation => corriger donc
         this.selectedPartner = undefined;
         this.selectedGroupPartner = undefined;
+        this.showWebservices = false;
         if (this.content.fromUserMenu) {
           roles = await fetchAllowedRoles(null, null, null);
           if (this.havePermission('user', 'webservice_permissions')) {
