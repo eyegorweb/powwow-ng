@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1203+20221216145014
+2022-12-19
+
+### Fixes
+
+- [3600] Bug routing on lineDetail from getVision iccid button (8319f5f525b932b52fa89afdaca7babfe6a3d64e)
+
 ## 1.17.0-master.1202+20221216105201
 2022-12-16
 
