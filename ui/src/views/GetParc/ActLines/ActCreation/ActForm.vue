@@ -46,6 +46,9 @@
       <ChangeOffer
         v-if="act.title === 'getparc.actCreation.carouselItem.CHANGE_OFFER' && !isLoading"
       />
+      <ModifCos
+        v-if="act.title === 'getparc.actCreation.carouselItem.UPDATE_YORK_COMMUNITY' && !isLoading"
+      />
       <PairingEsim
         v-if="act.title === 'getparc.actCreation.carouselItem.esim.PAIRING' && !isLoading"
       />
@@ -97,6 +100,7 @@ import ChangeMSISDN from './forms/ChangeMSISDN';
 import ChangeICCID from './forms/ChangeICCID';
 import PreactivateActivate from './forms/PreactivateActivate';
 import ChangeOffer from './forms/ChangeOffer';
+import ModifCos from './forms/ModifCos';
 import PairingEsim from './forms/PairingEsim';
 import EsimFreeReservations from './forms/EsimFreeReservations';
 import EsimChangeProfile from './forms/EsimChangeProfile';
@@ -139,6 +143,7 @@ export default {
     EsimPolicyRules,
     EsimAudit,
     RadiusAdmin,
+    ModifCos,
   },
   props: {
     act: Object,

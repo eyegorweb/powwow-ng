@@ -55,7 +55,6 @@
 import PartnersPart from './parts/PartnersPart';
 import BillingAccountsPart from './parts/BillingAccountsPart';
 import PrereqContainer from './parts/PrereqContainer';
-import get from 'lodash.get';
 import { mapActions, mapMutations } from 'vuex';
 
 import SimCardsTypePart from './parts/SimCardsTypePart';
@@ -98,7 +97,7 @@ export default {
       return !this.isPartnerEmpty;
     },
     isPartnerEmpty() {
-      return !get(this.selectedPartner, 'id');
+      return !this.$loGet(this.selectedPartner, 'id');
     },
 
     selectedOffer: {

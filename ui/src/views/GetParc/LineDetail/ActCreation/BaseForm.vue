@@ -1,7 +1,5 @@
 <template>
-  <BaseDetailPanelContent
-    :no-buttons="noButtons"
-  >
+  <BaseDetailPanelContent :no-buttons="noButtons">
     <div class="overview-container m-3 bg-white">
       <slot></slot>
 
@@ -64,7 +62,7 @@ export default {
     noButtons: {
       type: Boolean,
       default: false,
-    }
+    },
   },
 
   components: {

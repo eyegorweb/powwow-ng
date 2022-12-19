@@ -61,6 +61,9 @@
       :partner="userPartner"
       @set:preprequisites="setPrerequisites"
     />
+    <CommunityPrerequisite
+      v-if="['getparc.actCreation.carouselItem.UPDATE_YORK_COMMUNITY'].find((a) => a === act.title)"
+    />
   </div>
 </template>
 
@@ -72,6 +75,7 @@ import PartnerAndCFTransfertSim from './prerequisites/PartnerAndCFTransfertSim';
 import PartnerAndCF from './prerequisites/PartnerAndCF';
 import PartnerCFEsimStatus from './prerequisites/PartnerCFEsimStatus';
 import RadiusPrerequisite from './prerequisites/RadiusPrerequisite';
+import CommunityPrerequisite from './prerequisites/CommunityPrerequisite';
 import { mapState, mapActions, mapMutations, mapGetters } from 'vuex';
 
 export default {
@@ -82,6 +86,7 @@ export default {
     PartnerCFEsimStatus,
     PartnerAndCFTransfertSim,
     RadiusPrerequisite,
+    CommunityPrerequisite,
   },
   props: {
     act: Object,
@@ -128,6 +133,7 @@ export default {
       'setActToCreate',
       'setSimStatusesFilter',
       'setBillingAccountsFilter',
+      'setCommunityFilter',
     ]),
 
     actWithNoPrerequs(actTitle) {

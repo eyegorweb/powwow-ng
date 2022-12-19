@@ -75,7 +75,7 @@ export default {
   },
   async mounted() {
     await this.loadLineData();
-    await this.checkPermissionForDiag()
+    await this.checkPermissionForDiag();
     this.tabs = [
       {
         label: 'detail',
@@ -103,17 +103,19 @@ export default {
       return true;
     });
 
-    if(this.hasPermissionForDiag) {
-      this.tabs = [...this.tabs, 
-      {
-        label: 'diagnosis',
-        title: 'getparc.lineDetail.analysingTool', // ne pas afficher l'onglet si on n'a pas les permissions
-        to: {
-          name: 'lineDetail.diagnosis.analysis',
-          meta: { label: 'Détail de la ligne - Analyser la ligne' },
-          params: { lineId: this.$route.params.lineId },
+    if (this.hasPermissionForDiag) {
+      this.tabs = [
+        ...this.tabs,
+        {
+          label: 'diagnosis',
+          title: 'getparc.lineDetail.analysingTool', // ne pas afficher l'onglet si on n'a pas les permissions
+          to: {
+            name: 'lineDetail.diagnosis.analysis',
+            meta: { label: 'Détail de la ligne - Analyser la ligne' },
+            params: { lineId: this.$route.params.lineId },
+          },
         },
-      }]
+      ];
     }
   },
   data() {
@@ -177,13 +179,12 @@ export default {
     ...mapMutations(['openPanel']),
 
     async checkPermissionForDiag() {
-      this.hasPermissionForDiag = (
+      this.hasPermissionForDiag =
         this.havePermission('getParc', 'manage_coach') ||
         this.havePermission('getVision', 'read') ||
-        await isFeatureAvailable('AUTODIAGNOSTIC_ENABLED') ||
-        await isFeatureAvailable('REQUEST_CONSO_ENABLED') ||
-        await isFeatureAvailable('GEOLOCATION_ENABLED') 
-      )
+        (await isFeatureAvailable('AUTODIAGNOSTIC_ENABLED')) ||
+        (await isFeatureAvailable('REQUEST_CONSO_ENABLED')) ||
+        (await isFeatureAvailable('GEOLOCATION_ENABLED'));
     },
 
     openCoachPanel() {

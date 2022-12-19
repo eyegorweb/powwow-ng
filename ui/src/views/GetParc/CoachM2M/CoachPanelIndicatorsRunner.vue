@@ -52,7 +52,6 @@ import { startAnalysis } from '@/api/coach';
 import { mapGetters } from 'vuex';
 import StarsNotation from '@/components/StarsNotation.vue';
 import { resetNetwork } from '@/api/actCreation';
-import get from 'lodash.get';
 import moment from 'moment';
 import { mapMutations } from 'vuex';
 

@@ -262,14 +262,14 @@ export async function searchLinesForTable(orderBy, pagination, filters = []) {
       commercialStatusDate
       terminationValidated
       workflowCode
-    customFields {
-      custom1
-      custom2
-      custom3
-      custom4
-      custom5
-      custom6
-    }
+      customFields {
+        custom1
+        custom2
+        custom3
+        custom4
+        custom5
+        custom6
+      }
       offerGroup {
         customerAccount {
           id
@@ -287,6 +287,7 @@ export async function searchLinesForTable(orderBy, pagination, filters = []) {
         msisdn
         imsi
         msisdnA
+        yorkCommunity
       }
     }
   }`;

@@ -70,16 +70,15 @@ export default {
         },
       ];
 
-      if(this.havePermission('act', 'manage_esim')) {
-        this.tabs.push(
-        {
+      if (this.havePermission('act', 'manage_esim')) {
+        this.tabs.push({
           label: 'esim',
           title: this.$t('getparc.esim-acts'),
           to: {
             name: 'actHistory.esim',
             meta: { label: 'Historique des actes eSIM' },
           },
-        },)
+        });
       }
     },
   },
