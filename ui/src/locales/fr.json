@@ -1994,7 +1994,6 @@
         "UPDATE_YORK_COMMUNITY": "Configurer la modification de CoS",
         "configure": "Configuration"
       },
-
       "modal": {
         "modalPreventMsg": "Les lignes seront immédiatement résiliées.",
         "modalPreventMsgDelay": "Les lignes seront résiliées automatiquement dans {delay} mois",
@@ -2061,11 +2060,12 @@
         "confirmationWarningForDetail": "Confirmer la demande ?<div class=\"alert alert-warning\">{list}</div>",
         "confirmationWarningForCommand": "<div class=\"alert alert-warning\">{list}</div>"
       },
-
       "transferSim": {
         "confirmationWarning": "Confirmer la demande pour {count} ligne(s) ?"
       },
-
+      "cos": {
+        "select": "Sélectionner une CoS"
+      },
       "report": {
         "API_ERROR": "Erreur inconnue. La demande n'a pas pu aboutir.",
         "DATA_EXISTS": "Lignes existantes",

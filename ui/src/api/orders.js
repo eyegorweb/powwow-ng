@@ -416,9 +416,6 @@ export async function createOrder(synthesis) {
   let email = get(synthesis, 'delivery.value.detail.contactInformation.email', '') || '';
   email = email.trim();
 
-  let smsNotification = get(synthesis, 'smsNotification');
-  let emailNotification = get(synthesis, 'emailNotification');
-
   let state = get(synthesis, 'delivery.value.detail.address.state', '');
   if (!state) {
     state = '';

@@ -563,7 +563,7 @@ export default {
   },
   async mounted() {
     // Check for IPFixe filter
-    if (this.keyName === 'el30') {        
+    if (this.keyName === 'el30') {
       this.hasOptionIpFixe = await isFeatureAvailable('IP_FIXE_ENABLED');
     }
   },
