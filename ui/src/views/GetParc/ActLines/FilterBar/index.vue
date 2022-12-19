@@ -225,6 +225,10 @@ export default {
           key: 'esim7',
           id: 39,
         },
+        {
+          key: 'esim8',
+          id: 40,
+        },
       ],
       nbOfFilters: 10,
     };

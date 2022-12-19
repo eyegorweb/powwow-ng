@@ -523,6 +523,7 @@ export function formatFilters(filters) {
   addRangeFilter(allFilters, filters, 'imsi', 'filters.lines.rangeIMSI');
   addRangeFilter(allFilters, filters, 'msisdn', 'filters.lines.rangeMSISDN');
   addRangeFilter(allFilters, filters, 'imei', 'filters.lines.rangeIMEI');
+  addRangeFilter(allFilters, filters, 'eid', 'filters.lines.rangeEID');
   addTerminationValidated(allFilters, filters);
   addIdsFilter(allFilters, filters);
   addIPFilter(allFilters, filters);
