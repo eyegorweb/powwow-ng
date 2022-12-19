@@ -25,4 +25,5 @@ export function getFromLatestLineFromAccessPointWithDefaultValue(
     value = defaultValue;
   }
   return value;
+  
 }
