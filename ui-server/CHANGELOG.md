@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1205+20221219160640
+2022-12-19
+
+### Features
+
+- [351Ø] ajout de l'acte de gestion Modification de CoS (fd02a41644d7230acee18d3fc3c2ade60d01ae5e)
+
 ## 1.17.0-master.1204+20221219135512
 2022-12-19
 
