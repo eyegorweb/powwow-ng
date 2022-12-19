@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1204+20221219135512
+2022-12-19
+
+### Fixes
+
+- [000] to generate new name (924ae029f55e20e39dc8b5dc6d94a9752a0a61bb)
+
 ## 1.17.0-master.1203+20221216145014
 2022-12-19
 
