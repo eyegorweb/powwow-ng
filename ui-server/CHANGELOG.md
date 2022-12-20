@@ -2,12 +2,13 @@
 
 <!--- next entry here -->
 
-## 1.17.0-master.1206+20221220102031
+## 1.17.0-master.1207+20221220103031
 2022-12-20
 
 ### Fixes
 
 - [3501] afficher par défaut le type Roaming pour l'option Dual SIM des partenaires (7a7096f67563239f995f3bbcd85972605056d9ab)
+- [3501] afficher par défaut le type Roaming pour l'option Dual SIM des partenaires (e127e28a693965236ce72a0c867fc2902275b8f4)
 
 ## 1.17.0-master.1205+20221219160640
 2022-12-19
