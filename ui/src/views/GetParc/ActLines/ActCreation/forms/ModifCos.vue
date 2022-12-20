@@ -4,8 +4,7 @@
     <UiApiAutocomplete
       v-model="selectedYorkCommunity"
       display-results-while-empty
-      scroll-for-next
-      :api-method="searchCommunities"
+      :api-method="fetchApi"
       :error="errors"
       search-type="contain"
     />
@@ -50,14 +49,14 @@ export default {
     },
   },
   methods: {
-    async searchCommunities(q, partners, page = 0) {
+    async fetchApi(q, partners, page = 0) {
       let params = {
-        limit: 10,
+        limit: 999,
         page,
       };
       if (this.prerequisiteCommunity) {
         params = {
-          limit: 10,
+          limit: 999,
           page,
           notEqualsCommunityCode: this.prerequisiteCommunity,
         };
