@@ -50,9 +50,9 @@ export default {
     },
   },
   methods: {
-    async searchCommunities(q, partners, page) {
+    async searchCommunities(q, partners, page = 0) {
       let params = {
-        limit: 1,
+        limit: 10,
         page,
       };
       if (this.prerequisiteCommunity) {

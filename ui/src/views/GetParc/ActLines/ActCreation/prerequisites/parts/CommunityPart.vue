@@ -58,16 +58,9 @@ export default {
   },
 
   methods: {
-    async fetchApi(q, partners, partnerType, page) {
-      const data = await fetchYorkCommunity(
-        q,
-        partners,
-        {
-          limit: 10,
-          page,
-        },
-        partnerType
-      );
+    async fetchApi(q, partners, page = 0) {
+      const pagination = { page, limit: 10 };
+      const data = await fetchYorkCommunity(q, partners, pagination);
       if (data) {
         return data.map((d) => ({
           id: d.code,
