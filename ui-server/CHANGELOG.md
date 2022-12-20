@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1209+20221220130354
+2022-12-20
+
+### Features
+
+- [3510] gestion de l'acte de modification de communauté (4e2b28773847ac6adc7f85d120d000d9b486872a)
+
 ## 1.17.0-master.1208+20221220123644
 2022-12-20
 
