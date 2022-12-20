@@ -642,19 +642,6 @@ export async function fetchYorkCommunity(
   partners,
   { page, limit, partnerType, notEqualsCommunityCode }
 ) {
-  return await searchYorkCommunity(q, partners, {
-    page,
-    limit,
-    partnerType,
-    notEqualsCommunityCode,
-  });
-}
-
-export async function searchYorkCommunity(
-  q,
-  partners,
-  { page, limit, partnerType, notEqualsCommunityCode }
-) {
   let partnersIds,
     partnerGqlParam = '';
 
