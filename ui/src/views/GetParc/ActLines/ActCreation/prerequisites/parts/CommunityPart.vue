@@ -6,7 +6,7 @@
       :error="error"
       display-results-while-empty
       scroll-for-next
-      search-type="contain"
+      search-type="startsWith"
     >
       <img style="font-size: 24px" class="arrow" src="@/assets/search.svg" :style="{ left: 0 }" />
     </UiApiAutocomplete>
@@ -58,9 +58,16 @@ export default {
   },
 
   methods: {
-    async fetchApi(q, partners, partnerType, pagination) {
-      pagination = { limit: 10, page: 0 };
-      const data = await fetchYorkCommunity(q, partners, pagination, partnerType);
+    async fetchApi(q, partners, partnerType, page = 0) {
+      const data = await fetchYorkCommunity(
+        q,
+        partners,
+        {
+          limit: 10,
+          page,
+        },
+        partnerType
+      );
       if (data) {
         return data.map((d) => ({
           id: d.code,
