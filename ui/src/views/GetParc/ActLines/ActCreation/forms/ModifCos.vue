@@ -7,7 +7,7 @@
       scroll-for-next
       :api-method="searchCommunities"
       :error="errors"
-      search-type="contain"
+      search-type="startsWith"
     />
 
     <div slot="messages" class="text-info">
@@ -50,12 +50,15 @@ export default {
     },
   },
   methods: {
-    async searchCommunities(q, partners, params) {
-      params = { limit: 10, page: 0 };
+    async searchCommunities(q, partners, page = 0) {
+      let params = {
+        limit: 10,
+        page,
+      };
       if (this.prerequisiteCommunity) {
         params = {
           limit: 10,
-          page: 0,
+          page,
           notEqualsCommunityCode: this.prerequisiteCommunity,
         };
       }
