@@ -889,14 +889,7 @@ export default {
       });
 
       this.dualSimChoice = this.$loGet(this.partnerOptions, 'dualSimCardPartyType', null);
-      console.log(
-        'check value dualSimChoice ORIGIN:',
-        this.$loGet(this.partnerOptions, 'dualSimCardPartyType')
-      );
-      console.log('check value dualSimChoice', this.dualSimChoice);
       this.dualSimChoices = this.dualSimChoices.map((f) => {
-        // if (this.dualSimChoice === null) return;
-        console.log('check');
         if (f.id === this.dualSimChoice) {
           f.default = true;
         } else if (this.dualSimChoice === null && f.id === 'ROAMING') {
