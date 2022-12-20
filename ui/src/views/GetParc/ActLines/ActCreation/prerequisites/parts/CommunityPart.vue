@@ -58,7 +58,7 @@ export default {
   },
 
   methods: {
-    async fetchApi(q, partners, partnerType, page = 0) {
+    async fetchApi(q, partners, partnerType, page) {
       const data = await fetchYorkCommunity(
         q,
         partners,
