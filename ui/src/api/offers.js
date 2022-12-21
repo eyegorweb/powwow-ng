@@ -639,8 +639,8 @@ export async function fetchODOffers(partyId, offer) {
 
 export async function fetchYorkCommunity(
   q,
-  partners,
-  { page, limit, partnerType, notEqualsCommunityCode }
+  { page, limit, partnerType, notEqualsCommunityCode },
+  partners
 ) {
   let partnersIds,
     partnerGqlParam = '';
@@ -677,6 +677,9 @@ export async function fetchYorkCommunity(
   }
   `;
   const response = await query(queryStr);
+  if (response.errors) {
+    return { errors: response.errors };
+  }
   return response.data.yorkCommunities.items;
 }
 

@@ -206,7 +206,6 @@ export default {
 
   watch: {
     selectedOffer(selectedOffer) {
-      console.log('watch selected offer', selectedOffer);
       if (selectedOffer && selectedOffer.data) {
         this.offerServices = getMarketingOfferServices(selectedOffer.data.initialOffer);
         this.initialServices = cloneDeep(this.offerServices);

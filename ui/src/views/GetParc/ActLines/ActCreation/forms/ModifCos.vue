@@ -1,5 +1,10 @@
 <template>
-  <ActFormContainer :validate-fn="onValidate" no-date disabled-notification-check>
+  <ActFormContainer
+    :validate-fn="onValidate"
+    no-date
+    disabled-notification-check
+    :prevent-send="!canSend"
+  >
     <h6>{{ $t('getparc.actCreation.cos.select') }}</h6>
     <UiApiAutocomplete
       v-model="selectedYorkCommunity"
@@ -47,9 +52,12 @@ export default {
         ? this.actCreationPrerequisites.community.label
         : '';
     },
+    canSend() {
+      return this.selectedYorkCommunity && this.selectedYorkCommunity.label;
+    },
   },
   methods: {
-    async fetchApi(q, partners, page = 0) {
+    async fetchApi(q, page = 0) {
       let params = {
         limit: 999,
         page,
@@ -61,7 +69,8 @@ export default {
           notEqualsCommunityCode: this.prerequisiteCommunity,
         };
       }
-      const data = await fetchYorkCommunity(q, partners, params);
+      const partner = this.$loGet(this.actCreationPrerequisites, 'partner');
+      const data = await fetchYorkCommunity(q, params, [partner]);
       if (data) {
         return data.map((d) => ({
           id: d.code,
