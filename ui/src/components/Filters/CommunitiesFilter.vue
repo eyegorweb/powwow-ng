@@ -23,7 +23,7 @@ export default {
 
   methods: {
     async fetchApi(q, partners, partnerType, { page, limit }) {
-      const data = await fetchYorkCommunity(q, partners, { page, limit, partnerType });
+      const data = await fetchYorkCommunity(q, { page, limit, partnerType }, partners);
       if (data) {
         return data.map((d) => ({
           id: d.code,

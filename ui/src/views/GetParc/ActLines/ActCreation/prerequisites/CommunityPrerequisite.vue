@@ -61,11 +61,7 @@ export default {
 
   computed: {
     canValidate() {
-      //   if (this.canSelectSimType) {
-      //     return !this.isPartnerEmpty && !!this.selectedCommunity;
-      //   }
-
-      return !this.isPartnerEmpty;
+      return !this.isPartnerEmpty && !!this.chosenBillingAccount && !!this.selectedCommunity;
     },
     isPartnerEmpty() {
       return !this.$loGet(this.selectedPartner, 'id');

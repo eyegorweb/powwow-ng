@@ -5,7 +5,7 @@
       v-model="selectedCommunity"
       :error="error"
       display-results-while-empty
-      search-type="startsWith"
+      scroll-for-next
     >
       <img style="font-size: 24px" class="arrow" src="@/assets/search.svg" :style="{ left: 0 }" />
     </UiApiAutocomplete>
@@ -57,9 +57,9 @@ export default {
   },
 
   methods: {
-    async fetchApi(q, partners) {
-      const queryParams = { page: 0, limit: 999 };
-      const data = await fetchYorkCommunity(q, partners, queryParams);
+    async fetchApi(q, page = 0, limit = 10) {
+      const queryParams = { page, limit };
+      const data = await fetchYorkCommunity(q, queryParams, [this.partner]);
       if (data) {
         return data.map((d) => ({
           id: d.code,
