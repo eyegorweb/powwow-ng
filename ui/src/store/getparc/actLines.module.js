@@ -83,6 +83,7 @@ export const getters = {
   selectedIMSIValue: findFilterById('filters.lines.rangeIMSI'),
   selectedMSISDNValue: findFilterById('filters.lines.rangeMSISDN'),
   selectedIMEIValue: findFilterById('filters.lines.rangeIMEI'),
+  selectedEIDValue: findFilterById('filters.lines.rangeEID'),
   selectedEsimFamilyValue: findFilterValueById('indicators.getparc.lines.esim.family'),
   selectedEsimCategoryValue: findFilterValueById('indicators.getparc.lines.esim.category'),
 
@@ -452,6 +453,13 @@ export const mutations = {
   selectIMEIFilter(state, { from, to }) {
     selectFilterValue(state, {
       id: 'filters.lines.rangeIMEI',
+      from,
+      to,
+    });
+  },
+  selectEIDFilter(state, { from, to }) {
+    selectFilterValue(state, {
+      id: 'filters.lines.rangeEID',
       from,
       to,
     });

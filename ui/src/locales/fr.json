@@ -2562,6 +2562,7 @@
       "rangeIMSI": "Plage IMSI",
       "rangeMSISDN": "Plage MSISDN",
       "rangeIMEI": "Plage IMEI",
+      "rangeEID": "Plage EID",
       "siren": "Siren",
       "traffic": "Lignes trafiquantes",
       "trafficLabel": "Ayant trafiqué dans le mois",
