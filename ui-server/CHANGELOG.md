@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1215+20221222085117
+2022-12-22
+
+### Features
+
+- [3592] add eId filter to actLines datable (f109c321f833c92593389d174585792ad515a556)
+
 ## 1.17.0-master.1214+20221221065131
 2022-12-21
 
