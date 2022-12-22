@@ -352,8 +352,6 @@
     </FoldableBlock>
 
     <template v-if="userHaveEsimEnabled">
-
-
       <FoldableBlock
         v-if="keyName === 'esim1'"
         :title="$t('indicators.getparc.lines.esim.category')"
