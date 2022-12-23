@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1217+20221223135213
+2022-12-23
+
+### Fixes
+
+- [3615] gestion de l'option Dual Sim des options du partenaire (29c64d446b02cccc14e9633d981412450f9653c0)
+
 ## 1.17.0-master.1216+20221222100747
 2022-12-22
 
