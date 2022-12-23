@@ -397,7 +397,7 @@
           </div>
         </div>
         <!-- Dual Sim -->
-        <div class="d-flex" v-if="(userIsBO || userIsAdmin) && partyType !== 'MVNO'">
+        <div class="d-flex" v-if="(userIsBO || userIsAdmin) && partyType === 'CUSTOMER'">
           <div class="third-size pr-4">
             <div class="form-group">
               <label class="small-label">{{ $t('getparc.lineDetail.tab1.dualSim') }}</label>
