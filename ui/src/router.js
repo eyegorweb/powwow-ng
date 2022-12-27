@@ -21,6 +21,8 @@ const GetDevice = () => import('@/views/GetDevice/index.vue');
 const GetVisionMonitoring = () => import('@/views/GetVision/monitoring');
 const GetStocks = () => import('@/views/GetSim/Stocks/index.vue');
 const RolesManagement = () => import('@/views/GetAdmin/RolesManagement/index.vue');
+const MarketingOffersManagement = () =>
+  import('@/views/GetAdmin/MarketingOffersManagement/index.vue');
 
 import lineDetailRoute from '@/views/GetParc/LineDetail/routes.js';
 import partnerDetailRoute from '@/views/GetAdmin/PartnerDetail/routes.js';
@@ -203,6 +205,12 @@ export default new Router({
       meta: { label: 'Edition des messages' },
       component: () => import('@/views/AdminSettings/Messages/MessageEdit.vue'),
       ignoreAnalytics: true,
+    },
+    {
+      path: '/getadmin/manage-marketing-offers',
+      name: 'getAdminCatalogOffers',
+      meta: { label: 'Gestion du catalogue des offres' },
+      component: MarketingOffersManagement,
     },
   ]),
 });
