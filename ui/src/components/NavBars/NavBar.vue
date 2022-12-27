@@ -213,6 +213,11 @@ export default {
           to: { name: 'getAdminRoles', meta: { label: 'Gestion des rôles' } },
           permission: { domain: 'admin', action: 'permission' },
         },
+        {
+          label: 'menu.catalogOffers',
+          to: { name: 'getAdminCatalogOffers', meta: { label: 'Gestion des offres' } },
+          permission: { domain: 'catalog', action: 'read_catalog_offer' },
+        },
       ]);
     }
 
