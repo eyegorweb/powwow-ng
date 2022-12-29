@@ -2,12 +2,13 @@
 
 <!--- next entry here -->
 
-## 1.17.0-master.1219+20221229165621
+## 1.17.0-master.1220+20221229170405
 2022-12-29
 
 ### Fixes
 
 - [3619] gestion des rôles des web services des utilisateurs (ea57c7eef932e5a019b1d96e0bc65dc6642fdb91)
+- [3282] Gestion des marqueurs France dans la supervision. (598b74acf3a60a1ff410daeee3f2695715f03370)
 
 ## 1.17.0-master.1218+20221229073742
 2022-12-29
