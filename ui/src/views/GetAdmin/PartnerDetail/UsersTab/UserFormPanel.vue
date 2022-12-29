@@ -179,20 +179,40 @@
             v-model="selectedRoles"
             v-if="!showWebservices"
           />
-          <h6 v-if="rolesWsActions && showWebservices">Actions</h6>
-          <MultiChoices
-            class="roles"
-            :options="rolesWsActions"
-            v-model="selectedRolesWsActions"
-            v-if="showWebservices && rolesWs.length > 0 && haveWsPermission"
-          />
-          <h6 v-if="rolesWsConsultation && showWebservices">Consultation</h6>
-          <MultiChoices
-            class="roles"
-            :options="rolesWsConsultation"
-            v-model="selectedRolesWsConsultation"
-            v-if="showWebservices && rolesWs.length > 0 && haveWsPermission"
-          />
+          <h6 v-if="rolesWsActions && showWebservices">
+            <a class="p-0" @click.prevent="isOpenWsActionRoles = !isOpenWsActionRoles">
+              Actions
+              <i :class="isOpenWsActionRoles ? 'ic-Arrow-Up-Icon' : 'ic-Arrow-Down-Icon'" />
+            </a>
+          </h6>
+
+          <TransitionCollapse>
+            <div class="" v-if="isOpenWsActionRoles">
+              <MultiChoices
+                class="roles"
+                :options="rolesWsActions"
+                v-model="selectedRolesWsActions"
+                v-if="showWebservices && rolesWs.length > 0 && haveWsPermission"
+              />
+            </div>
+          </TransitionCollapse>
+          <h6 v-if="rolesWsConsultation && showWebservices">
+            <a class="p-0" @click.prevent="isOpenWsConsultationRoles = !isOpenWsConsultationRoles">
+              Consultation
+              <i :class="isOpenWsConsultationRoles ? 'ic-Arrow-Up-Icon' : 'ic-Arrow-Down-Icon'" />
+            </a>
+          </h6>
+
+          <TransitionCollapse>
+            <div class="" v-if="isOpenWsConsultationRoles">
+              <MultiChoices
+                class="roles"
+                :options="rolesWsConsultation"
+                v-model="selectedRolesWsConsultation"
+                v-if="showWebservices && rolesWs.length > 0 && haveWsPermission"
+              />
+            </div>
+          </TransitionCollapse>
         </div>
       </div>
     </div>
@@ -226,6 +246,7 @@ import Toggle from '@/components/ui/UiToggle2';
 import cloneDeep from 'lodash.clonedeep';
 import UiSelect from '@/components/ui/UiSelect';
 import Checkbox from '@/components/ui/Checkbox.vue';
+import TransitionCollapse from '@/components/TransitionCollapse';
 
 // API
 import { delay } from '@/api/utils.js';
@@ -279,6 +300,7 @@ export default {
     UiApiAutocomplete,
     Toggle,
     Checkbox,
+    TransitionCollapse,
   },
   props: {
     content: Object,
@@ -300,6 +322,8 @@ export default {
       groupPartners: [],
       partnerChoices: [],
       customerAccounts: [],
+      isOpenWsActionRoles: true,
+      isOpenWsConsultationRoles: true,
       userTypes: [
         {
           id: 'OPERATOR',
@@ -470,20 +494,21 @@ export default {
       }
 
       if (response && response.errors && response.errors.length) {
-        response.errors.forEach(() => {
-          if (
-            response.errors[0].extensions &&
-            response.errors[0].extensions['AccessDeniedForThisUser']
-          ) {
+        const formattedErrors = formatBackErrors(response.errors)
+          .map((e) => e.errors)
+          .flat();
+        formattedErrors.forEach((e) => {
+          if (e.key === 'user') {
+            errorMessage = `${this.$t('getadmin.users.errors.CUSTOMER_ACCOUNT_USER_NOT_ALLOWED')}`;
+          } else if (e.key === 'AccessDeniedForThisUser' || e.key === 'userToCreateOrUpdate') {
             errorMessage = this.$t('getadmin.users.errors.AccessDeniedForThisUser');
-          } else if (response.errors[0].extensions && response.errors[0].extensions['username']) {
+          } else if (e.key === 'username') {
             errorMessage = this.$t('getadmin.users.errors.username');
             this.requestErrors = [
               {
                 message: errorMessage,
               },
             ];
-            return;
           } else {
             errorMessage = this.$t('genericErrorMessage');
           }
@@ -842,6 +867,10 @@ export default {
           }
           this.rolesWs = this.formattedRoles(rolesWs);
           this.selectedRolesWs = this.rolesWs.filter((r) => r.data.activated);
+          this.selectedRolesWsActions = this.rolesWsActions.filter((r) => r.data.activated);
+          this.selectedRolesWsConsultation = this.rolesWsConsultation.filter(
+            (r) => r.data.activated
+          );
         }
       } else if (this.userType === 'PARTNER') {
         this.selectedPartner = {
@@ -903,6 +932,10 @@ export default {
           }
           this.rolesWs = this.formattedRoles(rolesWs);
           this.selectedRolesWs = this.rolesWs.filter((r) => r.data.activated);
+          this.selectedRolesWsActions = this.rolesWsActions.filter((r) => r.data.activated);
+          this.selectedRolesWsConsultation = this.rolesWsConsultation.filter(
+            (r) => r.data.activated
+          );
         }
       } else if (this.userType === 'PARTNER_GROUP') {
         if (this.content.duplicateFrom.partners && this.content.duplicateFrom.partners.length) {
@@ -952,6 +985,10 @@ export default {
           }
           this.rolesWs = this.formattedRoles(rolesWs);
           this.selectedRolesWs = this.rolesWs.filter((r) => r.data.activated);
+          this.selectedRolesWsActions = this.rolesWsActions.filter((r) => r.data.activated);
+          this.selectedRolesWsConsultation = this.rolesWsConsultation.filter(
+            (r) => r.data.activated
+          );
         }
       }
 
@@ -1100,6 +1137,11 @@ export default {
     font-size: 1rem;
     color: $dark-gray;
   }
+}
+
+h6 a:hover {
+  cursor: pointer;
+  text-decoration: none;
 }
 
 .overview-item {
