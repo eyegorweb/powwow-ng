@@ -519,11 +519,11 @@ export default {
     ]),
 
     rolesWsActions() {
-      return this.rolesWs.filter((e) => (e.data.category = 2));
+      return this.rolesWs.filter((e) => e.data.category === '2');
     },
 
     rolesWsConsultation() {
-      return this.rolesWs.filter((e) => (e.data.category = 1));
+      return this.rolesWs.filter((e) => e.data.category === '1');
     },
 
     haveWsPermission() {
