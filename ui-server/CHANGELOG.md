@@ -2,6 +2,17 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1218+20221229073742
+2022-12-29
+
+### Features
+
+- [3518] Ajouter l'écran des offres catalogues (d33dc2ac037be6c8670412c50e61da34dde6e940)
+
+### Fixes
+
+- [3618] affichage par catégorie des roles WS (b4895807c85b3008e2f3903269cb6dc52fdaac7d)
+
 ## 1.17.0-master.1217+20221223135213
 2022-12-23
 
