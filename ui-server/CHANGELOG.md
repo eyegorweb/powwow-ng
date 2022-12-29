@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1219+20221229165621
+2022-12-29
+
+### Fixes
+
+- [3619] gestion des rôles des web services des utilisateurs (ea57c7eef932e5a019b1d96e0bc65dc6642fdb91)
+
 ## 1.17.0-master.1218+20221229073742
 2022-12-29
 
