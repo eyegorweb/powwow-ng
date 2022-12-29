@@ -164,7 +164,7 @@ export default {
     },
     usageForQuery() {
       if (this.usage === 'ALARMS') {
-        return 'ALL';
+        return 'ALARM';
       }
 
       return this.usage;
@@ -284,7 +284,10 @@ export default {
               await this.loadDataForCountries();
             }
           } else if (zoomLevel >= 6 && zoomLevel < 8) {
-            const zoneFilter = this.appliedFilters.find((f) => f.id === 'filters.zone');
+            let zoneFilter = undefined;
+            if (this.appliedFilters) {
+              zoneFilter = this.appliedFilters.find((f) => f.id === 'filters.zone');
+            }
             let zoneName;
             if (zoneFilter) {
               zoneName = zoneFilter.data.zone.value;
@@ -395,15 +398,9 @@ export default {
     },
 
     buildLocationFilters(type, country) {
-      let frIncl = this.usage === 'ALARMS' ? true : false;
-      // Ne pas supprimer le filtre sur la france si pay renseigné ou dans un niveau de zoom superieur à pays
-      if (country || (!frIncl && !['CONTINENT', 'COUNTRY'].includes(type))) {
-        frIncl = true;
-      }
       return {
         type,
         country,
-        frIncl,
       };
     },
 

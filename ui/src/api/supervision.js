@@ -272,7 +272,6 @@ export async function fetchLinesForMarker(
   const response = await query(queryStr, {
     filter: {
       locationType,
-      frIncl: frIncl(filtersForQuery.locationType),
       ...filtersForQuery,
     },
     pagination,
@@ -282,10 +281,6 @@ export async function fetchLinesForMarker(
   if (response.data) {
     return response.data.geoList;
   }
-}
-function frIncl(type) {
-  // Ne pas supprimer le filtre sur la france si pay renseigné ou dans un niveau de zoom superieur à pays
-  return 'CONTINENT' !== type ? true : false;
 }
 
 export async function fetchCockpitIndicator(filter = {}, usage = 'DATA') {
@@ -353,7 +348,6 @@ export async function fetchGeoMapData(location, usageType, bounds, filters = {})
     filter: {
       scale: location.type,
       iso3CountryCode: country,
-      frIncl: location.frIncl,
       usageType,
       ...filters,
       ...bounds,
@@ -582,7 +576,6 @@ export async function geoListExport(params) {
     if (params.filter.msisdn || params.filter.ismsi) {
       params.filter.locationType = 'CELL';
     }
-    params.filter.frIncl = frIncl(params.filter.locationType);
   }
   const response = await query(queryStr, params);
 
