@@ -96,7 +96,7 @@ export default {
           name: 'globalActif',
           labelKey: 'getvsion.indicators.globalActif',
           color: 'text-success',
-          clickable: false,
+          clickable: true,
           total: '-',
           fetch: async () => {
             return { total: await globalActifParc(this.formatFilters()) };
@@ -107,7 +107,7 @@ export default {
           name: 'linesNeverOpenedDataSession',
           labelKey: 'getvsion.indicators.linesNeverOpenedDataSession',
           color: 'text-success',
-          clickable: false,
+          clickable: true,
           total: '-',
           fetch: async () => {
             return { total: await fetchIndicator('COUNTER2', 'DATA', this.formatFilters()) };
@@ -118,7 +118,7 @@ export default {
           name: 'linesWithLastSession30Days',
           labelKey: 'getvsion.indicators.linesWithLastSession30Days',
           color: 'text-success',
-          clickable: false,
+          clickable: true,
           total: '-',
           fetch: async () => {
             return { total: await fetchIndicator('COUNTER3', 'DATA', this.formatFilters()) };
@@ -129,7 +129,7 @@ export default {
           name: 'nonLocalisableSessions30Days',
           labelKey: 'getvsion.indicators.nonLocalisableSessions30Days',
           color: 'text-success',
-          clickable: false,
+          clickable: true,
           total: '-',
           fetch: async () => {
             return { total: await fetchIndicator('COUNTER4', 'DATA', this.formatFilters()) };
