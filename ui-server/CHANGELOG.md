@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1221+20230102161305
+2023-01-02
+
+### Fixes
+
+- [3495] Les indicateurs d'Usage Data de getVision doivent être cliquable. (aedd1cb1ed271e92e57722b15cb5290f2d662d89)
+
 ## 1.17.0-master.1220+20221229170405
 2022-12-29
 
