@@ -54,9 +54,9 @@ export async function searchMarketingOffers(filters, orderBy, pagination) {
 }
 
 export async function enableMarketingOffer(marketingOfferId) {
-  return null;
+  return marketingOfferId;
 }
 
 export async function disableMarketingOffer(marketingOfferId) {
-  return null;
+  return marketingOfferId;
 }

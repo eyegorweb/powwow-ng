@@ -24,9 +24,6 @@ export default {
     openPanel() {
       this.$emit('colEvent', { action: 'openAlarmModificationPanel', row: this.row });
     },
-    fetchUserInfos() {
-      this.$emit('fetchUserInfos');
-    },
   },
 };
 </script>
