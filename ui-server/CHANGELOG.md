@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1222+20230103153042
+2023-01-03
+
+### Fixes
+
+- [3619] mise à jour des infos de l'utilisateur si la config des rôles a été modifié (c80b6eb513e89157f0b8697bb6f7399bf1e07c18)
+
 ## 1.17.0-master.1221+20230102161305
 2023-01-02
 
