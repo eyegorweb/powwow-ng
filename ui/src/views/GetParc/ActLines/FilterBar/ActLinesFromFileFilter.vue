@@ -18,13 +18,7 @@ export default {
   data() {
     return {
       isReady: false,
-      otherOptions: [
-        {
-          code: 'c7',
-          label: 'EID',
-          value: 'EID',
-        },
-      ],
+      otherOptions: [],
     };
   },
   components: {
@@ -52,6 +46,17 @@ export default {
     let ipFixeEnabled = false;
     if (this.userIsPartner || this.userInfos.type === 'PARTNER_GROUP') {
       ipFixeEnabled = await isFeatureAvailable('IP_FIXE_ENABLED');
+    }
+
+    if(this.userInfos.esimEnabled) {
+      this.otherOptions = [
+        ...this.otherOptions,
+        {
+          code: 'c7',
+          label: 'EID',
+          value: 'EID',
+        },
+      ];
     }
 
     if (((this.userIsPartner || this.userIsGroupPartner) && ipFixeEnabled) || this.userIsBO) {
