@@ -304,7 +304,7 @@ export default {
     },
     setColumns(newColumns) {
       const columnsWithCondition = this.columns.filter((c) => c.visibleWhen);
-      this.usableColumns = [...columnsWithCondition, ...newColumns];
+      this.usableColumns = [...newColumns];
       this.saveColumnsToLocalStorage([...columnsWithCondition, ...newColumns]);
       this.close();
     },
