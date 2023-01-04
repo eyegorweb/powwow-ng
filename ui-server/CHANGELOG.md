@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1223+20230104102225
+2023-01-04
+
+### Fixes
+
+- [3626] change permission for filters upload file EID on Actlines (73df66d8ebee82ee420ee329762113f4682c4b95)
+
 ## 1.17.0-master.1222+20230103153042
 2023-01-03
 
