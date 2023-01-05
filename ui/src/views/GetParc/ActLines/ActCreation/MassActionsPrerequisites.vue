@@ -60,6 +60,7 @@
       v-if="['getparc.actCreation.carouselItem.RADIUS_ADMIN'].find((a) => a === act.title)"
       :partner="userPartner"
       @set:preprequisites="setPrerequisites"
+      partner-feature="RADIUS"
     />
     <CommunityPrerequisite
       v-if="['getparc.actCreation.carouselItem.UPDATE_YORK_COMMUNITY'].find((a) => a === act.title)"
