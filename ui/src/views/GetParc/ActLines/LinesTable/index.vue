@@ -735,7 +735,7 @@ export default {
           format: {
             type: 'Getter',
             getter: (row) => {
-              return get(row, 'accessPoint.lines.yorkCommunity');
+              return get(row, 'accessPoint.lines[0].yorkCommunity', '-');
             },
           },
           orderable: false,
