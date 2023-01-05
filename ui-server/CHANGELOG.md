@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1224+20230105112148
+2023-01-05
+
+### Fixes
+
+- [3595] duplication columns datatable component (f37841481bffc54704b5d8c2434df85bf9d8cb01)
+- [3619] mise à jour de la colonne Communauté sur la recherche de lignes (c60ea72b5371ad1bf64a5b54e5df13ebb6693016)
+
 ## 1.17.0-master.1223+20230104102225
 2023-01-04
 
