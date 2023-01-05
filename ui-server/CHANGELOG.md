@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1225+20230105123633
+2023-01-05
+
+### Fixes
+
+- [3619] mise à jour de l'erreur de permission sur le rôle de webservices (534826735663038df75a9678a103a2c1258d70ec)
+
 ## 1.17.0-master.1224+20230105112148
 2023-01-05
 
