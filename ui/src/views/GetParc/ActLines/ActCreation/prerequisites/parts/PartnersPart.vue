@@ -45,6 +45,7 @@ export default {
     haveLvOffers: Boolean,
     partnerType: String,
     actIsCf: Boolean,
+    partnerFeature: String,
   },
   computed: {
     ...mapState('userContext', ['contextPartnersType', 'contextPartners']),
@@ -114,6 +115,7 @@ export default {
           esim: this.esim,
           haveLvOffers: this.haveLvOffers,
           partyTypeMC: this.partyTypeMC,
+          hasFeature: this.partnerFeature,
         });
         return data.map((p) => ({
           id: p.id,
