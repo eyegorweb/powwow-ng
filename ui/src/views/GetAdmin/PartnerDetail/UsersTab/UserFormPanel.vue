@@ -500,8 +500,10 @@ export default {
         formattedErrors.forEach((e) => {
           if (e.key === 'user') {
             errorMessage = `${this.$t('getadmin.users.errors.CUSTOMER_ACCOUNT_USER_NOT_ALLOWED')}`;
-          } else if (e.key === 'AccessDeniedForThisUser' || e.key === 'userToCreateOrUpdate') {
+          } else if (e.key === 'AccessDeniedForThisUser') {
             errorMessage = this.$t('getadmin.users.errors.AccessDeniedForThisUser');
+          } else if (e.key === 'userToCreateOrUpdate') {
+            errorMessage = `${this.$t('getadmin.users.errors.ACCESS_WEB_SERVICES_ROLES_DENIED')}`;
           } else if (e.key === 'username') {
             errorMessage = this.$t('getadmin.users.errors.username');
             this.requestErrors = [
