@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1226+20230105132537
+2023-01-05
+
+### Features
+
+- [3555] For act radius, show only radius partners (d637c7c2d59ba1b9c965e4d86c659c26bcf4c27a)
+
 ## 1.17.0-master.1225+20230105123633
 2023-01-05
 
