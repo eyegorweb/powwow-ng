@@ -228,8 +228,10 @@ export async function fetchpartnersQuery(
     esimGqlFilter = `, esimEnable: {eq: true}`;
   }
 
+  let hasFeatureFilter = '';
+
   if (hasFeature) {
-    hasFeature = `, hasFeature: RADIUS`;
+    hasFeatureFilter = `, hasFeature: RADIUS`;
   }
 
   let lvOffers = '';
@@ -253,7 +255,7 @@ export async function fetchpartnersQuery(
   }
   const queryStr = `
   query{
-    partys(filter:{name: {startsWith: "${q}"}${partnerTypeGqlFilter}${esimGqlFilter}${lvOffers}${partyTypeMultiCustomer}${hasFeature}}, pagination: {limit: ${limit}, page: ${page}}, sorting: {name: ASC}) {
+    partys(filter:{name: {startsWith: "${q}"}${partnerTypeGqlFilter}${esimGqlFilter}${lvOffers}${partyTypeMultiCustomer}${hasFeatureFilter}}, pagination: {limit: ${limit}, page: ${page}}, sorting: {name: ASC}) {
       total,
       items {
         ${fields}
