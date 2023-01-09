@@ -63,6 +63,7 @@ import { excludeMocked } from '@/featureFlipping/plugin';
 import { getPartyOptions } from '@/api/partners.js';
 import { getFromLatestLineFromAccessPoint } from '@/utils/line.js';
 import { fetchOffers } from '@/api/offers.js';
+import { isFeatureAvailable } from '@/api/partners';
 
 export default {
   components: {
@@ -74,6 +75,7 @@ export default {
   },
   async mounted() {
     await this.loadLineData();
+    await this.checkPermissionForDiag();
     this.tabs = [
       {
         label: 'detail',
@@ -101,17 +103,19 @@ export default {
       return true;
     });
 
-    if(this.hasPermissionForDiag) {
-      this.tabs = [...this.tabs, 
-      {
-        label: 'diagnosis',
-        title: 'getparc.lineDetail.analysingTool', // ne pas afficher l'onglet si on n'a pas les permissions
-        to: {
-          name: 'lineDetail.diagnosis.analysis',
-          meta: { label: 'Détail de la ligne - Analyser la ligne' },
-          params: { lineId: this.$route.params.lineId },
+    if (this.hasPermissionForDiag) {
+      this.tabs = [
+        ...this.tabs,
+        {
+          label: 'diagnosis',
+          title: 'getparc.lineDetail.analysingTool', // ne pas afficher l'onglet si on n'a pas les permissions
+          to: {
+            name: 'lineDetail.diagnosis.analysis',
+            meta: { label: 'Détail de la ligne - Analyser la ligne' },
+            params: { lineId: this.$route.params.lineId },
+          },
         },
-      }]
+      ];
     }
   },
   data() {
@@ -139,16 +143,6 @@ export default {
       'userIsMultiCustomer',
       'userIsM2MLight',
     ]),
-
-    async hasPermissionForDiag() {
-      return (
-        this.havePermission('getParc', 'manage_coach') ||
-        this.havePermission('getVision', 'read') ||
-        await isFeatureAvailable('AUTODIAGNOSTIC_ENABLED') ||
-        await isFeatureAvailable('REQUEST_CONSO_ENABLED') ||
-        await isFeatureAvailable('GEOLOCATION_ENABLED') 
-      )
-    },
 
     canRunCoach() {
       return (
@@ -183,6 +177,15 @@ export default {
   },
   methods: {
     ...mapMutations(['openPanel']),
+
+    async checkPermissionForDiag() {
+      this.hasPermissionForDiag =
+        this.havePermission('getParc', 'manage_coach') ||
+        this.havePermission('getVision', 'read') ||
+        (await isFeatureAvailable('AUTODIAGNOSTIC_ENABLED')) ||
+        (await isFeatureAvailable('REQUEST_CONSO_ENABLED')) ||
+        (await isFeatureAvailable('GEOLOCATION_ENABLED'));
+    },
 
     openCoachPanel() {
       this.openPanel({

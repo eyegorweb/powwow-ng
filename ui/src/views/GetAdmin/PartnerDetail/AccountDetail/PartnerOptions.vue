@@ -397,7 +397,7 @@
           </div>
         </div>
         <!-- Dual Sim -->
-        <div class="d-flex" v-if="(userIsBO || userIsAdmin) && partyType !== 'MVNO'">
+        <div class="d-flex" v-if="(userIsBO || userIsAdmin) && partyType === 'CUSTOMER'">
           <div class="third-size pr-4">
             <div class="form-group">
               <label class="small-label">{{ $t('getparc.lineDetail.tab1.dualSim') }}</label>
@@ -888,9 +888,11 @@ export default {
         return f;
       });
 
-      this.dualSimChoice = this.$loGet(this.partnerOptions, 'dualSimCardPartyType');
+      this.dualSimChoice = this.$loGet(this.partnerOptions, 'dualSimCardPartyType', null);
       this.dualSimChoices = this.dualSimChoices.map((f) => {
         if (f.id === this.dualSimChoice) {
+          f.default = true;
+        } else if (this.dualSimChoice === null && f.id === 'ROAMING') {
           f.default = true;
         } else {
           f.default = false;

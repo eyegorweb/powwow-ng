@@ -262,14 +262,14 @@ export async function searchLinesForTable(orderBy, pagination, filters = []) {
       commercialStatusDate
       terminationValidated
       workflowCode
-    customFields {
-      custom1
-      custom2
-      custom3
-      custom4
-      custom5
-      custom6
-    }
+      customFields {
+        custom1
+        custom2
+        custom3
+        custom4
+        custom5
+        custom6
+      }
       offerGroup {
         customerAccount {
           id
@@ -287,6 +287,7 @@ export async function searchLinesForTable(orderBy, pagination, filters = []) {
         msisdn
         imsi
         msisdnA
+        yorkCommunity
       }
     }
   }`;
@@ -523,6 +524,7 @@ export function formatFilters(filters) {
   addRangeFilter(allFilters, filters, 'imsi', 'filters.lines.rangeIMSI');
   addRangeFilter(allFilters, filters, 'msisdn', 'filters.lines.rangeMSISDN');
   addRangeFilter(allFilters, filters, 'imei', 'filters.lines.rangeIMEI');
+  addRangeFilter(allFilters, filters, 'eid', 'filters.lines.rangeEID');
   addTerminationValidated(allFilters, filters);
   addIdsFilter(allFilters, filters);
   addIPFilter(allFilters, filters);

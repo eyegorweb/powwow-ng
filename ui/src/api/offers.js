@@ -637,11 +637,11 @@ export async function fetchODOffers(partyId, offer) {
   return response.data.workflows;
 }
 
-export async function fetchYorkCommunity(q, partners, { page, limit, partnerType }) {
-  return await searchYorkCommunity(q, partners, { page, limit, partnerType });
-}
-
-export async function searchYorkCommunity(q, partners, { page, limit, partnerType }) {
+export async function fetchYorkCommunity(
+  q,
+  { page, limit, partnerType, notEqualsCommunityCode },
+  partners
+) {
   let partnersIds,
     partnerGqlParam = '';
 
@@ -658,9 +658,16 @@ export async function searchYorkCommunity(q, partners, { page, limit, partnerTyp
     partnerTypeGqlFilter = `, partyType: {in: [${partnerType}]}`;
   }
 
+  let communityCodeFilter = '';
+  if (notEqualsCommunityCode) {
+    communityCodeFilter = `cosCommunityCode: {ne: "${notEqualsCommunityCode}"}`;
+  } else {
+    communityCodeFilter = `cosCommunityCode: {startsWith: "${q}"}`;
+  }
+
   const queryStr = `
   query{
-    yorkCommunities(filter:{cosCommunityCode: {startsWith: "${q}"}${partnerGqlParam}${partnerTypeGqlFilter}}, pagination: {limit: ${limit}, page: ${page}}) {
+    yorkCommunities(filter:{ ${communityCodeFilter} ${partnerGqlParam} ${partnerTypeGqlFilter}}, pagination: {limit: ${limit}, page: ${page}}) {
       total,
       items {
         id
@@ -670,7 +677,48 @@ export async function searchYorkCommunity(q, partners, { page, limit, partnerTyp
   }
   `;
   const response = await query(queryStr);
+  if (response.errors) {
+    return { errors: response.errors };
+  }
   return response.data.yorkCommunities.items;
+}
+
+export async function updateYorkCommunity(
+  partyId,
+  filters,
+  date,
+  notification,
+  newYorkCommunityId,
+  simCardIds
+) {
+  const queryStr = `mutation {
+    updateYorkCommunity(
+      input: {
+        filter: {${formatFilters(filters)}}
+        partyId: ${partyId}
+        dueDate:"${date}"
+        simCardInstanceIds:[${simCardIds}]
+        notification: ${notification},
+        newYorkCommunity: "${newYorkCommunityId}"
+      }
+    ) {
+      tempDataUuid
+      validated
+      errors {
+        key
+        number
+        message
+      }
+      url
+    }
+  }
+  `;
+  const response = await query(queryStr);
+
+  if (response.errors) {
+    return { errors: response.errors };
+  }
+  return response.data.updateYorkCommunity;
 }
 
 function formatDateForGql(inDate) {

@@ -27,7 +27,7 @@
             block
             @click="
               $router.push({
-                name: 'lineDetail',
+                name: 'lineDetail.details.info',
                 params: { lineIccid: '' + lineIccid, meta: content },
               })
             "

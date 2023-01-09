@@ -9,6 +9,7 @@
   "searchActById": "Search for an act by identifier",
   "searchLineById": "Search for a line by identifier",
   "searchByLoginPlaceholder": "Search for a user by login",
+  "searchByCodeOrDescription": "Search for offer by code or by description",
   "searchLine": "Search a line",
   "resaSearchLine": "Search for a reservation",
   "search": "Search",
@@ -337,7 +338,7 @@
         "title": "Parc status",
         "stockLines": "Stock Lines",
         "preactivatedLines": "Preactivated lines",
-      "activatedLines": "Activated lines",
+        "activatedLines": "Activated lines",
         "suspendedLines": "Suspended lines",
         "cancellationLines": "Termination in progress",
         "suspendedAndNotBilledLines": "Suspended lines « not charged »",
@@ -430,7 +431,8 @@
       "homepage": "Homepage",
       "all_incidents": "open incidents",
       "search_incidents": "search an incident"
-    }
+    },
+    "catalogOffers": "Catalog offers management"
   },
   "users": {
     "function": "Function [optionnal]",
@@ -895,6 +897,7 @@
       "total": "{total} found user(s)",
       "errors": {
         "AccessDeniedForThisUser": "You don't have permission.",
+        "ACCESS_WEB_SERVICES_ROLES_DENIED": "To remove the Webservice role, you must deactivate the permissions in the WEBSERVICES tab",
         "USER_D_PASSWORD_OLD_ENTERED_IS_INCORRECT": "Old password is incorrect",
         "USER_D_PASSWORD_MUST_BE_DIFFERENT_FROM_OLD_ONE": "Password must be different from old one",
         "username": "Login already exists.",
@@ -1143,6 +1146,33 @@
         "search": "Search for a map",
         "searchPlaceholder": "please enter a name",
         "title": "List of SIM cards associated with this entity"
+      }
+    },
+    "marketingOffers": {
+      "searchOffer": "Search marketing offers",
+      "addOffer": "Add marketing Offer",
+      "title": "Marketing Offers management",
+      "noInfo": "Not specified",
+      "searchPlaceholder": "Saisir un nom, prénom ou login",
+      "columns": {
+        "status": "Status"
+      },
+      "filters": {
+        "offerType": "Type of offer"
+      },
+      "total": "{total} offer(s) founded",
+      "errors": {
+        "AccessDeniedForThisUser": "You don't have permission.",
+        "USER_D_PASSWORD_OLD_ENTERED_IS_INCORRECT": "Old password is incorrect",
+        "USER_D_PASSWORD_MUST_BE_DIFFERENT_FROM_OLD_ONE": "Password must be different from old one",
+        "username": "Login already exists.",
+        "CUSTOMER_ACCOUNT_USER_NOT_ALLOWED": "Access denied for the current user"
+      },
+      "export": "Export {total} offer(s)",
+      "tooltip-text": "This page allows you to search for an offer.",
+      "marketingOfferForm": {
+        "title": "Add offer",
+        "modify-title": "Modify the offer"
       }
     }
   },
@@ -2194,6 +2224,8 @@
     "offer": "Offer",
     "active": "Active",
     "notActive": "Not active",
+    "notGeneric": "Not generic",
+    "generic": "Generic",
     "locked": "Locked",
     "closed": "Closed",
     "managementId": "Management Id",

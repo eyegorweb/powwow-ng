@@ -48,8 +48,6 @@
 </template>
 
 <script>
-//
-
 import MassActionsPrerequisites from './MassActionsPrerequisites.vue';
 import SearchById from './prerequisites/SearchById.vue';
 import AutoPairingPrereq from './prerequisites/AutoPairingPrereq.vue';
@@ -82,6 +80,7 @@ export default {
         'getparc.actCreation.carouselItem.CHANGE_MSISDN',
         'getparc.actCreation.carouselItem.CHANGE_SIMCARD',
         'getparc.actCreation.carouselItem.CHANGE_OFFER',
+        'getparc.actCreation.carouselItem.UPDATE_YORK_COMMUNITY',
         'getparc.actCreation.carouselItem.RADIUS_ADMIN',
       ];
       return !ignoredActs.find((a) => a === this.act.title);

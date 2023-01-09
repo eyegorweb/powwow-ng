@@ -10,6 +10,7 @@
   "searchActById": "Rechercher un acte par identifiant",
   "searchLineById": "Rechercher une ligne par identifiant",
   "searchByLoginPlaceholder": "Rechercher un utilisateur par login",
+  "searchByCodeOrDescription": "Rechercher une offre par code ou par description",
   "suggestionsPlaceholder": "Commencez à taper pour avoir des suggestions",
   "searchByCF": "Recherche d'un client par numéro, libellé, siret, siren ou ligne de marché",
   "searchByCFPartner": "Recherche d'un C.F. par code, libellé, siret, siren",
@@ -482,7 +483,8 @@
       "homepage": "Accueil / Déclaration d''un incident",
       "all_incidents": "Incidents en cours",
       "search_incidents": "Recherche incidents"
-    }
+    },
+    "catalogOffers": "Gestion des offres catalogues"
   },
   "users": {
     "function": "Fonction [facultatif]",
@@ -986,6 +988,7 @@
       "total": "{total} utilisateur(s) trouvé(s)",
       "errors": {
         "AccessDeniedForThisUser": "Vous n'avez pas la permission.",
+        "ACCESS_WEB_SERVICES_ROLES_DENIED": "Pour retirer le rôle Webservice, il faut désactiver les permissions dans l'onglet WEBSERVICES",
         "USER_D_PASSWORD_OLD_ENTERED_IS_INCORRECT": "L'ancien mot de passe est incorrect",
         "USER_D_PASSWORD_MUST_BE_DIFFERENT_FROM_OLD_ONE": "Le mot de passe doit être différent de l'ancien",
         "username": "Le login existe déjà.",
@@ -1254,6 +1257,33 @@
       "errors": {
         "MAILING_LIST_CANNOT_BE_DELETED": "Impossible de supprimer une liste de diffusion, si elle est utilisée autre part.",
         "MAILING_LIST_ALREADY_EXIST": "Impossible de renommer une liste de diffusion avec un nom déjà utilisé."
+      }
+    },
+    "marketingOffers": {
+      "searchOffer": "Rechercher un utilisateur",
+      "addOffer": "Ajouter une offre",
+      "title": "Gestion des offres catalogues",
+      "noInfo": "Non renseigné",
+      "searchPlaceholder": "Saisir un nom, prénom ou login",
+      "columns": {
+        "status": "Statut"
+      },
+      "filters": {
+        "offerType": "Type de l'offre"
+      },
+      "total": "{total} offre(s) trouvée(s)",
+      "errors": {
+        "AccessDeniedForThisUser": "Vous n'avez pas la permission.",
+        "USER_D_PASSWORD_OLD_ENTERED_IS_INCORRECT": "L'ancien mot de passe est incorrect",
+        "USER_D_PASSWORD_MUST_BE_DIFFERENT_FROM_OLD_ONE": "Le mot de passe doit être différent de l'ancien",
+        "username": "Le login existe déjà.",
+        "CUSTOMER_ACCOUNT_USER_NOT_ALLOWED": "Accès refusé pour l'utilisateur actuel"
+      },
+      "export": "Exporter {total} offre(s)",
+      "tooltip-text": "Cette page permet de rechercher les offres.",
+      "marketingOfferForm": {
+        "title": "Ajouter une offre",
+        "modify-title": "Modifier l'offre"
       }
     }
   },
@@ -1994,7 +2024,6 @@
         "UPDATE_YORK_COMMUNITY": "Configurer la modification de CoS",
         "configure": "Configuration"
       },
-
       "modal": {
         "modalPreventMsg": "Les lignes seront immédiatement résiliées.",
         "modalPreventMsgDelay": "Les lignes seront résiliées automatiquement dans {delay} mois",
@@ -2061,11 +2090,12 @@
         "confirmationWarningForDetail": "Confirmer la demande ?<div class=\"alert alert-warning\">{list}</div>",
         "confirmationWarningForCommand": "<div class=\"alert alert-warning\">{list}</div>"
       },
-
       "transferSim": {
         "confirmationWarning": "Confirmer la demande pour {count} ligne(s) ?"
       },
-
+      "cos": {
+        "select": "Sélectionner une CoS"
+      },
       "report": {
         "API_ERROR": "Erreur inconnue. La demande n'a pas pu aboutir.",
         "DATA_EXISTS": "Lignes existantes",
@@ -2400,6 +2430,8 @@
     "offer": "Offre",
     "active": "Actif",
     "notActive": "Non actif",
+    "notGeneric": "Non générique",
+    "generic": "Générique",
     "locked": "Verouillé",
     "closed": "Clos",
     "managementId": "Id gestion",
@@ -2562,6 +2594,7 @@
       "rangeIMSI": "Plage IMSI",
       "rangeMSISDN": "Plage MSISDN",
       "rangeIMEI": "Plage IMEI",
+      "rangeEID": "Plage EID",
       "siren": "Siren",
       "traffic": "Lignes trafiquantes",
       "trafficLabel": "Ayant trafiqué dans le mois",

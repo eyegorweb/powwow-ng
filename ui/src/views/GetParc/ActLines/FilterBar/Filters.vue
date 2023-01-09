@@ -354,19 +354,6 @@
     <template v-if="userHaveEsimEnabled">
       <FoldableBlock
         v-if="keyName === 'esim1'"
-        :title="$t('indicators.getparc.lines.esim.id')"
-        :key="'esim1'"
-        :disabled="filtersAreDisabled"
-        draggable
-      >
-        <SimpleInputFilter
-          :selected-value="selectedEsimIdValue"
-          @update:value="selectEsimIdFilter($event)"
-        />
-      </FoldableBlock>
-
-      <FoldableBlock
-        v-if="keyName === 'esim2'"
         :title="$t('indicators.getparc.lines.esim.category')"
         :key="'esim2'"
         :disabled="filtersAreDisabled"
@@ -375,6 +362,18 @@
         <EsimCategoryFilter
           :selected-value="selectedEsimCategoryValue"
           @update:value="selectEsimCategoryFilter($event)"
+        />
+      </FoldableBlock>
+      <FoldableBlock
+        v-if="keyName === 'esim2'"
+        :title="$t('indicators.getparc.lines.esim.id')"
+        :key="'esim1'"
+        :disabled="filtersAreDisabled || !isEsimCategoryInFilter"
+        draggable
+      >
+        <SimpleInputFilter
+          :selected-value="selectedEsimIdValue"
+          @update:value="selectEsimIdFilter($event)"
         />
       </FoldableBlock>
       <FoldableBlock
@@ -436,6 +435,15 @@
           :selected-value="selectedSmsRid"
           @update:value="selectEsimFamilyFilter($event)"
         />
+      </FoldableBlock>
+      <FoldableBlock
+        v-if="keyName === 'esim8'"
+        :title="$t('filters.lines.rangeEID')"
+        :key="'esim8'"
+        :disabled="filtersAreDisabled || !isEsimCategoryInFilter"
+        draggable
+      >
+        <ActLinesRangeFilter :values="selectedEIDValue" @update:values="selectEIDFilter($event)" />
       </FoldableBlock>
     </template>
   </div>
@@ -521,6 +529,7 @@ export default {
       'selectedIMSIValue',
       'selectedMSISDNValue',
       'selectedIMEIValue',
+      'selectedEIDValue',
       'selectedEsimIdValue',
       'selectedTerminationValue',
       'selectedEsimCategoryValue',
@@ -563,7 +572,7 @@ export default {
   },
   async mounted() {
     // Check for IPFixe filter
-    if (this.keyName === 'el30') {        
+    if (this.keyName === 'el30') {
       this.hasOptionIpFixe = await isFeatureAvailable('IP_FIXE_ENABLED');
     }
   },
@@ -579,6 +588,7 @@ export default {
       'selectIMSIFilter',
       'selectMSISDNFilter',
       'selectIMEIFilter',
+      'selectEIDFilter',
       'selectEsimIdFilter',
       'selectTerminationFilter',
       'selectIPFilter',

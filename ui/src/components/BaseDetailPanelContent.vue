@@ -3,7 +3,7 @@
     <div
       class="data-detail-container"
       ref="panelMainContainer"
-      :class="{ 'main-content': !main, 'withButtons': !noButtons }"
+      :class="{ 'main-content': !main, withButtons: !noButtons }"
       @scroll="$emit('scroll', $refs.panelMainContainer)"
     >
       <slot></slot>
@@ -25,7 +25,7 @@ export default {
     noButtons: {
       type: Boolean,
       default: false,
-    }
+    },
   },
 };
 </script>
@@ -38,7 +38,7 @@ export default {
 <style lang="scss">
 $fontSize: 0.8rem;
 
-.withButtons {  
+.withButtons {
   margin-bottom: 80px;
 }
 

@@ -2,6 +2,195 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1227+20230106095638
+2023-01-06
+
+### Fixes
+
+- [3555] hotfix (ba1c73f93d96d2f1efdeb4afa55b97f569903fb2)
+
+## 1.17.0-master.1226+20230105132537
+2023-01-05
+
+### Features
+
+- [3555] For act radius, show only radius partners (d637c7c2d59ba1b9c965e4d86c659c26bcf4c27a)
+
+## 1.17.0-master.1225+20230105123633
+2023-01-05
+
+### Fixes
+
+- [3619] mise à jour de l'erreur de permission sur le rôle de webservices (534826735663038df75a9678a103a2c1258d70ec)
+
+## 1.17.0-master.1224+20230105112148
+2023-01-05
+
+### Fixes
+
+- [3595] duplication columns datatable component (f37841481bffc54704b5d8c2434df85bf9d8cb01)
+- [3619] mise à jour de la colonne Communauté sur la recherche de lignes (c60ea72b5371ad1bf64a5b54e5df13ebb6693016)
+
+## 1.17.0-master.1223+20230104102225
+2023-01-04
+
+### Fixes
+
+- [3626] change permission for filters upload file EID on Actlines (73df66d8ebee82ee420ee329762113f4682c4b95)
+
+## 1.17.0-master.1222+20230103153042
+2023-01-03
+
+### Fixes
+
+- [3619] mise à jour des infos de l'utilisateur si la config des rôles a été modifié (c80b6eb513e89157f0b8697bb6f7399bf1e07c18)
+
+## 1.17.0-master.1221+20230102161305
+2023-01-02
+
+### Fixes
+
+- [3495] Les indicateurs d'Usage Data de getVision doivent être cliquable. (aedd1cb1ed271e92e57722b15cb5290f2d662d89)
+
+## 1.17.0-master.1220+20221229170405
+2022-12-29
+
+### Fixes
+
+- [3619] gestion des rôles des web services des utilisateurs (ea57c7eef932e5a019b1d96e0bc65dc6642fdb91)
+- [3282] Gestion des marqueurs France dans la supervision. (598b74acf3a60a1ff410daeee3f2695715f03370)
+
+## 1.17.0-master.1218+20221229073742
+2022-12-29
+
+### Features
+
+- [3518] Ajouter l'écran des offres catalogues (d33dc2ac037be6c8670412c50e61da34dde6e940)
+
+### Fixes
+
+- [3618] affichage par catégorie des roles WS (b4895807c85b3008e2f3903269cb6dc52fdaac7d)
+
+## 1.17.0-master.1217+20221223135213
+2022-12-23
+
+### Fixes
+
+- [3615] gestion de l'option Dual Sim des options du partenaire (29c64d446b02cccc14e9633d981412450f9653c0)
+
+## 1.17.0-master.1216+20221222100747
+2022-12-22
+
+### Fixes
+
+- [000] lint (3e27491524f26b22b33206377f41cc3f0b0e8978)
+
+## 1.17.0-master.1215+20221222085117
+2022-12-22
+
+### Features
+
+- [3592] add eId filter to actLines datable (f109c321f833c92593389d174585792ad515a556)
+
+## 1.17.0-master.1214+20221221065131
+2022-12-21
+
+### Features
+
+- [3510] gestion de l'acte de modification de communauté (41a84624e9b8babd1e6641c1c36a5bfedb48417f)
+
+## 1.17.0-master.1213+20221220185547
+2022-12-20
+
+### Features
+
+- [3510] gestion de l'acte de modification de communauté (f932500a65ba93d5dd6b86902e40739b54abdc15)
+
+## 1.17.0-master.1212+20221220145626
+2022-12-20
+
+### Features
+
+- [3510] gestion de l'acte de modification de communauté (e46f93e3264e082041702ef7e92f8672280eff09)
+
+## 1.17.0-master.1211+20221220142241
+2022-12-20
+
+### Features
+
+- [3510] gestion de l'acte de modification de communauté (d7ef1dff717a99f4035842ef61aef955b821cbed)
+
+## 1.17.0-master.1210+20221220135228
+2022-12-20
+
+### Features
+
+- [3510] gestion de l'acte de modification de communauté (b79155e4933079836a5e94853cf8f53caeaac0b2)
+
+## 1.17.0-master.1209+20221220130354
+2022-12-20
+
+### Features
+
+- [3510] gestion de l'acte de modification de communauté (4e2b28773847ac6adc7f85d120d000d9b486872a)
+
+## 1.17.0-master.1208+20221220123644
+2022-12-20
+
+### Features
+
+- [3510] gestion de l'acte de modification de communauté (5efca75043dafbd1263c76411c3eb4cbf2b74ec0)
+
+## 1.17.0-master.1207+20221220103031
+2022-12-20
+
+### Fixes
+
+- [3501] afficher par défaut le type Roaming pour l'option Dual SIM des partenaires (7a7096f67563239f995f3bbcd85972605056d9ab)
+- [3501] afficher par défaut le type Roaming pour l'option Dual SIM des partenaires (e127e28a693965236ce72a0c867fc2902275b8f4)
+
+## 1.17.0-master.1205+20221219160640
+2022-12-19
+
+### Features
+
+- [351Ø] ajout de l'acte de gestion Modification de CoS (fd02a41644d7230acee18d3fc3c2ade60d01ae5e)
+
+## 1.17.0-master.1204+20221219135512
+2022-12-19
+
+### Fixes
+
+- [000] to generate new name (924ae029f55e20e39dc8b5dc6d94a9752a0a61bb)
+
+## 1.17.0-master.1203+20221216145014
+2022-12-19
+
+### Fixes
+
+- [3600] Bug routing on lineDetail from getVision iccid button (8319f5f525b932b52fa89afdaca7babfe6a3d64e)
+
+## 1.17.0-master.1202+20221216105201
+2022-12-16
+
+### Fixes
+
+- [3366] evolution tabs permission linedetail (0d06fa2eb5279195cdd3325d4e709cdd2857f08f)
+
+## 1.17.0-master.1201+20221216101014
+2022-12-16
+
+### Fixes
+
+- [000] user panel (dcf9ad3341efad092625b21a9d125d7e733756de)
+
+## 1.17.0-master.1200+20221216094219
+2022-12-16
+
+### Fixes
+
+- [000] user panel (d298ffaf833b3dda85e7cc381768d25c76c1c27f)
+
 ## 1.17.0-master.1199+20221216083309
 2022-12-16
 

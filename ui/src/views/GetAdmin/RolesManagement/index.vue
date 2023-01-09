@@ -64,7 +64,7 @@ import UiCheckbox from '@/components/ui/Checkbox';
 import PermissionChoice from './PermissionChoice.vue';
 import UiSimpleToggle from '@/components/ui/UiSimpleToggle.vue';
 import UiButton from '@/components/ui/Button';
-import { mapMutations } from 'vuex';
+import { mapMutations, mapActions } from 'vuex';
 import union from 'lodash.union';
 import differencewith from 'lodash.differencewith';
 
@@ -151,6 +151,7 @@ export default {
 
   methods: {
     ...mapMutations(['flashMessage', 'confirmAction']),
+    ...mapActions(['fetchUserInfos', 'setAuthToken']),
     onRoleClick(role) {
       this.selectedRole = role;
       this.refreshSelectedRolePermissions();
@@ -167,6 +168,7 @@ export default {
             .map((p) => p.id);
           try {
             await updatePermissions(this.selectedRole.Id, permissions);
+            await this.fetchUserInfos();
             this.flashMessage({ level: 'success', message: this.$t('genericSuccessMessage') });
           } catch (e) {
             console.log(e);

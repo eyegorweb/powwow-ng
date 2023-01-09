@@ -179,20 +179,40 @@
             v-model="selectedRoles"
             v-if="!showWebservices"
           />
-          <h3 v-if="rolesWsActions && showWebservices">Actions</h3>
-          <MultiChoices
-            class="roles"
-            :options="rolesWsActions"
-            v-model="selectedRolesWsActions"
-            v-if="showWebservices && rolesWs.length > 0 && haveWsPermission"
-          />
-          <h3 v-if="rolesWsConsultation && showWebservices">Consultation</h3>
-          <MultiChoices
-            class="roles"
-            :options="rolesWsConsultation"
-            v-model="selectedRolesWsConsultation"
-            v-if="showWebservices && rolesWs.length > 0 && haveWsPermission"
-          />
+          <h6 v-if="rolesWsActions && showWebservices">
+            <a class="p-0" @click.prevent="isOpenWsActionRoles = !isOpenWsActionRoles">
+              Actions
+              <i :class="isOpenWsActionRoles ? 'ic-Arrow-Up-Icon' : 'ic-Arrow-Down-Icon'" />
+            </a>
+          </h6>
+
+          <TransitionCollapse>
+            <div class="" v-if="isOpenWsActionRoles">
+              <MultiChoices
+                class="roles"
+                :options="rolesWsActions"
+                v-model="selectedRolesWsActions"
+                v-if="showWebservices && rolesWs.length > 0 && haveWsPermission"
+              />
+            </div>
+          </TransitionCollapse>
+          <h6 v-if="rolesWsConsultation && showWebservices">
+            <a class="p-0" @click.prevent="isOpenWsConsultationRoles = !isOpenWsConsultationRoles">
+              Consultation
+              <i :class="isOpenWsConsultationRoles ? 'ic-Arrow-Up-Icon' : 'ic-Arrow-Down-Icon'" />
+            </a>
+          </h6>
+
+          <TransitionCollapse>
+            <div class="" v-if="isOpenWsConsultationRoles">
+              <MultiChoices
+                class="roles"
+                :options="rolesWsConsultation"
+                v-model="selectedRolesWsConsultation"
+                v-if="showWebservices && rolesWs.length > 0 && haveWsPermission"
+              />
+            </div>
+          </TransitionCollapse>
         </div>
       </div>
     </div>
@@ -226,6 +246,7 @@ import Toggle from '@/components/ui/UiToggle2';
 import cloneDeep from 'lodash.clonedeep';
 import UiSelect from '@/components/ui/UiSelect';
 import Checkbox from '@/components/ui/Checkbox.vue';
+import TransitionCollapse from '@/components/TransitionCollapse';
 
 // API
 import { delay } from '@/api/utils.js';
@@ -279,6 +300,7 @@ export default {
     UiApiAutocomplete,
     Toggle,
     Checkbox,
+    TransitionCollapse,
   },
   props: {
     content: Object,
@@ -300,6 +322,8 @@ export default {
       groupPartners: [],
       partnerChoices: [],
       customerAccounts: [],
+      isOpenWsActionRoles: true,
+      isOpenWsConsultationRoles: true,
       userTypes: [
         {
           id: 'OPERATOR',
@@ -470,20 +494,23 @@ export default {
       }
 
       if (response && response.errors && response.errors.length) {
-        response.errors.forEach(() => {
-          if (
-            response.errors[0].extensions &&
-            response.errors[0].extensions['AccessDeniedForThisUser']
-          ) {
+        const formattedErrors = formatBackErrors(response.errors)
+          .map((e) => e.errors)
+          .flat();
+        formattedErrors.forEach((e) => {
+          if (e.key === 'user') {
+            errorMessage = `${this.$t('getadmin.users.errors.CUSTOMER_ACCOUNT_USER_NOT_ALLOWED')}`;
+          } else if (e.key === 'AccessDeniedForThisUser') {
             errorMessage = this.$t('getadmin.users.errors.AccessDeniedForThisUser');
-          } else if (response.errors[0].extensions && response.errors[0].extensions['username']) {
+          } else if (e.key === 'userToCreateOrUpdate') {
+            errorMessage = `${this.$t('getadmin.users.errors.ACCESS_WEB_SERVICES_ROLES_DENIED')}`;
+          } else if (e.key === 'username') {
             errorMessage = this.$t('getadmin.users.errors.username');
             this.requestErrors = [
               {
                 message: errorMessage,
               },
             ];
-            return;
           } else {
             errorMessage = this.$t('genericErrorMessage');
           }
@@ -519,11 +546,11 @@ export default {
     ]),
 
     rolesWsActions() {
-      return this.rolesWs.filter((e) => (e.data.category = 2));
+      return this.rolesWs.filter((e) => e.data.category === '2');
     },
 
     rolesWsConsultation() {
-      return this.rolesWs.filter((e) => (e.data.category = 1));
+      return this.rolesWs.filter((e) => e.data.category === '1');
     },
 
     haveWsPermission() {
@@ -785,9 +812,29 @@ export default {
     } else if (this.content.fromUserMenu && this.userInfos.type === 'PARTNER_GROUP') {
       this.canShowForm = true;
       roles = await fetchAllowedRoles(null, null, this.userInfos.partyGroup.id);
-      rolesWs = await fetchAllowedRoles(null, null, this.userInfos.partyGroup.id, true);
       this.roles = this.formattedRoles(roles);
-      this.rolesWs = this.formattedRoles(rolesWs);
+
+      if (this.havePermission('user', 'webservice_permissions')) {
+        rolesWs = await fetchAllowedRoles(null, null, this.userInfos.partyGroup.id, true);
+        if (rolesWs.errors && rolesWs.errors.length) {
+          let errorMessage = '';
+          const formatted = formatBackErrors(rolesWs.errors)
+            .map((e) => e.errors)
+            .flat();
+          formatted.forEach((e) => {
+            if (e.key === 'user') {
+              errorMessage = `${this.$t(
+                'getadmin.users.errors.CUSTOMER_ACCOUNT_USER_NOT_ALLOWED'
+              )}`;
+            } else {
+              errorMessage = `${e.key}: ${e.value}`;
+            }
+          });
+          this.exceptionError = errorMessage;
+          return;
+        }
+        this.rolesWs = this.formattedRoles(rolesWs);
+      }
       return;
     }
 
@@ -803,8 +850,29 @@ export default {
 
         if (this.havePermission('user', 'webservice_permissions')) {
           rolesWs = await fetchAllowedRoles(this.content.duplicateFrom.id, null, null, true);
+          if (rolesWs.errors && rolesWs.errors.length) {
+            let errorMessage = '';
+            const formatted = formatBackErrors(rolesWs.errors)
+              .map((e) => e.errors)
+              .flat();
+            formatted.forEach((e) => {
+              if (e.key === 'user') {
+                errorMessage = `${this.$t(
+                  'getadmin.users.errors.CUSTOMER_ACCOUNT_USER_NOT_ALLOWED'
+                )}`;
+              } else {
+                errorMessage = `${e.key}: ${e.value}`;
+              }
+            });
+            this.exceptionError = errorMessage;
+            return;
+          }
           this.rolesWs = this.formattedRoles(rolesWs);
           this.selectedRolesWs = this.rolesWs.filter((r) => r.data.activated);
+          this.selectedRolesWsActions = this.rolesWsActions.filter((r) => r.data.activated);
+          this.selectedRolesWsConsultation = this.rolesWsConsultation.filter(
+            (r) => r.data.activated
+          );
         }
       } else if (this.userType === 'PARTNER') {
         this.selectedPartner = {
@@ -866,6 +934,10 @@ export default {
           }
           this.rolesWs = this.formattedRoles(rolesWs);
           this.selectedRolesWs = this.rolesWs.filter((r) => r.data.activated);
+          this.selectedRolesWsActions = this.rolesWsActions.filter((r) => r.data.activated);
+          this.selectedRolesWsConsultation = this.rolesWsConsultation.filter(
+            (r) => r.data.activated
+          );
         }
       } else if (this.userType === 'PARTNER_GROUP') {
         if (this.content.duplicateFrom.partners && this.content.duplicateFrom.partners.length) {
@@ -915,6 +987,10 @@ export default {
           }
           this.rolesWs = this.formattedRoles(rolesWs);
           this.selectedRolesWs = this.rolesWs.filter((r) => r.data.activated);
+          this.selectedRolesWsActions = this.rolesWsActions.filter((r) => r.data.activated);
+          this.selectedRolesWsConsultation = this.rolesWsConsultation.filter(
+            (r) => r.data.activated
+          );
         }
       }
 
@@ -1012,6 +1088,7 @@ export default {
         // Appelé en plus de l'initialisation => corriger donc
         this.selectedPartner = undefined;
         this.selectedGroupPartner = undefined;
+        this.showWebservices = false;
         if (this.content.fromUserMenu) {
           roles = await fetchAllowedRoles(null, null, null);
           if (this.havePermission('user', 'webservice_permissions')) {
@@ -1062,6 +1139,11 @@ export default {
     font-size: 1rem;
     color: $dark-gray;
   }
+}
+
+h6 a:hover {
+  cursor: pointer;
+  text-decoration: none;
 }
 
 .overview-item {
