@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1228+20230109151532
+2023-01-09
+
+### Fixes
+
+- [3630] correction des valeurs de filtres en doublon après application des prérequis des actes de gestion (fdc31247179a8986e62564936942490a777cf934)
+
 ## 1.17.0-master.1227+20230106095638
 2023-01-06
 
