@@ -30,8 +30,6 @@ export default {
             .map((o) => ({
               id: o.code,
               label: o.workflowDescription,
-              productCode: o.code,
-              data: o,
             }))
             .reduce((all, offer) => {
               const isFound = all.find((w) => w.id === offer.id);

@@ -86,7 +86,6 @@ export default {
             return {
               id: c.simCard.code,
               label: c.simCard.description,
-              data: c,
             };
           }
         });

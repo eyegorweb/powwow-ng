@@ -7,6 +7,7 @@ const findFilterValuesById = filterUtils.findFilterValuesById;
 const findFilterById = filterUtils.findFilterById;
 const selectFilterValue = filterUtils.selectFilterValue;
 const findFilterValueById = filterUtils.findFilterValueById;
+const formattedFilterValues = filterUtils.formattedFilterValues;
 
 const removeFromCurrentById = (s, id) => {
   if (s.currentFilters && s.currentFilters.length) {
@@ -100,7 +101,7 @@ export const getters = {
 async function setPartnersFilter({ commit, getters }, { partners, isHidden }) {
   commit('selectFilterValue', {
     id: 'filters.partners',
-    values: partners,
+    values: formattedFilterValues(partners),
     hidden: isHidden,
   });
   removeSelectedBillingAccountWithNoSelectedPartners({ commit, getters }, partners);
@@ -259,19 +260,19 @@ export const mutations = {
   setBillingAccountsFilter(state, billingAccounts) {
     selectFilterValue(state, {
       id: 'filters.billingAccounts',
-      values: billingAccounts,
+      values: formattedFilterValues(billingAccounts),
     });
   },
   setCommunityFilter(state, communities) {
     selectFilterValue(state, {
       id: 'filters.lines.community',
-      values: communities,
+      values: formattedFilterValues(communities),
     });
   },
   setTypeSimCardFilter(s, types) {
     selectFilterValue(s, {
       id: 'filters.lines.typeSIMCard',
-      values: types,
+      values: formattedFilterValues(types),
     });
   },
   setDownloadProfile(s, downloadProfile) {
@@ -351,7 +352,7 @@ export const mutations = {
   setOffersFilter(state, offers) {
     selectFilterValue(state, {
       id: 'filters.lines.associatedOffer',
-      values: offers,
+      values: formattedFilterValues(offers),
     });
   },
   setProfileStatesFilter(state, statuses) {
