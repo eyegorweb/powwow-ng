@@ -3,8 +3,8 @@
     <span class="detail-title">{{ $t(filter.id) }}</span>
     <div data-test="content">
       <template v-if="filter.values">
-        <template v-for="op in filter.values">
-          <span class="detail" :key="op.id">
+        <template v-for="(op, index) in filter.values">
+          <span class="detail" :key="op.id + '_' + index">
             {{ op.label }}
             <br />
           </span>

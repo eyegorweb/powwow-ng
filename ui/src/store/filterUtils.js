@@ -73,6 +73,20 @@ export const findFilterValuesById = (id) => (state) => {
   return found ? found.values : [];
 };
 
+/**
+ * Helper function to structure object
+ * @param {*} values object to structure
+ * @returns structures object with id and label attributes
+ */
+export function formattedFilterValues(values) {
+  return values.map((v) => {
+    return {
+      id: v.id,
+      label: v.label,
+    };
+  });
+}
+
 export const findFilterById = (id) => (state) => {
   return state.currentFilters.find((c) => c.id === id);
 };

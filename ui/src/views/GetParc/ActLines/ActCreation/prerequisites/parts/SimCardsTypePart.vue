@@ -106,7 +106,6 @@ export default {
             return {
               id: c.simCard.id,
               label: c.simCard.description,
-              data: c,
             };
           });
         }

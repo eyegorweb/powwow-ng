@@ -15,10 +15,10 @@
     >
       <template slot="beforeInput">
         <div
-          v-for="selected in displayedItems"
+          v-for="(selected, index) in displayedItems"
           class="selection ml-2 my-1 text-white rounded"
           :class="!selectedColor ? 'bg-secondary' : selectedColor"
-          :key="selected.id"
+          :key="selected.id + '_' + index"
         >
           {{ selected.label }}
           <img

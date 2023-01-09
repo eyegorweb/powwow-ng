@@ -179,7 +179,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions('getsim', ['setPartnersFilter', 'clearFilter']),
+    ...mapActions('getsim', ['clearFilter']),
     ...mapMutations('getsim', [
       'setOrderStatusFilter',
       'applyFilters',
