@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1229+20230111142847
+2023-01-11
+
+### Fixes
+
+- [3260] gestion des filtres de catégorie eSim et dépendances (e7912cc74060d55ea2347385a7df9b6e81dea810)
+
 ## 1.17.0-master.1228+20230109151532
 2023-01-09
 
