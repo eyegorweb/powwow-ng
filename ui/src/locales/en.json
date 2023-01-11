@@ -2287,7 +2287,7 @@
           "id": "Reservation Id",
           "family": "SIM family",
           "category": "SIM category",
-          "type": "Step type",
+          "type": "eSIM type",
           "downloadStatus": "Download Status",
           "pairedLine": "Paired line",
           "rid": "SMSRID"
