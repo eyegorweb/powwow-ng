@@ -222,12 +222,7 @@
       />
     </FoldableBlock>
     <FoldableBlock
-      v-if="
-        !userIsMVNO &&
-          (havePermission('getParc', 'manage_esim') ||
-            havePermission('getParc', 'manage_esim_light')) &&
-          keyName === 'el21'
-      "
+      v-if="!userIsMVNO && havePermission('getParc', 'manage_esim_light') && keyName === 'el21'"
       :title="$t('filters.lines.profileEUICC')"
       :key="'el21'"
       :disabled="filtersAreDisabled"
@@ -351,29 +346,17 @@
       />
     </FoldableBlock>
 
-    <template v-if="userHaveEsimEnabled">
+    <template v-if="userHaveEsimEnabled && havePermission('getParc', 'manage_esim')">
       <FoldableBlock
         v-if="keyName === 'esim1'"
         :title="$t('indicators.getparc.lines.esim.category')"
-        :key="'esim2'"
+        :key="'esim1'"
         :disabled="filtersAreDisabled"
         draggable
       >
         <EsimCategoryFilter
           :selected-value="selectedEsimCategoryValue"
           @update:value="selectEsimCategoryFilter($event)"
-        />
-      </FoldableBlock>
-      <FoldableBlock
-        v-if="keyName === 'esim2'"
-        :title="$t('indicators.getparc.lines.esim.id')"
-        :key="'esim1'"
-        :disabled="filtersAreDisabled || !isEsimCategoryInFilter"
-        draggable
-      >
-        <SimpleInputFilter
-          :selected-value="selectedEsimIdValue"
-          @update:value="selectEsimIdFilter($event)"
         />
       </FoldableBlock>
       <FoldableBlock
@@ -424,28 +407,40 @@
           @update:value="selectSMSRidFilter($event)"
         />
       </FoldableBlock>
-      <FoldableBlock
-        :title="$t('indicators.getparc.lines.esim.family')"
-        :key="'esim7'"
-        :disabled="filtersAreDisabled || !isEsimCategoryInFilter"
-        draggable
-        v-if="havePermission('getParc', 'manage_esim') && keyName === 'esim7'"
-      >
-        <EsimFamilyFilter
-          :selected-value="selectedSmsRid"
-          @update:value="selectEsimFamilyFilter($event)"
-        />
-      </FoldableBlock>
-      <FoldableBlock
-        v-if="keyName === 'esim8'"
-        :title="$t('filters.lines.rangeEID')"
-        :key="'esim8'"
-        :disabled="filtersAreDisabled || !isEsimCategoryInFilter"
-        draggable
-      >
-        <ActLinesRangeFilter :values="selectedEIDValue" @update:values="selectEIDFilter($event)" />
-      </FoldableBlock>
     </template>
+    <FoldableBlock
+      v-if="keyName === 'esim2' && havePermission('getSim', 'order_esim')"
+      :title="$t('indicators.getparc.lines.esim.id')"
+      :key="'esim2'"
+      :disabled="filtersAreDisabled"
+      draggable
+    >
+      <SimpleInputFilter
+        :selected-value="selectedEsimIdValue"
+        @update:value="selectEsimIdFilter($event)"
+      />
+    </FoldableBlock>
+    <FoldableBlock
+      :title="$t('indicators.getparc.lines.esim.family')"
+      :key="'esim7'"
+      :disabled="filtersAreDisabled"
+      draggable
+      v-if="keyName === 'esim7'"
+    >
+      <EsimFamilyFilter
+        :selected-value="selectedSmsRid"
+        @update:value="selectEsimFamilyFilter($event)"
+      />
+    </FoldableBlock>
+    <FoldableBlock
+      v-if="keyName === 'esim8'"
+      :title="$t('filters.lines.rangeEID')"
+      :key="'esim8'"
+      :disabled="filtersAreDisabled"
+      draggable
+    >
+      <ActLinesRangeFilter :values="selectedEIDValue" @update:values="selectEIDFilter($event)" />
+    </FoldableBlock>
   </div>
 </template>
 
