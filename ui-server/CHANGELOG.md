@@ -2,6 +2,17 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1231+20230112135801
+2023-01-12
+
+### Features
+
+- [3629] update all page of partner options (7dd2658b55fe3166fc4d5e875d2beffec005832f)
+
+### Fixes
+
+- [000] Bug prod : Suppression de la communauté York dans l'export de parc (af0c49a258da52bf8b194924f1da57b8c5718048)
+
 ## 1.17.0-master.1230+20230112090902
 2023-01-12
 
