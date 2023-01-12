@@ -47,7 +47,7 @@
         <template v-if="hasResults">
           <DataTable
             storage-id="getparc.lines"
-            storage-version="028"
+            storage-version="029"
             v-if="columns"
             :columns="columns"
             :rows="rows || []"
