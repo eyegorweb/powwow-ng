@@ -988,7 +988,7 @@
       "total": "{total} utilisateur(s) trouvé(s)",
       "errors": {
         "AccessDeniedForThisUser": "Vous n'avez pas la permission.",
-        "ACCESS_WEB_SERVICES_ROLES_DENIED": "Pour retirer le rôle Webservice, il faut désactiver les permissions dans l'onglet WEBSERVICES",
+        "ACCESS_WEB_SERVICES_ROLES_DENIED": "Le choix du rôle Webservice est incompatible avec les permissions activées dans l'onglet WEBSERVICE",
         "USER_D_PASSWORD_OLD_ENTERED_IS_INCORRECT": "L'ancien mot de passe est incorrect",
         "USER_D_PASSWORD_MUST_BE_DIFFERENT_FROM_OLD_ONE": "Le mot de passe doit être différent de l'ancien",
         "username": "Le login existe déjà.",
