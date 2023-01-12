@@ -48,7 +48,7 @@ export default {
       ipFixeEnabled = await isFeatureAvailable('IP_FIXE_ENABLED');
     }
 
-    if(this.userInfos.esimEnabled) {
+    if (this.userInfos.esimEnabled) {
       this.otherOptions = [
         ...this.otherOptions,
         {

@@ -999,6 +999,7 @@
             "REF_CLIENT": "Customer reference mandatory",
             "REF_USER": "User reference",
             "MAD_FACT": "Provision of invoices",
+            "NOTIF_EUICC": "extenral eSIM",
             "SWITCH_RCARD": "Switch to R-Card",
             "DISABLE_RCARD": "Deactivate - check R-Card",
             "CHANGE_OFFER": "Change of offer",

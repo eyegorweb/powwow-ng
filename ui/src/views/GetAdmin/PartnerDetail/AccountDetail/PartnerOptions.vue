@@ -1,12 +1,44 @@
 <template>
   <div v-if="canShowOptions">
+    <!-- BLOCK SERVICES -->
     <ContentBlock no-handle>
       <template slot="title">{{ $t('common.services') }}</template>
       <template slot="content">
-        <ToggleGroup :services="services" :size="3" />
-
-        <div class="d-flex" v-if="partyType === 'CUSTOMER' && getToggle(services, 'SECU_RESIL')">
-          <div class="third-size pr-4">
+        <ToggleGroup :services="services" :size="2" />
+        <div class="two-size to-center pb-3" v-if="partner.partyType === 'CUSTOMER'">
+          <UiToggle
+            :label="$t('getadmin.partners.optionsDetails.eSim')"
+            :editable="true"
+            :bold-label="isChanged(esimEnable, 'esimEnable')"
+            v-model="esimEnable"
+            small-label
+          />
+        </div>
+        <div class="separator"></div>
+        <!-- SECU RESIL BOX -->
+        <div class="d-flex two">
+          <div class="two-size pb-3">
+            <UiToggle
+              :label="$t('getadmin.partners.optionsDetails.services.labels.SECU_RESIL')"
+              :editable="true"
+              :bold-label="isChanged(resilationSecurityEnabled, 'resilationSecurityEnabled')"
+              v-model="resilationSecurityEnabled"
+              small-label
+            />
+          </div>
+          <div class="two-size pb-3">
+            <UiToggle
+              v-if="partyType === 'CUSTOMER' && resilationSecurityEnabled"
+              :label="$t('notification')"
+              :editable="true"
+              :bold-label="isChanged(resilationSecurityNotificationEnabled, 'resilationSecurityNotificationEnabled')"
+              v-model="resilationSecurityNotificationEnabled"
+              small-label
+            />
+          </div>
+        </div>
+        <div class="d-flex two" v-if="partyType === 'CUSTOMER' && resilationSecurityEnabled">
+          <div class="two-size pr-4 ml-2">
             <div class="form-group">
               <label class="small-label">{{ $t('getadmin.partners.optionsDetails.delay') }}</label>
               <UiInput v-model="resilationSecurityDelay" input-type="number" block />
@@ -17,16 +49,7 @@
               >
             </div>
           </div>
-          <div class="third-size to-center pb-3">
-            <UiToggle
-              :label="$t('getadmin.partnerDetail.changePassword.notification')"
-              :editable="true"
-              :bold-label="resilationSecurityNotificationEnabled"
-              v-model="resilationSecurityNotificationEnabled"
-              small-label
-            />
-          </div>
-          <div class="third-size pr-4" v-if="resilationSecurityNotificationEnabled">
+          <div class="two-size pr-4 ml-2" v-if="resilationSecurityNotificationEnabled">
             <div class="form-group">
               <label class="small-label">{{
                 $t('getadmin.partners.optionsDetails.notificationList')
@@ -45,30 +68,21 @@
             </div>
           </div>
         </div>
-        <div class="d-flex">
-          <div class="third-size to-center pb-3" v-if="partner.partyType === 'CUSTOMER'">
-            <UiToggle
-              :label="$t('getadmin.partners.optionsDetails.eSim')"
-              :editable="true"
-              :bold-label="eSim"
-              v-model="eSim"
-              small-label
-            />
-          </div>
-
-          <div class="third-size to-center pb-3">
-            <UiToggle
-              :label="$t('getadmin.partners.optionsDetails.ipFixe')"
-              :editable="true"
-              :bold-label="ipFixe"
-              v-model="ipFixe"
-              small-label
-            />
-          </div>
+        <div class="separator"></div>
+        <!-- SMS BROADCAST BOX -->
+        <div class="two-size to-center pb-3">
+          <UiToggle
+            v-if="partyType === 'CUSTOMER'"
+            :label="$t('getadmin.partners.optionsDetails.services.labels.BROADCAST_SMS')"
+            :editable="true"
+            :bold-label="isChanged(smsAuthorizedEnabled, 'smsAuthorized')"
+            v-model="smsAuthorizedEnabled"
+            small-label
+          />
         </div>
 
-        <div class="d-flex" v-if="partyType === 'CUSTOMER' && getToggle(services, 'BROADCAST_SMS')">
-          <div class="third-size pr-4">
+        <div class="d-flex" v-if="partyType === 'CUSTOMER' && smsAuthorizedEnabled">
+          <div class="two-size pr-4 ml-2">
             <div class="form-group">
               <label class="small-label">{{
                 $t('getadmin.partners.optionsDetails.smsCodes')
@@ -77,14 +91,60 @@
             </div>
           </div>
         </div>
+        <div class="separator"></div>
+        <!-- CLIENT REF BOX -->
+        <div class="two-size">
+          <div class="form-group">
+            <UiToggle
+              :label="$t('getadmin.partners.optionsDetails.userReference')"
+              :editable="true"
+              v-model="refUser"
+              :bold-label="isChanged(refUser, 'userReferenceEnabled')"
+              small-label
+            />
+          </div>
+        </div>
+        <div class="two-size pr-4 ml-2" v-if="refUser">
+          <div class="form-group">
+            <label class="small-label">{{ $t('getadmin.partners.optionsDetails.listCR') }}</label>
+            <UiSelect class="report-field" v-model="crEmail" :options="mailingLists" block />
+          </div>
+        </div>
       </template>
     </ContentBlock>
 
+    <!-- ORDER BLOCK -->
     <ContentBlock no-handle>
       <template slot="title">{{ $t('common.order') }}</template>
       <template slot="content">
-        <div class="d-flex">
-          <div class="third-size">
+        <div class="d-flex mt-3 two">
+          <div class="two-size">
+            <UiToggle
+              :label="
+                $t('getadmin.partners.optionsDetails.services.labels.MANDATORY_PREACTIVATION')
+              "
+              :checked="orderActivationEnabled"
+              :editable="!orderActivationEnabled"
+              :bold-label="isChanged(orderPreactivation, 'orderPreactivationMandatory')"
+              v-model="orderPreactivation"
+              small-label
+            />
+          </div>
+          <div class="two-size">
+            <UiToggle
+              :label="$t('getadmin.partners.optionsDetails.services.labels.MANDATORY_ACTIVATION')"
+              :editable="true"
+              :bold-label="isChanged(orderActivationEnabled, 'orderActivationMandatory')"
+              v-model="orderActivationEnabled"
+              small-label
+            />
+          </div>
+        </div>
+        <div class="content mt-4">
+          <ToggleGroup :services="orderToggles" :size="2" />
+        </div>
+        <div class="content two d-flex">
+          <div class="two-size ml-2">
             <div class="form-group">
               <label class="small-label">{{
                 $t('getadmin.partners.optionsDetails.notifyEmail')
@@ -93,70 +153,63 @@
             </div>
           </div>
         </div>
-        <div class="d-flex mt-3">
-          <div class="third-size">
-            <UiToggle
-              :label="
-                $t('getadmin.partners.optionsDetails.services.labels.MANDATORY_PREACTIVATION')
-              "
-              :checked="orderActivationMandatory"
-              :editable="!orderActivationMandatory"
-              :bold-label="orderActivationMandatory"
-              v-model="orderPreactivation"
-              small-label
-            />
-          </div>
-          <div class="two-thirds">
-            <ToggleGroup :services="orderToggles" :size="2" />
-          </div>
-        </div>
-        <div class="d-flex">
-          <div class="third-size pr-4">
-            <div class="form-group">
-              <UiToggle
-                :label="$t('getadmin.partners.optionsDetails.userReference')"
-                :editable="true"
-                v-model="refUser"
-                small-label
-              />
-            </div>
-          </div>
-          <div class="third-size pr-4" v-if="getToggle(orderToggles, 'REF_USER')">
-            <div class="form-group">
-              <label class="small-label">{{ $t('getadmin.partners.optionsDetails.listCR') }}</label>
-              <UiSelect class="report-field" v-model="crEmail" :options="mailingLists" block />
-            </div>
-          </div>
-        </div>
       </template>
     </ContentBlock>
 
+    <!-- BILLING BLOCK  -->
     <ContentBlock no-handle>
       <template slot="title">{{ $t('common.billing') }}</template>
       <template slot="content">
-        <ToggleGroup :services="billingToggles" :size="3" />
+        <ToggleGroup :services="billingToggles" :size="2" />
 
-        <div class="d-flex mb-2">
-          <div class="third-size to-bottom pb-3" v-if="partyType === 'CUSTOMER'">
+        <div class="d-flex mb-2 two">
+          <div class="two-size to-bottom pb-3" v-if="partyType === 'CUSTOMER'">
             <UiToggle
               :label="$t('getadmin.partners.optionsDetails.flagBillingPDPCellHistory')"
               :editable="true"
-              :bold-label="flagBillingPDPCellHistory"
+              :bold-label="isChanged(flagBillingPDPCellHistory, 'flagBillingPDPCellHistory')"
               v-model="flagBillingPDPCellHistory"
               small-label
             />
           </div>
-          <div class="third-size to-bottom pb-3">
+        </div>
+        <!-- Bill sim stock -->
+        <div class="separator"></div>
+        <div>
+          <div class="two-size pb-3">
+            <UiToggle
+              :label="$t('getadmin.partners.optionsDetails.services.labels.FACT_SIM_STOCK')"
+              :editable="true"
+              :bold-label="isChanged(flagbillingNonActDelayEnabled, 'flagbillingNonActDelay')"
+              v-model="flagbillingNonActDelayEnabled"
+              small-label
+            />
+          </div>
+          <div class="two-size pr-4 ml-2" v-if="flagbillingNonActDelayEnabled">
+            <div class="form-group">
+              <label class="small-label">{{
+                $t('getadmin.partners.optionsDetails.delayBillings')
+              }}</label>
+              <UiInput v-model="billingDelay" input-type="number" block />
+              <small v-if="fieldErrors && errors.billingDelay" class="form-text error-text">{{
+                $t('required')
+              }}</small>
+            </div>
+          </div>
+        </div>
+        <!-- Diffusion list -->
+        <div class="separator"></div>
+        <div>
+          <div class="two-size pb-3">
             <UiToggle
               :label="$t('getadmin.partners.optionsDetails.services.labels.MAD_FACT')"
               :editable="true"
-              :bold-label="diffusionListEnabled"
+              :bold-label="isChanged(diffusionListEnabled, 'diffusionListEnabled')"
               v-model="diffusionListEnabled"
               small-label
             />
           </div>
-
-          <div class="third-size pr-4" v-if="diffusionListEnabled">
+          <div class="two-size pr-4 ml-2" v-if="diffusionListEnabled">
             <div class="form-group">
               <label class="small-label">{{ $t('getvsion.mailing-list') }}</label>
               <UiSelect
@@ -171,19 +224,43 @@
             </div>
           </div>
         </div>
-
-        <div class="d-flex">
-          <div class="third-size pr-4">
+        <div class="separator"></div>
+        <!-- Activation auto for SIM preactivated -->
+        <div class="d-flex two">
+          <div class="two-size pb-3 mt-2">
+            <UiToggle
+              :label="$t('getadmin.partners.optionsDetails.services.labels.AUTO_ACT_SIM')"
+              :editable="true"
+              :bold-label="isChanged(flagDefautWorkflowActicationEnabled, 'flagDefautWorkflowActication')"
+              v-model="flagDefautWorkflowActicationEnabled"
+              small-label
+            />
+          </div>
+        </div>
+        <div class="d-flex two">
+          <div class="two-size pr-4 ml-2" v-if="flagDefautWorkflowActicationEnabled">
             <div class="form-group">
-              <UiToggle
-                :label="$t('getadmin.partners.optionsDetails.dualSimInfo')"
-                :editable="true"
-                v-model="billingDualSIM"
-                small-label
+              <label class="small-label">{{
+                $t('getadmin.partners.optionsDetails.offerActivation')
+              }}</label>
+              <OfferCombo v-model="selectedOffer" :partners="[partner]" />
+            </div>
+          </div>
+          <div
+            class="two-size pr-4 ml-2"
+            v-if="selectedOffer && flagDefautWorkflowActicationEnabled"
+          >
+            <div class="form-group">
+              <label class="small-label">{{ $t('common.billingAccounts') }}</label>
+              <BillingAccountAutocomplete
+                v-model="selectedBillingAccount"
+                :selected-partner="partner"
               />
             </div>
           </div>
-          <div class="third-size pr-4" v-if="getToggle(billingToggles, 'AUTO_ACT_SIM')">
+        </div>
+        <div>
+          <div class="two-size pr-4 ml-2" v-if="flagDefautWorkflowActicationEnabled">
             <div class="form-group">
               <label class="small-label">{{
                 $t('getadmin.partners.optionsDetails.delayAutoActivation')
@@ -196,40 +273,11 @@
               >
             </div>
           </div>
-          <div class="third-size pr-4" v-if="getToggle(billingToggles, 'AUTO_ACT_SIM')">
-            <div class="form-group">
-              <label class="small-label">{{
-                $t('getadmin.partners.optionsDetails.offerActivation')
-              }}</label>
-              <OfferCombo v-model="selectedOffer" :partners="[partner]" />
-            </div>
-          </div>
-        </div>
-        <div class="d-flex">
-          <div class="third-size pr-4" v-if="selectedOffer">
-            <div class="form-group">
-              <label class="small-label">{{ $t('common.billingAccounts') }}</label>
-              <BillingAccountAutocomplete
-                v-model="selectedBillingAccount"
-                :selected-partner="partner"
-              />
-            </div>
-          </div>
-          <div class="third-size pr-4" v-if="getToggle(billingToggles, 'FACT_SIM_STOCK')">
-            <div class="form-group">
-              <label class="small-label">{{
-                $t('getadmin.partners.optionsDetails.delayBillings')
-              }}</label>
-              <UiInput v-model="billingDelay" input-type="number" block />
-              <small v-if="fieldErrors && errors.billingDelay" class="form-text error-text">{{
-                $t('required')
-              }}</small>
-            </div>
-          </div>
         </div>
       </template>
     </ContentBlock>
 
+    <!-- BLOCK EXPORT -->
     <ContentBlock no-handle>
       <template slot="title">{{ $t('common.export') }}</template>
       <template slot="content">
@@ -238,7 +286,7 @@
             <UiToggle
               :label="$t('getadmin.partners.optionsDetails.exportBSCS')"
               :editable="true"
-              :bold-label="exportBSCS"
+              :bold-label="isChanged(exportBSCS, 'exportComptaBSCSModeEnabled')"
               v-model="exportBSCS"
               small-label
             />
@@ -247,7 +295,7 @@
             <UiToggle
               :label="$t('getadmin.partners.optionsDetails.exportServices')"
               :editable="true"
-              :bold-label="flagServicesAudit"
+              :bold-label="isChanged(flagServicesAudit, 'flagServicesAudit')"
               v-model="flagServicesAudit"
               small-label
             />
@@ -273,31 +321,70 @@
     </ContentBlock>
 
     <ContentBlock no-handle>
-      <!-- Add Dual Sim toggles -->
-      <template slot="title">{{ $t('common.others') }}</template>
-      <template slot="content">
-        <ToggleGroup :services="otherToggles" :size="3" />
-        <div class="d-flex" v-if="getToggle(otherToggles, 'COACH_M2M')">
-          <div class="third-size pr-4 pb-3">
+      <template slot="title">{{ $t('getadmin.partners.optionsDetails.services.labels.COACH_M2M') }}</template>
+      <div slot="content">
+        <div>
+          <div class="two-size to-bottom mb-4" v-if="partyType === 'CUSTOMER'">
+            <UiToggle
+              :label="$t('getadmin.partners.optionsDetails.services.labels.COACH_M2M')"
+              :editable="true"
+              :bold-label="isChanged(coachM2MEnabled, 'coachM2MAvailable')"
+              v-model="coachM2MEnabled"
+              small-label
+            />
+          </div>
+        </div>
+        <div class="d-flex two" v-if="coachM2MEnabled">
+          <div class="two-size pb-3">
             <UiToggle
               :label="$t('getadmin.partners.optionsDetails.fleetPromotion')"
               :editable="true"
-              :bold-label="coachM2MFleetpromotion"
+              :bold-label="isChanged(coachM2MFleetpromotion, 'coachM2MFleetpromotion')"
               v-model="coachM2MFleetpromotion"
               small-label
             />
           </div>
-          <div class="third-size pr-4 pb-3">
+          <div class="two-size pb-3">
             <UiToggle
               label="Option 24h"
               :editable="true"
-              :bold-label="coachM2m24h"
+              :bold-label="isChanged(coachM2m24h, 'coachM2m24h')"
               v-model="coachM2m24h"
               small-label
             />
           </div>
         </div>
+      </div>
+    </ContentBlock>
+    <ContentBlock no-handle>
+      <template slot="title">GEOLOC</template>
+      <div slot="content">
+        <div class="d-flex two">
 
+          <div class="two-size pr-4">
+            <div class="form-group">
+              <label class="small-label">{{
+                $t('getadmin.partners.optionsDetails.actualView')
+              }}</label>
+              <UiInput v-model="geolocViewCounter" input-type="number" block disabled/>
+            </div>
+          </div>
+          <div class="two-size pr-4" v-if="partyType === 'CUSTOMER'">
+            <div class="form-group">
+              <label class="small-label">{{
+                $t('getadmin.partners.optionsDetails.maxViews')
+              }}</label>
+              <UiInput v-model="geolocViewLimit" input-type="number" block />
+            </div>
+          </div>
+        </div>
+      </div>
+    </ContentBlock>
+    <ContentBlock no-handle>
+      <!-- Add Dual Sim toggles -->
+      <template slot="title">{{ $t('common.others') }}</template>
+      <template slot="content">
+        <ToggleGroup :services="otherToggles" :size="2" />
         <div class="d-flex">
           <div class="third-size pr-4" v-if="partyType === 'MVNO'">
             <div class="form-group">
@@ -325,7 +412,9 @@
               />
             </div>
           </div>
-          <div class="third-size pr-4" v-if="partyType === 'CUSTOMER'">
+        </div>
+        <div class="d-flex two">
+          <div class="two-size" v-if="partyType === 'CUSTOMER'">
             <div class="form-group">
               <label class="small-label">{{
                 $t('getadmin.partners.optionsDetails.preactivateFormat')
@@ -334,14 +423,21 @@
                 block
                 @update="preactivationFormat = $event.id"
                 :values="preactivationFormats"
-                class="pl-2"
               />
             </div>
           </div>
+          
+        <!-- Dual Sim -->
+          <div class="two-size" v-if="(userIsBO || userIsAdmin) && partyType === 'CUSTOMER'">
+            <div class="form-group">
+              <label class="small-label">{{ $t('getparc.lineDetail.tab1.dualSim') }}</label>
+              <Toggle block @update="dualSimChoice = $event.id" :values="dualSimChoices" />
+            </div>
+          </div>
         </div>
-
+        <div class="separator"></div>
         <div class="d-flex">
-          <div class="third-size pr-4">
+          <div class="two-size">
             <div class="form-group">
               <label class="small-label">{{ $t('getvsion.notify-ws') }}</label>
               <Toggle
@@ -396,36 +492,6 @@
             </div>
           </div>
         </div>
-        <!-- Dual Sim -->
-        <div class="d-flex" v-if="(userIsBO || userIsAdmin) && partyType === 'CUSTOMER'">
-          <div class="third-size pr-4">
-            <div class="form-group">
-              <label class="small-label">{{ $t('getparc.lineDetail.tab1.dualSim') }}</label>
-              <Toggle block @update="dualSimChoice = $event.id" :values="dualSimChoices" />
-            </div>
-          </div>
-        </div>
-        <!-- TODO: temporary disabled -->
-        <div v-if="!disabled">
-          <div class="d-flex" v-if="partyType === 'CUSTOMER'">
-            <div class="third-size pr-4">
-              <div class="form-group">
-                <label class="small-label">{{
-                  $t('getadmin.partners.optionsDetails.maxViews')
-                }}</label>
-                <UiInput v-model="geolocViewLimit" input-type="number" block />
-              </div>
-            </div>
-            <div class="third-size pr-4">
-              <div class="form-group">
-                <label class="small-label">{{
-                  $t('getadmin.partners.optionsDetails.actualView')
-                }}</label>
-                <UiInput v-model="geolocViewCounter" input-type="number" block />
-              </div>
-            </div>
-          </div>
-        </div>
       </template>
     </ContentBlock>
 
@@ -465,6 +531,7 @@ import BillingAccountAutocomplete from '@/components/CustomComboxes/BillingAccou
 import ToggleGroup from '@/components/ToggleGroup.vue';
 import UiInput from '@/components/ui/UiInput';
 import UiSelect from '@/components/ui/UiSelect';
+import cloneDeep from 'lodash.clonedeep';
 
 import { getPartyOptions, updatePartyOptions, fetchBroadcastLists } from '@/api/partners.js';
 import { formatBackErrors } from '@/utils/errors';
@@ -500,15 +567,12 @@ export default {
     fieldErrors() {
       return this.haveFieldErrors();
     },
-    orderActivationMandatory() {
-      return this.getToggle(this.orderToggles, 'MANDATORY_ACTIVATION');
-    },
     orderPreactivation: {
       get() {
-        return this.orderActivationMandatory || this.orderPreactivationMandatory;
+        return this.orderActivationEnabled || this.orderPreactivationEnabled;
       },
       set(newValue) {
-        this.orderPreactivationMandatory = newValue;
+        this.orderPreactivationEnabled = newValue;
       },
     },
     activatedNotificationOption() {
@@ -529,17 +593,6 @@ export default {
     this.diffusionListEmails = await fetchBroadcastLists(this.partner.id);
     this.orderToggles = [
       {
-        code: 'MANDATORY_ACTIVATION',
-        visible: true,
-        checked: false,
-        editable: true,
-        optional: false,
-        activationDate: null,
-        labelService: this.$t(
-          'getadmin.partners.optionsDetails.services.labels.MANDATORY_ACTIVATION'
-        ),
-      },
-      {
         code: 'REF_CLIENT',
         visible: true,
         checked: false,
@@ -547,15 +600,6 @@ export default {
         optional: false,
         activationDate: null,
         labelService: this.$t('getadmin.partners.optionsDetails.services.labels.REF_CLIENT'),
-      },
-      {
-        code: 'REF_USER',
-        visible: true,
-        checked: false,
-        editable: true,
-        optional: false,
-        activationDate: null,
-        labelService: this.$t('getadmin.partners.optionsDetails.services.labels.REF_USER'),
       },
     ];
 
@@ -586,24 +630,6 @@ export default {
         optional: false,
         activationDate: null,
         labelService: this.$t('getadmin.partners.optionsDetails.services.labels.CHANGE_OFFER'),
-      },
-      {
-        code: 'AUTO_ACT_SIM',
-        visible: true,
-        checked: false,
-        editable: true,
-        optional: false,
-        activationDate: null,
-        labelService: this.$t('getadmin.partners.optionsDetails.services.labels.AUTO_ACT_SIM'),
-      },
-      {
-        code: 'FACT_SIM_STOCK',
-        visible: true,
-        checked: false,
-        editable: true,
-        optional: false,
-        activationDate: null,
-        labelService: this.$t('getadmin.partners.optionsDetails.services.labels.FACT_SIM_STOCK'),
       },
       {
         code: 'FACT_IMEI',
@@ -673,15 +699,6 @@ export default {
         activationDate: null,
         labelService: this.$t('getadmin.partners.optionsDetails.services.labels.HIDE_ADRESS'),
       },
-      {
-        code: 'COACH_M2M',
-        visible: this.partyType === 'CUSTOMER' ? true : false,
-        checked: false,
-        editable: true,
-        optional: false,
-        activationDate: null,
-        labelService: this.$t('getadmin.partners.optionsDetails.services.labels.COACH_M2M'),
-      },
     ];
 
     this.services = [
@@ -694,23 +711,6 @@ export default {
         activationDate: null,
         labelService: 'A-MSISDN',
       },
-      // {
-      //   code: 'NOTIF_EUICC',
-      //   checked: false,
-      //   editable: true,
-      //   optional: false,
-      //   activationDate: null,
-      //   labelService: 'Notification eUICC',
-      // },
-      {
-        code: 'SECU_RESIL',
-        visible: this.partyType === 'CUSTOMER' ? true : false,
-        checked: false,
-        editable: true,
-        optional: false,
-        activationDate: null,
-        labelService: this.$t('getadmin.partners.optionsDetails.services.labels.SECU_RESIL'),
-      },
       {
         code: 'COMPAT_OTA',
         visible: true,
@@ -721,13 +721,22 @@ export default {
         labelService: this.$t('getadmin.partners.optionsDetails.services.labels.COMPAT_OTA'),
       },
       {
-        code: 'BROADCAST_SMS',
-        visible: this.partyType === 'CUSTOMER' ? true : false,
+        code: 'IP_FIXE',
+        visible: true,
         checked: false,
         editable: true,
         optional: false,
         activationDate: null,
-        labelService: this.$t('getadmin.partners.optionsDetails.services.labels.BROADCAST_SMS'),
+        labelService: this.$t('getadmin.partners.optionsDetails.ipFixe'),
+      },
+      {
+        code: 'NOTIF_EUICC',
+        visible: true,
+        checked: false,
+        editable: true,
+        optional: false,
+        activationDate: null,
+        labelService: this.$t('getadmin.partners.optionsDetails.services.labels.NOTIF_EUICC'),
       },
       {
         code: 'TERMINATION_DFE',
@@ -754,11 +763,16 @@ export default {
 
   methods: {
     ...mapMutations(['confirmAction']),
+    isChanged(checked, serviceCode) {
+      if (!this.initialServices) return false;
+      return this.initialServices[serviceCode] !== checked;
+    },
     async resetOptions() {
       this.canShowOptions = false;
       this.partnerOptions = await getPartyOptions(this.partner.id);
+      this.initialServices = cloneDeep(this.partnerOptions);
       this.checkToggle(this.services, 'AMSISDN', this.partnerOptions.flagMsisdnA);
-      this.checkToggle(this.services, 'SECU_RESIL', this.partnerOptions.resilationSecurityEnabled);
+      this.checkToggle(this.services, 'IP_FIXE', this.partnerOptions.ipFixeEnable);
       this.checkToggle(this.services, 'TERMINATION_DFE', this.partnerOptions.terminationDfeEnabled);
       this.checkToggle(
         this.services,
@@ -767,30 +781,28 @@ export default {
       );
       this.diffusionListEnabled = this.partnerOptions.diffusionListEnabled;
       this.resilationSecurityNotificationMails = this.partnerOptions.resilationSecurityNotificationMails;
-      this.eSim = this.partnerOptions.esimEnable;
-      this.ipFixe = this.partnerOptions.ipFixeEnable;
+      this.esimEnable = this.partnerOptions.esimEnable;
       this.mailOrder = this.partnerOptions.mailOrder;
       this.crEmail = this.partnerOptions.crEmail;
       this.portabilityAcquittalsEmails = this.partnerOptions.portabilityAcquittalsEmails;
 
       this.checkToggle(this.services, 'COMPAT_OTA', this.partnerOptions.otaSensitive);
-      this.checkToggle(this.services, 'BROADCAST_SMS', this.partnerOptions.smsAuthorized);
+      this.smsAuthorizedEnabled = this.partnerOptions.smsAuthorized;
       this.shortCodes = this.partnerOptions.shortCodes;
 
       this.checkToggle(this.orderToggles, 'REF_CLIENT', this.partnerOptions.orderNumberRequired);
-      this.orderPreactivationMandatory = this.partnerOptions.orderPreactivationMandatory;
-
-      this.checkToggle(
-        this.orderToggles,
-        'MANDATORY_ACTIVATION',
-        this.partnerOptions.orderActivationMandatory
-      );
-      this.checkToggle(this.orderToggles, 'REF_USER', this.partnerOptions.userReferenceEnabled);
-
+      this.orderPreactivationEnabled = this.partnerOptions.orderPreactivationMandatory;
+      this.orderActivationEnabled = this.partnerOptions.orderActivationMandatory;
+      this.resilationSecurityEnabled = this.partnerOptions.resilationSecurityEnabled;
       this.checkToggle(
         this.orderToggles,
         'MAD_FACT',
-        this.partnerOptions.resilationSecurityDelayEnabled
+        this.partnerOptions.resilationSecurityEnabled
+      );
+      this.checkToggle(
+        this.services,
+        'NOTIF_EUICC',
+        this.partnerOptions.euiccEnabled
       );
 
       this.resilationSecurityDelay = this.partnerOptions.resilationSecurityDelay;
@@ -800,11 +812,7 @@ export default {
       this.checkToggle(this.billingToggles, 'SWITCH_RCARD', this.partnerOptions.switchRcard);
       this.checkToggle(this.billingToggles, 'FACT_IMEI', this.partnerOptions.flagBillingIMEI);
       this.billingDualSIM = this.partnerOptions.dualSimBilling;
-      this.checkToggle(
-        this.billingToggles,
-        'FACT_REPORT_CONSO',
-        this.partnerOptions.dualSimBilling
-      );
+      this.checkToggle(this.billingToggles, 'FACT_DUAL_SIM', this.partnerOptions.dualSimBilling);
       this.checkToggle(
         this.billingToggles,
         'DISABLE_RCARD',
@@ -812,17 +820,8 @@ export default {
       );
 
       this.checkToggle(this.billingToggles, 'CHANGE_OFFER', this.partnerOptions.offerChangeEnabled);
-      this.checkToggle(
-        this.billingToggles,
-        'AUTO_ACT_SIM',
-        this.partnerOptions.flagDefautWorkflowActication
-      );
-
-      this.checkToggle(
-        this.billingToggles,
-        'FACT_SIM_STOCK',
-        this.partnerOptions.flagbillingNonActDelay
-      );
+      this.flagDefautWorkflowActicationEnabled = this.partnerOptions.flagDefautWorkflowActication;
+      this.flagbillingNonActDelayEnabled = this.partnerOptions.flagbillingNonActDelay;
 
       this.autoActivationDelay = this.partnerOptions.DefautWorkflowActicationDelay;
       if (this.partnerOptions.defaultWorkflowForActivation) {
@@ -902,7 +901,7 @@ export default {
 
       this.checkToggle(this.otherToggles, 'AUTO_SUSPEND', this.partnerOptions.suspensionAuto);
       this.checkToggle(this.otherToggles, 'HIDE_ADRESS', this.partnerOptions.optionViewCellId);
-      this.checkToggle(this.otherToggles, 'COACH_M2M', this.partnerOptions.coachM2MAvailable);
+      this.coachM2MEnabled = this.partnerOptions.coachM2MAvailable;
       this.coachM2MFleetpromotion = this.partnerOptions.coachM2MFleetpromotion;
       this.coachM2m24h = this.partnerOptions.coachM2m24h;
 
@@ -929,30 +928,28 @@ export default {
       });
     },
     async saveOptions() {
-      const esimEnable = this.partyType === 'CUSTOMER' ? this.eSim : null;
-      const resilationSecurityDelay = this.getToggle(this.services, 'SECU_RESIL')
+      const esimEnable = this.partyType === 'CUSTOMER' ? this.esimEnable : null;
+      const resilationSecurityDelay = this.resilationSecurityEnabled
         ? parseInt(this.resilationSecurityDelay)
         : null;
       const resilationSecurityNotificationMails = this.resilationSecurityNotificationEnabled
         ? parseInt(this.resilationSecurityNotificationMails)
         : null;
-      const crEmail = this.getToggle(this.orderToggles, 'REF_USER') ? parseInt(this.crEmail) : null;
+      const crEmail = parseInt(this.crEmail);
       const diffusionList = this.diffusionListEnabled ? parseInt(this.diffusionList) : null;
-      const coachM2MFleetpromotion = this.getToggle(this.otherToggles, 'COACH_M2M')
-        ? this.coachM2MFleetpromotion
-        : null;
-      const coachM2m24h = this.getToggle(this.otherToggles, 'COACH_M2M') ? this.coachM2m24h : null;
+      const coachM2MFleetpromotion = this.coachM2MEnabled ? this.coachM2MFleetpromotion : null;
+      const coachM2m24h = this.coachM2MEnabled ? this.coachM2m24h : null;
       const dualSimCardPartyType = this.partyType !== 'MVNO' ? this.dualSimChoice : null;
 
       const response = await updatePartyOptions({
         partyOptions: {
           partyId: this.partner.id,
           flagMsisdnA: this.getToggle(this.services, 'AMSISDN'),
-          euiccEnabled: false,
-          resilationSecurityEnabled: this.getToggle(this.services, 'SECU_RESIL'),
+          euiccEnabled: this.getToggle(this.services, 'NOTIF_EUICC'),
+          resilationSecurityEnabled: this.resilationSecurityEnabled,
           resilationSecurityDelay,
           esimEnable,
-          ipFixeEnable: this.ipFixe,
+          ipFixeEnable: this.getToggle(this.services, 'IP_FIXE'),
           dailyOutstandingReporting: this.reportConsoValue === 'no' ? false : true,
           consoReporting:
             this.reportConsoValue === 'simple' || this.reportConsoValue === 'no' ? false : true,
@@ -961,12 +958,12 @@ export default {
           terminationDfeEnabled: this.getToggle(this.services, 'TERMINATION_DFE'),
           esimTerminationDeleteMandatory: this.getToggle(this.services, 'ESIM_TERMINATION'),
           otaSensitive: this.getToggle(this.services, 'COMPAT_OTA'),
-          smsAuthorized: this.getToggle(this.services, 'BROADCAST_SMS'),
+          smsAuthorized: this.smsAuthorizedEnabled,
           shortCodes: this.shortCodes,
           mailOrder: parseInt(this.mailOrder),
           orderNumberRequired: this.getToggle(this.orderToggles, 'REF_CLIENT'),
-          orderPreactivationMandatory: this.orderPreactivationMandatory,
-          orderActivationMandatory: this.getToggle(this.orderToggles, 'MANDATORY_ACTIVATION'),
+          orderPreactivationMandatory: this.orderPreactivationEnabled,
+          orderActivationMandatory: this.orderActivationEnabled,
           userReferenceEnabled: this.refUser,
           crEmail,
           diffusionListEnabled: this.diffusionListEnabled,
@@ -975,18 +972,17 @@ export default {
           flagBillingIMEI: this.getToggle(this.billingToggles, 'FACT_IMEI'),
           switchRcard: this.getToggle(this.billingToggles, 'SWITCH_RCARD'),
           controlDeactivateRCard: this.getToggle(this.billingToggles, 'DISABLE_RCARD'),
-          dualSimBilling: this.billingDualSIM,
+          dualSimBilling: this.getToggle(this.billingToggles, 'FACT_DUAL_SIM'),
           offerChangeEnabled: this.getToggle(this.billingToggles, 'CHANGE_OFFER'),
-          flagDefautWorkflowActication: this.getToggle(this.billingToggles, 'AUTO_ACT_SIM'),
+          flagDefautWorkflowActication: this.flagDefautWorkflowActicationEnabled,
           defautWorkflowActication: parseInt(this.autoActivationDelay),
           defaultWorkflowForActivationId: parseInt(get(this.selectedOffer, 'meta.id')),
           defaultCustomerForActivationId: parseInt(get(this.selectedBillingAccount, 'id')),
-          flagbillingNonActDelay: this.getToggle(this.billingToggles, 'FACT_SIM_STOCK'),
+          flagbillingNonActDelay: this.flagbillingNonActDelayEnabled,
           billingNonActDelay: parseInt(this.billingDelay),
           exportComptaBSCSModeEnabled: this.exportBSCS,
           flagStatisticsEnabled: this.consoReport,
           flagServicesAudit: this.flagServicesAudit,
-          // flagStatisticsEnabled: this.getToggle(this.billingToggles, 'FACT_REPORT_CONSO'),
           portabilityAcquittalsEmails: parseInt(this.portabilityAcquittalsEmails),
           importCustomFieldsEnabled: this.getToggle(this.otherToggles, 'CUSTOM_FIELD_IMPORT'),
           dashBoarDetailsPerCountry: this.getToggle(this.otherToggles, 'DASHBOARD_COUNTRY'),
@@ -1000,7 +996,7 @@ export default {
           wsPassword: this.password,
           showPassword: this.showPassword,
           wsUrl: this.webserviceAdress,
-          coachM2MAvailable: this.getToggle(this.otherToggles, 'COACH_M2M'),
+          coachM2MAvailable: this.coachM2MEnabled,
           coachM2MFleetpromotion,
           coachM2m24h,
           geolocViewLimit: this.geolocViewLimit,
@@ -1055,21 +1051,21 @@ export default {
     haveFieldErrors() {
       const fieldErrors = {};
       let haveError = false;
-      if (this.getToggle(this.billingToggles, 'AUTO_ACT_SIM')) {
+      if (this.flagDefautWorkflowActicationEnabled) {
         if (!this.autoActivationDelay) {
           fieldErrors.autoActivationDelay = true;
           haveError = true;
         }
       }
 
-      if (this.getToggle(this.billingToggles, 'FACT_SIM_STOCK')) {
+      if (this.flagbillingNonActDelayEnabled) {
         if (!this.billingDelay) {
           fieldErrors.billingDelay = true;
           haveError = true;
         }
       }
 
-      if (this.getToggle(this.services, 'SECU_RESIL')) {
+      if (this.resilationSecurityEnabled) {
         if (!this.resilationSecurityDelay) {
           fieldErrors.resilationSecurityDelay = true;
           haveError = true;
@@ -1116,6 +1112,7 @@ export default {
       diffusionListEmails: [],
       canShowOptions: false,
       showPassword: false,
+      initialServices: undefined,
       partnerOptions: undefined,
       notifList: undefined,
       refUser: undefined,
@@ -1123,6 +1120,7 @@ export default {
       resilationSecurityDelay: undefined,
       flagBillingPDPCellHistory: undefined,
       diffusionListEnabled: undefined,
+      smsAuthorizedEnabled: undefined,
       diffusionList: undefined,
       billingDualSIM: undefined,
       autoActivationDelay: undefined,
@@ -1140,9 +1138,15 @@ export default {
       geolocViewCounter: undefined,
       resilationSecurityNotificationMails: undefined,
       errors: undefined,
-      eSim: undefined,
+      esimEnable: undefined,
       resilationSecurityNotificationEnabled: undefined,
-      orderPreactivationMandatory: undefined,
+      resilationSecurityEnabled: undefined,
+      coachM2MEnabled: undefined,
+      euiccEnabled: undefined,
+      flagDefautWorkflowActicationEnabled: undefined,
+      flagbillingNonActDelayEnabled: undefined,
+      orderPreactivationEnabled: undefined,
+      orderActivationEnabled: undefined,
       coachM2MFleetpromotion: undefined,
       coachM2m24h: undefined,
       exceptionError: undefined,
@@ -1223,8 +1227,21 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.separator {
+  height: 1px;
+  width: 100%;
+  background-color: #e1e1e1;
+  margin: 20px;
+}
 .third-size {
   width: 33%;
+}
+.two {
+  justify-content: space-between;
+
+  &-size {
+    width: 40%;
+  }
 }
 .half-size {
   width: 45%;
