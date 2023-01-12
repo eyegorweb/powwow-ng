@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1230+20230112090902
+2023-01-12
+
+### Fixes
+
+- [000] hotfix - mise à jour du fichier de la clé d'erreur des rôles webservices (14aa00fbfa8668456bffb2f33c5f59edb9362888)
+- [000] hotfix - mise à jour du fichier de la clé d'erreur des rôles webservices (anglais) (b6ccbcd72aea837a7d5d531721c0ae985e7d59c3)
+
 ## 1.17.0-master.1229+20230111142847
 2023-01-11
 
