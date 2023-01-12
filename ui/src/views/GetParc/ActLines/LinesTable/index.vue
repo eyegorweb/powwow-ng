@@ -731,7 +731,6 @@ export default {
           id: 24,
           label: this.$t('filters.lines.community'),
           name: 'accessPoint',
-          exportId: 'yorkCommunity',
           format: {
             type: 'Getter',
             getter: (row) => {
