@@ -20,7 +20,7 @@ export default {
     ...mapMutations('actLines', ['setTypeSimCardFilter']),
     formatItem(item) {
       return {
-        id: item.simCard.description,
+        id: item.simCard.id,
         label: item.simCard.description,
       };
     },
