@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1238+20230113144333
+2023-01-13
+
+### Fixes
+
+- [3651] persistance de la donnée de type de carte SIM dans la barre de filtres pour l'acte Appairer des eSIM (2e2979141e8a6974aeedd716588aa27c87c97eac)
+
 ## 1.17.0-master.1237+20230113125655
 2023-01-13
 
