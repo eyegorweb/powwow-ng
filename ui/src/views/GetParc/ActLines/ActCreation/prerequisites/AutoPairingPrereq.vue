@@ -127,6 +127,7 @@ export default {
       'setActCreationPrerequisites',
       'setBillingAccountsFilter',
       'setPageLimit',
+      'setTypeSimCardFilter',
     ]),
     setPartner(chosenPartner) {
       this.selectedPartner = chosenPartner;
@@ -159,7 +160,7 @@ export default {
       }
       // Type carte sim
       if (this.selectedTypeSimCard) {
-        this.selectedTypeSimCardValues = this.selectedTypeSimCard;
+        this.setTypeSimCardFilter([this.selectedTypeSimCard]);
       }
 
       const allPrereq = {
