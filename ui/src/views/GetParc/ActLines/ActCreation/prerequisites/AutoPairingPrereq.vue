@@ -120,7 +120,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions('actLines', ['setPartnersFilter']),
+    ...mapActions('actLines', ['setPartnersFilter', 'selectedTypeSimCardValues']),
     ...mapMutations('actLines', [
       'applyFilters',
       'resetForm',
@@ -157,19 +157,19 @@ export default {
       if (this.chosenBillingAccount) {
         this.setBillingAccountsFilter([this.chosenBillingAccount]);
       }
-
       // Type carte sim
+      if (this.selectedTypeSimCard) {
+        this.selectedTypeSimCardValues = this.selectedTypeSimCard;
+      }
 
       const allPrereq = {
         partner: this.selectedPartner,
         billingAccount: this.chosenBillingAccount,
         filePairing: this.currentToggle === 'filePairingEidIccid',
+        simcardType: this.selectedTypeSimCard,
       };
 
-      if (this.selectedTypeSimCard) {
-        allPrereq.simcardType = this.selectedTypeSimCard;
-      }
-
+      console.log('validation de tous les prérequis', allPrereq);
       this.setActCreationPrerequisites(allPrereq);
 
       let search = !!this.selectedPartner;
