@@ -31,7 +31,12 @@
               v-if="partyType === 'CUSTOMER' && resilationSecurityEnabled"
               :label="$t('notification')"
               :editable="true"
-              :bold-label="isChanged(resilationSecurityNotificationEnabled, 'resilationSecurityNotificationEnabled')"
+              :bold-label="
+                isChanged(
+                  resilationSecurityNotificationEnabled,
+                  'resilationSecurityNotificationEnabled'
+                )
+              "
               v-model="resilationSecurityNotificationEnabled"
               small-label
             />
@@ -231,7 +236,9 @@
             <UiToggle
               :label="$t('getadmin.partners.optionsDetails.services.labels.AUTO_ACT_SIM')"
               :editable="true"
-              :bold-label="isChanged(flagDefautWorkflowActicationEnabled, 'flagDefautWorkflowActication')"
+              :bold-label="
+                isChanged(flagDefautWorkflowActicationEnabled, 'flagDefautWorkflowActication')
+              "
               v-model="flagDefautWorkflowActicationEnabled"
               small-label
             />
@@ -321,7 +328,9 @@
     </ContentBlock>
 
     <ContentBlock no-handle>
-      <template slot="title">{{ $t('getadmin.partners.optionsDetails.services.labels.COACH_M2M') }}</template>
+      <template slot="title">{{
+        $t('getadmin.partners.optionsDetails.services.labels.COACH_M2M')
+      }}</template>
       <div slot="content">
         <div>
           <div class="two-size to-bottom mb-4" v-if="partyType === 'CUSTOMER'">
@@ -360,13 +369,12 @@
       <template slot="title">GEOLOC</template>
       <div slot="content">
         <div class="d-flex two">
-
           <div class="two-size pr-4">
             <div class="form-group">
               <label class="small-label">{{
                 $t('getadmin.partners.optionsDetails.actualView')
               }}</label>
-              <UiInput v-model="geolocViewCounter" input-type="number" block disabled/>
+              <UiInput v-model="geolocViewCounter" input-type="number" block disabled />
             </div>
           </div>
           <div class="two-size pr-4" v-if="partyType === 'CUSTOMER'">
@@ -426,8 +434,8 @@
               />
             </div>
           </div>
-          
-        <!-- Dual Sim -->
+
+          <!-- Dual Sim -->
           <div class="two-size" v-if="(userIsBO || userIsAdmin) && partyType === 'CUSTOMER'">
             <div class="form-group">
               <label class="small-label">{{ $t('getparc.lineDetail.tab1.dualSim') }}</label>
@@ -799,11 +807,7 @@ export default {
         'MAD_FACT',
         this.partnerOptions.resilationSecurityEnabled
       );
-      this.checkToggle(
-        this.services,
-        'NOTIF_EUICC',
-        this.partnerOptions.euiccEnabled
-      );
+      this.checkToggle(this.services, 'NOTIF_EUICC', this.partnerOptions.euiccEnabled);
 
       this.resilationSecurityDelay = this.partnerOptions.resilationSecurityDelay;
       this.flagBillingPDPCellHistory = this.partnerOptions.flagBillingPDPCellHistory;

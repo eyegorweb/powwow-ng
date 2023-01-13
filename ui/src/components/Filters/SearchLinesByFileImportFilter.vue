@@ -35,16 +35,22 @@ export default {
         this.$emit('clear');
       }
     },
+    // Si une options est ajouté pendant la durée de vie du composant, alors nous l'ajoutons au select
+    addOptions(newValue) {
+      this.options = [...this.initialOptions, ...newValue];
+    },
   },
 
   mounted() {
+    this.initialOptions = this.options;
     if (this.addOptions) {
-      this.options.push.apply(this.options, this.addOptions);
+      this.options = [...this.initialOptions, ...this.addOptions];
     }
   },
   data() {
     return {
       selectedType: null,
+      initialOptions: undefined,
       options: [
         {
           code: 'c1',

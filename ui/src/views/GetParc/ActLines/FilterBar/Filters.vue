@@ -25,7 +25,7 @@
       :disabled="filtersAreDisabled"
       draggable
     >
-      <ActLinesFromFileFilter />
+      <ActLinesFromFileFilter :show-extra-type="isEsimCategoryInFilter" />
     </FoldableBlock>
     <FoldableBlock
       v-if="keyName === 'el4'"
