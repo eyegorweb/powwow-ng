@@ -56,12 +56,13 @@ export default {
 }
 
 .demi-size {
-  width: 50%;
+  width: 40%;
 }
 
 .toggles-container {
   display: flex;
   flex-flow: row wrap;
+  justify-content: space-between;
   width: 100%;
 
   .single-toggle {

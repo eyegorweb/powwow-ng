@@ -28,7 +28,6 @@ export default {
         return data.map((d) => ({
           id: d.code,
           label: `${d.code}`,
-          data: d,
         }));
       }
     },

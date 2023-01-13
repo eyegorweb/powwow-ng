@@ -21,6 +21,9 @@ export default {
       otherOptions: [],
     };
   },
+  props: {
+    showExtraType: Boolean,
+  },
   components: {
     SearchLinesByFileImportFilter,
   },
@@ -41,22 +44,29 @@ export default {
       return null;
     },
   },
-
+  watch: {
+    showExtraType(value) {
+      // Si la catégorie de Sim dans les filtres est passé à "eSim" alors nous ajoutons le type EID
+      if (this.userInfos.esimEnabled && value) {
+        this.otherOptions = [
+          ...this.otherOptions,
+          {
+            code: 'c7',
+            label: 'EID',
+            value: 'EID',
+          },
+        ];
+      }
+      // ATTENTION ! Suppression de la dernière occurence du tableau dans le cas où la catégorie eSim n'est pas active.
+      else {
+        this.otherOptions.pop();
+      }
+    },
+  },
   async mounted() {
     let ipFixeEnabled = false;
     if (this.userIsPartner || this.userInfos.type === 'PARTNER_GROUP') {
       ipFixeEnabled = await isFeatureAvailable('IP_FIXE_ENABLED');
-    }
-
-    if(this.userInfos.esimEnabled) {
-      this.otherOptions = [
-        ...this.otherOptions,
-        {
-          code: 'c7',
-          label: 'EID',
-          value: 'EID',
-        },
-      ];
     }
 
     if (((this.userIsPartner || this.userIsGroupPartner) && ipFixeEnabled) || this.userIsBO) {
@@ -66,6 +76,17 @@ export default {
           code: 'c8',
           label: 'IP_FIXE',
           value: 'IP_FIXE',
+        },
+      ];
+    }
+
+    if (this.userInfos.esimEnabled && this.showExtraType) {
+      this.otherOptions = [
+        ...this.otherOptions,
+        {
+          code: 'c7',
+          label: 'EID',
+          value: 'EID',
         },
       ];
     }

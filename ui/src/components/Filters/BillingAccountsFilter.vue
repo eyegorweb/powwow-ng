@@ -33,7 +33,6 @@ export default {
         return data.map((p) => ({
           id: p.id,
           label: `${p.code} - ${p.name}`,
-          partnerId: p.party.id,
         }));
       }
     },

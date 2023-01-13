@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col" v-if="!partner">
         <h5>{{ $t('getparc.actLines.step1Partner') }}</h5>
-        <PartnersPart @setpartner="setPartner" :partner-feature="partnerFeature"/>
+        <PartnersPart @setpartner="setPartner" :partner-feature="partnerFeature" />
       </div>
       <div class="col">
         <h5>{{ $t('common.billingAccount') }}</h5>

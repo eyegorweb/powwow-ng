@@ -98,7 +98,6 @@ export default {
         return data.map((p) => ({
           id: p.id,
           label: p.name,
-          ...p,
         }));
       }
       return undefined;

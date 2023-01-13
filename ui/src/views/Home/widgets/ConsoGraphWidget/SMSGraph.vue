@@ -1,5 +1,5 @@
 <template>
-  <BaseGraph :load-data-fn="loadDataFn" />
+  <BaseGraph :load-data-fn="loadDataFn" :usage="usage" />
 </template>
 
 <script>
@@ -11,6 +11,10 @@ import { formatDateToUTC } from '@/utils/date';
 export default {
   components: {
     BaseGraph,
+  },
+
+  props: {
+    usage: String,
   },
 
   methods: {

@@ -213,7 +213,17 @@ export async function fetchpartners(q, params) {
 export async function fetchpartnersQuery(
   fields,
   q,
-  { page, limit, partnerType, partnerTypes, includeMailingLists, esim, haveLvOffers, partyTypeMC, hasFeature }
+  {
+    page,
+    limit,
+    partnerType,
+    partnerTypes,
+    includeMailingLists,
+    esim,
+    haveLvOffers,
+    partyTypeMC,
+    hasFeature,
+  }
 ) {
   let partnerTypeGqlFilter = '';
   if (!partnerTypes && partnerType) {

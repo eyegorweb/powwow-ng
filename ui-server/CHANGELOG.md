@@ -2,6 +2,60 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1238+20230113144333
+2023-01-13
+
+### Fixes
+
+- [3651] persistance de la donnée de type de carte SIM dans la barre de filtres pour l'acte Appairer des eSIM (2e2979141e8a6974aeedd716588aa27c87c97eac)
+
+## 1.17.0-master.1237+20230113125655
+2023-01-13
+
+### Fixes
+
+- [3626] filter actlines esim file import eid (6ee16662d5fa44b6abd141f826b43ec5bfef99b4)
+
+## 1.17.0-master.1233+20230113110103
+2023-01-13
+
+### Fixes
+
+- [3665] gestion des permissions des actes de gestion (2be2cd4660aa7043b6edc9309701d7b91e825c10)
+
+## 1.17.0-master.1231+20230112135801
+2023-01-12
+
+### Features
+
+- [3629] update all page of partner options (7dd2658b55fe3166fc4d5e875d2beffec005832f)
+
+### Fixes
+
+- [000] Bug prod : Suppression de la communauté York dans l'export de parc (af0c49a258da52bf8b194924f1da57b8c5718048)
+
+## 1.17.0-master.1230+20230112090902
+2023-01-12
+
+### Fixes
+
+- [000] hotfix - mise à jour du fichier de la clé d'erreur des rôles webservices (14aa00fbfa8668456bffb2f33c5f59edb9362888)
+- [000] hotfix - mise à jour du fichier de la clé d'erreur des rôles webservices (anglais) (b6ccbcd72aea837a7d5d531721c0ae985e7d59c3)
+
+## 1.17.0-master.1229+20230111142847
+2023-01-11
+
+### Fixes
+
+- [3260] gestion des filtres de catégorie eSim et dépendances (e7912cc74060d55ea2347385a7df9b6e81dea810)
+
+## 1.17.0-master.1228+20230109151532
+2023-01-09
+
+### Fixes
+
+- [3630] correction des valeurs de filtres en doublon après application des prérequis des actes de gestion (fdc31247179a8986e62564936942490a777cf934)
+
 ## 1.17.0-master.1227+20230106095638
 2023-01-06
 

@@ -461,6 +461,7 @@ export async function searchLines(orderBy, pagination, filters = []) {
 }
 
 export function formatFilters(filters) {
+  console.log('check filters passed to simcardInstances API', filters);
   const allFilters = [];
   const partyIds = getValuesIdsWithoutQuotes(filters, 'filters.partners');
   if (partyIds && partyIds.length) {

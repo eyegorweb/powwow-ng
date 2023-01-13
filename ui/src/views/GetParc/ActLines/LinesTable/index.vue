@@ -47,7 +47,7 @@
         <template v-if="hasResults">
           <DataTable
             storage-id="getparc.lines"
-            storage-version="028"
+            storage-version="029"
             v-if="columns"
             :columns="columns"
             :rows="rows || []"
@@ -731,7 +731,6 @@ export default {
           id: 24,
           label: this.$t('filters.lines.community'),
           name: 'accessPoint',
-          exportId: 'yorkCommunity',
           format: {
             type: 'Getter',
             getter: (row) => {

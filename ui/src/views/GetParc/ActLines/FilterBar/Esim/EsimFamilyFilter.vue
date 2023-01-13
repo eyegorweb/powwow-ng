@@ -40,7 +40,6 @@ export default {
   },
   async mounted() {
     let response = await simCardFamilies();
-    console.log(response);
     response.forEach((e) => {
       this.options.push({
         label: e.label,
