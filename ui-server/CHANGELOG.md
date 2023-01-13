@@ -2,13 +2,12 @@
 
 <!--- next entry here -->
 
-## 1.17.0-master.1232+20230113110857
+## 1.17.0-master.1233+20230113110103
 2023-01-13
 
 ### Fixes
 
 - [3665] gestion des permissions des actes de gestion (2be2cd4660aa7043b6edc9309701d7b91e825c10)
-- [3664] Les eSIM step 1 doivent être visibles dans la commande. (da78d0287a997346131e63ea4e31f18413332651)
 
 ## 1.17.0-master.1231+20230112135801
 2023-01-12
