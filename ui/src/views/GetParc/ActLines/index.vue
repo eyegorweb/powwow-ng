@@ -331,12 +331,6 @@ export default {
             return true;
           })
           .filter((i) => {
-            if (i.permission) {
-              return this.havePermission(i.permission.domain, i.permission.action);
-            }
-            return true;
-          })
-          .filter((i) => {
             if (this.userIsM2MLight) {
               if (
                 i.title === 'getparc.actCreation.carouselItem.CUSTOM_FIELDS' ||
