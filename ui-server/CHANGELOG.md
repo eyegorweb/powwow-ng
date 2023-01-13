@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1234+20230113132217
+2023-01-13
+
+### Fixes
+
+- [3626] filter actlines esim file import eid (6ee16662d5fa44b6abd141f826b43ec5bfef99b4)
+- [3665] gestion des permissions des actes de gestion (8958254a17190887608015b2d55d1730c938e5fc)
+
 ## 1.17.0-master.1233+20230113110103
 2023-01-13
 
