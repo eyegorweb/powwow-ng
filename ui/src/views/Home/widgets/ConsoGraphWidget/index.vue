@@ -12,7 +12,7 @@
 
     <template v-if="currentTab">
       <DataGraph v-if="currentTab.id === 'DATA'" usage="DATA" />
-      <SMSGraph v-if="currentTab.id === 'SMS'" />
+      <SMSGraph v-if="currentTab.id === 'SMS'" usage="SMS" />
       <VoiceGraph v-if="currentTab.id === 'VOICE'" usage="VOICE" />
     </template>
   </WidgetBloc>
