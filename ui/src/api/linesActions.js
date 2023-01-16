@@ -461,7 +461,6 @@ export async function searchLines(orderBy, pagination, filters = []) {
 }
 
 export function formatFilters(filters) {
-  console.log('check filters passed to simcardInstances API', filters);
   const allFilters = [];
   const partyIds = getValuesIdsWithoutQuotes(filters, 'filters.partners');
   if (partyIds && partyIds.length) {
@@ -492,7 +491,6 @@ export function formatFilters(filters) {
     allFilters.push(`idCF: {in:[${customerAccountIds}]}`);
   }
 
-  // addQuantityFilter(allFilters, filters);
   addActionTypeFilter(allFilters, filters);
   addOfferFilterFilter(allFilters, filters);
   addOrderId(allFilters, filters);
@@ -500,7 +498,13 @@ export function formatFilters(filters) {
   valuesFromMutiselectFilter(allFilters, filters, 'simStatus', 'filters.lines.SIMCardStatus');
   valuesFromMutiselectFilter(allFilters, filters, 'billingStatus', 'filters.lines.billingStatus');
   valuesFromMutiselectFilter(allFilters, filters, 'networkStatus', 'filters.lines.networkStatus');
-  valuesFromMutiselectFilter(allFilters, filters, 'simCardName', 'filters.lines.typeSIMCard', true);
+  valuesFromMutiselectFilter(
+    allFilters,
+    filters,
+    'simCardTypeId',
+    'filters.lines.typeSIMCard',
+    true
+  );
   valuesFromMutiselectFilter(allFilters, filters, 'cosCommunity', 'filters.lines.community', true);
   valuesFromMutiselectFilter(
     allFilters,
