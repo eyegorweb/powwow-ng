@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1239+20230116135347
+2023-01-16
+
+### Fixes
+
+- [3667] gestion du filtre de type de carte sim par ID (6e574d8e12ecdc03102c9f7e964aaffaba952115)
+
 ## 1.17.0-master.1238+20230113144333
 2023-01-13
 
