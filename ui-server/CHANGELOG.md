@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1241+20230117154101
+2023-01-17
+
+### Fixes
+
+- [3673] gestion de la récupération de tous les items de comptes de facturation pour l'association dans le panel utilisateurs (230b43336474858a1175e4b45aa4ec40ef5f513d)
+
 ## 1.17.0-master.1240+20230117145849
 2023-01-17
 
