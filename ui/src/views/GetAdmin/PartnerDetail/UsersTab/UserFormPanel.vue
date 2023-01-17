@@ -430,7 +430,7 @@ export default {
       if (this.selectedPartner) {
         partners.push(this.selectedPartner);
       }
-      const data = await fetchBillingAccounts(q, partners, { page, limit: 10 });
+      const data = await fetchBillingAccounts(q, partners, { page, limit: 999 });
       return data.map((ba) => ({
         id: ba.id,
         label: `${ba.code} - ${ba.name}`,
@@ -558,7 +558,7 @@ export default {
     },
 
     haveSetCaPermission() {
-      return this.havePermission('user', 'set_ca');
+      return !this.havePermission('user', 'set_ca');
     },
 
     haveMailError() {
