@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1240+20230117145849
+2023-01-17
+
+### Fixes
+
+- [3668] change permissions on filter eSim for getParc (7ec8196b642f0ef67370e48d227fad3570cc0b5c)
+
 ## 1.17.0-master.1239+20230116135347
 2023-01-16
 
