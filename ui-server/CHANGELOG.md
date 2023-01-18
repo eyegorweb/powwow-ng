@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1242+20230118150735
+2023-01-18
+
+### Fixes
+
+- [3673] correction de la permission pour afficher les comptes de facturation (91aa15916bedabae2a840247e05fe465340f5613)
+
 ## 1.17.0-master.1241+20230117154101
 2023-01-17
 
