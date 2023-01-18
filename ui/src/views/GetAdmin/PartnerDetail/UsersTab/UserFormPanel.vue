@@ -558,7 +558,7 @@ export default {
     },
 
     haveSetCaPermission() {
-      return !this.havePermission('user', 'set_ca');
+      return this.havePermission('user', 'set_ca');
     },
 
     haveMailError() {
