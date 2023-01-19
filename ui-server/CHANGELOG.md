@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1245+20230119164502
+2023-01-19
+
+### Fixes
+
+- [3676] mise à jour des données lors de la modification des comptes de facturation d'un utilisateur (d17244a5b3a80a0ad773a39a88bb658c179ff043)
+
 ## 1.17.0-master.1244+20230119155146
 2023-01-19
 
