@@ -41,7 +41,6 @@
 <script>
 import TableWithFilter from '@/components/Filters/TableWithFilter';
 import BillsPartnerFilter from './filters/BillsPartnerFilter';
-// import PartnerNameFilter from '@/views/GetAdmin/SearchUsers/filters/PartnerFilter.vue';
 import { fetchBills } from '@/api/bills';
 import DateBills from './filters/DateBills';
 import BillsAccounts from './filters/BillsAccounts.vue';

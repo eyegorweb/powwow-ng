@@ -114,7 +114,7 @@ import {
   lineDistributionByTechno,
   lineDistributionByDeviceReference,
 } from '@/api/deviceGraph';
-import PartnerNameFilter from '@/components/Filters/filterbar/PartnerFilter';
+import PartnerFilter from '@/components/Filters/filterbar/PartnerFilter';
 import get from 'lodash.get';
 import { mapGetters } from 'vuex';
 import { truncateLabel } from '@/utils';
@@ -367,7 +367,7 @@ export default {
       filters: [
         {
           title: 'getdevice.partners',
-          component: PartnerNameFilter,
+          component: PartnerFilter,
           id: 1,
           onChange(chosenValues) {
             return {
