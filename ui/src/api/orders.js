@@ -327,7 +327,7 @@ function addOfferFilterFilter(gqlFilters, selectedFilters) {
   const offerFilter = selectedFilters.find((o) => o.id === 'filters.offers');
   if (!offerFilter) return;
 
-  const offers = offerFilter.values.map((o) => `"${o.productCode}"`).join(',');
+  const offers = offerFilter.values.map((o) => `"${o.id}"`).join(',');
   if (offers) {
     gqlFilters.push(`workflowCode: {in: [${offers}]}`);
   }
