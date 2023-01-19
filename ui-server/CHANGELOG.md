@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1244+20230119155146
+2023-01-19
+
+### Fixes
+
+- [3676] gestion des erreurs et mise à jour des données lors de la modification d'un utilisateur (b766dfc444d540572cc0efa5a95895b35cd6eb0e)
+
 ## 1.17.0-master.1243+20230119132007
 2023-01-19
 
