@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1246+20230120105718
+2023-01-20
+
+### Fixes
+
+- [3496] Alignement of validation Bloc for Radius act (65fd2e633c1850b4cea29b04b0af74606dc2847e)
+
 ## 1.17.0-master.1245+20230119164502
 2023-01-19
 
