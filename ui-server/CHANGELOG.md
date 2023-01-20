@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1247+20230120194853
+2023-01-20
+
+### Features
+
+- [3674] Ajouter le CF dans la gestion des documents (569fa047e9b1f73f50af9b34adc1aeb4634e7be0)
+
 ## 1.17.0-master.1246+20230120105718
 2023-01-20
 
