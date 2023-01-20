@@ -33,7 +33,8 @@
 import TableWithFilter from '@/components/Filters/TableWithFilter';
 import { fetchAllDocuments, deleteDocument } from '@/api/documents';
 import { fetchReports } from '@/api/reports.js';
-import PartnerNameFilter from '@/components/Filters/filterbar/PartnerFilter';
+import BillsPartnerFilter from '@/views/GetReport/Bill/filters/BillsPartnerFilter';
+import BillsAccounts from '@/views/GetReport/Bill/filters/BillsAccounts.vue';
 import DocumentNameFilter from './filters/DocumentNameFilter';
 import DocumentCategoryFilter from './filters/DocumentCategoryFilter';
 import Actions from './Actions';
@@ -116,7 +117,7 @@ export default {
           },
         },
         orderable: false,
-        visible: true,
+        visible: false,
       },
       {
         id: 6,
@@ -135,6 +136,19 @@ export default {
         orderable: false,
         visible: true,
       },
+      {
+        id: 7,
+        label: this.$t('col.billingAccount'),
+        name: 'billingAccount',
+        format: {
+          type: 'Getter',
+          getter: (row) => {
+            return get(row, 'customerAccount.code', '-');
+          },
+        },
+        orderable: false,
+        visible: true,
+      },
     ];
     const reportId = get(this.$route, 'params.reportId');
 
@@ -143,31 +157,42 @@ export default {
     if (!this.userIsPartner) {
       filters.push({
         title: 'getadmin.users.filters.partners',
-        component: PartnerNameFilter,
-        id: 1,
-        onChange(chosenValues) {
+        component: BillsPartnerFilter,
+        onChange(chosenValue, clearFilter) {
+          clearFilter('filters.billingAccounts');
           return {
             id: 'getadmin.users.filters.partners',
-            values: chosenValues,
+            value: chosenValue ? chosenValue.label : '',
+            data: chosenValue,
           };
+        },
+        onRemove(clearFilter) {
+          clearFilter('filters.billingAccounts');
         },
       });
     } else {
       this.defaultValues = [
         {
           id: 'getadmin.users.filters.partners',
-          values: [
-            {
-              ...this.singlePartner,
-              label: this.singlePartner.name,
-            },
-          ],
+          value: this.singlePartner ? this.singlePartner.name : '',
+          data: this.singlePartner,
           hidden: true,
         },
       ];
     }
 
     filters.push(
+      {
+        title: 'filters.billingAccounts',
+        component: BillsAccounts,
+        onChange(chosenValue) {
+          return {
+            id: 'filters.billingAccounts',
+            value: chosenValue ? chosenValue.label : '',
+            data: chosenValue,
+          };
+        },
+      },
       {
         title: 'documents.name',
         component: DocumentNameFilter,

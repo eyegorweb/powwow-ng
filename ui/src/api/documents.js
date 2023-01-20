@@ -1,4 +1,4 @@
-import { query, getFilterValue, getValuesIdsWithoutQuotes, getValuesIds } from './utils';
+import { query, getFilterValue, getValuesIds } from './utils';
 
 export async function fetchAllDocumentsCategory() {
   const queryStr = `
@@ -26,6 +26,11 @@ export async function fetchAllDocuments(orderBy, pagination, filters = []) {
         fileName
         documentName
         created
+        customerAccount{
+          id
+          code
+          name
+        }
         party {
           id
           name
@@ -74,6 +79,7 @@ export function formatFilters(selectedFilters) {
   const gqlFilters = [];
 
   addPartyIdFilter(gqlFilters, selectedFilters);
+  addCutomerAccountId(gqlFilters, selectedFilters);
   addDocumentNameFilter(gqlFilters, selectedFilters);
   addCategoryFilter(gqlFilters, selectedFilters);
   addReportModel(gqlFilters, selectedFilters);
@@ -89,10 +95,18 @@ export function addReportModel(gqlFilters, selectedFilters) {
 }
 
 function addPartyIdFilter(gqlFilters, selectedFilters) {
-  const partyIds = getValuesIdsWithoutQuotes(selectedFilters, 'getadmin.users.filters.partners');
+  const foundFilter = selectedFilters.find((f) => f.id === 'getadmin.users.filters.partners');
 
-  if (partyIds) {
-    gqlFilters.push(`partyId: {in: [${partyIds}]}`);
+  if (foundFilter && foundFilter.data && foundFilter.id) {
+    gqlFilters.push(`partyId: {eq: ${foundFilter.data.id}}`);
+  }
+}
+
+function addCutomerAccountId(gqlFilters, selectedFilters) {
+  const foundFilter = selectedFilters.find((f) => f.id === 'filters.billingAccounts');
+
+  if (foundFilter && foundFilter.data && foundFilter.id) {
+    gqlFilters.push(`idCF: { eq:${foundFilter.data.id}}`);
   }
 }
 
