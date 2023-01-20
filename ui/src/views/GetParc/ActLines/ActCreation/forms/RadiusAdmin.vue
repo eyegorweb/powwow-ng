@@ -5,6 +5,7 @@
     always-show-report
     confirmation-message="confirmAction"
     ip-fix-usage
+    validation-tr
   >
     <div slot="action" class="mb-3">
       <h6>Action</h6>
