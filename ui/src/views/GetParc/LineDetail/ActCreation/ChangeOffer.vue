@@ -132,8 +132,8 @@ export default {
           .map((o) => ({
             id: o.code,
             label: o.workflowDescription,
-            data: o,
-            productCode: o.code,
+            // data: o,
+            // productCode: o.code,
           }));
       }
     },
