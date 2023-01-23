@@ -751,7 +751,7 @@ function addOfferFilterFilter(gqlFilters, selectedFilters) {
   const offerFilter = selectedFilters.find((o) => o.id === 'filters.lines.associatedOffer');
   if (!offerFilter) return;
 
-  const offers = offerFilter.values.map((o) => `"${o.productCode}"`).join(',');
+  const offers = offerFilter.values.map((o) => `"${o.id}"`).join(',');
   if (offers) {
     gqlFilters.push(`productCode: {in: [${offers}]}`);
   }

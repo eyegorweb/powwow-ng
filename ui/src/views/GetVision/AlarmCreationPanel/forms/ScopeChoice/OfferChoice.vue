@@ -90,7 +90,7 @@ export default {
       const filters = [
         {
           id: 'filters.lines.associatedOffer',
-          values: [{ productCode: this.selectedOffer.meta.initialOffer.code }],
+          values: [{ id: this.selectedOffer.meta.initialOffer.id }],
         },
       ];
 

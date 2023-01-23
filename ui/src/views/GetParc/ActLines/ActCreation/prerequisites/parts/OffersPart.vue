@@ -84,8 +84,8 @@ export default {
             return dataToUse.map((o) => ({
               id: o.code,
               label: o.workflowDescription,
-              data: o,
-              productCode: o.code,
+              // data: o,
+              // productCode: o.code,
             }));
           }
         } else if (this.partner.label && this.partner.label.length) {
