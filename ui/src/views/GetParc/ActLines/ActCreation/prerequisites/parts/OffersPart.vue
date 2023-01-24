@@ -52,7 +52,16 @@ export default {
       // selectedOffer: undefined,
       selectedLocalValue: undefined,
       showCombo: true,
+      prerequisiteOffer: null,
     };
+  },
+  mounted() {
+    this.prerequisiteOffer =
+      this.actCreationPrerequisites &&
+      this.actCreationPrerequisites.offer &&
+      this.actCreationPrerequisites.offer.id
+        ? this.actCreationPrerequisites.offer.id
+        : '';
   },
   methods: {
     async searchOffers(q, page = 0) {
@@ -74,8 +83,8 @@ export default {
           }
 
           queryParams.haveLvOffers = !!this.haveLvOffers;
-          if (this.hasPrerequisiteValue && this.prerequisiteOffer.code) {
-            queryParams.notEqualsOfferCode = this.prerequisiteOffer.code;
+          if (this.hasPrerequisiteValue && this.prerequisiteOffer) {
+            queryParams.notEqualsOfferCode = this.prerequisiteOffer;
           }
 
           const data = await fetchOffers(q, [this.partner], queryParams);
@@ -84,8 +93,7 @@ export default {
             return dataToUse.map((o) => ({
               id: o.code,
               label: o.workflowDescription,
-              // data: o,
-              // productCode: o.code,
+              data: o,
             }));
           }
         } else if (this.partner.label && this.partner.label.length) {
@@ -140,11 +148,6 @@ export default {
   computed: {
     ...mapState('userContext', ['contextPartnersType', 'contextPartners']),
     ...mapState('actLines', ['actCreationPrerequisites']),
-    prerequisiteOffer() {
-      return this.actCreationPrerequisites && this.actCreationPrerequisites.offer
-        ? this.actCreationPrerequisites.offer.data
-        : '';
-    },
   },
 };
 </script>

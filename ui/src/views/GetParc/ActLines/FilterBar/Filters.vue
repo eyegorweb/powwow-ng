@@ -358,7 +358,13 @@
         @update:value="selectEsimCategoryFilter($event)"
       />
     </FoldableBlock>
-    <template v-if="userHaveEsimEnabled && (havePermission('getParc', 'manage_esim') || havePermission('getParc', 'manage_esim_light'))">
+    <template
+      v-if="
+        userHaveEsimEnabled &&
+          (havePermission('getParc', 'manage_esim') ||
+            havePermission('getParc', 'manage_esim_light'))
+      "
+    >
       <FoldableBlock
         v-if="keyName === 'esim3'"
         :title="$t('indicators.getparc.lines.esim.type')"
