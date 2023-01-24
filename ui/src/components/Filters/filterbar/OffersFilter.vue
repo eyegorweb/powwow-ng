@@ -3,6 +3,7 @@
     :selected-offers-values="selectedValues"
     :selected-partners-values="partnerIds"
     @setOffersFilter="(values) => $emit('change', values)"
+    expanded-data-attributes
   />
 </template>
 

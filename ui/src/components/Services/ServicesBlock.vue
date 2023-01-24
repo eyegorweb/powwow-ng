@@ -394,10 +394,7 @@ export default {
       const ltemService = this.services.find((s) => s.code === 'LTE-M');
       let nbiotService = this.services.find((s) => s.code === 'NB-IoT');
       const initialNbiotService = this.initialServices.find((s) => s.code === 'NB-IoT');
-      console.log('initial nbiot service', initialNbiotService);
       if (ltemService && nbiotService) {
-        console.log('ltem service', ltemService);
-        console.log('nbiot service', nbiotService);
         // Si ltem est non activé
         if (!ltemService.checked) {
           // alors Nb-IoT est inactif

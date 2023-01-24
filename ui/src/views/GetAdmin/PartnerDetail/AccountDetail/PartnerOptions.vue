@@ -31,7 +31,12 @@
               v-if="partyType === 'CUSTOMER' && resilationSecurityEnabled"
               :label="$t('notification')"
               :editable="true"
-              :bold-label="isChanged(resilationSecurityNotificationEnabled, 'resilationSecurityNotificationEnabled')"
+              :bold-label="
+                isChanged(
+                  resilationSecurityNotificationEnabled,
+                  'resilationSecurityNotificationEnabled'
+                )
+              "
               v-model="resilationSecurityNotificationEnabled"
               small-label
             />
@@ -231,7 +236,9 @@
             <UiToggle
               :label="$t('getadmin.partners.optionsDetails.services.labels.AUTO_ACT_SIM')"
               :editable="true"
-              :bold-label="isChanged(flagDefautWorkflowActicationEnabled, 'flagDefautWorkflowActication')"
+              :bold-label="
+                isChanged(flagDefautWorkflowActicationEnabled, 'flagDefautWorkflowActication')
+              "
               v-model="flagDefautWorkflowActicationEnabled"
               small-label
             />
@@ -304,7 +311,7 @@
         <div class="d-flex jcsb">
           <div class="half-size">
             <div class="form-group">
-              <label class="small-label pl-2" :class="{ 'bold': changeOnReportConsoValue }">{{
+              <label class="small-label pl-2" :class="{ bold: changeOnReportConsoValue }">{{
                 $t('getadmin.partners.optionsDetails.dataReporting')
               }}</label>
               <Toggle
@@ -322,7 +329,9 @@
 
     <!-- COACH M2M BLOC -->
     <ContentBlock no-handle>
-      <template slot="title">{{ $t('getadmin.partners.optionsDetails.services.labels.COACH_M2M') }}</template>
+      <template slot="title">{{
+        $t('getadmin.partners.optionsDetails.services.labels.COACH_M2M')
+      }}</template>
       <div slot="content">
         <div>
           <div class="two-size to-bottom mb-4" v-if="partyType === 'CUSTOMER'">
@@ -363,13 +372,12 @@
       <template slot="title">GEOLOC</template>
       <div slot="content">
         <div class="d-flex two">
-
           <div class="two-size pr-4">
             <div class="form-group">
               <label class="small-label">{{
                 $t('getadmin.partners.optionsDetails.actualView')
               }}</label>
-              <UiInput v-model="geolocViewCounter" input-type="number" block disabled/>
+              <UiInput v-model="geolocViewCounter" input-type="number" block disabled />
             </div>
           </div>
           <div class="two-size pr-4" v-if="partyType === 'CUSTOMER'">
@@ -420,9 +428,11 @@
         <div class="d-flex two">
           <div class="two-size" v-if="partyType === 'CUSTOMER'">
             <div class="form-group">
-              <label class="small-label" :class="{'bold': preactivationFormat !== partnerOptions.msisdnFormatPreactivation}">{{
-                $t('getadmin.partners.optionsDetails.preactivateFormat')
-              }}</label>
+              <label
+                class="small-label"
+                :class="{ bold: preactivationFormat !== partnerOptions.msisdnFormatPreactivation }"
+                >{{ $t('getadmin.partners.optionsDetails.preactivateFormat') }}</label
+              >
               <Toggle
                 block
                 @update="preactivationFormat = $event.id"
@@ -430,12 +440,15 @@
               />
             </div>
           </div>
-          
-        <!-- Dual Sim -->
+
+          <!-- Dual Sim -->
           <div class="two-size" v-if="(userIsBO || userIsAdmin) && partyType === 'CUSTOMER'">
             <div class="form-group">
-              <label class="small-label" :class="{'bold': dualSimChoice !== initialServices.dualSimCardPartyType}">
-              {{ $t('getparc.lineDetail.tab1.dualSim') }}
+              <label
+                class="small-label"
+                :class="{ bold: dualSimChoice !== initialServices.dualSimCardPartyType }"
+              >
+                {{ $t('getparc.lineDetail.tab1.dualSim') }}
               </label>
               <Toggle block @update="dualSimChoice = $event.id" :values="dualSimChoices" />
             </div>
@@ -445,7 +458,13 @@
         <div class="d-flex">
           <div class="two-size">
             <div class="form-group">
-              <label class="small-label" :class="{'bold': notificationChoice !== initialServices.wsNotificationParam.notificationOption}">
+              <label
+                class="small-label"
+                :class="{
+                  bold:
+                    notificationChoice !== initialServices.wsNotificationParam.notificationOption,
+                }"
+              >
                 {{ $t('getvsion.notify-ws') }}
               </label>
               <Toggle
@@ -569,9 +588,9 @@ export default {
       }
       return [];
     },
-    
+
     changeOnReportConsoValue() {
-      return this.reportConsoValue !== (this.partnerOptions.consoReporting ? 'detailed' : 'simple')
+      return this.reportConsoValue !== (this.partnerOptions.consoReporting ? 'detailed' : 'simple');
     },
 
     canSave() {
@@ -812,11 +831,7 @@ export default {
         'MAD_FACT',
         this.partnerOptions.resilationSecurityEnabled
       );
-      this.checkToggle(
-        this.services,
-        'NOTIF_EUICC',
-        this.partnerOptions.euiccEnabled
-      );
+      this.checkToggle(this.services, 'NOTIF_EUICC', this.partnerOptions.euiccEnabled);
       this.checkToggle(this.services, 'NOTIF_EUICC', this.partnerOptions.euiccEnabled);
 
       this.resilationSecurityDelay = this.partnerOptions.resilationSecurityDelay;
