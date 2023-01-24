@@ -35,7 +35,6 @@ export default {
             }))
             .reduce((all, offer) => {
               const isFound = all.find((w) => w.id === offer.id);
-              console.log('is found', isFound);
               if (!isFound) {
                 if (this.expandedDataAttributes) {
                   all.push(offer);
