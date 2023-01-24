@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1252+20230124193538
+2023-01-24
+
+### Fixes
+
+- [3630] correction de l'offre Filtres pour les actes de gestion et les commandes (f2d835674dfc88188a30fa55d8818cffa747ee76)
+
 ## 1.17.0-master.1251+20230124144353
 2023-01-24
 
