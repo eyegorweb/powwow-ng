@@ -52,16 +52,7 @@ export default {
       // selectedOffer: undefined,
       selectedLocalValue: undefined,
       showCombo: true,
-      prerequisiteOffer: null,
     };
-  },
-  mounted() {
-    this.prerequisiteOffer =
-      this.actCreationPrerequisites &&
-      this.actCreationPrerequisites.offer &&
-      this.actCreationPrerequisites.offer.id
-        ? this.actCreationPrerequisites.offer.id
-        : '';
   },
   methods: {
     async searchOffers(q, page = 0) {
@@ -143,11 +134,21 @@ export default {
         this.$emit('update:offer', value);
       }
     },
+    prerequisiteOffer(newValue) {
+      return newValue;
+    },
   },
 
   computed: {
     ...mapState('userContext', ['contextPartnersType', 'contextPartners']),
     ...mapState('actLines', ['actCreationPrerequisites']),
+    prerequisiteOffer() {
+      return this.actCreationPrerequisites &&
+        this.actCreationPrerequisites.offer &&
+        this.actCreationPrerequisites.offer.id
+        ? this.actCreationPrerequisites.offer.id
+        : '';
+    },
   },
 };
 </script>
