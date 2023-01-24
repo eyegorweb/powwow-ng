@@ -532,14 +532,14 @@ export default {
           foundMandatoryService = this.allOfferServices.find(
             (service) => service.code === elem // && (desactivateControl || service.checked || service.editable)
           );
-          console.log(
-            'findDependantService  Gestion code de service for code elem: ' +
-              elem +
-              ', code to deactivate:' +
-              serviceCodeDesactivated +
-              ', foundMandatoryService ',
-            foundMandatoryService
-          );
+          // console.log(
+          //   'findDependantService  Gestion code de service for code elem: ' +
+          //     elem +
+          //     ', code to deactivate:' +
+          //     serviceCodeDesactivated +
+          //     ', foundMandatoryService ',
+          //   foundMandatoryService
+          // );
         }
       }
       return foundMandatoryService;
