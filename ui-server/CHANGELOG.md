@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1249+20230124095239
+2023-01-24
+
+### Fixes
+
+- [3630] gestion du filtre Offres sur l'ensemble de l'IHM (2e3b666a29b6e34075139add84e5240d029b0538)
+
 ## 1.17.0-master.1248+20230123090837
 2023-01-23
 
