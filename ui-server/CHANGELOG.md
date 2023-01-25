@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1256+20230125145004
+2023-01-25
+
+### Fixes
+
+- [3685] Affichage des services incompatibles non conforme. (123072f1e03e312f0f9d56fdeba7aa463eea2a96)
+
 ## 1.17.0-master.1255+20230125124302
 2023-01-25
 
