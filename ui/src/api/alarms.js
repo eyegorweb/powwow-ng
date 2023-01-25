@@ -648,7 +648,7 @@ function addPartnerFilter(gqlFilters, selectedFilters) {
 }
 
 function addCustomerAccount(gqlFilters, selectedFilters) {
-  const ids = getValuesIdsWithoutQuotes(selectedFilters, 'filters.billingAccounts');
+  const ids = getValuesIdsWithoutQuotes(selectedFilters, 'common.billingAccount');
   if (ids) {
     gqlFilters.push(`customerAccount: {in: [${ids}]}`);
   }
