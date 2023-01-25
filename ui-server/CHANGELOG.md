@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1255+20230125124302
+2023-01-25
+
+### Fixes
+
+- [3676] gestion de l'association des comptes de facturation (664a53cbf2e4fb9f2826ab7fa487c067a6e808d0)
+
 ## 1.17.0-master.1254+20230125105246
 2023-01-25
 
