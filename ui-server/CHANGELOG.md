@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1254+20230125105246
+2023-01-25
+
+### Fixes
+
+- [3630] correction du filtre Offres dans l'acte de Transfert vers un partenaire (e85d26c1151204d454cc49cddf6cdcc2cc27967a)
+
 ## 1.17.0-master.1253+20230125095937
 2023-01-25
 
