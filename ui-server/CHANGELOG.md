@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1257+20230125154818
+2023-01-25
+
+### Fixes
+
+- [3676] mise à jour de l'association des comptes de facturation d'un utilisateur (3e108a2447205c18ec90175316f57385f40d3862)
+
 ## 1.17.0-master.1256+20230125145004
 2023-01-25
 
