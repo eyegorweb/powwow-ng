@@ -244,6 +244,15 @@
           @update:options="updateOptions"
         />
       </div>
+
+      <div v-if="!showUserFormPanel">
+        <GroupMultiSelect
+          from-title="getadmin.partnerDetail.customerAccountsPanel.ba_list"
+          to-title="getadmin.partnerDetail.customerAccountsPanel.chosen_ba"
+          :options.sync="options"
+          @update:options="updateOptions"
+        />
+      </div>
     </div>
     <div v-if="exceptionError" slot="error" class="alert alert-danger" role="alert">
       <i class="ic-Alert-Icon"> </i>
@@ -408,13 +417,29 @@ export default {
         }));
         this.options = formattedOptions;
       } else {
-        const formattedOptions = this.customerAccounts.map((c) => ({
-          id: c.id,
-          label: c.label,
-          data: c,
-          parent: c.partnerId,
-          selected: c.selected ? true : false,
-        }));
+        let formattedOptions;
+        if (this.isEditMode) {
+          formattedOptions = this.customerAccounts.map((c) => ({
+            id: c.id,
+            label: c.label,
+            data: c,
+            parent: c.partnerId,
+            selected:
+              this.content.duplicateFrom.customerAccounts.length > 0 &&
+              this.content.duplicateFrom.customerAccounts.find((cc) => c.id === cc.id)
+                ? true
+                : false,
+          }));
+        } else if (this.createMode) {
+          formattedOptions = this.customerAccounts.map((c) => ({
+            id: c.id,
+            label: c.label,
+            data: c,
+            parent: c.partnerId,
+            selected: false,
+          }));
+        }
+
         this.options = formattedOptions;
       }
     },
@@ -567,8 +592,12 @@ export default {
           } else if (e.key === 'userToCreateOrUpdate') {
             if (e.value === 'ACCESS_WEB_SERVICES_ROLES_DENIED') {
               errorMessage = `${this.$t('getadmin.users.errors.ACCESS_WEB_SERVICES_ROLES_DENIED')}`;
-            } else if (e.value === 'NotAllowed') {
+            } else if (e.value === 'USER_NOT_ALLOWED_TO_CREATE') {
               errorMessage = this.$t('getadmin.users.errors.AccessDeniedForThisUser');
+            } else if (e.value === 'USER_NOT_ALLOWED_TO_MODIFY_WITHOUT_CA_PERMISSION') {
+              errorMessage = 'USER_NOT_ALLOWED_TO_MODIFY_WITHOUT_CA_PERMISSION';
+            } else {
+              errorMessage = `${e.key}: ${e.value}`;
             }
           } else if (e.key === 'username') {
             errorMessage = this.$t('getadmin.users.errors.username');
@@ -722,6 +751,9 @@ export default {
     },
 
     canSave() {
+      if (!this.showUserFormPanel && this.canShowCustomerAccounsList) {
+        return true;
+      }
       const passwordError = !!this.passwordConfirmationErrors.length;
       const fieldsToCheck = ['title', 'language', 'firstName', 'lastName', 'email', 'username'];
 
