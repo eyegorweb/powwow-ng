@@ -346,19 +346,25 @@
       />
     </FoldableBlock>
 
-    <template v-if="userHaveEsimEnabled && havePermission('getParc', 'manage_esim')">
-      <FoldableBlock
-        v-if="keyName === 'esim1'"
-        :title="$t('indicators.getparc.lines.esim.category')"
-        :key="'esim1'"
-        :disabled="filtersAreDisabled"
-        draggable
-      >
-        <EsimCategoryFilter
-          :selected-value="selectedEsimCategoryValue"
-          @update:value="selectEsimCategoryFilter($event)"
-        />
-      </FoldableBlock>
+    <FoldableBlock
+      v-if="keyName === 'esim1'"
+      :title="$t('indicators.getparc.lines.esim.category')"
+      :key="'esim1'"
+      :disabled="filtersAreDisabled"
+      draggable
+    >
+      <EsimCategoryFilter
+        :selected-value="selectedEsimCategoryValue"
+        @update:value="selectEsimCategoryFilter($event)"
+      />
+    </FoldableBlock>
+    <template
+      v-if="
+        userHaveEsimEnabled &&
+          (havePermission('getParc', 'manage_esim') ||
+            havePermission('getParc', 'manage_esim_light'))
+      "
+    >
       <FoldableBlock
         v-if="keyName === 'esim3'"
         :title="$t('indicators.getparc.lines.esim.type')"

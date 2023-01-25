@@ -240,7 +240,7 @@ export default {
         }
         if (filter.id === 'filters.offers') {
           formatted.workflowCode = {
-            in: filter.values.map((v) => v.productCode),
+            in: filter.values.map((v) => v.id),
           };
         }
         if (filter.id === 'filters.quantity') {

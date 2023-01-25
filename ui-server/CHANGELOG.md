@@ -2,6 +2,100 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1252+20230124193538
+2023-01-24
+
+### Fixes
+
+- [3630] correction de l'offre Filtres pour les actes de gestion et les commandes (f2d835674dfc88188a30fa55d8818cffa747ee76)
+
+## 1.17.0-master.1251+20230124144353
+2023-01-24
+
+### Fixes
+
+- [3630] correction de l'offre Filtres pour les actes de gestion et les commandes (bdd5c5201fe7f2977739843a2def6e8e842bc95d)
+
+## 1.17.0-master.1250+20230124141959
+2023-01-24
+
+### Fixes
+
+- [3630] correction de l'offre Filtres pour les actes de gestion et les commandes (bf79a2dd089cf7e33bd51325c494cb2ae223c5f9)
+
+## 1.17.0-master.1249+20230124095239
+2023-01-24
+
+### Fixes
+
+- [3630] gestion du filtre Offres sur l'ensemble de l'IHM (2e3b666a29b6e34075139add84e5240d029b0538)
+
+## 1.17.0-master.1248+20230123090837
+2023-01-23
+
+### Fixes
+
+- [3630] wip offer filter (c244f83df9f156871d3a1590e754b60a43131b05)
+
+## 1.17.0-master.1247+20230120194853
+2023-01-20
+
+### Features
+
+- [3674] Ajouter le CF dans la gestion des documents (569fa047e9b1f73f50af9b34adc1aeb4634e7be0)
+
+## 1.17.0-master.1246+20230120105718
+2023-01-20
+
+### Fixes
+
+- [3496] Alignement of validation Bloc for Radius act (65fd2e633c1850b4cea29b04b0af74606dc2847e)
+
+## 1.17.0-master.1245+20230119164502
+2023-01-19
+
+### Fixes
+
+- [3676] mise à jour des données lors de la modification des comptes de facturation d'un utilisateur (d17244a5b3a80a0ad773a39a88bb658c179ff043)
+
+## 1.17.0-master.1244+20230119155146
+2023-01-19
+
+### Fixes
+
+- [3676] gestion des erreurs et mise à jour des données lors de la modification d'un utilisateur (b766dfc444d540572cc0efa5a95895b35cd6eb0e)
+
+## 1.17.0-master.1243+20230119132007
+2023-01-19
+
+## 1.17.0-master.1242+20230118150735
+2023-01-18
+
+### Fixes
+
+- [3673] correction de la permission pour afficher les comptes de facturation (91aa15916bedabae2a840247e05fe465340f5613)
+
+## 1.17.0-master.1241+20230117154101
+2023-01-17
+
+### Fixes
+
+- [3673] gestion de la récupération de tous les items de comptes de facturation pour l'association dans le panel utilisateurs (230b43336474858a1175e4b45aa4ec40ef5f513d)
+
+## 1.17.0-master.1240+20230117145849
+2023-01-17
+
+### Fixes
+
+- [3668] change permissions on filter eSim for getParc (7ec8196b642f0ef67370e48d227fad3570cc0b5c)
+
+## 1.17.0-master.1239+20230116135347
+2023-01-16
+
+### Fixes
+
+- [3667] gestion du filtre de type de carte sim par ID (6e574d8e12ecdc03102c9f7e964aaffaba952115)
+
 ## 1.17.0-master.1238+20230113144333
 2023-01-13
 

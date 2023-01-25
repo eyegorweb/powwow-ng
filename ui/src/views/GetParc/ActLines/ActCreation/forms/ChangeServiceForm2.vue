@@ -179,7 +179,7 @@ export default {
         servicesToEnable: this.servicesToEnable,
         servicesToDisable: this.servicesToDisable,
         dataService: this.shouldChangeData ? this.dataService : undefined,
-        offerCode: this.actCreationPrerequisites.offer.productCode,
+        offerCode: this.actCreationPrerequisites.offer.id,
       });
       if (response.errors && response.errors.length) {
         let errorMessage = '',

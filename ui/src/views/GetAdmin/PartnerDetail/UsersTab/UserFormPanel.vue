@@ -430,7 +430,7 @@ export default {
       if (this.selectedPartner) {
         partners.push(this.selectedPartner);
       }
-      const data = await fetchBillingAccounts(q, partners, { page, limit: 10 });
+      const data = await fetchBillingAccounts(q, partners, { page, limit: 999 });
       return data.map((ba) => ({
         id: ba.id,
         label: `${ba.code} - ${ba.name}`,
@@ -503,7 +503,11 @@ export default {
           } else if (e.key === 'AccessDeniedForThisUser') {
             errorMessage = this.$t('getadmin.users.errors.AccessDeniedForThisUser');
           } else if (e.key === 'userToCreateOrUpdate') {
-            errorMessage = `${this.$t('getadmin.users.errors.ACCESS_WEB_SERVICES_ROLES_DENIED')}`;
+            if (e.value === 'ACCESS_WEB_SERVICES_ROLES_DENIED') {
+              errorMessage = `${this.$t('getadmin.users.errors.ACCESS_WEB_SERVICES_ROLES_DENIED')}`;
+            } else if (e.value === 'NotAllowed') {
+              errorMessage = this.$t('getadmin.users.errors.AccessDeniedForThisUser');
+            }
           } else if (e.key === 'username') {
             errorMessage = this.$t('getadmin.users.errors.username');
             this.requestErrors = [

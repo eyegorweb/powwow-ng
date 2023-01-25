@@ -74,8 +74,8 @@ export default {
           }
 
           queryParams.haveLvOffers = !!this.haveLvOffers;
-          if (this.hasPrerequisiteValue && this.prerequisiteOffer.code) {
-            queryParams.notEqualsOfferCode = this.prerequisiteOffer.code;
+          if (this.hasPrerequisiteValue && this.prerequisiteOffer) {
+            queryParams.notEqualsOfferCode = this.prerequisiteOffer;
           }
 
           const data = await fetchOffers(q, [this.partner], queryParams);
@@ -85,7 +85,6 @@ export default {
               id: o.code,
               label: o.workflowDescription,
               data: o,
-              productCode: o.code,
             }));
           }
         } else if (this.partner.label && this.partner.label.length) {
@@ -135,14 +134,19 @@ export default {
         this.$emit('update:offer', value);
       }
     },
+    prerequisiteOffer(newValue) {
+      return newValue;
+    },
   },
 
   computed: {
     ...mapState('userContext', ['contextPartnersType', 'contextPartners']),
     ...mapState('actLines', ['actCreationPrerequisites']),
     prerequisiteOffer() {
-      return this.actCreationPrerequisites && this.actCreationPrerequisites.offer
-        ? this.actCreationPrerequisites.offer.data
+      return this.actCreationPrerequisites &&
+        this.actCreationPrerequisites.offer &&
+        this.actCreationPrerequisites.offer.id
+        ? this.actCreationPrerequisites.offer.id
         : '';
     },
   },
