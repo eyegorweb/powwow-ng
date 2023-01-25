@@ -327,7 +327,11 @@ export default {
         (s) => s.checked && s.listServiceMandatory && s.listServiceMandatory.length > 0
       );
       const activatedServicesWithIncompatibleServices = this.services.filter(
-        (s) => s.checked && s.listServiceIncompatible && s.listServiceIncompatible.length > 0
+        (s) =>
+          s.checked &&
+          !s.barring &&
+          s.listServiceIncompatible &&
+          s.listServiceIncompatible.length > 0
       );
 
       if (activatedServicesWithMandatoryServices) {
