@@ -244,11 +244,11 @@ export default {
       });
       if (data) {
         this.offers = data.map((o) => ({
-          id: o.code,
-          // code: o.code,
+          id: o.id,
+          code: o.code,
           label: o.workflowDescription,
-          // productCode: o.code,
-          // data: o,
+          productCode: o.code,
+          data: o,
         }));
       }
     },
