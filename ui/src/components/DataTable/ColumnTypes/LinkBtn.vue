@@ -12,8 +12,6 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-
 export default {
   props: {
     format: {
@@ -24,9 +22,6 @@ export default {
       type: [String, Number],
     },
     row: Object,
-  },
-  computed: {
-    ...mapGetters(['userInfos', 'userIsByCustomerAccount']),
   },
 };
 </script>
