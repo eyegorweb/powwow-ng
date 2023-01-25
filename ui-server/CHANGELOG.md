@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1253+20230125095937
+2023-01-25
+
+### Fixes
+
+- [3630] correctif du filtre Compte de facturation pour rechercher les alarmes (03dcfe9468f6f5703e87c9c6a925ff1402afdca0)
+
 ## 1.17.0-master.1252+20230124193538
 2023-01-24
 
