@@ -39,7 +39,7 @@
                       :initial-services="initialServices"
                       :data-params-needed="isDataParamsError"
                       :roaming-extended-on-offer="isRoamingExtended"
-                      @datachange="onDataServiceChange"
+                      @servicechange="onDataServiceChange"
                       @communityChange="onCommunityChange"
                     />
                   </LoaderContainer>
