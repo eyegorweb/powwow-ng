@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1259+20230126111418
+2023-01-26
+
+### Fixes
+
+- [3690] Impossible de passer une commande avec activation. (2366a97ee54fa8b7380833fd3a61c039a4aa4826)
+
 ## 1.17.0-master.1258+20230126091503
 2023-01-26
 
