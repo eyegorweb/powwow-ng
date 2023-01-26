@@ -329,13 +329,21 @@ export default {
       if (this.searchByLoginValue) {
         payload = {
           pagination: payload !== undefined ? payload.pagination : { page: 0, limit: 20 },
-          filters: [
-            ...payload.filters,
-            {
-              id: 'getadmin.users.filters.login',
-              value: this.searchByLoginValue,
-            },
-          ],
+          filters:
+            payload !== undefined
+              ? [
+                  ...payload.filters,
+                  {
+                    id: 'getadmin.users.filters.login',
+                    value: this.searchByLoginValue,
+                  },
+                ]
+              : [
+                  {
+                    id: 'getadmin.users.filters.login',
+                    value: this.searchByLoginValue,
+                  },
+                ],
         };
       }
       this.lastPayload = payload;
