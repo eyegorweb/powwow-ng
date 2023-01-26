@@ -581,41 +581,82 @@ export default {
       }
 
       if (response && response.errors && response.errors.length) {
-        const formattedErrors = formatBackErrors(response.errors)
-          .map((e) => e.errors)
-          .flat();
-        formattedErrors.forEach((e) => {
-          if (e.key === 'user') {
-            errorMessage = `${this.$t('getadmin.users.errors.CUSTOMER_ACCOUNT_USER_NOT_ALLOWED')}`;
-          } else if (e.key === 'AccessDeniedForThisUser') {
-            errorMessage = this.$t('getadmin.users.errors.AccessDeniedForThisUser');
-          } else if (e.key === 'userToCreateOrUpdate') {
-            if (e.value === 'ACCESS_WEB_SERVICES_ROLES_DENIED') {
-              errorMessage = `${this.$t('getadmin.users.errors.ACCESS_WEB_SERVICES_ROLES_DENIED')}`;
-            } else if (e.value === 'USER_NOT_ALLOWED_TO_CREATE') {
-              errorMessage = this.$t('getadmin.users.errors.AccessDeniedForThisUser');
-            } else if (e.value === 'USER_NOT_ALLOWED_TO_MODIFY_WITHOUT_CA_PERMISSION') {
-              errorMessage = 'USER_NOT_ALLOWED_TO_MODIFY_WITHOUT_CA_PERMISSION';
-            } else {
-              errorMessage = `${e.key}: ${e.value}`;
-            }
-          } else if (e.key === 'username') {
-            errorMessage = this.$t('getadmin.users.errors.username');
-            this.requestErrors = [
-              {
-                message: errorMessage,
-              },
-            ];
-          } else {
-            errorMessage = this.$t('genericErrorMessage');
-          }
-          this.flashMessage({ level: 'danger', message: errorMessage });
-          this.closePanel({ resetSearch: true });
-        });
+        errorMessage = this.formatteErrorMessage(response);
+        this.flashMessage({ level: 'danger', message: errorMessage });
       } else {
         this.flashMessage({ level: 'success', message: this.$t('genericSuccessMessage') });
-        this.closePanel({ resetSearch: true });
       }
+      this.closePanel({ resetSearch: true });
+    },
+
+    formatteErrorMessage(response, errorMessage) {
+      const formattedErrors = formatBackErrors(response.errors)
+        .map((e) => e.errors)
+        .flat();
+      formattedErrors.forEach((e) => {
+        if (e.key === 'userId') {
+          if (e.value === 'NoUserFoundWithGivenId') {
+            errorMessage = 'NoUserFoundWithGivenId';
+          } else if (e.value === 'USER_D_USER_NOT_ALLOWED_TO_READ_ROLES') {
+            errorMessage = 'USER_D_USER_NOT_ALLOWED_TO_READ_ROLES';
+          }
+        } else if (e.key === 'userToCreateOrUpdate') {
+          if (e.value === 'USER_D_USERNAME_ALREADY_EXISTS') {
+            errorMessage = 'USER_D_USERNAME_ALREADY_EXISTS';
+          } else if (e.value === 'USER_NOT_ALLOWED_TO_CREATE') {
+            errorMessage = this.$t('getadmin.users.errors.AccessDeniedForThisUser');
+          } else if (e.value === 'ACCESS_WEB_SERVICES_ROLES_DENIED') {
+            errorMessage = `${this.$t('getadmin.users.errors.ACCESS_WEB_SERVICES_ROLES_DENIED')}`;
+          } else if (e.value === 'USER_NOT_ALLOWED_TO_MODIFY_USERNAME') {
+            errorMessage = 'USER_NOT_ALLOWED_TO_MODIFY_USERNAME';
+          } else if (e.value === 'USER_NOT_ALLOWED_TO_MODIFY_WITHOUT_CA_PERMISSION') {
+            errorMessage = 'USER_NOT_ALLOWED_TO_MODIFY_WITHOUT_CA_PERMISSION';
+          }
+        } else if (e.key === 'password') {
+          if (e.value === 'required') {
+            errorMessage = 'required';
+          }
+        } else if (e.key === 'confirmPassword') {
+          if (e.value === 'required') {
+            errorMessage = 'required';
+          }
+        } else if (e.key === 'userToUpdate') {
+          if (e.value === 'NotFound') {
+            errorMessage = 'NotFound';
+          } else if (e.value === 'NotAllowed') {
+            errorMessage = 'NotAllowed ';
+          }
+        } else if (e.key === 'partyGroupId') {
+          if (e.value === 'Invalid (Only partyId must be filled)') {
+            errorMessage = 'Invalid (Only partyId must be filled)';
+          } else if (e.value === 'NotAllowed (Not allowed to bind user to this partyGroupId)') {
+            errorMessage = 'NotAllowed (Not allowed to bind user to this partyGroupId)';
+          }
+        } else if (e.key === 'partyId') {
+          if (e.value === 'NotAllowed') {
+            errorMessage = 'NotAllowed';
+          } else if (e.value === 'NotFound') {
+            errorMessage = 'NotFound';
+          } else if (e.value === 'NoPartyFoundWithGivenId') {
+            errorMessage = 'NoPartyFoundWithGivenId';
+          }
+        } else if (e.key === 'partyIdOrPartyGroupId') {
+          if (e.value === 'invalid') {
+            errorMessage = 'invalid';
+          }
+        } else if (e.key === 'customerAccountIds') {
+          if (
+            e.value ===
+            'NotAllowed (Not allowed to create user with a customerAccount not in his customerAccountIds of his parties)'
+          ) {
+            errorMessage =
+              'NotAllowed (Not allowed to create user with a customerAccount not in his customerAccountIds of his parties)';
+          }
+        } else {
+          errorMessage = this.$t('genericErrorMessage');
+        }
+      });
+      return errorMessage;
     },
 
     formattedRoles(roles) {
