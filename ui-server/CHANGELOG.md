@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1260+20230126134521
+2023-01-26
+
+### Fixes
+
+- [3690] remplacer l'event datachange par servicechange. (fadf66a0cbeba60103b47a9ee29d3f70b3740466)
+
 ## 1.17.0-master.1259+20230126111418
 2023-01-26
 
