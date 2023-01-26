@@ -38,7 +38,7 @@
               :data-params-needed="isDataParamsError"
               :initial-services="initialServices"
               vertical
-              @datachange="onServiceChange"
+              @servicechange="onServiceChange"
             />
           </div>
         </template>
@@ -232,11 +232,12 @@ export default {
       let isDataParamsError = false;
 
       isDataParamsError =
-        this.servicesChoice &&
-        this.servicesChoice.dataService &&
-        this.servicesChoice.dataService.checked &&
-        this.servicesChoice.dataService.parameters &&
-        this.servicesChoice.dataService.parameters.filter((p) => p.selected).length === 0;
+        !this.servicesChoice ||
+        (this.servicesChoice &&
+          this.servicesChoice.dataService &&
+          this.servicesChoice.dataService.checked &&
+          this.servicesChoice.dataService.parameters &&
+          this.servicesChoice.dataService.parameters.filter((p) => p.selected).length === 0);
 
       this.isDataParamsError = isDataParamsError;
 
@@ -268,7 +269,11 @@ export default {
 
     onServiceChange(services) {
       this.servicesChoice = services;
-      this.offerServices = [...services.services, services.dataService];
+      if (services.dataService) {
+        this.offerServices = [...services.services, services.dataService];
+      } else {
+        this.offerServices = [...services.services];
+      }
     },
 
     assembleSynthesis() {
