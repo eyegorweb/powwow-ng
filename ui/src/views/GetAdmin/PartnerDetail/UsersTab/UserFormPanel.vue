@@ -399,8 +399,10 @@ export default {
     ...mapMutations(['flashMessage', 'closePanel', 'openPanel', 'confirmAction']),
 
     onOpenInitOptions() {
-      this.initialSelectedOptions = cloneDeep(this.content.duplicateFrom.customerAccounts);
-      // console.log('initial selectd CF options', this.initialSelectedOptions);
+      if (this.isEditMode) {
+        this.initialSelectedOptions = cloneDeep(this.content.duplicateFrom.customerAccounts);
+        // console.log('initial selectd CF options', this.initialSelectedOptions);
+      }
       if (this.hasSelectedCustomerAccountsChanged) {
         const formattedOptions = this.options.map((c) => ({
           id: c.id,
@@ -502,7 +504,7 @@ export default {
           this.confirmAction({
             message: 'getadmin.partnerDetail.changePassword.warning',
             actionFn: () => {
-              this.selectedOptions = this.initialSelectedOptions.filter((cf) => cf.selected);
+              this.selectedOptions = this.initialSelectedOptions.filter((cf) => cf && cf.selected);
               this.showUserFormPanel = true;
             },
           });
