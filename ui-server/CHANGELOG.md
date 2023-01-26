@@ -2,6 +2,41 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1257+20230125154818
+2023-01-25
+
+### Fixes
+
+- [3676] mise à jour de l'association des comptes de facturation d'un utilisateur (3e108a2447205c18ec90175316f57385f40d3862)
+
+## 1.17.0-master.1256+20230125145004
+2023-01-25
+
+### Fixes
+
+- [3685] Affichage des services incompatibles non conforme. (123072f1e03e312f0f9d56fdeba7aa463eea2a96)
+
+## 1.17.0-master.1255+20230125124302
+2023-01-25
+
+### Fixes
+
+- [3676] gestion de l'association des comptes de facturation (664a53cbf2e4fb9f2826ab7fa487c067a6e808d0)
+
+## 1.17.0-master.1254+20230125105246
+2023-01-25
+
+### Fixes
+
+- [3630] correction du filtre Offres dans l'acte de Transfert vers un partenaire (e85d26c1151204d454cc49cddf6cdcc2cc27967a)
+
+## 1.17.0-master.1253+20230125095937
+2023-01-25
+
+### Fixes
+
+- [3630] correctif du filtre Compte de facturation pour rechercher les alarmes (03dcfe9468f6f5703e87c9c6a925ff1402afdca0)
+
 ## 1.17.0-master.1252+20230124193538
 2023-01-24
 

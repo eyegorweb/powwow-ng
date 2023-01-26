@@ -29,7 +29,6 @@ import { mapMutations } from 'vuex';
 import { delay } from '@/api/utils.js';
 import cloneDeep from 'lodash.clonedeep';
 import isEqual from 'lodash.isequal';
-import { searchUsers } from '@/api/users';
 
 export default {
   components: {
@@ -154,9 +153,6 @@ export default {
 
     async validate() {
       const customerAccountIds = this.selectedOptions.map((cf) => cf.id);
-      const refreshUsersTable = async () => {
-        await searchUsers('', { key: 'fullname', direction: 'ASC' }, { limit: 50, page: 0 }, []);
-      };
       const openTrigger = () => {
         this.openPanel({
           title: this.payloadTitlePanel,
@@ -173,9 +169,6 @@ export default {
             rolesWs: this.content.rolesWs,
           },
           ignoreClickAway: false,
-          onClosePanel() {
-            refreshUsersTable();
-          },
         });
       };
 
@@ -215,8 +208,8 @@ export default {
         });
       } else {
         this.closePanel();
-        // await delay(500);
-        // openTrigger();
+        await delay(500);
+        openTrigger();
       }
     },
   },
