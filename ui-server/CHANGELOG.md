@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1264+20230126200745
+2023-01-26
+
+### Fixes
+
+- [3676] gestion de l'association des CF (768c414c800e70fbedfd19fc19749e4bce5786ef)
+
 ## 1.17.0-master.1263+20230126163408
 2023-01-26
 
