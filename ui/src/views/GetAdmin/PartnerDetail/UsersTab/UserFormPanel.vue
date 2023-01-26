@@ -499,7 +499,7 @@ export default {
           this.confirmAction({
             message: 'getadmin.partnerDetail.changePassword.warning',
             actionFn: () => {
-              this.selectedOptions = [];
+              this.selectedOptions = this.options.filter((cf) => cf.selected);
               this.showUserFormPanel = true;
             },
           });
@@ -531,6 +531,8 @@ export default {
 
       if (this.selectedOptions.length > 0) {
         params.customerAccountIds = this.selectedOptions.map((cf) => cf.id);
+      } else {
+        params.customerAccountIds = this.options.filter((cf) => cf.selected).map((cf) => cf.id);
       }
 
       if (this.createMode || this.isDuplicateMode) {
