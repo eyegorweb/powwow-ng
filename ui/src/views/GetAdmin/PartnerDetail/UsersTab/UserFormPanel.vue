@@ -529,7 +529,7 @@ export default {
         roles: this.selectedRoles.concat(wsRoles),
       };
 
-      if (this.hasSelectedCustomerAccountsChanged) {
+      if (this.selectedOptions.length > 0) {
         params.customerAccountIds = this.selectedOptions.map((cf) => cf.id);
       }
 
