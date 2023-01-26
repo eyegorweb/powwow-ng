@@ -390,6 +390,7 @@ export default {
       exceptionError: undefined,
       showUserFormPanel: true,
       options: [],
+      initialSelectedOptions: [],
       selectedOptions: [],
     };
   },
@@ -398,6 +399,8 @@ export default {
     ...mapMutations(['flashMessage', 'closePanel', 'openPanel', 'confirmAction']),
 
     onOpenInitOptions() {
+      this.initialSelectedOptions = cloneDeep(this.content.duplicateFrom.customerAccounts);
+      // console.log('initial selectd CF options', this.initialSelectedOptions);
       if (this.hasSelectedCustomerAccountsChanged) {
         const formattedOptions = this.options.map((c) => ({
           id: c.id,
@@ -416,8 +419,8 @@ export default {
             data: c,
             parent: c.partnerId,
             selected:
-              this.content.duplicateFrom.customerAccounts.length > 0 &&
-              this.content.duplicateFrom.customerAccounts.find((cc) => c.id === cc.id)
+              this.initialSelectedOptions.length > 0 &&
+              this.initialSelectedOptions.find((cc) => c.id === cc.id)
                 ? true
                 : false,
           }));
@@ -499,7 +502,7 @@ export default {
           this.confirmAction({
             message: 'getadmin.partnerDetail.changePassword.warning',
             actionFn: () => {
-              this.selectedOptions = this.options.filter((cf) => cf.selected);
+              this.selectedOptions = this.initialSelectedOptions.filter((cf) => cf.selected);
               this.showUserFormPanel = true;
             },
           });
@@ -529,7 +532,7 @@ export default {
         roles: this.selectedRoles.concat(wsRoles),
       };
 
-      if (this.selectedOptions.length > 0) {
+      if (this.hasSelectedCustomerAccountsChanged) {
         params.customerAccountIds = this.selectedOptions.map((cf) => cf.id);
       } else {
         params.customerAccountIds = this.options.filter((cf) => cf.selected).map((cf) => cf.id);
