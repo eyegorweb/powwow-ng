@@ -30,7 +30,7 @@
                 :offer="selectedOffer"
                 :data-params-needed="isDataParamsError"
                 vertical
-                @datachange="onServiceChange"
+                @servicechange="onServiceChange"
               />
             </div>
           </div>

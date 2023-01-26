@@ -27,7 +27,7 @@
           :initial-services="initialServices"
           :offer="selectedOffer"
           vertical
-          @datachange="onServiceChange"
+          @servicechange="onServiceChange"
         />
       </div>
     </div>
