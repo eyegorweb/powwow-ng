@@ -684,8 +684,17 @@ export default {
           });
         }
       }
+
+      this.autoServiceChange();
     },
 
+    autoServiceChange() {
+      if (!this.dataService) {
+        this.$emit('servicechange', {
+          services: [...this.otherServices],
+        });
+      }
+    },
     checkServices(service) {
       this.setupDependencies(service);
     },
@@ -841,7 +850,7 @@ export default {
     },
 
     autoDataServiceChange(dataService) {
-      this.$emit('datachange', {
+      this.$emit('servicechange', {
         services: [...this.otherServices],
         dataService,
       });
@@ -892,12 +901,14 @@ export default {
     offer() {
       this.setupOffer();
       this.displayServices();
+      this.autoServiceChange();
     },
   },
   mounted() {
     this.setup();
     this.setupOffer();
     this.displayServices();
+    this.autoServiceChange();
   },
 };
 </script>
