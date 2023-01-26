@@ -244,15 +244,6 @@
           @update:options="updateOptions"
         />
       </div>
-
-      <div v-if="!showUserFormPanel">
-        <GroupMultiSelect
-          from-title="getadmin.partnerDetail.customerAccountsPanel.ba_list"
-          to-title="getadmin.partnerDetail.customerAccountsPanel.chosen_ba"
-          :options.sync="options"
-          @update:options="updateOptions"
-        />
-      </div>
     </div>
     <div v-if="exceptionError" slot="error" class="alert alert-danger" role="alert">
       <i class="ic-Alert-Icon"> </i>
