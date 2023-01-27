@@ -277,6 +277,7 @@ import UiSelect from '@/components/ui/UiSelect';
 import Checkbox from '@/components/ui/Checkbox.vue';
 import TransitionCollapse from '@/components/TransitionCollapse';
 import GroupMultiSelect from '@/components/GroupMultiSelect';
+import isEqual from 'lodash.isequal';
 
 // API
 import { delay } from '@/api/utils.js';
@@ -399,21 +400,29 @@ export default {
     ...mapMutations(['flashMessage', 'closePanel', 'openPanel', 'confirmAction']),
 
     onOpenInitOptions() {
+      let formattedOptions;
       if (this.isEditMode) {
         this.initialSelectedOptions = cloneDeep(this.content.duplicateFrom.customerAccounts);
-        // console.log('initial selectd CF options', this.initialSelectedOptions);
       }
       if (this.hasSelectedCustomerAccountsChanged) {
-        const formattedOptions = this.options.map((c) => ({
-          id: c.id,
-          label: c.label,
-          data: c,
-          parent: c.partnerId,
-          selected: c.selected ? true : false,
-        }));
-        this.options = formattedOptions;
+        if (this.isEditMode) {
+          formattedOptions = this.options.map((c) => ({
+            id: c.id,
+            label: c.label,
+            data: c,
+            parent: c.partnerId,
+            selected: c.selected ? true : false,
+          }));
+        } else if (this.createMode) {
+          formattedOptions = this.customerAccounts.map((c) => ({
+            id: c.id,
+            label: c.label,
+            data: c,
+            parent: c.partnerId,
+            selected: false,
+          }));
+        }
       } else {
-        let formattedOptions;
         if (this.isEditMode) {
           formattedOptions = this.customerAccounts.map((c) => ({
             id: c.id,
@@ -435,13 +444,18 @@ export default {
             selected: false,
           }));
         }
-
-        this.options = formattedOptions;
       }
+      this.options = formattedOptions;
     },
 
     updateOptions(values) {
-      this.selectedOptions = values.filter((o) => o.selected);
+      if (this.isEditMode) {
+        this.selectedOptions = values.filter(
+          (o) => o.selected && this.initialSelectedOptions.find((oo) => oo.id !== o.id)
+        );
+      } else {
+        this.selectedOptions = values.filter((o) => o.selected);
+      }
     },
 
     isEmailValid(email) {
@@ -511,6 +525,12 @@ export default {
         } else {
           this.showUserFormPanel = true;
         }
+        this.userTypes = this.userTypes.map((u) => {
+          if (u.id === 'PARTNER') {
+            u.default = true;
+          }
+          return u;
+        });
         return;
       }
       this.closePanel();
@@ -519,6 +539,12 @@ export default {
     async save() {
       if (!this.showUserFormPanel) {
         this.showUserFormPanel = true;
+        this.userTypes = this.userTypes.map((u) => {
+          if (u.id === 'PARTNER') {
+            u.default = true;
+          }
+          return u;
+        });
         return;
       }
       let lang = this.resultLanguages.find((e) => e.label === this.form.language);
@@ -696,7 +722,16 @@ export default {
     },
 
     hasSelectedCustomerAccountsChanged() {
-      return this.selectedOptions.length > 0;
+      if (!this.selectedOptions.length) {
+        return false;
+      } else if (this.selectedOptions.length !== this.initialSelectedOptions.length) {
+        return true;
+      } else {
+        return !isEqual(
+          this.initialSelectedOptions.map((o) => o.id),
+          this.selectedOptions.map((o) => o.id)
+        );
+      }
     },
 
     haveMailError() {
@@ -1160,26 +1195,6 @@ export default {
       this.formDataBeforeChange = cloneDeep(this.form);
     }
 
-    // Route depuis l'association des CF (donc création ou modification en cours)
-    if (this.content.fromPanelCustomerAccounts) {
-      this.form.title = this.content.form.title;
-      this.form.firstName = this.content.form.firstName;
-      this.form.lastName = this.content.form.lastName;
-      this.form.language = this.content.form.language;
-      this.form.username = this.content.form.username;
-      this.form.password = this.content.form.password;
-      this.form.passwordConfirm = this.content.form.passwordConfirm;
-      this.form.email = this.content.form.email;
-      this.form.userPrivate = this.content.form.userPrivate;
-      this.userTypes = this.userTypes.map((u) => {
-        if (u.id === 'PARTNER') {
-          u.default = true;
-        }
-        return u;
-      });
-      this.selectedPartner = this.content.partner;
-    }
-
     this.canShowForm = true;
   },
 
@@ -1222,6 +1237,7 @@ export default {
       }
     },
     async userType(value) {
+      console.log('watch value userType', value);
       let roles;
       let rolesWs;
       if (this.content.duplicateFrom) return;
