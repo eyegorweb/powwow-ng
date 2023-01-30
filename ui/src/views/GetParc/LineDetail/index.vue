@@ -198,10 +198,10 @@ export default {
         await isFeatureAvailable('GEOLOCATION_ENABLED')
       );
       if (
-        this.havePermission('getParc', 'manage_coach') ||
-        this.havePermission('getVision', 'read')
+        !this.havePermission('getParc', 'manage_coach') ||
+        !this.havePermission('getVision', 'read')
       ) {
-        return true;
+        return false;
       } else {
         return (
           (await isFeatureAvailable('AUTODIAGNOSTIC_ENABLED')) ||
