@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1268+20230130094943
+2023-01-30
+
+### Fixes
+
+- [3701] gestion de la permission des options de supervision (1c492db0a60d710b5bc823f3fd2b0d4eadab93f9)
+
 ## 1.17.0-master.1267+20230127135258
 2023-01-27
 
