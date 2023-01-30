@@ -75,7 +75,7 @@ export default {
   },
   async mounted() {
     await this.loadLineData();
-    await this.checkPermissionForDiag();
+    this.hasPermissionForDiag = await this.checkPermissionForDiag();
     this.tabs = [
       {
         label: 'detail',
@@ -126,6 +126,7 @@ export default {
       carouselItems: [],
       offerChangeEnabled: undefined,
       paramSearch: undefined,
+      hasPermissionForDiag: undefined,
     };
   },
 
@@ -179,12 +180,35 @@ export default {
     ...mapMutations(['openPanel']),
 
     async checkPermissionForDiag() {
-      this.hasPermissionForDiag =
+      console.log(
+        "permission 'getParc', 'manage_coach'",
+        this.havePermission('getParc', 'manage_coach')
+      );
+      console.log("permission 'getVision', 'read'", this.havePermission('getVision', 'read'));
+      console.log(
+        "option partenaire, 'AUTODIAGNOSTIC_ENABLED'",
+        await isFeatureAvailable('AUTODIAGNOSTIC_ENABLED')
+      );
+      console.log(
+        "option partenaire, 'REQUEST_CONSO_ENABLED'",
+        await isFeatureAvailable('REQUEST_CONSO_ENABLED')
+      );
+      console.log(
+        "option partenaire, 'GEOLOCATION_ENABLED'",
+        await isFeatureAvailable('GEOLOCATION_ENABLED')
+      );
+      if (
         this.havePermission('getParc', 'manage_coach') ||
-        this.havePermission('getVision', 'read') ||
-        (await isFeatureAvailable('AUTODIAGNOSTIC_ENABLED')) ||
-        (await isFeatureAvailable('REQUEST_CONSO_ENABLED')) ||
-        (await isFeatureAvailable('GEOLOCATION_ENABLED'));
+        this.havePermission('getVision', 'read')
+      ) {
+        return true;
+      } else {
+        return (
+          (await isFeatureAvailable('AUTODIAGNOSTIC_ENABLED')) ||
+          (await isFeatureAvailable('REQUEST_CONSO_ENABLED')) ||
+          (await isFeatureAvailable('GEOLOCATION_ENABLED'))
+        );
+      }
     },
 
     openCoachPanel() {
