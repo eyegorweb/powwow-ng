@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1272+20230130151353
+2023-01-30
+
+### Fixes
+
+- [3366] gestion de permission getdiag/outils d'analyse (c0bdc56f94e330785dc0ea863418a6756002b839)
+
 ## 1.17.0-master.1271+20230130134315
 2023-01-30
 
