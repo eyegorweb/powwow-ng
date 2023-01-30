@@ -722,7 +722,7 @@ export default {
     },
 
     hasSelectedCustomerAccountsChanged() {
-      if (!this.selectedOptions.length) {
+      if (!this.options.length || (this.options.length && !this.selectedOptions.length)) {
         return false;
       } else if (this.selectedOptions.length !== this.initialSelectedOptions.length) {
         return true;
@@ -1237,6 +1237,7 @@ export default {
       }
     },
     async userType(value) {
+      console.log('watch value userType', value);
       let roles;
       let rolesWs;
       if (this.content.duplicateFrom) return;
