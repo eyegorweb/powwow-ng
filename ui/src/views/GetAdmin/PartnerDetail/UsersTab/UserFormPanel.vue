@@ -1237,7 +1237,6 @@ export default {
       }
     },
     async userType(value) {
-      console.log('watch value userType', value);
       let roles;
       let rolesWs;
       if (this.content.duplicateFrom) return;

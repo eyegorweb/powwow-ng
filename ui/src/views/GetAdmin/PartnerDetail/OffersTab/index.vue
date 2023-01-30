@@ -46,15 +46,17 @@ export default {
         },
       });
     }
-    this.menuItems.push({
-      section: 'supervision',
-      title: 'getadmin.users.supervision',
-      to: {
-        name: 'partnerDetail.offersAndSim.supervisionOptions',
-        meta: { label: 'Détail du partenaire - Options de supervision' },
-        params: { partner: this.partner },
-      },
-    });
+    if (this.havePermission('party', 'read_supervision_option')) {
+      this.menuItems.push({
+        section: 'supervision',
+        title: 'getadmin.users.supervision',
+        to: {
+          name: 'partnerDetail.offersAndSim.supervisionOptions',
+          meta: { label: 'Détail du partenaire - Options de supervision' },
+          params: { partner: this.partner },
+        },
+      });
+    }
   },
 
   data() {
