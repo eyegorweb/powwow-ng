@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1269+20230130130754
+2023-01-30
+
+### Features
+
+- [3695] ajouter un filtre sur les roles (a6e599096f3c9dbaa4de0596492025de30c863ea)
+
 ## 1.17.0-master.1268+20230130094943
 2023-01-30
 
