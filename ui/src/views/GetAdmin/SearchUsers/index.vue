@@ -32,7 +32,7 @@
       <div slot="topRight">
         <ExportButton :export-fn="getExportFn()" :columns="orderedColumns" :order-by="orderBy">
           <span slot="title">{{
-            $t('getadmin.users.export', { total: $formatLargeNumber(total) })
+  $t('getadmin.users.export', { total: $formatLargeNumber(total) })
           }}</span>
         </ExportButton>
       </div>
@@ -174,7 +174,12 @@ export default {
             type: 'Truncated',
             limit: 30,
             getter: (row) => {
-              return row.roles ? row.roles.map((p) => p.description).join(', ') : '';
+              return row.roles
+                ? row.roles
+                    .filter((r) => r.category == null)
+                    .map((p) => p.description)
+                    .join(', ')
+                : '';
             },
           },
         },
@@ -460,4 +465,6 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+
+</style>
