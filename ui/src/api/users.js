@@ -191,6 +191,7 @@ export async function searchUsers(q, orderBy, pagination, filters = []) {
           Id
           name
           description
+          category
         }
         partyGroup{
           id

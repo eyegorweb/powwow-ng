@@ -31,7 +31,7 @@
         <div class="cardBloc-infos-role">
           {{ $t('orders.detail.roles') }}:
           <span :key="role.description" v-for="role in user.roles">
-            {{ role.description + ' ' }}
+            {{ role.category == null ? role.description : null }}&nbsp;
           </span>
         </div>
       </Card>
@@ -211,11 +211,13 @@ export default {
 <style lang="scss" scoped>
 .searchBar {
   width: 49%;
+
   label {
     font-weight: bold;
     display: block;
   }
 }
+
 .cards {
   display: flex;
   flex-wrap: wrap;
