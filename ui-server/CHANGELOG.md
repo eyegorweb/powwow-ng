@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1270+20230130133238
+2023-01-30
+
+### Fixes
+
+- [3676] enregistrement des données de l'association de CF (7a7fed370f30ecf76586099d715bdd33c0478565)
+
 ## 1.17.0-master.1269+20230130130754
 2023-01-30
 
