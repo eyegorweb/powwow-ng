@@ -450,9 +450,13 @@ export default {
 
     updateOptions(values) {
       if (this.isEditMode) {
-        this.selectedOptions = values.filter(
-          (o) => o.selected && this.initialSelectedOptions.find((oo) => oo.id !== o.id)
-        );
+        if (!this.initialSelectedOptions.length) {
+          this.selectedOptions = values.filter((o) => o.selected);
+        } else {
+          this.selectedOptions = values.filter(
+            (o) => o.selected && this.initialSelectedOptions.find((oo) => oo.id !== o.id)
+          );
+        }
       } else {
         this.selectedOptions = values.filter((o) => o.selected);
       }
