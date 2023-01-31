@@ -393,6 +393,7 @@ export default {
       options: [],
       initialSelectedOptions: [],
       selectedOptions: [],
+      areAllUnselectedOptions: false,
     };
   },
 
@@ -446,13 +447,23 @@ export default {
     },
 
     updateOptions(values) {
+      console.log('upate values', values);
+      // Cas spécial: on ne sélectionne AUCUN élément à traiter
       if (this.isEditMode) {
         if (!this.initialSelectedOptions.length) {
           this.selectedOptions = values.filter((o) => o.selected);
         } else {
-          this.selectedOptions = values.filter(
-            (o) => o.selected && this.initialSelectedOptions.find((oo) => oo.id !== o.id)
-          );
+          const selectedOptions = values.filter((o) => o.selected);
+          const areAllUnselectedOptions = values.every((o) => !o.selected);
+          if (areAllUnselectedOptions && this.initialSelectedOptions.length) {
+            this.areAllUnselectedOptions = true;
+            this.selectedOptions = [];
+          } else {
+            this.areAllUnselectedOptions = false;
+            this.selectedOptions = selectedOptions.filter((o) =>
+              this.initialSelectedOptions.find((oo) => oo.id !== o.id)
+            );
+          }
         }
       } else {
         this.selectedOptions = values.filter((o) => o.selected);
@@ -724,6 +735,9 @@ export default {
 
     hasSelectedCustomerAccountsChanged() {
       if (!this.options.length || (this.options.length && !this.selectedOptions.length)) {
+        if (this.areAllUnselectedOptions) {
+          return true;
+        }
         return false;
       } else if (this.selectedOptions.length !== this.initialSelectedOptions.length) {
         return true;
