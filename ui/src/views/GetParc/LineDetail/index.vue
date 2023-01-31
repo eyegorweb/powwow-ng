@@ -180,23 +180,6 @@ export default {
     ...mapMutations(['openPanel']),
 
     async checkPermissionForDiag() {
-      console.log(
-        "permission 'getParc', 'manage_coach'",
-        this.havePermission('getParc', 'manage_coach')
-      );
-      console.log("permission 'getVision', 'read'", this.havePermission('getVision', 'read'));
-      console.log(
-        "option partenaire, 'AUTODIAGNOSTIC_ENABLED'",
-        await isFeatureAvailable('AUTODIAGNOSTIC_ENABLED')
-      );
-      console.log(
-        "option partenaire, 'REQUEST_CONSO_ENABLED'",
-        await isFeatureAvailable('REQUEST_CONSO_ENABLED')
-      );
-      console.log(
-        "option partenaire, 'GEOLOCATION_ENABLED'",
-        await isFeatureAvailable('GEOLOCATION_ENABLED')
-      );
       if (
         !this.havePermission('getParc', 'manage_coach') ||
         !this.havePermission('getVision', 'read')
