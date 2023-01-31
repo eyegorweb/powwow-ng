@@ -401,9 +401,6 @@ export default {
 
     onOpenInitOptions() {
       let formattedOptions;
-      if (this.isEditMode) {
-        this.initialSelectedOptions = cloneDeep(this.content.duplicateFrom.customerAccounts);
-      }
       if (this.hasSelectedCustomerAccountsChanged) {
         if (this.isEditMode) {
           formattedOptions = this.options.map((c) => ({
@@ -567,7 +564,7 @@ export default {
       if (this.hasSelectedCustomerAccountsChanged) {
         params.customerAccountIds = this.selectedOptions.map((cf) => cf.id);
       } else {
-        params.customerAccountIds = this.options.filter((cf) => cf.selected).map((cf) => cf.id);
+        params.customerAccountIds = this.initialSelectedOptions.map((cf) => cf.id);
       }
 
       if (this.createMode || this.isDuplicateMode) {
@@ -1195,6 +1192,8 @@ export default {
         }
         return u;
       });
+
+      this.initialSelectedOptions = cloneDeep(this.content.duplicateFrom.customerAccounts);
 
       this.formDataBeforeChange = cloneDeep(this.form);
     }
