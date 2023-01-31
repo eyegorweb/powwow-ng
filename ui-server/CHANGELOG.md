@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1274+20230131083710
+2023-01-31
+
+### Fixes
+
+- [3676] propagation des associations de comptes de facturation (ee0e17f1c69ba81e356ea9c80f5e782a670c67ce)
+
 ## 1.17.0-master.1273+20230130154638
 2023-01-30
 
