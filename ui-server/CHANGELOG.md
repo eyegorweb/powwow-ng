@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1276+20230131185049
+2023-01-31
+
+### Fixes
+
+- [3676] enregistrement et propagation de l'association de comptes de facturation lors de la modification d'un utilisateur (d2eb6713365ed04d41c968d838e2c4192b95698a)
+
 ## 1.17.0-master.1275+20230131104812
 2023-01-31
 
