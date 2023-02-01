@@ -96,12 +96,7 @@ export default {
           params: { lineId: this.$route.params.lineId },
         },
       },
-    ].filter((i) => {
-      if (this.userIsM2MLight) {
-        return i.label !== 'diagnosis';
-      }
-      return true;
-    });
+    ];
 
     if (this.hasPermissionForDiag) {
       this.tabs = [
