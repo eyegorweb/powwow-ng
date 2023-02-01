@@ -444,11 +444,10 @@ export default {
         }
       }
       this.options = formattedOptions;
+      this.selectedOptions = this.options.filter((o) => o.selected);
     },
 
     updateOptions(values) {
-      console.log('upate values', values);
-      // Cas spécial: on ne sélectionne AUCUN élément à traiter
       if (this.isEditMode) {
         if (!this.initialSelectedOptions.length) {
           this.selectedOptions = values.filter((o) => o.selected);
@@ -460,9 +459,7 @@ export default {
             this.selectedOptions = [];
           } else {
             this.areAllUnselectedOptions = false;
-            this.selectedOptions = selectedOptions.filter((o) =>
-              this.initialSelectedOptions.find((oo) => oo.id !== o.id)
-            );
+            this.selectedOptions = selectedOptions;
           }
         }
       } else {
@@ -530,7 +527,7 @@ export default {
           this.confirmAction({
             message: 'getadmin.partnerDetail.changePassword.warning',
             actionFn: () => {
-              this.selectedOptions = this.initialSelectedOptions.filter((cf) => cf && cf.selected);
+              this.selectedOptions = this.initialSelectedOptions;
               this.showUserFormPanel = true;
             },
           });
