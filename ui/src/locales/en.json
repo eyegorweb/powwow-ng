@@ -1765,7 +1765,9 @@
         "modifyServices": "Modify the services",
         "cancelModifications": "Cancel the modifications",
         "parameter1": "Parameter 1",
-        "parameter2": "Parameter 2"
+        "parameter2": "Parameter 2",
+        "dnn": "DNN",
+        "modifyParam": "Modify"
       },
       "testData": "Test data",
       "networkTest": "Network test",

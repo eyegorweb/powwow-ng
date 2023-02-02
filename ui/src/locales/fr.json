@@ -1947,7 +1947,9 @@
         "ipAdress": "Adresse IP",
         "version": "Version",
         "parameter1": "Paramètre 1",
-        "parameter2": "Paramètre 2"
+        "parameter2": "Paramètre 2",
+        "dnn": "DNN",
+        "modifyParam": "Modifier"
       }
     },
     "actCreation": {
