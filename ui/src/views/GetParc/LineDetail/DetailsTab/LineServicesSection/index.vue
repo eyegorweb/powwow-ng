@@ -73,11 +73,11 @@
             </template>
           </ContentBlock>
 
-          <ContentBlock :key="'block3'" v-if="!userIsMVNO">
+          <ContentBlock :key="'block3'" v-if="!userIsMVNO && isIpFixeEnable">
             <template slot="title">{{ $t('getparc.lineDetail.tabServices.ipAdressFix') }}</template>
-            <template slot="content">
-              <div class="row" v-if="canShowTable">
-                <div class="col-md-12">
+            <template slot="content" v-if="canShowParameters">
+              <div class="row">
+                <div class="col-md-12" v-if="canShowAPN">
                   <table class="table table-blue mt-1 small-text">
                     <thead>
                       <tr>
@@ -86,21 +86,69 @@
                         <th>{{ $t('getparc.lineDetail.tabServices.version') }}</th>
                         <th>{{ $t('getparc.lineDetail.tabServices.parameter1') }}</th>
                         <th>{{ $t('getparc.lineDetail.tabServices.parameter2') }}</th>
+                        <th></th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr v-for="service in apnServices[0]" :key="service.code">
-                        <td>{{ $loGet(service, 'name', '-') }}</td>
-                        <td>{{ $loGet(service, 'ipAdress', '-') }}</td>
-                        <td>{{ $loGet(service, 'version', '-') }}</td>
-                        <td>{{ $loGet(service, 'parameter1', '-') }}</td>
-                        <td>{{ $loGet(service, 'parameter2', '-') }}</td>
+                      <tr v-for="param in apnParams" :key="param.code">
+                        <td>{{ $loGet(param, 'name', '-') }}</td>
+                        <td>{{ $loGet(param, 'ipAdress', '-') }}</td>
+                        <td>{{ $loGet(param, 'version', '-') }}</td>
+                        <td>{{ $loGet(param, 'parameter1', '-') }}</td>
+                        <td>{{ $loGet(param, 'parameter2', '-') }}</td>
+                        <td>
+                          <UiButton
+                            variant="link"
+                            @click="modifyParam(param)"
+                            :class="{ 'mx-auto': true }"
+                          >
+                            <span class="btn-label">
+                              {{ $t('getparc.lineDetail.tabServices.modifyParam') }}
+                            </span>
+                          </UiButton>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="col-md-12" v-if="canShowDNN">
+                  <table class="table table-blue mt-1 small-text">
+                    <thead>
+                      <tr>
+                        <th>{{ $t('getparc.lineDetail.tabServices.dnn') }}</th>
+                        <th>{{ $t('getparc.lineDetail.tabServices.ipAdress') }}</th>
+                        <th>{{ $t('getparc.lineDetail.tabServices.version') }}</th>
+                        <th>{{ $t('getparc.lineDetail.tabServices.parameter1') }}</th>
+                        <th>{{ $t('getparc.lineDetail.tabServices.parameter2') }}</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr v-for="param in dnnParams" :key="param.code">
+                        <td>{{ $loGet(param, 'name', '-') }}</td>
+                        <td>{{ $loGet(param, 'ipAdress', '-') }}</td>
+                        <td>{{ $loGet(param, 'version', '-') }}</td>
+                        <td>{{ $loGet(param, 'parameter1', '-') }}</td>
+                        <td>{{ $loGet(param, 'parameter2', '-') }}</td>
+                        <td>
+                          <UiButton
+                            variant="link"
+                            @click="modifyParam()"
+                            :class="{ 'mx-auto': true }"
+                          >
+                            <span class="btn-label">
+                              {{ $t('getparc.lineDetail.tabServices.modifyParam') }}
+                            </span>
+                          </UiButton>
+                        </td>
                       </tr>
                     </tbody>
                   </table>
                 </div>
               </div>
-              <div v-else class="alert-light" role="alert">{{ $t('noResult') }}</div>
+            </template>
+            <template slot="content" v-else>
+              <div class="alert-light" role="alert">{{ $t('noResult') }}</div>
             </template>
           </ContentBlock>
         </transition-group>
@@ -130,6 +178,8 @@ import { mapMutations, mapGetters } from 'vuex';
 
 import cloneDeep from 'lodash.clonedeep';
 import get from 'lodash.get';
+import UiButton from '@/components/ui/Button';
+import { isFeatureAvailable } from '@/api/partners';
 
 export default {
   components: {
@@ -140,6 +190,7 @@ export default {
     LoaderContainer,
     CircleLoader,
     ServicesOptionalBlock,
+    UiButton,
   },
   props: {
     content: Object,
@@ -150,7 +201,9 @@ export default {
       justSaved: false,
       services: undefined,
       initialServices: undefined,
-      apnServices: undefined,
+      paramServices: undefined,
+      apnParams: [],
+      dnnParams: [],
       isLoadingServices: true,
       savingChanges: false,
       servicesVersion: 1,
@@ -164,6 +217,7 @@ export default {
       dataCheck: false,
       componentInitialized: false,
       dataService: undefined,
+      isIpFixeEnable: false,
     };
   },
   async mounted() {
@@ -176,8 +230,22 @@ export default {
       this.initialServices = cloneDeep(offerServices);
       this.optionalServices = getOptionalServices(services);
       this.services = offerServices;
-      this.apnServices = getApnServices(services);
+      // extract All parameters
+      this.paramServices = getApnServices(services);
+      // extract APN parameters
+      this.paramServices.forEach((array) =>
+        array.filter((p) => p.type === 'APN').forEach((elem) => this.apnParams.push(elem))
+      );
+      // extract DNN parameters
+      this.paramServices.forEach((array) =>
+        array.filter((p) => p.type === 'DNN').forEach((elem) => this.dnnParams.push(elem))
+      );
     }
+    this.isIpFixeEnable = await isFeatureAvailable(
+      'IP_FIXE_ENABLED',
+      null,
+      get(this.content, 'party.id')
+    );
     this.setup();
     setTimeout(() => {
       this.componentInitialized = true;
@@ -185,7 +253,7 @@ export default {
   },
   methods: {
     ...mapMutations(['flashMessage', 'confirmAction']),
-
+    modifyParam() {},
     setup() {
       const dataService = this.services.find((s) => s.code === 'DATA');
       if (dataService) {
@@ -391,8 +459,20 @@ export default {
       return false;
     },
 
-    canShowTable() {
-      return this.apnServices && this.apnServices[0] && this.apnServices[0].length;
+    canShowParameters() {
+      return (
+        this.paramServices &&
+        this.paramServices.length &&
+        this.paramServices &&
+        this.paramServices[0] &&
+        this.paramServices[0][0]
+      );
+    },
+    canShowAPN() {
+      return this.apnParams && this.apnParams.length;
+    },
+    canShowDNN() {
+      return this.dnnParams && this.dnnParams.length;
     },
     changes() {
       if (!this.services) {
