@@ -75,7 +75,14 @@ export default {
   },
   async mounted() {
     await this.loadLineData();
-    this.hasPermissionForDiag = await this.checkPermissionForDiag();
+    this.typeForPartner = this.$loGet(this.lineData, 'party.partyType');
+    this.autoDiagnosticEnabled = await isFeatureAvailable(
+      'AUTODIAGNOSTIC_ENABLED',
+      this.lineData.id
+    );
+    this.geolocEnabled = await isFeatureAvailable('GEOLOCATION_ENABLED', this.lineData.id);
+    this.requestConsoActive = await isFeatureAvailable('REQUEST_CONSO_ENABLED', this.lineData.id);
+
     this.tabs = [
       {
         label: 'detail',
@@ -98,12 +105,12 @@ export default {
       },
     ];
 
-    if (this.hasPermissionForDiag) {
+    if (this.initControlMenuGetDiag()) {
       this.tabs = [
         ...this.tabs,
         {
           label: 'diagnosis',
-          title: 'getparc.lineDetail.analysingTool', // ne pas afficher l'onglet si on n'a pas les permissions
+          title: 'getparc.lineDetail.analysingTool',
           to: {
             name: 'lineDetail.diagnosis.analysis',
             meta: { label: 'Détail de la ligne - Analyser la ligne' },
@@ -122,6 +129,11 @@ export default {
       offerChangeEnabled: undefined,
       paramSearch: undefined,
       hasPermissionForDiag: undefined,
+      typeForPartner: undefined,
+      autoDiagnosticEnabled: undefined,
+      geolocEnabled: undefined,
+      requestConsoActive: undefined,
+      controls: [],
     };
   },
 
@@ -170,23 +182,67 @@ export default {
     canShowCarousel() {
       return this.carouselItems.length > 0;
     },
+
+    // last_tests menu
+    showLastTestMenu() {
+      return (
+        this.havePermission('getParc', 'manage_coach') &&
+        this.isCompatibleForPartner(['CUSTOMER', 'MULTI_CUSTOMER']) &&
+        this.autoDiagnosticEnabled
+      );
+    },
+
+    // line_analysis menu
+    showLineAnalysisMenu() {
+      return (
+        this.havePermission('getVision', 'read') &&
+        this.isCompatibleForPartner(['CUSTOMER', 'MULTI_CUSTOMER']) &&
+        this.autoDiagnosticEnabled
+      );
+    },
+
+    // network_location_test menu
+    showNetworkTestMenu() {
+      return (
+        this.havePermission('getVision', 'read') &&
+        this.isCompatibleForPartner(['CUSTOMER', 'MULTI_CUSTOMER']) &&
+        this.geolocEnabled
+      );
+    },
+
+    // network_test_control menu
+    showNetworkControlMenu() {
+      return (
+        this.havePermission('getVision', 'read') &&
+        this.isCompatibleForPartner(['CUSTOMER', 'MULTI_CUSTOMER']) &&
+        this.requestConsoActive
+      );
+    },
+
+    // supervision menu
+    showSupervisionMenu() {
+      return (
+        this.havePermission('getVision', 'read') &&
+        this.isCompatibleForPartner(['CUSTOMER', 'MULTI_CUSTOMER']) &&
+        this.autoDiagnosticEnabled
+      );
+    },
   },
   methods: {
     ...mapMutations(['openPanel']),
 
-    async checkPermissionForDiag() {
-      if (
-        !this.havePermission('getParc', 'manage_coach') ||
-        !this.havePermission('getVision', 'read')
-      ) {
-        return false;
-      } else {
-        return (
-          (await isFeatureAvailable('AUTODIAGNOSTIC_ENABLED')) ||
-          (await isFeatureAvailable('REQUEST_CONSO_ENABLED')) ||
-          (await isFeatureAvailable('GEOLOCATION_ENABLED'))
-        );
-      }
+    initControlMenuGetDiag() {
+      return (
+        this.showLastTestMenu &&
+        this.showLineAnalysisMenu &&
+        this.showNetworkTestMenu &&
+        this.showNetworkControlMenu &&
+        this.showSupervisionMenu
+      );
+    },
+
+    isCompatibleForPartner(compatiblePartnerTypes) {
+      return compatiblePartnerTypes.some((p) => p === this.typeForPartner);
     },
 
     openCoachPanel() {
