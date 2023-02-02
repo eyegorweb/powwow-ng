@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1280+20230202143345
+2023-02-02
+
+### Fixes
+
+- [3366] gestion de l'affichage du menu GetDiag (f68bd4d67aa3c1b4fc56adc6fc0ae43593a93cdd)
+
 ## 1.17.0-master.1279+20230202130155
 2023-02-02
 
