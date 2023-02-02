@@ -233,10 +233,10 @@ export default {
 
     initControlMenuGetDiag() {
       return (
-        this.showLastTestMenu &&
-        this.showLineAnalysisMenu &&
-        this.showNetworkTestMenu &&
-        this.showNetworkControlMenu &&
+        this.showLastTestMenu ||
+        this.showLineAnalysisMenu ||
+        this.showNetworkTestMenu ||
+        this.showNetworkControlMenu ||
         this.showSupervisionMenu
       );
     },
