@@ -1,5 +1,9 @@
 <template>
-  <PartnersFilter :values="selectedPartnersValues" @updatePartners="updatePartners" />
+  <PartnersFilter
+    :values="selectedPartnersValues"
+    @updatePartners="updatePartners"
+    @updatePartnersEsimEnabled="updatePartnersEsimEnabled"
+  />
 </template>
 
 <script>
@@ -14,9 +18,13 @@ export default {
     ...mapGetters('actLines', ['selectedPartnersValues']),
   },
   methods: {
-    ...mapActions('actLines', ['setPartnersFilter']),
+    ...mapActions('actLines', ['setPartnersFilter', 'setPartnersEsimEnabled']),
     updatePartners(partners) {
       this.setPartnersFilter({ partners });
+    },
+    updatePartnersEsimEnabled(partnersEsimEnabled) {
+      console.log('updatePartnersEsimEnabled', partnersEsimEnabled);
+      this.setPartnersEsimEnabled({ partnersEsimEnabled });
     },
   },
 };
