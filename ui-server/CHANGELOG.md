@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1284+20230203160031
+2023-02-03
+
+### Features
+
+- [3704] Appliquer les règles de gestion eSIM pour la commande et les actes de gestion. (55243a4521ae6040eed5376f3ec0605006f52a0f)
+
 ## 1.17.0-master.1283+20230203151846
 2023-02-03
 
