@@ -189,8 +189,7 @@ export default {
     showLastTestMenu() {
       return (
         this.havePermission('getParc', 'manage_coach') &&
-        this.isCompatibleForPartner(['CUSTOMER', 'MULTI_CUSTOMER', 'M2M_LIGHT']) &&
-        this.autoDiagnosticEnabled
+        this.isCompatibleForPartner(['CUSTOMER', 'MULTI_CUSTOMER', 'M2M_LIGHT'])
       );
     },
 
