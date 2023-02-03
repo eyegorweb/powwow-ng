@@ -76,6 +76,7 @@ export default {
   async mounted() {
     await this.loadLineData();
     this.typeForPartner = this.$loGet(this.lineData, 'party.partyType');
+    this.specificCustomerID = this.$loGet(this.lineData, 'party.id');
     this.autoDiagnosticEnabled = await isFeatureAvailable(
       'AUTODIAGNOSTIC_ENABLED',
       this.lineData.id
@@ -132,6 +133,7 @@ export default {
       typeForPartner: undefined,
       autoDiagnosticEnabled: undefined,
       geolocEnabled: undefined,
+      specificCustomerID: undefined,
       requestConsoActive: undefined,
       controls: [],
     };
@@ -187,7 +189,7 @@ export default {
     showLastTestMenu() {
       return (
         this.havePermission('getParc', 'manage_coach') &&
-        this.isCompatibleForPartner(['CUSTOMER', 'MULTI_CUSTOMER']) &&
+        this.isCompatibleForPartner(['CUSTOMER', 'MULTI_CUSTOMER', 'M2M_LIGHT']) &&
         this.autoDiagnosticEnabled
       );
     },
@@ -226,6 +228,19 @@ export default {
         this.isCompatibleForPartner(['CUSTOMER', 'MULTI_CUSTOMER']) &&
         this.autoDiagnosticEnabled
       );
+    },
+
+    // network_history menu
+    // Conditions spécifiques avec notamment l'environnement de production pour afficher l'onglet Historique réseau et itinérance)
+    showNetworkHistorynMenu() {
+      const shouldAddSpecificPermission =
+        this.typeForPartner === 'MVNO' ||
+        (this.typeForPartner === 'CUSTOMER' && this.havePermission('getVision', 'read')) ||
+        (this.typeForPartner === 'MULTI_CUSTOMER' && this.havePermission('getVision', 'read')) ||
+        // partenaire IMT, détectable uniquement en environnement de production
+        this.specificCustomerID === 246;
+
+      return shouldAddSpecificPermission;
     },
   },
   methods: {
