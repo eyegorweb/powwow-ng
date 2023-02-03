@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1283+20230203151846
+2023-02-03
+
+### Features
+
+- [3668] Filtres traitant des informations eSIM dans GetParc. (ffe17cc8975b8ab58418496c377a5b6120e729de)
+
 ## 1.17.0-master.1282+20230203100311
 2023-02-03
 
