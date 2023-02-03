@@ -23,7 +23,6 @@ export default {
       this.setPartnersFilter({ partners });
     },
     updatePartnersEsimEnabled(partnersEsimEnabled) {
-      console.log('updatePartnersEsimEnabled', partnersEsimEnabled);
       this.setPartnersEsimEnabled({ partnersEsimEnabled });
     },
   },

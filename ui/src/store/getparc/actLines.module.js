@@ -114,8 +114,6 @@ async function setPartnersFilter({ commit, getters }, { partners, isHidden }) {
 }
 async function setPartnersEsimEnabled({ commit, getters }, { partnersEsimEnabled }) {
   const selectedPartnersEsimEnabledValues = getters.selectedPartnersEsimEnabledValues;
-  console.log('setPartnersEsimEnabled.partnersEsimEnabled', partnersEsimEnabled);
-
   commit(
     'setSelectedPartnersEsimEnabledValues',
     formattedEsimEnabled(selectedPartnersEsimEnabledValues, partnersEsimEnabled)
