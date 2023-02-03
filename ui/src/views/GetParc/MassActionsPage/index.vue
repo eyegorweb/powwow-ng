@@ -55,6 +55,9 @@ export default {
     },
     ...mapGetters(['userHaveEsimEnabled']),
     ...mapGetters(['userInfos', 'havePermission']),
+    canConsultEsim() {
+      return this.userHaveEsimEnabled && this.havePermission('act', 'manage_esim');
+    },
   },
 
   methods: {
@@ -68,23 +71,20 @@ export default {
             meta: { label: 'Historique des actes' },
           },
         },
-      ];
-
-      if (this.havePermission('act', 'manage_esim')) {
-        this.tabs.push({
+        {
           label: 'esim',
           title: this.$t('getparc.esim-acts'),
           to: {
             name: 'actHistory.esim',
             meta: { label: 'Historique des actes eSIM' },
           },
-        });
-      }
+        },
+      ];
     },
   },
 
   mounted() {
-    if (this.userHaveEsimEnabled) {
+    if (this.canConsultEsim) {
       this.initTabs();
     }
   },

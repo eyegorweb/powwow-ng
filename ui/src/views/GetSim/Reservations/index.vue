@@ -3,7 +3,7 @@
     <div class="row mb-0">
       <div class="col-md-9"></div>
       <div class="col-md-3">
-        <permission domain="getSim" action="create">
+        <permission domain="getSim" action="order_esim">
           <UiButton
             variant="accent"
             block
