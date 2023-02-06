@@ -77,6 +77,7 @@ export default {
     await this.loadLineData();
     this.typeForPartner = this.$loGet(this.lineData, 'party.partyType');
     this.specificCustomerID = this.$loGet(this.lineData, 'party.id');
+    this.coachM2Mavailable = await isFeatureAvailable('COACH_M2M_AVAILABLE', this.lineData.id);
     this.autoDiagnosticEnabled = await isFeatureAvailable(
       'AUTODIAGNOSTIC_ENABLED',
       this.lineData.id
@@ -131,6 +132,7 @@ export default {
       paramSearch: undefined,
       hasPermissionForDiag: undefined,
       typeForPartner: undefined,
+      coachM2Mavailable: undefined,
       autoDiagnosticEnabled: undefined,
       geolocEnabled: undefined,
       specificCustomerID: undefined,
@@ -155,11 +157,7 @@ export default {
     ]),
 
     canRunCoach() {
-      return (
-        this.havePermission('getParc', 'manage_coach') &&
-        (this.userIsBO || this.$loGet(this.partnerOptions, 'coachM2MAvailable')) &&
-        this.$loGet(this.lineData, 'party.partyType') != 'MVNO'
-      );
+      return this.showCoachMenu;
     },
 
     isLigneActive() {
@@ -186,10 +184,11 @@ export default {
     },
 
     // last_tests menu
-    showLastTestMenu() {
+    showCoachMenu() {
       return (
         this.havePermission('getParc', 'manage_coach') &&
-        this.isCompatibleForPartner(['CUSTOMER', 'MULTI_CUSTOMER', 'M2M_LIGHT'])
+        this.isCompatibleForPartner(['CUSTOMER', 'MULTI_CUSTOMER', 'M2M_LIGHT']) &&
+        this.coachM2Mavailable
       );
     },
 
@@ -247,7 +246,7 @@ export default {
 
     initControlMenuGetDiag() {
       return (
-        this.showLastTestMenu ||
+        this.showCoachMenu ||
         this.showLineAnalysisMenu ||
         this.showNetworkTestMenu ||
         this.showNetworkControlMenu ||
