@@ -434,7 +434,7 @@
       v-if="keyName === 'esim8' && canManageEsim"
       :title="$t('filters.lines.rangeEID')"
       :key="'esim8'"
-      :disabled="filtersAreDisabled"
+      :disabled="filtersAreDisabled || isStandardCategoryInFilter || !isPartnerEsimEnabled"
       draggable
     >
       <ActLinesRangeFilter :values="selectedEIDValue" @update:values="selectEIDFilter($event)" />
