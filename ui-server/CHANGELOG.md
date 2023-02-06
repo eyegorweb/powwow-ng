@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1286+20230206155120
+2023-02-06
+
+### Fixes
+
+- [3711] ajout del 'option d'activation coachM2M dans l'outil getDiag (2af950c7a12552630a1dc21fb09ccb120e058a21)
+
 ## 1.17.0-master.1285+20230206130907
 2023-02-06
 
