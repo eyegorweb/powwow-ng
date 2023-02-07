@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1289+20230207144340
+2023-02-07
+
+### Fixes
+
+- [3685] Incompatibilité des services lorsque le service barring fr est activé non modifiable. (b568e9276fc4542caa7a8fd75814709323bbd909)
+
 ## 1.17.0-master.1288+20230207132954
 2023-02-07
 
