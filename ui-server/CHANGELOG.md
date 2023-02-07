@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1288+20230207132954
+2023-02-07
+
+### Fixes
+
+- [3711] mise à jour du contrôle coachM2M sur l'onglet GetDiag (d16062d73df77553e5390310b766a92a1364f2fe)
+
 ## 1.17.0-master.1287+20230207110311
 2023-02-07
 
