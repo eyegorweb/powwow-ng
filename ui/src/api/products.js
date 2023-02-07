@@ -33,7 +33,7 @@ export async function getAvailableSim(partnerId, pagination) {
   const response = await query(
     `
     query{
-      getAvailableSim(partnerId: ${partnerId}, pagination: { page: ${pagination.page}, limit: ${pagination.limit}}){
+      getAvailableSim(availableSimFilterInput: {partyId: ${partnerId}}, pagination: { page: ${pagination.page}, limit: ${pagination.limit}}){
         total
         items{
           orderDate
@@ -66,6 +66,10 @@ export async function getAvailableSim(partnerId, pagination) {
     }
     `
   );
+
+  if (response && response.errors) {
+    return { errors: response.errors };
+  }
 
   return response.data.getAvailableSim.items;
 }
