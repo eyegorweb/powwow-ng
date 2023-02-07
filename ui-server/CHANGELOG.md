@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1287+20230207110311
+2023-02-07
+
+### Fixes
+
+- [3714] mise à jour de l'api de récupération des cartes SIM disponibles (dc5a6fcd39e27be6021dbb2fb595f6852e764685)
+
 ## 1.17.0-master.1286+20230206155120
 2023-02-06
 
