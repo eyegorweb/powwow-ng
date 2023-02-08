@@ -56,8 +56,13 @@ export default {
       if (this.$route.name.includes('reservations')) return 1;
       return 0;
     },
+
     canOrderEsim() {
-      return this.userHaveEsimEnabled && this.havePermission('getSim', 'order_esim');
+      return (
+        this.userHaveEsimEnabled &&
+        (this.havePermission('getSim', 'order_esim') ||
+          this.havePermission('getParc', 'manage_esim'))
+      );
     },
   },
 

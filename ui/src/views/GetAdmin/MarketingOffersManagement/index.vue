@@ -194,13 +194,21 @@ export default {
       if (this.searchByCodeOrDescriptionValue) {
         payload = {
           pagination: payload !== undefined ? payload.pagination : { page: 0, limit: 20 },
-          filters: [
-            ...payload.filters,
-            {
-              id: 'getadmin.marketingOffers.filters.codeOrDescription',
-              value: this.searchByCodeOrDescriptionValue,
-            },
-          ],
+          filters:
+            payload !== undefined
+              ? [
+                  ...payload.filters,
+                  {
+                    id: 'getadmin.marketingOffers.filters.codeOrDescription',
+                    value: this.searchByCodeOrDescriptionValue,
+                  },
+                ]
+              : [
+                  {
+                    id: 'getadmin.marketingOffers.filters.codeOrDescription',
+                    value: this.searchByCodeOrDescriptionValue,
+                  },
+                ],
         };
       }
       this.lastPayload = payload;

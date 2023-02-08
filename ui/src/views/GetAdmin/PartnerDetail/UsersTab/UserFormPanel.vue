@@ -244,15 +244,6 @@
           @update:options="updateOptions"
         />
       </div>
-
-      <div v-if="!showUserFormPanel">
-        <GroupMultiSelect
-          from-title="getadmin.partnerDetail.customerAccountsPanel.ba_list"
-          to-title="getadmin.partnerDetail.customerAccountsPanel.chosen_ba"
-          :options.sync="options"
-          @update:options="updateOptions"
-        />
-      </div>
     </div>
     <div v-if="exceptionError" slot="error" class="alert alert-danger" role="alert">
       <i class="ic-Alert-Icon"> </i>
@@ -286,6 +277,7 @@ import UiSelect from '@/components/ui/UiSelect';
 import Checkbox from '@/components/ui/Checkbox.vue';
 import TransitionCollapse from '@/components/TransitionCollapse';
 import GroupMultiSelect from '@/components/GroupMultiSelect';
+import isEqual from 'lodash.isequal';
 
 // API
 import { delay } from '@/api/utils.js';
@@ -399,7 +391,9 @@ export default {
       exceptionError: undefined,
       showUserFormPanel: true,
       options: [],
+      initialSelectedOptions: [],
       selectedOptions: [],
+      areAllUnselectedOptions: false,
     };
   },
 
@@ -407,17 +401,26 @@ export default {
     ...mapMutations(['flashMessage', 'closePanel', 'openPanel', 'confirmAction']),
 
     onOpenInitOptions() {
+      let formattedOptions;
       if (this.hasSelectedCustomerAccountsChanged) {
-        const formattedOptions = this.options.map((c) => ({
-          id: c.id,
-          label: c.label,
-          data: c,
-          parent: c.partnerId,
-          selected: c.selected ? true : false,
-        }));
-        this.options = formattedOptions;
+        if (this.isEditMode) {
+          formattedOptions = this.options.map((c) => ({
+            id: c.id,
+            label: c.label,
+            data: c,
+            parent: c.partnerId,
+            selected: c.selected ? true : false,
+          }));
+        } else if (this.createMode) {
+          formattedOptions = this.customerAccounts.map((c) => ({
+            id: c.id,
+            label: c.label,
+            data: c,
+            parent: c.partnerId,
+            selected: false,
+          }));
+        }
       } else {
-        let formattedOptions;
         if (this.isEditMode) {
           formattedOptions = this.customerAccounts.map((c) => ({
             id: c.id,
@@ -425,8 +428,8 @@ export default {
             data: c,
             parent: c.partnerId,
             selected:
-              this.content.duplicateFrom.customerAccounts.length > 0 &&
-              this.content.duplicateFrom.customerAccounts.find((cc) => c.id === cc.id)
+              this.initialSelectedOptions.length > 0 &&
+              this.initialSelectedOptions.find((cc) => c.id === cc.id)
                 ? true
                 : false,
           }));
@@ -439,13 +442,29 @@ export default {
             selected: false,
           }));
         }
-
-        this.options = formattedOptions;
       }
+      this.options = formattedOptions;
+      this.selectedOptions = this.options.filter((o) => o.selected);
     },
 
     updateOptions(values) {
-      this.selectedOptions = values.filter((o) => o.selected);
+      if (this.isEditMode) {
+        if (!this.initialSelectedOptions.length) {
+          this.selectedOptions = values.filter((o) => o.selected);
+        } else {
+          const selectedOptions = values.filter((o) => o.selected);
+          const areAllUnselectedOptions = values.every((o) => !o.selected);
+          if (areAllUnselectedOptions && this.initialSelectedOptions.length) {
+            this.areAllUnselectedOptions = true;
+            this.selectedOptions = [];
+          } else {
+            this.areAllUnselectedOptions = false;
+            this.selectedOptions = selectedOptions;
+          }
+        }
+      } else {
+        this.selectedOptions = values.filter((o) => o.selected);
+      }
     },
 
     isEmailValid(email) {
@@ -508,13 +527,19 @@ export default {
           this.confirmAction({
             message: 'getadmin.partnerDetail.changePassword.warning',
             actionFn: () => {
-              this.selectedOptions = [];
+              this.selectedOptions = this.initialSelectedOptions;
               this.showUserFormPanel = true;
             },
           });
         } else {
           this.showUserFormPanel = true;
         }
+        this.userTypes = this.userTypes.map((u) => {
+          if (u.id === 'PARTNER') {
+            u.default = true;
+          }
+          return u;
+        });
         return;
       }
       this.closePanel();
@@ -523,6 +548,12 @@ export default {
     async save() {
       if (!this.showUserFormPanel) {
         this.showUserFormPanel = true;
+        this.userTypes = this.userTypes.map((u) => {
+          if (u.id === 'PARTNER') {
+            u.default = true;
+          }
+          return u;
+        });
         return;
       }
       let lang = this.resultLanguages.find((e) => e.label === this.form.language);
@@ -540,6 +571,8 @@ export default {
 
       if (this.hasSelectedCustomerAccountsChanged) {
         params.customerAccountIds = this.selectedOptions.map((cf) => cf.id);
+      } else {
+        params.customerAccountIds = this.initialSelectedOptions.map((cf) => cf.id);
       }
 
       if (this.createMode || this.isDuplicateMode) {
@@ -581,41 +614,82 @@ export default {
       }
 
       if (response && response.errors && response.errors.length) {
-        const formattedErrors = formatBackErrors(response.errors)
-          .map((e) => e.errors)
-          .flat();
-        formattedErrors.forEach((e) => {
-          if (e.key === 'user') {
-            errorMessage = `${this.$t('getadmin.users.errors.CUSTOMER_ACCOUNT_USER_NOT_ALLOWED')}`;
-          } else if (e.key === 'AccessDeniedForThisUser') {
-            errorMessage = this.$t('getadmin.users.errors.AccessDeniedForThisUser');
-          } else if (e.key === 'userToCreateOrUpdate') {
-            if (e.value === 'ACCESS_WEB_SERVICES_ROLES_DENIED') {
-              errorMessage = `${this.$t('getadmin.users.errors.ACCESS_WEB_SERVICES_ROLES_DENIED')}`;
-            } else if (e.value === 'USER_NOT_ALLOWED_TO_CREATE') {
-              errorMessage = this.$t('getadmin.users.errors.AccessDeniedForThisUser');
-            } else if (e.value === 'USER_NOT_ALLOWED_TO_MODIFY_WITHOUT_CA_PERMISSION') {
-              errorMessage = 'USER_NOT_ALLOWED_TO_MODIFY_WITHOUT_CA_PERMISSION';
-            } else {
-              errorMessage = `${e.key}: ${e.value}`;
-            }
-          } else if (e.key === 'username') {
-            errorMessage = this.$t('getadmin.users.errors.username');
-            this.requestErrors = [
-              {
-                message: errorMessage,
-              },
-            ];
-          } else {
-            errorMessage = this.$t('genericErrorMessage');
-          }
-          this.flashMessage({ level: 'danger', message: errorMessage });
-          this.closePanel({ resetSearch: true });
-        });
+        errorMessage = this.formatteErrorMessage(response);
+        this.flashMessage({ level: 'danger', message: errorMessage });
       } else {
         this.flashMessage({ level: 'success', message: this.$t('genericSuccessMessage') });
-        this.closePanel({ resetSearch: true });
       }
+      this.closePanel({ resetSearch: true });
+    },
+
+    formatteErrorMessage(response, errorMessage) {
+      const formattedErrors = formatBackErrors(response.errors)
+        .map((e) => e.errors)
+        .flat();
+      formattedErrors.forEach((e) => {
+        if (e.key === 'userId') {
+          if (e.value === 'NoUserFoundWithGivenId') {
+            errorMessage = 'NoUserFoundWithGivenId';
+          } else if (e.value === 'USER_D_USER_NOT_ALLOWED_TO_READ_ROLES') {
+            errorMessage = 'USER_D_USER_NOT_ALLOWED_TO_READ_ROLES';
+          }
+        } else if (e.key === 'userToCreateOrUpdate') {
+          if (e.value === 'USER_D_USERNAME_ALREADY_EXISTS') {
+            errorMessage = 'USER_D_USERNAME_ALREADY_EXISTS';
+          } else if (e.value === 'USER_NOT_ALLOWED_TO_CREATE') {
+            errorMessage = this.$t('getadmin.users.errors.AccessDeniedForThisUser');
+          } else if (e.value === 'ACCESS_WEB_SERVICES_ROLES_DENIED') {
+            errorMessage = `${this.$t('getadmin.users.errors.ACCESS_WEB_SERVICES_ROLES_DENIED')}`;
+          } else if (e.value === 'USER_NOT_ALLOWED_TO_MODIFY_USERNAME') {
+            errorMessage = 'USER_NOT_ALLOWED_TO_MODIFY_USERNAME';
+          } else if (e.value === 'USER_NOT_ALLOWED_TO_MODIFY_WITHOUT_CA_PERMISSION') {
+            errorMessage = 'USER_NOT_ALLOWED_TO_MODIFY_WITHOUT_CA_PERMISSION';
+          }
+        } else if (e.key === 'password') {
+          if (e.value === 'required') {
+            errorMessage = 'required';
+          }
+        } else if (e.key === 'confirmPassword') {
+          if (e.value === 'required') {
+            errorMessage = 'required';
+          }
+        } else if (e.key === 'userToUpdate') {
+          if (e.value === 'NotFound') {
+            errorMessage = 'NotFound';
+          } else if (e.value === 'NotAllowed') {
+            errorMessage = 'NotAllowed ';
+          }
+        } else if (e.key === 'partyGroupId') {
+          if (e.value === 'Invalid (Only partyId must be filled)') {
+            errorMessage = 'Invalid (Only partyId must be filled)';
+          } else if (e.value === 'NotAllowed (Not allowed to bind user to this partyGroupId)') {
+            errorMessage = 'NotAllowed (Not allowed to bind user to this partyGroupId)';
+          }
+        } else if (e.key === 'partyId') {
+          if (e.value === 'NotAllowed') {
+            errorMessage = 'NotAllowed';
+          } else if (e.value === 'NotFound') {
+            errorMessage = 'NotFound';
+          } else if (e.value === 'NoPartyFoundWithGivenId') {
+            errorMessage = 'NoPartyFoundWithGivenId';
+          }
+        } else if (e.key === 'partyIdOrPartyGroupId') {
+          if (e.value === 'invalid') {
+            errorMessage = 'invalid';
+          }
+        } else if (e.key === 'customerAccountIds') {
+          if (
+            e.value ===
+            'NotAllowed (Not allowed to create user with a customerAccount not in his customerAccountIds of his parties)'
+          ) {
+            errorMessage =
+              'NotAllowed (Not allowed to create user with a customerAccount not in his customerAccountIds of his parties)';
+          }
+        } else {
+          errorMessage = this.$t('genericErrorMessage');
+        }
+      });
+      return errorMessage;
     },
 
     formattedRoles(roles) {
@@ -657,7 +731,19 @@ export default {
     },
 
     hasSelectedCustomerAccountsChanged() {
-      return this.selectedOptions.length > 0;
+      if (!this.options.length || (this.options.length && !this.selectedOptions.length)) {
+        if (this.areAllUnselectedOptions) {
+          return true;
+        }
+        return false;
+      } else if (this.selectedOptions.length !== this.initialSelectedOptions.length) {
+        return true;
+      } else {
+        return !isEqual(
+          this.initialSelectedOptions.map((o) => o.id),
+          this.selectedOptions.map((o) => o.id)
+        );
+      }
     },
 
     haveMailError() {
@@ -1118,27 +1204,9 @@ export default {
         return u;
       });
 
-      this.formDataBeforeChange = cloneDeep(this.form);
-    }
+      this.initialSelectedOptions = cloneDeep(this.content.duplicateFrom.customerAccounts);
 
-    // Route depuis l'association des CF (donc création ou modification en cours)
-    if (this.content.fromPanelCustomerAccounts) {
-      this.form.title = this.content.form.title;
-      this.form.firstName = this.content.form.firstName;
-      this.form.lastName = this.content.form.lastName;
-      this.form.language = this.content.form.language;
-      this.form.username = this.content.form.username;
-      this.form.password = this.content.form.password;
-      this.form.passwordConfirm = this.content.form.passwordConfirm;
-      this.form.email = this.content.form.email;
-      this.form.userPrivate = this.content.form.userPrivate;
-      this.userTypes = this.userTypes.map((u) => {
-        if (u.id === 'PARTNER') {
-          u.default = true;
-        }
-        return u;
-      });
-      this.selectedPartner = this.content.partner;
+      this.formDataBeforeChange = cloneDeep(this.form);
     }
 
     this.canShowForm = true;

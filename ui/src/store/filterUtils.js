@@ -1,3 +1,4 @@
+import { cloneDeep } from 'lodash';
 import get from 'lodash.get';
 
 export function initState() {
@@ -79,12 +80,37 @@ export const findFilterValuesById = (id) => (state) => {
  * @returns structures object with id and label attributes
  */
 export function formattedFilterValues(values) {
+  // INTERDIT de passer d'autres attributs hormis id/label au risque de faire péter la liaison
+  // entre le filtre Partenaire issu des prérequis et celui de la barre de filtres de recherche…
   return values.map((v) => {
     return {
       id: v.id,
       label: v.label,
     };
   });
+}
+export function formattedEsimEnabled(currentPartners, { partners, partnersEsimEnabledMap }) {
+  let resultPartners = [];
+  // Copy Current List
+  if (currentPartners) {
+    resultPartners = cloneDeep(currentPartners);
+  }
+  let partnerIds = [];
+  partners.forEach((partner) => {
+    // Add selected partner id
+    partnerIds.push(partner.id);
+    const havePartner = resultPartners.find((p) => p.id === partner.id);
+    if (!havePartner) {
+      // Add new partner
+      resultPartners.push({
+        id: partner.id,
+        label: partner.label,
+        esimEnabled: partnersEsimEnabledMap.get(partner.id),
+      });
+    }
+  });
+  // return selected partners
+  return resultPartners.filter((p) => partnerIds.includes(p.id));
 }
 
 export const findFilterById = (id) => (state) => {
