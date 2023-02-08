@@ -99,7 +99,7 @@
                 !!requestExceptionsErrors
             "
           >
-            <ul class="list-unstyled m-0">
+            <ul class="list-unstyled m-0 mt-2">
               <li class="item" v-for="e in validationErrors.errors" :key="e.key">
                 <div
                   v-if="e.key === 400 && e.error === 'FILE_LINE_NUMBER_INVALID'"
@@ -118,6 +118,13 @@
                       count: e.data.maxNumbersPerFileUpload,
                     })
                   }}
+                </div>
+                <div
+                  v-else-if="e.key === 422 && e.error === 'FILE_CONTENT_INVALID'"
+                  class="alert alert-danger"
+                  role="alert"
+                >
+                  {{ $t('getparc.actCreation.report.FILE_CONTENT_INVALID') }}
                 </div>
                 <div v-else-if="e.key === 500" class="alert alert-warning" role="alert">
                   {{ $t('getparc.actCreation.report.timeout') }}
@@ -188,7 +195,9 @@ export default {
     },
     requestExceptionsErrors() {
       if (!this.validationErrors) return false;
-      return this.validationErrors.errors.find((f) => f.key === 400 || f.key === 500);
+      return this.validationErrors.errors.find(
+        (f) => f.key === 400 || f.key === 422 || f.key === 500
+      );
     },
   },
 
