@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1292+20230208151403
+2023-02-08
+
+### Fixes
+
+- [3366] Amélioration de la gestion de l'onglet "GETDIAG / OUTILS D'ANALYSE" dans le détail de la ligne (7ca35f4fd376221f82d848f5293abd64a84e133a)
+
 ## 1.17.0-master.1291+20230208124349
 2023-02-08
 
