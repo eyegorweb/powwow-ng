@@ -232,7 +232,7 @@ export default {
     // Conditions spécifiques avec notamment l'environnement de production pour afficher l'onglet Historique réseau et itinérance)
     showNetworkHistorynMenu() {
       const shouldAddSpecificPermission =
-        this.typeForPartner === 'MVNO' ||
+        (this.typeForPartner === 'MVNO' && this.havePermission('getVision', 'read')) ||
         (this.typeForPartner === 'CUSTOMER' && this.havePermission('getVision', 'read')) ||
         (this.typeForPartner === 'MULTI_CUSTOMER' && this.havePermission('getVision', 'read')) ||
         // partenaire IMT, détectable uniquement en environnement de production
