@@ -158,7 +158,7 @@ export default {
 
       // Conditions spécifiques avec notamment l'environnement de production pour afficher l'onglet Historique réseau et itinérance) => c'est donc "SALE"
       const shouldAddSpecificPermission =
-        typeForPartner === 'MVNO' ||
+        (typeForPartner === 'MVNO' && this.havePermission('getVision', 'read')) ||
         (typeForPartner === 'CUSTOMER' && this.havePermission('getVision', 'read')) ||
         (typeForPartner === 'MULTI_CUSTOMER' && this.havePermission('getVision', 'read')) ||
         specificCustomerID === 246; // partenaire IMT, détectable uniquement en environnement de production
