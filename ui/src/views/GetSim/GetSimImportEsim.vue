@@ -86,6 +86,13 @@
                   })
                 }}
               </div>
+              <div
+                v-else-if="e.key === 422 && e.error === 'FILE_CONTENT_INVALID'"
+                class="alert alert-danger"
+                role="alert"
+              >
+                {{ $t('getparc.actCreation.report.FILE_CONTENT_INVALID') }}
+              </div>
               <div v-else-if="e.key === 500" class="alert alert-warning" role="alert">
                 {{ $t('getparc.actCreation.report.timeout') }}
               </div>
@@ -182,7 +189,7 @@ export default {
     },
     requestErrors() {
       if (!this.fileResponse) return false;
-      return this.fileResponse.errors.find((f) => f.key === 400 || f.key === 500);
+      return this.fileResponse.errors.find((f) => f.key === 400 || f.key === 422 || f.key === 500);
     },
   },
 
