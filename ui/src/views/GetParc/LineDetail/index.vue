@@ -250,7 +250,8 @@ export default {
         this.showLineAnalysisMenu ||
         this.showNetworkTestMenu ||
         this.showNetworkControlMenu ||
-        this.showSupervisionMenu
+        this.showSupervisionMenu ||
+        this.showNetworkHistorynMenu
       );
     },
 
