@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1290+20230208094630
+2023-02-08
+
+### Fixes
+
+- [3715] gestion de l'erreur 422 pour les uploads de fichier (8e772651b3b1727d4a296f642ba32201888a9810)
+
 ## 1.17.0-master.1289+20230207144340
 2023-02-07
 
