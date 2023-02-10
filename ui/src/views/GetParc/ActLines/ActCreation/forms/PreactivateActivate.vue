@@ -54,7 +54,7 @@
             :services="offerServices"
             :initial-services="initialServices"
             vertical
-            @datachange="onServiceChange"
+            @servicechange="onServiceChange"
             :data-params-needed="isDataParamsError"
             :offer="selectedOffer"
           />

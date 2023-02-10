@@ -19,22 +19,31 @@ export default {
   props: {
     selectedOffersValues: Array,
     selectedPartnersValues: Array,
+    expandedDataAttributes: Boolean,
   },
 
   methods: {
     async fetchApi(q, partners, partnerType, { page, limit }) {
       try {
-        const data = await fetchOffers(q, partners, { page, limit, partnerType });
+        let data = await fetchOffers(q, partners, { page, limit, partnerType });
         if (data) {
           return data
             .map((o) => ({
               id: o.code,
               label: o.workflowDescription,
+              data: o,
             }))
             .reduce((all, offer) => {
               const isFound = all.find((w) => w.id === offer.id);
               if (!isFound) {
-                all.push(offer);
+                if (this.expandedDataAttributes) {
+                  all.push(offer);
+                } else {
+                  /**
+                   * Pour forcer la valeur de l'objet à une structure id/label égale à la structure des checkboxes
+                   */
+                  all.push({ id: offer.id, label: offer.label });
+                }
               }
               return all;
             }, []);

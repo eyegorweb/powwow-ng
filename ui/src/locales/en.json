@@ -897,7 +897,7 @@
       "total": "{total} found user(s)",
       "errors": {
         "AccessDeniedForThisUser": "You don't have permission.",
-        "ACCESS_WEB_SERVICES_ROLES_DENIED": "To remove the Webservice role, you must deactivate the permissions in the WEBSERVICES tab",
+        "ACCESS_WEB_SERVICES_ROLES_DENIED": "The choice of the Webservice role is incompatible with the permissions activated in the WEBSERVICE tab",
         "USER_D_PASSWORD_OLD_ENTERED_IS_INCORRECT": "Old password is incorrect",
         "USER_D_PASSWORD_MUST_BE_DIFFERENT_FROM_OLD_ONE": "Password must be different from old one",
         "username": "Login already exists.",
@@ -999,6 +999,7 @@
             "REF_CLIENT": "Customer reference mandatory",
             "REF_USER": "User reference",
             "MAD_FACT": "Provision of invoices",
+            "NOTIF_EUICC": "extenral eSIM",
             "SWITCH_RCARD": "Switch to R-Card",
             "DISABLE_RCARD": "Deactivate - check R-Card",
             "CHANGE_OFFER": "Change of offer",
@@ -2289,7 +2290,7 @@
           "id": "Reservation Id",
           "family": "SIM family",
           "category": "SIM category",
-          "type": "Step type",
+          "type": "eSIM type",
           "downloadStatus": "Download Status",
           "pairedLine": "Paired line",
           "rid": "SMSRID"

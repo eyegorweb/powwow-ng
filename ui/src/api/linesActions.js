@@ -491,7 +491,6 @@ export function formatFilters(filters) {
     allFilters.push(`idCF: {in:[${customerAccountIds}]}`);
   }
 
-  // addQuantityFilter(allFilters, filters);
   addActionTypeFilter(allFilters, filters);
   addOfferFilterFilter(allFilters, filters);
   addOrderId(allFilters, filters);
@@ -499,7 +498,13 @@ export function formatFilters(filters) {
   valuesFromMutiselectFilter(allFilters, filters, 'simStatus', 'filters.lines.SIMCardStatus');
   valuesFromMutiselectFilter(allFilters, filters, 'billingStatus', 'filters.lines.billingStatus');
   valuesFromMutiselectFilter(allFilters, filters, 'networkStatus', 'filters.lines.networkStatus');
-  valuesFromMutiselectFilter(allFilters, filters, 'simCardName', 'filters.lines.typeSIMCard', true);
+  valuesFromMutiselectFilter(
+    allFilters,
+    filters,
+    'simCardTypeId',
+    'filters.lines.typeSIMCard',
+    true
+  );
   valuesFromMutiselectFilter(allFilters, filters, 'cosCommunity', 'filters.lines.community', true);
   valuesFromMutiselectFilter(
     allFilters,
@@ -746,7 +751,7 @@ function addOfferFilterFilter(gqlFilters, selectedFilters) {
   const offerFilter = selectedFilters.find((o) => o.id === 'filters.lines.associatedOffer');
   if (!offerFilter) return;
 
-  const offers = offerFilter.values.map((o) => `"${o.productCode}"`).join(',');
+  const offers = offerFilter.values.map((o) => `"${o.id}"`).join(',');
   if (offers) {
     gqlFilters.push(`productCode: {in: [${offers}]}`);
   }

@@ -42,8 +42,8 @@ export default {
       this.content.id
     );
 
+    const coachM2MAvailable = await isFeatureAvailable('COACH_M2M_AVAILABLE', this.content.id);
     const geolocEnabled = await isFeatureAvailable('GEOLOCATION_ENABLED', this.content.id);
-
     const requestConsoActive = await isFeatureAvailable('REQUEST_CONSO_ENABLED', this.content.id);
 
     const unfilteredItems = [
@@ -105,6 +105,9 @@ export default {
     ];
 
     this.menuItems = this.filterByPermission(unfilteredItems).filter((i) => {
+      if (i.section === 'last_tests') {
+        return coachM2MAvailable;
+      }
       if (i.section === 'line_analysis' || i.section === 'supervision') {
         return this.autoDiagnosticEnabled;
       }
@@ -155,7 +158,7 @@ export default {
 
       // Conditions spécifiques avec notamment l'environnement de production pour afficher l'onglet Historique réseau et itinérance) => c'est donc "SALE"
       const shouldAddSpecificPermission =
-        typeForPartner === 'MVNO' ||
+        (typeForPartner === 'MVNO' && this.havePermission('getVision', 'read')) ||
         (typeForPartner === 'CUSTOMER' && this.havePermission('getVision', 'read')) ||
         (typeForPartner === 'MULTI_CUSTOMER' && this.havePermission('getVision', 'read')) ||
         specificCustomerID === 246; // partenaire IMT, détectable uniquement en environnement de production

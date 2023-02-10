@@ -2,218 +2,247 @@
   <BaseDetailPanelContent white>
     <!-- ajouter partenaire et groupe de partenaires dans la mutation partyId obligatoire et partyGroupId facultatif -->
     <div v-if="canShowForm" class="m-3">
-      <div
-        v-if="userIsBO"
-        class="entries-line mb-3"
-        :class="{ noDisplay: fromPagePartner || canHideToggle }"
-      >
-        <div class="form-entry">
-          <Toggle
-            block
-            @update="userType = $event.id"
-            :values="userTypes"
-            :disabled="canShowTypes"
-            class="pl-2 user-types"
-          />
-        </div>
-      </div>
-
-      <div class="row mb-3">
-        <div class="col">
-          <div class="d-flex gender">
-            <label class="radio-container mr-3">
-              {{ $t('common.MR') }}
-              <input name="civility" type="radio" value="MR" v-model="form.title" />
-              <span class="checkmark" />
-            </label>
-            <label class="radio-container">
-              {{ $t('common.MRS') }}
-              <input name="civility" type="radio" value="MRS" v-model="form.title" />
-              <span class="checkmark" />
-            </label>
-          </div>
-        </div>
-      </div>
-
-      <div class="entries-line">
-        <div class="language">
-          <label>{{ $t('getadmin.users.language') }}</label>
-          <UiSelect class="text-gray language" block v-model="form.language" :options="languages" />
-        </div>
-        <div v-if="shouldSelectAPartner" class="form-entry" :class="{ noDisplay: fromPagePartner }">
-          <label>{{ $t('getadmin.users.userTypes.partner') }}</label>
-          <PartnerCombo
-            class="partner"
-            :value.sync="selectedPartner"
-            :disabled="!!content.duplicateFrom"
-          />
-        </div>
-        <div v-if="shouldSelectAPartnerGroup" class="form-entry" ref="partner-group">
-          <label>{{ $t('getadmin.users.filters.partnerGroup') }}</label>
-          <UiApiAutocomplete
-            class="partner-group"
-            :placeholder="$t('getadmin.users.filters.partnerGroup')"
-            :items="groupPartners"
-            v-model="selectedGroupPartner"
-            display-results-while-empty
-            :disabled="!!content.duplicateFrom"
-          />
-        </div>
-      </div>
-
-      <Checkbox v-if="userIsSuperAdmin" v-model="form.userPrivate">
-        {{ $t('privateUser') }}
-      </Checkbox>
-
-      <div class="entries-line">
-        <div class="form-entry">
-          <FormControl class="firstname" label="common.firstName" v-model="form.firstName" />
-        </div>
-        <div class="form-entry pl-2">
-          <FormControl class="lastname" label="common.lastName" v-model="form.lastName" />
-        </div>
-      </div>
-
-      <div class="entries-line">
-        <div class="form-entry">
-          <FormControl class="email" label="common.email" v-model="form.email" />
-          <span v-if="haveMailError" class="error-text">
-            {{ $t('errors.password.email-error') }}
-          </span>
-        </div>
-      </div>
-      <div class="entries-line">
-        <div class="form-entry">
-          <input type="text" name="login" class="hidden" autocomplete="off" />
-          <FormControl
-            class="login"
-            label="login"
-            v-model="form.username"
-            :disabled="loginFieldDisabled"
-          />
-          <span v-if="form.username && requestErrors && requestErrors.length" class="error-text">
-            {{ requestErrors[0].message }}
-          </span>
-        </div>
-      </div>
-
-      <div v-if="isEditMode">
-        <div class="entries-line">
+      <div v-if="showUserFormPanel">
+        <div
+          v-if="userIsBO"
+          class="entries-line mb-3"
+          :class="{ noDisplay: fromPagePartner || canHideToggle }"
+        >
           <div class="form-entry">
-            <button class="btn pt-0 pl-0 btn-link" @click.stop="() => openChangePasswordPanel()">
-              <em class="arrow ic-Plus-Icon" />
-              {{ $t('getadmin.partnerDetail.changePassword.title') }}
-            </button>
-          </div>
-        </div>
-        <div class="entries-line" v-if="haveSetCaPermission && canShowCustomerAccounsList">
-          <div class="form-entry">
-            <button class="btn pt-0 pl-0 btn-link" @click.stop="() => openCustomerAccountsPanel()">
-              <em class="arrow ic-Plus-Icon" />
-              {{ $t('getadmin.partnerDetail.customerAccountsPanel.title') }}
-            </button>
-          </div>
-        </div>
-      </div>
-      <div v-else>
-        <div class="entries-line">
-          <div class="form-entry">
-            <input type="password" name="password" class="hidden" autocomplete="off" />
-            <FormControl
-              class="password"
-              label="password"
-              input-type="password"
-              v-model="form.password"
+            <Toggle
+              block
+              @update="userType = $event.id"
+              :values="userTypes"
+              :disabled="canShowTypes"
+              class="pl-2 user-types"
             />
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col">
+            <div class="d-flex gender">
+              <label class="radio-container mr-3">
+                {{ $t('common.MR') }}
+                <input name="civility" type="radio" value="MR" v-model="form.title" />
+                <span class="checkmark" />
+              </label>
+              <label class="radio-container">
+                {{ $t('common.MRS') }}
+                <input name="civility" type="radio" value="MRS" v-model="form.title" />
+                <span class="checkmark" />
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="entries-line">
+          <div class="language">
+            <label>{{ $t('getadmin.users.language') }}</label>
+            <UiSelect
+              class="text-gray language"
+              block
+              v-model="form.language"
+              :options="languages"
+            />
+          </div>
+          <div
+            v-if="shouldSelectAPartner"
+            class="form-entry"
+            :class="{ noDisplay: fromPagePartner }"
+          >
+            <label>{{ $t('getadmin.users.userTypes.partner') }}</label>
+            <PartnerCombo
+              class="partner"
+              :value.sync="selectedPartner"
+              :disabled="!!content.duplicateFrom"
+            />
+          </div>
+          <div v-if="shouldSelectAPartnerGroup" class="form-entry" ref="partner-group">
+            <label>{{ $t('getadmin.users.filters.partnerGroup') }}</label>
+            <UiApiAutocomplete
+              class="partner-group"
+              :placeholder="$t('getadmin.users.filters.partnerGroup')"
+              :items="groupPartners"
+              v-model="selectedGroupPartner"
+              display-results-while-empty
+              :disabled="!!content.duplicateFrom"
+            />
+          </div>
+        </div>
+
+        <Checkbox v-if="userIsSuperAdmin" v-model="form.userPrivate">
+          {{ $t('privateUser') }}
+        </Checkbox>
+
+        <div class="entries-line">
+          <div class="form-entry">
+            <FormControl class="firstname" label="common.firstName" v-model="form.firstName" />
           </div>
           <div class="form-entry pl-2">
-            <FormControl
-              class="password-confirm"
-              label="passwordConfirm"
-              input-type="password"
-              v-model="form.passwordConfirm"
-            />
+            <FormControl class="lastname" label="common.lastName" v-model="form.lastName" />
           </div>
         </div>
-        <div class="entries-line" v-if="haveSetCaPermission && canShowCustomerAccounsList">
+
+        <div class="entries-line">
           <div class="form-entry">
-            <button class="btn pt-0 pl-0 btn-link" @click.stop="() => openCustomerAccountsPanel()">
-              <em class="arrow ic-Plus-Icon" />
-              {{ $t('getadmin.partnerDetail.customerAccountsPanel.title') }}
-            </button>
+            <FormControl class="email" label="common.email" v-model="form.email" />
+            <span v-if="haveMailError" class="error-text">
+              {{ $t('errors.password.email-error') }}
+            </span>
           </div>
         </div>
-      </div>
-
-      <div v-if="passwordConfirmationErrors" class="entries-line">
-        <div class="form-entry">
-          <ul class="list-unstyled">
-            <li :key="error" v-for="error in passwordConfirmationErrors" class="error-text">
-              {{ $t(error) }}
-            </li>
-          </ul>
+        <div class="entries-line">
+          <div class="form-entry">
+            <input type="text" name="login" class="hidden" autocomplete="off" />
+            <FormControl
+              class="login"
+              label="login"
+              v-model="form.username"
+              :disabled="loginFieldDisabled"
+            />
+            <span v-if="form.username && requestErrors && requestErrors.length" class="error-text">
+              {{ requestErrors[0].message }}
+            </span>
+          </div>
         </div>
-      </div>
 
-      <div>
-        <div class="rolesType">
-          <h4 :class="{ active: !showWebservices }" @click="showWebservices = false">ROLES</h4>
-          <h4
-            :class="{ active: showWebservices }"
-            @click="showWebservices = true"
-            v-if="haveWsPermission && rolesWs.length > 0"
-          >
-            WEBSERVICES
-          </h4>
-        </div>
-        <div class="overview-item mr-5" v-if="!canShowRoles">
-          <h6 v-if="userType === 'PARTNER'">{{ $t('getparc.actLines.step1Partner') }}</h6>
-          <h6 v-if="userType === 'PARTNER_GROUP'">
-            {{ $t('getadmin.partnerDetail.selectPartyGroup') }}
-          </h6>
+        <div v-if="isEditMode">
+          <div class="entries-line">
+            <div class="form-entry">
+              <button class="btn pt-0 pl-0 btn-link" @click.stop="() => openChangePasswordPanel()">
+                <em class="arrow ic-Plus-Icon" />
+                {{ $t('getadmin.partnerDetail.changePassword.title') }}
+              </button>
+            </div>
+          </div>
+          <div class="entries-line" v-if="haveSetCaPermission && canShowCustomerAccounsList">
+            <div class="form-entry">
+              <button
+                class="btn pt-0 pl-0 btn-link"
+                @click.stop="() => openCustomerAccountsPanel()"
+              >
+                <em class="arrow ic-Plus-Icon" />
+                {{ $t('getadmin.partnerDetail.customerAccountsPanel.title') }}
+              </button>
+            </div>
+          </div>
         </div>
         <div v-else>
-          <MultiChoices
-            class="roles"
-            :options="roles"
-            v-model="selectedRoles"
-            v-if="!showWebservices"
-          />
-          <h6 v-if="rolesWsActions && showWebservices">
-            <a class="p-0" @click.prevent="isOpenWsActionRoles = !isOpenWsActionRoles">
-              Actions
-              <i :class="isOpenWsActionRoles ? 'ic-Arrow-Up-Icon' : 'ic-Arrow-Down-Icon'" />
-            </a>
-          </h6>
-
-          <TransitionCollapse>
-            <div class="" v-if="isOpenWsActionRoles">
-              <MultiChoices
-                class="roles"
-                :options="rolesWsActions"
-                v-model="selectedRolesWsActions"
-                v-if="showWebservices && rolesWs.length > 0 && haveWsPermission"
+          <div class="entries-line">
+            <div class="form-entry">
+              <input type="password" name="password" class="hidden" autocomplete="off" />
+              <FormControl
+                class="password"
+                label="password"
+                input-type="password"
+                v-model="form.password"
               />
             </div>
-          </TransitionCollapse>
-          <h6 v-if="rolesWsConsultation && showWebservices">
-            <a class="p-0" @click.prevent="isOpenWsConsultationRoles = !isOpenWsConsultationRoles">
-              Consultation
-              <i :class="isOpenWsConsultationRoles ? 'ic-Arrow-Up-Icon' : 'ic-Arrow-Down-Icon'" />
-            </a>
-          </h6>
-
-          <TransitionCollapse>
-            <div class="" v-if="isOpenWsConsultationRoles">
-              <MultiChoices
-                class="roles"
-                :options="rolesWsConsultation"
-                v-model="selectedRolesWsConsultation"
-                v-if="showWebservices && rolesWs.length > 0 && haveWsPermission"
+            <div class="form-entry pl-2">
+              <FormControl
+                class="password-confirm"
+                label="passwordConfirm"
+                input-type="password"
+                v-model="form.passwordConfirm"
               />
             </div>
-          </TransitionCollapse>
+          </div>
+          <div class="entries-line" v-if="haveSetCaPermission && canShowCustomerAccounsList">
+            <div class="form-entry">
+              <button
+                class="btn pt-0 pl-0 btn-link"
+                @click.stop="() => openCustomerAccountsPanel()"
+              >
+                <em class="arrow ic-Plus-Icon" />
+                {{ $t('getadmin.partnerDetail.customerAccountsPanel.title') }}
+              </button>
+            </div>
+          </div>
         </div>
+
+        <div v-if="passwordConfirmationErrors" class="entries-line">
+          <div class="form-entry">
+            <ul class="list-unstyled">
+              <li :key="error" v-for="error in passwordConfirmationErrors" class="error-text">
+                {{ $t(error) }}
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div>
+          <div class="rolesType">
+            <h4 :class="{ active: !showWebservices }" @click="showWebservices = false">ROLES</h4>
+            <h4
+              :class="{ active: showWebservices }"
+              @click="showWebservices = true"
+              v-if="haveWsPermission && rolesWs.length > 0"
+            >
+              WEBSERVICES
+            </h4>
+          </div>
+          <div class="overview-item mr-5" v-if="!canShowRoles">
+            <h6 v-if="userType === 'PARTNER'">{{ $t('getparc.actLines.step1Partner') }}</h6>
+            <h6 v-if="userType === 'PARTNER_GROUP'">
+              {{ $t('getadmin.partnerDetail.selectPartyGroup') }}
+            </h6>
+          </div>
+          <div v-else>
+            <MultiChoices
+              class="roles"
+              :options="roles"
+              v-model="selectedRoles"
+              v-if="!showWebservices"
+            />
+            <h6 v-if="rolesWsActions && showWebservices">
+              <a class="p-0" @click.prevent="isOpenWsActionRoles = !isOpenWsActionRoles">
+                Actions
+                <i :class="isOpenWsActionRoles ? 'ic-Arrow-Up-Icon' : 'ic-Arrow-Down-Icon'" />
+              </a>
+            </h6>
+
+            <TransitionCollapse>
+              <div class="" v-if="isOpenWsActionRoles">
+                <MultiChoices
+                  class="roles"
+                  :options="rolesWsActions"
+                  v-model="selectedRolesWsActions"
+                  v-if="showWebservices && rolesWs.length > 0 && haveWsPermission"
+                />
+              </div>
+            </TransitionCollapse>
+            <h6 v-if="rolesWsConsultation && showWebservices">
+              <a
+                class="p-0"
+                @click.prevent="isOpenWsConsultationRoles = !isOpenWsConsultationRoles"
+              >
+                Consultation
+                <i :class="isOpenWsConsultationRoles ? 'ic-Arrow-Up-Icon' : 'ic-Arrow-Down-Icon'" />
+              </a>
+            </h6>
+
+            <TransitionCollapse>
+              <div class="" v-if="isOpenWsConsultationRoles">
+                <MultiChoices
+                  class="roles"
+                  :options="rolesWsConsultation"
+                  v-model="selectedRolesWsConsultation"
+                  v-if="showWebservices && rolesWs.length > 0 && haveWsPermission"
+                />
+              </div>
+            </TransitionCollapse>
+          </div>
+        </div>
+      </div>
+
+      <div v-if="!showUserFormPanel">
+        <GroupMultiSelect
+          from-title="getadmin.partnerDetail.customerAccountsPanel.ba_list"
+          to-title="getadmin.partnerDetail.customerAccountsPanel.chosen_ba"
+          :options.sync="options"
+          @update:options="updateOptions"
+        />
       </div>
     </div>
     <div v-if="exceptionError" slot="error" class="alert alert-danger" role="alert">
@@ -223,7 +252,7 @@
 
     <div slot="footer" class="action-buttons" v-if="havePermission('user', 'create')">
       <div>
-        <UiButton variant="import" @click="closePanel" block>{{ $t('cancel') }}</UiButton>
+        <UiButton variant="import" @click="cancel" block>{{ $t('cancel') }}</UiButton>
       </div>
       <div>
         <UiButton :disabled="!canSave" variant="primary" @click="save" block>
@@ -247,6 +276,8 @@ import cloneDeep from 'lodash.clonedeep';
 import UiSelect from '@/components/ui/UiSelect';
 import Checkbox from '@/components/ui/Checkbox.vue';
 import TransitionCollapse from '@/components/TransitionCollapse';
+import GroupMultiSelect from '@/components/GroupMultiSelect';
+import isEqual from 'lodash.isequal';
 
 // API
 import { delay } from '@/api/utils.js';
@@ -301,6 +332,7 @@ export default {
     Toggle,
     Checkbox,
     TransitionCollapse,
+    GroupMultiSelect,
   },
   props: {
     content: Object,
@@ -357,11 +389,83 @@ export default {
       userDefaultLanguage: 'FR',
       requestErrors: undefined,
       exceptionError: undefined,
+      showUserFormPanel: true,
+      options: [],
+      initialSelectedOptions: [],
+      selectedOptions: [],
+      areAllUnselectedOptions: false,
     };
   },
 
   methods: {
     ...mapMutations(['flashMessage', 'closePanel', 'openPanel', 'confirmAction']),
+
+    onOpenInitOptions() {
+      let formattedOptions;
+      if (this.hasSelectedCustomerAccountsChanged) {
+        if (this.isEditMode) {
+          formattedOptions = this.options.map((c) => ({
+            id: c.id,
+            label: c.label,
+            data: c,
+            parent: c.partnerId,
+            selected: c.selected ? true : false,
+          }));
+        } else if (this.createMode) {
+          formattedOptions = this.customerAccounts.map((c) => ({
+            id: c.id,
+            label: c.label,
+            data: c,
+            parent: c.partnerId,
+            selected: false,
+          }));
+        }
+      } else {
+        if (this.isEditMode) {
+          formattedOptions = this.customerAccounts.map((c) => ({
+            id: c.id,
+            label: c.label,
+            data: c,
+            parent: c.partnerId,
+            selected:
+              this.initialSelectedOptions.length > 0 &&
+              this.initialSelectedOptions.find((cc) => c.id === cc.id)
+                ? true
+                : false,
+          }));
+        } else if (this.createMode) {
+          formattedOptions = this.customerAccounts.map((c) => ({
+            id: c.id,
+            label: c.label,
+            data: c,
+            parent: c.partnerId,
+            selected: false,
+          }));
+        }
+      }
+      this.options = formattedOptions;
+      this.selectedOptions = this.options.filter((o) => o.selected);
+    },
+
+    updateOptions(values) {
+      if (this.isEditMode) {
+        if (!this.initialSelectedOptions.length) {
+          this.selectedOptions = values.filter((o) => o.selected);
+        } else {
+          const selectedOptions = values.filter((o) => o.selected);
+          const areAllUnselectedOptions = values.every((o) => !o.selected);
+          if (areAllUnselectedOptions && this.initialSelectedOptions.length) {
+            this.areAllUnselectedOptions = true;
+            this.selectedOptions = [];
+          } else {
+            this.areAllUnselectedOptions = false;
+            this.selectedOptions = selectedOptions;
+          }
+        }
+      } else {
+        this.selectedOptions = values.filter((o) => o.selected);
+      }
+    },
 
     isEmailValid(email) {
       var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -399,30 +503,8 @@ export default {
     },
 
     async openCustomerAccountsPanel() {
-      const title = this.$t('getadmin.partnerDetail.customerAccountsPanel.title');
-
-      const formattedOptions = {
-        customerAccounts: this.customerAccounts,
-        roles: this.selectedRoles,
-        partner: this.selectedPartner,
-        form: this.form,
-        lastPanelPayload: this.content,
-      };
-
-      const openTrigger = () => {
-        this.openPanel({
-          title,
-          panelId: 'getadmin.partnerDetail.customerAccountsPanel.title',
-          backdrop: true,
-          width: '40rem',
-          payload: formattedOptions,
-          ignoreClickAway: true,
-        });
-      };
-
-      this.closePanel();
-      await delay(500);
-      openTrigger();
+      this.showUserFormPanel = false;
+      this.onOpenInitOptions();
     },
 
     async fetchCustomerAccounts(q = '', page = 0) {
@@ -430,7 +512,7 @@ export default {
       if (this.selectedPartner) {
         partners.push(this.selectedPartner);
       }
-      const data = await fetchBillingAccounts(q, partners, { page, limit: 10 });
+      const data = await fetchBillingAccounts(q, partners, { page, limit: 999 });
       return data.map((ba) => ({
         id: ba.id,
         label: `${ba.code} - ${ba.name}`,
@@ -439,7 +521,41 @@ export default {
       }));
     },
 
+    cancel() {
+      if (!this.showUserFormPanel) {
+        if (this.hasSelectedCustomerAccountsChanged) {
+          this.confirmAction({
+            message: 'getadmin.partnerDetail.changePassword.warning',
+            actionFn: () => {
+              this.selectedOptions = this.initialSelectedOptions;
+              this.showUserFormPanel = true;
+            },
+          });
+        } else {
+          this.showUserFormPanel = true;
+        }
+        this.userTypes = this.userTypes.map((u) => {
+          if (u.id === 'PARTNER') {
+            u.default = true;
+          }
+          return u;
+        });
+        return;
+      }
+      this.closePanel();
+    },
+
     async save() {
+      if (!this.showUserFormPanel) {
+        this.showUserFormPanel = true;
+        this.userTypes = this.userTypes.map((u) => {
+          if (u.id === 'PARTNER') {
+            u.default = true;
+          }
+          return u;
+        });
+        return;
+      }
       let lang = this.resultLanguages.find((e) => e.label === this.form.language);
       let wsRoles = this.selectedRolesWsActions.concat(this.selectedRolesWsConsultation);
       const params = {
@@ -453,7 +569,11 @@ export default {
         roles: this.selectedRoles.concat(wsRoles),
       };
 
-      params.customerAccountIds = this.content.customerAccountIds;
+      if (this.hasSelectedCustomerAccountsChanged) {
+        params.customerAccountIds = this.selectedOptions.map((cf) => cf.id);
+      } else {
+        params.customerAccountIds = this.initialSelectedOptions.map((cf) => cf.id);
+      }
 
       if (this.createMode || this.isDuplicateMode) {
         params.password = this.form.password;
@@ -494,33 +614,82 @@ export default {
       }
 
       if (response && response.errors && response.errors.length) {
-        const formattedErrors = formatBackErrors(response.errors)
-          .map((e) => e.errors)
-          .flat();
-        formattedErrors.forEach((e) => {
-          if (e.key === 'user') {
-            errorMessage = `${this.$t('getadmin.users.errors.CUSTOMER_ACCOUNT_USER_NOT_ALLOWED')}`;
-          } else if (e.key === 'AccessDeniedForThisUser') {
-            errorMessage = this.$t('getadmin.users.errors.AccessDeniedForThisUser');
-          } else if (e.key === 'userToCreateOrUpdate') {
-            errorMessage = `${this.$t('getadmin.users.errors.ACCESS_WEB_SERVICES_ROLES_DENIED')}`;
-          } else if (e.key === 'username') {
-            errorMessage = this.$t('getadmin.users.errors.username');
-            this.requestErrors = [
-              {
-                message: errorMessage,
-              },
-            ];
-          } else {
-            errorMessage = this.$t('genericErrorMessage');
-          }
-          this.flashMessage({ level: 'danger', message: errorMessage });
-          this.closePanel({ resetSearch: true });
-        });
+        errorMessage = this.formatteErrorMessage(response);
+        this.flashMessage({ level: 'danger', message: errorMessage });
       } else {
         this.flashMessage({ level: 'success', message: this.$t('genericSuccessMessage') });
-        this.closePanel({ resetSearch: true });
       }
+      this.closePanel({ resetSearch: true });
+    },
+
+    formatteErrorMessage(response, errorMessage) {
+      const formattedErrors = formatBackErrors(response.errors)
+        .map((e) => e.errors)
+        .flat();
+      formattedErrors.forEach((e) => {
+        if (e.key === 'userId') {
+          if (e.value === 'NoUserFoundWithGivenId') {
+            errorMessage = 'NoUserFoundWithGivenId';
+          } else if (e.value === 'USER_D_USER_NOT_ALLOWED_TO_READ_ROLES') {
+            errorMessage = 'USER_D_USER_NOT_ALLOWED_TO_READ_ROLES';
+          }
+        } else if (e.key === 'userToCreateOrUpdate') {
+          if (e.value === 'USER_D_USERNAME_ALREADY_EXISTS') {
+            errorMessage = 'USER_D_USERNAME_ALREADY_EXISTS';
+          } else if (e.value === 'USER_NOT_ALLOWED_TO_CREATE') {
+            errorMessage = this.$t('getadmin.users.errors.AccessDeniedForThisUser');
+          } else if (e.value === 'ACCESS_WEB_SERVICES_ROLES_DENIED') {
+            errorMessage = `${this.$t('getadmin.users.errors.ACCESS_WEB_SERVICES_ROLES_DENIED')}`;
+          } else if (e.value === 'USER_NOT_ALLOWED_TO_MODIFY_USERNAME') {
+            errorMessage = 'USER_NOT_ALLOWED_TO_MODIFY_USERNAME';
+          } else if (e.value === 'USER_NOT_ALLOWED_TO_MODIFY_WITHOUT_CA_PERMISSION') {
+            errorMessage = 'USER_NOT_ALLOWED_TO_MODIFY_WITHOUT_CA_PERMISSION';
+          }
+        } else if (e.key === 'password') {
+          if (e.value === 'required') {
+            errorMessage = 'required';
+          }
+        } else if (e.key === 'confirmPassword') {
+          if (e.value === 'required') {
+            errorMessage = 'required';
+          }
+        } else if (e.key === 'userToUpdate') {
+          if (e.value === 'NotFound') {
+            errorMessage = 'NotFound';
+          } else if (e.value === 'NotAllowed') {
+            errorMessage = 'NotAllowed ';
+          }
+        } else if (e.key === 'partyGroupId') {
+          if (e.value === 'Invalid (Only partyId must be filled)') {
+            errorMessage = 'Invalid (Only partyId must be filled)';
+          } else if (e.value === 'NotAllowed (Not allowed to bind user to this partyGroupId)') {
+            errorMessage = 'NotAllowed (Not allowed to bind user to this partyGroupId)';
+          }
+        } else if (e.key === 'partyId') {
+          if (e.value === 'NotAllowed') {
+            errorMessage = 'NotAllowed';
+          } else if (e.value === 'NotFound') {
+            errorMessage = 'NotFound';
+          } else if (e.value === 'NoPartyFoundWithGivenId') {
+            errorMessage = 'NoPartyFoundWithGivenId';
+          }
+        } else if (e.key === 'partyIdOrPartyGroupId') {
+          if (e.value === 'invalid') {
+            errorMessage = 'invalid';
+          }
+        } else if (e.key === 'customerAccountIds') {
+          if (
+            e.value ===
+            'NotAllowed (Not allowed to create user with a customerAccount not in his customerAccountIds of his parties)'
+          ) {
+            errorMessage =
+              'NotAllowed (Not allowed to create user with a customerAccount not in his customerAccountIds of his parties)';
+          }
+        } else {
+          errorMessage = this.$t('genericErrorMessage');
+        }
+      });
+      return errorMessage;
     },
 
     formattedRoles(roles) {
@@ -559,6 +728,22 @@ export default {
 
     haveSetCaPermission() {
       return this.havePermission('user', 'set_ca');
+    },
+
+    hasSelectedCustomerAccountsChanged() {
+      if (!this.options.length || (this.options.length && !this.selectedOptions.length)) {
+        if (this.areAllUnselectedOptions) {
+          return true;
+        }
+        return false;
+      } else if (this.selectedOptions.length !== this.initialSelectedOptions.length) {
+        return true;
+      } else {
+        return !isEqual(
+          this.initialSelectedOptions.map((o) => o.id),
+          this.selectedOptions.map((o) => o.id)
+        );
+      }
     },
 
     haveMailError() {
@@ -652,6 +837,9 @@ export default {
     },
 
     canSave() {
+      if (!this.showUserFormPanel && this.canShowCustomerAccounsList) {
+        return true;
+      }
       const passwordError = !!this.passwordConfirmationErrors.length;
       const fieldsToCheck = ['title', 'language', 'firstName', 'lastName', 'email', 'username'];
 
@@ -1016,27 +1204,9 @@ export default {
         return u;
       });
 
-      this.formDataBeforeChange = cloneDeep(this.form);
-    }
+      this.initialSelectedOptions = cloneDeep(this.content.duplicateFrom.customerAccounts);
 
-    // Route depuis l'association des CF (donc création ou modification en cours)
-    if (this.content.fromPanelCustomerAccounts) {
-      this.form.title = this.content.form.title;
-      this.form.firstName = this.content.form.firstName;
-      this.form.lastName = this.content.form.lastName;
-      this.form.language = this.content.form.language;
-      this.form.username = this.content.form.username;
-      this.form.password = this.content.form.password;
-      this.form.passwordConfirm = this.content.form.passwordConfirm;
-      this.form.email = this.content.form.email;
-      this.form.userPrivate = this.content.form.userPrivate;
-      this.userTypes = this.userTypes.map((u) => {
-        if (u.id === 'PARTNER') {
-          u.default = true;
-        }
-        return u;
-      });
-      this.selectedPartner = this.content.partner;
+      this.formDataBeforeChange = cloneDeep(this.form);
     }
 
     this.canShowForm = true;

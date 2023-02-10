@@ -2,7 +2,7 @@
   <div class="mt-4">
     <TableWithFilter
       :key="version"
-      :storage-version="'012' + (m2m ? 'm2m' : '')"
+      :storage-version="'014' + (m2m ? 'm2m' : '')"
       :storage-id="'getVision.alarms' + (m2m ? 'm2m' : '')"
       v-if="columns && filters"
       show-reset

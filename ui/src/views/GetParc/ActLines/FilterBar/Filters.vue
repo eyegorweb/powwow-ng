@@ -25,7 +25,7 @@
       :disabled="filtersAreDisabled"
       draggable
     >
-      <ActLinesFromFileFilter />
+      <ActLinesFromFileFilter :show-extra-type="isEsimCategoryInFilter" />
     </FoldableBlock>
     <FoldableBlock
       v-if="keyName === 'el4'"
@@ -222,12 +222,7 @@
       />
     </FoldableBlock>
     <FoldableBlock
-      v-if="
-        !userIsMVNO &&
-          (havePermission('getParc', 'manage_esim') ||
-            havePermission('getParc', 'manage_esim_light')) &&
-          keyName === 'el21'
-      "
+      v-if="!userIsMVNO && havePermission('getParc', 'manage_esim_light') && keyName === 'el21'"
       :title="$t('filters.lines.profileEUICC')"
       :key="'el21'"
       :disabled="filtersAreDisabled"
@@ -351,36 +346,23 @@
       />
     </FoldableBlock>
 
-    <template v-if="userHaveEsimEnabled">
-      <FoldableBlock
-        v-if="keyName === 'esim1'"
-        :title="$t('indicators.getparc.lines.esim.category')"
-        :key="'esim2'"
-        :disabled="filtersAreDisabled"
-        draggable
-      >
-        <EsimCategoryFilter
-          :selected-value="selectedEsimCategoryValue"
-          @update:value="selectEsimCategoryFilter($event)"
-        />
-      </FoldableBlock>
-      <FoldableBlock
-        v-if="keyName === 'esim2'"
-        :title="$t('indicators.getparc.lines.esim.id')"
-        :key="'esim1'"
-        :disabled="filtersAreDisabled || !isEsimCategoryInFilter"
-        draggable
-      >
-        <SimpleInputFilter
-          :selected-value="selectedEsimIdValue"
-          @update:value="selectEsimIdFilter($event)"
-        />
-      </FoldableBlock>
+    <FoldableBlock
+      v-if="keyName === 'esim1'"
+      :title="$t('indicators.getparc.lines.esim.category')"
+      :key="'esim1'"
+      draggable
+    >
+      <EsimCategoryFilter
+        :selected-value="selectedEsimCategoryValue"
+        @update:value="selectEsimCategoryFilter($event)"
+      />
+    </FoldableBlock>
+    <template v-if="canManageEsim">
       <FoldableBlock
         v-if="keyName === 'esim3'"
         :title="$t('indicators.getparc.lines.esim.type')"
         :key="'esim3'"
-        :disabled="filtersAreDisabled || !isEsimCategoryInFilter"
+        :disabled="filtersAreDisabled || isStandardCategoryInFilter || !isPartnerEsimEnabled"
         draggable
       >
         <TypeEsimFilter />
@@ -389,7 +371,7 @@
         v-if="keyName === 'esim4'"
         :title="$t('indicators.getparc.lines.esim.downloadStatus')"
         :key="'esim4'"
-        :disabled="filtersAreDisabled || !isEsimCategoryInFilter"
+        :disabled="filtersAreDisabled || isStandardCategoryInFilter || !isPartnerEsimEnabled"
         draggable
       >
         <EsimDownloadStatusFilter />
@@ -398,7 +380,7 @@
         v-if="keyName === 'downloadedProfile'"
         :title="$t('filters.downloadedProfile')"
         :key="'downloadedProfile'"
-        :disabled="filtersAreDisabled || !isEsimCategoryInFilter"
+        :disabled="filtersAreDisabled || isStandardCategoryInFilter || !isPartnerEsimEnabled"
         draggable
       >
         <DownloadProfileFilter />
@@ -407,7 +389,7 @@
         v-if="keyName === 'esim5'"
         :title="$t('indicators.getparc.lines.esim.pairedLine')"
         :key="'esim5'"
-        :disabled="filtersAreDisabled || !isEsimCategoryInFilter"
+        :disabled="filtersAreDisabled || isStandardCategoryInFilter || !isPartnerEsimEnabled"
         draggable
       >
         <EsimPairedLine />
@@ -416,7 +398,7 @@
         v-if="keyName === 'esim6'"
         :title="$t('indicators.getparc.lines.esim.rid')"
         :key="'esim6'"
-        :disabled="filtersAreDisabled || !isEsimCategoryInFilter"
+        :disabled="filtersAreDisabled || isStandardCategoryInFilter || !isPartnerEsimEnabled"
         draggable
       >
         <SimpleInputFilter
@@ -424,28 +406,39 @@
           @update:value="selectSMSRidFilter($event)"
         />
       </FoldableBlock>
-      <FoldableBlock
-        :title="$t('indicators.getparc.lines.esim.family')"
-        :key="'esim7'"
-        :disabled="filtersAreDisabled || !isEsimCategoryInFilter"
-        draggable
-        v-if="havePermission('getParc', 'manage_esim') && keyName === 'esim7'"
-      >
-        <EsimFamilyFilter
-          :selected-value="selectedSmsRid"
-          @update:value="selectEsimFamilyFilter($event)"
-        />
-      </FoldableBlock>
-      <FoldableBlock
-        v-if="keyName === 'esim8'"
-        :title="$t('filters.lines.rangeEID')"
-        :key="'esim8'"
-        :disabled="filtersAreDisabled || !isEsimCategoryInFilter"
-        draggable
-      >
-        <ActLinesRangeFilter :values="selectedEIDValue" @update:values="selectEIDFilter($event)" />
-      </FoldableBlock>
     </template>
+    <FoldableBlock
+      v-if="keyName === 'esim2' && canManageEsim"
+      :title="$t('indicators.getparc.lines.esim.id')"
+      :key="'esim2'"
+      :disabled="filtersAreDisabled || isStandardCategoryInFilter || !isPartnerEsimEnabled"
+      draggable
+    >
+      <SimpleInputFilter
+        :selected-value="selectedEsimIdValue"
+        @update:value="selectEsimIdFilter($event)"
+      />
+    </FoldableBlock>
+    <FoldableBlock
+      :title="$t('indicators.getparc.lines.esim.family')"
+      :key="'esim7'"
+      draggable
+      v-if="keyName === 'esim7'"
+    >
+      <EsimFamilyFilter
+        :selected-value="selectedSmsRid"
+        @update:value="selectEsimFamilyFilter($event)"
+      />
+    </FoldableBlock>
+    <FoldableBlock
+      v-if="keyName === 'esim8' && canManageEsim"
+      :title="$t('filters.lines.rangeEID')"
+      :key="'esim8'"
+      :disabled="filtersAreDisabled || isStandardCategoryInFilter || !isPartnerEsimEnabled"
+      draggable
+    >
+      <ActLinesRangeFilter :values="selectedEIDValue" @update:values="selectEIDFilter($event)" />
+    </FoldableBlock>
   </div>
 </template>
 
@@ -535,6 +528,8 @@ export default {
       'selectedEsimCategoryValue',
       'selectedSmsRid',
       'selectedCommunityValues',
+      'selectedPartnersValues',
+      'selectedPartnersEsimEnabledValues',
       // 'selectedEsimFamilyValue'
       // 'selectedIdTypeFromFileValue',
       // 'selectedFileValue',
@@ -556,6 +551,9 @@ export default {
     isEsimCategoryInFilter() {
       return this.selectedEsimCategoryValue === 'eSim';
     },
+    isStandardCategoryInFilter() {
+      return this.selectedEsimCategoryValue === 'Standard';
+    },
     ligneTrafiquanteValue: {
       get() {
         return this.selectedLigneTrafiquanteValue;
@@ -563,6 +561,34 @@ export default {
       set(newValue) {
         this.setLligneTrafiquanteFilter(newValue);
       },
+    },
+    isPartnerEsimEnabled() {
+      let esimEnabled = false;
+      if (this.userIsPartner) {
+        esimEnabled = this.userHaveEsimEnabled;
+      } else if (
+        !this.selectedPartnersEsimEnabledValues ||
+        this.selectedPartnersEsimEnabledValues.length === 0
+      ) {
+        esimEnabled = this.userHaveEsimEnabled;
+      } else {
+        const enabledPartner = this.selectedPartnersEsimEnabledValues.find(
+          (p) => p.esimEnabled === true
+        );
+        if (enabledPartner) {
+          esimEnabled = true;
+        }
+      }
+
+      return esimEnabled;
+    },
+
+    canManageEsim() {
+      return (
+        this.userHaveEsimEnabled &&
+        (this.havePermission('getParc', 'manage_esim') ||
+          this.havePermission('getParc', 'manage_esim_light'))
+      );
     },
   },
   data() {

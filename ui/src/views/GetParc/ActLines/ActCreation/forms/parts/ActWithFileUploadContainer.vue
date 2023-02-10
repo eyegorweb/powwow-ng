@@ -74,7 +74,7 @@
           </div>
           <slot name="bottom"></slot>
         </div>
-        <div class="col-5">
+        <div class="col-5" :class="{'validationBloc' : validationTr}">
           <div class="text-right">
             <button @click="clearForm" class="clear-form">
               {{ $t('cancel') }}
@@ -144,6 +144,7 @@ export default {
     successMessage: String,
     alwaysShowReport: Boolean,
     ipFixUsage: Boolean,
+    validationTr: Boolean,
   },
   data() {
     return {
@@ -438,6 +439,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.validationBloc {
+  position: absolute;
+  right: 0;
+  top: 2rem;
+}
 .to-bottom {
   align-items: flex-end;
   display: flex;

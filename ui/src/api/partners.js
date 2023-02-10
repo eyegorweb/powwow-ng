@@ -206,6 +206,7 @@ export async function fetchpartners(q, params) {
   name
   partyType
   suspensionFree
+  esimEnable
   `;
   return fetchpartnersQuery(fields, q, params);
 }

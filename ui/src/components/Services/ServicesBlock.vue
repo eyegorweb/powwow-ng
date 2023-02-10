@@ -327,7 +327,11 @@ export default {
         (s) => s.checked && s.listServiceMandatory && s.listServiceMandatory.length > 0
       );
       const activatedServicesWithIncompatibleServices = this.services.filter(
-        (s) => s.checked && s.listServiceIncompatible && s.listServiceIncompatible.length > 0
+        (s) =>
+          s.checked &&
+          !s.barring &&
+          s.listServiceIncompatible &&
+          s.listServiceIncompatible.length > 0
       );
 
       if (activatedServicesWithMandatoryServices) {
@@ -680,8 +684,17 @@ export default {
           });
         }
       }
+
+      this.autoServiceChange();
     },
 
+    autoServiceChange() {
+      if (!this.dataService) {
+        this.$emit('servicechange', {
+          services: [...this.otherServices],
+        });
+      }
+    },
     checkServices(service) {
       this.setupDependencies(service);
     },
@@ -714,27 +727,8 @@ export default {
       let canChange = true;
 
       let foundMandatoryService = undefined;
-      if (checkValue) {
-        // Gestion des services obligatoires
-        // Activation du service
-        if (service.listServiceMandatory) {
-          // on parcourt les services obligatoires
-          service.listServiceMandatory.forEach((lsm) => {
-            foundMandatoryService = this.findMandatoryService(lsm, false);
-            if (!foundMandatoryService) {
-              foundMandatoryService = this.findMandatoryService(lsm, true);
-              this.popupMessage(
-                this.$t('getadmin.partners.optionsDetails.services.yMustBeActiveToActivateX', {
-                  serviceX: service.labelService,
-                  serviceY: foundMandatoryService.labelService,
-                })
-              );
-              canChange = false;
-              return;
-            }
-          });
-        }
 
+      if (checkValue || service.barring) {
         // Gestion des services incompatibles
         const foundIncompatibleServices =
           service.listServiceIncompatible && service.listServiceIncompatible.length > 0
@@ -762,6 +756,27 @@ export default {
             );
             canChange = false;
           }
+        }
+      }
+      if (checkValue) {
+        // Gestion des services obligatoires
+        // Activation du service
+        if (service.listServiceMandatory) {
+          // on parcourt les services obligatoires
+          service.listServiceMandatory.forEach((lsm) => {
+            foundMandatoryService = this.findMandatoryService(lsm, false);
+            if (!foundMandatoryService) {
+              foundMandatoryService = this.findMandatoryService(lsm, true);
+              this.popupMessage(
+                this.$t('getadmin.partners.optionsDetails.services.yMustBeActiveToActivateX', {
+                  serviceX: service.labelService,
+                  serviceY: foundMandatoryService.labelService,
+                })
+              );
+              canChange = false;
+              return;
+            }
+          });
         }
       } else {
         // Désactivation du service
@@ -837,7 +852,7 @@ export default {
     },
 
     autoDataServiceChange(dataService) {
-      this.$emit('datachange', {
+      this.$emit('servicechange', {
         services: [...this.otherServices],
         dataService,
       });
@@ -888,12 +903,14 @@ export default {
     offer() {
       this.setupOffer();
       this.displayServices();
+      this.autoServiceChange();
     },
   },
   mounted() {
     this.setup();
     this.setupOffer();
     this.displayServices();
+    this.autoServiceChange();
   },
 };
 </script>

@@ -172,7 +172,7 @@ export default {
         });
       };
 
-      this.closePanel();
+      this.closePanel({ resetSearch: true });
       await delay(500);
       openTrigger();
     },

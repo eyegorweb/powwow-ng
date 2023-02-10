@@ -8,6 +8,7 @@ const findFilterById = filterUtils.findFilterById;
 const selectFilterValue = filterUtils.selectFilterValue;
 const findFilterValueById = filterUtils.findFilterValueById;
 const formattedFilterValues = filterUtils.formattedFilterValues;
+const formattedEsimEnabled = filterUtils.formattedEsimEnabled;
 
 const removeFromCurrentById = (s, id) => {
   if (s.currentFilters && s.currentFilters.length) {
@@ -35,6 +36,7 @@ export const state = {
   actCreationPrerequisites: null,
   searchingById: false,
 
+  selectedPartnersEsimEnabledValues: [],
   // à incrémenter en cas de RAZ de la page
   formVersion: 0,
 };
@@ -43,6 +45,7 @@ export const getters = {
   ...filterUtils.initGetters(),
   linePage: (state) => state.linePage,
   linesActionsResponse: (state) => state.linesActionsResponse,
+  selectedPartnersEsimEnabledValues: (state) => state.selectedPartnersEsimEnabledValues,
   selectedPartnersValues: findFilterValuesById('filters.partners'),
   selectedFileImportValues: findFilterValuesById('filters.lines.fromFile.title'),
   selectedSimStatusesValues: findFilterValuesById('filters.lines.SIMCardStatus'), // deprecated
@@ -104,9 +107,17 @@ async function setPartnersFilter({ commit, getters }, { partners, isHidden }) {
     values: formattedFilterValues(partners),
     hidden: isHidden,
   });
+
   removeSelectedBillingAccountWithNoSelectedPartners({ commit, getters }, partners);
   removeSelectedOffersWithNoSelectedPartners({ commit, getters }, partners);
   await refreshCustomFilters({ commit }, partners);
+}
+async function setPartnersEsimEnabled({ commit, getters }, { partnersEsimEnabled }) {
+  const selectedPartnersEsimEnabledValues = getters.selectedPartnersEsimEnabledValues;
+  commit(
+    'setSelectedPartnersEsimEnabledValues',
+    formattedEsimEnabled(selectedPartnersEsimEnabledValues, partnersEsimEnabled)
+  );
 }
 
 function removeSelectedBillingAccountWithNoSelectedPartners({ commit, getters }, partners) {
@@ -146,6 +157,7 @@ import differenceWith from 'lodash.differencewith';
 
 export const actions = {
   setPartnersFilter,
+  setPartnersEsimEnabled,
   initFilterForContext,
   refreshCustomFilters,
 
@@ -252,6 +264,9 @@ export const mutations = {
   },
   setLinesActionsResponse(s, actLines) {
     s.linesActionsResponse = actLines;
+  },
+  setSelectedPartnersEsimEnabledValues(s, partnersEsimEnabled) {
+    s.selectedPartnersEsimEnabledValues = partnersEsimEnabled;
   },
   selectFilterValue,
   setCurrentFilters: (s, currentFilters) => {

@@ -57,6 +57,7 @@ export default {
       lastSearchTerm: '',
       page: 0,
       partners: [],
+      partnersEsimEnabledMap: new Map(),
       canGetNextPage: true,
       asyncMode: true,
       localPartnerTypeIn: undefined,
@@ -95,6 +96,10 @@ export default {
         esim: this.category,
       });
       if (data) {
+        this.partnersEsimEnabledMap.clear();
+        data.forEach((p) => {
+          this.partnersEsimEnabledMap.set(p.id, p.esimEnable);
+        });
         return data.map((p) => ({
           id: p.id,
           label: p.name,
@@ -135,6 +140,10 @@ export default {
       },
       set(partners) {
         this.$emit('updatePartners', partners);
+        this.$emit('updatePartnersEsimEnabled', {
+          partners,
+          partnersEsimEnabledMap: this.partnersEsimEnabledMap,
+        });
       },
     },
   },

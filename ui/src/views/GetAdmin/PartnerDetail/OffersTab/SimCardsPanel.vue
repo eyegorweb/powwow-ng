@@ -16,7 +16,10 @@
         <BlockCheckboxSkeleton v-for="i in 20" :key="'sk' + i" />
       </template>
       <template v-else>
-        <div>
+        <div class="alert alert-danger" role="alert" v-if="isError">
+          {{ errorMessage }}
+        </div>
+        <div v-else>
           <BlockCheckbox
             :key="'check' + simCard.id"
             v-model="simCard.checked"
@@ -95,6 +98,8 @@ export default {
       blocsHeight: 0,
       canLoadByScroll: true,
       nextPage: undefined,
+      isError: false,
+      errorMessage: undefined,
     };
   },
 
@@ -163,22 +168,31 @@ export default {
     },
     async fetchPartnerSim(pagination) {
       this.isLoading = true;
-      const items = await getAvailableSim(this.content.partner.id, pagination);
-      const simCardsPage = items.map((i) => {
-        const services = get(i, 'workflow.initialOffer.marketingServices', []);
-        const isChecked = !!this.partnersimCards.find((p) => p.simCard.id === i.simCard.id);
-        return {
-          id: i.simCard.id,
-          name: i.simCard.name,
-          code: i.simCard.code,
-          checked: isChecked,
-          editableServices: services.filter((s) => s.editable).map((s) => s.labelService),
-          defaultServices: services.filter((s) => !s.optional).map((s) => s.labelService),
-        };
-      });
+      const partnerId = this.$loGet(this.content, 'partner.id');
+      const response = await getAvailableSim(partnerId, pagination);
+      console.log('response', response);
+      if (response && response.errors) {
+        this.isError = true;
+        this.isLoading = false;
+        this.errorMessage = this.$t('genericErrorMessage');
+        return response.errors;
+      } else {
+        const simCardsPage = response.map((i) => {
+          const services = get(i, 'workflow.initialOffer.marketingServices', []);
+          const isChecked = !!this.partnersimCards.find((p) => p.simCard.id === i.simCard.id);
+          return {
+            id: i.simCard.id,
+            name: i.simCard.name,
+            code: i.simCard.code,
+            checked: isChecked,
+            editableServices: services.filter((s) => s.editable).map((s) => s.labelService),
+            defaultServices: services.filter((s) => !s.optional).map((s) => s.labelService),
+          };
+        });
 
-      this.isLoading = false;
-      return simCardsPage;
+        this.isLoading = false;
+        return simCardsPage;
+      }
     },
   },
 };

@@ -19,7 +19,7 @@
         <ActionCarousel
           v-if="!isFetchingPartnerOptions && optionsPartner.offerChange !== undefined"
           title="getparc.actLines.chooseAct"
-          :actions="carouselItems"
+          :actions="visibleCarouselItems"
           @itemClick="onCarouselItemClick"
         />
       </div>
@@ -156,7 +156,7 @@ import { mapState, mapActions, mapMutations, mapGetters } from 'vuex';
 import { getPartyOptions } from '@/api/partners.js';
 import Toggle from '@/components/ui/UiToggle2';
 
-import carouselItems from './carouselItems';
+import _carouselItems from './carouselItems';
 
 import PairingByFileFormContainer from '@/views/GetParc/ActLines/ActCreation/formContainers/PairingByFileFormContainer.vue';
 
@@ -300,15 +300,21 @@ export default {
       return this.selectedLinesForActCreation.length || responseTotal;
     },
 
-    carouselItems() {
-      // esimAct: true,
+    visibleCarouselItems() {
       let itemsToReturn;
+      itemsToReturn = _carouselItems.filter((i) => {
+        if (i.permission) {
+          return this.havePermission(i.permission.domain, i.permission.action);
+        }
+        return true;
+      });
+
       if (this.userIsPartner && this.userIsByCustomerAccount) {
-        itemsToReturn = carouselItems.filter((i) => {
+        itemsToReturn = itemsToReturn.filter((i) => {
           return i.canShowActAsUserByCF;
         });
       } else if (this.userIsPartner || this.userInfos.type === 'PARTNER_GROUP') {
-        itemsToReturn = carouselItems
+        itemsToReturn = itemsToReturn
           .filter((i) => {
             return !i.boOnly;
           })
@@ -321,12 +327,6 @@ export default {
           .filter((i) => {
             if (i.hideForMultiCustomer) {
               return !this.userIsMultiCustomer;
-            }
-            return true;
-          })
-          .filter((i) => {
-            if (i.permission) {
-              return this.havePermission(i.permission.domain, i.permission.action);
             }
             return true;
           })
@@ -358,13 +358,6 @@ export default {
             }
             return true;
           });
-      } else {
-        itemsToReturn = carouselItems.filter((i) => {
-          if (i.permission) {
-            return this.havePermission(i.permission.domain, i.permission.action);
-          }
-          return true;
-        });
       }
 
       if (!this.userHaveEsimEnabled) {
@@ -388,7 +381,7 @@ export default {
     },
 
     canShowCarousel() {
-      return this.carouselItems.length > 0;
+      return this.visibleCarouselItems.length > 0;
     },
 
     selectedFile: {

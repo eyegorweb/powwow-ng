@@ -2,6 +2,427 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1292+20230208151403
+2023-02-08
+
+### Fixes
+
+- [3366] Amélioration de la gestion de l'onglet "GETDIAG / OUTILS D'ANALYSE" dans le détail de la ligne (7ca35f4fd376221f82d848f5293abd64a84e133a)
+
+## 1.17.0-master.1291+20230208124349
+2023-02-08
+
+### Fixes
+
+- [3366] Amélioration de la gestion de l'onglet "GETDIAG / OUTILS D'ANALYSE" dans le détail de la ligne (55b0d2d254dd0667fee6c24da09fe76def970364)
+
+## 1.17.0-master.1290+20230208094630
+2023-02-08
+
+### Fixes
+
+- [3715] gestion de l'erreur 422 pour les uploads de fichier (8e772651b3b1727d4a296f642ba32201888a9810)
+
+## 1.17.0-master.1289+20230207144340
+2023-02-07
+
+### Fixes
+
+- [3685] Incompatibilité des services lorsque le service barring fr est activé non modifiable. (b568e9276fc4542caa7a8fd75814709323bbd909)
+
+## 1.17.0-master.1288+20230207132954
+2023-02-07
+
+### Fixes
+
+- [3711] mise à jour du contrôle coachM2M sur l'onglet GetDiag (d16062d73df77553e5390310b766a92a1364f2fe)
+
+## 1.17.0-master.1287+20230207110311
+2023-02-07
+
+### Fixes
+
+- [3714] mise à jour de l'api de récupération des cartes SIM disponibles (dc5a6fcd39e27be6021dbb2fb595f6852e764685)
+
+## 1.17.0-master.1286+20230206155120
+2023-02-06
+
+### Fixes
+
+- [3711] ajout del 'option d'activation coachM2M dans l'outil getDiag (2af950c7a12552630a1dc21fb09ccb120e058a21)
+
+## 1.17.0-master.1285+20230206130907
+2023-02-06
+
+### Fixes
+
+- [3668] Plage EID. (482f98814324a8209cfac9ee435e9289b8cb688a)
+
+## 1.17.0-master.1284+20230203160031
+2023-02-03
+
+### Features
+
+- [3704] Appliquer les règles de gestion eSIM pour la commande et les actes de gestion. (55243a4521ae6040eed5376f3ec0605006f52a0f)
+
+## 1.17.0-master.1283+20230203151846
+2023-02-03
+
+### Features
+
+- [3668] Filtres traitant des informations eSIM dans GetParc. (ffe17cc8975b8ab58418496c377a5b6120e729de)
+
+## 1.17.0-master.1282+20230203100311
+2023-02-03
+
+### Fixes
+
+- [3366] gestion de l'affichage du menu GetDiag (1145b2a0d172da26e430e743b61255fcefc87444)
+
+## 1.17.0-master.1281+20230203084642
+2023-02-03
+
+### Fixes
+
+- [3366] gestion de l'affichage du menu GetDiag (18e189c6128ef80d22205a408e1a106d667d71d4)
+
+## 1.17.0-master.1280+20230202143345
+2023-02-02
+
+### Fixes
+
+- [3366] gestion de l'affichage du menu GetDiag (f68bd4d67aa3c1b4fc56adc6fc0ae43593a93cdd)
+
+## 1.17.0-master.1279+20230202130155
+2023-02-02
+
+### Fixes
+
+- [3366] gestion de l'affichage du menu GetDiag (184a19da2b62accb2496cf3f250da6b62dce4330)
+
+## 1.17.0-master.1278+20230201143945
+2023-02-01
+
+### Fixes
+
+- [3366] Amélioration de la gestion de l'onglet "GETDIAG / OUTILS D'ANALYSE" dans le détail de la ligne (250b9f154d9d07bfbb12d8cb783f2ef0db546d2b)
+
+## 1.17.0-master.1277+20230201121253
+2023-02-01
+
+### Fixes
+
+- [3676] enregistrement et propagation de l'association de comptes de facturation lors de la modification d'un utilisateur (d0498b35589489709e627792822ab5e11bdf0cb3)
+
+## 1.17.0-master.1276+20230131185049
+2023-01-31
+
+### Fixes
+
+- [3676] enregistrement et propagation de l'association de comptes de facturation lors de la modification d'un utilisateur (d2eb6713365ed04d41c968d838e2c4192b95698a)
+
+## 1.17.0-master.1275+20230131104812
+2023-01-31
+
+### Fixes
+
+- [3676] enregistrement et propagation de l'association de comptes de facturation lors de la modification d'un utilisateur (6be124a854bda975edd0c56c35cb984cb88f826f)
+
+## 1.17.0-master.1274+20230131083710
+2023-01-31
+
+### Fixes
+
+- [3676] propagation des associations de comptes de facturation (ee0e17f1c69ba81e356ea9c80f5e782a670c67ce)
+
+## 1.17.0-master.1273+20230130154638
+2023-01-30
+
+### Fixes
+
+- [3366] gestion de permission getdiag/outils d'analyse (1ef888d9247f9daf0a6fdebcf2e6de1bb69f3691)
+
+## 1.17.0-master.1272+20230130151353
+2023-01-30
+
+### Fixes
+
+- [3366] gestion de permission getdiag/outils d'analyse (c0bdc56f94e330785dc0ea863418a6756002b839)
+
+## 1.17.0-master.1271+20230130134315
+2023-01-30
+
+### Fixes
+
+- [000] clean console (1eb4941d5daaa1388720ceac42d92ee549764d7e)
+
+## 1.17.0-master.1270+20230130133238
+2023-01-30
+
+### Fixes
+
+- [3676] enregistrement des données de l'association de CF (7a7fed370f30ecf76586099d715bdd33c0478565)
+
+## 1.17.0-master.1269+20230130130754
+2023-01-30
+
+### Features
+
+- [3695] ajouter un filtre sur les roles (a6e599096f3c9dbaa4de0596492025de30c863ea)
+
+## 1.17.0-master.1268+20230130094943
+2023-01-30
+
+### Fixes
+
+- [3701] gestion de la permission des options de supervision (1c492db0a60d710b5bc823f3fd2b0d4eadab93f9)
+
+## 1.17.0-master.1267+20230127135258
+2023-01-27
+
+### Fixes
+
+- [3676] enregistrement des données de l'association de CF (9527051f6829f032e844202141cc65ccb328f263)
+
+## 1.17.0-master.1266+20230126212133
+2023-01-26
+
+### Fixes
+
+- [3676] enregistrement des données de l'association de CF (66bca1e73caec1dd39b6edddaa5dfd97d47af61c)
+
+## 1.17.0-master.1265+20230126205714
+2023-01-26
+
+### Fixes
+
+- [3676] enregistrement des données de l'association de CF (826a3d052e5f63db68fc71b157e5d5790f6bdaa4)
+
+## 1.17.0-master.1264+20230126200745
+2023-01-26
+
+### Fixes
+
+- [3676] gestion de l'association des CF (768c414c800e70fbedfd19fc19749e4bce5786ef)
+
+## 1.17.0-master.1263+20230126163408
+2023-01-26
+
+### Fixes
+
+- [3676] enregistrement des données de l'association de CF (44ffffded21fc286af320ea8945b18f67deae271)
+
+## 1.17.0-master.1262+20230126150801
+2023-01-26
+
+### Fixes
+
+- [3676] gestion de l'association de CF sur la modification d'un utilisateur (452a7db48190c78851a3a21e8c538d2bfff2a309)
+
+## 1.17.0-master.1261+20230126142541
+2023-01-26
+
+### Fixes
+
+- [3676] gestion de l'association de CF sur la modification d'un utilisateur (a6d53636a4fdc5ae58ff6a95eb9dd95401bbd970)
+
+## 1.17.0-master.1260+20230126134521
+2023-01-26
+
+### Fixes
+
+- [3690] remplacer l'event datachange par servicechange. (fadf66a0cbeba60103b47a9ee29d3f70b3740466)
+
+## 1.17.0-master.1259+20230126111418
+2023-01-26
+
+### Fixes
+
+- [3690] Impossible de passer une commande avec activation. (2366a97ee54fa8b7380833fd3a61c039a4aa4826)
+
+## 1.17.0-master.1258+20230126091503
+2023-01-26
+
+### Fixes
+
+- [3676] gestion de l'association de CF sur la modification d'un utilisateur (e6f7a3b5c82252fb7788310a5d39c8ea8f687d37)
+
+## 1.17.0-master.1257+20230125154818
+2023-01-25
+
+### Fixes
+
+- [3676] mise à jour de l'association des comptes de facturation d'un utilisateur (3e108a2447205c18ec90175316f57385f40d3862)
+
+## 1.17.0-master.1256+20230125145004
+2023-01-25
+
+### Fixes
+
+- [3685] Affichage des services incompatibles non conforme. (123072f1e03e312f0f9d56fdeba7aa463eea2a96)
+
+## 1.17.0-master.1255+20230125124302
+2023-01-25
+
+### Fixes
+
+- [3676] gestion de l'association des comptes de facturation (664a53cbf2e4fb9f2826ab7fa487c067a6e808d0)
+
+## 1.17.0-master.1254+20230125105246
+2023-01-25
+
+### Fixes
+
+- [3630] correction du filtre Offres dans l'acte de Transfert vers un partenaire (e85d26c1151204d454cc49cddf6cdcc2cc27967a)
+
+## 1.17.0-master.1253+20230125095937
+2023-01-25
+
+### Fixes
+
+- [3630] correctif du filtre Compte de facturation pour rechercher les alarmes (03dcfe9468f6f5703e87c9c6a925ff1402afdca0)
+
+## 1.17.0-master.1252+20230124193538
+2023-01-24
+
+### Fixes
+
+- [3630] correction de l'offre Filtres pour les actes de gestion et les commandes (f2d835674dfc88188a30fa55d8818cffa747ee76)
+
+## 1.17.0-master.1251+20230124144353
+2023-01-24
+
+### Fixes
+
+- [3630] correction de l'offre Filtres pour les actes de gestion et les commandes (bdd5c5201fe7f2977739843a2def6e8e842bc95d)
+
+## 1.17.0-master.1250+20230124141959
+2023-01-24
+
+### Fixes
+
+- [3630] correction de l'offre Filtres pour les actes de gestion et les commandes (bf79a2dd089cf7e33bd51325c494cb2ae223c5f9)
+
+## 1.17.0-master.1249+20230124095239
+2023-01-24
+
+### Fixes
+
+- [3630] gestion du filtre Offres sur l'ensemble de l'IHM (2e3b666a29b6e34075139add84e5240d029b0538)
+
+## 1.17.0-master.1248+20230123090837
+2023-01-23
+
+### Fixes
+
+- [3630] wip offer filter (c244f83df9f156871d3a1590e754b60a43131b05)
+
+## 1.17.0-master.1247+20230120194853
+2023-01-20
+
+### Features
+
+- [3674] Ajouter le CF dans la gestion des documents (569fa047e9b1f73f50af9b34adc1aeb4634e7be0)
+
+## 1.17.0-master.1246+20230120105718
+2023-01-20
+
+### Fixes
+
+- [3496] Alignement of validation Bloc for Radius act (65fd2e633c1850b4cea29b04b0af74606dc2847e)
+
+## 1.17.0-master.1245+20230119164502
+2023-01-19
+
+### Fixes
+
+- [3676] mise à jour des données lors de la modification des comptes de facturation d'un utilisateur (d17244a5b3a80a0ad773a39a88bb658c179ff043)
+
+## 1.17.0-master.1244+20230119155146
+2023-01-19
+
+### Fixes
+
+- [3676] gestion des erreurs et mise à jour des données lors de la modification d'un utilisateur (b766dfc444d540572cc0efa5a95895b35cd6eb0e)
+
+## 1.17.0-master.1243+20230119132007
+2023-01-19
+
+## 1.17.0-master.1242+20230118150735
+2023-01-18
+
+### Fixes
+
+- [3673] correction de la permission pour afficher les comptes de facturation (91aa15916bedabae2a840247e05fe465340f5613)
+
+## 1.17.0-master.1241+20230117154101
+2023-01-17
+
+### Fixes
+
+- [3673] gestion de la récupération de tous les items de comptes de facturation pour l'association dans le panel utilisateurs (230b43336474858a1175e4b45aa4ec40ef5f513d)
+
+## 1.17.0-master.1240+20230117145849
+2023-01-17
+
+### Fixes
+
+- [3668] change permissions on filter eSim for getParc (7ec8196b642f0ef67370e48d227fad3570cc0b5c)
+
+## 1.17.0-master.1239+20230116135347
+2023-01-16
+
+### Fixes
+
+- [3667] gestion du filtre de type de carte sim par ID (6e574d8e12ecdc03102c9f7e964aaffaba952115)
+
+## 1.17.0-master.1238+20230113144333
+2023-01-13
+
+### Fixes
+
+- [3651] persistance de la donnée de type de carte SIM dans la barre de filtres pour l'acte Appairer des eSIM (2e2979141e8a6974aeedd716588aa27c87c97eac)
+
+## 1.17.0-master.1237+20230113125655
+2023-01-13
+
+### Fixes
+
+- [3626] filter actlines esim file import eid (6ee16662d5fa44b6abd141f826b43ec5bfef99b4)
+
+## 1.17.0-master.1233+20230113110103
+2023-01-13
+
+### Fixes
+
+- [3665] gestion des permissions des actes de gestion (2be2cd4660aa7043b6edc9309701d7b91e825c10)
+
+## 1.17.0-master.1231+20230112135801
+2023-01-12
+
+### Features
+
+- [3629] update all page of partner options (7dd2658b55fe3166fc4d5e875d2beffec005832f)
+
+### Fixes
+
+- [000] Bug prod : Suppression de la communauté York dans l'export de parc (af0c49a258da52bf8b194924f1da57b8c5718048)
+
+## 1.17.0-master.1230+20230112090902
+2023-01-12
+
+### Fixes
+
+- [000] hotfix - mise à jour du fichier de la clé d'erreur des rôles webservices (14aa00fbfa8668456bffb2f33c5f59edb9362888)
+- [000] hotfix - mise à jour du fichier de la clé d'erreur des rôles webservices (anglais) (b6ccbcd72aea837a7d5d531721c0ae985e7d59c3)
+
+## 1.17.0-master.1229+20230111142847
+2023-01-11
+
+### Fixes
+
+- [3260] gestion des filtres de catégorie eSim et dépendances (e7912cc74060d55ea2347385a7df9b6e81dea810)
+
 ## 1.17.0-master.1228+20230109151532
 2023-01-09
 
