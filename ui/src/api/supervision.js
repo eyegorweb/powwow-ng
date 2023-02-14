@@ -569,9 +569,10 @@ export async function geoListExport(params) {
   }`;
 
   if (params.filter) {
-    if (params.filter.iso3CountryCode === 'USA') {
-      params.filter.locationType = 'STATES';
-    }
+    // COMMENTED from ticket #3712
+    // if (params.filter.iso3CountryCode === 'USA') {
+    //   params.filter.locationType = 'STATES';
+    // }
 
     if (params.filter.msisdn || params.filter.ismsi) {
       params.filter.locationType = 'CELL';

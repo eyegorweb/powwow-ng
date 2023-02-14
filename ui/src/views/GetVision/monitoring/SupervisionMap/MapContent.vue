@@ -33,8 +33,8 @@
           :map-overlay="mapOverlay"
           :adjust-position="adjustPosition"
           :map-position="mapPosition"
-          @activeClick="() => $emit('activeClick', { marker: m, locationType: locationType })"
-          @passiveClick="() => $emit('passiveClick', { marker: m, locationType: locationType })"
+          @activeClick="() => $emit('activeClick', { marker: m, locationType })"
+          @passiveClick="() => $emit('passiveClick', { marker: m, locationType })"
         />
       </template>
     </template>
@@ -258,7 +258,7 @@ export default {
       try {
         this.isLoading = true;
         if (!this.idFilter) {
-          await this.initZoom(isDragging);
+          await this.initAppliedFiltersZoom(isDragging);
         }
 
         const countryCode = await this.getCenteredCountry();
@@ -271,17 +271,21 @@ export default {
         } else if (this.idFilter && !this.zipCodeFilter) {
           await this.loadDataById();
         } else if (this.zipCodeFilter && !this.idFilter) {
-          await this.loadDataByZipCode(isDragging);
+          this.locationType = 'DEPARTMENT';
+          await this.loadDataByZipCode(isDragging, this.locationType);
         } else if (this.idFilter && this.zipCodeFilter) {
           await this.loadDataById();
         } else {
           if (zoomLevel < CONTINENT_ZOOM_LEVEL) {
-            await this.loadDataForContinents(isDragging);
+            this.locationType = 'CONTINENT';
+            await this.loadDataForContinents(isDragging, this.locationType);
           } else if (zoomLevel >= CONTINENT_ZOOM_LEVEL && zoomLevel < 6) {
             if (countryCode == 'US' && zoomLevel == 5) {
-              await this.loadDataForUsStates();
+              this.locationType = 'COUNTRY';
+              await this.loadDataForUsStates(this.locationType);
             } else {
-              await this.loadDataForCountries();
+              this.locationType = 'COUNTRY';
+              await this.loadDataForCountries(this.locationType);
             }
           } else if (zoomLevel >= 6 && zoomLevel < 8) {
             let zoneFilter = undefined;
@@ -293,32 +297,42 @@ export default {
               zoneName = zoneFilter.data.zone.value;
             }
             if (countryCode == 'FR' || (!countryCode && zoneName === 'france')) {
-              await this.loadDataForFrenchRegions();
+              this.locationType = 'REGION';
+              await this.loadDataForFrenchRegions(this.locationType);
             } else if (countryCode == 'US') {
-              await this.loadDataForUsStates();
+              this.locationType = 'STATES';
+              await this.loadDataForUsStates(this.locationType);
             } else {
-              await this.loadDataForCountries();
+              this.locationType = 'COUNTRY';
+              await this.loadDataForCountries(this.locationType);
             }
           } else if (zoomLevel >= 8 && zoomLevel < CITY_ZOOM_LEVEL) {
             if (countryCode == 'FR') {
-              await this.loadDataForFrenchDepartments();
+              this.locationType = 'DEPARTMENT';
+              await this.loadDataForFrenchDepartments(this.locationType);
             } else if (countryCode == 'US') {
-              await this.loadDataForUsStates();
+              this.locationType = 'STATES';
+              await this.loadDataForUsStates(this.locationType);
             } else {
               if (zoomLevel > 8) {
-                await this.loadDataForCells(countryCode);
+                this.locationType = 'CELL';
+                await this.loadDataForCells(countryCode, this.locationType);
               } else {
-                await this.loadDataForCountries();
+                this.locationType = 'COUNTRY';
+                await this.loadDataForCountries(this.locationType);
               }
             }
           } else if (zoomLevel >= CITY_ZOOM_LEVEL && zoomLevel < CELL_ZOOM_LEVEL) {
             if (countryCode == 'FR') {
-              await this.loadDataForCities(countryCode);
+              this.locationType = 'CITY';
+              await this.loadDataForCities(countryCode, this.locationType);
             } else {
-              await this.loadDataForCells(countryCode);
+              this.locationType = 'CELL';
+              await this.loadDataForCells(countryCode, this.locationType);
             }
           } else if (zoomLevel >= CELL_ZOOM_LEVEL) {
-            await this.loadDataForCells(countryCode);
+            this.locationType = 'CELL';
+            await this.loadDataForCells(countryCode, this.locationType);
           }
         }
 
@@ -352,7 +366,10 @@ export default {
       this.map.setCenter(countryCoords);
     },
 
-    async initZoom(isDragging) {
+    /**
+     * Zoom dit automatique => zoom déclénché par l'application de filtres
+     */
+    async initAppliedFiltersZoom(isDragging) {
       // if (this.isSameFilters) return;
       if (!this.appliedFilters) return;
 
@@ -366,7 +383,7 @@ export default {
           } else {
             this.centerZoom(franceCoords.lng, franceCoords.lat, 6);
           }
-          if (!this.zipCodeFilter) {
+          if (!this.zipCodeFilter && !this.isZoomClicked) {
             this.setZoom(6);
             this.isZoomClicked = true;
           }
@@ -435,8 +452,8 @@ export default {
       }, {});
     },
 
-    async loadDataByZipCode(isDragging) {
-      const markers = await this.fetchDataForFrenchDepartments(true);
+    async loadDataByZipCode(isDragging, locationType) {
+      const markers = await this.fetchDataForFrenchDepartments(true, locationType);
       if (!isDragging) {
         this.setMarkersAndCenter(markers, DEPARTMENT_ZOOM_LEVEL, markers[0]);
       } else {
@@ -528,9 +545,7 @@ export default {
       this.markers = markers;
     },
 
-    async loadDataForCities(countryCode) {
-      this.locationType = 'CITY';
-
+    async loadDataForCities(countryCode, locationType) {
       this.adjustPosition = defaultAdjustment;
       let filters = this.formatFilters();
       if (filters.iso3CountryCode) {
@@ -538,7 +553,7 @@ export default {
       }
       filters.iso2CountryCode = countryCode;
       const data = await fetchGeoMapData(
-        this.buildLocationFilters(this.locationType),
+        this.buildLocationFilters(locationType),
         this.usageForQuery,
         this.getBounds(),
         filters
@@ -546,9 +561,7 @@ export default {
       this.markers = this.formatMarkers(data);
     },
 
-    async loadDataForCells(countryCode) {
-      this.locationType = 'CELL';
-
+    async loadDataForCells(countryCode, locationType) {
       this.adjustPosition = defaultAdjustment;
       let filters = this.formatFilters();
 
@@ -557,7 +570,7 @@ export default {
       }
       filters.iso2CountryCode = countryCode;
       const data = await fetchGeoMapData(
-        this.buildLocationFilters(this.locationType),
+        this.buildLocationFilters(locationType),
         this.usageForQuery,
         this.getBounds(),
         filters
@@ -565,12 +578,10 @@ export default {
       this.markers = this.formatMarkers(data);
     },
 
-    async loadDataForFrenchRegions() {
-      this.locationType = 'REGION';
-
+    async loadDataForFrenchRegions(locationType) {
       this.adjustPosition = defaultAdjustment;
       const data = await fetchGeoMapData(
-        this.buildLocationFilters(this.locationType, 'FRA'),
+        this.buildLocationFilters(locationType, 'FRA'),
         this.usageForQuery,
         this.getBounds(),
         this.formatFilters()
@@ -578,11 +589,10 @@ export default {
       this.markers = this.formatMarkers(data);
     },
 
-    async fetchDataForFrenchDepartments(ignoreBounds) {
-      this.locationType = 'DEPARTMENT';
+    async fetchDataForFrenchDepartments(ignoreBounds, locationType) {
       this.adjustPosition = defaultAdjustment;
       const data = await fetchGeoMapData(
-        this.buildLocationFilters(this.locationType, 'FRA'),
+        this.buildLocationFilters(locationType, 'FRA'),
         this.usageForQuery,
         ignoreBounds ? {} : this.getBounds(),
         this.formatFilters()
@@ -590,16 +600,14 @@ export default {
       return this.formatMarkers(data);
     },
 
-    async loadDataForFrenchDepartments() {
-      this.markers = await this.fetchDataForFrenchDepartments();
+    async loadDataForFrenchDepartments(locationType) {
+      this.markers = await this.fetchDataForFrenchDepartments({}, locationType);
     },
 
-    async loadDataForUsStates() {
-      this.locationType = 'COUNTRY'; // maybe STATE ?
-
+    async loadDataForUsStates(locationType) {
       this.adjustPosition = adjustPositionForStates;
       const data = await fetchGeoMapData(
-        this.buildLocationFilters('STATES', 'US'),
+        this.buildLocationFilters(locationType, 'US'),
         this.usageForQuery,
         this.getBounds(),
         this.formatFilters()
@@ -607,15 +615,14 @@ export default {
       this.markers = this.formatMarkers(data);
     },
 
-    async loadDataForContinents(isDragging) {
+    async loadDataForContinents(isDragging, locationType) {
       if (!isDragging) {
         this.centerOnFrance();
       }
 
-      this.locationType = 'CONTINENT';
       this.adjustPosition = adjustPositionForContinent;
       const data = await fetchGeoMapData(
-        this.buildLocationFilters(this.locationType),
+        this.buildLocationFilters(locationType),
         this.usageForQuery,
         {},
         this.formatFilters()
@@ -638,12 +645,10 @@ export default {
         .filter((c) => !!c);
     },
 
-    async loadDataForCountries() {
-      this.locationType = 'COUNTRY';
-
+    async loadDataForCountries(locationType) {
       this.adjustPosition = adjustPositionForCoutries;
       const data = await fetchGeoMapData(
-        this.buildLocationFilters(this.locationType),
+        this.buildLocationFilters(locationType),
         this.usageForQuery,
         {},
         this.formatFilters()
