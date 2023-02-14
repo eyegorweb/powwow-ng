@@ -755,13 +755,6 @@ export default {
 
         let locationType = this.filtersForExport.locationType;
 
-        if (
-          this.lastCenteredCountry === 'US' ||
-          this.$loGet(this.filtersForExport, 'iso3CountryCode') === 'USA'
-        ) {
-          locationType = 'STATES';
-        }
-
         if (this.lastCenteredCountry === 'US') {
           filtersForapi.iso3CountryCode = 'USA';
         }
