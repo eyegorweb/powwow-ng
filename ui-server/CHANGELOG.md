@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1294+20230214144425
+2023-02-14
+
+### Fixes
+
+- [3712] gestion de l'export supervision pour les USA (4575dacf5d07248bef9dc56b5cb1e97a2166b55d)
+
 ## 1.17.0-master.1293+20230214143539
 2023-02-14
 
