@@ -31,7 +31,7 @@
         <div class="cardBloc-infos-role">
           {{ $t('orders.detail.roles') }}:
           <span :key="role.description" v-for="role in user.roles">
-            {{ role.category == null ? role.description : null }}&nbsp;
+            {{ role.category == null ? role.description : null }}
           </span>
         </div>
       </Card>
