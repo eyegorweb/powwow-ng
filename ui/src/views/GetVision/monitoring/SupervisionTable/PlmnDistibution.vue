@@ -1,22 +1,43 @@
 <template>
-  <div v-if="show">
-    <span v-for="(lineByPlmn, index) in linesByPlmn" :key="'plmn_' + index">
-      {{ formatData(lineByPlmn, index) }}
-    </span>
+  <div v-if="show" class="mb-3">
+    <template v-if="!!errorMessage">
+      <span class="alert alert-warning" role="alert">{{ errorMessage }}</span>
+    </template>
+    <template v-else>
+      <span v-for="(lineByPlmn, index) in linesByPlmn" :key="'plmn_' + index">
+        {{ formatData(lineByPlmn, index) }}
+      </span>
+    </template>
   </div>
 </template>
 
 <script>
 import { lineDistributionByPlmn } from '@/api/supervision.js';
+import { formatBackErrors } from '@/utils/errors';
 
 export default {
   data() {
     return {
       linesByPlmn: [],
+      errorMessage: undefined,
     };
   },
   async mounted() {
-    if (this.show) this.linesByPlmn = await this.getPlmnDistribution();
+    if (this.show) {
+      this.linesByPlmn = await this.getPlmnDistribution();
+      if (this.linesByPlmn && this.linesByPlmn.errors) {
+        const formatted = formatBackErrors(this.linesByPlmn.errors)
+          .map((e) => e.errors)
+          .flat();
+        formatted.forEach((e) => {
+          if (e.key === 'locationType') {
+            this.errorMessage = `${e.key}.${e.value}`;
+          } else {
+            this.errorMessage = this.$t('genericErrorMessage');
+          }
+        });
+      }
+    }
   },
   props: {
     filtersForExport: Object,
