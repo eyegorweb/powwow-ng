@@ -573,6 +573,11 @@ export async function geoListExport(params) {
     // if (params.filter.iso3CountryCode === 'USA') {
     //   params.filter.locationType = 'STATES';
     // }
+    // Forcer de renseigner le iso3CountryCode à 'USA' quand on exporte les lignes
+    // depuis le locationType 'SATES'
+    if (params.filter.locationType === 'STATES') {
+      params.filter.iso3CountryCode = 'USA';
+    }
 
     if (params.filter.msisdn || params.filter.ismsi) {
       params.filter.locationType = 'CELL';
