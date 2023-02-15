@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1298+20230215160601
+2023-02-15
+
+### Fixes
+
+- [3712] affichage de la gestion erreur de PLMN distribution sur getvision (3cb0c89cffa14ae5609c42b1aa0b97f91dd68fcc)
+
 ## 1.17.0-master.1297+20230215143804
 2023-02-15
 
