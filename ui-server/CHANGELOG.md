@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1296+20230215135754
+2023-02-15
+
+### Fixes
+
+- [3731] correction de l'application du filtre par rechercher de fichiers dans getvision (eed11217c895eec9af3b4cff63fd7c0f6960a352)
+
 ## 1.17.0-master.1295+20230215132353
 2023-02-15
 
