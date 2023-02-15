@@ -2,6 +2,21 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1296+20230215135754
+2023-02-15
+
+### Fixes
+
+- [3731] correction de l'application du filtre par rechercher de fichiers dans getvision (eed11217c895eec9af3b4cff63fd7c0f6960a352)
+
+## 1.17.0-master.1295+20230215132353
+2023-02-15
+
+### Fixes
+
+- [3695] modifier le format date (b0f6e2a11c2263232c7905e49ea3dc9c37737b7d)
+- [3712] affichage de la gestion erreur de PLMN distribution sur getvision (bddb745e507c8c8620eaaf3cc0209e66beb1945c)
+
 ## 1.17.0-master.1294+20230214144425
 2023-02-14
 
