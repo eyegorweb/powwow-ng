@@ -3,6 +3,12 @@
     <PlmnDistribution :filters-for-export="filtersForExport" :show="canShowPlmn()">
     </PlmnDistribution>
     <template v-if="indicatorTotal < 500">
+      <template v-if="total === 0">
+        <UiButton variant="outline-primary" @click="$emit('gotomap')">
+          <i class="ic-Pin-Icon"></i>
+          {{ $t('getparc.lineDetail.tab2.supervisionContent.mapView') }}
+        </UiButton>
+      </template>
       <PaginatedDataTable
         storage-id="supervision.table"
         storage-version="002"
