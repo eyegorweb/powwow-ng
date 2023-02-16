@@ -689,7 +689,8 @@ export default {
       this.refreshLinesFn = undefined;
       this.filtersForExport = undefined;
 
-      let partyId = undefined;
+      let partyId = undefined,
+        tempDataUuid = undefined;
 
       let filters = {
         counter,
@@ -699,6 +700,10 @@ export default {
       if (formattedAppliedFilters && formattedAppliedFilters.partyId) {
         partyId = formattedAppliedFilters.partyId;
         filters = { ...filters, partyId };
+      }
+      if (formattedAppliedFilters && formattedAppliedFilters.tempDataUuid) {
+        tempDataUuid = formattedAppliedFilters.tempDataUuid;
+        filters = { ...filters, tempDataUuid };
       }
       this.filtersForExport = { ...filters };
 
@@ -754,13 +759,6 @@ export default {
         delete filtersForapi.locationType;
 
         let locationType = this.filtersForExport.locationType;
-
-        if (
-          this.lastCenteredCountry === 'US' ||
-          this.$loGet(this.filtersForExport, 'iso3CountryCode') === 'USA'
-        ) {
-          locationType = 'STATES';
-        }
 
         if (this.lastCenteredCountry === 'US') {
           filtersForapi.iso3CountryCode = 'USA';

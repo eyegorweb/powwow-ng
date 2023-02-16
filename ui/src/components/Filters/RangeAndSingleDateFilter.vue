@@ -11,7 +11,13 @@
       />
     </template>
     <template v-else>
-      <UiDate @change="setStartFrom" :value="startFrom" class="d-block" :min-date="minDate">
+      <UiDate
+        @change="setStartFrom"
+        :value="startFrom"
+        class="d-block"
+        :min-date="minDate"
+        time-picker
+      >
         <i slot="icon" class="select-icon ic-Flag-Icon" />
       </UiDate>
     </template>
@@ -119,4 +125,6 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+
+</style>

@@ -2,6 +2,56 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1299+20230216133213
+2023-02-16
+
+### Fixes
+
+- [3735] désactiver les sources maps en production (5cbd31ee428a24ffdad21fbc52d0b5524ca518f4)
+
+## 1.17.0-master.1298+20230215160601
+2023-02-15
+
+### Fixes
+
+- [3712] affichage de la gestion erreur de PLMN distribution sur getvision (3cb0c89cffa14ae5609c42b1aa0b97f91dd68fcc)
+
+## 1.17.0-master.1297+20230215143804
+2023-02-15
+
+### Fixes
+
+- [3712] affichage de la gestion erreur de PLMN distribution sur getvision (a83ab7090e2d98f2c153cb55265f72be2fc70545)
+
+## 1.17.0-master.1296+20230215135754
+2023-02-15
+
+### Fixes
+
+- [3731] correction de l'application du filtre par rechercher de fichiers dans getvision (eed11217c895eec9af3b4cff63fd7c0f6960a352)
+
+## 1.17.0-master.1295+20230215132353
+2023-02-15
+
+### Fixes
+
+- [3695] modifier le format date (b0f6e2a11c2263232c7905e49ea3dc9c37737b7d)
+- [3712] affichage de la gestion erreur de PLMN distribution sur getvision (bddb745e507c8c8620eaaf3cc0209e66beb1945c)
+
+## 1.17.0-master.1294+20230214144425
+2023-02-14
+
+### Fixes
+
+- [3712] gestion de l'export supervision pour les USA (4575dacf5d07248bef9dc56b5cb1e97a2166b55d)
+
+## 1.17.0-master.1293+20230214143539
+2023-02-14
+
+### Fixes
+
+- [3695] supprimer un espace (fe4797b12f864ba1d82fc39e6ba39f2aaf17ce15)
+
 ## 1.17.0-master.1292+20230208151403
 2023-02-08
 
