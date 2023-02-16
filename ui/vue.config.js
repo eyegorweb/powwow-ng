@@ -6,6 +6,7 @@ module.exports = {
     config.plugins.delete('prefetch');
     config.plugin('CompressionPlugin').use(CompressionPlugin);
   },
+  productionSourceMap: false,
   css: {
     loaderOptions: {
       // pass options to sass-loader
