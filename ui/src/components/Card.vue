@@ -5,6 +5,12 @@
     </div>
     <div class="cardBloc-buttons">
       <slot name="buttons">
+        <Button v-if="canActivate" class="button" :variant="'import'" @click="$emit('activate')">{{
+          $t('activate')
+        }}</Button>
+        <Button v-if="canDeactivate" :variant="'primary'" @click="$emit('deactivate')">{{
+          $t('deactivate')
+        }}</Button>
         <Button v-if="canDelete" class="button" :variant="'import'" @click="$emit('delete')">{{
           $t('delete')
         }}</Button>
@@ -28,6 +34,14 @@ export default {
     canModify: {
       type: Boolean,
       default: true,
+    },
+    canActivate: {
+      type: Boolean,
+      default: false,
+    },
+    canDeactivate: {
+      type: Boolean,
+      default: false,
     },
   },
   components: {

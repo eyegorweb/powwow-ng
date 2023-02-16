@@ -15,9 +15,12 @@
       <Card
         v-for="user in visibleUsers"
         :key="user.id"
-        :can-delete="canDelete"
+        :can-activate="canActivate(user)"
+        :can-deactivate="!canActivate(user)"
+        :can-delete="false"
         :can-modify="canModify(user)"
-        @delete="deleteUser(user)"
+        @deactivate="deactivate(user)"
+        @activate="activate(user)"
         @modify="modifyUser(user)"
       >
         <div class="cardBloc-infos-name">{{ checkName(user) }}</div>
@@ -43,7 +46,7 @@
 import Card from '@/components/Card';
 import CardButton from '@/components/CardButton';
 import UiInput from '@/components/ui/UiInput';
-import { fetchUsersByPartnerId, deactivateUser } from '@/api/users.js';
+import { fetchUsersByPartnerId, deactivateUser, enableUser } from '@/api/users.js';
 import { mapMutations, mapGetters } from 'vuex';
 
 export default {
@@ -149,7 +152,7 @@ export default {
       });
     },
 
-    deleteUser(user) {
+    deactivate(user) {
       const doReset = () => {
         this.refreshUsers();
       };
@@ -160,6 +163,23 @@ export default {
           doReset();
         },
       });
+    },
+
+    activate(user) {
+      const doReset = () => {
+        this.refreshUsers();
+      };
+      this.confirmAction({
+        message: 'confirmAction',
+        actionFn: async () => {
+          await enableUser(user.id);
+          doReset();
+        },
+      });
+    },
+
+    canActivate(user) {
+      return this.canUpdate && !this.userIsByCustomerAccount && user.disabled;
     },
 
     async refreshUsers() {
@@ -195,9 +215,6 @@ export default {
       return this.havePermission('user', 'create');
     },
     canCreate() {
-      return this.canUpdate && !this.userIsByCustomerAccount;
-    },
-    canDelete() {
       return this.canUpdate && !this.userIsByCustomerAccount;
     },
   },
