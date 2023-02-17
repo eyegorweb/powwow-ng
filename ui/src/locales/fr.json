@@ -3,6 +3,8 @@
     "title": "EVENEMENT:",
     "content": "Attention - Jeudi 24 juin de 19h00 à 21h00, le service sera indisponible en raison d'une opération de maintenance. Nous vous prions de bien vouloir nous excuser pour la gêne occasionnée."
   },
+  "activate": "Activer",
+  "deactivate": "Désactiver",
   "events": "Evènements:",
   "infos": "Messages:",
   "off": "Off",
