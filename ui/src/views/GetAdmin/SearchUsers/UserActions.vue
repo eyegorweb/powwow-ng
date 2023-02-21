@@ -25,9 +25,11 @@ export default {
     actions() {
       let additionalActions = [];
 
-      if (this.user.disabled) {
+      if (this.user.disabled && this.havePermission('user', 'create')) {
         additionalActions.push('actions.ENABLE');
-      } else {
+      }
+
+      if (!this.user.disabled && this.havePermission('user', 'create')) {
         additionalActions.push('actions.DISABLE');
       }
 
