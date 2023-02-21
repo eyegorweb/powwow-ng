@@ -32,7 +32,7 @@
       <div slot="topRight">
         <ExportButton :export-fn="getExportFn()" :columns="orderedColumns" :order-by="orderBy">
           <span slot="title">{{
-  $t('getadmin.users.export', { total: $formatLargeNumber(total) })
+            $t('getadmin.users.export', { total: $formatLargeNumber(total) })
           }}</span>
         </ExportButton>
       </div>
@@ -47,7 +47,7 @@
 
       <template slot="actions" slot-scope="{ row }">
         <Actions
-          v-if="!userIsByCustomerAccount"
+          v-if="!userIsByCustomerAccount && havePermission('user', 'create')"
           :user="row"
           @duplicateUser="onDuplicateUser(row)"
           @modifyUser="onModifyUser(row)"
@@ -465,6 +465,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

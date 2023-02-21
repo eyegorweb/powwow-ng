@@ -16,7 +16,7 @@
         v-for="user in visibleUsers"
         :key="user.id"
         :can-activate="canActivate(user)"
-        :can-deactivate="!canActivate(user)"
+        :can-deactivate="canDeactivate(user)"
         :can-delete="false"
         :can-modify="canModify(user)"
         @deactivate="deactivate(user)"
@@ -179,7 +179,10 @@ export default {
     },
 
     canActivate(user) {
-      return this.canUpdate && !this.userIsByCustomerAccount && user.disabled;
+      return this.canUpdate && user.disabled;
+    },
+    canDeactivate(user) {
+      return this.canUpdate && !user.disabled;
     },
 
     async refreshUsers() {
