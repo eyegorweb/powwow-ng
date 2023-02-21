@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1301+20230221133858
+2023-02-21
+
+### Fixes
+
+- [3737] désactiver et activer un utilisateur (04990ec3a07b52c9efb2492dc77f1595c52e2ee6)
+
 ## 1.17.0-master.1300+20230216181133
 2023-02-16
 
