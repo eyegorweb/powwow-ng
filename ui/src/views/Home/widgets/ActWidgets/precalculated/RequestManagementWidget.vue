@@ -122,14 +122,14 @@ export default {
             endDate: currentDateMinusDays(2),
           },
         ],
-        fetchKey: 'ACT_IN_PROGRESS_48',
+        fetchKey: 'ACT_IN_PROGRESS_6',
 
         fetch: async (indicator, contextFilters) => {
           return await countTotalForMassAction([...indicator.filters, ...contextFilters]);
         },
       },
       {
-        labelKey: 'indicators.getsim.actionsPlanned',
+        labelKey: 'indicators.getsim.failedActs',
         color: 'text-danger',
         clickable: true,
         total: '-',
@@ -143,8 +143,8 @@ export default {
             id: 'filters.actStatus',
             values: [
               {
-                id: 'WAITING',
-                label: this.$t('getparc.actLines.massActionsHistory.statuses.WAITING'),
+                id: 'KO',
+                label: this.$t('getparc.actLines.massActionsHistory.statuses.KO'),
               },
             ],
           },
@@ -154,7 +154,7 @@ export default {
             startDate: formattedCurrentDate(),
           },
         ],
-        fetchKey: 'ACT_SCHEDULED',
+        fetchKey: 'ACT_FAILED',
 
         fetch: async (indicator, contextFilters) => {
           return await countTotalForMassAction([...indicator.filters, ...contextFilters]);
