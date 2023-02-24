@@ -41,6 +41,7 @@
                       :roaming-extended-on-offer="isRoamingExtended"
                       @servicechange="onDataServiceChange"
                       @communityChange="onCommunityChange"
+                      @updateProfileData="onUpdateProfileData"
                     />
                   </LoaderContainer>
                 </div>
@@ -218,6 +219,7 @@ export default {
       componentInitialized: false,
       dataService: undefined,
       isIpFixeEnable: false,
+      upfProfileDataChange: false,
     };
   },
   async mounted() {
@@ -293,7 +295,8 @@ export default {
         (servicesToEnable && servicesToEnable.length) ||
         (servicesToDisable && servicesToDisable.length) ||
         (dataParams && dataParams.length) ||
-        dataChanged
+        dataChanged ||
+        this.upfProfileDataChange
       );
     },
 
@@ -309,6 +312,11 @@ export default {
       } = this.changes;
 
       if (this.isDataParamsError) return;
+
+      let upfService = undefined;
+      if (this.upfProfileDataChange) {
+        upfService = this.services.find((s) => s.type === 'UPF');
+      }
 
       const actionFn = async () => {
         this.savingChanges = true;
@@ -331,6 +339,7 @@ export default {
           dataService,
           offerCode,
           newCommunityChange: this.newCommunityChange ? this.newCommunityChange : undefined,
+          upfService,
         });
 
         if (response && response.errors && response.errors.length) {
@@ -386,7 +395,23 @@ export default {
         this.dataCheck = false;
       }
 
-      this.services = [...selectedServices.services, selectedServices.dataService];
+      if (selectedServices.upfService) {
+        this.services = [...selectedServices.services, selectedServices.upfService];
+      } else {
+        this.services = [...selectedServices.services, selectedServices.dataService];
+      }
+    },
+    onUpdateProfileData(payload) {
+      let canModify;
+      if (payload) {
+        canModify = true;
+        if (payload.initialProfilCode && payload.initialProfilCode === payload.code) {
+          canModify = false;
+        }
+      } else {
+        canModify = false;
+      }
+      this.upfProfileDataChange = canModify;
     },
 
     isDataParamChanged() {
