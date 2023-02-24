@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1302+20230222120918
+2023-02-22
+
+### Features
+
+- [3725] ajouter le widget requestManagement (ab7a1b2ebfa965e192c6cd0a3e3d6217a0212406)
+
 ## 1.17.0-master.1301+20230221133858
 2023-02-21
 

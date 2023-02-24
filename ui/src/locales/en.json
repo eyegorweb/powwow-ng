@@ -332,6 +332,7 @@
       "preactandActivationAct": "Acts: Preactivation / Activation",
       "cancelationAct": "Acts: Termination",
       "actsStatus": "Status of management acts",
+      "requestManagement": "Request management",
       "searchLine": "Search a line",
       "topTriggeredAlarms": "Top 5 of triggered alarms",
       "userActs": "Latest management acts from user « {userName} »",
@@ -2276,6 +2277,7 @@
       "averageProcessingTime": "Processing time over 1 month",
       "orderToBeConfirmedByBO": "Orders to be validated by the BO",
       "actionsInProgress": "Acts in progress",
+      "failedActs": "Failed acts",
       "actionsPlanned": "Scheduled acts"
     },
     "getparc": {
