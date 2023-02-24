@@ -1174,20 +1174,48 @@ export async function createRadiusAdmin(params, action, resetEmptyField) {
   return response.data.radiusAdministration;
 }
 
-export async function fetchApn(partyId, workflowId) {
+export async function fetchRadiusAdministrationTypes(partyId) {
+  const queryStr = `
+  query{
+    radiusAdministrationTypes(partyId: ${partyId})
+  }`;
+
+  const response = await query(queryStr);
+
+  if (response.errors) {
+    return {
+      errors: response.errors,
+    };
+  }
+  return response.data.radiusAdministrationTypes;
+}
+
+export async function fetchApn(partyId, workflowId, techno) {
   const queryStr = `
   query {
     radiusConfigurations(
       input: {
         partyId: ${partyId},
-        workflowId: ${workflowId}
+        workflowId: ${workflowId},
+        techno : ${techno}
         }
       )
       {
-      apnCode
-      partyId
-      apnType
-    }
+        apns{
+         code
+          type
+        }
+          profilesData{
+            id
+            name
+            dnns{
+              code
+              type
+            }
+          }
+        partyId
+        apnType
+      }
   }`;
 
   const response = await query(queryStr);

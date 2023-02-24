@@ -23,13 +23,12 @@ export default {
   props: {
     offer: Object,
     partner: Object,
-    apn: Object,
+    profileData: Object,
   },
 
   data() {
     return {
       options: [],
-      listTechno: [],
     };
   },
   computed: {
@@ -37,7 +36,7 @@ export default {
 
     selectedValue: {
       get() {
-        return this.apn ? this.apn.value : undefined;
+        return this.profileData ? this.profileData.value : undefined;
       },
       set(value) {
         if (value && value.label === '') {
@@ -55,12 +54,12 @@ export default {
       if (!this.offer) return;
       const partyId = this.$loGet(this.partner, 'id');
       const workflowId = this.$loGet(this.offer, 'data.id');
-      const techno = 'APN';
+      const techno = 'DNN';
       const data = await fetchApn(partyId, workflowId,techno);
       if (data) {
-        this.options = data.apns.map((o) => ({
-          value: o.code,
-          label: o.code,
+        this.options = data.profilesData.map((o) => ({
+          value: o.name,
+          label: o.name,
           meta: o,
         }));
         if (this.options && this.options.length === 1) {
@@ -80,7 +79,7 @@ export default {
 
   mounted() {
     this.refreshList();
-   },
+  },
 };
 </script>
 
