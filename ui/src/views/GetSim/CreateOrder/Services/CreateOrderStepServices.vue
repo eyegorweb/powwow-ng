@@ -237,7 +237,12 @@ export default {
           this.servicesChoice.dataService &&
           this.servicesChoice.dataService.checked &&
           this.servicesChoice.dataService.parameters &&
-          this.servicesChoice.dataService.parameters.filter((p) => p.selected).length === 0);
+          this.servicesChoice.dataService.parameters.filter((p) => p.selected).length === 0) ||
+        (this.servicesChoice &&
+          this.servicesChoice.upfService &&
+          this.servicesChoice.upfService.checked &&
+          this.servicesChoice.upfService.parameters &&
+          this.servicesChoice.upfService.parameters.length === 0);
 
       this.isDataParamsError = isDataParamsError;
 
@@ -271,6 +276,8 @@ export default {
       this.servicesChoice = services;
       if (services.dataService) {
         this.offerServices = [...services.services, services.dataService];
+      } else if (services.upfService) {
+        this.offerServices = [...services.services, services.upfService];
       } else {
         this.offerServices = [...services.services];
       }

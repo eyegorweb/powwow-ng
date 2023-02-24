@@ -37,7 +37,7 @@ function formatServices(s) {
     addedToDisable: false,
     barring: s.barring,
   };
-  if (s.code === 'DATA') {
+  if (s.parameters && s.parameters.length > 0) {
     service.parameters = s.parameters
       .filter((ps) => !!ps)
       .map((p) => {

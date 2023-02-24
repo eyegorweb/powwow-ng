@@ -31,6 +31,7 @@
                 :data-params-needed="isDataParamsError"
                 vertical
                 @servicechange="onServiceChange"
+                @updateProfileData="onUpdateProfileData"
               />
             </div>
           </div>
@@ -119,6 +120,7 @@ export default {
       isDataParamsError: false,
       servicesChoice: undefined,
       exceptionError: undefined,
+      upfProfileDataNeeded: false,
     };
   },
   async mounted() {
@@ -142,7 +144,7 @@ export default {
       return this.chosenBillingAccount.partner;
     },
     canValidate() {
-      return this.selectedPartner ? true : false;
+      return this.selectedPartner && !this.upfProfileDataNeeded ? true : false;
     },
     minDate() {
       return moment().format('DD/MM/YYYY HH:mm:ss');
@@ -254,7 +256,20 @@ export default {
     },
     onServiceChange(servicesChoice) {
       this.servicesChoice = servicesChoice;
-      this.offerServices = [...servicesChoice.services, servicesChoice.dataService];
+      if (servicesChoice.dataService) {
+        this.offerServices = [...servicesChoice.services, servicesChoice.dataService];
+      } else if (servicesChoice.upfService) {
+        this.offerServices = [...servicesChoice.services, servicesChoice.upfService];
+      } else {
+        this.offerServices = [...servicesChoice.services];
+      }
+    },
+    onUpdateProfileData(payload) {
+      if (payload) {
+        this.upfProfileDataNeeded = false;
+      } else {
+        this.upfProfileDataNeeded = true;
+      }
     },
     async confirmValdation(containerValidationFn) {
       const response = await containerValidationFn();
@@ -342,6 +357,7 @@ export default {
       if (selectedOffer && selectedOffer.data) {
         this.offerServices = getMarketingOfferServices(selectedOffer.data.initialOffer);
         this.initialServices = cloneDeep(this.offerServices);
+        this.upfProfileDataNeeded = false; // default value
       }
     },
   },

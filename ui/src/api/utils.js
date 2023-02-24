@@ -265,6 +265,7 @@ export function getValuesIds(filters, filterId) {
 export function formatServicesForGQL(servicesChoice) {
   const dataServiceChoice = servicesChoice.data;
   const services = servicesChoice.services;
+  const upfServiceChoice = servicesChoice.upf;
 
   let serviceParamsArr = [];
   let gqlServicesParamGql = '';
@@ -274,6 +275,14 @@ export function formatServicesForGQL(servicesChoice) {
         .filter((p) => p.selected)
         .map((p) => `"${p.code}"`);
       serviceParamsArr.push(`{serviceCode: "DATA", serviceParameters: [${paramsArr.join(',')}]}`);
+    }
+  }
+  if (upfServiceChoice) {
+    if (upfServiceChoice.checked) {
+      const paramsArr = upfServiceChoice.parameters.map((p) => `"${p.code}"`);
+      serviceParamsArr.push(
+        `{serviceCode: "${upfServiceChoice.code}", serviceParameters: [${paramsArr.join(',')}]}`
+      );
     }
   }
 
