@@ -23,6 +23,7 @@ import NbIotLteM from './widgets/NbIotLteM';
 import ActiveCustomerPark from './widgets/ActiveCustomerPark';
 
 import StatusActsWidget from './widgets/ActWidgets/precalculated/StatusActsWidget';
+import RequestManagementWidget from './widgets/ActWidgets/precalculated/RequestManagementWidget';
 import ActivationActsWidget from './widgets/ActWidgets/precalculated/ActivationActsWidget';
 import PreacActivationActsWidget from './widgets/ActWidgets/precalculated/PreacActivationActsWidget';
 import FailedActsWidget from './widgets/ActWidgets/precalculated/FailedActsWidget';
@@ -220,6 +221,15 @@ export const defaultWidgets = [
     seeMore: false,
     component: StatusActsWidget,
     permission: { domain: 'widget', action: 'act_status' },
+  },
+  {
+    title: 'home.widgets.requestManagement',
+    description: '',
+    checked: false,
+    large: false,
+    seeMore: false,
+    component: RequestManagementWidget,
+    permission: { domain: 'widget', action: 'act_status_party' },
   },
   {
     title: 'home.widgets.userActs',

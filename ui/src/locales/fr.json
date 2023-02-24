@@ -388,6 +388,7 @@
       "preactandActivationAct": "Actes: Préactivation / Activation",
       "cancelationAct": "Actes: Résiliation",
       "actsStatus": "Statut des actes de gestion",
+      "requestManagement": "Gestion des demandes",
       "searchLine": "Rechercher une ligne",
       "topTriggeredAlarms": "Top 5 des alarmes déclenchées",
       "coach": "Coach M2M / Diagnostic",
@@ -2482,6 +2483,7 @@
       "averageProcessingTime": "Délai traitement sur 1 mois",
       "orderToBeConfirmedByBO": "Commandes à valider par le BO",
       "actionsInProgress": "Actes en cours",
+      "failedActs": "Actes en échec",
       "actionsPlanned": "Actes programmés"
     },
     "getparc": {
