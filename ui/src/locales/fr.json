@@ -2246,7 +2246,7 @@
       "selected": "{total} ligne(s) sélectionnée(s)",
       "total": "{total} ligne(s) trouvée(s)",
       "export": "Exporter {total} ligne(s)",
-      "step1Partner": "Sélectionner un partenaire",
+      "step1Partner": "Partenaire",
       "partnerTarget": "Sélectionner un partenaire cible",
       "billingAccount": "Sélectionner un compte de facturation",
       "billingAccountTarget": "Sélectionner un compte de facturation cible",
