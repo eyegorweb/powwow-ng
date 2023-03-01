@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1303+20230301095515
+2023-03-01
+
+### Fixes
+
+- [3758] corriger affichage des roles (f16def9217ab901261ec990254cdbac89ce03904)
+
 ## 1.17.0-master.1302+20230222120918
 2023-02-22
 
