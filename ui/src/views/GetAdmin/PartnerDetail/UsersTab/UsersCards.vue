@@ -33,8 +33,8 @@
         </div>
         <div class="cardBloc-infos-role">
           {{ $t('orders.detail.roles') }}:
-          <span :key="role.description" v-for="role in user.roles">
-            {{ role.category == null ? role.description : null }}
+          <span :key="index" v-for="(role, index) in user.roles">
+            {{ fetchRole(role, index) }}
           </span>
         </div>
       </Card>
@@ -99,6 +99,14 @@ export default {
 
   methods: {
     ...mapMutations(['openPanel', 'confirmAction']),
+
+    fetchRole(role, index) {
+      return role.category == null
+        ? index != 0
+          ? ', ' + role.description
+          : role.description
+        : null;
+    },
 
     usersFilter(searchValue) {
       return this.users.filter((value) => {

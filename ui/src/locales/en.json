@@ -901,7 +901,13 @@
       "errors": {
         "AccessDeniedForThisUser": "You don't have permission.",
         "ACCESS_WEB_SERVICES_ROLES_DENIED": "The choice of the Webservice role is incompatible with the permissions activated in the WEBSERVICE tab",
+        "USER_D_USERNAME_ALREADY_EXISTS": "A user with this login already exists",
+        "USER_D_USER_IS_NOT_ALLOWED_TO_ASSIGN_THIS_ROLE": "User is not authorized to assign this role",
+        "USER_D_USER_NOT_ALLOWED_TO_READ_ROLES": "User not allowed to see roles",
         "USER_D_PASSWORD_OLD_ENTERED_IS_INCORRECT": "Old password is incorrect",
+        "USER_NOT_ALLOWED_TO_MODIFY_USERNAME": "User not allowed to modify username",
+        "USER_NOT_ALLOWED_TO_MODIFY_WITHOUT_CA_PERMISSION": "User not allowed to modify without permission",
+        "NoUserFoundWithGivenId": "No user found with this id",
         "USER_D_PASSWORD_MUST_BE_DIFFERENT_FROM_OLD_ONE": "Password must be different from old one",
         "username": "Login already exists.",
         "CUSTOMER_ACCOUNT_USER_NOT_ALLOWED": "Access denied for the current user"
