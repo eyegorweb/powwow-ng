@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1305+20230302141919
+2023-03-02
+
+### Features
+
+- [3767] Sécuriser l'écran tableau de bord (b5cfbdbc0548b87b3caed924428cd59945b06049)
+
 ## 1.17.0-master.1304+20230301155502
 2023-03-01
 
