@@ -34,12 +34,14 @@ export default {
   },
   methods: {
     onCounterClick(indicator) {
-      this.$router.push({
-        name: 'actHistory.classic',
-        params: {
-          queryFilters: [...indicator.filters, ...this.contextFilters],
-        },
-      });
+      this.$router
+        .push({
+          name: 'actHistory.classic',
+          params: {
+            queryFilters: [...indicator.filters, ...this.contextFilters],
+          },
+        })
+        .catch(() => {});
     },
   },
 

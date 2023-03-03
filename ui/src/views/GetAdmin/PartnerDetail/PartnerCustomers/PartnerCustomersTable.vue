@@ -99,10 +99,12 @@ export default {
           format: {
             type: 'LinkBtn',
             onClick: async (code, row) => {
-              this.$router.push({
-                name: 'getAdminPartnerDetails.customerList.detail.commercialOffers.list',
-                params: { billingAccountId: row.id },
-              });
+              this.$router
+                .push({
+                  name: 'getAdminPartnerDetails.customerList.detail.commercialOffers.list',
+                  params: { billingAccountId: row.id },
+                })
+                .catch(() => {});
             },
             isClickable: () => true,
           },

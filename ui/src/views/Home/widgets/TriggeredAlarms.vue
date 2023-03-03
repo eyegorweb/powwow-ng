@@ -99,18 +99,22 @@ export default {
     },
     onSeeMore() {
       this.$pushAnalytics({ event: 'm2m.seeMore', widget: 'Top 5 des alarmes déclenchées' });
-      this.$router.push({
-        name: 'alarms',
-        params: {
-          queryFilters: [],
-        },
-      });
+      this.$router
+        .push({
+          name: 'alarms',
+          params: {
+            queryFilters: [],
+          },
+        })
+        .catch(() => {});
     },
     onClick(id) {
-      this.$router.push({
-        name: 'alarmDetail',
-        params: { alarmId: id, tabIndex: 0 },
-      });
+      this.$router
+        .push({
+          name: 'alarmDetail',
+          params: { alarmId: id, tabIndex: 0 },
+        })
+        .catch(() => {});
     },
   },
 };

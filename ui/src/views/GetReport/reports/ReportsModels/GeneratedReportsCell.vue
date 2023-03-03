@@ -13,7 +13,7 @@ export default {
   },
   methods: {
     onClick() {
-      this.$router.push({ name: 'documents', params: { reportId: this.row.id } });
+      this.$router.push({ name: 'documents', params: { reportId: this.row.id } }).catch(() => {});
     },
   },
 };

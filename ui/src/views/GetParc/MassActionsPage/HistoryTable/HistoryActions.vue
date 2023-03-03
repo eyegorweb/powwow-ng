@@ -190,7 +190,9 @@ export default {
     async onActionClicked(action) {
       switch (action) {
         case 'getparc.history.actions.DETAIL': {
-          this.$router.push({ name: 'actDetail', params: { massActionId: this.item.id } });
+          this.$router
+            .push({ name: 'actDetail', params: { massActionId: this.item.id } })
+            .catch(() => {});
           break;
         }
         case 'getparc.history.actions.EXPORT': {

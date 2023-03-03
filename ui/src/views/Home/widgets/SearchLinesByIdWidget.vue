@@ -58,18 +58,22 @@ export default {
 
     viewResult() {
       if (this.lastSearchResult.total === 1) {
-        this.$router.push({
-          name: 'lineDetail.details.info',
-          params: { lineId: this.lastSearchResult.items[0].id },
-        });
+        this.$router
+          .push({
+            name: 'lineDetail.details.info',
+            params: { lineId: this.lastSearchResult.items[0].id },
+          })
+          .catch(() => {});
       } else {
-        this.$router.push({
-          name: 'actLines',
-          params: {
-            queryFilters: [...this.contextFilters, this.lastSEarchFiler],
-            idFilters: this.lastSEarchFiler,
-          },
-        });
+        this.$router
+          .push({
+            name: 'actLines',
+            params: {
+              queryFilters: [...this.contextFilters, this.lastSEarchFiler],
+              idFilters: this.lastSEarchFiler,
+            },
+          })
+          .catch(() => {});
       }
     },
   },

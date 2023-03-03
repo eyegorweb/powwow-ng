@@ -272,7 +272,7 @@ export default {
     },
 
     returnToSearch() {
-      this.$router.push({ name: 'actLines', params: { fromDetail: true } });
+      this.$router.push({ name: 'actLines', params: { fromDetail: true } }).catch(() => {});
     },
 
     onCarouselItemClick(item) {

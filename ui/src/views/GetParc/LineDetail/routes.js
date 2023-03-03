@@ -28,6 +28,7 @@ const NetworkTestControl = () =>
   import('@/views/GetParc/LineDetail/DiagnosisTab/NetworkTestControl/index.vue');
 const Supervision = () => import('@/views/GetParc/LineDetail/DiagnosisTab/Supervision/index.vue');
 
+// Matrice des permissions dans fichier src/views/GetParc/LineDetail/index.vue
 export default {
   path: '/line-detail/:lineId',
   name: 'lineDetail',
@@ -61,13 +62,20 @@ export default {
         {
           name: 'lineDetail.details.alarms',
           path: 'alarms',
-          meta: { label: 'Détail de la ligne - Liste des alarmes' },
+          meta: {
+            label: 'Détail de la ligne - Liste des alarmes',
+            permission: { domain: 'alarm', action: 'read' },
+            compatiblePartnerTypes: ['CUSTOMER', 'MULTI_CUSTOMER', 'M2M_LIGHT'],
+          },
           component: AlarmList,
         },
         {
           name: 'lineDetail.details.acts',
           path: 'acts',
-          meta: { label: 'Détail de la ligne - Suivi/pilotage des actes de gestion' },
+          meta: {
+            label: 'Détail de la ligne - Suivi/pilotage des actes de gestion',
+            permission: { domain: 'act', action: 'read' },
+          },
           component: ActsHistory,
         },
       ],
@@ -81,43 +89,65 @@ export default {
     {
       name: 'lineDetail.diagnosis',
       path: 'diagnosis',
-      meta: { label: 'Détail de la ligne - Analyser la ligne' },
+      meta: {
+        label: 'Détail de la ligne - Analyser la ligne',
+      },
       component: LineDetailsDiagnosisTabTab,
       children: [
         {
           name: 'lineDetail.diagnosis.last_tests',
           path: 'tests',
-          meta: { label: 'Détail de la ligne - Derniers tests Coach M2M' },
+          meta: {
+            label: 'Détail de la ligne - Derniers tests Coach M2M',
+            permission: { domain: 'getParc', action: 'manage_coach' },
+          },
           component: LastTests,
         },
         {
           name: 'lineDetail.diagnosis.analysis',
           path: 'analysis',
-          meta: { label: 'Détail de la ligne - Analyser la ligne' },
+          meta: {
+            label: 'Détail de la ligne - Analyser la ligne',
+            permission: { domain: 'getVision', action: 'read' },
+          },
           component: LineAnalysisSubMenu1,
         },
         {
           name: 'lineDetail.diagnosis.networkStatus',
           path: 'network-location-test',
-          meta: { label: 'Détail de la ligne - Tester le réseau et la localisation' },
+          meta: {
+            label: 'Détail de la ligne - Tester le réseau et la localisation',
+            permission: { domain: 'getVision', action: 'read' },
+          },
           component: NetworkStatusSubMenu2,
         },
         {
           name: 'lineDetail.diagnosis.networkTestControl',
           path: 'network-test-control',
-          meta: { label: 'Détail de la ligne - Tester et contrôler la consommation' },
+          meta: {
+            label: 'Détail de la ligne - Tester et contrôler la consommation',
+            permission: { domain: 'getVision', action: 'read' },
+          },
           component: NetworkTestControl,
         },
         {
           name: 'lineDetail.diagnosis.supervision',
           path: 'supervision',
-          meta: { label: ' Détail de la ligne - Supervision' },
+          meta: {
+            label: ' Détail de la ligne - Supervision',
+            permission: { domain: 'getVision', action: 'read' },
+          },
           component: Supervision,
         },
         {
           name: 'lineDetail.diagnosis.networkHistory',
           path: 'network-history',
-          meta: { label: 'Détail de la ligne - Historique réseau et itinérance' },
+          meta: {
+            label: 'Détail de la ligne - Historique réseau et itinérance',
+            permission: { domain: 'getVision', action: 'read' },
+            compatiblePartnerTypes: ['MVNO', 'CUSTOMER', 'MULTI_CUSTOMER'],
+            // Ajouter le partenaire IMT (matrice src/views/GetParc/LineDetail/index.vue)
+          },
           component: NetworkHistory,
         },
       ],

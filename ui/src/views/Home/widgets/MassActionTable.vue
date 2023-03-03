@@ -47,12 +47,14 @@ export default {
     },
     onSeeMore() {
       this.$pushAnalytics({ event: 'm2m.seeMore', widget: 'Acte de gestion' });
-      this.$router.push({
-        name: 'actHistory.classic',
-        params: {
-          queryFilters: [...this.widgetFilters],
-        },
-      });
+      this.$router
+        .push({
+          name: 'actHistory.classic',
+          params: {
+            queryFilters: [...this.widgetFilters],
+          },
+        })
+        .catch(() => {});
     },
     formatResponse(items) {
       if (items) {
@@ -102,12 +104,14 @@ export default {
           format: {
             type: 'LinkBtn',
             onClick: (massActionId) => {
-              this.$router.push({
-                name: 'actDetail',
-                params: {
-                  massActionId,
-                },
-              });
+              this.$router
+                .push({
+                  name: 'actDetail',
+                  params: {
+                    massActionId,
+                  },
+                })
+                .catch(() => {});
             },
             isClickable: () => true,
           },

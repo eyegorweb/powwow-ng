@@ -35,7 +35,7 @@ const Description = () =>
   import('@/views/GetAdmin/PartnerDetail/AccountDetail/AccountPartnerDetail.vue');
 
 export default {
-  path: '/getamin/partner/:id',
+  path: '/getadmin/partner/:id',
   name: 'getAdminPartnerDetails',
   meta: { label: 'Détail du partenaire' },
   component: PartnerDetail,
@@ -43,19 +43,37 @@ export default {
     {
       name: 'getAdminPartnerDetails.users',
       path: 'users',
-      meta: { label: 'Détail du partenaire - Utilisateurs' },
+      meta: {
+        label: 'Détail du partenaire - Utilisateurs',
+        permission: {
+          domain: 'user',
+          action: 'read',
+        },
+      },
       component: UsersTab,
       children: [
         {
           name: 'partnerDetail.users.admins',
           path: 'admins',
-          meta: { label: 'Détail du partenaire - Administrateurs' },
+          meta: {
+            label: 'Détail du partenaire - Administrateurs',
+            permission: {
+              domain: 'user',
+              action: 'read',
+            },
+          },
           component: AdminCards,
         },
         {
           name: 'partnerDetail.users.users',
           path: 'users',
-          meta: { label: 'Détail du partenaire - Utilisateurs' },
+          meta: {
+            label: 'Détail du partenaire - Utilisateurs',
+            permission: {
+              domain: 'user',
+              action: 'read',
+            },
+          },
           component: UsersCards,
         },
       ],
@@ -69,25 +87,49 @@ export default {
         {
           name: 'partnerDetail.customize.broadcastLists',
           path: 'broadcastlists',
-          meta: { label: 'Détail du partenaire - Listes de diffusion' },
+          meta: {
+            label: 'Détail du partenaire - Listes de diffusion',
+            permission: {
+              domain: 'party',
+              action: 'read_broadcast_list',
+            },
+          },
           component: BroadcastLists,
         },
         {
           name: 'partnerDetail.customize.customFields',
           path: 'customfields',
-          meta: { label: ' Détail du partenaire - Champs libres' },
+          meta: {
+            label: ' Détail du partenaire - Champs libres',
+            permission: {
+              domain: 'party',
+              action: 'read_custom_field',
+            },
+          },
           component: CustomFields,
         },
         {
           name: 'partnerDetail.customize.deliveryAddress',
           path: 'deliveryaddress',
-          meta: { label: 'Détail du partenaire - Adresses de livraison' },
+          meta: {
+            label: 'Détail du partenaire - Adresses de livraison',
+            permission: {
+              domain: 'party',
+              action: 'read_delivery_address',
+            },
+          },
           component: DeliveryAddress,
         },
         {
           name: 'partnerDetail.customize.specificFields',
           path: 'specificfields',
-          meta: { label: 'Détail du partenaire - Champs spécifiques' },
+          meta: {
+            label: 'Détail du partenaire - Champs spécifiques',
+            permission: {
+              domain: 'party',
+              action: 'read_specific_field',
+            },
+          },
           component: SpecificFields,
         },
       ],
@@ -100,14 +142,26 @@ export default {
       children: [
         {
           name: 'getAdminPartnerDetails.billingAccounts.list',
-          meta: { label: 'Détail du partenaire - Comptes de facturation' },
+          meta: {
+            label: 'Détail du partenaire - Comptes de facturation',
+            permission: {
+              domain: 'party',
+              action: 'read_customer_account',
+            },
+          },
           path: 'list',
           component: () =>
             import('@/views/GetAdmin/PartnerDetail/BillAccounts/BillAccountsTable.vue'),
         },
         {
           name: 'getAdminPartnerDetails.billingAccounts.form',
-          meta: { label: 'Détail du partenaire - Détail du compte de facturation' },
+          meta: {
+            label: 'Détail du partenaire - Détail du compte de facturation',
+            permission: {
+              domain: 'party',
+              action: 'read_customer_account',
+            },
+          },
           path: 'form/:customerAccountCode',
           component: () =>
             import('@/views/GetAdmin/PartnerDetail/BillAccounts/BillAccountsForm.vue'),
@@ -122,7 +176,13 @@ export default {
       children: [
         {
           name: 'getAdminPartnerDetails.customerList.list',
-          meta: { label: 'Détail du partenaire - Liste des entités (MB)' },
+          meta: {
+            label: 'Détail du partenaire - Liste des entités (MB)',
+            permission: {
+              domain: 'party',
+              action: 'read_customer_account',
+            },
+          },
           path: 'list',
           component: PartnerCustomersTable,
         },
@@ -187,19 +247,37 @@ export default {
       children: [
         {
           name: 'partnerDetail.offersAndSim.offers',
-          meta: { label: 'Détail du partenaire - Offres' },
+          meta: {
+            label: 'Détail du partenaire - Offres',
+            permission: {
+              domain: 'party',
+              action: 'read_available_catalog_offers',
+            },
+          },
           path: 'offersCards',
           component: OffersCards,
         },
         {
           name: 'partnerDetail.offersAndSim.simCards',
-          meta: { label: ' Détail du partenaire - Cartes SIM' },
+          meta: {
+            label: ' Détail du partenaire - Cartes SIM',
+            permission: {
+              domain: 'party',
+              action: 'read_available_sims',
+            },
+          },
           path: 'simcards',
           component: SimCards,
         },
         {
           name: 'partnerDetail.offersAndSim.supervisionOptions',
-          meta: { label: 'Détail du partenaire - Options de supervision' },
+          meta: {
+            label: 'Détail du partenaire - Options de supervision',
+            permission: {
+              domain: 'party',
+              action: 'read_supervision_option',
+            },
+          },
           path: 'supervision',
           component: SupervisionOptions,
         },
@@ -213,13 +291,31 @@ export default {
       children: [
         {
           name: 'partnerDetail.accountDetail.description',
-          meta: { label: 'Détail du partenaire - Description du compte partenaire' },
+          meta: {
+            label: 'Détail du partenaire - Description du compte partenaire',
+            permission: {
+              domain: 'party',
+              action: 'read_account_detail',
+            },
+          },
           path: 'description',
           component: Description,
         },
         {
           name: 'partnerDetail.accountDetail.options',
-          meta: { label: 'Détail du partenaire - Options du partenaire' },
+          meta: {
+            label: 'Détail du partenaire - Options du partenaire',
+            permission: [
+              {
+                domain: 'party',
+                action: 'read_main_options',
+              },
+              {
+                domain: 'party',
+                action: 'read_secondary_options',
+              },
+            ],
+          },
           path: 'options',
           component: Options,
         },

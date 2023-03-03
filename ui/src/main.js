@@ -9,6 +9,8 @@ import VTooltip from 'v-tooltip';
 import FeatureFlipping from './featureFlipping/plugin';
 import CommonFunctions from './utils/commonVueFunctions';
 import AnalyticsTracking from './utils/analyticsTracking';
+import { storeIsLoaded } from '@/utils/alarms';
+import { waitForStoreLoaded } from '@/utils/routes';
 
 import Fragment from 'vue-fragment';
 
@@ -33,7 +35,15 @@ router.beforeEach((to, from, next) => {
       to: { name: to.meta && to.meta.label ? to.meta.label : to.name, path: to.path },
     });
   }
-  next();
+
+  if (to.matched.some((record) => record.meta.permission)) {
+    // cette route demande une autorisation, vérifions si l'utilisateur a la permission
+    // sinon, redirigeons le sur la page de login.
+    waitForStoreLoaded(to, store, storeIsLoaded, next);
+  } else {
+    // assurons-nous de toujours appeler `next()` !
+    next();
+  }
 });
 
 new Vue({

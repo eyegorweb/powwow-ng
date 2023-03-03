@@ -63,12 +63,14 @@ export default {
 
     onSeeMore() {
       this.$pushAnalytics({ event: 'm2m.seeMore', widget: 'Derniers exports' });
-      this.$router.push({
-        name: 'documents',
-        params: {
-          queryFilters: [],
-        },
-      });
+      this.$router
+        .push({
+          name: 'documents',
+          params: {
+            queryFilters: [],
+          },
+        })
+        .catch(() => {});
     },
 
     downloadReport(id) {
