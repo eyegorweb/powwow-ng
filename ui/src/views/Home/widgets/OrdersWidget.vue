@@ -46,12 +46,14 @@ export default {
   methods: {
     onSeeMore() {
       this.$pushAnalytics({ event: 'm2m.seeMore', widget: 'Mes commandes' });
-      this.$router.push({
-        name: 'orders.search',
-        params: {
-          queryFilters: [...this.widgetFilters],
-        },
-      });
+      this.$router
+        .push({
+          name: 'orders.search',
+          params: {
+            queryFilters: [...this.widgetFilters],
+          },
+        })
+        .catch(() => {});
     },
   },
   async mounted() {
@@ -105,13 +107,15 @@ export default {
           format: {
             type: 'LinkBtn',
             onClick: (orderId) => {
-              this.$router.push({
-                name: 'orders.search',
-                params: {
-                  openDetailPanel: true,
-                  queryFilters: [{ id: 'filters.idOrder', value: orderId, hidden: false }],
-                },
-              });
+              this.$router
+                .push({
+                  name: 'orders.search',
+                  params: {
+                    openDetailPanel: true,
+                    queryFilters: [{ id: 'filters.idOrder', value: orderId, hidden: false }],
+                  },
+                })
+                .catch(() => {});
             },
             isClickable: () => true,
           },

@@ -73,14 +73,23 @@ export default {
           label: 'home.widgets.orders',
           to: {
             name: 'orders.search',
-            meta: { label: 'Recherche de commandes' },
+            meta: {
+              label: 'Recherche de commandes',
+              permission: { domain: 'getSim', action: 'read' },
+            },
           },
         },
         {
           label: 'getsim.reservations.tabTitle',
           to: {
             name: 'orders.reservations',
-            meta: { label: 'Recherche de réservations' },
+            meta: {
+              label: 'Recherche de réservations',
+              // permission: [
+              //   { domain: 'getSim', action: 'order_esim' },
+              //   { domain: 'getSim', action: 'manage_esim' },
+              // ],
+            },
           },
         },
       ];

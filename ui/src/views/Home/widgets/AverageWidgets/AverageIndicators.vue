@@ -71,7 +71,7 @@ export default {
   },
   methods: {
     onClick(routeName, routeParams) {
-      this.$router.push({ name: routeName, params: routeParams });
+      this.$router.push({ name: routeName, params: routeParams }).catch(() => {});
     },
     formattedData(value) {
       return formatBytes(value);

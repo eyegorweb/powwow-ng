@@ -59,12 +59,14 @@ export default {
 
     onSeeMore() {
       this.$pushAnalytics({ event: 'm2m.seeMore', widget: 'Dernières factures' });
-      this.$router.push({
-        name: 'reportsBill',
-        params: {
-          queryFilters: [],
-        },
-      });
+      this.$router
+        .push({
+          name: 'reportsBill',
+          params: {
+            queryFilters: [],
+          },
+        })
+        .catch(() => {});
     },
 
     downloadBill(id) {

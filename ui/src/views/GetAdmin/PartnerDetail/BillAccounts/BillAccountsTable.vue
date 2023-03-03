@@ -74,10 +74,12 @@ export default {
           format: {
             type: 'LinkBtn',
             onClick: async (code) => {
-              this.$router.push({
-                name: 'getAdminPartnerDetails.billingAccounts.form',
-                params: { id: this.$route.params.id, customerAccountCode: code },
-              });
+              this.$router
+                .push({
+                  name: 'getAdminPartnerDetails.billingAccounts.form',
+                  params: { id: this.$route.params.id, customerAccountCode: code },
+                })
+                .catch(() => {});
             },
             isClickable: () => true,
           },
@@ -154,10 +156,12 @@ export default {
       this.rows = data.items;
     },
     createCustomerAccount() {
-      this.$router.push({
-        name: 'getAdminPartnerDetails.billingAccounts.form',
-        params: { id: this.$route.params.id, customerAccountCode: undefined },
-      });
+      this.$router
+        .push({
+          name: 'getAdminPartnerDetails.billingAccounts.form',
+          params: { id: this.$route.params.id, customerAccountCode: undefined },
+        })
+        .catch(() => {});
     },
     clearSearch() {
       if (!this.searchByCFValue) {

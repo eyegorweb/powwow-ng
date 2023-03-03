@@ -89,10 +89,12 @@ export default {
   },
   methods: {
     gotoDetail() {
-      this.$router.push({
-        name: 'lineDetail.details.info',
-        params: { lineId: `${this.lineId}`, meta: this.content },
-      });
+      this.$router
+        .push({
+          name: 'lineDetail.details.info',
+          params: { lineId: `${this.lineId}`, meta: this.content },
+        })
+        .catch(() => {});
     },
   },
 

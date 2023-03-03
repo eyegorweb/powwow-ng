@@ -64,14 +64,16 @@ export default {
         format: {
           type: 'LinkBtn',
           onClick: (code, row) => {
-            this.$router.push({
-              name: 'getAdminPartnerDetails.customerList.detail.commercialOffers.form',
-              params: {
-                billingAccountId: this.$route.params.billingAccountId,
-                id: this.$route.params.id,
-                comOfferId: row.id,
-              },
-            });
+            this.$router
+              .push({
+                name: 'getAdminPartnerDetails.customerList.detail.commercialOffers.form',
+                params: {
+                  billingAccountId: this.$route.params.billingAccountId,
+                  id: this.$route.params.id,
+                  comOfferId: row.id,
+                },
+              })
+              .catch(() => {});
           },
           isClickable: () => {
             return true;
@@ -132,13 +134,15 @@ export default {
       // this.showForm = true;
       // this.currentComOffer = undefined;
       // this.disabledForm = false;
-      this.$router.push({
-        name: 'getAdminPartnerDetails.customerList.detail.commercialOffers.form',
-        params: {
-          id: this.$route.params.id,
-          billingAccountId: this.$route.params.billingAccountId,
-        },
-      });
+      this.$router
+        .push({
+          name: 'getAdminPartnerDetails.customerList.detail.commercialOffers.form',
+          params: {
+            id: this.$route.params.id,
+            billingAccountId: this.$route.params.billingAccountId,
+          },
+        })
+        .catch(() => {});
     },
     getFetchFn() {
       return async (pageInfo) => {

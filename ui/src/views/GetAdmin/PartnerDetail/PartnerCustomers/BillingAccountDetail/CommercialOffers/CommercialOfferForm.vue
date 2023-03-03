@@ -338,13 +338,15 @@ export default {
       this.form.ranges = values;
     },
     goBack() {
-      this.$router.push({
-        name: 'getAdminPartnerDetails.customerList.detail.commercialOffers.list',
-        params: {
-          id: this.$route.params.id,
-          billingAccountId: this.$route.params.billingAccountId,
-        },
-      });
+      this.$router
+        .push({
+          name: 'getAdminPartnerDetails.customerList.detail.commercialOffers.list',
+          params: {
+            id: this.$route.params.id,
+            billingAccountId: this.$route.params.billingAccountId,
+          },
+        })
+        .catch(() => {});
     },
     async loadCommercialInfoToEdit() {
       if (this.$route.params.comOfferId) {

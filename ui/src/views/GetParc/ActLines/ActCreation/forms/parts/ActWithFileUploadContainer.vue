@@ -74,7 +74,7 @@
           </div>
           <slot name="bottom"></slot>
         </div>
-        <div class="col-5" :class="{'validationBloc' : validationTr}">
+        <div class="col-5" :class="{ validationBloc: validationTr }">
           <div class="text-right">
             <button @click="clearForm" class="clear-form">
               {{ $t('cancel') }}

@@ -76,7 +76,10 @@ export default {
 
   methods: {
     returnToSearch() {
-      this.$router.push({ name: 'getAdminPartners', params: { fromDetail: true } });
+      this.$router
+        .push({ name: 'getAdminPartners', params: { fromDetail: true } })
+        .catch(() => {})
+        .catch(() => {});
     },
 
     // Gestion des permissions sur les onglets

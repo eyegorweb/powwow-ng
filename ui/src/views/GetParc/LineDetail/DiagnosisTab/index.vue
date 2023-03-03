@@ -41,7 +41,7 @@ export default {
       'AUTODIAGNOSTIC_ENABLED',
       this.content.id
     );
-
+    const typeForPartner = this.$loGet(this.content, 'party.partyType');
     const coachM2MAvailable = await isFeatureAvailable('COACH_M2M_AVAILABLE', this.content.id);
     const geolocEnabled = await isFeatureAvailable('GEOLOCATION_ENABLED', this.content.id);
     const requestConsoActive = await isFeatureAvailable('REQUEST_CONSO_ENABLED', this.content.id);
@@ -50,12 +50,13 @@ export default {
       {
         section: 'last_tests',
         title: 'getparc.lineDetail.tab2.lastTests',
-        compatiblePartnerTypes: ['CUSTOMER', 'MULTI_CUSTOMER'],
+        compatiblePartnerTypes: ['CUSTOMER', 'MULTI_CUSTOMER', 'M2M_LIGHT'],
         permission: { domain: 'getParc', action: 'manage_coach' },
         to: {
           name: 'lineDetail.diagnosis.last_tests',
           meta: { label: 'Détail de la ligne - Derniers tests Coach M2M' },
           params: { lineId: this.$route.params.lineId, meta: this.content },
+          query: { partnerType: typeForPartner },
         },
       },
       {
@@ -67,6 +68,7 @@ export default {
           name: 'lineDetail.diagnosis.analysis',
           meta: { label: 'Détail de la ligne - Analyser la ligne' },
           params: { lineId: this.$route.params.lineId, meta: this.content },
+          query: { partnerType: typeForPartner },
         },
       },
       {
@@ -78,6 +80,7 @@ export default {
           name: 'lineDetail.diagnosis.networkStatus',
           meta: { label: 'Détail de la ligne - Tester le réseau et la localisation' },
           params: { lineId: this.$route.params.lineId, meta: this.content },
+          query: { partnerType: typeForPartner },
         },
       },
       {
@@ -89,6 +92,7 @@ export default {
           name: 'lineDetail.diagnosis.networkTestControl',
           meta: { label: 'Détail de la ligne - Tester et contrôler la consommation' },
           params: { lineId: this.$route.params.lineId, meta: this.content },
+          query: { partnerType: typeForPartner },
         },
       },
       {
@@ -100,6 +104,7 @@ export default {
           name: 'lineDetail.diagnosis.supervision',
           meta: { label: 'Détail de la ligne - Supervision' },
           params: { lineId: this.$route.params.lineId, meta: this.content },
+          query: { partnerType: typeForPartner },
         },
       },
     ];
@@ -149,10 +154,12 @@ export default {
       const specificPermissionNetworkHistory = {
         section: 'network_history',
         title: 'getparc.lineDetail.tab2.networkHistory',
+        compatiblePartnerTypes: ['MVNO', 'CUSTOMER', 'MULTI_CUSTOMER'],
         to: {
           name: 'lineDetail.diagnosis.networkHistory',
           meta: { label: 'Détail de la ligne - Historique réseau et itinérance' },
           params: { lineId: this.$route.params.lineId, meta: this.content },
+          query: { partnerType: typeForPartner },
         },
       };
 
@@ -179,10 +186,12 @@ export default {
     },
     gotoRoute(name) {
       if (this.$route.name !== name) {
-        this.$router.push({
-          name,
-          params: { lineId: this.$route.params.lineId, meta: this.content },
-        });
+        this.$router
+          .push({
+            name,
+            params: { lineId: this.$route.params.lineId, meta: this.content },
+          })
+          .catch(() => {});
       }
     },
     shouldIgnoreRedirect() {
