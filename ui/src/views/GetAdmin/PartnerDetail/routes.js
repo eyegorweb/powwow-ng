@@ -203,7 +203,13 @@ export default {
               children: [
                 {
                   name: 'getAdminPartnerDetails.customerList.detail.commercialOffers.list',
-                  meta: { label: 'Détail du partenaire - CF - Liste des offres commerciales (MB)' },
+                  meta: {
+                    label: 'Détail du partenaire - CF - Liste des offres commerciales (MB)',
+                    permission: {
+                      domain: 'party',
+                      action: 'read_customer_account',
+                    },
+                  },
                   path: 'list',
                   component: () =>
                     import(
@@ -214,6 +220,10 @@ export default {
                   name: 'getAdminPartnerDetails.customerList.detail.commercialOffers.form',
                   meta: {
                     label: 'Détail du partenaire - CF - Offre commerciale (MB)',
+                    permission: {
+                      domain: 'party',
+                      action: 'read_customer_account',
+                    },
                   },
                   path: 'form/:comOfferId?',
                   component: CommercialOfferForm,
@@ -222,7 +232,13 @@ export default {
             },
             {
               name: 'getAdminPartnerDetails.customerList.detail.deliveryAdresses',
-              meta: { label: 'Détail du partenaire - CF - Adresse de livraison (MB)' },
+              meta: {
+                label: 'Détail du partenaire - CF - Adresse de livraison (MB)',
+                permission: {
+                  domain: 'party',
+                  action: 'read_customer_account',
+                },
+              },
               path: 'deliveryAdresses',
               component: () =>
                 import(
@@ -231,7 +247,13 @@ export default {
             },
             {
               name: 'getAdminPartnerDetails.customerList.detail.simcards',
-              meta: { label: 'Détail du partenaire - CF - Cartes SIM (MB)' },
+              meta: {
+                label: 'Détail du partenaire - CF - Cartes SIM (MB)',
+                permission: {
+                  domain: 'party',
+                  action: 'read_customer_account',
+                },
+              },
               path: 'simcards',
               component: () => import('@/views/GetAdmin/PartnerDetail/OffersTab/SimCards.vue'),
             },
