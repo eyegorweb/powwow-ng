@@ -44,19 +44,28 @@ export default {
         {
           name: 'lineDetail.details.info',
           path: 'info',
-          meta: { label: 'Détail de la ligne - Informations' },
+          meta: {
+            label: 'Détail de la ligne - Informations',
+            permission: { domain: 'getParc', action: 'read' },
+          },
           component: LineInfoSection,
         },
         {
           name: 'lineDetail.details.billing',
           path: 'billing',
-          meta: { label: 'Détail de la ligne - Facturation et offre' },
+          meta: {
+            label: 'Détail de la ligne - Facturation et offre',
+            permission: { domain: 'getParc', action: 'read' },
+          },
           component: BillingSection,
         },
         {
           name: 'lineDetail.details.services',
           path: 'services',
-          meta: { label: 'Détail de la ligne - Services de la ligne' },
+          meta: {
+            label: 'Détail de la ligne - Services de la ligne',
+            permission: { domain: 'getParc', action: 'read' },
+          },
           component: LineServicesSection,
         },
         {
@@ -64,7 +73,10 @@ export default {
           path: 'alarms',
           meta: {
             label: 'Détail de la ligne - Liste des alarmes',
-            permission: { domain: 'alarm', action: 'read' },
+            permission: [
+              { domain: 'getParc', action: 'read' },
+              { domain: 'alarm', action: 'read' },
+            ],
             compatiblePartnerTypes: ['CUSTOMER', 'MULTI_CUSTOMER', 'M2M_LIGHT'],
           },
           component: AlarmList,
@@ -83,7 +95,10 @@ export default {
     {
       name: 'lineDetail.ongoing',
       path: 'ongoing',
-      meta: { label: 'Détail de la ligne - En cours de consommation' },
+      meta: {
+        label: 'Détail de la ligne - En cours de consommation',
+        permission: { domain: 'act', action: 'read' },
+      },
       component: LineDetailsOngoingTabTab,
     },
     {
