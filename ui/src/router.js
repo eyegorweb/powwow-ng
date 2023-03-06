@@ -235,7 +235,10 @@ export default new Router({
     {
       path: '/getadmin/manage-marketing-offers',
       name: 'getAdminCatalogOffers',
-      meta: { label: 'Gestion du catalogue des offres' },
+      meta: {
+        label: 'Gestion du catalogue des offres',
+        permission: { domain: 'catalog', action: 'read_catalog_offer' },
+      },
       component: MarketingOffersManagement,
     },
   ]),
