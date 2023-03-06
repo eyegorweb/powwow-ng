@@ -56,7 +56,7 @@ export default {
           name: 'lineDetail.diagnosis.last_tests',
           meta: { label: 'Détail de la ligne - Derniers tests Coach M2M' },
           params: { lineId: this.$route.params.lineId, meta: this.content },
-          query: { partnerType: typeForPartner },
+          query: { partnerType: typeForPartner, coachM2MAvailable },
         },
       },
       {
@@ -68,7 +68,7 @@ export default {
           name: 'lineDetail.diagnosis.analysis',
           meta: { label: 'Détail de la ligne - Analyser la ligne' },
           params: { lineId: this.$route.params.lineId, meta: this.content },
-          query: { partnerType: typeForPartner },
+          query: { partnerType: typeForPartner, autoDiagnosticEnabled: this.autoDiagnosticEnabled },
         },
       },
       {
@@ -80,7 +80,7 @@ export default {
           name: 'lineDetail.diagnosis.networkStatus',
           meta: { label: 'Détail de la ligne - Tester le réseau et la localisation' },
           params: { lineId: this.$route.params.lineId, meta: this.content },
-          query: { partnerType: typeForPartner },
+          query: { partnerType: typeForPartner, geolocEnabled },
         },
       },
       {
@@ -92,7 +92,7 @@ export default {
           name: 'lineDetail.diagnosis.networkTestControl',
           meta: { label: 'Détail de la ligne - Tester et contrôler la consommation' },
           params: { lineId: this.$route.params.lineId, meta: this.content },
-          query: { partnerType: typeForPartner },
+          query: { partnerType: typeForPartner, requestConsoActive },
         },
       },
       {
@@ -104,7 +104,7 @@ export default {
           name: 'lineDetail.diagnosis.supervision',
           meta: { label: 'Détail de la ligne - Supervision' },
           params: { lineId: this.$route.params.lineId, meta: this.content },
-          query: { partnerType: typeForPartner },
+          query: { partnerType: typeForPartner, autoDiagnosticEnabled: this.autoDiagnosticEnabled },
         },
       },
     ];
@@ -159,7 +159,8 @@ export default {
           name: 'lineDetail.diagnosis.networkHistory',
           meta: { label: 'Détail de la ligne - Historique réseau et itinérance' },
           params: { lineId: this.$route.params.lineId, meta: this.content },
-          query: { partnerType: typeForPartner },
+          compatiblePartnerTypes: ['MVNO', 'CUSTOMER', 'MULTI_CUSTOMER'],
+          query: { partnerType: typeForPartner, specificCustomerID },
         },
       };
 
