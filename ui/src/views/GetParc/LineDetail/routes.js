@@ -100,6 +100,7 @@ export default {
           meta: {
             label: 'Détail de la ligne - Derniers tests Coach M2M',
             permission: { domain: 'getParc', action: 'manage_coach' },
+            compatiblePartnerTypes: ['CUSTOMER', 'MULTI_CUSTOMER', 'M2M_LIGHT'],
           },
           component: LastTests,
         },
@@ -109,6 +110,7 @@ export default {
           meta: {
             label: 'Détail de la ligne - Analyser la ligne',
             permission: { domain: 'getVision', action: 'read' },
+            compatiblePartnerTypes: ['CUSTOMER', 'MULTI_CUSTOMER'],
           },
           component: LineAnalysisSubMenu1,
         },
@@ -118,6 +120,7 @@ export default {
           meta: {
             label: 'Détail de la ligne - Tester le réseau et la localisation',
             permission: { domain: 'getVision', action: 'read' },
+            compatiblePartnerTypes: ['CUSTOMER', 'MULTI_CUSTOMER'],
           },
           component: NetworkStatusSubMenu2,
         },
@@ -127,6 +130,7 @@ export default {
           meta: {
             label: 'Détail de la ligne - Tester et contrôler la consommation',
             permission: { domain: 'getVision', action: 'read' },
+            compatiblePartnerTypes: ['CUSTOMER', 'MULTI_CUSTOMER'],
           },
           component: NetworkTestControl,
         },
@@ -136,6 +140,7 @@ export default {
           meta: {
             label: ' Détail de la ligne - Supervision',
             permission: { domain: 'getVision', action: 'read' },
+            compatiblePartnerTypes: ['CUSTOMER', 'MULTI_CUSTOMER'],
           },
           component: Supervision,
         },
@@ -146,7 +151,6 @@ export default {
             label: 'Détail de la ligne - Historique réseau et itinérance',
             permission: { domain: 'getVision', action: 'read' },
             compatiblePartnerTypes: ['MVNO', 'CUSTOMER', 'MULTI_CUSTOMER'],
-            // Ajouter le partenaire IMT (matrice src/views/GetParc/LineDetail/index.vue)
           },
           component: NetworkHistory,
         },

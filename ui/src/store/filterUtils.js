@@ -76,7 +76,7 @@ export const findFilterValuesById = (id) => (state) => {
 
 /**
  * Helper function to structure object
- * @param {*} values object to structure
+ * @param {Object} values object to structure
  * @returns structures object with id and label attributes
  */
 export function formattedFilterValues(values) {
