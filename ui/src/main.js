@@ -9,8 +9,7 @@ import VTooltip from 'v-tooltip';
 import FeatureFlipping from './featureFlipping/plugin';
 import CommonFunctions from './utils/commonVueFunctions';
 import AnalyticsTracking from './utils/analyticsTracking';
-import { storeIsLoaded } from '@/utils/alarms';
-import { waitForStoreLoaded } from '@/utils/routes';
+import { storeIsLoaded, waitForStoreLoaded } from '@/utils/routes';
 
 import Fragment from 'vue-fragment';
 
