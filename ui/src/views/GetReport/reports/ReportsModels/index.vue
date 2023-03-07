@@ -293,7 +293,7 @@ export default {
       } else {
         data = await fetchReports(this.orderBy, pagination);
       }
-      console.log(
+      console.info(
         "fetch report: pas d'infos sur l'heure du rapport de création, uniquement infos format DD/MM/YYYY"
       );
 
