@@ -57,6 +57,7 @@ export default {
           path: 'admins',
           meta: {
             label: 'Détail du partenaire - Administrateurs',
+            hasDependantPermission: true,
             permission: [
               {
                 domain: 'party',
@@ -75,6 +76,7 @@ export default {
           path: 'users',
           meta: {
             label: 'Détail du partenaire - Utilisateurs',
+            hasDependantPermission: true,
             permission: [
               {
                 domain: 'party',
@@ -101,6 +103,7 @@ export default {
           path: 'broadcastlists',
           meta: {
             label: 'Détail du partenaire - Listes de diffusion',
+            hasDependantPermission: true,
             permission: [
               {
                 domain: 'party',
@@ -119,6 +122,7 @@ export default {
           path: 'customfields',
           meta: {
             label: ' Détail du partenaire - Champs libres',
+            hasDependantPermission: true,
             permission: [
               {
                 domain: 'party',
@@ -137,6 +141,7 @@ export default {
           path: 'deliveryaddress',
           meta: {
             label: 'Détail du partenaire - Adresses de livraison',
+            hasDependantPermission: true,
             permission: [
               {
                 domain: 'party',
@@ -155,6 +160,7 @@ export default {
           path: 'specificfields',
           meta: {
             label: 'Détail du partenaire - Champs spécifiques',
+            hasDependantPermission: true,
             permission: [
               {
                 domain: 'party',
@@ -180,6 +186,7 @@ export default {
           name: 'getAdminPartnerDetails.billingAccounts.list',
           meta: {
             label: 'Détail du partenaire - Comptes de facturation',
+            hasDependantPermission: true,
             permission: [
               {
                 domain: 'party',
@@ -199,6 +206,7 @@ export default {
           name: 'getAdminPartnerDetails.billingAccounts.form',
           meta: {
             label: 'Détail du partenaire - Détail du compte de facturation',
+            hasDependantPermission: true,
             permission: [
               {
                 domain: 'party',
@@ -226,6 +234,7 @@ export default {
           name: 'getAdminPartnerDetails.customerList.list',
           meta: {
             label: 'Détail du partenaire - Liste des entités (MB)',
+            hasDependantPermission: true,
             permission: [
               {
                 domain: 'party',
@@ -259,6 +268,7 @@ export default {
                   name: 'getAdminPartnerDetails.customerList.detail.commercialOffers.list',
                   meta: {
                     label: 'Détail du partenaire - CF - Liste des offres commerciales (MB)',
+                    hasDependantPermission: true,
                     permission: [
                       {
                         domain: 'party',
@@ -280,6 +290,7 @@ export default {
                   name: 'getAdminPartnerDetails.customerList.detail.commercialOffers.form',
                   meta: {
                     label: 'Détail du partenaire - CF - Offre commerciale (MB)',
+                    hasDependantPermission: true,
                     permission: [
                       {
                         domain: 'party',
@@ -300,6 +311,7 @@ export default {
               name: 'getAdminPartnerDetails.customerList.detail.deliveryAdresses',
               meta: {
                 label: 'Détail du partenaire - CF - Adresse de livraison (MB)',
+                hasDependantPermission: true,
                 permission: [
                   {
                     domain: 'party',
@@ -321,6 +333,7 @@ export default {
               name: 'getAdminPartnerDetails.customerList.detail.simcards',
               meta: {
                 label: 'Détail du partenaire - CF - Cartes SIM (MB)',
+                hasDependantPermission: true,
                 permission: [
                   {
                     domain: 'party',
@@ -349,6 +362,7 @@ export default {
           name: 'partnerDetail.offersAndSim.offers',
           meta: {
             label: 'Détail du partenaire - Offres',
+            hasDependantPermission: true,
             permission: [
               {
                 domain: 'party',
@@ -367,10 +381,17 @@ export default {
           name: 'partnerDetail.offersAndSim.simCards',
           meta: {
             label: ' Détail du partenaire - Cartes SIM',
-            permission: {
-              domain: 'party',
-              action: 'read_available_sims',
-            },
+            hasDependantPermission: true,
+            permission: [
+              {
+                domain: 'party',
+                action: 'read',
+              },
+              {
+                domain: 'party',
+                action: 'read_available_sims',
+              },
+            ],
           },
           path: 'simcards',
           component: SimCards,
@@ -379,6 +400,7 @@ export default {
           name: 'partnerDetail.offersAndSim.supervisionOptions',
           meta: {
             label: 'Détail du partenaire - Options de supervision',
+            hasDependantPermission: true,
             permission: [
               {
                 domain: 'party',
@@ -405,6 +427,7 @@ export default {
           name: 'partnerDetail.accountDetail.description',
           meta: {
             label: 'Détail du partenaire - Description du compte partenaire',
+            hasDependantPermission: true,
             permission: [
               {
                 domain: 'party',
@@ -423,6 +446,7 @@ export default {
           name: 'partnerDetail.accountDetail.options',
           meta: {
             label: 'Détail du partenaire - Options du partenaire',
+            hasPartialDependantPermission: true,
             permission: [
               {
                 domain: 'party',

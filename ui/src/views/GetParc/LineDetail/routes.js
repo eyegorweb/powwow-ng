@@ -1,8 +1,7 @@
 const GetParcLineDetail = () => import('@/views/GetParc/LineDetail');
 const LineDetailsTab = () => import('@/views/GetParc/LineDetail/DetailsTab/index.vue');
-const LineDetailsOngoingTabTab = () => import('@/views/GetParc/LineDetail/OngoingTab/index.vue');
-const LineDetailsDiagnosisTabTab = () =>
-  import('@/views/GetParc/LineDetail/DiagnosisTab/index.vue');
+const LineDetailsOngoingTab = () => import('@/views/GetParc/LineDetail/OngoingTab/index.vue');
+const LineDetailsDiagnosisTab = () => import('@/views/GetParc/LineDetail/DiagnosisTab/index.vue');
 
 const LineInfoSection = () =>
   import('@/views/GetParc/LineDetail/DetailsTab/LineInfoSection/index.vue');
@@ -73,6 +72,7 @@ export default {
           path: 'alarms',
           meta: {
             label: 'Détail de la ligne - Liste des alarmes',
+            hasDependantPermission: true,
             permission: [
               { domain: 'getParc', action: 'read' },
               { domain: 'alarm', action: 'read' },
@@ -86,6 +86,7 @@ export default {
           path: 'acts',
           meta: {
             label: 'Détail de la ligne - Suivi/pilotage des actes de gestion',
+            hasDependantPermission: true,
             permission: [
               { domain: 'getParc', action: 'read' },
               { domain: 'act', action: 'read' },
@@ -102,7 +103,7 @@ export default {
         label: 'Détail de la ligne - En cours de consommation',
         permission: { domain: 'act', action: 'read' },
       },
-      component: LineDetailsOngoingTabTab,
+      component: LineDetailsOngoingTab,
     },
     {
       name: 'lineDetail.diagnosis',
@@ -110,13 +111,14 @@ export default {
       meta: {
         label: 'Détail de la ligne - Analyser la ligne',
       },
-      component: LineDetailsDiagnosisTabTab,
+      component: LineDetailsDiagnosisTab,
       children: [
         {
           name: 'lineDetail.diagnosis.last_tests',
           path: 'tests',
           meta: {
             label: 'Détail de la ligne - Derniers tests Coach M2M',
+            hasDependantPermission: true,
             permission: [
               { domain: 'getParc', action: 'read' },
               { domain: 'getParc', action: 'manage_coach' },
@@ -130,6 +132,7 @@ export default {
           path: 'analysis',
           meta: {
             label: 'Détail de la ligne - Analyser la ligne',
+            hasDependantPermission: true,
             permission: [
               { domain: 'getParc', action: 'read' },
               { domain: 'getVision', action: 'read' },
@@ -143,6 +146,7 @@ export default {
           path: 'network-location-test',
           meta: {
             label: 'Détail de la ligne - Tester le réseau et la localisation',
+            hasDependantPermission: true,
             permission: [
               { domain: 'getParc', action: 'read' },
               { domain: 'getVision', action: 'read' },
@@ -156,6 +160,7 @@ export default {
           path: 'network-test-control',
           meta: {
             label: 'Détail de la ligne - Tester et contrôler la consommation',
+            hasDependantPermission: true,
             permission: [
               { domain: 'getParc', action: 'read' },
               { domain: 'getVision', action: 'read' },
@@ -169,6 +174,7 @@ export default {
           path: 'supervision',
           meta: {
             label: ' Détail de la ligne - Supervision',
+            hasDependantPermission: true,
             permission: [
               { domain: 'getParc', action: 'read' },
               { domain: 'getVision', action: 'read' },
@@ -182,6 +188,7 @@ export default {
           path: 'network-history',
           meta: {
             label: 'Détail de la ligne - Historique réseau et itinérance',
+            hasDependantPermission: true,
             permission: [
               { domain: 'getParc', action: 'read' },
               { domain: 'getVision', action: 'read' },

@@ -104,11 +104,30 @@ export function waitForStoreLoaded(routerObj, store, tempIsStoreLoaded, callFn) 
     tries = 60;
     storeIsLoaded = tempIsStoreLoaded;
     if (storeIsLoaded) {
-      // Testons la permission
+      // console.log('router obj', routerObj);
       let permission = getPermission(routerObj);
-      const havePermission = !!permission.find((perm) => {
-        return store.getters.havePermission(perm.domain, perm.action);
-      });
+      // console.log('permission', permission);
+      let havePermission = false;
+      // Testons les permissions quand toutes doivent être valables
+      // hasDependantPermission
+      if (routerObj.meta && routerObj.meta.hasDependantPermission) {
+        havePermission = !!permission.every((perm) => {
+          return store.getters.havePermission(perm.domain, perm.action);
+        });
+      } else if (routerObj.meta && routerObj.meta.hasPartialDependantPermission) {
+        // Testons les permissions quand l'une est obligatoire et au moins une parmi d'autres
+        // Cas spécial et unique pour la route label name = partnerDetail.accountDetail.options
+        // hasPartialDependantPermission
+        havePermission =
+          permission.find((perm) => {
+            return store.getters.havePermission(perm.domain, perm.action);
+          }).length > 1;
+      } else {
+        // Testons la permission quand au moins une est valable
+        havePermission = !!permission.find((perm) => {
+          return store.getters.havePermission(perm.domain, perm.action);
+        });
+      }
       // console.log('havePermission ????', havePermission);
 
       // Testons la compatibilité avec le type de partenaire, ce contrôle est nécessaire (donc renseigné pour certians liens)
@@ -133,19 +152,19 @@ export function waitForStoreLoaded(routerObj, store, tempIsStoreLoaded, callFn) 
       let haveAdditionalOptionPermission = undefined;
       // coachM2MAvailable
       if (routerObj.query && routerObj.query.coachM2MAvailable) {
-        haveAdditionalOptionPermission = routerObj.query.coachM2MAvailable;
+        haveAdditionalOptionPermission = routerObj.query.coachM2MAvailable === true;
       }
       // requestConsoActive
       if (routerObj.query && routerObj.query.requestConsoActive) {
-        haveAdditionalOptionPermission = routerObj.query.requestConsoActive;
+        haveAdditionalOptionPermission = routerObj.query.requestConsoActive === true;
       }
       // geolocEnabled
       if (routerObj.query && routerObj.query.geolocEnabled) {
-        haveAdditionalOptionPermission = routerObj.query.geolocEnabled;
+        haveAdditionalOptionPermission = routerObj.query.geolocEnabled === true;
       }
       // autoDiagnsticEnabled
       if (routerObj.query && routerObj.query.autoDiagnosticEnabled) {
-        haveAdditionalOptionPermission = routerObj.query.autoDiagnosticEnabled;
+        haveAdditionalOptionPermission = routerObj.query.autoDiagnosticEnabled === true;
       }
       // specificCustomerID
       if (
