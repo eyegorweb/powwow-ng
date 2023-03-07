@@ -86,7 +86,10 @@ export default {
           path: 'acts',
           meta: {
             label: 'Détail de la ligne - Suivi/pilotage des actes de gestion',
-            permission: { domain: 'act', action: 'read' },
+            permission: [
+              { domain: 'getParc', action: 'read' },
+              { domain: 'act', action: 'read' },
+            ],
           },
           component: ActsHistory,
         },
@@ -114,7 +117,10 @@ export default {
           path: 'tests',
           meta: {
             label: 'Détail de la ligne - Derniers tests Coach M2M',
-            permission: { domain: 'getParc', action: 'manage_coach' },
+            permission: [
+              { domain: 'getParc', action: 'read' },
+              { domain: 'getParc', action: 'manage_coach' },
+            ],
             compatiblePartnerTypes: ['CUSTOMER', 'MULTI_CUSTOMER', 'M2M_LIGHT'],
           },
           component: LastTests,
@@ -124,7 +130,10 @@ export default {
           path: 'analysis',
           meta: {
             label: 'Détail de la ligne - Analyser la ligne',
-            permission: { domain: 'getVision', action: 'read' },
+            permission: [
+              { domain: 'getParc', action: 'read' },
+              { domain: 'getVision', action: 'read' },
+            ],
             compatiblePartnerTypes: ['CUSTOMER', 'MULTI_CUSTOMER'],
           },
           component: LineAnalysisSubMenu1,
@@ -134,7 +143,10 @@ export default {
           path: 'network-location-test',
           meta: {
             label: 'Détail de la ligne - Tester le réseau et la localisation',
-            permission: { domain: 'getVision', action: 'read' },
+            permission: [
+              { domain: 'getParc', action: 'read' },
+              { domain: 'getVision', action: 'read' },
+            ],
             compatiblePartnerTypes: ['CUSTOMER', 'MULTI_CUSTOMER'],
           },
           component: NetworkStatusSubMenu2,
@@ -144,7 +156,10 @@ export default {
           path: 'network-test-control',
           meta: {
             label: 'Détail de la ligne - Tester et contrôler la consommation',
-            permission: { domain: 'getVision', action: 'read' },
+            permission: [
+              { domain: 'getParc', action: 'read' },
+              { domain: 'getVision', action: 'read' },
+            ],
             compatiblePartnerTypes: ['CUSTOMER', 'MULTI_CUSTOMER'],
           },
           component: NetworkTestControl,
@@ -154,7 +169,10 @@ export default {
           path: 'supervision',
           meta: {
             label: ' Détail de la ligne - Supervision',
-            permission: { domain: 'getVision', action: 'read' },
+            permission: [
+              { domain: 'getParc', action: 'read' },
+              { domain: 'getVision', action: 'read' },
+            ],
             compatiblePartnerTypes: ['CUSTOMER', 'MULTI_CUSTOMER'],
           },
           component: Supervision,
@@ -164,7 +182,10 @@ export default {
           path: 'network-history',
           meta: {
             label: 'Détail de la ligne - Historique réseau et itinérance',
-            permission: { domain: 'getVision', action: 'read' },
+            permission: [
+              { domain: 'getParc', action: 'read' },
+              { domain: 'getVision', action: 'read' },
+            ],
             compatiblePartnerTypes: ['MVNO', 'CUSTOMER', 'MULTI_CUSTOMER'],
           },
           component: NetworkHistory,
