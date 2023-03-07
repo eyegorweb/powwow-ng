@@ -251,7 +251,20 @@ export default {
         },
         {
           name: 'getAdminPartnerDetails.customerList.detail',
-          meta: { label: 'Détail du partenaire - CF - Liste des offres commerciales (MB)' },
+          meta: {
+            label: 'Détail du partenaire - CF - Liste des offres commerciales (MB)',
+            hasDependantPermission: true,
+            permission: [
+              {
+                domain: 'party',
+                action: 'read',
+              },
+              {
+                domain: 'party',
+                action: 'read_customer_account',
+              },
+            ],
+          },
           path: 'detail/:billingAccountId',
           component: BillingAccountDetail,
           children: [
