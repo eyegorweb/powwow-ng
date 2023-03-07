@@ -115,7 +115,19 @@ export default {
           title: 'getparc.lineDetail.analysingTool',
           to: {
             name: 'lineDetail.diagnosis.analysis',
-            meta: { label: 'Détail de la ligne - Analyser la ligne' },
+            meta: {
+              label: 'Détail de la ligne - Analyser la ligne',
+              hasDependantPermission: true,
+              permission: [
+                { domain: 'getParc', action: 'read' },
+                { domain: 'getVision', action: 'read' },
+              ],
+              compatiblePartnerTypes: ['CUSTOMER', 'MULTI_CUSTOMER'],
+            },
+            query: {
+              partnerType: this.typeForPartner,
+              autoDiagnosticEnabled: this.autoDiagnosticEnabled,
+            },
             params: { lineId: this.$route.params.lineId },
           },
         },
