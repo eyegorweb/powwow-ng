@@ -57,10 +57,16 @@ export default {
           path: 'admins',
           meta: {
             label: 'Détail du partenaire - Administrateurs',
-            permission: {
-              domain: 'user',
-              action: 'read',
-            },
+            permission: [
+              {
+                domain: 'party',
+                action: 'read',
+              },
+              {
+                domain: 'party',
+                action: 'read_administrator',
+              },
+            ],
           },
           component: AdminCards,
         },
@@ -69,10 +75,16 @@ export default {
           path: 'users',
           meta: {
             label: 'Détail du partenaire - Utilisateurs',
-            permission: {
-              domain: 'user',
-              action: 'read',
-            },
+            permission: [
+              {
+                domain: 'party',
+                action: 'read',
+              },
+              {
+                domain: 'user',
+                action: 'read',
+              },
+            ],
           },
           component: UsersCards,
         },
@@ -89,10 +101,16 @@ export default {
           path: 'broadcastlists',
           meta: {
             label: 'Détail du partenaire - Listes de diffusion',
-            permission: {
-              domain: 'party',
-              action: 'read_broadcast_list',
-            },
+            permission: [
+              {
+                domain: 'party',
+                action: 'read',
+              },
+              {
+                domain: 'party',
+                action: 'read_broadcast_list',
+              },
+            ],
           },
           component: BroadcastLists,
         },
@@ -101,10 +119,16 @@ export default {
           path: 'customfields',
           meta: {
             label: ' Détail du partenaire - Champs libres',
-            permission: {
-              domain: 'party',
-              action: 'read_custom_field',
-            },
+            permission: [
+              {
+                domain: 'party',
+                action: 'read',
+              },
+              {
+                domain: 'party',
+                action: 'read_custom_field',
+              },
+            ],
           },
           component: CustomFields,
         },
@@ -113,10 +137,16 @@ export default {
           path: 'deliveryaddress',
           meta: {
             label: 'Détail du partenaire - Adresses de livraison',
-            permission: {
-              domain: 'party',
-              action: 'read_delivery_address',
-            },
+            permission: [
+              {
+                domain: 'party',
+                action: 'read',
+              },
+              {
+                domain: 'party',
+                action: 'read_delivery_address',
+              },
+            ],
           },
           component: DeliveryAddress,
         },
@@ -125,10 +155,16 @@ export default {
           path: 'specificfields',
           meta: {
             label: 'Détail du partenaire - Champs spécifiques',
-            permission: {
-              domain: 'party',
-              action: 'read_specific_field',
-            },
+            permission: [
+              {
+                domain: 'party',
+                action: 'read',
+              },
+              {
+                domain: 'party',
+                action: 'read_specific_field',
+              },
+            ],
           },
           component: SpecificFields,
         },
@@ -144,10 +180,16 @@ export default {
           name: 'getAdminPartnerDetails.billingAccounts.list',
           meta: {
             label: 'Détail du partenaire - Comptes de facturation',
-            permission: {
-              domain: 'party',
-              action: 'read_customer_account',
-            },
+            permission: [
+              {
+                domain: 'party',
+                action: 'read',
+              },
+              {
+                domain: 'party',
+                action: 'read_customer_account',
+              },
+            ],
           },
           path: 'list',
           component: () =>
@@ -157,10 +199,16 @@ export default {
           name: 'getAdminPartnerDetails.billingAccounts.form',
           meta: {
             label: 'Détail du partenaire - Détail du compte de facturation',
-            permission: {
-              domain: 'party',
-              action: 'read_customer_account',
-            },
+            permission: [
+              {
+                domain: 'party',
+                action: 'read',
+              },
+              {
+                domain: 'party',
+                action: 'read_customer_account',
+              },
+            ],
           },
           path: 'form/:customerAccountCode',
           component: () =>
@@ -178,10 +226,16 @@ export default {
           name: 'getAdminPartnerDetails.customerList.list',
           meta: {
             label: 'Détail du partenaire - Liste des entités (MB)',
-            permission: {
-              domain: 'party',
-              action: 'read_customer_account',
-            },
+            permission: [
+              {
+                domain: 'party',
+                action: 'read',
+              },
+              {
+                domain: 'party',
+                action: 'read_customer_account',
+              },
+            ],
           },
           path: 'list',
           component: PartnerCustomersTable,
@@ -205,10 +259,16 @@ export default {
                   name: 'getAdminPartnerDetails.customerList.detail.commercialOffers.list',
                   meta: {
                     label: 'Détail du partenaire - CF - Liste des offres commerciales (MB)',
-                    permission: {
-                      domain: 'party',
-                      action: 'read_customer_account',
-                    },
+                    permission: [
+                      {
+                        domain: 'party',
+                        action: 'read',
+                      },
+                      {
+                        domain: 'party',
+                        action: 'read_customer_account',
+                      },
+                    ],
                   },
                   path: 'list',
                   component: () =>
@@ -220,10 +280,16 @@ export default {
                   name: 'getAdminPartnerDetails.customerList.detail.commercialOffers.form',
                   meta: {
                     label: 'Détail du partenaire - CF - Offre commerciale (MB)',
-                    permission: {
-                      domain: 'party',
-                      action: 'read_customer_account',
-                    },
+                    permission: [
+                      {
+                        domain: 'party',
+                        action: 'read',
+                      },
+                      {
+                        domain: 'party',
+                        action: 'read_customer_account',
+                      },
+                    ],
                   },
                   path: 'form/:comOfferId?',
                   component: CommercialOfferForm,
@@ -234,10 +300,16 @@ export default {
               name: 'getAdminPartnerDetails.customerList.detail.deliveryAdresses',
               meta: {
                 label: 'Détail du partenaire - CF - Adresse de livraison (MB)',
-                permission: {
-                  domain: 'party',
-                  action: 'read_customer_account',
-                },
+                permission: [
+                  {
+                    domain: 'party',
+                    action: 'read',
+                  },
+                  {
+                    domain: 'party',
+                    action: 'read_customer_account',
+                  },
+                ],
               },
               path: 'deliveryAdresses',
               component: () =>
@@ -249,10 +321,16 @@ export default {
               name: 'getAdminPartnerDetails.customerList.detail.simcards',
               meta: {
                 label: 'Détail du partenaire - CF - Cartes SIM (MB)',
-                permission: {
-                  domain: 'party',
-                  action: 'read_customer_account',
-                },
+                permission: [
+                  {
+                    domain: 'party',
+                    action: 'read',
+                  },
+                  {
+                    domain: 'party',
+                    action: 'read_customer_account',
+                  },
+                ],
               },
               path: 'simcards',
               component: () => import('@/views/GetAdmin/PartnerDetail/OffersTab/SimCards.vue'),
@@ -271,10 +349,16 @@ export default {
           name: 'partnerDetail.offersAndSim.offers',
           meta: {
             label: 'Détail du partenaire - Offres',
-            permission: {
-              domain: 'party',
-              action: 'read_available_catalog_offers',
-            },
+            permission: [
+              {
+                domain: 'party',
+                action: 'read',
+              },
+              {
+                domain: 'party',
+                action: 'read_available_catalog_offers',
+              },
+            ],
           },
           path: 'offersCards',
           component: OffersCards,
@@ -295,10 +379,16 @@ export default {
           name: 'partnerDetail.offersAndSim.supervisionOptions',
           meta: {
             label: 'Détail du partenaire - Options de supervision',
-            permission: {
-              domain: 'party',
-              action: 'read_supervision_option',
-            },
+            permission: [
+              {
+                domain: 'party',
+                action: 'read',
+              },
+              {
+                domain: 'party',
+                action: 'read_supervision_option',
+              },
+            ],
           },
           path: 'supervision',
           component: SupervisionOptions,
@@ -315,10 +405,16 @@ export default {
           name: 'partnerDetail.accountDetail.description',
           meta: {
             label: 'Détail du partenaire - Description du compte partenaire',
-            permission: {
-              domain: 'party',
-              action: 'read_account_detail',
-            },
+            permission: [
+              {
+                domain: 'party',
+                action: 'read',
+              },
+              {
+                domain: 'party',
+                action: 'read_account_detail',
+              },
+            ],
           },
           path: 'description',
           component: Description,
@@ -328,6 +424,10 @@ export default {
           meta: {
             label: 'Détail du partenaire - Options du partenaire',
             permission: [
+              {
+                domain: 'party',
+                action: 'read',
+              },
               {
                 domain: 'party',
                 action: 'read_main_options',
