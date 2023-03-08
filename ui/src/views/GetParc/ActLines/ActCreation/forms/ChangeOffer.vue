@@ -74,7 +74,6 @@ import { getOfferOption } from '@/api/partners.js';
 import { getMarketingOfferServices } from '@/components/Services/utils.js';
 import { formatBackErrors } from '@/utils/errors';
 import cloneDeep from 'lodash.clonedeep';
-// import differencewith from 'lodash.differencewith';
 
 export default {
   components: {

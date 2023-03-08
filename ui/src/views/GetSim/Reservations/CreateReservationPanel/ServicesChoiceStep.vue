@@ -28,6 +28,7 @@
               v-if="selectedOffer"
               :key="selectedOffer.label"
               :services="offerServices"
+              :initial-services="initialServices"
               :offer="selectedOffer"
               :data-params-needed="isDataParamsError"
               vertical
@@ -48,6 +49,7 @@ import LoaderContainer from '@/components/LoaderContainer';
 import { fetchOrderState } from '@/api/partners';
 import { fetchOffers } from '@/api/offers';
 import { getMarketingOfferServices } from '@/components/Services/utils.js';
+import cloneDeep from 'lodash.clonedeep';
 
 import OffersChoice from '@/views/GetSim/CreateOrder/Services/OffersChoice.vue';
 import ServicesBlock from '@/components/Services/ServicesBlock.vue';
@@ -71,6 +73,7 @@ export default {
   data() {
     return {
       offerServices: undefined,
+      initialServices: undefined,
       chosenServices: undefined,
       selectedOffer: null,
       activation: false,
@@ -101,8 +104,6 @@ export default {
 
   async mounted() {
     this.partnerId = this.$loGet(this.synthesis, 'stepClient.partner.id');
-    // this.activation = get(this.synthesis, 'services.selection.activation', false);
-    // this.preActivation = get(this.synthesis, 'services.selection.preActivation', false);
 
     await this.initToggles();
     await this.initOffers();
@@ -114,6 +115,7 @@ export default {
         this.chosenServices = undefined;
       }
       this.offerServices = this.getOfferServices(this.selectedOffer);
+      this.initialServices = cloneDeep(this.offerServices);
     },
   },
 
