@@ -124,9 +124,11 @@ export function waitForStoreLoaded(routerObj, store, tempIsStoreLoaded, callFn) 
           return store.getters.havePermission(perm.domain, perm.action);
         });
       }
+      console.log('havePermission ????', havePermission);
 
       // Testons la compatibilité avec le type de partenaire, ce contrôle est nécessaire (donc renseigné pour certians liens)
       let compatiblePartnerType = checkCompatiblePartnerType(routerObj);
+      console.log('compatiblePartnerType >>>>>>>', compatiblePartnerType);
       let haveCompatiblePartnerType = undefined;
       if (compatiblePartnerType) {
         haveCompatiblePartnerType = !!compatiblePartnerType.find((partnerType) => {
@@ -140,24 +142,32 @@ export function waitForStoreLoaded(routerObj, store, tempIsStoreLoaded, callFn) 
           return undefined;
         });
       }
+      console.log('haveCompatiblePartnerType ????', haveCompatiblePartnerType);
 
       // Contrôle des options additionnelles, à traiter en les combinant (addition) avec les contrôles des types de partenaire permis
       let haveAdditionalOptionPermission = undefined;
       // coachM2MAvailable
       if (routerObj.query && routerObj.query.coachM2MAvailable) {
-        haveAdditionalOptionPermission = routerObj.query.coachM2MAvailable === true;
+        haveAdditionalOptionPermission = routerObj.query.coachM2MAvailable;
+        console.log('option coachM2MAvailable activée ?', routerObj.query.coachM2MAvailable);
       }
       // requestConsoActive
       if (routerObj.query && routerObj.query.requestConsoActive) {
-        haveAdditionalOptionPermission = routerObj.query.requestConsoActive === true;
+        haveAdditionalOptionPermission = routerObj.query.requestConsoActive;
+        console.log('option requestConsoActive activée ?', routerObj.query.requestConsoActive);
       }
       // geolocEnabled
       if (routerObj.query && routerObj.query.geolocEnabled) {
-        haveAdditionalOptionPermission = routerObj.query.geolocEnabled === true;
+        haveAdditionalOptionPermission = routerObj.query.geolocEnabled;
+        console.log('option geolocEnabled activée ?', routerObj.query.geolocEnabled);
       }
       // autoDiagnsticEnabled
       if (routerObj.query && routerObj.query.autoDiagnosticEnabled) {
-        haveAdditionalOptionPermission = routerObj.query.autoDiagnosticEnabled === true;
+        haveAdditionalOptionPermission = routerObj.query.autoDiagnosticEnabled;
+        console.log(
+          'option autoDiagnosticEnabled activée ?',
+          routerObj.query.autoDiagnosticEnabled
+        );
       }
       // specificCustomerID
       if (
@@ -167,6 +177,7 @@ export function waitForStoreLoaded(routerObj, store, tempIsStoreLoaded, callFn) 
       ) {
         haveAdditionalOptionPermission = routerObj.query.specificCustomerID === 246;
       }
+      console.log('haveAdditionalOptionPermission ???', haveAdditionalOptionPermission);
 
       // Exécution de la navigation
       // Les options additionnelles sont à traiter en combinaison avec les options sur la compatibilité des partenaires
