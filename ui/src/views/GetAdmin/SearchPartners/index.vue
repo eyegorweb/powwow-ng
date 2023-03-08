@@ -52,7 +52,7 @@ export default {
         format: {
           type: 'Link',
           getUrl(id) {
-            return `/getamin/partner/${id}/users/admins`;
+            return `/getadmin/partner/${id}/users/admins`;
           },
         },
         visibleWhen: () => {

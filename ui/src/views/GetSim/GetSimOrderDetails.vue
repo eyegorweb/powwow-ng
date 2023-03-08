@@ -366,12 +366,14 @@ export default {
     },
     gotoCorrespondingLines() {
       const queryFilters = [{ id: 'filters.lines.orderID', value: `${this.order.id}` }];
-      this.$router.push({
-        name: 'actLines',
-        params: {
-          queryFilters,
-        },
-      });
+      this.$router
+        .push({
+          name: 'actLines',
+          params: {
+            queryFilters,
+          },
+        })
+        .catch(() => {});
     },
     openImportSimPanel() {
       this.switchPanel({

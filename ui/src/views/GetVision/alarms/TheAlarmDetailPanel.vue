@@ -279,28 +279,35 @@ export default {
     ...mapMutations(['openPanel']),
 
     gotoTargetedAlarms() {
-      this.$router.push({
-        name: 'alarmDetail',
-        params: { alarmId: this.content.id, tabIndex: 1 },
-      });
+      this.$router
+        .push({
+          name: 'alarmDetail',
+          params: { alarmId: this.content.id, tabIndex: 1 },
+        })
+        .catch(() => {});
     },
 
     editThisAlarm() {
       if (this.content.type === 'OVER_CONSUMPTION_VOLUME_FLOTTE') {
         this.openDetailPanel();
       } else {
-        this.$router.push({
-          name: 'alarmDetail',
-          params: { alarmId: this.content.id, editMode: true, alarmType: this.content.type },
-        });
+        this.$router
+          .push({
+            name: 'alarmDetail',
+            params: { alarmId: this.content.id, editMode: true, alarmType: this.content.type },
+          })
+          .catch(() => {});
       }
     },
 
     gotoDetail() {
-      this.$router.push({
-        name: 'alarmDetail',
-        params: { alarmId: this.content.id },
-      });
+      console.log('got to alarm detail via route', this.$router);
+      this.$router
+        .push({
+          name: 'alarmDetail',
+          params: { alarmId: this.content.id },
+        })
+        .catch(() => {});
     },
 
     openDetailPanel() {

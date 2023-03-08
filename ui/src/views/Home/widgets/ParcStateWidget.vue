@@ -288,12 +288,14 @@ export default {
           },
         ];
       }
-      this.$router.push({
-        name: 'reportsDashboard',
-        params: {
-          queryFilters: this.filters,
-        },
-      });
+      this.$router
+        .push({
+          name: 'reportsDashboard',
+          params: {
+            queryFilters: this.filters,
+          },
+        })
+        .catch(() => {});
     },
   },
   watch: {

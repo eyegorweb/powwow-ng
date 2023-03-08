@@ -34,6 +34,7 @@ export default {
     };
   },
   mounted() {
+    const typeForPartner = this.$loGet(this.content, 'party.partyType');
     this.menuItems = this.filterByPermission([
       {
         section: 'line_info',
@@ -74,6 +75,7 @@ export default {
           name: 'lineDetail.details.alarms',
           meta: { label: 'Détail de la ligne - Liste des alarmes' },
           params: { lineId: this.$route.params.lineId, meta: this.content },
+          query: { partnerType: typeForPartner },
         },
       },
       {
@@ -84,6 +86,7 @@ export default {
           name: 'lineDetail.details.acts',
           meta: { label: 'Détail de la ligne - Suivi/pilotage des actes de gestion' },
           params: { lineId: this.$route.params.lineId, meta: this.content },
+          query: { partnerType: typeForPartner },
         },
       },
     ]);

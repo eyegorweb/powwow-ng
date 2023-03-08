@@ -2,6 +2,97 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1315+20230308090951
+2023-03-08
+
+### Fixes
+
+- [3764] corriger le chargement de recurrence (0b82ca67b9cde89bf95927f8e9e12496ce4abb2f)
+
+## 1.17.0-master.1314+20230307141820
+2023-03-07
+
+### Fixes
+
+- [3742] contrôle des permissions pour les navigations URL (e46f50266f895056d6ec90180549233c5edf2a39)
+
+## 1.17.0-master.1313+20230307124454
+2023-03-07
+
+### Fixes
+
+- [3742] contrôle des permissions pour les navigations URL (6fb0eb7641cd2d8646484379b5cd99021c9a0399)
+
+## 1.17.0-master.1312+20230307093049
+2023-03-07
+
+### Fixes
+
+- [3742] contrôle des permissions pour les navigations URL (34052cb4f8daa18727b17b87b9d323027ce8da71)
+
+## 1.17.0-master.1311+20230307075619
+2023-03-07
+
+### Fixes
+
+- [3742] contrôle des permissions pour les navigations URL (acc4cff3fe68bd588fb799a428cf5cdd0a9482f4)
+
+## 1.17.0-master.1310+20230306151404
+2023-03-06
+
+### Fixes
+
+- [3742] contrôle des permissions pour les navigations URL (3df5829898458216cd554aa70fed01952381f41c)
+
+## 1.17.0-master.1309+20230306143315
+2023-03-06
+
+### Fixes
+
+- [3742] contrôle des permissions pour les navigations URL (706064e38298d2b019f7468ccb49a39260551d87)
+
+## 1.17.0-master.1308+20230306093105
+2023-03-06
+
+### Fixes
+
+- [3742] contrôle des permissions pour les navigations URL (eb8a27577508948fb416609b7245ce9dcae70e85)
+
+## 1.17.0-master.1307+20230306085915
+2023-03-06
+
+### Fixes
+
+- [3742] contrôle des permissions pour les navigations URL (7a29f468999e6f6acbe97aa10e5209edb26147fa)
+
+## 1.17.0-master.1306+20230303090446
+2023-03-03
+
+### Fixes
+
+- [3742] contrôle des permissions pour les navigations URL (7917f123ea7d0ed7671ae00f9431b82bdfe00ca8)
+
+## 1.17.0-master.1305+20230302141919
+2023-03-02
+
+### Features
+
+- [3767] Sécuriser l'écran tableau de bord (b5cfbdbc0548b87b3caed924428cd59945b06049)
+
+## 1.17.0-master.1304+20230301155502
+2023-03-01
+
+### Fixes
+
+- [3780] gerer les erreurs (58a157d102acc75f9f4d0d33414e58368a43b961)
+
+## 1.17.0-master.1303+20230301095515
+2023-03-01
+
+### Fixes
+
+- [3758] corriger affichage des roles (f16def9217ab901261ec990254cdbac89ce03904)
+
 ## 1.17.0-master.1302+20230222120918
 2023-02-22
 

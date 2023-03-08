@@ -111,12 +111,14 @@ export default {
           format: {
             type: 'LinkBtn',
             onClick: (actType, line) => {
-              this.$router.push({
-                name: 'actDetail',
-                params: {
-                  massActionId: line.id,
-                },
-              });
+              this.$router
+                .push({
+                  name: 'actDetail',
+                  params: {
+                    massActionId: line.id,
+                  },
+                })
+                .catch(() => {});
             },
             getLabel: (actType) => {
               return this.$t('getparc.actTypes.' + actType);
@@ -209,12 +211,14 @@ export default {
         widget: 'Derniers actes de gestion de l’utilisateur',
       });
 
-      this.$router.push({
-        name: 'actHistory.classic',
-        params: {
-          queryFilters: [...this.widgetFilters],
-        },
-      });
+      this.$router
+        .push({
+          name: 'actHistory.classic',
+          params: {
+            queryFilters: [...this.widgetFilters],
+          },
+        })
+        .catch(() => {});
     },
     formatResponse(response) {
       if (response) {

@@ -36,10 +36,12 @@
                 <button
                   class="btn btn-link btn-select p-0"
                   @click="
-                    $router.push({
-                      name: 'actDetail',
-                      params: { massActionId: content.id, index: 0 },
-                    })
+                    $router
+                      .push({
+                        name: 'actDetail',
+                        params: { massActionId: content.id, index: 0 },
+                      })
+                      .catch(() => {})
                   "
                 >
                   {{ `${content.failedEntitiesNumber} ${$t('getparc.history.details.lines')}` }}
@@ -57,10 +59,12 @@
                 <button
                   class="btn btn-link btn-select p-0"
                   @click="
-                    $router.push({
-                      name: 'actDetail',
-                      params: { massActionId: content.id, index: 1 },
-                    })
+                    $router
+                      .push({
+                        name: 'actDetail',
+                        params: { massActionId: content.id, index: 1 },
+                      })
+                      .catch(() => {})
                   "
                 >
                   {{ `${content.pendingEntitiesNumber} ${$t('getparc.history.details.lines')}` }}
@@ -78,10 +82,12 @@
                 <button
                   class="btn btn-link btn-select p-0"
                   @click="
-                    $router.push({
-                      name: 'actDetail',
-                      params: { massActionId: content.id, index: 2 },
-                    })
+                    $router
+                      .push({
+                        name: 'actDetail',
+                        params: { massActionId: content.id, index: 2 },
+                      })
+                      .catch(() => {})
                   "
                 >
                   {{ `${content.completedEntitiesNumber} ${$t('getparc.history.details.lines')}` }}
@@ -148,10 +154,12 @@
               variant="primary"
               block
               @click="
-                $router.push({
-                  name: 'actDetail',
-                  params: { massActionId: content.massAction.id, simpleBack: true },
-                })
+                $router
+                  .push({
+                    name: 'actDetail',
+                    params: { massActionId: content.massAction.id, simpleBack: true },
+                  })
+                  .catch(() => {})
               "
               >{{ $t('getparc.history.details.RESULT') }}</UiButton
             >

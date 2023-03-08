@@ -993,6 +993,12 @@
       "errors": {
         "AccessDeniedForThisUser": "Vous n'avez pas la permission.",
         "ACCESS_WEB_SERVICES_ROLES_DENIED": "Le choix du rôle Webservice est incompatible avec les permissions activées dans l'onglet WEBSERVICE",
+        "USER_D_USERNAME_ALREADY_EXISTS": "Un utilisateur avec ce login existe déjà",
+        "USER_D_USER_IS_NOT_ALLOWED_TO_ASSIGN_THIS_ROLE": "L'utilisateur n'est pas autorisé à assigner ce rôle",
+        "USER_D_USER_NOT_ALLOWED_TO_READ_ROLES": "L'utilisateur n'est pas autorisé à voir les rôles",
+        "NoUserFoundWithGivenId": "Aucun utilisateur trouvé avec cet identifiant ",
+        "USER_NOT_ALLOWED_TO_MODIFY_USERNAME": "l'utilisateur n'est pas autorisé à modifier le nom d'utilisateur",
+        "USER_NOT_ALLOWED_TO_MODIFY_WITHOUT_CA_PERMISSION": "L'utilisateur n'est pas autorisé à modifier sans autorisation",
         "USER_D_PASSWORD_OLD_ENTERED_IS_INCORRECT": "L'ancien mot de passe est incorrect",
         "USER_D_PASSWORD_MUST_BE_DIFFERENT_FROM_OLD_ONE": "Le mot de passe doit être différent de l'ancien",
         "username": "Le login existe déjà.",
