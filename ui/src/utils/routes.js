@@ -99,7 +99,7 @@ function checkCompatiblePartnerType(routerObj) {
  * @param {Boolean} tempIsStoreLoaded detect when Store is fully loaded (appreciated to access to all properties and methods)
  * @param {Function} callFn callback navigation
  */
-export function waitForStoreLoaded(routerObj, store, tempIsStoreLoaded, callFn) {
+export function throwGuardNavigation(routerObj, store, tempIsStoreLoaded, callFn) {
   if (tempIsStoreLoaded) {
     tries = 60;
     storeIsLoaded = tempIsStoreLoaded;
@@ -205,7 +205,7 @@ export function waitForStoreLoaded(routerObj, store, tempIsStoreLoaded, callFn) 
     if (tries > 0 && !tempIsStoreLoaded) {
       tries -= 1;
       setTimeout(() => {
-        tempIsStoreLoaded = waitForStoreLoaded(
+        tempIsStoreLoaded = throwGuardNavigation(
           routerObj,
           store,
           !!(store.getters && store.getters.userInfos && store.getters.userInfos.permissions),
