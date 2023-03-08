@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1315+20230308090951
+2023-03-08
+
+### Fixes
+
+- [3764] corriger le chargement de recurrence (0b82ca67b9cde89bf95927f8e9e12496ce4abb2f)
+
 ## 1.17.0-master.1314+20230307141820
 2023-03-07
 
