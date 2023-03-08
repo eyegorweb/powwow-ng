@@ -104,12 +104,9 @@ export function waitForStoreLoaded(routerObj, store, tempIsStoreLoaded, callFn) 
     tries = 60;
     storeIsLoaded = tempIsStoreLoaded;
     if (storeIsLoaded) {
-      // console.log('router obj', routerObj);
       let permission = getPermission(routerObj);
-      // console.log('permission', permission);
       let havePermission = false;
       // Testons les permissions quand toutes doivent être valables
-      // hasDependantPermission
       if (routerObj.meta && routerObj.meta.hasDependantPermission) {
         havePermission = !!permission.every((perm) => {
           return store.getters.havePermission(perm.domain, perm.action);
@@ -117,7 +114,6 @@ export function waitForStoreLoaded(routerObj, store, tempIsStoreLoaded, callFn) 
       } else if (routerObj.meta && routerObj.meta.hasPartialDependantPermission) {
         // Testons les permissions quand l'une est obligatoire et au moins une parmi d'autres
         // Cas spécial et unique pour la route label name = partnerDetail.accountDetail.options
-        // hasPartialDependantPermission
         havePermission =
           permission.find((perm) => {
             return store.getters.havePermission(perm.domain, perm.action);
@@ -128,11 +124,9 @@ export function waitForStoreLoaded(routerObj, store, tempIsStoreLoaded, callFn) 
           return store.getters.havePermission(perm.domain, perm.action);
         });
       }
-      // console.log('havePermission ????', havePermission);
 
       // Testons la compatibilité avec le type de partenaire, ce contrôle est nécessaire (donc renseigné pour certians liens)
       let compatiblePartnerType = checkCompatiblePartnerType(routerObj);
-      // console.log('compatiblePartnerType >>>>>>>', compatiblePartnerType);
       let haveCompatiblePartnerType = undefined;
       if (compatiblePartnerType) {
         haveCompatiblePartnerType = !!compatiblePartnerType.find((partnerType) => {
@@ -146,7 +140,6 @@ export function waitForStoreLoaded(routerObj, store, tempIsStoreLoaded, callFn) 
           return undefined;
         });
       }
-      // console.log('haveCompatiblePartnerType ????', haveCompatiblePartnerType);
 
       // Contrôle des options additionnelles, à traiter en les combinant (addition) avec les contrôles des types de partenaire permis
       let haveAdditionalOptionPermission = undefined;
@@ -174,7 +167,6 @@ export function waitForStoreLoaded(routerObj, store, tempIsStoreLoaded, callFn) 
       ) {
         haveAdditionalOptionPermission = routerObj.query.specificCustomerID === 246;
       }
-      // console.log('haveAdditionalOptionPermission ???', haveAdditionalOptionPermission);
 
       // Exécution de la navigation
       // Les options additionnelles sont à traiter en combinaison avec les options sur la compatibilité des partenaires

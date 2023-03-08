@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1316+20230308132317
+2023-03-08
+
+### Fixes
+
+- [3681] configuration des services pour la création d'une réservation esim (cadec95c29c4b98f1fc5518c60b9617bc5dea8dc)
+
 ## 1.17.0-master.1315+20230308090951
 2023-03-08
 
