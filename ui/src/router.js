@@ -115,7 +115,11 @@ export default new Router({
     {
       path: '/alarms',
       name: 'alarms',
-      meta: { label: 'Recherche des alarmes', permission: { domain: 'alarm', action: 'read' } },
+      meta: {
+        label: 'Recherche des alarmes',
+        permission: { domain: 'alarm', action: 'read' },
+        hideForUserByCustomerAccount: true,
+      },
       component: Alarms,
     },
     {
@@ -127,7 +131,11 @@ export default new Router({
     {
       path: '/getreport/models',
       name: 'getReportsModels',
-      meta: { label: 'Modèles de rapports', permission: { domain: 'getReport', action: 'read' } },
+      meta: {
+        label: 'Modèles de rapports',
+        permission: { domain: 'getReport', action: 'read' },
+        hideForUserByCustomerAccount: true,
+      },
       component: ReportsModels,
     },
     {
@@ -145,6 +153,7 @@ export default new Router({
       meta: {
         label: 'Tableau de bord',
         permission: { domain: 'getReport', action: 'read_dashboard' },
+        additionalOption: { notifyOption: 'FLAG_STATISTICS_ENABLED' },
       },
       component: GetReportDashboard,
     },
