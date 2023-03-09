@@ -235,6 +235,7 @@
       "PARTY_NAME_ALREADY_EXIST": "Le nom du partenaire doit être unique",
       "SHIPPING_ADDRESS_MANDATORY": "SHIPPING_ADDRESS_MANDATORY",
       "GENERIC_ERROR": "GENERIC_ERROR",
+      "ORDER_GENERIC_ERROR": "Erreur lors de l'enregistrement. Veuillez réessayer.",
       "PAYMENT_NOT_VALIDATED": "Paiement non validé",
       "PAYMENT_ERROR": "Erreur lors du paiement. Veuillez réessayer.",
       "PAYMENT_INVALID": "Vous n'êtes pas autorisé à procéder au paiement",
