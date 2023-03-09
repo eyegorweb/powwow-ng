@@ -80,11 +80,11 @@ function checkCompatiblePartnerType(routerObj) {
     }
   } else {
     // Router level parent
-    compatiblePartnerTypes = routerObj.matched.forEach((record) => {
+    routerObj.matched.forEach((record) => {
       if (record.meta.compatiblePartnerTypes) {
-        return record.meta.compatiblePartnerTypes;
+        compatiblePartnerTypes = record.meta.compatiblePartnerTypes;
       } else {
-        return undefined;
+        compatiblePartnerTypes = undefined;
       }
     });
   }
@@ -99,7 +99,8 @@ function checkCompatiblePartnerType(routerObj) {
  * @param {Boolean} tempIsStoreLoaded detect when Store is fully loaded (appreciated to access to all properties and methods)
  * @param {Function} callFn callback navigation
  */
-export function waitForStoreLoaded(routerObj, store, tempIsStoreLoaded, callFn) {
+export function throwGuardNavigation(routerObj, store, tempIsStoreLoaded, callFn) {
+  // console.log('throw guard navigation', routerObj);
   if (tempIsStoreLoaded) {
     tries = 60;
     storeIsLoaded = tempIsStoreLoaded;
@@ -124,9 +125,14 @@ export function waitForStoreLoaded(routerObj, store, tempIsStoreLoaded, callFn) 
           return store.getters.havePermission(perm.domain, perm.action);
         });
       }
+      console.log(
+        "Permettre la navigation jusqu'à l'url parce que j'ai la permission ????",
+        havePermission
+      );
 
       // Testons la compatibilité avec le type de partenaire, ce contrôle est nécessaire (donc renseigné pour certians liens)
       let compatiblePartnerType = checkCompatiblePartnerType(routerObj);
+      console.log('type de partenaire compatible >>>>>>>', compatiblePartnerType);
       let haveCompatiblePartnerType = undefined;
       if (compatiblePartnerType) {
         haveCompatiblePartnerType = !!compatiblePartnerType.find((partnerType) => {
@@ -140,24 +146,44 @@ export function waitForStoreLoaded(routerObj, store, tempIsStoreLoaded, callFn) 
           return undefined;
         });
       }
+      console.log(
+        "Permettre la navigation jusqu'à l'url parce que j'ai un partenaire compatible obligatoire ????",
+        haveCompatiblePartnerType
+      );
 
       // Contrôle des options additionnelles, à traiter en les combinant (addition) avec les contrôles des types de partenaire permis
       let haveAdditionalOptionPermission = undefined;
       // coachM2MAvailable
       if (routerObj.query && routerObj.query.coachM2MAvailable) {
-        haveAdditionalOptionPermission = routerObj.query.coachM2MAvailable === true;
+        haveAdditionalOptionPermission = routerObj.query.coachM2MAvailable;
+        console.log(
+          "Permettre la navigation jusqu'à l'url parce que j'ai l'option coachM2MAvailable activée ?",
+          routerObj.query.coachM2MAvailable
+        );
       }
       // requestConsoActive
       if (routerObj.query && routerObj.query.requestConsoActive) {
-        haveAdditionalOptionPermission = routerObj.query.requestConsoActive === true;
+        haveAdditionalOptionPermission = routerObj.query.requestConsoActive;
+        console.log(
+          "Permettre la navigation jusqu'à l'url parce que j'ai l'option requestConsoActive activée ?",
+          routerObj.query.requestConsoActive
+        );
       }
       // geolocEnabled
       if (routerObj.query && routerObj.query.geolocEnabled) {
-        haveAdditionalOptionPermission = routerObj.query.geolocEnabled === true;
+        haveAdditionalOptionPermission = routerObj.query.geolocEnabled;
+        console.log(
+          "Permettre la navigation jusqu'à l'url parce que j'ai l'option geolocEnabled activée ?",
+          routerObj.query.geolocEnabled
+        );
       }
       // autoDiagnsticEnabled
       if (routerObj.query && routerObj.query.autoDiagnosticEnabled) {
-        haveAdditionalOptionPermission = routerObj.query.autoDiagnosticEnabled === true;
+        haveAdditionalOptionPermission = routerObj.query.autoDiagnosticEnabled;
+        console.log(
+          "Permettre la navigation jusqu'à l'url parce que j'ai l'option autoDiagnosticEnabled activée ?",
+          routerObj.query.autoDiagnosticEnabled
+        );
       }
       // specificCustomerID
       if (
@@ -165,23 +191,67 @@ export function waitForStoreLoaded(routerObj, store, tempIsStoreLoaded, callFn) 
         routerObj.query.specificCustomerID &&
         routerObj.query.specificCustomerID === 246
       ) {
-        haveAdditionalOptionPermission = routerObj.query.specificCustomerID === 246;
+        haveAdditionalOptionPermission = true;
+        console.log(
+          "Permettre la navigation jusqu'à l'url parce que je suis un partenaire IMT accessible",
+          routerObj.query.autoDiagnosticEnabled
+        );
       }
+      console.log(
+        "Permettre la navigation jusqu'à l'url parce que j'ai au moins une option obligatoire activée ???",
+        haveAdditionalOptionPermission
+      );
+      // notifyOption
+      if (routerObj.meta.additionalOption && routerObj.meta.additionalOption.notifyOption) {
+        const checkOption = routerObj.meta.additionalOption.notifyOption;
+        if (store.getters.userInfos && store.getters.userInfos[checkOption]) {
+          haveAdditionalOptionPermission = false;
+        }
+      }
+      console.log(
+        "Ne pas permettre la navigation jusqu'à l'url parce que j'ai l'option FLAG_STATISTICS_ENABLED activée ?",
+        haveAdditionalOptionPermission
+      );
+
+      // Testons la restriction pour les utilisateurs par CF
+      let hideForUserByCustomerAccount = undefined;
+      // hideForUserByCustomerAccount
+      if (routerObj.meta.hideForUserByCustomerAccount) {
+        // Si user by CF, do not permit
+        if (store.getters.userInfos && store.getters.userInfos.isUserByCustomerAccount) {
+          hideForUserByCustomerAccount = true;
+        } else {
+          hideForUserByCustomerAccount = false;
+        }
+      }
+      console.log(
+        "Ne pas permettre la navigation jusqu'à l'url parce que je suis un userByCF ???",
+        hideForUserByCustomerAccount
+      );
 
       // Exécution de la navigation
       // Les options additionnelles sont à traiter en combinaison avec les options sur la compatibilité des partenaires
       if (haveCompatiblePartnerType === undefined) {
-        if (havePermission) {
+        // Sauf parfois une option additionnelle peut se vérifier sans le contrôle sur la compatibilité des partenaires
+        if (
+          havePermission &&
+          (haveAdditionalOptionPermission === undefined || haveAdditionalOptionPermission) &&
+          (hideForUserByCustomerAccount === undefined || !hideForUserByCustomerAccount)
+        ) {
           callFn();
         } else {
           callFn({ name: 'home' });
         }
       } else {
         if (
-          (havePermission && haveCompatiblePartnerType && haveAdditionalOptionPermission) ||
           (havePermission &&
             haveCompatiblePartnerType &&
-            haveAdditionalOptionPermission === undefined)
+            haveAdditionalOptionPermission &&
+            (hideForUserByCustomerAccount === undefined || !hideForUserByCustomerAccount)) ||
+          (havePermission &&
+            haveCompatiblePartnerType &&
+            haveAdditionalOptionPermission === undefined &&
+            (hideForUserByCustomerAccount === undefined || !hideForUserByCustomerAccount))
         ) {
           callFn();
         } else {
@@ -193,7 +263,7 @@ export function waitForStoreLoaded(routerObj, store, tempIsStoreLoaded, callFn) 
     if (tries > 0 && !tempIsStoreLoaded) {
       tries -= 1;
       setTimeout(() => {
-        tempIsStoreLoaded = waitForStoreLoaded(
+        tempIsStoreLoaded = throwGuardNavigation(
           routerObj,
           store,
           !!(store.getters && store.getters.userInfos && store.getters.userInfos.permissions),

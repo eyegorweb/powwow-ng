@@ -134,7 +134,7 @@ export default {
             endDate: currentDateMinusDays(2),
           },
         ],
-        fetchKey: 'ACT_PREAC_ACTIVATION_IN_PROGRESS_48',
+        fetchKey: 'ACT_PREAC_ACTIVATION_IN_PROGRESS_6',
 
         fetch: async (indicator, contextFilters) => {
           return await countTotalForMassAction([...indicator.filters, ...contextFilters]);

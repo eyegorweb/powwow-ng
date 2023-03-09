@@ -2,6 +2,44 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1322+20230309133417
+2023-03-09
+
+### Fixes
+
+- [3742] contrôle des permissions pour les navigations URL (3f96b97a95d3e91acacf3271a45b2172e5e209d3)
+
+## 1.17.0-master.1321+20230309104450
+2023-03-09
+
+### Fixes
+
+- [3800] modifier les indicators (1384ddf33dfebca8c00f3220b06bf086c1b16578)
+
+## 1.17.0-master.1320+20230309092612
+2023-03-09
+
+## 1.17.0-master.1319+20230308192414
+2023-03-08
+
+### Fixes
+
+- [3742] contrôle des permissions pour les navigations URL (177cffa066daef914bf569fcf81d935a1b1ad1c5)
+
+## 1.17.0-master.1318+20230308164718
+2023-03-08
+
+### Fixes
+
+- [3742] contrôle des permissions pour les navigations URL (17dad69f46542ed0bb417b3d14a94efe630a7cfd)
+
+## 1.17.0-master.1317+20230308161816
+2023-03-08
+
+### Fixes
+
+- [3742] contrôle des permissions pour les navigations URL (8c2dfef642910589634fc03bc0504b468bcfe94a)
+
 ## 1.17.0-master.1316+20230308132317
 2023-03-08
 

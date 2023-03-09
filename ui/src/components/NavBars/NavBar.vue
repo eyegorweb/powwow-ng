@@ -386,7 +386,6 @@ export default {
               permission: () => {
                 let canSeeMenu =
                   this.havePermission('getReport', 'read_dashboard') && this.flagStatistics;
-
                 return canSeeMenu;
               },
             },

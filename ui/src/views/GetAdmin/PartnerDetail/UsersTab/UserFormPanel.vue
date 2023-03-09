@@ -1390,7 +1390,7 @@ h6 a:hover {
 }
 
 .radio-container {
-  input:checked~.checkmark {
+  input:checked ~ .checkmark {
     background-color: white;
     border: 1px solid $secondary;
   }
@@ -1403,7 +1403,7 @@ h6 a:hover {
 }
 
 .radio-container {
-  input:checked~.checkmark:after {
+  input:checked ~ .checkmark:after {
     display: block;
   }
 
