@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1321+20230309104450
+2023-03-09
+
+### Fixes
+
+- [3800] modifier les indicators (1384ddf33dfebca8c00f3220b06bf086c1b16578)
+
 ## 1.17.0-master.1320+20230309092612
 2023-03-09
 
