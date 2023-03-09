@@ -64,7 +64,7 @@
           <div class="mb-2">
             <h6>{{ $t('getreport.creation.dateAndRecursion') }}</h6>
             <Toggle
-              v-if="reportFrequency && isFormPrefilled"
+              v-if="reportFrequency"
               @update="reportFrequency = $event.id"
               :values="reportFrequencyChoices"
               light-theme
@@ -219,7 +219,6 @@ export default {
         name: '',
       },
       inEditMode: false,
-      isFormPrefilled: false,
       canShowForm: false,
       selectedItems: [],
       generationDate: undefined,
@@ -336,7 +335,6 @@ export default {
       } else {
         this.generationDate = currentDateTimeWithAdd(10, 'minutes');
       }
-      this.isFormPrefilled = true;
     };
 
     await preselectPartner();
@@ -1286,21 +1284,17 @@ export default {
     text-decoration: none;
   }
 }
-
 .templateMandatoryItems {
   margin-left: 30px;
 }
-
 .checkbox-groups {
   .foldable-block.is-open {
-
     & ::v-deep .title,
     & ::v-deep a i {
       color: $secondary;
     }
   }
 }
-
 .creationContainer {
   display: flex;
   flex-flow: column nowrap;
@@ -1357,7 +1351,6 @@ export default {
 
 .mailing-list {
   flex-grow: 1;
-
   span {
     padding-top: 0;
     padding-left: 1rem;
@@ -1371,7 +1364,6 @@ export default {
   display: flex;
   flex-wrap: wrap;
   width: 100%;
-
   .item {
     flex-basis: 50%;
   }

@@ -110,6 +110,7 @@ describe('Authentication module', () => {
       await authentification.actions.fetchUserInfos(context);
       expect(context.commit).toHaveBeenCalledWith('setCurrentUser', {
         isFleetEnabled: true,
+        FLAG_STATISTICS_ENABLED: true,
         name: 'TUTU',
       });
     });
