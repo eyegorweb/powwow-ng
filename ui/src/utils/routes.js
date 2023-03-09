@@ -116,7 +116,7 @@ export function throwGuardNavigation(routerObj, store, tempIsStoreLoaded, callFn
         // Testons les permissions quand l'une est obligatoire et au moins une parmi d'autres
         // Cas spécial et unique pour la route label name = partnerDetail.accountDetail.options
         havePermission =
-          permission.find((perm) => {
+          permission.map((perm) => {
             return store.getters.havePermission(perm.domain, perm.action);
           }).length > 1;
       } else {
