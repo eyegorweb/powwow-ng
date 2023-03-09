@@ -283,15 +283,15 @@ function getFormGQLParams(params) {
 function getScope(params) {
   if (!params.scope) return;
 
-  if (params.scope.partner && params.scope.partner.id) {
-    return 'PARTY';
-  }
-
   const searchById =
     get(params, 'scope.searchById.type') || get(params, 'scope.searchByFile.tempDataUuid');
 
   if (searchById) {
     return 'LINE';
+  }
+
+  if (params.scope.partner && params.scope.partner.id) {
+    return 'PARTY';
   }
 
   const offer = get(params, 'scope.offer.id');
