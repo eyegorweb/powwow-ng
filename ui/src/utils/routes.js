@@ -105,20 +105,21 @@ export function throwGuardNavigation(routerObj, store, tempIsStoreLoaded, callFn
     tries = 60;
     storeIsLoaded = tempIsStoreLoaded;
     if (storeIsLoaded) {
+      // Testons les permissions quand toutes doivent être valables
       let permission = getPermission(routerObj);
       let havePermission = false;
-      // Testons les permissions quand toutes doivent être valables
       if (routerObj.meta && routerObj.meta.hasDependantPermission) {
         havePermission = !!permission.every((perm) => {
           return store.getters.havePermission(perm.domain, perm.action);
         });
       } else if (routerObj.meta && routerObj.meta.hasPartialDependantPermission) {
-        // Testons les permissions quand l'une est obligatoire et au moins une parmi d'autres
+        // Testons les permissions quand l'une est obligatoire (premier index du tableau) et au moins une parmi le reste des autres valeurs du tableau
         // Cas spécial et unique pour la route label name = partnerDetail.accountDetail.options
         havePermission =
-          permission.filter((perm) => {
+          store.getters.havePermission(permission[0].domain, permission[0].action) &&
+          !!permission.splice(1, permission.length - 1).find((perm) => {
             return store.getters.havePermission(perm.domain, perm.action);
-          }).length > 1;
+          });
       } else {
         // Testons la permission quand au moins une est valable
         havePermission = !!permission.find((perm) => {
