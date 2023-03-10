@@ -2,6 +2,41 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1327+20230310085942
+2023-03-10
+
+### Fixes
+
+- [000] correction insertion dans le DOM des graphes du Tableau de bord (6c358c654b1e19c6fdad34c0de3d52bc1f6affcf)
+
+## 1.17.0-master.1326+20230310061450
+2023-03-10
+
+### Fixes
+
+- [3742] contrôle des permissions pour les navigations URL (65081c110d425bd47154eebbd8a012b5f540f771)
+
+## 1.17.0-master.1325+20230309193122
+2023-03-09
+
+### Fixes
+
+- [3795] corriger porté alrame (14f243bfbf7d4d4d44a4916dedca9e01e0d27353)
+
+## 1.17.0-master.1324+20230309165049
+2023-03-09
+
+### Fixes
+
+- [3742] contrôle des permissions pour les navigations URL (958264ae09827a0ea63e28d9a009b3f85ce59856)
+
+## 1.17.0-master.1323+20230309150306
+2023-03-09
+
+### Fixes
+
+- [3742] contrôle des permissions pour les navigations URL (1d5eeb40f3384f6fa69bd84ad48fdd29aeb62751)
+
 ## 1.17.0-master.1322+20230309133417
 2023-03-09
 

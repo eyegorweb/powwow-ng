@@ -461,8 +461,7 @@
               <label
                 class="small-label"
                 :class="{
-                  bold:
-                    notificationChoice !== initialServices.wsNotificationParam.notificationOption,
+                  bold: boldNotificationChoice,
                 }"
               >
                 {{ $t('getvsion.notify-ws') }}
@@ -587,6 +586,10 @@ export default {
         return this.diffusionListEmails.map((m) => ({ label: m.name, value: m.id }));
       }
       return [];
+    },
+
+    boldNotificationChoice() {
+      return this.activatedNotificationOption;
     },
 
     changeOnReportConsoValue() {
@@ -906,7 +909,10 @@ export default {
         return f;
       });
 
-      this.notificationChoice = get(this.partnerOptions, 'wsNotificationParam.notificationOption');
+      this.notificationChoice = this.$loGet(
+        this.partnerOptions,
+        'wsNotificationParam.notificationOption'
+      );
       this.notificationChoices = this.notificationChoices.map((f) => {
         if (f.id === this.notificationChoice) {
           f.default = true;
