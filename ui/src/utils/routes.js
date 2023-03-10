@@ -154,8 +154,8 @@ export function throwGuardNavigation(routerObj, store, tempIsStoreLoaded, callFn
 
       // Testons la restriction des options partenaires pour les utilisateurs de type partenaire
       let haveAdditionalOptionPermission = undefined;
-      // Condition première: être un utilisateur partenaire
-      if (store.getters.userIsPartner) {
+      // Condition première: être un utilisateur partenaire OU un utilisateur compte groupe partenaire
+      if (store.getters.userIsPartner || store.getters.userIsGroupPartner) {
         // Contrôle des options additionnelles, à traiter en les combinant (addition) avec les contrôles des types de partenaire permis
         // coachM2MAvailable
         if (routerObj.query && routerObj.query.coachM2MAvailable) {
