@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1327+20230310085942
+2023-03-10
+
+### Fixes
+
+- [000] correction insertion dans le DOM des graphes du Tableau de bord (6c358c654b1e19c6fdad34c0de3d52bc1f6affcf)
+
 ## 1.17.0-master.1326+20230310061450
 2023-03-10
 
