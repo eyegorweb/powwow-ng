@@ -152,67 +152,71 @@ export function throwGuardNavigation(routerObj, store, tempIsStoreLoaded, callFn
         haveCompatiblePartnerType
       );
 
-      // Contrôle des options additionnelles, à traiter en les combinant (addition) avec les contrôles des types de partenaire permis
+      // Testons la restriction des options partenaires pour les utilisateurs de type partenaire
       let haveAdditionalOptionPermission = undefined;
-      // coachM2MAvailable
-      if (routerObj.query && routerObj.query.coachM2MAvailable) {
-        haveAdditionalOptionPermission = routerObj.query.coachM2MAvailable;
-        console.log(
-          "Permettre la navigation jusqu'à l'url parce que j'ai l'option coachM2MAvailable activée ?",
-          routerObj.query.coachM2MAvailable
-        );
-      }
-      // requestConsoActive
-      if (routerObj.query && routerObj.query.requestConsoActive) {
-        haveAdditionalOptionPermission = routerObj.query.requestConsoActive;
-        console.log(
-          "Permettre la navigation jusqu'à l'url parce que j'ai l'option requestConsoActive activée ?",
-          routerObj.query.requestConsoActive
-        );
-      }
-      // geolocEnabled
-      if (routerObj.query && routerObj.query.geolocEnabled) {
-        haveAdditionalOptionPermission = routerObj.query.geolocEnabled;
-        console.log(
-          "Permettre la navigation jusqu'à l'url parce que j'ai l'option geolocEnabled activée ?",
-          routerObj.query.geolocEnabled
-        );
-      }
-      // autoDiagnsticEnabled
-      if (routerObj.query && routerObj.query.autoDiagnosticEnabled) {
-        haveAdditionalOptionPermission = routerObj.query.autoDiagnosticEnabled;
-        console.log(
-          "Permettre la navigation jusqu'à l'url parce que j'ai l'option autoDiagnosticEnabled activée ?",
-          routerObj.query.autoDiagnosticEnabled
-        );
-      }
-      // specificCustomerID
-      if (
-        routerObj.query &&
-        routerObj.query.specificCustomerID &&
-        routerObj.query.specificCustomerID === 246
-      ) {
-        haveAdditionalOptionPermission = true;
-        console.log(
-          "Permettre la navigation jusqu'à l'url parce que je suis un partenaire IMT accessible",
-          routerObj.query.autoDiagnosticEnabled
-        );
-      }
-      console.log(
-        "Permettre la navigation jusqu'à l'url parce que j'ai au moins une option obligatoire activée ???",
-        haveAdditionalOptionPermission
-      );
-      // notifyOption
-      if (routerObj.meta.additionalOption && routerObj.meta.additionalOption.notifyOption) {
-        const checkOption = routerObj.meta.additionalOption.notifyOption;
-        if (store.getters.userInfos && store.getters.userInfos[checkOption]) {
-          haveAdditionalOptionPermission = false;
+      // Condition première: être un utilisateur partenaire
+      if (store.getters.userIsPartner) {
+        // Contrôle des options additionnelles, à traiter en les combinant (addition) avec les contrôles des types de partenaire permis
+        // coachM2MAvailable
+        if (routerObj.query && routerObj.query.coachM2MAvailable) {
+          haveAdditionalOptionPermission = routerObj.query.coachM2MAvailable;
+          console.log(
+            "Permettre la navigation jusqu'à l'url parce que j'ai l'option coachM2MAvailable activée ?",
+            routerObj.query.coachM2MAvailable
+          );
+        }
+        // requestConsoActive
+        if (routerObj.query && routerObj.query.requestConsoActive) {
+          haveAdditionalOptionPermission = routerObj.query.requestConsoActive;
+          console.log(
+            "Permettre la navigation jusqu'à l'url parce que j'ai l'option requestConsoActive activée ?",
+            routerObj.query.requestConsoActive
+          );
+        }
+        // geolocEnabled
+        if (routerObj.query && routerObj.query.geolocEnabled) {
+          haveAdditionalOptionPermission = routerObj.query.geolocEnabled;
+          console.log(
+            "Permettre la navigation jusqu'à l'url parce que j'ai l'option geolocEnabled activée ?",
+            routerObj.query.geolocEnabled
+          );
+        }
+        // autoDiagnsticEnabled
+        if (routerObj.query && routerObj.query.autoDiagnosticEnabled) {
+          haveAdditionalOptionPermission = routerObj.query.autoDiagnosticEnabled;
+          console.log(
+            "Permettre la navigation jusqu'à l'url parce que j'ai l'option autoDiagnosticEnabled activée ?",
+            routerObj.query.autoDiagnosticEnabled
+          );
+        }
+        // specificCustomerID
+        if (
+          routerObj.query &&
+          routerObj.query.specificCustomerID &&
+          routerObj.query.specificCustomerID === 246
+        ) {
+          haveAdditionalOptionPermission = true;
+          console.log(
+            "Permettre la navigation jusqu'à l'url parce que je suis un partenaire IMT accessible",
+            routerObj.query.autoDiagnosticEnabled
+          );
+          console.log(
+            "Permettre la navigation jusqu'à l'url parce que j'ai au moins une option obligatoire activée ???",
+            haveAdditionalOptionPermission
+          );
+        }
+        // notifyOption
+        if (routerObj.meta.additionalOption && routerObj.meta.additionalOption.notifyOption) {
+          const checkOption = routerObj.meta.additionalOption.notifyOption;
+          if (store.getters.userInfos && store.getters.userInfos[checkOption]) {
+            haveAdditionalOptionPermission = false;
+          }
+          console.log(
+            "Ne pas permettre la navigation jusqu'à l'url parce que j'ai l'option FLAG_STATISTICS_ENABLED activée ?",
+            haveAdditionalOptionPermission
+          );
         }
       }
-      console.log(
-        "Ne pas permettre la navigation jusqu'à l'url parce que j'ai l'option FLAG_STATISTICS_ENABLED activée ?",
-        haveAdditionalOptionPermission
-      );
 
       // Testons la restriction pour les utilisateurs par CF
       let hideForUserByCustomerAccount = undefined;
