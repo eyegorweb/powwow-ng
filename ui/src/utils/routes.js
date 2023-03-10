@@ -209,10 +209,10 @@ export function throwGuardNavigation(routerObj, store, tempIsStoreLoaded, callFn
         if (routerObj.meta.additionalOption && routerObj.meta.additionalOption.notifyOption) {
           const checkOption = routerObj.meta.additionalOption.notifyOption;
           if (store.getters.userInfos && store.getters.userInfos[checkOption]) {
-            haveAdditionalOptionPermission = false;
+            haveAdditionalOptionPermission = true;
           }
           console.log(
-            "Ne pas permettre la navigation jusqu'à l'url parce que j'ai l'option FLAG_STATISTICS_ENABLED activée ?",
+            "Permettre la navigation jusqu'à l'url parce que j'ai l'option FLAG_STATISTICS_ENABLED activée ?",
             haveAdditionalOptionPermission
           );
         }

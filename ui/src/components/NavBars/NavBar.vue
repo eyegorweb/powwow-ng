@@ -186,20 +186,25 @@ export default {
         },
       ];
     } else if (this.userIsPartner) {
-      getAdminExtra = [
-        {
-          label: 'menu.account',
-          to: {
-            name: 'partnerDetail.users.admins',
-            meta: {
-              label: 'Détail du partenaire - Administrateurs',
-              permission: { domain: 'party', action: 'read' },
+      if (
+        this.havePermission('party', 'read') &&
+        this.havePermission('party', 'read_administrator')
+      ) {
+        getAdminExtra = [
+          {
+            label: 'menu.account',
+            to: {
+              name: 'partnerDetail.users.admins',
+              meta: {
+                label: 'Détail du partenaire - Administrateurs',
+                permission: { domain: 'party', action: 'read' },
+              },
+              params: { id: `${this.userInfos.partners[0].id}` },
             },
-            params: { id: `${this.userInfos.partners[0].id}` },
+            permission: { domain: 'party', action: 'read' },
           },
-          permission: { domain: 'party', action: 'read' },
-        },
-      ];
+        ];
+      }
     } else {
       getAdminExtra = excludeMocked([
         {
@@ -359,7 +364,7 @@ export default {
           label: 'mainMenu.getReport',
           to: { name: 'reports', meta: { label: 'Modèles de rapports' } },
           permission: () => {
-            return this.havePermissionDomain('getReport');
+            return this.havePermissionDomain('getReport', 'read');
           },
           submenu: [
             {
