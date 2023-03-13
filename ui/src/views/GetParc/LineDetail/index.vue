@@ -114,6 +114,7 @@ export default {
           label: 'diagnosis',
           title: 'getparc.lineDetail.analysingTool',
           to: {
+            // Route par défaut à l'initialisation
             name: 'lineDetail.diagnosis.analysis',
             meta: {
               label: 'Détail de la ligne - Analyser la ligne',
