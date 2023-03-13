@@ -244,13 +244,15 @@ export default {
         specificCustomerID === 246;
 
       if (!this.shouldIgnoreRedirect()) {
-        if (networkHistorySpecificPermission) {
+        if (this.typeForPartner === 'MVNO') {
           this.gotoRoute('lineDetail.diagnosis.networkHistory');
         } else {
           if (this.havePermission('getVision', 'read') && this.autoDiagnosticEnabled) {
             this.gotoRoute('lineDetail.diagnosis.analysis');
           } else if (this.havePermission('getParc', 'manage_coach') && this.coachM2MAvailable) {
             this.gotoRoute('lineDetail.diagnosis.last_tests');
+          } else if (networkHistorySpecificPermission) {
+            this.gotoRoute('lineDetail.diagnosis.networkHistory');
           } else {
             this.gotoRoute('home');
           }
