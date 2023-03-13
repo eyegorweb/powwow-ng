@@ -195,12 +195,25 @@ export default {
       });
     },
     gotoRoute(name) {
-      // Rediriger vers name: lineDetail.diagnosis.analysis (route par défaut de l'onglet GetDiag)
+      let query = {};
+      // Rediriger vers name: lineDetail.diagnosis.analysis (route par défaut de l'onglet GetDiag) si permission getVison/read
+      // Sinon si pas permission getVision/read et permission getParc/manage_coach, rediriger vers lineDetail.diagnosis.last_tests
       // Paramètres de permission pour naviguer jusqu'à cette route
-      let query = {
-        partnerType: this.typeForPartner,
-        autoDiagnosticEnabled: this.autoDiagnosticEnabled,
-      };
+      if (this.havePermission('getVision', 'read')) {
+        query = {
+          partnerType: this.typeForPartner,
+          autoDiagnosticEnabled: this.autoDiagnosticEnabled,
+        };
+      } else if (
+        !this.havePermission('getVision', 'read') &&
+        this.havePermission('getParc', 'manage_coach')
+      ) {
+        query = {
+          partnerType: this.typeForPartner,
+          coachM2MAvailable: this.coachM2MAvailable,
+        };
+      }
+
       if (this.$route.name !== name) {
         this.$router
           .push({
@@ -222,16 +235,24 @@ export default {
       return false;
     },
     initializeSection() {
+      const specificCustomerID = this.$loGet(this.content, 'party.id');
+      // Conditions spécifiques avec notamment l'environnement de production pour afficher l'onglet Historique réseau et itinérance) => c'est donc "SALE"
+      const networkHistorySpecificPermission =
+        (this.typeForPartner === 'MVNO' && this.havePermission('getVision', 'read')) ||
+        (this.typeForPartner === 'CUSTOMER' && this.havePermission('getVision', 'read')) ||
+        (this.typeForPartner === 'MULTI_CUSTOMER' && this.havePermission('getVision', 'read')) ||
+        specificCustomerID === 246;
+
       if (!this.shouldIgnoreRedirect()) {
-        if (this.typeForPartner === 'MVNO') {
+        if (networkHistorySpecificPermission) {
           this.gotoRoute('lineDetail.diagnosis.networkHistory');
         } else {
           if (this.havePermission('getVision', 'read') && this.autoDiagnosticEnabled) {
             this.gotoRoute('lineDetail.diagnosis.analysis');
-          } else if (this.havePermission('getParc', 'manage_coach')) {
+          } else if (this.havePermission('getParc', 'manage_coach') && this.coachM2MAvailable) {
             this.gotoRoute('lineDetail.diagnosis.last_tests');
           } else {
-            this.gotoRoute('lineDetail.diagnosis.networkHistory');
+            this.gotoRoute('home');
           }
         }
       }
