@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1334+20230313135955
+2023-03-13
+
+### Fixes
+
+- [3742] contrôle des permissions pour les navigations et redirections des URL (1aeccc5ee6396950fd8d7f7f91167fd676a2d3dc)
+
 ## 1.17.0-master.1333+20230313132909
 2023-03-13
 
