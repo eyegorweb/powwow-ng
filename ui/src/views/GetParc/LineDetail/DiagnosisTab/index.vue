@@ -205,7 +205,11 @@ export default {
         this.$router
           .push({
             name,
-            params: { lineId: this.$route.params.lineId, meta: this.content },
+            params: {
+              lineId: this.$route.params.lineId,
+              meta: this.content,
+              hasDependantPermission: true,
+            },
             query,
           })
           .catch(() => {});
@@ -218,8 +222,6 @@ export default {
       return false;
     },
     initializeSection() {
-      console.log('should ignore redirect', this.shouldIgnoreRedirect());
-
       if (!this.shouldIgnoreRedirect()) {
         if (this.typeForPartner === 'MVNO') {
           this.gotoRoute('lineDetail.diagnosis.networkHistory');
