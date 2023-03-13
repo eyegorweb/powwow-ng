@@ -108,29 +108,55 @@ export default {
     ];
 
     if (this.initControlMenuGetDiag()) {
+      // Route par défaut à l'initialisation
+      let dynamicSubTabDefault = undefined;
+      if (this.havePermission('getVision', 'read')) {
+        dynamicSubTabDefault = {
+          name: 'lineDetail.diagnosis.analysis',
+          meta: {
+            label: 'Détail de la ligne - Analyser la ligne',
+            hasDependantPermission: true,
+            permission: [
+              { domain: 'getParc', action: 'read' },
+              { domain: 'getVision', action: 'read' },
+            ],
+            compatiblePartnerTypes: ['CUSTOMER', 'MULTI_CUSTOMER'],
+          },
+          query: {
+            partnerType: this.typeForPartner,
+            autoDiagnosticEnabled: this.autoDiagnosticEnabled,
+          },
+          params: { lineId: this.$route.params.lineId },
+        };
+      } else if (
+        !this.havePermission('getVision', 'read') &&
+        this.havePermission('getParc', 'manage_coach')
+      ) {
+        dynamicSubTabDefault = {
+          name: 'lineDetail.diagnosis.last_tests',
+          meta: {
+            label: 'Détail de la ligne - Derniers tests Coach M2M',
+            hasDependantPermission: true,
+            permission: [
+              { domain: 'getParc', action: 'read' },
+              { domain: 'getParc', action: 'manage_coach' },
+            ],
+            compatiblePartnerTypes: ['CUSTOMER', 'MULTI_CUSTOMER', 'M2M_LIGHT'],
+          },
+          query: {
+            partnerType: this.typeForPartner,
+            coachM2MAvailable: this.showCoachMenu,
+          },
+          params: { lineId: this.$route.params.lineId },
+        };
+      }
+
       this.tabs = [
         ...this.tabs,
         {
           label: 'diagnosis',
           title: 'getparc.lineDetail.analysingTool',
-          to: {
-            // Route par défaut à l'initialisation
-            name: 'lineDetail.diagnosis.analysis',
-            meta: {
-              label: 'Détail de la ligne - Analyser la ligne',
-              hasDependantPermission: true,
-              permission: [
-                { domain: 'getParc', action: 'read' },
-                { domain: 'getVision', action: 'read' },
-              ],
-              compatiblePartnerTypes: ['CUSTOMER', 'MULTI_CUSTOMER'],
-            },
-            query: {
-              partnerType: this.typeForPartner,
-              autoDiagnosticEnabled: this.autoDiagnosticEnabled,
-            },
-            params: { lineId: this.$route.params.lineId },
-          },
+          to: dynamicSubTabDefault,
         },
       ];
     }
@@ -143,7 +169,6 @@ export default {
       carouselItems: [],
       offerChangeEnabled: undefined,
       paramSearch: undefined,
-      hasPermissionForDiag: undefined,
       typeForPartner: undefined,
       coachM2Mavailable: undefined,
       autoDiagnosticEnabled: undefined,
