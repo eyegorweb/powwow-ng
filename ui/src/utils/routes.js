@@ -100,7 +100,7 @@ function checkCompatiblePartnerType(routerObj) {
  * @param {Function} callFn callback navigation
  */
 export function throwGuardNavigation(routerObj, store, tempIsStoreLoaded, callFn) {
-  // console.log('throw guard navigation', routerObj);
+  console.log('throw guard navigation', routerObj);
   if (tempIsStoreLoaded) {
     tries = 60;
     storeIsLoaded = tempIsStoreLoaded;

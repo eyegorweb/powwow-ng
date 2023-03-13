@@ -37,6 +37,7 @@ const checkSeeMoreForReport = ({
   havePermission,
   userIsPartner,
   singlePartner,
+  userInfos,
   userIsGroupPartner,
   $loGet,
 }) => {
@@ -46,7 +47,7 @@ const checkSeeMoreForReport = ({
   }
 
   if (userIsGroupPartner) {
-    canSeeMenu = canSeeMenu && !!$loGet(this.userInfos, 'partyGroup.flagStatisticsEnabled');
+    canSeeMenu = canSeeMenu && !!$loGet(userInfos, 'partyGroup.flagStatisticsEnabled');
   }
 
   return canSeeMenu;
