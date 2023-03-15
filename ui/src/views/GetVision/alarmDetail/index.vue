@@ -120,26 +120,28 @@ export default {
 
     async refreshAlarm() {
       // Uniquement pour alarme mutualisé :
+      let response;
       if (this.$route.params.alarmType === 'OVER_CONSUMPTION_VOLUME_FLOTTE') {
-        this.alarm = await searchSharedConsumtionAlarmById(this.$route.params.alarmId);
+        response = await searchSharedConsumtionAlarmById(this.$route.params.alarmId);
       } else {
-        const response = await searchAlarmById(this.$route.params.alarmId);
-        if (response && response.errors && response.errors.length) {
-          const formatted = formatBackErrors(response.errors)
-            .map((e) => e.errors)
-            .flat();
-          formatted.forEach((e) => {
-            this.alarmError = `${e.key}: ${e.value}`;
-          });
-        }
-        if (response && response.items && response.items.length) {
-          this.alarm = response.items[0];
-        } else if (response && response.items && !response.items.length) {
-          this.alarm = undefined;
-        }
+        response = await searchAlarmById(this.$route.params.alarmId);
       }
-
-      this.refreshTotals();
+      if (response && response.errors && response.errors.length) {
+        const formatted = formatBackErrors(response.errors)
+          .map((e) => e.errors)
+          .flat();
+        formatted.forEach((e) => {
+          this.alarmError = `${e.key}: ${e.value}`;
+        });
+      }
+      if (response && response.items && response.items.length) {
+        this.alarm = response.items[0];
+      } else if (response && response.items && !response.items.length) {
+        this.alarm = undefined;
+      }
+      if (this.alarm) {
+        this.refreshTotals();
+      }
     },
 
     modifyAlarm() {
