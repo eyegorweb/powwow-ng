@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-4">
+  <div class="mt-4" v-if="alarm">
     <div class="row">
       <div class="col-md-9">
         <button @click.prevent="$router.go(-1)" class="btn btn-link back-btn">
@@ -24,9 +24,9 @@
       </div>
     </div>
 
-    <AlarmSummary v-if="alarm" :content="alarm" />
+    <AlarmSummary :content="alarm" />
 
-    <div v-if="alarm" class="mt-4">
+    <div class="mt-4">
       <UiTabs :tabs="tabs" :selected-index="currentTab">
         <template slot-scope="{ tab, index, selectedIndex }">
           <UiTab v-if="tab" :is-selected="index === selectedIndex" class="tab-grow alarm-tab">
@@ -48,6 +48,10 @@
       </UiTabs>
     </div>
   </div>
+  <div v-else>
+    <div v-if="alarmError" class="alert alert-danger" role="alert">{{ alarmError }}</div>
+    <div v-else class="alert alert-light" role="alert">{{ $t('noResult') }}</div>
+  </div>
 </template>
 
 <script>
@@ -62,6 +66,7 @@ import ExcludedLinesFromAlarmTab from './ExcludedLinesFromAlarmTab';
 import { searchAlarmById, searchSharedConsumtionAlarmById } from '@/api/alarms';
 import { fetchAlarmTriggersFor2Months, fetchLinesBoundToAlarm } from '@/api/alarmDetails';
 import { formatLargeNumber } from '@/utils/numbers';
+import { formatBackErrors } from '@/utils/errors';
 import { mapMutations } from 'vuex';
 
 export default {
@@ -95,6 +100,7 @@ export default {
         },
       ],
       alarm: undefined,
+      alarmError: undefined,
     };
   },
 
@@ -117,7 +123,20 @@ export default {
       if (this.$route.params.alarmType === 'OVER_CONSUMPTION_VOLUME_FLOTTE') {
         this.alarm = await searchSharedConsumtionAlarmById(this.$route.params.alarmId);
       } else {
-        this.alarm = await searchAlarmById(this.$route.params.alarmId);
+        const response = await searchAlarmById(this.$route.params.alarmId);
+        if (response.errors && response.errors.length) {
+          const formatted = formatBackErrors(response.errors)
+            .map((e) => e.errors)
+            .flat();
+          formatted.forEach((e) => {
+            this.alarmError = `${e.key}: ${e.value}`;
+          });
+        }
+        if (response && response.items && response.items.length) {
+          this.alarm = response.items[0];
+        } else if (response && response.items && !response.items.length) {
+          this.alarm = undefined;
+        }
       }
 
       this.refreshTotals();

@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-4">
+  <div class="mt-4" v-if="lineData">
     <div class="row">
       <div class="col-md-9">
         <button @click.prevent="returnToSearch()" class="btn btn-link back-btn">
@@ -23,14 +23,14 @@
         </UiButton>
       </div>
     </div>
-    <LineSummary v-if="lineData" :content="lineData" />
+    <LineSummary :content="lineData" />
     <ActionCarousel
-      v-if="lineData && canShowCarousel"
+      v-if="canShowCarousel"
       :actions="carouselItems"
       :default-disabled="!isLigneActive"
       @itemClick="onCarouselItemClick"
     />
-    <div v-if="tabs && lineData" class="mt-4 mb-4">
+    <div v-if="tabs" class="mt-4 mb-4">
       <UiTabs :tabs="tabs">
         <template slot-scope="{ tab, index }">
           <UiTab v-if="tab" :is-selected="index === currentTabToShow" class="tab-grow">
@@ -46,6 +46,10 @@
         <router-view :content="lineData" />
       </div>
     </div>
+  </div>
+  <div v-else>
+    <div v-if="lineDataError" class="alert alert-danger" role="alert">{{ lineDataError }}</div>
+    <div v-else class="alert alert-light" role="alert">{{ $t('noResult') }}</div>
   </div>
 </template>
 
@@ -64,6 +68,7 @@ import { getPartyOptions } from '@/api/partners.js';
 import { getFromLatestLineFromAccessPoint } from '@/utils/line.js';
 import { fetchOffers } from '@/api/offers.js';
 import { isFeatureAvailable } from '@/api/partners';
+import { formatBackErrors } from '@/utils/errors';
 
 export default {
   components: {
@@ -164,6 +169,7 @@ export default {
   data() {
     return {
       lineData: undefined,
+      lineDataError: undefined,
       partnerOptions: undefined,
       tabs: undefined,
       carouselItems: [],
@@ -345,8 +351,19 @@ export default {
         { page: 0, limit: 1 },
         this.paramSearch
       );
-      if (!response || !response.items || !response.items.length) return;
-      this.lineData = response.items[0];
+      if (response.errors && response.errors.length) {
+        const formatted = formatBackErrors(response.errors)
+          .map((e) => e.errors)
+          .flat();
+        formatted.forEach((e) => {
+          this.lineDataError = `${e.key}: ${e.value}`;
+        });
+      }
+      if (response && response.items && response.items.length) {
+        this.lineData = response.items[0];
+      } else if (response && response.items && !response.items.length) {
+        this.lineData = undefined;
+      }
 
       if (this.lineData) {
         const partnerId = get(this.lineData, 'party.id');
