@@ -134,9 +134,9 @@ export default {
           this.alarmError = `${e.key}: ${e.value}`;
         });
       }
-      if (response && response.items && response.items.length) {
-        this.alarm = response.items[0];
-      } else if (response && response.items && !response.items.length) {
+      if (response) {
+        this.alarm = response;
+      } else if (response === undefined) {
         this.alarm = undefined;
       }
       if (this.alarm) {
