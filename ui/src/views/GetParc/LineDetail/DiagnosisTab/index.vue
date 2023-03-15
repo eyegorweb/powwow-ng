@@ -37,14 +37,16 @@ export default {
     content: Object,
   },
   async mounted() {
-    this.autoDiagnosticEnabled = await isFeatureAvailable(
-      'AUTODIAGNOSTIC_ENABLED',
-      this.content.id
-    );
     this.typeForPartner = this.$loGet(this.content, 'party.partyType');
-    this.coachM2MAvailable = await isFeatureAvailable('COACH_M2M_AVAILABLE', this.content.id);
-    this.geolocEnabled = await isFeatureAvailable('GEOLOCATION_ENABLED', this.content.id);
-    this.requestConsoActive = await isFeatureAvailable('REQUEST_CONSO_ENABLED', this.content.id);
+    if (this.content) {
+      this.autoDiagnosticEnabled = await isFeatureAvailable(
+        'AUTODIAGNOSTIC_ENABLED',
+        this.content.id
+      );
+      this.coachM2MAvailable = await isFeatureAvailable('COACH_M2M_AVAILABLE', this.content.id);
+      this.geolocEnabled = await isFeatureAvailable('GEOLOCATION_ENABLED', this.content.id);
+      this.requestConsoActive = await isFeatureAvailable('REQUEST_CONSO_ENABLED', this.content.id);
+    }
 
     const unfilteredItems = [
       {

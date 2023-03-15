@@ -124,7 +124,7 @@ export default {
         this.alarm = await searchSharedConsumtionAlarmById(this.$route.params.alarmId);
       } else {
         const response = await searchAlarmById(this.$route.params.alarmId);
-        if (response.errors && response.errors.length) {
+        if (response && response.errors && response.errors.length) {
           const formatted = formatBackErrors(response.errors)
             .map((e) => e.errors)
             .flat();
