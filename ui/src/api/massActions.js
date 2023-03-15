@@ -167,9 +167,15 @@ export async function searchMassActionsById(massActionId) {
     [{ id: 'filters.massActionId', value: massActionId }]
   );
 
+  if (response.errors) {
+    return {
+      errors: response.errors,
+    };
+  }
   if (response && response.items && response.items.length) {
     return response.items[0];
   }
+  return undefined;
 }
 
 export async function fetchTotalMassActions(filters) {

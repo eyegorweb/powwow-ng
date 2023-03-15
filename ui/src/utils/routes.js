@@ -198,7 +198,7 @@ export function throwGuardNavigation(routerObj, store, tempIsStoreLoaded, callFn
           haveAdditionalOptionPermission = true;
           console.log(
             "Permettre la navigation jusqu'à l'url parce que je suis un partenaire IMT accessible",
-            routerObj.query.autoDiagnosticEnabled
+            routerObj.query.specificCustomerID
           );
           console.log(
             "Permettre la navigation jusqu'à l'url parce que j'ai au moins une option obligatoire activée ???",
