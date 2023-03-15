@@ -82,13 +82,15 @@ export default {
     await this.loadLineData();
     this.typeForPartner = this.$loGet(this.lineData, 'party.partyType');
     this.specificCustomerID = this.$loGet(this.lineData, 'party.id');
-    this.coachM2Mavailable = await isFeatureAvailable('COACH_M2M_AVAILABLE', this.lineData.id);
-    this.autoDiagnosticEnabled = await isFeatureAvailable(
-      'AUTODIAGNOSTIC_ENABLED',
-      this.lineData.id
-    );
-    this.geolocEnabled = await isFeatureAvailable('GEOLOCATION_ENABLED', this.lineData.id);
-    this.requestConsoActive = await isFeatureAvailable('REQUEST_CONSO_ENABLED', this.lineData.id);
+    if (this.lineData) {
+      this.coachM2Mavailable = await isFeatureAvailable('COACH_M2M_AVAILABLE', this.lineData.id);
+      this.autoDiagnosticEnabled = await isFeatureAvailable(
+        'AUTODIAGNOSTIC_ENABLED',
+        this.lineData.id
+      );
+      this.geolocEnabled = await isFeatureAvailable('GEOLOCATION_ENABLED', this.lineData.id);
+      this.requestConsoActive = await isFeatureAvailable('REQUEST_CONSO_ENABLED', this.lineData.id);
+    }
 
     this.tabs = [
       {
@@ -351,7 +353,7 @@ export default {
         { page: 0, limit: 1 },
         this.paramSearch
       );
-      if (response.errors && response.errors.length) {
+      if (response && response.errors && response.errors.length) {
         const formatted = formatBackErrors(response.errors)
           .map((e) => e.errors)
           .flat();
