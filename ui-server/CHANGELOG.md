@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1341+20230317102451
+2023-03-17
+
+### Fixes
+
+- [3742] gestion de la redirection avec contrôle des permissions et options (2bfb527d93e3cad7bca595c062123bb9eb148984)
+
 ## 1.17.0-master.1340+20230315151610
 2023-03-15
 
