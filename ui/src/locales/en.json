@@ -119,6 +119,7 @@
   "password": "New Password",
   "passwordConfirm": "Password confirmation",
   "noAvailableInformations": "Information not available",
+  "successIndex": "Success index",
   "pending-actions": {
     "preparing": "Preparing operations ...",
     "ready": "operation ready",

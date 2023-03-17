@@ -158,6 +158,7 @@
   "privateUser": "Privé",
   "backToList": "Retour à la liste",
   "noAvailableInformations": "Information non disponible",
+  "successIndex": "Indice de réussite",
   "pending-actions": {
     "title": "Opérations en cours",
     "preparing": "Préparation de l'opération ...",
