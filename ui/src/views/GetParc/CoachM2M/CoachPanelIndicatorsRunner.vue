@@ -49,6 +49,7 @@
 <script>
 import CoachPanelndicatorItem from './CoachPanelndicatorItem';
 import { startAnalysis } from '@/api/coach';
+import { isFeatureAvailable } from '@/api/partners';
 import { mapGetters } from 'vuex';
 import StarsNotation from '@/components/StarsNotation.vue';
 import { resetNetwork } from '@/api/actCreation';
@@ -72,6 +73,21 @@ export default {
       this.$emit('apiError');
     }
 
+    this.typeForPartner = this.$loGet(this.lineInfos, 'party.partyType');
+    if (this.lineInfos) {
+      console.log('line infos', this.lineInfos);
+      this.autoDiagnosticEnabled = await isFeatureAvailable(
+        'AUTODIAGNOSTIC_ENABLED',
+        this.lineInfos.id
+      );
+      this.coachM2MAvailable = await isFeatureAvailable('COACH_M2M_AVAILABLE', this.lineInfos.id);
+      this.geolocEnabled = await isFeatureAvailable('GEOLOCATION_ENABLED', this.lineInfos.id);
+      this.requestConsoActive = await isFeatureAvailable(
+        'REQUEST_CONSO_ENABLED',
+        this.lineInfos.id
+      );
+    }
+
     if (this.havePermission('getVision', 'read')) {
       this.advancedIndicators = [
         {
@@ -85,6 +101,15 @@ export default {
                 .push({
                   name: 'lineDetail.diagnosis.analysis',
                   params: { lineId: this.$route.params.lineId, analyzeLocation: true },
+                  meta: {
+                    label: 'Détail de la ligne - Analyser la ligne',
+                    permission: { domain: 'getVision', action: 'read' },
+                    compatiblePartnerTypes: ['CUSTOMER', 'MULTI_CUSTOMER'],
+                  },
+                  query: {
+                    partnerType: this.typeForPartner,
+                    autoDiagnosticEnabled: this.autoDiagnosticEnabled,
+                  },
                 })
                 .catch(() => {});
             },
@@ -101,6 +126,15 @@ export default {
                 .push({
                   name: 'lineDetail.diagnosis.analysis',
                   params: { lineId: this.$route.params.lineId, cellAnalysis: true },
+                  meta: {
+                    label: 'Détail de la ligne - Analyser la ligne',
+                    permission: { domain: 'getVision', action: 'read' },
+                    compatiblePartnerTypes: ['CUSTOMER', 'MULTI_CUSTOMER'],
+                  },
+                  query: {
+                    partnerType: this.typeForPartner,
+                    autoDiagnosticEnabled: this.autoDiagnosticEnabled,
+                  },
                 })
                 .catch(() => {});
             },
@@ -117,6 +151,19 @@ export default {
                 .push({
                   name: 'lineDetail.diagnosis.supervision',
                   params: { lineId: this.$route.params.lineId },
+                  meta: {
+                    label: ' Détail de la ligne - Supervision',
+                    hasDependantPermission: true,
+                    permission: [
+                      { domain: 'getParc', action: 'read' },
+                      { domain: 'getVision', action: 'read' },
+                    ],
+                    compatiblePartnerTypes: ['CUSTOMER', 'MULTI_CUSTOMER'],
+                  },
+                  query: {
+                    partnerType: this.typeForPartner,
+                    autoDiagnosticEnabled: this.autoDiagnosticEnabled,
+                  },
                 })
                 .catch(() => {});
             },
@@ -125,7 +172,6 @@ export default {
         {
           id: 'i_7',
           title: 'coach.indicators.lastUsageAnalysis',
-          //
           action: {
             title: 'getparc.lineDetail.tab2.lineAnalysis',
             onClick: () => {
@@ -133,6 +179,15 @@ export default {
                 .push({
                   name: 'lineDetail.diagnosis.analysis',
                   params: { lineId: this.$route.params.lineId },
+                  meta: {
+                    label: 'Détail de la ligne - Analyser la ligne',
+                    permission: { domain: 'getVision', action: 'read' },
+                    compatiblePartnerTypes: ['CUSTOMER', 'MULTI_CUSTOMER'],
+                  },
+                  query: {
+                    partnerType: this.typeForPartner,
+                    autoDiagnosticEnabled: this.autoDiagnosticEnabled,
+                  },
                 })
                 .catch(() => {});
             },
@@ -222,7 +277,7 @@ export default {
   },
   computed: {
     ...mapGetters(['havePermission']),
-    isLigneActive() {
+    isLineActive() {
       const networkStatus = this.$loGet(this.lineInfos, 'accessPoint.networkStatus');
       const simStatus = this.$loGet(this.lineInfos, 'statuts');
       return simStatus === 'ALLOCATED' && networkStatus === 'ACTIVATED';
@@ -253,6 +308,15 @@ export default {
                 .push({
                   name: 'lineDetail.diagnosis.networkTestControl',
                   params: { lineId: this.$route.params.lineId, createTestRequest: true },
+                  meta: {
+                    label: 'Détail de la ligne - Tester et contrôler la consommation',
+                    permission: { domain: 'getVision', action: 'read' },
+                    compatiblePartnerTypes: ['CUSTOMER', 'MULTI_CUSTOMER'],
+                  },
+                  query: {
+                    partnerType: this.typeForPartner,
+                    requestConsoActive: this.requestConsoActive,
+                  },
                 })
                 .catch(() => {});
             },
@@ -268,7 +332,7 @@ export default {
             },
           },
           showActionFn: () => {
-            return this.havePermission('act', 'reset_network') && this.isLigneActive;
+            return this.havePermission('act', 'reset_network') && this.isLineActive;
           },
         },
         {
@@ -292,6 +356,12 @@ export default {
                 .push({
                   name: 'lineDetail.diagnosis.networkStatus',
                   params: { lineId: this.$route.params.lineId, createPingRequest: true },
+                  meta: {
+                    label: 'Détail de la ligne - Tester le réseau et la localisation',
+                    permission: { domain: 'getVision', action: 'read' },
+                    compatiblePartnerTypes: ['CUSTOMER', 'MULTI_CUSTOMER'],
+                  },
+                  query: { partnerType: this.typeForPartner, geolocEnabled: this.geolocEnabled },
                 })
                 .catch(() => {});
             },
@@ -300,6 +370,11 @@ export default {
       ],
       advancedIndicators: undefined,
       version: 0,
+      typeForPartner: undefined,
+      autoDiagnosticEnabled: undefined,
+      coachM2MAvailable: undefined,
+      geolocEnabled: undefined,
+      requestConsoActive: undefined,
     };
   },
   methods: {
