@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1343+20230320135920
+2023-03-20
+
+### Fixes
+
+- [3845] gestion d'une erreur générique pour la création d'offre (9d72eaf412b49a07d3b74481d5063d90b2a96667)
+
 ## 1.17.0-master.1342+20230320134237
 2023-03-20
 
