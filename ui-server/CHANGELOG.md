@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1342+20230320134237
+2023-03-20
+
+### Fixes
+
+- [000] Modification du plugin node gradle (6ffbbaee726ada4a820776a7745a4fb2d11b356f)
+- [000] Modification du plugin node gradle (e5de7b27d56c95e4b05d796dc5d5714a14dedca7)
+
 ## 1.17.0-master.1341+20230317102451
 2023-03-17
 
