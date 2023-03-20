@@ -35,14 +35,14 @@
         >
           <template slot="errors">
             <div v-if="isError" class="alert alert-danger" role="alert">
-              <ul>
+              <ul v-if="businessErrors">
                 <li v-for="(value, key) in businessErrors" :key="key">
                   <span>
                     {{ $t('digitalOffer.errors.' + key) }}
                   </span>
                 </li>
               </ul>
-              <ul>
+              <ul v-if="requestErrors">
                 <li v-for="(value, key) in requestErrors" :key="key">
                   <span>
                     {{ $t('digitalOffer.errors.' + value) }}
@@ -320,9 +320,6 @@ export default {
             e !== 'PARTY_NAME_ALREADY_EXIST' &&
             e !== 'SIRET_MANDATORY'
         );
-        if (this.requestErrors) {
-          this.isError = true;
-        }
         const businessErrors = response.errors.filter(
           (e) =>
             e === 'USER_NAME_ALREADY_EXIST' ||
@@ -363,6 +360,7 @@ export default {
           ...this.synthesis,
           businessErrors: this.businessErrors,
         };
+
         this.isError = true;
       }
 
@@ -372,6 +370,7 @@ export default {
           ...this.synthesis,
           inputErrors: this.inputErrors,
         };
+
         this.isError = true;
       }
       return this.isError;
