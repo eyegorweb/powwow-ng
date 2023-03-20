@@ -301,7 +301,6 @@ export default {
     },
 
     gotoDetail() {
-      console.log('got to alarm detail via route', this.$router);
       this.$router
         .push({
           name: 'alarmDetail',
