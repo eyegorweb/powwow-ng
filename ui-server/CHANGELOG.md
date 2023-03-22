@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1346+20230322103553
+2023-03-22
+
+### Fixes
+
+- [3829] ajout de la permission pour valider la commande (6deb02b564589a4705b78870d93a324c4cbc68e1)
+
 ## 1.17.0-master.1345+20230322100826
 2023-03-22
 
