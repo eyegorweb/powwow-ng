@@ -16,7 +16,7 @@
       </div>
     </div>
     <TableWithFilter
-      :storage-version="'001'"
+      :storage-version="'002'"
       :storage-id="'getSim.reservations'"
       v-if="columns"
       :filters="filters"
@@ -29,6 +29,10 @@
       @applyFilters="applyFilters"
       @columnOrdered="orderedColumns = $event"
       @currentFiltersChange="currentFilters = $event"
+      @resetSearch="resetFilters"
+      :init-page-limit="lastPagination ? lastPagination.limit : 20"
+      @update:page="onUpdatePage"
+      @update:limit="onUpdateLimit"
     >
       <div slot="title">
         {{ $t('getsim.reservations.tableTitle', { total: $formatLargeNumber(total) }) }}
@@ -110,8 +114,9 @@ export default {
       total: 0,
       orderBy: {
         key: 'id',
-        direction: 'ASC',
+        direction: 'DESC',
       },
+      lastPagination: { page: 0, limit: 20 },
       isLoading: false,
       searchByIdValue: undefined,
       currentAppliedFilters: [],
@@ -173,11 +178,16 @@ export default {
   methods: {
     ...mapMutations(['openPanel']),
     searchById(params) {
-      this.searchByIdValue = params.value;
-      this.applyFilters({
-        filters: [params],
-        pagination: { page: 0, limit: 1 },
-      });
+      if (params) {
+        this.searchByIdValue = params.value;
+        this.applyFilters({
+          filters: [params],
+          pagination: this.lastPagination,
+        });
+      } else {
+        this.searchByIdValue = undefined;
+        this.applyFilters();
+      }
     },
     formatForApi(filters) {
       return filters.reduce((formatted, filter) => {
@@ -319,15 +329,15 @@ export default {
       this.lastPayload = payload;
 
       let { pagination, filters } = payload || {
-        pagination: { page: 0, limit: 20 },
+        pagination: this.lastPagination,
         filters: [],
       };
 
-      let sorting;
-
+      let sorting = {};
       if (payload && payload.orderBy) {
-        sorting = {};
         sorting[payload.orderBy.key] = payload.orderBy.direction;
+      } else {
+        sorting[this.orderBy.key] = this.orderBy.direction;
       }
 
       if (this.appliedFilters && this.appliedFilters.length) {
@@ -748,6 +758,26 @@ export default {
           }
         },
       });
+    },
+
+    onUpdatePage(payload) {
+      if (payload) {
+        this.lastPagination.page = payload.page;
+      } else {
+        this.lastPagination.page = 0;
+      }
+    },
+    onUpdateLimit(payload) {
+      if (payload) {
+        this.lastPagination.limit = payload.limit;
+      } else {
+        this.lastPagination.limit = 10;
+      }
+    },
+
+    resetFilters() {
+      this.searchByIdValue = undefined;
+      this.applyFilters();
     },
   },
 };
