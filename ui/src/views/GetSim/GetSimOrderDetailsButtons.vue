@@ -8,7 +8,7 @@
       </ul>
     </div>
     <div class="action-buttons">
-      <div v-if="statusIn(['NOT_VALIDATED'])">
+      <div v-if="havePermission('getSim', 'create') && statusIn(['NOT_VALIDATED'])">
         <UiButton variant="accent" block @click="updateStatus('VALIDATED')">{{
           $t('getsim.actions.VALIDATE')
         }}</UiButton>
