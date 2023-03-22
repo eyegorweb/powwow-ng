@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1345+20230322100826
+2023-03-22
+
+### Fixes
+
+- [3842] correction de la recherche par identifiant et par filtre et des exports des réservations esim (77f489cae3bb8d7edc2ea158622ba63d2dfaf10e)
+
 ## 1.17.0-master.1344+20230320145113
 2023-03-20
 
