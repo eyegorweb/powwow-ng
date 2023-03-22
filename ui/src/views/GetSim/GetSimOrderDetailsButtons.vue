@@ -55,6 +55,7 @@
           :columns="[]"
           :order-by="orderBy"
           class="exportButton"
+          :on-error-fn="getExportErrorCallback()"
         >
           <span slot="title">{{ $t('getsim.actions.EXPORT') }}</span>
         </ExportButton>
@@ -87,8 +88,7 @@
           </div>
           <div class="text-danger">
             <i class="ic-Alert-Icon"></i>
-            Confirmez-vous l'annulation de la commande ?
-            <!-- {{ $t('getparc.actCreation.editCustomFields.confirmationWarning') }} -->
+            {{ $t('digitalOffer.confirmationWarning') }}
           </div>
         </LoaderContainer>
       </div>
@@ -144,10 +144,12 @@ import { setTimeout } from 'timers';
 import { exportSimCardInstances } from '@/api/linesActions';
 import ExportButton from '@/components/ExportButton';
 import { redirectTo } from '@/utils';
+import { formatBackErrors } from '@/utils/errors';
 
 export default {
   props: {
     order: Object,
+    esimOrder: Boolean,
   },
   components: {
     UiButton,
@@ -217,7 +219,12 @@ export default {
           columnsToUse.push('LAST_COUNTRY');
         }
         let orderToUse = { direction: 'DESC', key: 'id' };
-        let filtersToUse = [{ id: 'filters.lines.orderID', value: this.order.id }];
+        let filtersToUse = undefined;
+        if (!this.esimOrder) {
+          filtersToUse = [{ id: 'filters.lines.orderID', value: this.order.id }];
+        } else {
+          filtersToUse = [{ id: 'indicators.getparc.lines.esim.id', value: this.order.id }];
+        }
         return await exportSimCardInstances(
           columnsToUse,
           orderToUse,
@@ -227,6 +234,42 @@ export default {
           exportAll,
           'CLASSIC'
         );
+      };
+    },
+
+    getExportErrorCallback() {
+      console.log('get export callback');
+      return (errors) => {
+        const formattedErrors = formatBackErrors(errors);
+        console.log('formatted errors', formattedErrors);
+        if (formattedErrors) {
+          const haveSimStatusError = formattedErrors[0].errorKeys.find(
+            (e) => e === 'simStatus.Required'
+          );
+          if (haveSimStatusError) {
+            return this.$t('needActiveLines');
+          }
+          const haveExportEmptyError = formattedErrors[0].errorKeys.find(
+            (e) => e === 'export.EXPORT_EMPTY'
+          );
+          if (haveExportEmptyError) {
+            return this.$t('exportEmpty');
+          }
+          const haveIDPartnerError = formattedErrors[0].errorKeys.find(
+            (e) => e === 'idParty.Required'
+          );
+          if (haveIDPartnerError) {
+            return `${this.$t('getparc.actCreation.report.errors.partyId.idParty')}`;
+          }
+          const havePartnerNotAllowed = formattedErrors[0].errorKeys.find(
+            (e) => e === 'idParty.NotAllowed'
+          );
+          if (havePartnerNotAllowed) {
+            return `${this.$t('getparc.actCreation.report.errors.partyId.notAllowed')}`;
+          }
+
+          return this.$t('exportError');
+        }
       };
     },
 

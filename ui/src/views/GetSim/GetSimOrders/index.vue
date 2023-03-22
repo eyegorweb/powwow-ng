@@ -174,15 +174,20 @@ export default {
     },
 
     searchById(params) {
-      this.searchByIdValue = params.value;
-      // la table de résultats ( GetSimOrders) lance une recherche à chaque fois que le filtre est modifié ( appliqué ), pour effectuer une recherche par ID,
-      // on applique directement un filtre sans passer par le process normal ( selection -> appliquer les filtres)
-      this.forceAppliedFilters([
-        {
-          id: params.id,
-          value: params.value,
-        },
-      ]);
+      if (params) {
+        this.searchByIdValue = params.value;
+        // la table de résultats ( GetSimOrders) lance une recherche à chaque fois que le filtre est modifié ( appliqué ), pour effectuer une recherche par ID,
+        // on applique directement un filtre sans passer par le process normal ( selection -> appliquer les filtres)
+        this.forceAppliedFilters([
+          {
+            id: params.id,
+            value: params.value,
+          },
+        ]);
+      } else {
+        this.searchByIdValue = undefined;
+        this.applyFilters();
+      }
     },
   },
   computed: {
