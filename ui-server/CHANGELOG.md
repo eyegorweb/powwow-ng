@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1348+20230323100911
+2023-03-23
+
+### Fixes
+
+- [3818] gestionnaire d'erreur de l'acte de gestion Appairer esim (042dee282fda5e07664ea984e1efcb977a55009b)
+
 ## 1.17.0-master.1347+20230323085606
 2023-03-23
 
