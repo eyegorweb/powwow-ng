@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1349+20230323142226
+2023-03-23
+
+### Fixes
+
+- [3830] initialiser isOptional dans le formulaire changeCustomFields (983a50fb3faac8252d96bd69c133dec29dcb960e)
+
 ## 1.17.0-master.1348+20230323100911
 2023-03-23
 
