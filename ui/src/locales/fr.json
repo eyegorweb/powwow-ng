@@ -2139,6 +2139,7 @@
         "InvalidFileSize": "Le fichier est trop volumineux",
         "timeout": "Le traitement est toujours en cours. Veuillez vérifier d'ici quelques minutes que l'import est complet.",
         "unknown": "Erreur inconnue.",
+        "eid": "eid non trouvé.",
         "errors": {
           "workflow": {
             "LONG_LIFE_NOT_ALLOWED": "Changement d'offre impossible sur les offres LV."

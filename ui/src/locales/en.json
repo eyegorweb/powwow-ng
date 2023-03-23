@@ -1961,6 +1961,7 @@
         "InvalidFileSize": "The file is too large",
         "timeout": "Import will finish soon. Please check within a few minutes that it is complete.",
         "unknown": "Unknown error.",
+        "eid": "eid not found.",
         "errors": {
           "workflow": {
             "LONG_LIFE_NOT_ALLOWED": "Changement d'offre impossible sur les offres LV."

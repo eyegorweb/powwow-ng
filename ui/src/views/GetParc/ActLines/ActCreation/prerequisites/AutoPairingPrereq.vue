@@ -170,7 +170,6 @@ export default {
         simcardType: this.selectedTypeSimCard,
       };
 
-      console.log('validation de tous les prérequis', allPrereq);
       this.setActCreationPrerequisites(allPrereq);
 
       let search = !!this.selectedPartner;
