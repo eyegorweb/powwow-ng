@@ -100,7 +100,6 @@ function checkCompatiblePartnerType(routerObj) {
  * @param {Function} callFn callback navigation
  */
 export function throwGuardNavigation(routerObj, store, tempIsStoreLoaded, callFn) {
-  console.log('throw guard navigation', routerObj);
   if (tempIsStoreLoaded) {
     tries = 60;
     storeIsLoaded = tempIsStoreLoaded;
@@ -126,14 +125,9 @@ export function throwGuardNavigation(routerObj, store, tempIsStoreLoaded, callFn
           return store.getters.havePermission(perm.domain, perm.action);
         });
       }
-      console.log(
-        "Permettre la navigation jusqu'à l'url parce que j'ai la permission ????",
-        havePermission
-      );
 
       // Testons la compatibilité avec le type de partenaire, ce contrôle est nécessaire (donc renseigné pour certians liens)
       let compatiblePartnerType = checkCompatiblePartnerType(routerObj);
-      console.log('type de partenaire compatible >>>>>>>', compatiblePartnerType);
       let haveCompatiblePartnerType = undefined;
       if (compatiblePartnerType) {
         haveCompatiblePartnerType = !!compatiblePartnerType.find((partnerType) => {
@@ -147,10 +141,6 @@ export function throwGuardNavigation(routerObj, store, tempIsStoreLoaded, callFn
           return undefined;
         });
       }
-      console.log(
-        "Permettre la navigation jusqu'à l'url parce que j'ai un partenaire compatible obligatoire ????",
-        haveCompatiblePartnerType
-      );
 
       // Testons la restriction des options partenaires pour les utilisateurs de type partenaire
       let haveAdditionalOptionPermission = undefined;
@@ -160,34 +150,18 @@ export function throwGuardNavigation(routerObj, store, tempIsStoreLoaded, callFn
         // coachM2MAvailable
         if (routerObj.query && routerObj.query.coachM2MAvailable) {
           haveAdditionalOptionPermission = routerObj.query.coachM2MAvailable;
-          console.log(
-            "Permettre la navigation jusqu'à l'url parce que j'ai l'option coachM2MAvailable activée ?",
-            routerObj.query.coachM2MAvailable
-          );
         }
         // requestConsoActive
         if (routerObj.query && routerObj.query.requestConsoActive) {
           haveAdditionalOptionPermission = routerObj.query.requestConsoActive;
-          console.log(
-            "Permettre la navigation jusqu'à l'url parce que j'ai l'option requestConsoActive activée ?",
-            routerObj.query.requestConsoActive
-          );
         }
         // geolocEnabled
         if (routerObj.query && routerObj.query.geolocEnabled) {
           haveAdditionalOptionPermission = routerObj.query.geolocEnabled;
-          console.log(
-            "Permettre la navigation jusqu'à l'url parce que j'ai l'option geolocEnabled activée ?",
-            routerObj.query.geolocEnabled
-          );
         }
         // autoDiagnsticEnabled
         if (routerObj.query && routerObj.query.autoDiagnosticEnabled) {
           haveAdditionalOptionPermission = routerObj.query.autoDiagnosticEnabled;
-          console.log(
-            "Permettre la navigation jusqu'à l'url parce que j'ai l'option autoDiagnosticEnabled activée ?",
-            routerObj.query.autoDiagnosticEnabled
-          );
         }
         // specificCustomerID
         if (
@@ -196,14 +170,6 @@ export function throwGuardNavigation(routerObj, store, tempIsStoreLoaded, callFn
           routerObj.query.specificCustomerID === 246
         ) {
           haveAdditionalOptionPermission = true;
-          console.log(
-            "Permettre la navigation jusqu'à l'url parce que je suis un partenaire IMT accessible",
-            routerObj.query.specificCustomerID
-          );
-          console.log(
-            "Permettre la navigation jusqu'à l'url parce que j'ai au moins une option obligatoire activée ???",
-            haveAdditionalOptionPermission
-          );
         }
         // notifyOption
         if (routerObj.meta.additionalOption && routerObj.meta.additionalOption.notifyOption) {
@@ -211,10 +177,6 @@ export function throwGuardNavigation(routerObj, store, tempIsStoreLoaded, callFn
           if (store.getters.userInfos && store.getters.userInfos[checkOption]) {
             haveAdditionalOptionPermission = true;
           }
-          console.log(
-            "Permettre la navigation jusqu'à l'url parce que j'ai l'option FLAG_STATISTICS_ENABLED activée ?",
-            haveAdditionalOptionPermission
-          );
         }
       }
 
@@ -229,10 +191,6 @@ export function throwGuardNavigation(routerObj, store, tempIsStoreLoaded, callFn
           hideForUserByCustomerAccount = false;
         }
       }
-      console.log(
-        "Ne pas permettre la navigation jusqu'à l'url parce que je suis un userByCF ???",
-        hideForUserByCustomerAccount
-      );
 
       // Exécution de la navigation
       // Les options additionnelles sont à traiter en combinaison avec les options sur la compatibilité des partenaires

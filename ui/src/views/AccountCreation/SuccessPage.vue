@@ -24,7 +24,6 @@ export default {
   },
 
   mounted() {
-    console.log('success page redirection from paynum', this.$route);
     if (this.$route.params && this.$route.params.paymentId) {
       this.validate(this.$route.params.paymentId, true);
       if (window.location.href.includes('payment')) {

@@ -75,7 +75,6 @@ export default {
 
     this.typeForPartner = this.$loGet(this.lineInfos, 'party.partyType');
     if (this.lineInfos) {
-      console.log('line infos', this.lineInfos);
       this.autoDiagnosticEnabled = await isFeatureAvailable(
         'AUTODIAGNOSTIC_ENABLED',
         this.lineInfos.id
