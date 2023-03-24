@@ -67,7 +67,7 @@ export default {
           if (e.key === 'error') {
             massActionLimitError = `${e.key}.${e.value}`;
           } else if (e.key === 'eid') {
-            errorMessage = `eid non trouvé. / eid not found.`;
+            errorMessage = this.$t('getparc.actCreation.report.errors.eid');
           } else {
             errorMessage = `${e.key}: ${e.value}`;
           }
