@@ -52,7 +52,7 @@
       </div>
       <div slot="footer" class="footer">
         <div class="exportAll" v-if="!showLoader">
-          <div class="exportTypes" v-if="exportPanelParams.exportChoices">
+          <div class="exportTypes" v-if="exportPanelParams && exportPanelParams.exportChoices">
             <Toggle
               :values="exportPanelParams.exportChoices"
               @update="chooseExportChoice"
@@ -62,7 +62,9 @@
             />
             <UiDropDownChoicesButton
               v-if="
-                exportPanelParams.otherExportChoices && exportPanelParams.otherExportChoices.length
+                exportPanelParams &&
+                  exportPanelParams.otherExportChoices &&
+                  exportPanelParams.otherExportChoices.length
               "
               :options="otherExportChoicesLabels"
               :get-export-choice-disabled-message="getExportChoiceDisabledMessage"
@@ -79,7 +81,9 @@
 
           <Checkbox
             v-model="exportAll"
-            v-if="exportPanelParams.exportAll && !exportPanelParams.exportChoices"
+            v-if="
+              exportPanelParams && exportPanelParams.exportAll && !exportPanelParams.exportChoices
+            "
           >
             {{ $t('exportAll') }}
           </Checkbox>
@@ -124,7 +128,7 @@ export default {
       return this.exportNumberLines >= 500000;
     },
     otherExportChoicesLabels() {
-      return this.exportPanelParams
+      return this.exportPanelParams && this.exportPanelParams.otherExportChoices
         ? this.exportPanelParams.otherExportChoices.map((e) => e.label)
         : [];
     },
