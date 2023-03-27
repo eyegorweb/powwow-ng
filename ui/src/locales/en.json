@@ -1805,6 +1805,9 @@
     "actCreation": {
       "mass": "Mass action",
       "byId": "By id",
+      "autoPairing": "Auto pairing",
+      "filePairing": "Pairing by EID file",
+      "filePairingEidIccid": "Pairing by ICCID file",
       "radius": {
         "RADIUS_EMPTY_OPTION": "Delete empty fields from file ?"
       },
