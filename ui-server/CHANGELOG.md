@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1353+20230327091935
+2023-03-27
+
+### Fixes
+
+- [3857] désactivation de l'export au format Excel pour les tables de supervision (7ec87d8502aa45568e48969f5370937481496532)
+
 ## 1.17.0-master.1352+20230327073532
 2023-03-27
 
