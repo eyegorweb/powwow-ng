@@ -6,6 +6,14 @@
       :can-change-date="false"
       fix-on-current-date
     >
+      <div slot="messages" class="text-info">
+        <div v-if="exceptionError">
+          <h6 class="text-danger">{{ $t('errors.all') }}</h6>
+          <div class="text-danger">
+            {{ exceptionError }}
+          </div>
+        </div>
+      </div>
     </ActFormContainer>
   </div>
 </template>
@@ -14,10 +22,16 @@
 import ActFormContainer from './parts/ActFormContainer2';
 import { mapState, mapGetters } from 'vuex';
 import { pairingByStockedEid } from '@/api/esim.js';
+import { formatBackErrors } from '@/utils/errors';
 
 export default {
   components: {
     ActFormContainer,
+  },
+  data() {
+    return {
+      exceptionError: undefined,
+    };
   },
   computed: {
     ...mapState('actLines', ['selectedLinesForActCreation', 'actCreationPrerequisites']),
@@ -32,7 +46,52 @@ export default {
         simCardInstanceIds = this.selectedLinesForActCreation.map((a) => a.id);
       }
 
-      return pairingByStockedEid(partnerId, this.appliedFilters, simCardTypeId, simCardInstanceIds);
+      const response = await pairingByStockedEid(
+        partnerId,
+        this.appliedFilters,
+        simCardTypeId,
+        simCardInstanceIds
+      );
+
+      if (response && response.errors && response.errors.length) {
+        let errorMessage = '',
+          massActionLimitError = '',
+          count;
+        const formatted = formatBackErrors(response.errors)
+          .map((e) => e.errors)
+          .flat();
+        formatted.forEach((e) => {
+          if (e.key === 'limit') {
+            count = e.value;
+          }
+          if (e.key === 'error') {
+            massActionLimitError = `${e.key}.${e.value}`;
+          } else if (e.key === 'eid') {
+            errorMessage = this.$t('getparc.actCreation.report.errors.eid');
+          } else {
+            errorMessage = `${e.key}: ${e.value}`;
+          }
+        });
+        if (massActionLimitError) {
+          this.exceptionError = `${this.$t(
+            'getparc.actCreation.report.errors.' + massActionLimitError,
+            {
+              count,
+            }
+          )}`;
+        } else {
+          this.exceptionError = errorMessage;
+        }
+
+        return {
+          errors: response.errors,
+          validationError: {
+            validated: response.validated,
+            tempDataUuid: response.tempDataUuid,
+          },
+        };
+      }
+      return response;
     },
   },
 };

@@ -22,7 +22,6 @@ export default {
   },
 
   mounted() {
-    console.log('error page redirection from paynum', this.$route);
     if (this.$route.params && this.$route.params.paymentId) {
       this.validate(this.$route.params.paymentId, false);
       if (window.location.href.includes('payment')) {

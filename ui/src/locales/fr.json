@@ -158,6 +158,7 @@
   "privateUser": "Privé",
   "backToList": "Retour à la liste",
   "noAvailableInformations": "Information non disponible",
+  "successIndex": "Indice de réussite",
   "pending-actions": {
     "title": "Opérations en cours",
     "preparing": "Préparation de l'opération ...",
@@ -235,6 +236,7 @@
       "PARTY_NAME_ALREADY_EXIST": "Le nom du partenaire doit être unique",
       "SHIPPING_ADDRESS_MANDATORY": "SHIPPING_ADDRESS_MANDATORY",
       "GENERIC_ERROR": "GENERIC_ERROR",
+      "ACCOUNT_GENERIC_ERROR": "ACCOUNT_GENERIC_ERROR",
       "ORDER_GENERIC_ERROR": "Erreur lors de l'enregistrement. Veuillez réessayer.",
       "PAYMENT_NOT_VALIDATED": "Paiement non validé",
       "PAYMENT_ERROR": "Erreur lors du paiement. Veuillez réessayer.",
@@ -2138,6 +2140,7 @@
         "timeout": "Le traitement est toujours en cours. Veuillez vérifier d'ici quelques minutes que l'import est complet.",
         "unknown": "Erreur inconnue.",
         "errors": {
+          "eid": "eid non trouvé.",
           "workflow": {
             "LONG_LIFE_NOT_ALLOWED": "Changement d'offre impossible sur les offres LV."
           },

@@ -20,7 +20,12 @@
         :business-error="businessError"
       >
         <template slot="topRightCorner">
-          <ExportButton :export-fn="getExportFn()" :columns="columns" :order-by="orderBy">
+          <ExportButton
+            :export-fn="getExportFn()"
+            :columns="columns"
+            :order-by="orderBy"
+            :nb-of-lines="indicatorTotal"
+          >
             <span slot="title">{{ $t('getparc.actLines.export', { total: indicatorTotal }) }}</span>
           </ExportButton>
         </template>
@@ -42,7 +47,12 @@
                 <i class="ic-Pin-Icon"></i>
                 {{ $t('getparc.lineDetail.tab2.supervisionContent.mapView') }}
               </UiButton>
-              <ExportButton :export-fn="getExportFn()" :columns="columns" :order-by="orderBy">
+              <ExportButton
+                :export-fn="getExportFn()"
+                :columns="columns"
+                :order-by="orderBy"
+                :nb-of-lines="indicatorTotal"
+              >
                 <span slot="title">{{
                   $t('getparc.actLines.export', { total: $formatLargeNumber(indicatorTotal) })
                 }}</span>
@@ -66,7 +76,12 @@
           <i class="ic-Pin-Icon"></i>
           {{ $t('getparc.lineDetail.tab2.supervisionContent.mapView') }}
         </UiButton>
-        <ExportButton :export-fn="getExportFn()" :columns="columns" :order-by="orderBy">
+        <ExportButton
+          :export-fn="getExportFn()"
+          :columns="columns"
+          :order-by="orderBy"
+          :nb-of-lines="indicatorTotal"
+        >
           <span slot="title">{{
             $t('getparc.actLines.export', { total: $formatLargeNumber(indicatorTotal) })
           }}</span>
@@ -80,7 +95,12 @@
           <i class="ic-Pin-Icon"></i>
           {{ $t('getparc.lineDetail.tab2.supervisionContent.mapView') }}
         </UiButton>
-        <ExportButton :export-fn="getExportFn()" :columns="columns" :order-by="orderBy">
+        <ExportButton
+          :export-fn="getExportFn()"
+          :columns="columns"
+          :order-by="orderBy"
+          :nb-of-lines="indicatorTotal"
+        >
           <span slot="title">{{
             $t('getparc.actLines.export', { total: $formatLargeNumber(indicatorTotal) })
           }}</span>

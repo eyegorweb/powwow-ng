@@ -153,7 +153,15 @@ export async function fetchUserById(userId) {
     },
   ];
   const response = await searchUsers('', orderBy, pagination, filters);
-  if (response.items && response.items.length) return response.items[0];
+  if (response.errors) {
+    return {
+      errors: response.errors,
+    };
+  }
+  if (response && response.items && response.items.length) {
+    return response.items[0];
+  }
+  return undefined;
 }
 
 export async function searchUsers(q, orderBy, pagination, filters = []) {
@@ -263,7 +271,15 @@ export async function fetchUserFromUsername(username) {
       value: username,
     },
   ]);
-  return response.items[0];
+  if (response.errors) {
+    return {
+      errors: response.errors,
+    };
+  }
+  if (response && response.items && response.items.length) {
+    return response.items[0];
+  }
+  return undefined;
 }
 
 export async function fetchUserRoles() {

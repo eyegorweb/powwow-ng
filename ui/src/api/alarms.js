@@ -174,12 +174,15 @@ export async function searchAlarmById(id) {
   const pagination = { page: 0, limit: 10 };
   const filters = [{ id: 'filters.alarmId', value: id }];
   const response = await searchAlarms(orderBy, pagination, filters);
-
+  if (response.errors) {
+    return {
+      errors: response.errors,
+    };
+  }
   if (response && response.items && response.items.length) {
     return response.items[0];
   }
-
-  return;
+  return undefined;
 }
 
 export async function searchSharedConsumtionAlarmById(id) {
@@ -188,11 +191,15 @@ export async function searchSharedConsumtionAlarmById(id) {
   const filters = [{ id: 'filters.alarmId', value: id }];
   const response = await searchSharedConsumptionAlarm(orderBy, pagination, filters);
 
+  if (response.errors) {
+    return {
+      errors: response.errors,
+    };
+  }
   if (response && response.items && response.items.length) {
     return response.items[0];
   }
-
-  return;
+  return undefined;
 }
 
 export async function searchAlarms(orderBy, pagination, filters = []) {
@@ -272,6 +279,11 @@ export async function searchAlarms(orderBy, pagination, filters = []) {
   }`;
 
   const response = await query(queryStr);
+  if (response.errors) {
+    return {
+      errors: response.errors,
+    };
+  }
   return response.data.alarms;
 }
 

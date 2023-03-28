@@ -362,6 +362,16 @@ export async function pairingByStockedEid(partnerId, filters, simCardTypeId, sim
   }
   `;
   const response = await query(queryStr, { partnerId, simCardTypeId, simCardInstanceIds });
+  if (!response) {
+    return {
+      errors: ['unknown'],
+    };
+  }
+  if (response.errors) {
+    return {
+      errors: response.errors,
+    };
+  }
   return response.data.pairingByStockedEid;
 }
 
@@ -442,6 +452,16 @@ export async function esimStatusChangeProfil({
     notification,
     targetStateEnum,
   });
+  if (!response) {
+    return {
+      errors: ['unknown'],
+    };
+  }
+  if (response.errors) {
+    return {
+      errors: response.errors,
+    };
+  }
   return response.data.esimStatusChangeProfil;
 }
 

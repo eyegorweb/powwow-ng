@@ -77,7 +77,6 @@ export default {
         const formatted = formatBackErrors(response.errors)
           .map((e) => e.errors)
           .flat();
-        console.log('formatted back errors', formatted);
         formatted.forEach((e) => {
           if (e.key === 'limit') {
             count = e.value;

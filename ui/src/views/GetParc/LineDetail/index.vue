@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-4">
+  <div class="mt-4" v-if="lineData">
     <div class="row">
       <div class="col-md-9">
         <button @click.prevent="returnToSearch()" class="btn btn-link back-btn">
@@ -23,14 +23,14 @@
         </UiButton>
       </div>
     </div>
-    <LineSummary v-if="lineData" :content="lineData" />
+    <LineSummary :content="lineData" />
     <ActionCarousel
-      v-if="lineData && canShowCarousel"
+      v-if="canShowCarousel"
       :actions="carouselItems"
       :default-disabled="!isLigneActive"
       @itemClick="onCarouselItemClick"
     />
-    <div v-if="tabs && lineData" class="mt-4 mb-4">
+    <div v-if="tabs" class="mt-4 mb-4">
       <UiTabs :tabs="tabs">
         <template slot-scope="{ tab, index }">
           <UiTab v-if="tab" :is-selected="index === currentTabToShow" class="tab-grow">
@@ -46,6 +46,10 @@
         <router-view :content="lineData" />
       </div>
     </div>
+  </div>
+  <div v-else>
+    <div v-if="lineDataError" class="alert alert-danger" role="alert">{{ lineDataError }}</div>
+    <div v-else class="alert alert-light" role="alert">{{ $t('noResult') }}</div>
   </div>
 </template>
 
@@ -64,6 +68,7 @@ import { getPartyOptions } from '@/api/partners.js';
 import { getFromLatestLineFromAccessPoint } from '@/utils/line.js';
 import { fetchOffers } from '@/api/offers.js';
 import { isFeatureAvailable } from '@/api/partners';
+import { formatBackErrors } from '@/utils/errors';
 
 export default {
   components: {
@@ -77,13 +82,15 @@ export default {
     await this.loadLineData();
     this.typeForPartner = this.$loGet(this.lineData, 'party.partyType');
     this.specificCustomerID = this.$loGet(this.lineData, 'party.id');
-    this.coachM2Mavailable = await isFeatureAvailable('COACH_M2M_AVAILABLE', this.lineData.id);
-    this.autoDiagnosticEnabled = await isFeatureAvailable(
-      'AUTODIAGNOSTIC_ENABLED',
-      this.lineData.id
-    );
-    this.geolocEnabled = await isFeatureAvailable('GEOLOCATION_ENABLED', this.lineData.id);
-    this.requestConsoActive = await isFeatureAvailable('REQUEST_CONSO_ENABLED', this.lineData.id);
+    if (this.lineData) {
+      this.coachM2Mavailable = await isFeatureAvailable('COACH_M2M_AVAILABLE', this.lineData.id);
+      this.autoDiagnosticEnabled = await isFeatureAvailable(
+        'AUTODIAGNOSTIC_ENABLED',
+        this.lineData.id
+      );
+      this.geolocEnabled = await isFeatureAvailable('GEOLOCATION_ENABLED', this.lineData.id);
+      this.requestConsoActive = await isFeatureAvailable('REQUEST_CONSO_ENABLED', this.lineData.id);
+    }
 
     this.tabs = [
       {
@@ -108,28 +115,55 @@ export default {
     ];
 
     if (this.initControlMenuGetDiag()) {
+      // Route par défaut à l'initialisation
+      let dynamicSubTabDefault = undefined;
+      if (this.havePermission('getVision', 'read')) {
+        dynamicSubTabDefault = {
+          name: 'lineDetail.diagnosis.analysis',
+          meta: {
+            label: 'Détail de la ligne - Analyser la ligne',
+            hasDependantPermission: true,
+            permission: [
+              { domain: 'getParc', action: 'read' },
+              { domain: 'getVision', action: 'read' },
+            ],
+            compatiblePartnerTypes: ['CUSTOMER', 'MULTI_CUSTOMER'],
+          },
+          query: {
+            partnerType: this.typeForPartner,
+            autoDiagnosticEnabled: this.autoDiagnosticEnabled,
+          },
+          params: { lineId: this.$route.params.lineId },
+        };
+      } else if (
+        !this.havePermission('getVision', 'read') &&
+        this.havePermission('getParc', 'manage_coach')
+      ) {
+        dynamicSubTabDefault = {
+          name: 'lineDetail.diagnosis.last_tests',
+          meta: {
+            label: 'Détail de la ligne - Derniers tests Coach M2M',
+            hasDependantPermission: true,
+            permission: [
+              { domain: 'getParc', action: 'read' },
+              { domain: 'getParc', action: 'manage_coach' },
+            ],
+            compatiblePartnerTypes: ['CUSTOMER', 'MULTI_CUSTOMER', 'M2M_LIGHT'],
+          },
+          query: {
+            partnerType: this.typeForPartner,
+            coachM2MAvailable: this.showCoachMenu,
+          },
+          params: { lineId: this.$route.params.lineId },
+        };
+      }
+
       this.tabs = [
         ...this.tabs,
         {
           label: 'diagnosis',
           title: 'getparc.lineDetail.analysingTool',
-          to: {
-            name: 'lineDetail.diagnosis.analysis',
-            meta: {
-              label: 'Détail de la ligne - Analyser la ligne',
-              hasDependantPermission: true,
-              permission: [
-                { domain: 'getParc', action: 'read' },
-                { domain: 'getVision', action: 'read' },
-              ],
-              compatiblePartnerTypes: ['CUSTOMER', 'MULTI_CUSTOMER'],
-            },
-            query: {
-              partnerType: this.typeForPartner,
-              autoDiagnosticEnabled: this.autoDiagnosticEnabled,
-            },
-            params: { lineId: this.$route.params.lineId },
-          },
+          to: dynamicSubTabDefault,
         },
       ];
     }
@@ -137,12 +171,12 @@ export default {
   data() {
     return {
       lineData: undefined,
+      lineDataError: undefined,
       partnerOptions: undefined,
       tabs: undefined,
       carouselItems: [],
       offerChangeEnabled: undefined,
       paramSearch: undefined,
-      hasPermissionForDiag: undefined,
       typeForPartner: undefined,
       coachM2Mavailable: undefined,
       autoDiagnosticEnabled: undefined,
@@ -319,8 +353,19 @@ export default {
         { page: 0, limit: 1 },
         this.paramSearch
       );
-      if (!response || !response.items || !response.items.length) return;
-      this.lineData = response.items[0];
+      if (response && response.errors && response.errors.length) {
+        const formatted = formatBackErrors(response.errors)
+          .map((e) => e.errors)
+          .flat();
+        formatted.forEach((e) => {
+          this.lineDataError = `${e.key}: ${e.value}`;
+        });
+      }
+      if (response && response.items && response.items.length) {
+        this.lineData = response.items[0];
+      } else if (response && response.items && !response.items.length) {
+        this.lineData = undefined;
+      }
 
       if (this.lineData) {
         const partnerId = get(this.lineData, 'party.id');

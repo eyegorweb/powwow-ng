@@ -255,7 +255,6 @@ export default {
 
   watch: {
     isAdvanced(newValue) {
-      console.log('new value', newValue);
       if (!newValue) {
         this.dataOut = undefined;
         this.dataIn = undefined;

@@ -183,8 +183,15 @@ export async function searchLineById(id) {
       value: '' + id,
     },
   ]);
-  if (!response || !response.items || !response.items.length) return;
-  return response.items[0];
+  if (response.errors) {
+    return {
+      errors: response.errors,
+    };
+  }
+  if (response && response.items && response.items.length) {
+    return response.items[0];
+  }
+  return undefined;
 }
 
 export async function searchLineByIccid(id) {
@@ -194,8 +201,15 @@ export async function searchLineByIccid(id) {
       value: '' + id,
     },
   ]);
-  if (!response || !response.items || !response.items.length) return;
-  return response.items[0];
+  if (response.errors) {
+    return {
+      errors: response.errors,
+    };
+  }
+  if (response && response.items && response.items.length) {
+    return response.items[0];
+  }
+  return undefined;
 }
 
 async function searchLinesQuery(orderBy, pagination, filters, fields) {
@@ -217,6 +231,11 @@ async function searchLinesQuery(orderBy, pagination, filters, fields) {
   }`;
 
   const response = await query(queryStr);
+  if (response.errors) {
+    return {
+      errors: response.errors,
+    };
+  }
   return response.data.simCardInstances;
 }
 

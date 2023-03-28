@@ -119,6 +119,7 @@
   "password": "New Password",
   "passwordConfirm": "Password confirmation",
   "noAvailableInformations": "Information not available",
+  "successIndex": "Success index",
   "pending-actions": {
     "preparing": "Preparing operations ...",
     "ready": "operation ready",
@@ -1804,6 +1805,9 @@
     "actCreation": {
       "mass": "Mass action",
       "byId": "By id",
+      "autoPairing": "Auto pairing",
+      "filePairing": "Pairing by EID file",
+      "filePairingEidIccid": "Pairing by ICCID file",
       "radius": {
         "RADIUS_EMPTY_OPTION": "Delete empty fields from file ?"
       },
@@ -1961,6 +1965,7 @@
         "timeout": "Import will finish soon. Please check within a few minutes that it is complete.",
         "unknown": "Unknown error.",
         "errors": {
+          "eid": "eid not found.",
           "workflow": {
             "LONG_LIFE_NOT_ALLOWED": "Changement d'offre impossible sur les offres LV."
           },
