@@ -147,8 +147,9 @@ export default {
       const offerServices = getMarketingOfferServices(this.order);
 
       const servicesChoice = {
-        services: offerServices.filter((f) => f.code !== 'DATA'),
+        services: offerServices.filter((f) => f.code !== 'DATA' && f.type !== 'UPF'),
         dataService: offerServices.find((f) => f.code == 'DATA'),
+        upfService: offerServices.find((f) => f.type == 'UPF'),
       };
 
       this.synthesis = {

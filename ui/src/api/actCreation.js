@@ -298,6 +298,7 @@ export async function transferSIMCards(filters, lines, params) {
       changeServicesParamsGql = formatServicesForGQL({
         data: servicesChoice.dataService,
         services: servicesChoice.services,
+        upf: servicesChoice.upfService,
       });
     }
 
@@ -593,6 +594,7 @@ export async function changeService(filters, lines, params) {
       dataService,
       offerCode,
       newCommunityChange,
+      upfService,
     } = params;
     let gqlTempDataUuid = '';
     if (tempDataUuid) {
@@ -626,6 +628,16 @@ export async function changeService(filters, lines, params) {
         dataCodeParams = `{serviceCode: "${dataService.code}", action: DELETE}`;
       }
 
+      codesToaddToGqlQuery.push(dataCodeParams);
+    }
+    if (upfService) {
+      if (upfService.checked) {
+        const profileData = upfService.parameters[0];
+
+        dataCodeParams = `{serviceCode: "${upfService.code}", action: ADD, catalogServiceParameters: [{parameterCode: "${profileData.code}", action: ADD}, {parameterCode: "${upfService.initialProfilCode}", action: DELETE}]}`;
+      } else {
+        dataCodeParams = `{serviceCode: "${upfService.code}", action: DELETE}`;
+      }
       codesToaddToGqlQuery.push(dataCodeParams);
     }
 
@@ -765,6 +777,7 @@ export async function preactivateAndActivateSImcardInstance(filters, lines, para
       changeServicesParamsGql = formatServicesForGQL({
         data: servicesChoice.dataService,
         services: servicesChoice.services,
+        upf: servicesChoice.upfService,
       });
     }
 
@@ -879,6 +892,7 @@ export async function changeOffer(filters, lines, params, keepServices) {
       changeServicesParamsGql = formatServicesForGQL({
         data: servicesChoice.dataService,
         services: servicesChoice.services,
+        upf: servicesChoice.upfService,
       });
     }
 
@@ -1160,20 +1174,48 @@ export async function createRadiusAdmin(params, action, resetEmptyField) {
   return response.data.radiusAdministration;
 }
 
-export async function fetchApn(partyId, workflowId) {
+export async function fetchRadiusAdministrationTypes(partyId) {
+  const queryStr = `
+  query{
+    radiusAdministrationTypes(partyId: ${partyId})
+  }`;
+
+  const response = await query(queryStr);
+
+  if (response.errors) {
+    return {
+      errors: response.errors,
+    };
+  }
+  return response.data.radiusAdministrationTypes;
+}
+
+export async function fetchApn(partyId, workflowId, techno) {
   const queryStr = `
   query {
     radiusConfigurations(
       input: {
         partyId: ${partyId},
-        workflowId: ${workflowId}
+        workflowId: ${workflowId},
+        techno : ${techno}
         }
       )
       {
-      apnCode
-      partyId
-      apnType
-    }
+        apns{
+         code
+          type
+        }
+          profilesData{
+            id
+            name
+            dnns{
+              code
+              type
+            }
+          }
+        partyId
+        apnType
+      }
   }`;
 
   const response = await query(queryStr);

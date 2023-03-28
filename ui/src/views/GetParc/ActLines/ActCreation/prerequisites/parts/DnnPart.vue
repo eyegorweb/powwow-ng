@@ -23,11 +23,13 @@ export default {
   props: {
     offer: Object,
     partner: Object,
-    apn: Object,
+    dnn : Object,
+    profileData: Object,
   },
 
   data() {
     return {
+      dnns: [],
       options: [],
       listTechno: [],
     };
@@ -37,7 +39,7 @@ export default {
 
     selectedValue: {
       get() {
-        return this.apn ? this.apn.value : undefined;
+        return this.dnn ? this.dnn.value : undefined;
       },
       set(value) {
         if (value && value.label === '') {
@@ -53,12 +55,17 @@ export default {
   methods: {
     async refreshList() {
       if (!this.offer) return;
+      if (!this.profileData) return;
       const partyId = this.$loGet(this.partner, 'id');
       const workflowId = this.$loGet(this.offer, 'data.id');
-      const techno = 'APN';
+      console.info("this.profileData"+this.profileData);
+      const profileDataId = this.$loGet(this.profileData, 'meta.name');
+      const techno = 'DNN';
       const data = await fetchApn(partyId, workflowId,techno);
+      console.info("this.profileData"+this.profileData);
       if (data) {
-        this.options = data.apns.map((o) => ({
+        this.dnns = data.profilesData.filter((s) => s.name === profileDataId);
+        this.options = this.dnns[0].dnns.map((o) => ({
           value: o.code,
           label: o.code,
           meta: o,
@@ -74,6 +81,9 @@ export default {
 
   watch: {
     offer(newValue, oldValue) {
+      if (newValue !== oldValue) this.refreshList();
+    },
+    profileData(newValue, oldValue) {
       if (newValue !== oldValue) this.refreshList();
     },
   },

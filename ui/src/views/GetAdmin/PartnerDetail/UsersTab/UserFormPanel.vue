@@ -618,8 +618,8 @@ export default {
         this.flashMessage({ level: 'danger', message: errorMessage });
       } else {
         this.flashMessage({ level: 'success', message: this.$t('genericSuccessMessage') });
+        this.closePanel({ resetSearch: true });
       }
-      this.closePanel({ resetSearch: true });
     },
 
     formatteErrorMessage(response, errorMessage) {
@@ -629,21 +629,29 @@ export default {
       formattedErrors.forEach((e) => {
         if (e.key === 'userId') {
           if (e.value === 'NoUserFoundWithGivenId') {
-            errorMessage = 'NoUserFoundWithGivenId';
+            errorMessage = `${this.$t('getadmin.users.errors.NoUserFoundWithGivenId')}`;
           } else if (e.value === 'USER_D_USER_NOT_ALLOWED_TO_READ_ROLES') {
-            errorMessage = 'USER_D_USER_NOT_ALLOWED_TO_READ_ROLES';
+            errorMessage = `${this.$t(
+              'getadmin.users.errors.USER_D_USER_NOT_ALLOWED_TO_READ_ROLES'
+            )}`;
           }
         } else if (e.key === 'userToCreateOrUpdate') {
           if (e.value === 'USER_D_USERNAME_ALREADY_EXISTS') {
-            errorMessage = 'USER_D_USERNAME_ALREADY_EXISTS';
+            errorMessage = `${this.$t('getadmin.users.errors.USER_D_USERNAME_ALREADY_EXISTS')}`;
+          } else if (e.value === 'USER_D_USER_IS_NOT_ALLOWED_TO_ASSIGN_THIS_ROLE') {
+            errorMessage = this.$t(
+              'getadmin.users.errors.USER_D_USER_IS_NOT_ALLOWED_TO_ASSIGN_THIS_ROLE'
+            );
           } else if (e.value === 'USER_NOT_ALLOWED_TO_CREATE') {
             errorMessage = this.$t('getadmin.users.errors.AccessDeniedForThisUser');
           } else if (e.value === 'ACCESS_WEB_SERVICES_ROLES_DENIED') {
             errorMessage = `${this.$t('getadmin.users.errors.ACCESS_WEB_SERVICES_ROLES_DENIED')}`;
           } else if (e.value === 'USER_NOT_ALLOWED_TO_MODIFY_USERNAME') {
-            errorMessage = 'USER_NOT_ALLOWED_TO_MODIFY_USERNAME';
+            errorMessage = this.$t('getadmin.users.errors.USER_NOT_ALLOWED_TO_MODIFY_USERNAME');
           } else if (e.value === 'USER_NOT_ALLOWED_TO_MODIFY_WITHOUT_CA_PERMISSION') {
-            errorMessage = 'USER_NOT_ALLOWED_TO_MODIFY_WITHOUT_CA_PERMISSION';
+            errorMessage = this.$t(
+              'getadmin.users.errors.USER_NOT_ALLOWED_TO_MODIFY_WITHOUT_CA_PERMISSION'
+            );
           }
         } else if (e.key === 'password') {
           if (e.value === 'required') {
@@ -1324,9 +1332,11 @@ h6 a:hover {
   display: flex;
   justify-content: space-between;
 }
+
 .labels-container {
   display: flex;
   border-bottom: 1px dashed $medium-gray;
+
   .overview-item {
     border: none !important;
   }
@@ -1339,6 +1349,7 @@ h6 a:hover {
   cursor: pointer;
   font-size: 1rem;
   user-select: none;
+
   input {
     position: absolute;
     opacity: 0;
@@ -1367,6 +1378,7 @@ h6 a:hover {
     }
   }
 }
+
 .checkmark {
   position: absolute;
   top: 0;
@@ -1378,7 +1390,7 @@ h6 a:hover {
 }
 
 .radio-container {
-  input:checked ~ .checkmark {
+  input:checked~.checkmark {
     background-color: white;
     border: 1px solid $secondary;
   }
@@ -1391,9 +1403,10 @@ h6 a:hover {
 }
 
 .radio-container {
-  input:checked ~ .checkmark:after {
+  input:checked~.checkmark:after {
     display: block;
   }
+
   .checkmark:after {
     top: 5px;
     left: 5px;

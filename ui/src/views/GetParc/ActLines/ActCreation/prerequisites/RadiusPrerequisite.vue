@@ -30,6 +30,7 @@
       </div>
       <div class="col">
         <div>
+        <template v-if="apnExists">
           <h5>{{ $t('APN') }}</h5>
           <ApnPart
             :disabled="!selectedOffer || (selectedOffer && !selectedOffer.label)"
@@ -38,6 +39,33 @@
             @update:value="selectApn"
             :apn.sync="selectedApn"
           />
+        </template>
+        <template v-if="!apnExists">
+          <h5>{{ $t('Profile Data') }}</h5>
+          <ProfileData
+            :disabled="!selectedOffer || (selectedOffer && !selectedOffer.label)"
+            :offer="selectedOffer"
+            :partner="selectedPartner"
+            @update:value="selectProfileData"
+            :profileData.sync="selectedProfileData"
+          />
+        </template>
+        </div>
+      </div>
+
+      <div class="col">
+        <div>
+          <template v-if="!apnExists">
+          <h5>{{ $t('DNN') }}</h5>
+          <DnnPart
+            :disabled="!selectedOffer || (selectedOffer && !selectedOffer.label)"
+            :offer="selectedOffer"
+            :partner="selectedPartner"
+            :profileData="selectedProfileData"
+            @update:value="selectDnn"
+            :dnn.sync="selectedDnn"
+          />
+        </template>
         </div>
       </div>
     </div>
@@ -49,9 +77,12 @@ import PrereqContainer from './parts/PrereqContainer';
 import PartnersPart from './parts/PartnersPart';
 import OffersPart from './parts/OffersPart';
 import ApnPart from './parts/ApnPart';
+import DnnPart from './parts/DnnPart';
+import ProfileData from './parts/ProfileData';
 import BillingAccountsPart from './parts/BillingAccountsPart';
 import get from 'lodash.get';
 import { mapMutations } from 'vuex';
+import { fetchRadiusAdministrationTypes } from '@/api/actCreation.js';
 
 export default {
   components: {
@@ -60,11 +91,15 @@ export default {
     OffersPart,
     BillingAccountsPart,
     ApnPart,
+    DnnPart,
+    ProfileData,
   },
   data() {
     return {
       selectedPartner: null,
       selectedApn: undefined,
+      selectedProfileData: undefined,
+      selectedDnn: undefined,
       offerData: null,
       chosenBillingAccount: null,
       offers: [],
@@ -76,6 +111,7 @@ export default {
       default: undefined,
     },
     allOffers: Boolean,
+    apnExists: Boolean,
     partnerFeature: String,
   },
   watch: {
@@ -87,8 +123,10 @@ export default {
     },
   },
   computed: {
+
     canValidate() {
-      return !this.isPartnerEmpty && !!this.offerData && !!this.selectedApn;
+      return (this.apnExists && !this.isPartnerEmpty && !!this.offerData && !!this.selectedApn) ||
+      (!this.apnExists &&  !this.isPartnerEmpty && !!this.offerData && !!this.selectedProfileData && !!this.selectedDnn) ;
     },
     isPartnerEmpty() {
       return !get(this.selectedPartner, 'id');
@@ -103,11 +141,20 @@ export default {
           this.offerData = undefined;
         } else {
           this.offerData = offer;
+          if (this.listTechno.includes('APN') && this.offerData.data.initialOffer.offerCategory === "UPF"){
+            this.apnExists = false;
+          }
+          else if (!this.listTechno.includes('APN')){
+            this.apnExists = false;
+          }
+          else
+          this.apnExists = true;
         }
       },
     },
   },
   mounted() {
+    this.apnExists = true;
     if (this.partner) {
       this.selectedPartner = { ...this.partner };
     }
@@ -116,8 +163,18 @@ export default {
     ...mapMutations('actLines', ['resetForm']),
     setPartner(chosenPartner) {
       this.selectedPartner = chosenPartner;
+      this.radiusAdministrationTypes(this.selectedPartner);
       this.selectedOffer = undefined;
     },
+
+
+    async radiusAdministrationTypes() {
+      const data = await fetchRadiusAdministrationTypes(this.selectedPartner.id);
+      if (data) {
+         this.listTechno = data;
+        }
+      },
+
     setBillingAccount(billingAccount) {
       this.chosenBillingAccount = billingAccount;
     },
@@ -127,18 +184,29 @@ export default {
         partner: this.selectedPartner,
         offer: this.selectedOffer,
         billingAccount: this.chosenBillingAccount,
+        profileData: this.selectProfileData,
         apn: this.selectedApn,
+        dnn: this.selectedDnn,
       });
     },
     resetOffer(emptyOffer) {
       this.selectedOffer = emptyOffer;
       this.selectedApn = undefined;
+      this.selectedProfileData = undefined;
+      this.selectedDnn = undefined;
     },
     selectApn(apn) {
       this.selectedApn = apn;
+    },
+    selectProfileData(profileData) {
+      this.selectedProfileData = profileData;
+    },
+    selectDnn(dnn) {
+      this.selectedDnn = dnn;
     },
   },
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+</style>

@@ -48,6 +48,19 @@
               />
             </div>
           </div>
+          <div v-if="upfService" class="single-service">
+            <UpfServiceToggle
+              :service="upfService"
+              :profile-data="profileData"
+              :bold-label="isChanged(upfService)"
+              vertical
+              :disabled="false"
+              :no-click="noClick"
+              :read-only="false"
+              @change="onUpfServiceChange"
+              @initprofiles="onProfilesChange"
+            />
+          </div>
           <!-- RoamingExtended is check in services toggles for the simple toggle -->
           <template v-if="canShowRoamingTypes">
             <div class="row">
@@ -151,6 +164,20 @@
             "
           />
         </div>
+
+        <div v-if="upfService" class="single-service">
+          <UpfServiceToggle
+            :service="upfService"
+            :profile-data="profileData"
+            :bold-label="isChanged(upfService)"
+            vertical
+            :disabled="false"
+            :no-click="noClick"
+            :read-only="false"
+            @change="onUpfServiceChange"
+            @initprofiles="onProfilesChange"
+          />
+        </div>
       </div>
       <div class="s-container">
         <div class="services-container">
@@ -201,6 +228,7 @@
 <script>
 import UiToggle from '@/components/ui/UiToggle';
 import DataServiceToggle from './DataServiceToggle';
+import UpfServiceToggle from './UpfServiceToggle';
 import { mapGetters, mapMutations } from 'vuex';
 import cloneDeep from 'lodash.clonedeep';
 import MultiToggle from '@/components/ui/UiToggle2';
@@ -209,6 +237,7 @@ export default {
   components: {
     UiToggle,
     DataServiceToggle,
+    UpfServiceToggle,
     MultiToggle,
   },
   props: {
@@ -226,6 +255,7 @@ export default {
     roamingExtendedOnOffer: Boolean,
     dataServiceVersion: Number,
     offer: Object,
+    isProfilDataValid: Boolean,
   },
   computed: {
     ...mapGetters(['userIsMVNO']),
@@ -298,11 +328,18 @@ export default {
     ...mapMutations(['popupMessage']),
 
     setup() {
+      this.dataService = undefined; // reset value (watcher)
       const dataService = this.services.find((s) => s.code === 'DATA');
       if (dataService) {
         this.dataService = { ...dataService };
       }
-      this.otherServices = [...this.services.filter((s) => s.code !== 'DATA')];
+
+      this.upfService = undefined; // reset value (watcher)
+      const upfService = this.services.find((s) => s.type === 'UPF');
+      if (upfService) {
+        this.upfService = { ...upfService };
+      }
+      this.otherServices = [...this.services.filter((s) => s.code !== 'DATA' && s.type !== 'UPF')];
       this.roamingService = this.services.find((s) => s.code === 'ROAMING');
     },
 
@@ -689,7 +726,7 @@ export default {
     },
 
     autoServiceChange() {
-      if (!this.dataService) {
+      if (!this.dataService && !this.upfService) {
         this.$emit('servicechange', {
           services: [...this.otherServices],
         });
@@ -857,6 +894,12 @@ export default {
         dataService,
       });
     },
+    autoUpfServiceChange(upfService) {
+      this.$emit('servicechange', {
+        services: [...this.otherServices],
+        upfService,
+      });
+    },
 
     onDataServiceChange(changes) {
       if (typeof changes !== 'object') return;
@@ -868,14 +911,42 @@ export default {
       this.autoDataServiceChange(dataService);
       this.setupDependencies(dataService);
     },
+    onUpfServiceChange(changes) {
+      if (typeof changes !== 'object') return;
+
+      this.profileData = null;
+      if (changes.profile) {
+        this.profileData = {
+          ...changes.profile,
+          active: true,
+          initialProfilCode: changes.defaultProfilCode,
+        };
+      }
+      this.$emit('updateProfileData', this.profileData);
+
+      const upfService = {
+        ...this.upfService,
+        checked: changes.checked,
+        parameters: this.profileData ? [this.profileData] : [],
+        initialProfilCode: changes.defaultProfilCode,
+      };
+
+      this.autoUpfServiceChange(upfService);
+      this.setupDependencies(upfService);
+    },
     onApnChange(apns) {
       this.dataService = { ...this.dataService, parameters: [...apns] };
+    },
+    onProfilesChange(profiles) {
+      this.upfService = { ...this.upfService, parameters: [...profiles] };
     },
   },
   data() {
     return {
       otherServices: undefined,
       dataService: undefined,
+      upfService: undefined,
+      profileData: undefined,
       defaultDataService: undefined,
       extendedRoamingValue: undefined,
       roamingService: undefined,

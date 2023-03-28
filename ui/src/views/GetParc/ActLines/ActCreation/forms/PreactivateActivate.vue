@@ -57,6 +57,7 @@
             @servicechange="onServiceChange"
             :data-params-needed="isDataParamsError"
             :offer="selectedOffer"
+            @updateProfileData="onUpdateProfileData"
           />
         </div>
         <label v-if="activation && selectedOffer && selectedOffer.data" class="font-weight-bold">{{
@@ -171,7 +172,7 @@ export default {
       return this.actCreationPrerequisites.billingAccount;
     },
     canSend() {
-      if (this.billingAccount && this.billingAccount.id) return true;
+      if (this.billingAccount && this.billingAccount.id && !this.upfProfileDataNeeded) return true;
       return false;
     },
     isUserReferenceEnabled() {
@@ -268,6 +269,7 @@ export default {
       userReferenceValue: undefined,
       isDataParamsError: false,
       dataService: undefined,
+      upfProfileDataNeeded: false,
     };
   },
 
@@ -282,6 +284,7 @@ export default {
       if (selectedOffer && selectedOffer.data) {
         this.offerServices = getMarketingOfferServices(selectedOffer.data.initialOffer);
         this.initialServices = cloneDeep(this.offerServices);
+        this.upfProfileDataNeeded = false; // default value
       }
       this.setup();
     },
@@ -314,7 +317,13 @@ export default {
 
     onServiceChange(servicesChoice) {
       this.servicesChoice = servicesChoice;
-      this.offerServices = [...servicesChoice.services, servicesChoice.dataService];
+      if (servicesChoice.dataService) {
+        this.offerServices = [...servicesChoice.services, servicesChoice.dataService];
+      } else if (servicesChoice.upfService) {
+        this.offerServices = [...servicesChoice.services, servicesChoice.upfService];
+      } else {
+        this.offerServices = [...servicesChoice.services];
+      }
       this.setup();
     },
 
@@ -492,6 +501,14 @@ export default {
       const existingFieldValue = this.customFieldsValues.find((c) => c.code === code);
       if (existingFieldValue) {
         return existingFieldValue.enteredValue;
+      }
+    },
+
+    onUpdateProfileData(payload) {
+      if (payload) {
+        this.upfProfileDataNeeded = false;
+      } else {
+        this.upfProfileDataNeeded = true;
       }
     },
 
