@@ -170,7 +170,6 @@ export default {
       this.isLoading = true;
       const partnerId = this.$loGet(this.content, 'partner.id');
       const response = await getAvailableSim(partnerId, pagination);
-      console.log('response', response);
       if (response && response.errors) {
         this.isError = true;
         this.isLoading = false;

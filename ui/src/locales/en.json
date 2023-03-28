@@ -119,6 +119,7 @@
   "password": "New Password",
   "passwordConfirm": "Password confirmation",
   "noAvailableInformations": "Information not available",
+  "successIndex": "Success index",
   "pending-actions": {
     "preparing": "Preparing operations ...",
     "ready": "operation ready",
@@ -194,6 +195,7 @@
       "PARTY_NAME_ALREADY_EXIST": "PARTY_NAME_ALREADY_EXIST",
       "SHIPPING_ADDRESS_MANDATORY": "SHIPPING_ADDRESS_MANDATORY",
       "GENERIC_ERROR": "GENERIC_ERROR",
+      "ORDER_GENERIC_ERROR": "ORDER_GENERIC_ERROR",
       "PAYMENT_INVALID": "PAYMENT_INVALID",
       "PAYMENT_PAID": "PAYMENT_PAID",
       "PAYMENT_ONGOING": "PAYMENT_ONGOING"
@@ -1805,6 +1807,9 @@
     "actCreation": {
       "mass": "Mass action",
       "byId": "By id",
+      "autoPairing": "Auto pairing",
+      "filePairing": "Pairing by EID file",
+      "filePairingEidIccid": "Pairing by ICCID file",
       "radius": {
         "RADIUS_EMPTY_OPTION": "Delete empty fields from file ?"
       },
@@ -1962,6 +1967,7 @@
         "timeout": "Import will finish soon. Please check within a few minutes that it is complete.",
         "unknown": "Unknown error.",
         "errors": {
+          "eid": "eid not found.",
           "workflow": {
             "LONG_LIFE_NOT_ALLOWED": "Changement d'offre impossible sur les offres LV."
           },

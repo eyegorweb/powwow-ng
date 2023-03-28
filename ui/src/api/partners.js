@@ -4,17 +4,17 @@ import get from 'lodash.get';
 /**
  * Fonction utilisée pour afficher une fonctionnalité en fonction d'une option partenaire
  * @param {*} optionType
- * @param {*} lineId
+ * @param {*} simcardInstanceId
  * @param {*} partyId
  * @returns Boolean
  */
-export async function isFeatureAvailable(optionType, lineId, partyId) {
+export async function isFeatureAvailable(optionType, simcardInstanceId, partyId) {
   const queryStr = `
   query IsFeatureAvailable($optionType: SubscriptionOptionTypeEnum!, $simcardInstanceId: Long, $partyId: Long){
     isFeatureAvailable(optionType: $optionType, simcardInstanceId: $simcardInstanceId, partyId: $partyId)
   }
   `;
-  const response = await query(queryStr, { optionType, lineId, partyId });
+  const response = await query(queryStr, { optionType, simcardInstanceId, partyId });
 
   if (response && response.errors) {
     return { errors: response.errors };
@@ -857,6 +857,11 @@ export async function fetchBroadcastLists(id) {
   }
   `;
   const response = await query(queryStr);
+  if (response.errors) {
+    return {
+      errors: response.errors,
+    };
+  }
   return response.data.party.mailingLists;
 }
 

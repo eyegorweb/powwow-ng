@@ -41,24 +41,28 @@
 
     <draggable handle=".handle">
       <transition-group>
-        <FoldableBlock default-open :title="'Consommation'" :key="'Consommation'" draggable>
-          <div>
-            <div class="row" v-if="!userIsM2MLight && !isUserByCF">
-              <ReportGauges
-                :partner="appliedPartner"
-                :offer="appliedOffer"
-                :billing-account="appliedBillingAccount"
-              />
-            </div>
-            <div class="row">
-              <ConsoHistoryGraphs
-                :partner="appliedPartner"
-                :offer="appliedOffer"
-                :billing-account="appliedBillingAccount"
-              />
-            </div>
-          </div>
-        </FoldableBlock>
+        <div :key="'Consommation'">
+          <permission domain="getReport" action="read_dashboard">
+            <FoldableBlock default-open :title="'Consommation'" draggable>
+              <div>
+                <div class="row" v-if="!userIsM2MLight && !isUserByCF">
+                  <ReportGauges
+                    :partner="appliedPartner"
+                    :offer="appliedOffer"
+                    :billing-account="appliedBillingAccount"
+                  />
+                </div>
+                <div class="row">
+                  <ConsoHistoryGraphs
+                    :partner="appliedPartner"
+                    :offer="appliedOffer"
+                    :billing-account="appliedBillingAccount"
+                  />
+                </div>
+              </div>
+            </FoldableBlock>
+          </permission>
+        </div>
         <div :key="'Graphe monde'">
           <permission domain="getReport" action="read_dashboard_worldmap">
             <FoldableBlock default-open :title="'Graphe monde'" draggable>
@@ -74,38 +78,47 @@
             </FoldableBlock>
           </permission>
         </div>
-        <FoldableBlock default-open :title="'Parc'" :key="'Parc'" draggable>
-          <div>
-            <div class="row flexResponsive">
-              <ParcByOffersGraph
-                :partner="appliedPartner"
-                :offer="appliedOffer"
-                :billing-account="appliedBillingAccount"
-              />
-              <LinesPerZoneGraph
-                :partner="appliedPartner"
-                :offer="appliedOffer"
-                :billing-account="appliedBillingAccount"
-              />
-              <LinesByPLMNGraph
-                :partner="appliedPartner"
-                :offer="appliedOffer"
-                :billing-account="appliedBillingAccount"
-              />
-            </div>
-            <permission domain="getReport" action="read_dashboard_fleet">
-              <div class="row">
-                <ParcStateGraph
-                  :partner="appliedPartner"
-                  :offer="appliedOffer"
-                  :billing-account="appliedBillingAccount"
-                />
+        <div :key="'Parc'">
+          <permission domain="getReport" action="read_dashboard">
+            <FoldableBlock default-open :title="'Parc'" draggable>
+              <div>
+                <div class="row flexResponsive">
+                  <ParcByOffersGraph
+                    :partner="appliedPartner"
+                    :offer="appliedOffer"
+                    :billing-account="appliedBillingAccount"
+                  />
+                  <LinesPerZoneGraph
+                    :partner="appliedPartner"
+                    :offer="appliedOffer"
+                    :billing-account="appliedBillingAccount"
+                  />
+                  <LinesByPLMNGraph
+                    :partner="appliedPartner"
+                    :offer="appliedOffer"
+                    :billing-account="appliedBillingAccount"
+                  />
+                </div>
+                <permission domain="getReport" action="read_dashboard_fleet">
+                  <div class="row">
+                    <ParcStateGraph
+                      :partner="appliedPartner"
+                      :offer="appliedOffer"
+                      :billing-account="appliedBillingAccount"
+                    />
+                  </div>
+                </permission>
               </div>
-            </permission>
-          </div>
-        </FoldableBlock>
+            </FoldableBlock>
+          </permission>
+        </div>
         <FoldableBlock
-          v-if="!userIsM2MLight && !isUserByCF"
+          v-if="
+            !userIsM2MLight &&
+              !isUserByCF &&
+              havePermission('getReport', 'read_dashboard') &&
+              havePermission('alarm', 'read')
+          "
           default-open
           :title="'Alarme'"
           :key="'Alarme'"
@@ -293,7 +306,13 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['userIsPartner', 'singlePartner', 'userIsM2MLight', 'userIsByCustomerAccount']),
+    ...mapGetters([
+      'userIsPartner',
+      'singlePartner',
+      'userIsM2MLight',
+      'userIsByCustomerAccount',
+      'havePermission',
+    ]),
     isUserByCF() {
       return this.userIsByCustomerAccount;
     },

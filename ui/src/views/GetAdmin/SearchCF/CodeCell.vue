@@ -1,5 +1,5 @@
 <template>
-  <router-link :to="`/getamin/partner/${row.party.id}/billAccounts/form/${row.code}`">
+  <router-link :to="`/getadmin/partner/${row.party.id}/billAccounts/form/${row.code}`">
     <button class="btn btn-link btn-select p-0">{{ row.code }}</button>
   </router-link>
 </template>

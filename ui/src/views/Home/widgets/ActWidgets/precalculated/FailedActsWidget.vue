@@ -35,12 +35,14 @@ export default {
   },
   methods: {
     onCounterClick(indicator) {
-      this.$router.push({
-        name: 'actHistory.classic',
-        params: {
-          queryFilters: [...indicator.filters, ...this.contextFilters],
-        },
-      });
+      this.$router
+        .push({
+          name: 'actHistory.classic',
+          params: {
+            queryFilters: [...indicator.filters, ...this.contextFilters],
+          },
+        })
+        .catch(() => {});
     },
   },
 
@@ -130,7 +132,7 @@ export default {
             endDate: currentDateMinusDays(2),
           },
         ],
-        fetchKey: 'ACT_TERMINATION_IN_PROGRESS_48',
+        fetchKey: 'ACT_TERMINATION_IN_PROGRESS_6',
 
         fetch: async (indicator, contextFilters) => {
           return await countTotalForMassAction([...indicator.filters, ...contextFilters]);

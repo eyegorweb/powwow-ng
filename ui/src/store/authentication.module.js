@@ -139,18 +139,19 @@ export const getters = {
 
 export const actions = {
   async fetchUserInfos({ commit }) {
-    const currenUser = await fetchCurrentUserInfos();
+    const currentUser = await fetchCurrentUserInfos();
     try {
-      currenUser.isFleetEnabled = await isFeatureAvailable('FLEET_ENABLED');
-      if (currenUser.partners && currenUser.partners.length) {
-        currenUser.partnerOptions = await getPartyOptions(currenUser.partners[0].id);
+      currentUser.isFleetEnabled = await isFeatureAvailable('FLEET_ENABLED');
+      currentUser['FLAG_STATISTICS_ENABLED'] = await isFeatureAvailable('FLAG_STATISTICS_ENABLED');
+      if (currentUser.partners && currentUser.partners.length) {
+        currentUser.partnerOptions = await getPartyOptions(currentUser.partners[0].id);
       }
     } catch (e) {
       console.log(e);
       console.warn('erreur party subscription');
     }
 
-    commit('setCurrentUser', currenUser);
+    commit('setCurrentUser', currentUser);
   },
   setAuthToken({ commit }, tokenStr) {
     function parseJwt(tokenSt) {

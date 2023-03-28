@@ -37,25 +37,28 @@ export default {
     content: Object,
   },
   async mounted() {
-    this.autoDiagnosticEnabled = await isFeatureAvailable(
-      'AUTODIAGNOSTIC_ENABLED',
-      this.content.id
-    );
-
-    const coachM2MAvailable = await isFeatureAvailable('COACH_M2M_AVAILABLE', this.content.id);
-    const geolocEnabled = await isFeatureAvailable('GEOLOCATION_ENABLED', this.content.id);
-    const requestConsoActive = await isFeatureAvailable('REQUEST_CONSO_ENABLED', this.content.id);
+    this.typeForPartner = this.$loGet(this.content, 'party.partyType');
+    if (this.content) {
+      this.autoDiagnosticEnabled = await isFeatureAvailable(
+        'AUTODIAGNOSTIC_ENABLED',
+        this.content.id
+      );
+      this.coachM2MAvailable = await isFeatureAvailable('COACH_M2M_AVAILABLE', this.content.id);
+      this.geolocEnabled = await isFeatureAvailable('GEOLOCATION_ENABLED', this.content.id);
+      this.requestConsoActive = await isFeatureAvailable('REQUEST_CONSO_ENABLED', this.content.id);
+    }
 
     const unfilteredItems = [
       {
         section: 'last_tests',
         title: 'getparc.lineDetail.tab2.lastTests',
-        compatiblePartnerTypes: ['CUSTOMER', 'MULTI_CUSTOMER'],
+        compatiblePartnerTypes: ['CUSTOMER', 'MULTI_CUSTOMER', 'M2M_LIGHT'],
         permission: { domain: 'getParc', action: 'manage_coach' },
         to: {
           name: 'lineDetail.diagnosis.last_tests',
           meta: { label: 'Détail de la ligne - Derniers tests Coach M2M' },
           params: { lineId: this.$route.params.lineId, meta: this.content },
+          query: { partnerType: this.typeForPartner, coachM2MAvailable: this.coachM2MAvailable },
         },
       },
       {
@@ -67,6 +70,10 @@ export default {
           name: 'lineDetail.diagnosis.analysis',
           meta: { label: 'Détail de la ligne - Analyser la ligne' },
           params: { lineId: this.$route.params.lineId, meta: this.content },
+          query: {
+            partnerType: this.typeForPartner,
+            autoDiagnosticEnabled: this.autoDiagnosticEnabled,
+          },
         },
       },
       {
@@ -78,6 +85,7 @@ export default {
           name: 'lineDetail.diagnosis.networkStatus',
           meta: { label: 'Détail de la ligne - Tester le réseau et la localisation' },
           params: { lineId: this.$route.params.lineId, meta: this.content },
+          query: { partnerType: this.typeForPartner, geolocEnabled: this.geolocEnabled },
         },
       },
       {
@@ -89,6 +97,7 @@ export default {
           name: 'lineDetail.diagnosis.networkTestControl',
           meta: { label: 'Détail de la ligne - Tester et contrôler la consommation' },
           params: { lineId: this.$route.params.lineId, meta: this.content },
+          query: { partnerType: this.typeForPartner, requestConsoActive: this.requestConsoActive },
         },
       },
       {
@@ -100,22 +109,26 @@ export default {
           name: 'lineDetail.diagnosis.supervision',
           meta: { label: 'Détail de la ligne - Supervision' },
           params: { lineId: this.$route.params.lineId, meta: this.content },
+          query: {
+            partnerType: this.typeForPartner,
+            autoDiagnosticEnabled: this.autoDiagnosticEnabled,
+          },
         },
       },
     ];
 
     this.menuItems = this.filterByPermission(unfilteredItems).filter((i) => {
       if (i.section === 'last_tests') {
-        return coachM2MAvailable;
+        return this.coachM2MAvailable;
       }
       if (i.section === 'line_analysis' || i.section === 'supervision') {
         return this.autoDiagnosticEnabled;
       }
       if (i.section === 'network_location_test') {
-        return geolocEnabled;
+        return this.geolocEnabled;
       }
       if (i.section === 'network_test_control') {
-        return requestConsoActive;
+        return this.requestConsoActive;
       }
       return true;
     });
@@ -126,7 +139,11 @@ export default {
     return {
       section: undefined,
       menuItems: undefined,
+      typeForPartner: undefined,
       autoDiagnosticEnabled: false,
+      coachM2MAvailable: false,
+      geolocEnabled: false,
+      requestConsoActive: false,
     };
   },
   computed: {
@@ -140,27 +157,29 @@ export default {
       );
     },
     visibleMenuItems() {
-      const typeForPartner = this.$loGet(this.content, 'party.partyType');
       const specificCustomerID = this.$loGet(this.content, 'party.id');
       if (!this.menuItems) return [];
       let visibleItems = this.menuItems.filter((m) =>
-        m.compatiblePartnerTypes.some((p) => p === typeForPartner)
+        m.compatiblePartnerTypes.some((p) => p === this.typeForPartner)
       );
       const specificPermissionNetworkHistory = {
         section: 'network_history',
         title: 'getparc.lineDetail.tab2.networkHistory',
+        compatiblePartnerTypes: ['MVNO', 'CUSTOMER', 'MULTI_CUSTOMER'],
         to: {
           name: 'lineDetail.diagnosis.networkHistory',
           meta: { label: 'Détail de la ligne - Historique réseau et itinérance' },
           params: { lineId: this.$route.params.lineId, meta: this.content },
+          compatiblePartnerTypes: ['MVNO', 'CUSTOMER', 'MULTI_CUSTOMER'],
+          query: { partnerType: this.typeForPartner, specificCustomerID },
         },
       };
 
       // Conditions spécifiques avec notamment l'environnement de production pour afficher l'onglet Historique réseau et itinérance) => c'est donc "SALE"
       const shouldAddSpecificPermission =
-        (typeForPartner === 'MVNO' && this.havePermission('getVision', 'read')) ||
-        (typeForPartner === 'CUSTOMER' && this.havePermission('getVision', 'read')) ||
-        (typeForPartner === 'MULTI_CUSTOMER' && this.havePermission('getVision', 'read')) ||
+        (this.typeForPartner === 'MVNO' && this.havePermission('getVision', 'read')) ||
+        (this.typeForPartner === 'CUSTOMER' && this.havePermission('getVision', 'read')) ||
+        (this.typeForPartner === 'MULTI_CUSTOMER' && this.havePermission('getVision', 'read')) ||
         specificCustomerID === 246; // partenaire IMT, détectable uniquement en environnement de production
 
       if (shouldAddSpecificPermission) {
@@ -178,32 +197,66 @@ export default {
       });
     },
     gotoRoute(name) {
+      let query = {};
+      // Rediriger vers name: lineDetail.diagnosis.analysis (route par défaut de l'onglet GetDiag) si permission getVison/read
+      // Sinon si pas permission getVision/read et permission getParc/manage_coach, rediriger vers lineDetail.diagnosis.last_tests
+      // Paramètres de permission pour naviguer jusqu'à cette route
+      if (this.havePermission('getVision', 'read')) {
+        query = {
+          partnerType: this.typeForPartner,
+          autoDiagnosticEnabled: this.autoDiagnosticEnabled,
+        };
+      } else if (
+        !this.havePermission('getVision', 'read') &&
+        this.havePermission('getParc', 'manage_coach')
+      ) {
+        query = {
+          partnerType: this.typeForPartner,
+          coachM2MAvailable: this.coachM2MAvailable,
+        };
+      }
+
       if (this.$route.name !== name) {
-        this.$router.push({
-          name,
-          params: { lineId: this.$route.params.lineId, meta: this.content },
-        });
+        this.$router
+          .push({
+            name,
+            params: {
+              lineId: this.$route.params.lineId,
+              meta: this.content,
+              hasDependantPermission: true,
+            },
+            query,
+          })
+          .catch(() => {});
       }
     },
+    // Pas de redirection sur l'url par défaut si la route va vers les liens paramétrés
     shouldIgnoreRedirect() {
       if (this.$loGet(this.$route, 'params.createTestRequest')) return true;
       if (this.$loGet(this.$route, 'params.createPingRequest')) return true;
-
       return false;
     },
     initializeSection() {
-      const typeForPartner = this.$loGet(this.content, 'party.partyType');
+      const specificCustomerID = this.$loGet(this.content, 'party.id');
+      // Conditions spécifiques avec notamment l'environnement de production pour afficher l'onglet Historique réseau et itinérance) => c'est donc "SALE"
+      const networkHistorySpecificPermission =
+        (this.typeForPartner === 'MVNO' && this.havePermission('getVision', 'read')) ||
+        (this.typeForPartner === 'CUSTOMER' && this.havePermission('getVision', 'read')) ||
+        (this.typeForPartner === 'MULTI_CUSTOMER' && this.havePermission('getVision', 'read')) ||
+        specificCustomerID === 246;
 
       if (!this.shouldIgnoreRedirect()) {
-        if (typeForPartner === 'MVNO') {
+        if (this.typeForPartner === 'MVNO') {
           this.gotoRoute('lineDetail.diagnosis.networkHistory');
         } else {
           if (this.havePermission('getVision', 'read') && this.autoDiagnosticEnabled) {
             this.gotoRoute('lineDetail.diagnosis.analysis');
-          } else if (this.havePermission('getParc', 'manage_coach')) {
+          } else if (this.havePermission('getParc', 'manage_coach') && this.coachM2MAvailable) {
             this.gotoRoute('lineDetail.diagnosis.last_tests');
-          } else {
+          } else if (networkHistorySpecificPermission) {
             this.gotoRoute('lineDetail.diagnosis.networkHistory');
+          } else {
+            this.gotoRoute('home');
           }
         }
       }

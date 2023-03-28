@@ -95,12 +95,14 @@ export default {
         event: 'm2m.seeMore',
         widget: "Nombre d'alarmes déclenchées par jour",
       });
-      this.$router.push({
-        name: 'alarms',
-        params: {
-          queryFilters: [],
-        },
-      });
+      this.$router
+        .push({
+          name: 'alarms',
+          params: {
+            queryFilters: [],
+          },
+        })
+        .catch(() => {});
     },
   },
   watch: {

@@ -2,6 +2,346 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1353+20230327091935
+2023-03-27
+
+### Fixes
+
+- [3857] désactivation de l'export au format Excel pour les tables de supervision (7ec87d8502aa45568e48969f5370937481496532)
+
+## 1.17.0-master.1352+20230327073532
+2023-03-27
+
+### Fixes
+
+- [3818] gestionnaire d'erreur de l'acte de gestion Appairer esim (eac7ffc0ca3fc36dcf569b04e1b45d7b7158d33b)
+
+## 1.17.0-master.1351+20230324150108
+2023-03-24
+
+### Fixes
+
+- [3818] gestionnaire d'erreur de l'acte de gestion Appairer esim (226f736a5859f86d9cc2a7f380ec45f7d15afb08)
+
+## 1.17.0-master.1350+20230324141631
+2023-03-24
+
+### Fixes
+
+- [3818] gestionnaire d'erreur de l'acte de gestion Appairer esim (a540de5111004b551a2b06820052f618fe5418bb)
+
+## 1.17.0-master.1349+20230323142226
+2023-03-23
+
+### Fixes
+
+- [3830] initialiser isOptional dans le formulaire changeCustomFields (983a50fb3faac8252d96bd69c133dec29dcb960e)
+
+## 1.17.0-master.1348+20230323100911
+2023-03-23
+
+### Fixes
+
+- [3818] gestionnaire d'erreur de l'acte de gestion Appairer esim (042dee282fda5e07664ea984e1efcb977a55009b)
+
+## 1.17.0-master.1347+20230323085606
+2023-03-23
+
+### Fixes
+
+- [3742] contrôle des permissions pour les navigations URL (34cafcbbbcc2be7b9f4a60805ff6f85016f0c98a)
+
+## 1.17.0-master.1346+20230322103553
+2023-03-22
+
+### Fixes
+
+- [3829] ajout de la permission pour valider la commande (6deb02b564589a4705b78870d93a324c4cbc68e1)
+
+## 1.17.0-master.1345+20230322100826
+2023-03-22
+
+### Fixes
+
+- [3842] correction de la recherche par identifiant et par filtre et des exports des réservations esim (77f489cae3bb8d7edc2ea158622ba63d2dfaf10e)
+
+## 1.17.0-master.1344+20230320145113
+2023-03-20
+
+### Fixes
+
+- [3845] gestion d'une erreur générique pour la création d'offre (e9a072d2fce6ebb2085e0eb8ce2fa822d38b36ba)
+
+## 1.17.0-master.1343+20230320135920
+2023-03-20
+
+### Fixes
+
+- [3845] gestion d'une erreur générique pour la création d'offre (9d72eaf412b49a07d3b74481d5063d90b2a96667)
+
+## 1.17.0-master.1342+20230320134237
+2023-03-20
+
+### Fixes
+
+- [000] Modification du plugin node gradle (6ffbbaee726ada4a820776a7745a4fb2d11b356f)
+- [000] Modification du plugin node gradle (e5de7b27d56c95e4b05d796dc5d5714a14dedca7)
+
+## 1.17.0-master.1341+20230317102451
+2023-03-17
+
+### Fixes
+
+- [3742] gestion de la redirection avec contrôle des permissions et options (2bfb527d93e3cad7bca595c062123bb9eb148984)
+
+## 1.17.0-master.1340+20230315151610
+2023-03-15
+
+### Fixes
+
+- [3742] contrôle des permissions pour les navigations URL (0fb850eb8dfdda9869d634e899511cd1d7910b88)
+
+## 1.17.0-master.1339+20230315144801
+2023-03-15
+
+### Fixes
+
+- [3742] contrôle des permissions pour les navigations URL (fcf2953b90c7d725303a90d17fd0279a5a1ed388)
+
+## 1.17.0-master.1338+20230315142332
+2023-03-15
+
+### Fixes
+
+- [3742] contrôle des permissions pour les navigations URL (772759feb260de8561beadd1e73927ceb03ee31b)
+
+## 1.17.0-master.1337+20230315135433
+2023-03-15
+
+### Fixes
+
+- [3742] contrôle des permissions pour les navigations URL (b352cc70ca1e2c1b4e326b207c1aa59a523fd28b)
+
+## 1.17.0-master.1336+20230314131049
+2023-03-14
+
+### Fixes
+
+- [3742] contrôle des permissions pour les navigations et redirections URL (470e40d0e513f837b85b044970e5db6d8f597229)
+
+## 1.17.0-master.1335+20230314103516
+2023-03-14
+
+### Fixes
+
+- [3742] contrôle des permissions pour les navigations URL (50f567a5346ee38e9aa0d44e83d3cbe3b61f228f)
+
+## 1.17.0-master.1334+20230313135955
+2023-03-13
+
+### Fixes
+
+- [3742] contrôle des permissions pour les navigations et redirections des URL (1aeccc5ee6396950fd8d7f7f91167fd676a2d3dc)
+
+## 1.17.0-master.1333+20230313132909
+2023-03-13
+
+### Fixes
+
+- [3742] contrôle des permissions pour les navigations et redirections des URL (48c6ec1b71c0bb58d5132353b96575e360bf2510)
+
+## 1.17.0-master.1332+20230313094403
+2023-03-13
+
+### Fixes
+
+- [3742] contrôle des permissions pour les navigations et redirections URL (c81eca4d38d06c947273d33f53f443342961807c)
+
+## 1.17.0-master.1331+20230313084810
+2023-03-13
+
+### Fixes
+
+- [3742] contrôle des permissions pour les navigations et redirections URL (3b5182a6a34d11ca52a50a54167a0102bd1f43cf)
+
+## 1.17.0-master.1330+20230310150659
+2023-03-10
+
+### Fixes
+
+- [3742] contrôle des permissions pour les navigations URL (29dc2d089e632b05072811857a1d6076c1af415d)
+
+## 1.17.0-master.1329+20230310103516
+2023-03-10
+
+### Fixes
+
+- [3742] contrôle des permissions pour les navigations URL (71c63654474e55729bbe9f593f4ed887bd2bbb19)
+
+## 1.17.0-master.1328+20230310095209
+2023-03-10
+
+### Fixes
+
+- [3742] contrôle des permissions pour les navigations URL (98d33859e0a9ca91643822d1580aed8c654c9cd8)
+
+## 1.17.0-master.1327+20230310085942
+2023-03-10
+
+### Fixes
+
+- [000] correction insertion dans le DOM des graphes du Tableau de bord (6c358c654b1e19c6fdad34c0de3d52bc1f6affcf)
+
+## 1.17.0-master.1326+20230310061450
+2023-03-10
+
+### Fixes
+
+- [3742] contrôle des permissions pour les navigations URL (65081c110d425bd47154eebbd8a012b5f540f771)
+
+## 1.17.0-master.1325+20230309193122
+2023-03-09
+
+### Fixes
+
+- [3795] corriger porté alrame (14f243bfbf7d4d4d44a4916dedca9e01e0d27353)
+
+## 1.17.0-master.1324+20230309165049
+2023-03-09
+
+### Fixes
+
+- [3742] contrôle des permissions pour les navigations URL (958264ae09827a0ea63e28d9a009b3f85ce59856)
+
+## 1.17.0-master.1323+20230309150306
+2023-03-09
+
+### Fixes
+
+- [3742] contrôle des permissions pour les navigations URL (1d5eeb40f3384f6fa69bd84ad48fdd29aeb62751)
+
+## 1.17.0-master.1322+20230309133417
+2023-03-09
+
+### Fixes
+
+- [3742] contrôle des permissions pour les navigations URL (3f96b97a95d3e91acacf3271a45b2172e5e209d3)
+
+## 1.17.0-master.1321+20230309104450
+2023-03-09
+
+### Fixes
+
+- [3800] modifier les indicators (1384ddf33dfebca8c00f3220b06bf086c1b16578)
+
+## 1.17.0-master.1320+20230309092612
+2023-03-09
+
+## 1.17.0-master.1319+20230308192414
+2023-03-08
+
+### Fixes
+
+- [3742] contrôle des permissions pour les navigations URL (177cffa066daef914bf569fcf81d935a1b1ad1c5)
+
+## 1.17.0-master.1318+20230308164718
+2023-03-08
+
+### Fixes
+
+- [3742] contrôle des permissions pour les navigations URL (17dad69f46542ed0bb417b3d14a94efe630a7cfd)
+
+## 1.17.0-master.1317+20230308161816
+2023-03-08
+
+### Fixes
+
+- [3742] contrôle des permissions pour les navigations URL (8c2dfef642910589634fc03bc0504b468bcfe94a)
+
+## 1.17.0-master.1316+20230308132317
+2023-03-08
+
+### Fixes
+
+- [3681] configuration des services pour la création d'une réservation esim (cadec95c29c4b98f1fc5518c60b9617bc5dea8dc)
+
+## 1.17.0-master.1315+20230308090951
+2023-03-08
+
+### Fixes
+
+- [3764] corriger le chargement de recurrence (0b82ca67b9cde89bf95927f8e9e12496ce4abb2f)
+
+## 1.17.0-master.1314+20230307141820
+2023-03-07
+
+### Fixes
+
+- [3742] contrôle des permissions pour les navigations URL (e46f50266f895056d6ec90180549233c5edf2a39)
+
+## 1.17.0-master.1313+20230307124454
+2023-03-07
+
+### Fixes
+
+- [3742] contrôle des permissions pour les navigations URL (6fb0eb7641cd2d8646484379b5cd99021c9a0399)
+
+## 1.17.0-master.1312+20230307093049
+2023-03-07
+
+### Fixes
+
+- [3742] contrôle des permissions pour les navigations URL (34052cb4f8daa18727b17b87b9d323027ce8da71)
+
+## 1.17.0-master.1311+20230307075619
+2023-03-07
+
+### Fixes
+
+- [3742] contrôle des permissions pour les navigations URL (acc4cff3fe68bd588fb799a428cf5cdd0a9482f4)
+
+## 1.17.0-master.1310+20230306151404
+2023-03-06
+
+### Fixes
+
+- [3742] contrôle des permissions pour les navigations URL (3df5829898458216cd554aa70fed01952381f41c)
+
+## 1.17.0-master.1309+20230306143315
+2023-03-06
+
+### Fixes
+
+- [3742] contrôle des permissions pour les navigations URL (706064e38298d2b019f7468ccb49a39260551d87)
+
+## 1.17.0-master.1308+20230306093105
+2023-03-06
+
+### Fixes
+
+- [3742] contrôle des permissions pour les navigations URL (eb8a27577508948fb416609b7245ce9dcae70e85)
+
+## 1.17.0-master.1307+20230306085915
+2023-03-06
+
+### Fixes
+
+- [3742] contrôle des permissions pour les navigations URL (7a29f468999e6f6acbe97aa10e5209edb26147fa)
+
+## 1.17.0-master.1306+20230303090446
+2023-03-03
+
+### Fixes
+
+- [3742] contrôle des permissions pour les navigations URL (7917f123ea7d0ed7671ae00f9431b82bdfe00ca8)
+
+## 1.17.0-master.1305+20230302141919
+2023-03-02
+
+### Features
+
+- [3767] Sécuriser l'écran tableau de bord (b5cfbdbc0548b87b3caed924428cd59945b06049)
+
 ## 1.17.0-master.1304+20230301155502
 2023-03-01
 

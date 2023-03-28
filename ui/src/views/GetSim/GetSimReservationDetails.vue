@@ -149,7 +149,7 @@
       </div>
     </div>
     <div class="footer-back">
-      <GetSimOrderDetailsButtons :order="order" />
+      <GetSimOrderDetailsButtons :order="order" esim-order />
     </div>
   </div>
 </template>

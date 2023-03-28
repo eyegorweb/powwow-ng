@@ -38,69 +38,75 @@ export default {
   },
   methods: {
     onIndicatorClick(indicator) {
-      this.$router.push({
-        name: 'orders.search',
-        params: {
-          queryFilters: [...indicator.filters, ...this.contextFilters],
-        },
-      });
+      this.$router
+        .push({
+          name: 'orders.search',
+          params: {
+            queryFilters: [...indicator.filters, ...this.contextFilters],
+          },
+        })
+        .catch(() => {});
     },
     onSeeMore() {
       this.$pushAnalytics({ event: 'm2m.seeMore', widget: 'Statut des commandes' });
-      this.$router.push({
-        name: 'orders.search',
-        params: {
-          queryFilters: [
-            ...this.contextFilters,
-            {
-              id: 'filters.orderStatus',
-              values: [
-                {
-                  id: 'NOT_VALIDATED',
-                  label: 'Non validée',
-                },
-                {
-                  id: 'VALIDATED',
-                  label: 'Validée',
-                },
-                {
-                  id: 'TO_BE_CONFIRMED_BY_BO',
-                  label: 'À confirmer par le BO',
-                },
-                {
-                  id: 'TO_BE_CONFIRMED',
-                  label: 'À confirmer',
-                },
-                {
-                  id: 'CONFIRMATION_IN_PROGRESS',
-                  label: 'En cours de confirmation',
-                },
-                {
-                  id: 'CONFIRMED',
-                  label: 'Confirmée',
-                },
-                {
-                  id: 'FAILED',
-                  label: 'Échouée',
-                },
-                {
-                  id: 'CANCELED',
-                  label: 'Annulée',
-                },
-              ],
-            },
-          ],
-        },
-      });
+      this.$router
+        .push({
+          name: 'orders.search',
+          params: {
+            queryFilters: [
+              ...this.contextFilters,
+              {
+                id: 'filters.orderStatus',
+                values: [
+                  {
+                    id: 'NOT_VALIDATED',
+                    label: 'Non validée',
+                  },
+                  {
+                    id: 'VALIDATED',
+                    label: 'Validée',
+                  },
+                  {
+                    id: 'TO_BE_CONFIRMED_BY_BO',
+                    label: 'À confirmer par le BO',
+                  },
+                  {
+                    id: 'TO_BE_CONFIRMED',
+                    label: 'À confirmer',
+                  },
+                  {
+                    id: 'CONFIRMATION_IN_PROGRESS',
+                    label: 'En cours de confirmation',
+                  },
+                  {
+                    id: 'CONFIRMED',
+                    label: 'Confirmée',
+                  },
+                  {
+                    id: 'FAILED',
+                    label: 'Échouée',
+                  },
+                  {
+                    id: 'CANCELED',
+                    label: 'Annulée',
+                  },
+                ],
+              },
+            ],
+          },
+        })
+        .catch(() => {});
     },
     createOrder() {
       this.$pushAnalytics({ event: 'm2m.createOrder', widget: 'Statut des commandes' });
-      this.$router.push({
-        name: 'orders.search',
-        params: {
-          createOrder: true,
-        },
-      });
+      this.$router
+        .push({
+          name: 'orders.search',
+          params: {
+            createOrder: true,
+          },
+        })
+        .catch(() => {});
     },
   },
 };

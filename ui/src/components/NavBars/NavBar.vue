@@ -175,47 +175,91 @@ export default {
       getAdminExtra = [
         {
           label: 'menu.users',
-          to: { name: 'getAdminUsers', meta: { label: 'Recherche des utilisateurs' } },
+          to: {
+            name: 'getAdminUsers',
+            meta: {
+              label: 'Recherche des utilisateurs',
+              permission: { domain: 'user', action: 'read' },
+            },
+          },
           permission: { domain: 'user', action: 'read' },
         },
       ];
     } else if (this.userIsPartner) {
-      getAdminExtra = [
-        {
-          label: 'menu.account',
-          to: {
-            name: 'partnerDetail.users.admins',
-            meta: { label: 'Détail du partenaire - Administrateurs' },
-            params: { id: `${this.userInfos.partners[0].id}` },
+      if (
+        this.havePermission('party', 'read') &&
+        this.havePermission('party', 'read_administrator')
+      ) {
+        getAdminExtra = [
+          {
+            label: 'menu.account',
+            to: {
+              name: 'partnerDetail.users.admins',
+              meta: {
+                label: 'Détail du partenaire - Administrateurs',
+                permission: { domain: 'party', action: 'read' },
+              },
+              params: { id: `${this.userInfos.partners[0].id}` },
+            },
+            permission: { domain: 'party', action: 'read' },
           },
-          permission: { domain: 'party', action: 'read' },
-        },
-      ];
+        ];
+      }
     } else {
       getAdminExtra = excludeMocked([
         {
           label: 'menu.users',
-          to: { name: 'getAdminUsers', meta: { label: 'Recherche des utilisateurs' } },
+          to: {
+            name: 'getAdminUsers',
+            meta: {
+              label: 'Recherche des utilisateurs',
+              permission: { domain: 'user', action: 'read' },
+            },
+          },
           permission: { domain: 'user', action: 'read' },
         },
         {
           label: 'menu.partners',
-          to: { name: 'getAdminPartners', meta: { label: 'Recherche de partenaires' } },
+          to: {
+            name: 'getAdminPartners',
+            meta: {
+              label: 'Recherche de partenaires',
+              permission: { domain: 'party', action: 'read' },
+            },
+          },
           permission: { domain: 'party', action: 'read' },
         },
         {
           label: 'menu.cf',
-          to: { name: 'getAdminCF', meta: { label: 'Recherche de comptes de facturation' } },
+          to: {
+            name: 'getAdminCF',
+            meta: {
+              label: 'Recherche de comptes de facturation',
+              permission: { domain: 'party', action: 'read_customer_account' },
+            },
+          },
           permission: { domain: 'party', action: 'read_customer_account' },
         },
         {
           label: 'menu.rolesManagement',
-          to: { name: 'getAdminRoles', meta: { label: 'Gestion des rôles' } },
+          to: {
+            name: 'getAdminRoles',
+            meta: {
+              label: 'Gestion des rôles',
+              permission: { domain: 'admin', action: 'permission' },
+            },
+          },
           permission: { domain: 'admin', action: 'permission' },
         },
         {
           label: 'menu.catalogOffers',
-          to: { name: 'getAdminCatalogOffers', meta: { label: 'Gestion des offres' } },
+          to: {
+            name: 'getAdminCatalogOffers',
+            meta: {
+              label: 'Gestion des offres',
+              permission: { domain: 'catalog', action: 'read_catalog_offer' },
+            },
+          },
           permission: { domain: 'catalog', action: 'read_catalog_offer' },
         },
       ]);
@@ -232,12 +276,27 @@ export default {
         submenu: [
           {
             label: 'menu.getSim.manage-orders',
-            to: { name: 'orders.search', meta: { label: 'Recherche de commandes' } },
+            to: {
+              name: 'orders.search',
+              meta: {
+                label: 'Recherche de commandes',
+                permission: { domain: 'getSim', action: 'read' },
+              },
+            },
             permission: { domain: 'getSim', action: 'read' },
           },
           {
             label: 'menu.getSim.manage-stocks',
-            to: { name: 'stocks', meta: { label: 'Stock' } },
+            to: {
+              name: 'stocks',
+              meta: {
+                label: 'Stock',
+                permission: [
+                  { domain: 'getSim', action: 'order_esim' },
+                  { domain: 'getSim', action: 'manage_esim' },
+                ],
+              },
+            },
             permission: () => {
               return (
                 this.havePermission('getSim', 'read') &&
@@ -254,12 +313,24 @@ export default {
         submenu: [
           {
             label: 'menu.actLines',
-            to: { name: 'actLines', meta: { label: 'Recherche de lignes' } },
+            to: {
+              name: 'actLines',
+              meta: {
+                label: 'Recherche de lignes',
+                permission: { domain: 'getParc', action: 'read' },
+              },
+            },
             permission: { domain: 'getParc', action: 'read' },
           },
           {
             label: 'menu.massActions',
-            to: { name: 'actHistory.classic', meta: { label: 'Historique des actes' } },
+            to: {
+              name: 'actHistory.classic',
+              meta: {
+                label: 'Historique des actes',
+                permission: { domain: 'act', action: 'read' },
+              },
+            },
             permission: { domain: 'act', action: 'read' },
           },
         ],
@@ -293,7 +364,7 @@ export default {
           label: 'mainMenu.getReport',
           to: { name: 'reports', meta: { label: 'Modèles de rapports' } },
           permission: () => {
-            return this.havePermissionDomain('getReport');
+            return this.havePermissionDomain('getReport', 'read');
           },
           submenu: [
             {
@@ -305,7 +376,13 @@ export default {
             },
             {
               label: 'menu.documents',
-              to: { name: 'documents', meta: { label: 'Gestion des documents' } },
+              to: {
+                name: 'documents',
+                meta: {
+                  label: 'Gestion des documents',
+                  permission: { domain: 'getReport', action: 'manage_document' },
+                },
+              },
               permission: { domain: 'getReport', action: 'manage_document' },
             },
             {
@@ -314,7 +391,6 @@ export default {
               permission: () => {
                 let canSeeMenu =
                   this.havePermission('getReport', 'read_dashboard') && this.flagStatistics;
-
                 return canSeeMenu;
               },
             },
@@ -322,7 +398,10 @@ export default {
         },
         {
           label: 'mainMenu.getBill',
-          to: { name: 'reportsBill', meta: { label: 'Factures' } },
+          to: {
+            name: 'reportsBill',
+            meta: { label: 'Factures', permission: { domain: 'getReport', action: 'read_bill' } },
+          },
           permission: { domain: 'getReport', action: 'read_bill' },
         },
         {
@@ -356,19 +435,34 @@ export default {
           submenu: [
             {
               label: 'menu.getSupport.homepage',
-              to: { name: 'HOMEPAGE', meta: { label: 'getSupport' } },
+              to: {
+                name: 'HOMEPAGE',
+                meta: {
+                  label: 'getSupport',
+                  permission: { domain: 'getSupport', action: 'access' },
+                },
+              },
               permission: { domain: 'getSupport', action: 'access' },
             },
             {
               label: 'menu.getSupport.all_incidents',
-              to: { name: 'ALL_INCIDENTS', meta: { label: 'getSupport - Tous les incidents' } },
+              to: {
+                name: 'ALL_INCIDENTS',
+                meta: {
+                  label: 'getSupport - Tous les incidents',
+                  permission: { domain: 'getSupport', action: 'access' },
+                },
+              },
               permission: { domain: 'getSupport', action: 'access' },
             },
             {
               label: 'menu.getSupport.search_incidents',
               to: {
                 name: 'SEARCH_INCIDENTS',
-                meta: { label: "getSupport - Recherche d'incidents" },
+                meta: {
+                  label: "getSupport - Recherche d'incidents",
+                  permission: { domain: 'getSupport', action: 'access' },
+                },
               },
               permission: { domain: 'getSupport', action: 'access' },
             },
@@ -383,7 +477,10 @@ export default {
         },
         {
           label: 'mainMenu.help',
-          to: { name: 'help', meta: { label: 'Aide' } },
+          to: {
+            name: 'help',
+            meta: { label: 'Aide', permission: { domain: 'admin', action: 'help' } },
+          },
           permission: { domain: 'admin', action: 'help' },
           external: {
             url: 'https://www.objenious.com/aide-getway/',
@@ -425,62 +522,69 @@ export default {
   methods: {
     ...mapMutations(['changeAppLanguage']),
     filterByPermission(arrayInput) {
-      return arrayInput.filter((a) => {
-        if (a.submenu) {
-          const submenu = this.filterByPermission(a.submenu);
-          if (submenu.length === 0) {
-            return false;
+      if (arrayInput) {
+        return arrayInput.filter((a) => {
+          if (a.submenu) {
+            const submenu = this.filterByPermission(a.submenu);
+            if (submenu.length === 0) {
+              return false;
+            }
           }
-        }
-        if (!a.permission) return true;
-        if (typeof a.permission === 'function') {
-          return a.permission();
-        }
-        return this.havePermission(a.permission.domain, a.permission.action);
-      });
+          if (!a.permission) return true;
+          if (typeof a.permission === 'function') {
+            return a.permission();
+          }
+          return this.havePermission(a.permission.domain, a.permission.action);
+        });
+      }
     },
     chooseCurrentMenu() {
+      let currentIndex;
       const visibleLinks = this.filterByPermission(this.navbarLinks);
-      let currentIndex = visibleLinks.findIndex((link) => link.to.name === this.currentUrlName);
+      if (visibleLinks) {
+        currentIndex = visibleLinks.findIndex((link) => link.to.name === this.currentUrlName);
 
-      if (currentIndex === -1) {
-        const mainMenu = visibleLinks.find((l) => {
-          if (!l.submenu) {
-            return false;
+        if (currentIndex === -1) {
+          const mainMenu = visibleLinks.find((l) => {
+            if (!l.submenu) {
+              return false;
+            }
+            return l.submenu.find((sml) => sml.to.name === this.currentUrlName);
+          });
+          if (mainMenu) {
+            currentIndex = visibleLinks.findIndex((link) => link.label === mainMenu.label);
           }
-          return l.submenu.find((sml) => sml.to.name === this.currentUrlName);
-        });
-        if (mainMenu) {
-          currentIndex = visibleLinks.findIndex((link) => link.label === mainMenu.label);
         }
-      }
 
-      this.currentIndex = currentIndex;
+        this.currentIndex = currentIndex;
+      }
     },
 
     setPageTitle(route) {
-      const firstLevelMenu = this.navbarLinks.find((m) => {
-        if (m.submenu) return false;
-        return m.to.name === route.name;
-      });
+      if (this.navbarLinks) {
+        const firstLevelMenu = this.navbarLinks.find((m) => {
+          if (m.submenu) return false;
+          return m.to.name === route.name;
+        });
 
-      if (firstLevelMenu) {
-        document.title = this.$t(firstLevelMenu.label);
-      } else {
-        const secondLevelMenu = this.navbarLinks
-          .map((m) => {
-            if (m.submenu) return m.submenu;
+        if (firstLevelMenu) {
+          document.title = this.$t(firstLevelMenu.label);
+        } else {
+          const secondLevelMenu = this.navbarLinks
+            .map((m) => {
+              if (m.submenu) return m.submenu;
 
-            return undefined;
-          })
-          .filter((sm) => !!sm)
-          .flat()
-          .find((m) => {
-            return m.to.name === route.name;
-          });
+              return undefined;
+            })
+            .filter((sm) => !!sm)
+            .flat()
+            .find((m) => {
+              return m.to.name === route.name;
+            });
 
-        if (secondLevelMenu) {
-          document.title = this.$t(secondLevelMenu.label);
+          if (secondLevelMenu) {
+            document.title = this.$t(secondLevelMenu.label);
+          }
         }
       }
     },
@@ -514,7 +618,7 @@ export default {
       try {
         this.setPageTitle(newRoute);
       } catch (e) {
-        console.log(e);
+        console.log('error route ->', e);
       }
       this.currentUrlName = newRoute.name;
       this.chooseCurrentMenu();

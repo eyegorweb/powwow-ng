@@ -1,0 +1,1423 @@
+[
+  {
+    "path": "/line-detail/:lineId",
+    "name": "lineDetail",
+    "meta": {
+      "label": "Ligne"
+    },
+    "children": [
+      {
+        "name": "lineDetail.details",
+        "path": "details",
+        "meta": {
+          "label": "Détail de la ligne"
+        },
+        "children": [
+          {
+            "name": "lineDetail.details.info",
+            "path": "info",
+            "meta": {
+              "label": "Détail de la ligne - Informations"
+            }
+          },
+          {
+            "name": "lineDetail.details.billing",
+            "path": "billing",
+            "meta": {
+              "label": "Détail de la ligne - Facturation et offre"
+            }
+          },
+          {
+            "name": "lineDetail.details.services",
+            "path": "services",
+            "meta": {
+              "label": "Détail de la ligne - Services de la ligne"
+            }
+          },
+          {
+            "name": "lineDetail.details.alarms",
+            "path": "alarms",
+            "meta": {
+              "label": "Détail de la ligne - Liste des alarmes"
+            }
+          },
+          {
+            "name": "lineDetail.details.acts",
+            "path": "acts",
+            "meta": {
+              "label": "Détail de la ligne - Suivi/pilotage des actes de gestion"
+            }
+          }
+        ]
+      },
+      {
+        "name": "lineDetail.ongoing",
+        "path": "ongoing",
+        "meta": {
+          "label": "Détail de la ligne - En cours de consommation"
+        }
+      },
+      {
+        "name": "lineDetail.diagnosis",
+        "path": "diagnosis",
+        "meta": {
+          "label": "Détail de la ligne - Analyser la ligne"
+        },
+        "children": [
+          {
+            "name": "lineDetail.diagnosis.last_tests",
+            "path": "tests",
+            "meta": {
+              "label": "Détail de la ligne - Derniers tests Coach M2M"
+            }
+          },
+          {
+            "name": "lineDetail.diagnosis.analysis",
+            "path": "analysis",
+            "meta": {
+              "label": "Détail de la ligne - Analyser la ligne"
+            }
+          },
+          {
+            "name": "lineDetail.diagnosis.networkStatus",
+            "path": "network-location-test",
+            "meta": {
+              "label": "Détail de la ligne - Tester le réseau et la localisation"
+            }
+          },
+          {
+            "name": "lineDetail.diagnosis.networkTestControl",
+            "path": "network-test-control",
+            "meta": {
+              "label": "Détail de la ligne - Tester et contrôler la consommation"
+            }
+          },
+          {
+            "name": "lineDetail.diagnosis.supervision",
+            "path": "supervision",
+            "meta": {
+              "label": " Détail de la ligne - Supervision"
+            }
+          },
+          {
+            "name": "lineDetail.diagnosis.networkHistory",
+            "path": "network-history",
+            "meta": {
+              "label": "Détail de la ligne - Historique réseau et itinérance"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "path": "/getamin/partner/:id",
+    "name": "getAdminPartnerDetails",
+    "meta": {
+      "label": "Détail du partenaire"
+    },
+    "children": [
+      {
+        "name": "getAdminPartnerDetails.users",
+        "path": "users",
+        "meta": {
+          "label": "Détail du partenaire - Utilisateurs"
+        },
+        "children": [
+          {
+            "name": "partnerDetail.users.admins",
+            "path": "admins",
+            "meta": {
+              "label": "Détail du partenaire - Administrateurs"
+            }
+          },
+          {
+            "name": "partnerDetail.users.users",
+            "path": "users",
+            "meta": {
+              "label": "Détail du partenaire - Utilisateurs"
+            }
+          }
+        ]
+      },
+      {
+        "name": "getAdminPartnerDetails.customize",
+        "path": "customize",
+        "meta": {
+          "label": "Détail du partenaire - Personnalisation"
+        },
+        "children": [
+          {
+            "name": "partnerDetail.customize.broadcastLists",
+            "path": "broadcastlists",
+            "meta": {
+              "label": "Détail du partenaire - Listes de diffusion"
+            }
+          },
+          {
+            "name": "partnerDetail.customize.customFields",
+            "path": "customfields",
+            "meta": {
+              "label": " Détail du partenaire - Champs libres"
+            }
+          },
+          {
+            "name": "partnerDetail.customize.deliveryAddress",
+            "path": "deliveryaddress",
+            "meta": {
+              "label": "Détail du partenaire - Adresses de livraison"
+            }
+          },
+          {
+            "name": "partnerDetail.customize.specificFields",
+            "path": "specificfields",
+            "meta": {
+              "label": "Détail du partenaire - Champs spécifiques"
+            }
+          }
+        ]
+      },
+      {
+        "name": "getAdminPartnerDetails.billingAccounts",
+        "path": "billAccounts",
+        "meta": {
+          "label": "Détail du partenaire - Comptes de facturation"
+        },
+        "children": [
+          {
+            "name": "getAdminPartnerDetails.billingAccounts.list",
+            "meta": {
+              "label": "Détail du partenaire - Comptes de facturation"
+            },
+            "path": "list"
+          },
+          {
+            "name": "getAdminPartnerDetails.billingAccounts.form",
+            "meta": {
+              "label": "Détail du partenaire - Détail du compte de facturation"
+            },
+            "path": "form/:customerAccountCode"
+          }
+        ]
+      },
+      {
+        "name": "getAdminPartnerDetails.customerList",
+        "meta": {
+          "label": "Détail du partenaire - Liste des entités (MB)"
+        },
+        "path": "customers",
+        "children": [
+          {
+            "name": "getAdminPartnerDetails.customerList.list",
+            "meta": {
+              "label": "Détail du partenaire - Liste des entités (MB)"
+            },
+            "path": "list"
+          },
+          {
+            "name": "getAdminPartnerDetails.customerList.detail",
+            "meta": {
+              "label": "Détail du partenaire - CF - Liste des offres commerciales (MB)"
+            },
+            "path": "detail/:billingAccountId",
+            "children": [
+              {
+                "name": "getAdminPartnerDetails.customerList.detail.commercialOffers",
+                "meta": {
+                  "label": "Détail du partenaire - CF - Liste des offres commerciales (MB)"
+                },
+                "path": "commercialOffers",
+                "children": [
+                  {
+                    "name": "getAdminPartnerDetails.customerList.detail.commercialOffers.list",
+                    "meta": {
+                      "label": "Détail du partenaire - CF - Liste des offres commerciales (MB)"
+                    },
+                    "path": "list"
+                  },
+                  {
+                    "name": "getAdminPartnerDetails.customerList.detail.commercialOffers.form",
+                    "meta": {
+                      "label": "Détail du partenaire - CF - Offre commerciale (MB)"
+                    },
+                    "path": "form/:comOfferId?"
+                  }
+                ]
+              },
+              {
+                "name": "getAdminPartnerDetails.customerList.detail.deliveryAdresses",
+                "meta": {
+                  "label": "Détail du partenaire - CF - Adresse de livraison (MB)"
+                },
+                "path": "deliveryAdresses"
+              },
+              {
+                "name": "getAdminPartnerDetails.customerList.detail.simcards",
+                "meta": {
+                  "label": "Détail du partenaire - CF - Cartes SIM (MB)"
+                },
+                "path": "simcards"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "getAdminPartnerDetails.offersAndSim",
+        "meta": {
+          "label": "Détail du partenaire - Offres"
+        },
+        "path": "offersandsim",
+        "children": [
+          {
+            "name": "partnerDetail.offersAndSim.offers",
+            "meta": {
+              "label": "Détail du partenaire - Offres"
+            },
+            "path": "offersCards"
+          },
+          {
+            "name": "partnerDetail.offersAndSim.simCards",
+            "meta": {
+              "label": " Détail du partenaire - Cartes SIM"
+            },
+            "path": "simcards"
+          },
+          {
+            "name": "partnerDetail.offersAndSim.supervisionOptions",
+            "meta": {
+              "label": "Détail du partenaire - Options de supervision"
+            },
+            "path": "supervision"
+          }
+        ]
+      },
+      {
+        "name": "getAdminPartnerDetails.accountDetail",
+        "meta": {
+          "label": "Détail du partenaire - Description du compte partenaire"
+        },
+        "path": "accountDetail",
+        "children": [
+          {
+            "name": "partnerDetail.accountDetail.description",
+            "meta": {
+              "label": "Détail du partenaire - Description du compte partenaire"
+            },
+            "path": "description"
+          },
+          {
+            "name": "partnerDetail.accountDetail.options",
+            "meta": {
+              "label": "Détail du partenaire - Options du partenaire"
+            },
+            "path": "options"
+          },
+          {
+            "name": "partnerDetail.accountDetail.m2mRange",
+            "meta": {
+              "label": "Détail du partenaire - Tranche MSISDN"
+            },
+            "path": "m2mranges"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "path": "/orders",
+    "name": "orders",
+    "meta": {
+      "label": "Recherche de commandes",
+      "permission": {
+        "domain": "getSim",
+        "action": "read"
+      }
+    },
+    "children": [
+      {
+        "name": "orders.search",
+        "path": "search",
+        "meta": {
+          "label": "Recherche de commandes"
+        }
+      },
+      {
+        "name": "orders.reservations",
+        "path": "reservations",
+        "meta": {
+          "label": " Recherche de réservations"
+        }
+      }
+    ]
+  },
+  {
+    "path": "/act-history",
+    "name": "actHistory",
+    "meta": {
+      "label": "Historique des actes",
+      "permission": {
+        "domain": "act",
+        "action": "read"
+      }
+    },
+    "children": [
+      {
+        "name": "actHistory.classic",
+        "meta": {
+          "label": "Historique des actes",
+          "permission": {
+            "domain": "act",
+            "action": "read"
+          }
+        },
+        "path": "classic"
+      },
+      {
+        "name": "actHistory.esim",
+        "meta": {
+          "label": "Historique des actes eSIM",
+          "permission": {
+            "domain": "act",
+            "action": "manage_esim"
+          }
+        },
+        "path": "esim"
+      }
+    ]
+  },
+  {
+    "path": "/create-account",
+    "children": [
+      {
+        "path": "partner",
+        "name": "createAccount.partner",
+        "meta": {
+          "label": "Offre digitale : Création de compte - Partenaire"
+        },
+        "component": {
+          "components": {
+            "BottomBar": {
+              "components": {
+                "UiButton": {
+                  "functional": true,
+                  "props": {
+                    "variant": {
+                      "default": "light"
+                    },
+                    "type": {
+                      "default": "button"
+                    },
+                    "block": {},
+                    "size": {}
+                  },
+                  "_scopeId": "data-v-9eeefe66",
+                  "__file": "src/components/ui/Button.vue",
+                  "_Ctor": {}
+                }
+              },
+              "props": {},
+              "staticRenderFns": [],
+              "_compiled": true,
+              "_scopeId": "data-v-779ba45b",
+              "beforeCreate": [null],
+              "beforeDestroy": [null],
+              "__file": "src/views/AccountCreation/BottomBar.vue"
+            },
+            "FormControl": {
+              "name": "FormControl",
+              "inheritAttrs": false,
+              "mixins": [
+                {
+                  "model": {
+                    "prop": "value",
+                    "event": "update:value"
+                  },
+                  "props": {
+                    "value": {
+                      "required": false
+                    }
+                  },
+                  "computed": {
+                    "value_": {}
+                  }
+                }
+              ],
+              "props": {
+                "placeholder": {
+                  "type": [null, null],
+                  "required": false
+                },
+                "inputType": {
+                  "required": false,
+                  "default": "text"
+                },
+                "error": {
+                  "required": false
+                },
+                "maxSize": {
+                  "required": false
+                },
+                "minValue": {
+                  "required": false
+                },
+                "maxValue": {
+                  "required": false
+                }
+              },
+              "watch": {},
+              "methods": {},
+              "staticRenderFns": [],
+              "_compiled": true,
+              "_scopeId": "data-v-4eacd3ee",
+              "beforeCreate": [null],
+              "beforeDestroy": [null],
+              "__file": "src/components/ui/FormControl.vue"
+            },
+            "UiApiAutocomplete": {
+              "name": "ApiAutocomplete",
+              "inheritAttrs": false,
+              "model": {
+                "event": "update:value"
+              },
+              "props": {
+                "value": {
+                  "type": [null, null]
+                },
+                "labelKey": {
+                  "default": "label"
+                },
+                "noFilterOnResult": {
+                  "default": false
+                },
+                "error": {
+                  "required": false
+                },
+                "searchType": {
+                  "required": false
+                }
+              },
+              "computed": {
+                "$value": {}
+              },
+              "methods": {},
+              "watch": {
+                "items": "fetchResults"
+              },
+              "directives": {
+                "clickaway": {}
+              },
+              "components": {
+                "Promised": {
+                  "props": {
+                    "tag": {
+                      "default": "span"
+                    },
+                    "promise": {},
+                    "pendingDelay": {
+                      "type": [null, null],
+                      "default": 200
+                    }
+                  },
+                  "watch": {
+                    "promise": {
+                      "immediate": true,
+                      "user": true
+                    }
+                  },
+                  "methods": {},
+                  "_Ctor": {}
+                }
+              },
+              "staticRenderFns": [],
+              "_compiled": true,
+              "_scopeId": "data-v-13ca01a3",
+              "beforeCreate": [null],
+              "beforeDestroy": [null],
+              "__file": "src/components/ui/UiApiAutocomplete.vue"
+            },
+            "UiInput": {
+              "name": "UiInput",
+              "inheritAttrs": false,
+              "mixins": [
+                {
+                  "model": {
+                    "prop": "value",
+                    "event": "update:value"
+                  },
+                  "props": {
+                    "value": {
+                      "required": false
+                    }
+                  },
+                  "computed": {
+                    "value_": {}
+                  }
+                }
+              ],
+              "props": {
+                "placeholder": {
+                  "type": [null, null],
+                  "required": false
+                },
+                "inputType": {
+                  "required": false,
+                  "default": "text"
+                },
+                "minValue": {
+                  "required": false
+                },
+                "maxValue": {
+                  "required": false
+                },
+                "error": {
+                  "required": false
+                },
+                "inputStyle": {
+                  "required": false
+                },
+                "noHoverStyle": {},
+                "haveCrossButton": {},
+                "noNumberArrows": {},
+                "positiveNumber": {},
+                "block": {},
+                "maxSize": {},
+                "disabled": {}
+              },
+              "watch": {},
+              "computed": {},
+              "methods": {},
+              "staticRenderFns": [],
+              "_compiled": true,
+              "_scopeId": "data-v-304884ea",
+              "beforeCreate": [null],
+              "beforeDestroy": [null],
+              "__file": "src/components/ui/UiInput.vue",
+              "_Ctor": {}
+            }
+          },
+          "props": {},
+          "computed": {},
+          "methods": {},
+          "watch": {},
+          "staticRenderFns": [],
+          "_compiled": true,
+          "_scopeId": "data-v-60a35167",
+          "beforeCreate": [null],
+          "beforeDestroy": [null],
+          "__file": "src/views/AccountCreation/PartnerStep.vue"
+        }
+      },
+      {
+        "path": "offer",
+        "name": "createAccount.offer",
+        "meta": {
+          "label": "Offre digitale : Création de compte - Offre"
+        },
+        "component": {
+          "components": {
+            "BottomBar": {
+              "components": {
+                "UiButton": {
+                  "functional": true,
+                  "props": {
+                    "variant": {
+                      "default": "light"
+                    },
+                    "type": {
+                      "default": "button"
+                    },
+                    "block": {},
+                    "size": {}
+                  },
+                  "_scopeId": "data-v-9eeefe66",
+                  "__file": "src/components/ui/Button.vue",
+                  "_Ctor": {}
+                }
+              },
+              "props": {},
+              "staticRenderFns": [],
+              "_compiled": true,
+              "_scopeId": "data-v-779ba45b",
+              "beforeCreate": [null],
+              "beforeDestroy": [null],
+              "__file": "src/views/AccountCreation/BottomBar.vue"
+            },
+            "OfferCard": {
+              "props": {},
+              "methods": {},
+              "computed": {},
+              "staticRenderFns": [],
+              "_compiled": true,
+              "_scopeId": "data-v-102ef7ff",
+              "beforeCreate": [null],
+              "beforeDestroy": [null],
+              "__file": "src/views/AccountCreation/OfferCard.vue"
+            }
+          },
+          "props": {},
+          "computed": {},
+          "methods": {},
+          "watch": {},
+          "staticRenderFns": [],
+          "_compiled": true,
+          "_scopeId": "data-v-65d245bb",
+          "beforeCreate": [null],
+          "beforeDestroy": [null],
+          "__file": "src/views/AccountCreation/OfferStep.vue"
+        }
+      },
+      {
+        "path": "sim",
+        "name": "createAccount.simChoice",
+        "meta": {
+          "label": "Offre digitale : Création de compte - Sim"
+        },
+        "component": {
+          "components": {
+            "BottomBar": {
+              "components": {
+                "UiButton": {
+                  "functional": true,
+                  "props": {
+                    "variant": {
+                      "default": "light"
+                    },
+                    "type": {
+                      "default": "button"
+                    },
+                    "block": {},
+                    "size": {}
+                  },
+                  "_scopeId": "data-v-9eeefe66",
+                  "__file": "src/components/ui/Button.vue",
+                  "_Ctor": {}
+                }
+              },
+              "props": {},
+              "staticRenderFns": [],
+              "_compiled": true,
+              "_scopeId": "data-v-779ba45b",
+              "beforeCreate": [null],
+              "beforeDestroy": [null],
+              "__file": "src/views/AccountCreation/BottomBar.vue"
+            },
+            "GetSimTypeOption": {
+              "name": "GetSimTypeOption",
+              "props": {
+                "item": {},
+                "isAlone": {},
+                "defaultSelectedItem": {
+                  "type": [null, null, null]
+                },
+                "isActive": {}
+              },
+              "methods": {},
+              "computed": {
+                "selectedItem": {}
+              },
+              "components": {
+                "UiCheckbox": {
+                  "name": "Checkbox",
+                  "model": {
+                    "prop": "checked",
+                    "event": "change"
+                  },
+                  "props": {
+                    "checked": [null, null, null, null],
+                    "shape": {
+                      "default": "regular"
+                    },
+                    "value": {
+                      "type": [null, null, null],
+                      "required": false
+                    },
+                    "inputType": {
+                      "required": false,
+                      "default": "text"
+                    },
+                    "name": {
+                      "required": false,
+                      "default": ""
+                    },
+                    "filled": {
+                      "required": false
+                    }
+                  },
+                  "watch": {},
+                  "computed": {
+                    "model": {}
+                  },
+                  "staticRenderFns": [],
+                  "_compiled": true,
+                  "_scopeId": "data-v-543ed01e",
+                  "beforeCreate": [null],
+                  "beforeDestroy": [null],
+                  "__file": "src/components/ui/Checkbox.vue"
+                }
+              },
+              "staticRenderFns": [null],
+              "_compiled": true,
+              "_scopeId": "data-v-21f2a3b1",
+              "beforeCreate": [null],
+              "beforeDestroy": [null],
+              "__file": "src/views/GetSim/CreateOrder/GetSimTypeOption.vue"
+            },
+            "UiInput": {
+              "name": "UiInput",
+              "inheritAttrs": false,
+              "mixins": [
+                {
+                  "model": {
+                    "prop": "value",
+                    "event": "update:value"
+                  },
+                  "props": {
+                    "value": {
+                      "required": false
+                    }
+                  },
+                  "computed": {
+                    "value_": {}
+                  }
+                }
+              ],
+              "props": {
+                "placeholder": {
+                  "type": [null, null],
+                  "required": false
+                },
+                "inputType": {
+                  "required": false,
+                  "default": "text"
+                },
+                "minValue": {
+                  "required": false
+                },
+                "maxValue": {
+                  "required": false
+                },
+                "error": {
+                  "required": false
+                },
+                "inputStyle": {
+                  "required": false
+                },
+                "noHoverStyle": {},
+                "haveCrossButton": {},
+                "noNumberArrows": {},
+                "positiveNumber": {},
+                "block": {},
+                "maxSize": {},
+                "disabled": {}
+              },
+              "watch": {},
+              "computed": {},
+              "methods": {},
+              "staticRenderFns": [],
+              "_compiled": true,
+              "_scopeId": "data-v-304884ea",
+              "beforeCreate": [null],
+              "beforeDestroy": [null],
+              "__file": "src/components/ui/UiInput.vue",
+              "_Ctor": {}
+            }
+          },
+          "props": {},
+          "computed": {},
+          "methods": {},
+          "staticRenderFns": [],
+          "_compiled": true,
+          "beforeCreate": [null],
+          "beforeDestroy": [null],
+          "__file": "src/views/AccountCreation/SimStep.vue"
+        }
+      },
+      {
+        "path": "delivery",
+        "name": "createAccount.delivery",
+        "meta": {
+          "label": "Offre digitale : Création de compte - Adresse de livraison"
+        },
+        "component": {
+          "components": {
+            "BottomBar": {
+              "components": {
+                "UiButton": {
+                  "functional": true,
+                  "props": {
+                    "variant": {
+                      "default": "light"
+                    },
+                    "type": {
+                      "default": "button"
+                    },
+                    "block": {},
+                    "size": {}
+                  },
+                  "_scopeId": "data-v-9eeefe66",
+                  "__file": "src/components/ui/Button.vue",
+                  "_Ctor": {}
+                }
+              },
+              "props": {},
+              "staticRenderFns": [],
+              "_compiled": true,
+              "_scopeId": "data-v-779ba45b",
+              "beforeCreate": [null],
+              "beforeDestroy": [null],
+              "__file": "src/views/AccountCreation/BottomBar.vue"
+            },
+            "BlocList": {
+              "components": {},
+              "props": {},
+              "staticRenderFns": [],
+              "_compiled": true,
+              "_scopeId": "data-v-fea930e8",
+              "beforeCreate": [null],
+              "beforeDestroy": [null],
+              "__file": "src/components/BlocList.vue"
+            },
+            "CreateAccountDeliveryAddress": {
+              "name": "CreateAccountDeliveryAddress",
+              "props": {},
+              "computed": {
+                "selectedItem": {}
+              },
+              "components": {
+                "UiCheckbox": {
+                  "name": "Checkbox",
+                  "model": {
+                    "prop": "checked",
+                    "event": "change"
+                  },
+                  "props": {
+                    "checked": [null, null, null, null],
+                    "shape": {
+                      "default": "regular"
+                    },
+                    "value": {
+                      "type": [null, null, null],
+                      "required": false
+                    },
+                    "inputType": {
+                      "required": false,
+                      "default": "text"
+                    },
+                    "name": {
+                      "required": false,
+                      "default": ""
+                    },
+                    "filled": {
+                      "required": false
+                    }
+                  },
+                  "watch": {},
+                  "computed": {
+                    "model": {}
+                  },
+                  "staticRenderFns": [],
+                  "_compiled": true,
+                  "_scopeId": "data-v-543ed01e",
+                  "beforeCreate": [null],
+                  "beforeDestroy": [null],
+                  "__file": "src/components/ui/Checkbox.vue"
+                }
+              },
+              "staticRenderFns": [],
+              "_compiled": true,
+              "_scopeId": "data-v-efc50a28",
+              "beforeCreate": [null],
+              "beforeDestroy": [null],
+              "__file": "src/views/AccountCreation/CreateAccountDeliveryAddress.vue"
+            },
+            "NewDeliveryAddress": {
+              "components": {
+                "FormControl": {
+                  "name": "FormControl",
+                  "inheritAttrs": false,
+                  "mixins": [
+                    {
+                      "model": {
+                        "prop": "value",
+                        "event": "update:value"
+                      },
+                      "props": {
+                        "value": {
+                          "required": false
+                        }
+                      },
+                      "computed": {
+                        "value_": {}
+                      }
+                    }
+                  ],
+                  "props": {
+                    "placeholder": {
+                      "type": [null, null],
+                      "required": false
+                    },
+                    "inputType": {
+                      "required": false,
+                      "default": "text"
+                    },
+                    "error": {
+                      "required": false
+                    },
+                    "maxSize": {
+                      "required": false
+                    },
+                    "minValue": {
+                      "required": false
+                    },
+                    "maxValue": {
+                      "required": false
+                    }
+                  },
+                  "watch": {},
+                  "methods": {},
+                  "staticRenderFns": [],
+                  "_compiled": true,
+                  "_scopeId": "data-v-4eacd3ee",
+                  "beforeCreate": [null],
+                  "beforeDestroy": [null],
+                  "__file": "src/components/ui/FormControl.vue"
+                },
+                "UiApiAutocomplete": {
+                  "name": "ApiAutocomplete",
+                  "inheritAttrs": false,
+                  "model": {
+                    "event": "update:value"
+                  },
+                  "props": {
+                    "value": {
+                      "type": [null, null]
+                    },
+                    "labelKey": {
+                      "default": "label"
+                    },
+                    "noFilterOnResult": {
+                      "default": false
+                    },
+                    "error": {
+                      "required": false
+                    },
+                    "searchType": {
+                      "required": false
+                    }
+                  },
+                  "computed": {
+                    "$value": {}
+                  },
+                  "methods": {},
+                  "watch": {
+                    "items": "fetchResults"
+                  },
+                  "directives": {
+                    "clickaway": {}
+                  },
+                  "components": {
+                    "Promised": {
+                      "props": {
+                        "tag": {
+                          "default": "span"
+                        },
+                        "promise": {},
+                        "pendingDelay": {
+                          "type": [null, null],
+                          "default": 200
+                        }
+                      },
+                      "watch": {
+                        "promise": {
+                          "immediate": true,
+                          "user": true
+                        }
+                      },
+                      "methods": {},
+                      "_Ctor": {}
+                    }
+                  },
+                  "staticRenderFns": [],
+                  "_compiled": true,
+                  "_scopeId": "data-v-13ca01a3",
+                  "beforeCreate": [null],
+                  "beforeDestroy": [null],
+                  "__file": "src/components/ui/UiApiAutocomplete.vue"
+                },
+                "LoaderContainer": {
+                  "props": {
+                    "loadingKey": {
+                      "default": "searching"
+                    }
+                  },
+                  "staticRenderFns": [],
+                  "_compiled": true,
+                  "_scopeId": "data-v-506664ae",
+                  "beforeCreate": [null],
+                  "beforeDestroy": [null],
+                  "__file": "src/components/LoaderContainer.vue"
+                },
+                "ModalSkeleton": {
+                  "components": {
+                    "CircleLoader": {
+                      "staticRenderFns": [],
+                      "_compiled": true,
+                      "_scopeId": "data-v-5535b7de",
+                      "beforeCreate": [null],
+                      "beforeDestroy": [null],
+                      "__file": "src/components/ui/CircleLoader.vue"
+                    }
+                  },
+                  "props": {},
+                  "staticRenderFns": [],
+                  "_compiled": true,
+                  "_scopeId": "data-v-150863f4",
+                  "beforeCreate": [null],
+                  "beforeDestroy": [null],
+                  "__file": "src/components/ui/skeletons/ModalSkeleton.vue"
+                }
+              },
+              "props": {
+                "addressEdit": {
+                  "required": false
+                }
+              },
+              "computed": {},
+              "methods": {},
+              "watch": {},
+              "staticRenderFns": [],
+              "_compiled": true,
+              "_scopeId": "data-v-2845bb29",
+              "beforeCreate": [null],
+              "beforeDestroy": [null],
+              "__file": "src/views/AccountCreation/NewDeliveryAddressStep.vue"
+            },
+            "UiToggle": {
+              "name": "Toggle",
+              "model": {
+                "prop": "checked",
+                "event": "change"
+              },
+              "props": {
+                "checked": {
+                  "required": false
+                },
+                "label": {
+                  "required": false
+                },
+                "editable": {
+                  "default": true
+                },
+                "onText": {
+                  "default": "On"
+                },
+                "offText": {
+                  "default": "Off"
+                },
+                "canChangeFn": {
+                  "required": false
+                }
+              },
+              "watch": {},
+              "methods": {},
+              "computed": {},
+              "staticRenderFns": [],
+              "_compiled": true,
+              "_scopeId": "data-v-de73fe3a",
+              "beforeCreate": [null],
+              "beforeDestroy": [null],
+              "__file": "src/components/ui/UiToggle.vue"
+            },
+            "FormControl": {
+              "name": "FormControl",
+              "inheritAttrs": false,
+              "mixins": [
+                {
+                  "model": {
+                    "prop": "value",
+                    "event": "update:value"
+                  },
+                  "props": {
+                    "value": {
+                      "required": false
+                    }
+                  },
+                  "computed": {
+                    "value_": {}
+                  }
+                }
+              ],
+              "props": {
+                "placeholder": {
+                  "type": [null, null],
+                  "required": false
+                },
+                "inputType": {
+                  "required": false,
+                  "default": "text"
+                },
+                "error": {
+                  "required": false
+                },
+                "maxSize": {
+                  "required": false
+                },
+                "minValue": {
+                  "required": false
+                },
+                "maxValue": {
+                  "required": false
+                }
+              },
+              "watch": {},
+              "methods": {},
+              "staticRenderFns": [],
+              "_compiled": true,
+              "_scopeId": "data-v-4eacd3ee",
+              "beforeCreate": [null],
+              "beforeDestroy": [null],
+              "__file": "src/components/ui/FormControl.vue"
+            }
+          },
+          "props": {},
+          "computed": {
+            "steps": {}
+          },
+          "methods": {},
+          "watch": {},
+          "staticRenderFns": [],
+          "_compiled": true,
+          "_scopeId": "data-v-391b0486",
+          "beforeCreate": [null],
+          "beforeDestroy": [null],
+          "__file": "src/views/AccountCreation/DeliveryStep.vue"
+        }
+      }
+    ]
+  },
+  {
+    "path": "/create-account/ok/:paymentId",
+    "name": "createAccount.ok",
+    "meta": {
+      "label": "Création de compte Paynum OK"
+    }
+  },
+  {
+    "path": "/create-account/ko/:paymentId",
+    "name": "createAccount.ko",
+    "meta": {
+      "label": "Création de compte Paynum KO"
+    }
+  },
+  {
+    "path": "/payment/ok/:paymentId",
+    "name": "payment.ok",
+    "meta": {
+      "label": "Paiement Paynum OK"
+    }
+  },
+  {
+    "path": "/payment/ko/:paymentId",
+    "name": "payment.ko",
+    "meta": {
+      "label": "Paiement Paynum KO"
+    }
+  },
+  {
+    "path": "/",
+    "name": "home",
+    "meta": {
+      "label": "Accueil"
+    }
+  },
+  {
+    "path": "/stocks",
+    "name": "stocks",
+    "meta": {
+      "label": "Stock"
+    }
+  },
+  {
+    "path": "/callback",
+    "name": "callback",
+    "component": {
+      "name": "AuthCallback",
+      "methods": {},
+      "staticRenderFns": [],
+      "_compiled": true,
+      "_scopeId": "data-v-4d23feef",
+      "beforeCreate": [null],
+      "beforeDestroy": [null],
+      "__file": "src/views/Authentication/AuthenticationOnLoadCallback.vue"
+    },
+    "ignoreAnalytics": true
+  },
+  {
+    "path": "/refresh",
+    "name": "refresh",
+    "component": {
+      "name": "RefreshTokenPage",
+      "staticRenderFns": [],
+      "_compiled": true,
+      "_scopeId": "data-v-3b3cbdeb",
+      "beforeCreate": [null],
+      "beforeDestroy": [null],
+      "__file": "src/views/Authentication/AuthenticationRefreshCallback.vue"
+    },
+    "ignoreAnalytics": true
+  },
+  {
+    "path": "/act-detail/:massActionId",
+    "name": "actDetail",
+    "meta": {
+      "label": "Détail acte de gestion"
+    }
+  },
+  {
+    "path": "/act-lines",
+    "name": "actLines",
+    "meta": {
+      "label": "Recherche de lignes",
+      "permission": {
+        "domain": "getParc",
+        "action": "read"
+      }
+    }
+  },
+  {
+    "path": "/alarms",
+    "name": "alarms",
+    "meta": {
+      "label": "Recherche des alarmes",
+      "permission": {
+        "domain": "alarm",
+        "action": "read"
+      }
+    }
+  },
+  {
+    "path": "/alarm/:alarmId",
+    "name": "alarmDetail",
+    "meta": {
+      "label": "Détail alarme",
+      "permission": {
+        "domain": "alarm2",
+        "action": "read"
+      }
+    }
+  },
+  {
+    "path": "/getreport/models",
+    "name": "getReportsModels",
+    "meta": {
+      "label": "Modèles de rapports"
+    }
+  },
+  {
+    "path": "/reports/documents",
+    "name": "documents",
+    "meta": {
+      "label": "Gestion des documents"
+    }
+  },
+  {
+    "path": "/reports/dashboard",
+    "name": "reportsDashboard",
+    "meta": {
+      "label": "Tableau de bord"
+    }
+  },
+  {
+    "path": "/reports/bill",
+    "name": "reportsBill",
+    "meta": {
+      "label": "Factures"
+    }
+  },
+  {
+    "path": "/getamin/users",
+    "name": "getAdminUsers",
+    "meta": {
+      "label": "Gestion des utilisateurs"
+    }
+  },
+  {
+    "path": "/getamin/cf",
+    "name": "getAdminCF",
+    "meta": {
+      "label": "Comptes de facturation"
+    }
+  },
+  {
+    "path": "/getamin/partners",
+    "name": "getAdminPartners",
+    "meta": {
+      "label": "Gestion des partenaires"
+    }
+  },
+  {
+    "path": "/getamin/manage-roles",
+    "name": "getAdminRoles",
+    "meta": {
+      "label": "Gestion des rôles"
+    }
+  },
+  {
+    "path": "/devices",
+    "name": "getDevice",
+    "meta": {
+      "label": "Recherche des équipements"
+    }
+  },
+  {
+    "path": "/monitoring",
+    "name": "getVisionMonitoring",
+    "meta": {
+      "label": "Supervision",
+      "permission": {
+        "domain": "getVision",
+        "action": "read"
+      }
+    }
+  },
+  {
+    "path": "/exemples",
+    "name": "exemples",
+    "meta": {
+      "label": "Exemples"
+    },
+    "mock": true
+  },
+  {
+    "path": "/components",
+    "name": "catalog",
+    "meta": {
+      "label": "Catalogue"
+    },
+    "mock": true
+  },
+  {
+    "path": "/admin-settings/messages",
+    "name": "messagesList",
+    "meta": {
+      "label": "Messages"
+    },
+    "ignoreAnalytics": true
+  },
+  {
+    "path": "/admin-settings/messages/edit/:id?",
+    "name": "messagesEdit",
+    "meta": {
+      "label": "Edition des messages"
+    },
+    "ignoreAnalytics": true
+  },
+  {
+    "path": "/getadmin/manage-marketing-offers",
+    "name": "getAdminCatalogOffers",
+    "meta": {
+      "label": "Gestion du catalogue des offres"
+    }
+  }
+]

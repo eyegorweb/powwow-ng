@@ -53,7 +53,7 @@
       <div
         v-else-if="
           (allFields && allFields.length && !isFileImportContextValid && exceptionError) ||
-            (!allFields.length && !isFileImportContextValid && exceptionError)
+          (!allFields.length && !isFileImportContextValid && exceptionError)
         "
         class="list-unstyled m-0 alert alert-danger"
       >
@@ -191,7 +191,15 @@ export default {
         }
         return c;
       });
-      this.allSpecificFields = customFields.specificFields;
+      this.allSpecificFields = customFields.specificFields.map((c) => {
+        if (c.mandatory === 'NONE') {
+          c.isOptional = true;
+        } else {
+          c.isOptional = false;
+        }
+        return c;
+      });
+
       this.allFields = customFields.customFields.concat(customFields.specificFields);
     },
 
@@ -415,6 +423,7 @@ export default {
   display: flex;
   justify-content: space-between;
 }
+
 .btns {
   border: none;
   width: 48%;

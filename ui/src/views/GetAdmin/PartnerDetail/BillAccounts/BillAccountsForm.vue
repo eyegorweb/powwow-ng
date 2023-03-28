@@ -225,17 +225,21 @@ export default {
     },
     async fillForm() {
       this.account = await getCustomerAccount(this.$route.params.customerAccountCode);
-      this.form.code = this.account[0].code;
-      this.form.label = this.account[0].name;
-      this.form.company = this.account[0].company;
-      this.form.actBlock = this.account[0].massActionsDisabled;
-      this.form.address = this.account[0].address.address1;
-      this.form.address2 = this.account[0].address.address2;
-      this.form.zipCode = this.account[0].address.zipCode;
-      this.form.city = this.account[0].address.city;
-      this.form.state = this.account[0].address.state;
-      this.form.country = this.countries.find((c) => c.code === this.account[0].address.country);
-      this.form.taxArea = this.countriesAreaTax.find((t) => t.code === this.account[0].taxZone);
+      this.form.code = this.$loGet(this.account[0], 'code');
+      this.form.label = this.$loGet(this.account[0], 'name');
+      this.form.company = this.$loGet(this.account[0], 'company');
+      this.form.actBlock = this.$loGet(this.account[0], 'massActionsDisabled');
+      this.form.address = this.$loGet(this.account[0], 'address.address1');
+      this.form.address2 = this.$loGet(this.account[0], 'address.address2');
+      this.form.zipCode = this.$loGet(this.account[0], 'address.zipCode');
+      this.form.city = this.$loGet(this.account[0], 'address.city');
+      this.form.state = this.$loGet(this.account[0], 'address.state');
+      this.form.country = this.countries.find(
+        (c) => c.code === this.$loGet(this.account[0], 'address.country')
+      );
+      this.form.taxArea = this.countriesAreaTax.find(
+        (t) => t.code === this.$loGet(this.account[0], 'taxZone')
+      );
     },
     getCountryData(countryCode) {
       if (countryCode === 'null' || !countryCode) {

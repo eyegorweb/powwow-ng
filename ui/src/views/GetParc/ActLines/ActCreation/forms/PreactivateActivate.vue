@@ -415,7 +415,7 @@ export default {
           params
         );
       }
-      if (response.errors && response.errors.length) {
+      if (response && response.errors && response.errors.length) {
         let errorMessage = '',
           massActionLimitError = '',
           count;
