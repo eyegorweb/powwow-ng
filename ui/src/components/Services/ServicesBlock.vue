@@ -122,8 +122,8 @@
           </div>
         </div>
       </div>
-      <div class="col-md-4">
-        <template v-if="dataService">
+      <template v-if="dataService">
+        <div class="col-md-4">
           <DataServiceToggle
             v-if="dataService"
             :service="dataService"
@@ -137,7 +137,20 @@
               }
             "
           />
-        </template>
+        </div>
+      </template>
+      <div v-if="upfService" class="single-service">
+        <UpfServiceToggle
+          :service="upfService"
+          :profile-data="profileData"
+          :bold-label="isChanged(upfService)"
+          vertical
+          :disabled="false"
+          :no-click="noClick"
+          :read-only="false"
+          @change="onUpfServiceChange"
+          @initprofiles="onProfilesChange"
+        />
       </div>
     </div>
   </div>
