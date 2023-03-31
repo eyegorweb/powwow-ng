@@ -61,17 +61,22 @@ export function getApnServices(services) {
       // caution: s.parameters can return null or [null]
       return !!s && !!s.parameters && !!s.parameters.length && !!s.parameters[0];
     })
-    .map((p) => {
-      const parameters = p.parameters
-        .filter((p) => !!p.ipAdress)
-        .map((p) => {
+    .map((serviceWithParameter) => {
+      const parameters = serviceWithParameter.parameters
+        .filter(
+          (serviceWithParameter) =>
+            !!serviceWithParameter.ipAdress ||
+            !!serviceWithParameter.parameter1 ||
+            !!serviceWithParameter.parameter2
+        )
+        .map((serviceWithParameter) => {
           return {
-            code: p.code,
-            name: p.name,
-            version: p.versionIp,
-            ipAdress: p.ipAdress,
-            parameter1: p.parameter1,
-            parameter2: p.parameter2,
+            code: serviceWithParameter.code,
+            name: serviceWithParameter.name,
+            version: serviceWithParameter.versionIp,
+            ipAdress: serviceWithParameter.ipAdress,
+            parameter1: serviceWithParameter.parameter1,
+            parameter2: serviceWithParameter.parameter2,
           };
         });
       return parameters;
