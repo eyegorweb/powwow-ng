@@ -92,12 +92,12 @@
             </div>
 
             <FormReport
-              v-if="report && (haveBusinessErrors || alwaysShowReport)"
+              v-if="report && (haveBusinessErrors || alwaysShowReport) && !requestExceptionsErrors"
               :get-export-fn="getExportFn()"
               :data="report"
             />
             <button
-              v-if="tempDataUuid"
+              v-if="tempDataUuid && !requestExceptionsErrors"
               :disabled="!report.validated"
               @click="confirmRequest(true)"
               class="btn btn-double-validation pl-4 pr-4 pt-2 pb-2"
