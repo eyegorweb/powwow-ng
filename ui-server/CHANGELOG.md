@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1360+20230404151314
+2023-04-04
+
+### Fixes
+
+- [000] masquer le bouton Acquitter les actes en échec (5c13fc254e850cf98f506f90474a597e6af1b188)
+
 ## 1.17.0-master.1359+20230404140453
 2023-04-04
 
