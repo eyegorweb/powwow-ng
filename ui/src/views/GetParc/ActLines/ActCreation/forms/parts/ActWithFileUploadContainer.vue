@@ -149,7 +149,6 @@ export default {
   data() {
     return {
       tempDataUuid: undefined,
-      requestError: undefined,
       requestExceptionsErrors: undefined,
       contextValues: undefined,
       report: undefined,
@@ -412,8 +411,10 @@ export default {
 
       const response = await this.actMutationFn(params);
       if (response.errors) {
+        console.log('response errors', response.errors);
         this.requestExceptionsErrors = response.errors;
       } else {
+        console.log('response success', response);
         if (showMessage) {
           const successMessage = this.successMessage
             ? this.$t(this.successMessage)
@@ -431,6 +432,8 @@ export default {
         this.resetForm();
         this.setSelectedFileForActCreation(undefined);
       }
+
+      console.log('requestExceptionsErrors >>>>>>>>', this.requestExceptionsErrors);
 
       return response;
     },
