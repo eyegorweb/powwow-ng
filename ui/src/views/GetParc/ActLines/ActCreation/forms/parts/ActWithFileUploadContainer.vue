@@ -270,6 +270,7 @@ export default {
         ];
       } else {
         this.disableForced = false;
+        this.requestExceptionsErrors = undefined;
       }
     },
 
@@ -409,7 +410,6 @@ export default {
         };
       }
 
-      this.requestExceptionsErrors = undefined;
       const response = await this.actMutationFn(params);
       if (response.errors) {
         this.requestExceptionsErrors = response.errors;
