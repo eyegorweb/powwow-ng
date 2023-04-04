@@ -13,7 +13,8 @@
         <div class="bg-white text-center p-2 pb-4">
           <h4>{{ $t('getparc.actDetail.actionChoice') }}:</h4>
           <div>
-            <button @click.stop="acknowledgeFailedActs" class="btn btn-primary">
+            <!-- TODO: masquer le bouton temporairement avec la classe d-none -->
+            <button @click.stop="acknowledgeFailedActs" class="btn btn-primary d-none">
               <i class="ic-Check-Icon" />
               {{ $t('getparc.actDetail.discharge') }}
             </button>
