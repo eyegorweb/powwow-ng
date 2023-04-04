@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1356+20230404083301
+2023-04-04
+
+### Fixes
+
+- [3872] correction de quelques anomalies sur l'administration radius et sur les infos des services de la ligne (1ba70353367236e62361da6649e3f4b244da8cb7)
+
 ## 1.17.0-master.1355+20230331131508
 2023-03-31
 
