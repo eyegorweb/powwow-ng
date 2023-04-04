@@ -82,7 +82,13 @@
             </button>
           </div>
           <div>
-            <div v-if="requestExceptionsErrors">
+            <div
+              v-if="
+                requestExceptionsErrors &&
+                  requestExceptionsErrors[0] &&
+                  requestExceptionsErrors[0]['message']
+              "
+            >
               <h6 class="text-danger">{{ $t('errors.all') }}</h6>
               <ul class="text-danger list-unstyled">
                 <li :key="error.message" v-for="error in requestExceptionsErrors">
