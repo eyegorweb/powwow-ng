@@ -28,14 +28,18 @@
                 "
                 :act="act"
                 :can-select-sim-type="currentToggle === 'autoPairing'"
+                :can-select-customer-account="
+                  currentToggle === 'autoPairing' || currentToggle === 'filePairingEidIccid'
+                "
                 :current-toggle="currentToggle"
-              />
+                :partner="userPartner"
+              >
+                <!-- <div slot="validate">zone de validation</div> -->
+              </AutoPairingPrereq>
             </div>
 
             <div v-if="currentToggle" class="d-flex justify-content-end">
-              <UiButton variant="link" @click="currentToggle = undefined">
-                {{ $t('cancel') }}
-              </UiButton>
+              <UiButton variant="link" @click="resetPrereqs"> {{ $t('cancel') }} </UiButton>
             </div>
           </template>
           <template v-else>
@@ -53,6 +57,7 @@ import SearchById from './prerequisites/SearchById.vue';
 import AutoPairingPrereq from './prerequisites/AutoPairingPrereq.vue';
 import Toggle from '@/components/ui/UiToggle2';
 import UiButton from '@/components/ui/Button';
+import { mapState, mapGetters } from 'vuex';
 
 export default {
   components: {
@@ -71,9 +76,12 @@ export default {
       currentToggle: undefined,
       selectedFile: undefined,
       toggleValues: undefined,
+      userPartner: undefined,
     };
   },
   computed: {
+    ...mapState('actLines', ['defaultAppliedFilters']),
+    ...mapGetters(['userIsPartner']),
     canHaveSearchByIdPrereq() {
       const ignoredActs = [
         'getparc.actCreation.carouselItem.CHANGE_SERVICES',
@@ -91,6 +99,10 @@ export default {
     onToggleChange(newToggleValue) {
       this.currentToggle = newToggleValue ? newToggleValue.id : undefined;
       this.$emit('toggle', this.currentToggle);
+    },
+    resetPrereqs() {
+      this.currentToggle = undefined;
+      this.$emit('reset:prereqs', this.currentToggle);
     },
     initToggles() {
       this.onToggleChange();
@@ -132,6 +144,11 @@ export default {
         ];
       }
     },
+    initPrerequisites() {
+      if (this.userIsPartner) {
+        this.userPartner = this.defaultAppliedFilters[0].values[0];
+      }
+    },
   },
   watch: {
     act() {
@@ -140,6 +157,7 @@ export default {
   },
   mounted() {
     this.initToggles();
+    this.initPrerequisites();
   },
 };
 </script>

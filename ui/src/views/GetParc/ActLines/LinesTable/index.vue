@@ -473,6 +473,11 @@ export default {
   watch: {
     rows(items) {
       this.$emit('noResults', items.length === 0);
+      if (items.length === 0) {
+        this.showInfoMessage = true;
+      } else {
+        this.showInfoMessage = false;
+      }
     },
     linePage() {
       this.fetchLinesActions();

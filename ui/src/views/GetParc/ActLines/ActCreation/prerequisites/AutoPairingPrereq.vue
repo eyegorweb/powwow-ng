@@ -5,7 +5,7 @@
         <h5>{{ $t('getparc.actLines.step1Partner') }}</h5>
         <PartnersPart @setpartner="setPartner" />
       </div>
-      <div class="col">
+      <div v-if="canSelectCustomerAccount" class="col">
         <h5>{{ $t('getparc.actLines.billingAccount') }}</h5>
         <BillingAccountsPart :partner="selectedPartner" @set:billingAccount="setBillingAccount" />
       </div>
@@ -23,7 +23,7 @@
     </div>
     <div v-else>
       <div class="row">
-        <div class="col">
+        <div v-if="canSelectCustomerAccount" class="col">
           <h5>{{ $t('getparc.actLines.billingAccount') }}</h5>
           <BillingAccountsPart :partner="selectedPartner" @set:billingAccount="setBillingAccount" />
         </div>
@@ -81,6 +81,7 @@ export default {
       default: undefined,
     },
     canSelectSimType: Boolean,
+    canSelectCustomerAccount: Boolean,
     currentToggle: String,
   },
   watch: {
@@ -92,6 +93,9 @@ export default {
     canValidate() {
       if (this.canSelectSimType) {
         return !this.isPartnerEmpty && !!this.selectedTypeSimCard;
+      }
+      if (this.canSelectCustomerAccount) {
+        return !this.isPartnerEmpty && !!this.chosenBillingAccount;
       }
 
       return !this.isPartnerEmpty;
@@ -115,9 +119,7 @@ export default {
     },
   },
   mounted() {
-    if (this.partner) {
-      this.selectedPartner = { ...this.partner };
-    }
+    this.initPrerequisites();
   },
   methods: {
     ...mapActions('actLines', ['setPartnersFilter', 'selectedTypeSimCardValues']),
@@ -137,6 +139,55 @@ export default {
       this.chosenBillingAccount = billingAccount;
       if (!this.chosenBillingAccount) {
         this.selectedTypeSimCard = undefined;
+      }
+    },
+
+    initPrerequisites() {
+      if (this.partner) {
+        this.selectedPartner = { ...this.partner };
+        this.setPrerequisites({
+          search: true,
+          isHidden: true,
+          partner: this.selectedPartner,
+          billingAccount: this.chosenBillingAccount,
+          filePairing:
+            this.currentToggle === 'filePairingEidIccid' || this.currentToggle === 'filePairing',
+          simcardType: this.selectedTypeSimCard,
+        });
+      }
+    },
+
+    setPrerequisites(allPrereq) {
+      this.resetForm();
+      if (allPrereq.partner) {
+        this.setPartnersFilter({
+          partners: [allPrereq.partner],
+          isHidden: !!this.selectedPartner,
+        });
+      }
+
+      if (allPrereq.billingAccount) {
+        this.setBillingAccountsFilter([allPrereq.billingAccount]);
+      }
+
+      if (allPrereq.selectedTypeSimCard) {
+        this.setTypeSimCardFilter([this.selectedTypeSimCard]);
+      }
+
+      allPrereq = {
+        partner: this.selectedPartner,
+        billingAccount: this.chosenBillingAccount,
+        filePairing:
+          this.currentToggle === 'filePairingEidIccid' || this.currentToggle === 'filePairing',
+        simcardType: this.selectedTypeSimCard,
+      };
+
+      if (allPrereq) {
+        this.setActCreationPrerequisites(allPrereq);
+        if (allPrereq.search) {
+          this.applyFilters();
+          this.setPageLimit(5);
+        }
       }
     },
 
@@ -166,7 +217,8 @@ export default {
       const allPrereq = {
         partner: this.selectedPartner,
         billingAccount: this.chosenBillingAccount,
-        filePairing: this.currentToggle === 'filePairingEidIccid',
+        filePairing:
+          this.currentToggle === 'filePairingEidIccid' || this.currentToggle === 'filePairing',
         simcardType: this.selectedTypeSimCard,
       };
 

@@ -1969,8 +1969,8 @@
       "byId": "Par Identifiant",
       "byImport": "Par import",
       "autoPairing": "Appairage auto",
-      "filePairing": "Appairage par fichier d'EID",
-      "filePairingEidIccid": "Appairage par fichier d'ICCID",
+      "filePairing": "Appairage par fichier (EID)",
+      "filePairingEidIccid": "Appairage par fichier (ICCID)",
       "radius": {
         "RADIUS_EMPTY_OPTION": "Supprimer le(s) champ(s) vide(s) du fichier ?"
       },
@@ -2140,7 +2140,7 @@
         "timeout": "Le traitement est toujours en cours. Veuillez vérifier d'ici quelques minutes que l'import est complet.",
         "unknown": "Erreur inconnue.",
         "errors": {
-          "eid": "eid non trouvé.",
+          "eid_simcardInstanceIds": "eid non trouvé.",
           "workflow": {
             "LONG_LIFE_NOT_ALLOWED": "Changement d'offre impossible sur les offres LV."
           },
