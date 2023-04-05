@@ -30,6 +30,7 @@
       :act="actToCreate"
       @toggle="onToggleChange"
       :custom-fields-enabled="isCustomFieldsEnabled"
+      @reset:prereqs="resetPrereqs"
     />
 
     <div class="row">
@@ -274,7 +275,11 @@ export default {
     withCustomFormBehavior() {
       if (this.actCreationPrerequisites && this.actToCreate) {
         const isPairing = !!['PAIRING'].find((i) => i === this.actToCreate.id);
-        return isPairing && this.$loGet(this.actCreationPrerequisites, 'filePairing');
+        return (
+          isPairing &&
+          (this.$loGet(this.actCreationPrerequisites, 'filePairing') ||
+            this.$loGet(this.actCreationPrerequisites, 'filePairingEidIccid'))
+        );
       }
       return false;
     },
@@ -442,6 +447,8 @@ export default {
       'setRouteParamsFilters',
       'resetAfterFilterClear',
       'resetState',
+      'resetForm',
+      'setLinesActionsResponse',
     ]),
     ...mapMutations(['openPanel']),
     async fetchPartyFeatures() {
@@ -505,6 +512,11 @@ export default {
         this.DropZoneTitleNumber = '2';
         this.ActFormTitleNumber = '3';
       }
+    },
+    resetPrereqs() {
+      this.resetForm();
+      this.setLinesActionsResponse(undefined);
+      this.setCurrentFilters([]);
     },
 
     async fetchPartnerOptions() {
