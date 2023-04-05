@@ -947,7 +947,6 @@ export async function changeMSISDN(params) {
     })
     {
       tempDataUuid
-      validated
       errors{
         key
         number
@@ -1136,7 +1135,6 @@ export async function createRadiusAdmin(params, action, resetEmptyField) {
     )
     {
       tempDataUuid
-      validated
       errors {
         key
         number
