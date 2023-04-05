@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1363+20230405085633
+2023-04-05
+
+### Fixes
+
+- [3858] gestion de l'acte d'appairage esim et correction de l'acte Modification champs libres (a01f997e4b84e54338946a39855e9f646de08305)
+
 ## 1.17.0-master.1362+20230405084440
 2023-04-05
 
