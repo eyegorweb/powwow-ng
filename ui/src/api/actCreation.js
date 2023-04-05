@@ -1144,18 +1144,7 @@ export async function createRadiusAdmin(params, action, resetEmptyField) {
   }
 `;
 
-  const response = await query(queryStr);
-  if (!response || !response.data) {
-    return {
-      errors: ['unknown'],
-    };
-  }
-  if (response.errors) {
-    return {
-      errors: response.errors,
-    };
-  }
-  return response.data.radiusAdministration;
+  return query(queryStr);
 }
 
 export async function fetchApn(partyId, workflowId) {
