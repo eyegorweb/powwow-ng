@@ -256,7 +256,7 @@ export default {
           label: this.$t('getparc.lineDetail.tab2.lineAnalysisContent.technology'),
           orderable: false,
           visible: false,
-          name: 'technology',
+          name: 'lastTechnology',
         },
         {
           id: '14',
