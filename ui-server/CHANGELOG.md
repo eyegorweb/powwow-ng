@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1362+20230405084440
+2023-04-05
+
+### Fixes
+
+- [000] hotfix de la colonne Technologie pour la table de supervision (3c8ff02a04542d50e8cf7f036f3bd5efa7595de9)
+- [000] hotfix de la colonne Technologie pour la table de supervision (46ea9ff61abeafe4210a007e136b8dd3ad9a6099)
+
 ## 1.17.0-master.1361+20230405081403
 2023-04-05
 
