@@ -1,61 +1,24 @@
 <template>
-  <div>
-    <BaseDetailPanelContent v-if="!addSpecificField" white>
-      <div class="m-3">
-        <div class="entries-line">
-          <div class="form-entry">
-            <template v-if="specificFields.length > 0">
-              <SpecificFields
-                :direction="direction"
-                :specific-fields="specificFields"
-                :get-selected-value="getSelectedValue"
-                :errors="errors"
-                :can-edit-list="canEditList"
-                :show-optional-field="showOptionalField"
-                @change="onValueChanged"
-              />
-            </template>
-          </div>
-        </div>
-      </div>
-      <div v-if="!addSpecificField" slot="footer" class="action-buttons">
-        <AddCustomFieldActions
-          @cancel="closePanel"
-          @add-field="save"
-          :can-send="canSend"
-          :text="actionLabel"
-        />
-      </div>
-    </BaseDetailPanelContent>
-    <template v-if="addSpecificField">
-      <AddCustomField
-        :panel="panel"
-        :label-title="label"
-        fixheight
-        :close="closePanel"
-        @add-field="save"
-        :number-of-custom-fields="content.currentNbCF"
-      />
-    </template>
-  </div>
+  <AddCustomField
+    :panel="panel"
+    :label-title="label"
+    :is-updating="!!content.modifySpecificField"
+    fixheight
+    :close="closePanel"
+    @add-field="save"
+    :number-of-custom-fields="content.currentNbCF"
+    :prefilled-values="prefilledValues"
+  />
 </template>
 
 <script>
-import BaseDetailPanelContent from '@/components/BaseDetailPanelContent';
-import SpecificFields from '@/components/SpecificFields';
 import AddCustomField from '@/views/GetSim/CreateOrder/StepSettings/AddCustomField';
-import AddCustomFieldActions from '@/views/GetSim/CreateOrder/StepSettings/AddCustomFieldActions';
 import { mapMutations } from 'vuex';
-import { updateCustomFields } from '@/api/actCreation';
-import { createCustomField } from '@/api/customFields';
-import { formattedCurrentDate } from '@/utils/date';
+import { updateCustomFieldLabel, createCustomField } from '@/api/customFields';
 
 export default {
   components: {
-    BaseDetailPanelContent,
-    SpecificFields,
     AddCustomField,
-    AddCustomFieldActions,
   },
 
   props: {
@@ -79,82 +42,33 @@ export default {
     };
   },
 
-  mounted() {
-    this.partnerId = this.content.partnerId;
-    if (this.content && this.content.modifySpecificField) {
-      this.specificFields.push(this.content.modifySpecificField);
-    } else {
-      this.addSpecificField = true;
-    }
-  },
-
   computed: {
     actionLabel() {
       return this.label ? this.$t('orders.modify-custom-field-action', { label: this.label }) : '';
+    },
+    prefilledValues() {
+      if (this.content.modifySpecificField) {
+        return {
+          label: this.content.modifySpecificField.spec,
+          type: this.content.modifySpecificField.type,
+          listOptions: this.content.modifySpecificField.value || [],
+          mandatory: this.content.modifySpecificField.mandatory,
+        };
+      }
+      return undefined;
     },
   },
 
   methods: {
     ...mapMutations(['flashMessage', 'closePanel']),
-    getSelectedValue(code) {
-      const existingFieldValue = this.specificFieldsValues.find((c) => c.code === code);
-      if (existingFieldValue) {
-        return existingFieldValue.enteredValue;
-      }
-    },
-    onValueChanged(customField, enteredValue) {
-      const existingFieldValue = this.specificFieldsValues.find((c) => c.code === customField.code);
-      if (enteredValue) this.canSend = true;
-      if (existingFieldValue) {
-        this.specificFieldsValues = this.specificFieldsValues.map((c) => {
-          if (c.code === customField.code) {
-            return {
-              ...c,
-              enteredValue,
-            };
-          }
-          return c;
-        });
-      } else {
-        customField.enteredValue = enteredValue;
-        this.specificFieldsValues = [...this.specificFieldsValues, { ...customField }];
-      }
-    },
-    async save(fieldData) {
-      const getCustomFieldValue = (code) => {
-        const found = this.specificFieldsValues.filter((c) => c.code === code);
-        if (found && found.length) {
-          return found[0].enteredValue;
-        }
-        return '';
-      };
-      const params = {
-        partyId: this.partnerId,
-        dueDate: formattedCurrentDate(),
-        tempDataUuid: undefined,
-        custom1: getCustomFieldValue('custom1'),
-        custom2: getCustomFieldValue('custom2'),
-        custom3: getCustomFieldValue('custom3'),
-        custom4: getCustomFieldValue('custom4'),
-        custom5: getCustomFieldValue('custom5'),
-        custom6: getCustomFieldValue('custom6'),
-        spec1: getCustomFieldValue('spec1'),
-        spec2: getCustomFieldValue('spec2'),
-      };
 
+    async save(fieldData) {
       let response;
 
       if (this.content.modifySpecificField) {
-        response = await updateCustomFields([], [], params);
+        response = await this.updateExistingCF(fieldData);
       } else {
-        response = await createCustomField({
-          partyId: this.partnerId,
-          label: fieldData.label,
-          type: fieldData.type,
-          values: fieldData.values,
-          mandatoryVal: fieldData.mandatoryVal,
-          isSpec: true,
-        });
+        response = await this.saveNewCF(fieldData);
       }
 
       if (response && response.errors && response.errors.length) {
@@ -168,8 +82,31 @@ export default {
 
       this.closePanel({ resetSearch: true });
     },
+
+    async saveNewCF(fieldData) {
+      return await createCustomField({
+        partyId: this.content.partnerId,
+        label: fieldData.label,
+        type: fieldData.type,
+        values: fieldData.values,
+        mandatoryVal: fieldData.mandatoryVal,
+        isSpec: true,
+      });
+    },
+
+    async updateExistingCF(fieldData) {
+      return await updateCustomFieldLabel(
+        this.content.partnerId,
+        this.content.modifySpecificField.code,
+        fieldData.label,
+        fieldData.type,
+        fieldData.values,
+        fieldData.mandatoryVal
+      );
+    },
   },
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+</style>
