@@ -2,7 +2,6 @@
   <ActWithFileUploadContainer
     :act-mutation-fn="createRadiusAdmin"
     :act-code="actCode"
-    always-show-report
     confirmation-message="confirmAction"
     ip-fix-usage
     validation-tr
