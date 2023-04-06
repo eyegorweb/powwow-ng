@@ -309,6 +309,9 @@ export default {
       let itemsToReturn;
       itemsToReturn = _carouselItems.filter((i) => {
         if (i.permission) {
+          if (Array.isArray(i.permission)) {
+            return !!i.permission.find((perm) => this.havePermission(perm.domain, perm.action));
+          }
           return this.havePermission(i.permission.domain, i.permission.action);
         }
         return true;

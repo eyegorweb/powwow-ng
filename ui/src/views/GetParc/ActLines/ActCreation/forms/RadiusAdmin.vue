@@ -7,7 +7,7 @@
     ip-fix-usage
     validation-tr
   >
-    <div slot="action" class="mb-3">
+    <div slot="action" class="mb-3" v-if="toggleValues && toggleValues.length > 0">
       <h6>Action</h6>
       <div class="mb-3">
         <Toggle
@@ -31,6 +31,7 @@
 import ActWithFileUploadContainer from './parts/ActWithFileUploadContainer';
 import Toggle from '@/components/ui/UiToggle2';
 import UiCheckbox from '@/components/ui/Checkbox';
+import { mapGetters } from 'vuex';
 import { createRadiusAdmin } from '@/api/actCreation';
 
 export default {
@@ -55,22 +56,31 @@ export default {
     },
   },
   mounted() {
-    this.toggleValues = [
-      {
-        id: 'UPDATE',
-        label: 'getparc.history.actions.UPDATE',
-      },
-      {
+    if (this.havePermission('act', 'radius_administration')) {
+      this.toggleValues = [
+        {
+          id: 'UPDATE',
+          label: 'getparc.history.actions.UPDATE',
+        },
+      ];
+    } else {
+      this.toggleValues = [];
+    }
+    if (this.havePermission('act', 'radius_read')) {
+      this.toggleValues.push({
         id: 'READ',
         label: 'getparc.history.actions.CONSULT',
-      },
-      {
+      });
+    }
+    if (this.havePermission('act', 'radius_synchronize')) {
+      this.toggleValues.push({
         id: 'SYNCHRONIZE',
         label: 'getparc.history.actions.SYNC',
-      },
-    ];
+      });
+    }
   },
   computed: {
+    ...mapGetters(['havePermission']),
     actCode() {
       let code = 'RADIUS';
       if ('READ' === this.currentAction) {
