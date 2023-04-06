@@ -1,6 +1,7 @@
 <template>
   <div>
     <div class="cards">
+      <CardsSkeleton v-if="isLoading" />
       <div
         v-if="allSpecificFields.length < MAX_ALLOWED_SPECIFIC_FIELDS && canUpdate"
         class="addNew"
@@ -17,10 +18,18 @@
           :key="sf.id"
           :can-delete="canUpdate"
           @modify="modifySpecificField(sf)"
+          @delete="deleteCF(sf)"
           :can-modify="canUpdate"
         >
           <div class="cardBloc-infos-name">{{ $t('col.specificFields', { num: ++index }) }}</div>
-          <div class="cardBloc-infos-username">{{ sf.label }}</div>
+          <h2 class="titleCard">{{ $t('title') }}:</h2>
+          <div class="cardBloc-infos-username-title">{{ sf.spec }}</div>
+          <h2 class="titleCard">{{ $t('type') }}:</h2>
+          <div class="cardBloc-infos-username">{{ $t(sf.type.toLowerCase()) }}</div>
+          <h2 class="titleCard">{{ $t('mandatory') }}:</h2>
+          <div class="cardBloc-infos-username">
+            {{ $t('orders.new.settingsStep.' + sf.mandatory) }}
+          </div>
         </Card>
       </template>
     </div>
@@ -28,13 +37,15 @@
 </template>
 
 <script>
+import CardsSkeleton from '@/views/GetAdmin/PartnerDetail/CardsSkeleton.vue';
 import Card from '@/components/Card';
-import { fetchCustomFields } from '@/api/customFields';
+import { fetchCustomFields, deleteCustomField } from '@/api/customFields';
 import { mapGetters, mapMutations } from 'vuex';
 
 export default {
   components: {
     Card,
+    CardsSkeleton,
   },
   props: {
     partnerid: {
@@ -72,18 +83,34 @@ export default {
   },
 
   methods: {
-    ...mapMutations(['openPanel']),
+    ...mapMutations(['openPanel', 'confirmAction']),
 
     async fetchCustomFieldsForPartner() {
+      this.isLoading = true;
       const specificFields = await fetchCustomFields(this.partnerid);
       this.allSpecificFields = specificFields.specificFields;
+      this.isLoading = false;
     },
     onValueChanged(item, newVal) {
       this.$emit('change', item, newVal);
     },
     async refreshLists() {
-      await fetchCustomFields(this.partnerid);
+      this.fetchCustomFieldsForPartner();
     },
+
+    async deleteCF(sf) {
+      const doReset = () => {
+        this.refreshLists();
+      };
+      this.confirmAction({
+        message: 'confirmAction',
+        actionFn: async () => {
+          await deleteCustomField(this.partnerid, sf.code);
+          doReset();
+        },
+      });
+    },
+
     addNewSpecificField() {
       const doReset = () => {
         this.fetchCustomFieldsForPartner();
