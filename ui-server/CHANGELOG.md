@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1368+20230407103415
+2023-04-07
+
+### Fixes
+
+- [3824] supprimer disable button (7fa3d734c4e23eaf861b561ccb2c7133444ddfce)
+
 ## 1.17.0-master.1367+20230406125835
 2023-04-06
 
