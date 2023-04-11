@@ -11,7 +11,7 @@
       </template>
       <PaginatedDataTable
         storage-id="supervision.table"
-        storage-version="003"
+        storage-version="004"
         :key="version"
         :columns="columns"
         :fetch-data-fn="fetchDataFn()"
