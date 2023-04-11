@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1372+20230411143914
+2023-04-11
+
+### Fixes
+
+- [000] hotfix rétablissement de la réinitialisation de la barre de recherche de lignes par ID (55b6081032b980373991e28f7ae2f313f180440c)
+
 ## 1.17.0-master.1371+20230411121915
 2023-04-11
 
