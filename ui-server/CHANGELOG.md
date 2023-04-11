@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1371+20230411121915
+2023-04-11
+
+### Fixes
+
+- [000] hotfix incrémentation de la table supervision pour afficher la colonne Technologie (3c991dde38b06e8e2e51f40bd61f494ed4cb46a8)
+
 ## 1.17.0-master.1370+20230411084244
 2023-04-11
 
