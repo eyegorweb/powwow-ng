@@ -214,7 +214,7 @@ export default {
       'setActCreationPrerequisites',
       'setSelectedLinesForActCreation',
     ]),
-    ...mapMutations(['flashMessage', 'setPendingExportsStatus']),
+    ...mapMutations(['flashMessage', 'setPendingExportsStatus', 'confirmAction']),
     onActDateChange(value) {
       this.actDate = value;
     },
@@ -324,10 +324,12 @@ export default {
         this.contextValues = contextValues;
       }
       this.report = response;
-      if (this.alwaysShowReport || this.haveBusinessErrors) {
+      if ((this.alwaysShowReport || this.haveBusinessErrors) && this.actCode !== 'RADIUS') {
         return { stayInForm: true };
       } else {
-        return await this.confirmRequest();
+        if (this.actCode !== 'RADIUS') {
+          return await this.confirmRequest();
+        }
       }
     },
     haveErrors() {
@@ -351,7 +353,13 @@ export default {
       });
 
       if (!response) {
-        messages.push({ level: 'danger', message: 'genericErrorMessage' });
+        if (this.actCode !== 'RADIUS') {
+          messages.push({ level: 'danger', message: 'genericErrorMessage' });
+        } else {
+          this.showValidationModal = false;
+          this.isLoading = false;
+          return [];
+        }
       }
 
       if (response) {
