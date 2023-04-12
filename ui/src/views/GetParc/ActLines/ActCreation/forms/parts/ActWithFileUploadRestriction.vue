@@ -150,6 +150,7 @@ export default {
       'setActToCreate',
       'setActCreationPrerequisites',
     ]),
+    ...mapMutations(['flashMessage', 'setPendingExportsStatus', 'confirmAction']),
     cancelAct() {
       this.setActToCreate(null);
       this.setActCreationPrerequisites(null);
