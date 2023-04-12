@@ -273,9 +273,14 @@ export default {
     },
     async doubleConfirm() {
       // il y a des lignes ko et des lignes ok, on lance alors la mutation uniquement pour les lignes ok
-      const response = await this.actMutationFn({
+      let params = {
+        partyId: this.actCreationPrerequisites.partner.id,
         tempDataUuid: this.tempDataUuid,
-      });
+        customerAccountId: this.actCreationPrerequisites.billingAccount.id,
+        workflowId: this.actCreationPrerequisites.offer.data.id,
+        apnCode: this.actCreationPrerequisites.apn.value,
+      };
+      const response = await this.actMutationFn(params);
       if (response) {
         this.confirmRequest();
       } else {
