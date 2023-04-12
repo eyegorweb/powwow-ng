@@ -162,7 +162,6 @@ export default {
       this.report = undefined;
     },
     validateUploadFileFormat(file) {
-      console.log('validate file format method', file);
       if (fileUtils.checkFormat(file)) {
         this.fileFormatErrors = [
           {
@@ -192,7 +191,6 @@ export default {
         this.actCode,
         this.actCreationPrerequisites.partner.id
       );
-      console.log('upload file method response >>>', response);
       if (response && response.validated && response.tempDataUuid && !response.errors.length) {
         this.tempDataUuid = response.tempDataUuid;
         await this.createReport();
@@ -215,7 +213,6 @@ export default {
         apnCode: this.actCreationPrerequisites.apn.value,
       };
       const response = await this.actMutationFn(params);
-      console.log('create report method', response);
 
       if (response.errors && response.errors.length && !response.tempDataUuid) {
         // failure with request errors
