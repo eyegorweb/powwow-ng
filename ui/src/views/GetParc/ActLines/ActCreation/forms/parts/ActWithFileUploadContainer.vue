@@ -74,7 +74,7 @@
           </div>
           <slot name="bottom"></slot>
         </div>
-        <div class="col-5" :class="{ validationBloc: validationTr }">
+        <div class="col-5" :class="{ validationBlocRightFixed: validationBlocRightFixed }">
           <div class="text-right">
             <button @click="clearForm" class="clear-form">
               {{ $t('cancel') }}
@@ -82,7 +82,7 @@
             </button>
           </div>
           <div>
-            <div v-if="requestExceptionsErrors">
+            <div v-if="requestExceptionsErrors && requestExceptionsErrors.length > 0">
               <h6 class="text-danger">{{ $t('errors.all') }}</h6>
               <ul class="text-danger list-unstyled">
                 <li :key="error.message" v-for="error in requestExceptionsErrors">
@@ -92,12 +92,12 @@
             </div>
 
             <FormReport
-              v-if="report && (haveBusinessErrors || alwaysShowReport)"
+              v-if="report && (haveBusinessErrors || alwaysShowReport) && !requestExceptionsErrors"
               :get-export-fn="getExportFn()"
               :data="report"
             />
             <button
-              v-if="tempDataUuid"
+              v-if="tempDataUuid && !requestExceptionsErrors"
               :disabled="!report.validated"
               @click="confirmRequest(true)"
               class="btn btn-double-validation pl-4 pr-4 pt-2 pb-2"
@@ -144,12 +144,11 @@ export default {
     successMessage: String,
     alwaysShowReport: Boolean,
     ipFixUsage: Boolean,
-    validationTr: Boolean,
+    validationBlocRightFixed: Boolean,
   },
   data() {
     return {
       tempDataUuid: undefined,
-      requestError: undefined,
       requestExceptionsErrors: undefined,
       contextValues: undefined,
       report: undefined,
@@ -215,7 +214,7 @@ export default {
       'setActCreationPrerequisites',
       'setSelectedLinesForActCreation',
     ]),
-    ...mapMutations(['flashMessage', 'setPendingExportsStatus']),
+    ...mapMutations(['flashMessage', 'setPendingExportsStatus', 'confirmAction']),
     onActDateChange(value) {
       this.actDate = value;
     },
@@ -270,6 +269,7 @@ export default {
         ];
       } else {
         this.disableForced = false;
+        this.requestExceptionsErrors = undefined;
       }
     },
 
@@ -367,6 +367,7 @@ export default {
           });
           messages.push(...errorMessages);
         } else {
+          // pas de lignes ko, que des lignes ok, on lance la mutation et on ferme l'acte
           messages.push({ level: 'success', message: this.genericSuccessMessage });
 
           // sortir du mode création acte
@@ -409,7 +410,6 @@ export default {
         };
       }
 
-      this.requestExceptionsErrors = undefined;
       const response = await this.actMutationFn(params);
       if (response.errors) {
         this.requestExceptionsErrors = response.errors;
@@ -439,7 +439,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.validationBloc {
+.validationBlocRightFixed {
   position: absolute;
   right: 0;
   top: 2rem;

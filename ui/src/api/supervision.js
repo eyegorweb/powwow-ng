@@ -188,6 +188,7 @@ export async function fetchLinesForCounter(filters, pagination = { limit: 10, pa
     partyId
     partyName
     ticketGeneration
+    ticketGenerationTranslated
     imsi
     iccid
     locLongitude
@@ -260,6 +261,7 @@ export async function fetchLinesForMarker(
             partyId
             partyName
             ticketGeneration
+            lastTechnology
             imsi
             iccid
             locLongitude

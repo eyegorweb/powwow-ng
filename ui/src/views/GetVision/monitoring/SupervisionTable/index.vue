@@ -11,7 +11,7 @@
       </template>
       <PaginatedDataTable
         storage-id="supervision.table"
-        storage-version="002"
+        storage-version="004"
         :key="version"
         :columns="columns"
         :fetch-data-fn="fetchDataFn()"
@@ -256,7 +256,7 @@ export default {
           label: this.$t('getparc.lineDetail.tab2.lineAnalysisContent.technology'),
           orderable: false,
           visible: false,
-          name: 'technology',
+          name: 'lastTechnology',
         },
         {
           id: '14',

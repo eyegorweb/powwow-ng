@@ -947,7 +947,6 @@ export async function changeMSISDN(params) {
     })
     {
       tempDataUuid
-      validated
       errors{
         key
         number

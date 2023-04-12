@@ -2,6 +2,179 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1378+20230412120939
+2023-04-12
+
+### Fixes
+
+- [3872] correction avec refactorisation de l'acte de gestion Administration radius (d64e8854fc54561861769bfdf67e5d676713fd6d)
+
+## 1.17.0-master.1377+20230412115445
+2023-04-12
+
+### Fixes
+
+- [3872] correction avec refactorisation de l'acte de gestion Administration radius (3ac9f08035576576f1aae93fc965c4680556281a)
+
+## 1.17.0-master.1376+20230412113253
+2023-04-12
+
+### Fixes
+
+- [3872] correction avec refactorisation de l'acte de gestion Administration radius (305348d3dc6cd7ee54a0e8ff112295e46042239b)
+
+## 1.17.0-master.1375+20230412112200
+2023-04-12
+
+### Fixes
+
+- [3872] correction avec refactorisation de l'acte de création Administration radius (e0a47542453a38596100f671ca08462d32032cb4)
+
+## 1.17.0-master.1374+20230412105844
+2023-04-12
+
+### Fixes
+
+- [3872] correction avec refactorisation de l'acte de création Administration radius (54bdddf493b933208775af7c15153dd4b945b595)
+
+## 1.17.0-master.1373+20230412100736
+2023-04-12
+
+### Fixes
+
+- [3872] correction avec refactorisation de l'acte de création Administration radius (f94a02a5ed01c1562831c8a156d1af3009eff8a1)
+
+## 1.17.0-master.1372+20230411143914
+2023-04-11
+
+### Fixes
+
+- [000] hotfix rétablissement de la réinitialisation de la barre de recherche de lignes par ID (55b6081032b980373991e28f7ae2f313f180440c)
+
+## 1.17.0-master.1371+20230411121915
+2023-04-11
+
+### Fixes
+
+- [000] hotfix incrémentation de la table supervision pour afficher la colonne Technologie (3c991dde38b06e8e2e51f40bd61f494ed4cb46a8)
+
+## 1.17.0-master.1370+20230411084244
+2023-04-11
+
+### Fixes
+
+- [3872] correction de quelques anomalies sur l'administration radius et sur les infos des services de la ligne (4a225c215857c4e641180a7074797a75897f36bc)
+
+## 1.17.0-master.1369+20230411075815
+2023-04-11
+
+### Fixes
+
+- [3872] correction de quelques anomalies sur l'administration radius et sur les infos des services de la ligne (70b937815788a0d251b9c89d6e8dc0027f48d7d9)
+
+## 1.17.0-master.1368+20230407103415
+2023-04-07
+
+### Fixes
+
+- [3824] supprimer disable button (7fa3d734c4e23eaf861b561ccb2c7133444ddfce)
+
+## 1.17.0-master.1367+20230406125835
+2023-04-06
+
+### Fixes
+
+- [3872] correction de quelques anomalies sur l'administration radius et sur les infos des services de la ligne (f1052fbb09f781ece444692274f2f92040ab65a8)
+- [3831] corriger affichage, suppression et modification des champs spécifiques (8b809fcd072a71b1d914f3bb80eebe91debc9b46)
+
+## 1.17.0-master.1366+20230406095948
+2023-04-06
+
+### Fixes
+
+- [3872] correction de quelques anomalies sur l'administration radius et sur les infos des services de la ligne (6ea984b0929d7601935ba10d03f8c8133a8e80f6)
+
+## 1.17.0-master.1365+20230406091359
+2023-04-06
+
+### Fixes
+
+- [3872] correction de quelques anomalies sur l'administration radius et sur les infos des services de la ligne (aa98b4aad1165c678f2beb7a51d69d62e89f0b75)
+
+## 1.17.0-master.1364+20230405101721
+2023-04-05
+
+### Fixes
+
+- [3872] correction de quelques anomalies sur l'administration radius et sur les infos des services de la ligne (cabba89dd087135fbf02ccd08ac9e44cc770f198)
+
+## 1.17.0-master.1363+20230405085633
+2023-04-05
+
+### Fixes
+
+- [3858] gestion de l'acte d'appairage esim et correction de l'acte Modification champs libres (a01f997e4b84e54338946a39855e9f646de08305)
+
+## 1.17.0-master.1362+20230405084440
+2023-04-05
+
+### Fixes
+
+- [000] hotfix de la colonne Technologie pour la table de supervision (3c8ff02a04542d50e8cf7f036f3bd5efa7595de9)
+- [000] hotfix de la colonne Technologie pour la table de supervision (46ea9ff61abeafe4210a007e136b8dd3ad9a6099)
+
+## 1.17.0-master.1361+20230405081403
+2023-04-05
+
+### Fixes
+
+- [3872] correction de quelques anomalies sur l'administration radius et sur les infos des services de la ligne (51eafa8e10e27dba072b0fd876936d97eed9b09e)
+
+## 1.17.0-master.1360+20230404151314
+2023-04-04
+
+### Fixes
+
+- [000] masquer le bouton Acquitter les actes en échec (5c13fc254e850cf98f506f90474a597e6af1b188)
+
+## 1.17.0-master.1359+20230404140453
+2023-04-04
+
+### Fixes
+
+- [3872] correction de quelques anomalies sur l'administration radius et sur les infos des services de la ligne (8c59e1584a20104769879aebe79beeb10b1ed5eb)
+
+## 1.17.0-master.1358+20230404133107
+2023-04-04
+
+### Fixes
+
+- [3872] correction de quelques anomalies sur l'administration radius et sur les infos des services de la ligne (dc3c4c2174757a7a96d600790c3b6556d3d2a22f)
+
+## 1.17.0-master.1357+20230404125749
+2023-04-04
+
+### Fixes
+
+- [3872] correction de quelques anomalies sur l'administration radius et sur les infos des services de la ligne (c3b1b840d86b03ea7e06394461a866ee2c9caa2c)
+
+## 1.17.0-master.1356+20230404083301
+2023-04-04
+
+### Fixes
+
+- [3872] correction de quelques anomalies sur l'administration radius et sur les infos des services de la ligne (1ba70353367236e62361da6649e3f4b244da8cb7)
+
+## 1.17.0-master.1355+20230331131508
+2023-03-31
+
+### Fixes
+
+- [3872] correction de quelques anomalies sur l'administration radius et sur les infos des services de la ligne (2a8cea3258022a36c317abc5a2e813be15813819)
+
+## 1.17.0-master.1354+20230327092810
+2023-03-28
+
 ## 1.17.0-master.1353+20230327091935
 2023-03-27
 

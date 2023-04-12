@@ -228,6 +228,7 @@ export default {
               ? response.validationError.tempDataUuid
               : undefined;
           } else {
+            // pas de lignes ko, que des lignes ok, on lance la mutation et on ferme l'acte
             this.onSuccess();
           }
         } else {
@@ -260,6 +261,7 @@ export default {
     },
 
     async doubleConfirm() {
+      // il y a des lignes ko et des lignes ok, on lance alors la mutation uniquement pour les lignes ok
       const response = await this.validateFn({
         actDate: this.actDate,
         notificationCheck: this.notificationCheck,

@@ -53,7 +53,7 @@
       <div
         v-else-if="
           (allFields && allFields.length && !isFileImportContextValid && exceptionError) ||
-          (!allFields.length && !isFileImportContextValid && exceptionError)
+            (!allFields.length && !isFileImportContextValid && exceptionError)
         "
         class="list-unstyled m-0 alert alert-danger"
       >
@@ -371,6 +371,7 @@ export default {
       this.isLoading = true;
       const response = await containerValidationFn();
       this.waitForConfirmation = false;
+      this.isLoading = false;
       return response;
     },
     chekcForErrors() {

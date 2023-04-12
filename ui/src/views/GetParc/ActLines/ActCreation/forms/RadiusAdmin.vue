@@ -1,13 +1,11 @@
 <template>
-  <ActWithFileUploadContainer
+  <ActWithFileUploadRestriction
     :act-mutation-fn="createRadiusAdmin"
     :act-code="actCode"
     always-show-report
-    confirmation-message="confirmAction"
-    ip-fix-usage
-    validation-tr
+    validation-bloc-right-fixed
   >
-    <div slot="action" class="mb-3">
+    <div slot="action" class="mb-3" v-if="toggleValues && toggleValues.length > 0">
       <h6>Action</h6>
       <div class="mb-3">
         <Toggle
@@ -23,19 +21,21 @@
           <span>{{ $t('getparc.actCreation.radius.RADIUS_EMPTY_OPTION') }}</span>
         </div>
       </div>
+      <div v-else class="row">&nbsp;</div>
     </div>
-  </ActWithFileUploadContainer>
+  </ActWithFileUploadRestriction>
 </template>
 
 <script>
-import ActWithFileUploadContainer from './parts/ActWithFileUploadContainer';
+import ActWithFileUploadRestriction from './parts/ActWithFileUploadRestriction';
 import Toggle from '@/components/ui/UiToggle2';
 import UiCheckbox from '@/components/ui/Checkbox';
+import { mapGetters } from 'vuex';
 import { createRadiusAdmin } from '@/api/actCreation';
 
 export default {
   components: {
-    ActWithFileUploadContainer,
+    ActWithFileUploadRestriction,
     Toggle,
     UiCheckbox,
   },
@@ -55,22 +55,31 @@ export default {
     },
   },
   mounted() {
-    this.toggleValues = [
-      {
-        id: 'UPDATE',
-        label: 'getparc.history.actions.UPDATE',
-      },
-      {
+    if (this.havePermission('act', 'radius_administration')) {
+      this.toggleValues = [
+        {
+          id: 'UPDATE',
+          label: 'getparc.history.actions.UPDATE',
+        },
+      ];
+    } else {
+      this.toggleValues = [];
+    }
+    if (this.havePermission('act', 'radius_read')) {
+      this.toggleValues.push({
         id: 'READ',
         label: 'getparc.history.actions.CONSULT',
-      },
-      {
+      });
+    }
+    if (this.havePermission('act', 'radius_synchronize')) {
+      this.toggleValues.push({
         id: 'SYNCHRONIZE',
         label: 'getparc.history.actions.SYNC',
-      },
-    ];
+      });
+    }
   },
   computed: {
+    ...mapGetters(['havePermission']),
     actCode() {
       let code = 'RADIUS';
       if ('READ' === this.currentAction) {
