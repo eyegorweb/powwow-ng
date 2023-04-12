@@ -74,7 +74,7 @@
           </div>
           <slot name="bottom"></slot>
         </div>
-        <div class="col-5" :class="{ validationBloc: validationTr }">
+        <div class="col-5" :class="{ validationBlocRightFixed: validationBlocRightFixed }">
           <div class="text-right">
             <button @click="clearForm" class="clear-form">
               {{ $t('cancel') }}
@@ -144,7 +144,7 @@ export default {
     successMessage: String,
     alwaysShowReport: Boolean,
     ipFixUsage: Boolean,
-    validationTr: Boolean,
+    validationBlocRightFixed: Boolean,
   },
   data() {
     return {
@@ -324,12 +324,10 @@ export default {
         this.contextValues = contextValues;
       }
       this.report = response;
-      if ((this.alwaysShowReport || this.haveBusinessErrors) && this.actCode !== 'RADIUS') {
+      if (this.alwaysShowReport || this.haveBusinessErrors) {
         return { stayInForm: true };
       } else {
-        if (this.actCode !== 'RADIUS') {
-          return await this.confirmRequest();
-        }
+        return await this.confirmRequest();
       }
     },
     haveErrors() {
@@ -353,13 +351,7 @@ export default {
       });
 
       if (!response) {
-        if (this.actCode !== 'RADIUS') {
-          messages.push({ level: 'danger', message: 'genericErrorMessage' });
-        } else {
-          this.showValidationModal = false;
-          this.isLoading = false;
-          return [];
-        }
+        messages.push({ level: 'danger', message: 'genericErrorMessage' });
       }
 
       if (response) {
@@ -375,6 +367,7 @@ export default {
           });
           messages.push(...errorMessages);
         } else {
+          // pas de lignes ko, que des lignes ok, on lance la mutation et on ferme l'acte
           messages.push({ level: 'success', message: this.genericSuccessMessage });
 
           // sortir du mode création acte
@@ -446,7 +439,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.validationBloc {
+.validationBlocRightFixed {
   position: absolute;
   right: 0;
   top: 2rem;

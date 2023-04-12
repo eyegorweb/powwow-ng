@@ -211,6 +211,7 @@ export default {
     },
 
     async validate() {
+      console.log('validate fn');
       const actionFn = async () => {
         this.tempDataUuid = undefined;
         const response = await this.validateFn({
@@ -228,6 +229,7 @@ export default {
               ? response.validationError.tempDataUuid
               : undefined;
           } else {
+            // pas de lignes ko, que des lignes ok, on lance la mutation et on ferme l'acte
             this.onSuccess();
           }
         } else {
@@ -260,6 +262,8 @@ export default {
     },
 
     async doubleConfirm() {
+      // il y a des lignes ko et des lignes ok, on lance alors la mutation uniquement pour les lignes ok
+      console.log('doubleConfirm fn');
       const response = await this.validateFn({
         actDate: this.actDate,
         notificationCheck: this.notificationCheck,
@@ -273,6 +277,7 @@ export default {
     },
 
     onSuccess() {
+      console.log('onSuccess fn');
       const successMessage = this.successMessage
         ? this.$t(this.successMessage)
         : this.$t('genericSuccessMessage');
