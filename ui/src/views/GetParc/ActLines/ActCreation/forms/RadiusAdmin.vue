@@ -1,11 +1,9 @@
 <template>
-  <ActWithFileUploadContainer
+  <ActWithFileUploadRestriction
     :act-mutation-fn="createRadiusAdmin"
     :act-code="actCode"
     always-show-report
-    confirmation-message="confirmAction"
-    ip-fix-usage
-    validation-tr
+    validation-bloc-right-fixed
   >
     <div slot="action" class="mb-3" v-if="toggleValues && toggleValues.length > 0">
       <h6>Action</h6>
@@ -23,12 +21,13 @@
           <span>{{ $t('getparc.actCreation.radius.RADIUS_EMPTY_OPTION') }}</span>
         </div>
       </div>
+      <div v-else class="row">&nbsp;</div>
     </div>
-  </ActWithFileUploadContainer>
+  </ActWithFileUploadRestriction>
 </template>
 
 <script>
-import ActWithFileUploadContainer from './parts/ActWithFileUploadContainer';
+import ActWithFileUploadRestriction from './parts/ActWithFileUploadRestriction';
 import Toggle from '@/components/ui/UiToggle2';
 import UiCheckbox from '@/components/ui/Checkbox';
 import { mapGetters } from 'vuex';
@@ -36,7 +35,7 @@ import { createRadiusAdmin } from '@/api/actCreation';
 
 export default {
   components: {
-    ActWithFileUploadContainer,
+    ActWithFileUploadRestriction,
     Toggle,
     UiCheckbox,
   },
