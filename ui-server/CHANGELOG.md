@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1378+20230412120939
+2023-04-12
+
+### Fixes
+
+- [3872] correction avec refactorisation de l'acte de gestion Administration radius (d64e8854fc54561861769bfdf67e5d676713fd6d)
+
 ## 1.17.0-master.1377+20230412115445
 2023-04-12
 
