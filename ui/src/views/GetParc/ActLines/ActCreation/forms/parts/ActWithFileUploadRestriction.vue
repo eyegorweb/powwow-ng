@@ -83,7 +83,7 @@
             <button
               v-if="report && tempDataUuid && !requestErrors"
               :disabled="!report.validated"
-              @click="confirmRequest(true)"
+              @click="confirmRequest()"
               class="btn btn-double-validation pl-4 pr-4 pt-2 pb-2"
               :class="{
                 'btn-success': report.validated,
@@ -157,7 +157,6 @@ export default {
       this.setSelectedLinesForActCreation([]);
     },
     resetForm() {
-      console.log('reset form method');
       this.tempDataUuid = undefined;
       this.requestErrors = undefined;
       this.report = undefined;
@@ -208,7 +207,6 @@ export default {
       this.isLoading = false;
     },
     async createReport() {
-      console.log('create report method tempdatauuid 1', this.tempDataUuid);
       let params = {
         partyId: this.actCreationPrerequisites.partner.id,
         tempDataUuid: this.tempDataUuid,
@@ -259,10 +257,9 @@ export default {
         this.confirmRequest();
       }
     },
-    confirmRequest(showMessage = false) {
-      if (showMessage) {
-        this.flashMessage({ level: 'success', message: this.$t('genericSuccessMessage') });
-      }
+    confirmRequest() {
+      this.flashMessage({ level: 'success', message: this.$t('genericSuccessMessage') });
+
       // ajouter l'acte à la liste des opérations en cours du module PendingActions
       this.setPendingExportsStatus(true);
 
