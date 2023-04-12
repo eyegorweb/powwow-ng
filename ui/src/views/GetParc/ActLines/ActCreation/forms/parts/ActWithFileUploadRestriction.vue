@@ -83,7 +83,7 @@
             <button
               v-if="report && tempDataUuid && !requestErrors"
               :disabled="!report.validated"
-              @click="confirmRequest()"
+              @click="doubleConfirm()"
               class="btn btn-double-validation pl-4 pr-4 pt-2 pb-2"
               :class="{
                 'btn-success': report.validated,
@@ -270,6 +270,17 @@ export default {
 
       this.resetForm();
       this.setSelectedFileForActCreation(undefined);
+    },
+    async doubleConfirm() {
+      // il y a des lignes ko et des lignes ok, on lance alors la mutation uniquement pour les lignes ok
+      const response = await this.actMutationFn({
+        tempDataUuid: this.tempDataUuid,
+      });
+      if (response) {
+        this.confirmRequest();
+      } else {
+        this.flashMessage({ level: 'danger', message: this.$t('genericErrorMessage') });
+      }
     },
     getExportFn() {
       return async (columnsParam, orderBy, exportFormat) => {
