@@ -520,7 +520,17 @@
     },
     "limitAddress": "Adresse limitée à 35 caractères",
     "existingValue": "Ce nom existe déjà dans la liste de diffusion. Veuillez saisir un titre différent.",
-    "maxlength": "Numéro SIRET limité à 14 chiffres"
+    "maxlength": "Numéro SIRET limité à 14 chiffres",
+    "NotFound": {
+      "CUSTOMER_ACCOUNT_ID": "Aucun workflow trouvé avec l'identifiant donné",
+      "WORKFLOW_ID": "Aucun workflow trouvé avec l'identifiant donné",
+      "APN_CODE": "Aucun apn configuration trouvé avec le code donné",
+      "TEMP_DATA_UUID": "Aucune donnée trouvée avec le uuid donné"
+    },
+    "Required": {
+      "ICCID": "Veuillez saisir l'iccid"
+    },
+    "APN_NOT_FOUND": "Aucun APN trouvé "
   },
   "common": {
     "limitDateError": "Attention la période de recherche ne peut exéder une année",
@@ -1958,10 +1968,16 @@
         "modifyServices": "Modifier les services",
         "cancelModifications": "Annuler les modifications",
         "apn": "APN",
-        "ipAdress": "Adresse IP",
+        "ipAddress": "Adresse IP",
         "version": "Version",
-        "parameter1": "Paramètre 1",
-        "parameter2": "Paramètre 2"
+        "param1": "Paramètre 1",
+        "param2": "Paramètre 2",
+        "dnn": "DNN",
+        "modifyParam": "Modifier",
+        "parameterServiceFormPanel": {
+          "title": "Modifier l'adresse IP Radius",
+          "chooseIp": "Choisir votre adresse ip"
+        }
       }
     },
     "actCreation": {
@@ -2111,6 +2127,8 @@
         "select": "Sélectionner une CoS"
       },
       "report": {
+        "APN_NOT_FOUND": "Aucun APN trouvé ",
+        "APN_CONFIGURATION_INVALID_PARAMETER_FILE": "la valeur d'un ou des plusieurs paramètres est invalide",
         "API_ERROR": "Erreur inconnue. La demande n'a pas pu aboutir.",
         "DATA_EXISTS": "Lignes existantes",
         "DATA_INVALID_FORMAT": "Format invalide",

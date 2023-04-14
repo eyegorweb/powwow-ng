@@ -1,13 +1,15 @@
 <template>
   <ul class="list-unstyled text-danger error">
-    <li v-for="e in data.errors" :key="e.key">{{ $t('getparc.actCreation.report.' + e.key) }}</li>
+    <li v-for="e in errors" :key="e.key">
+      {{ $t('errors.' + e.key + '.' + e.value) }}
+    </li>
   </ul>
 </template>
 
 <script>
 export default {
   props: {
-    data: Object,
+    errors: Array,
   },
 };
 </script>
@@ -15,6 +17,5 @@ export default {
 <style lang="scss" scoped>
 .error {
   margin: 1rem;
-  font-weight: 500 !important;
 }
 </style>

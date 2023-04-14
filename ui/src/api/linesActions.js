@@ -1200,7 +1200,9 @@ export async function fetchLineServices(simCardInstanceId) {
         ipAdress
         parameter1
         parameter2
-
+        radiusOption
+        radiusType
+        type
       }
     }
   }
