@@ -1159,6 +1159,82 @@ export async function createRadiusAdmin(params, action, resetEmptyField) {
   return response.data.radiusAdministration;
 }
 
+export async function createUpdateRadiusAdmin(params) {
+  let {
+    iccid,
+    addressIP,
+    param1,
+    param2,
+    techno,
+    partyId,
+    workflowId,
+    apnCode,
+    customerAccountId,
+  } = params;
+
+  if (param1) {
+    const param1 = ` param1 : "${param1}",`;
+  } else {
+    param1 = ``;
+  }
+
+  if (param2) {
+    param2 = ` param2 : "${param2}",`;
+  } else {
+    param2 = ``;
+  }
+
+  if (addressIP) {
+    addressIP = ` addressIP: "${addressIP}",`;
+  } else {
+    addressIP = ``;
+  }
+
+  const queryStr = `
+mutation{
+  radiusAdministration(
+    input: {
+      iccid : "${iccid}",
+      radiusParamsInput : {
+        ${addressIP}
+        ${param1}
+        ${param2}
+        techno : ${techno}
+      },
+      partyId:${partyId},
+      workflowId:${workflowId},
+      apnCode:"${apnCode}",
+      customerAccountId:${customerAccountId},
+      action:UPDATE,
+      resetEmptyField:true
+      }
+  )
+  {
+    tempDataUuid
+    validated
+    errors {
+      key
+      number
+      message
+    }
+  }
+}
+`;
+
+  const response = await query(queryStr);
+  if (!response || !response.data) {
+    return {
+      errors: ['unknown'],
+    };
+  }
+  if (response.errors) {
+    return {
+      errors: response.errors,
+    };
+  }
+  return response.data.radiusAdministration;
+}
+
 export async function fetchApn(partyId, workflowId) {
   const queryStr = `
   query {

@@ -82,6 +82,10 @@
         :content="payload"
         @setWidth="overridenWidth = $event"
       />
+      <ParameterServicePanel
+        v-if="panelId === 'getparc.lineDetail.parameterServiceFormPanel'"
+        :content="payload"
+      ></ParameterServicePanel>
     </div>
   </SlidePanel>
 </template>
@@ -91,11 +95,13 @@ import SlidePanel from '@/components/SlidePanel';
 import { mapState, mapMutations } from 'vuex';
 
 import UserFormPanel from '@/views/GetAdmin/PartnerDetail/UsersTab/UserFormPanel.vue';
+import ParameterServicePanel from '@/views/GetParc/LineDetail/ParameterServicePanel.vue';
 
 export default {
   components: {
     SlidePanel,
     UserFormPanel,
+    ParameterServicePanel,
     GetSimCreateOrderPanel: () => import('@/views/GetSim/CreateOrder/CreateOrderPanel'),
     CreateDigitalOfferPanel: () => import('@/views/GetSim/DigitalOffer/index.vue'),
     GetSimOrderDetails: () => import('@/views/GetSim/GetSimOrderDetails'),

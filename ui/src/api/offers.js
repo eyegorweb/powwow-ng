@@ -721,6 +721,32 @@ export async function updateYorkCommunity(
   return response.data.updateYorkCommunity;
 }
 
+export async function searchIpAddresses(addressIp, partyId, techno, code, pagination) {
+  const queryStr = `query {
+    ipAddressesAvailable(
+      ipAddressesAvailableFilterInput: {
+        addressIp:"${addressIp}",
+        partyId:${partyId},
+        techno:${techno},
+        code:"${code}" ,
+         pagination : {
+          page:${pagination.page}, limit :${pagination.limit}
+        }
+      }
+    ) {
+      total
+      items
+    }
+  }
+  `;
+  const response = await query(queryStr);
+
+  if (response.errors) {
+    return { errors: response.errors };
+  }
+  return response.data.ipAddressesAvailable;
+}
+
 function formatDateForGql(inDate) {
   if (!inDate) return '';
   const startDate = inDate.replace(/\//g, '-');
