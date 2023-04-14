@@ -2,6 +2,21 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1380+20230414164837
+2023-04-14
+
+### Features
+
+- [3670]  Ajouter la liste des APN / DNN personnalisables dans détails de la ligne (656cb4989474faa1d36741527d07ff755f4e06cd)
+- [3625] Mise en place d'une gestion des services (Matrice des services) en fonction du type d'offre. (bf8ab74c3bc395c86f7f07ba65dd3a9fd29e6333)
+- [3642] detrmination du type adminstration radius (04b77963f7eb5c6519e4cf691cfe1571033af21a)
+
+### Fixes
+
+- [000] Correctif affichage services (1df9b257175e7c032776aa44598f5fc6713f81c5)
+- ajout des tickets 3867, 3875 et 3642 (84c410c0ed3b36f3746793af31c78b9225880fab)
+- [000] merge (24e438de968e0372500dbb762e2f5dd3d0bdc133)
+
 ## 1.17.0-master.1379+20230414092955
 2023-04-14
 
