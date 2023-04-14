@@ -77,6 +77,9 @@ export function getApnServices(services) {
             ipAdress: serviceWithParameter.ipAdress,
             parameter1: serviceWithParameter.parameter1,
             parameter2: serviceWithParameter.parameter2,
+            type: serviceWithParameter.type,
+            radiusOption: serviceWithParameter.radiusOption,
+            radiusType: serviceWithParameter.radiusType,
           };
         });
       return parameters;

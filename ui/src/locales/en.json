@@ -462,7 +462,17 @@
     },
     "maxlength": "SIRET value limited to 14 numbers",
     "limitAddress": "Address limited to 35 characters",
-    "existingValue": "This name already exists in the mailing list. Please enter a different title."
+    "existingValue": "This name already exists in the mailing list. Please enter a different title.",
+    "NotFound": {
+      "CUSTOMER_ACCOUNT_ID": "No workflow found with the given ID",
+      "WORKFLOW_ID": "No workflow found with the given ID",
+      "APN_CODE": "No apn configuration found with given code",
+      "TEMP_DATA_UUID": "No data found with given uuid"
+    },
+    "Required": {
+      "ICCID": "Please enter the iccid"
+    },
+    "APN_NOT_FOUND": "No APN found"
   },
   "common": {
     "emailNotif": "Chronopost delivery tracking",
@@ -1772,12 +1782,18 @@
         "services": "Services",
         "ipAdressFix": "Fixed IP address",
         "apn": "APN",
-        "ipAdress": "IP Adress",
+        "ipAddress": "IP Address",
         "version": "Version",
         "modifyServices": "Modify the services",
         "cancelModifications": "Cancel the modifications",
-        "parameter1": "Parameter 1",
-        "parameter2": "Parameter 2"
+        "param1": "Parameter 1",
+        "param2": "Parameter 2",
+        "dnn": "DNN",
+        "modifyParam": "Modify",
+        "parameterServiceFormPanel": {
+          "title": "Modify Radius IP",
+          "chooseIp": "Choisir votre adresse ip"
+        }
       },
       "testData": "Test data",
       "networkTest": "Network test",
@@ -1937,6 +1953,8 @@
         "confirmationWarning": "Confirm action for {count} line(s) ?"
       },
       "report": {
+        "APN_NOT_FOUND": "No APN found",
+        "APN_CONFIGURATION_INVALID_PARAMETER_FILE": "the value of one or more parameters is invalid",
         "API_ERROR": "Unknown error. The request could not be completed.",
         "DATA_EXISTS": "Existing lines",
         "DATA_INVALID_FORMAT": "Invalid format",
