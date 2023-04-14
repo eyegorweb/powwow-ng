@@ -2652,6 +2652,7 @@
     "choose-type-custom-field": "Choisir le type de champ {label}",
     "mandatory-custom-field": "Champ {label} obligatoire",
     "select-offer-placeholder": "Sélectionner l'offre",
+    "select-profil-placeholder": "Sélectionner le profil",
     "new": {
       "customer": "Client",
       "product": "Produit",

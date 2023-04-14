@@ -155,48 +155,12 @@
     </div>
   </div>
   <div v-else>
-    <div class="displayFlex">
-      <div class="services-container s-container">
-        <div
-          :key="service.code + '_' + index"
-          v-for="(service, index) in servicesOthers"
-          class="single-service"
-        >
-          <UiToggle
-            :label="service.labelService"
-            :editable="isServiceEditable(service)"
-            :bold-label="isChanged(service)"
-            :no-click="noClick"
-            v-model="service.checked"
-            @change="checkServices(service)"
-            @click="onClick(service)"
-            :can-change-fn="
-              (value) => {
-                return canChangeValue(service, value);
-              }
-            "
-          />
-        </div>
-
-        <div v-if="upfService" class="single-service">
-          <UpfServiceToggle
-            :service="upfService"
-            :profile-data="profileData"
-            :bold-label="isChanged(upfService)"
-            vertical
-            :disabled="false"
-            :no-click="noClick"
-            :read-only="false"
-            @change="onUpfServiceChange"
-            @initprofiles="onProfilesChange"
-          />
-        </div>
-      </div>
-      <div class="s-container">
-        <div class="services-container">
+    <div class="row">
+      <div :class="{ 'col-md-8 displayFlex': !fullWidth, 'col-md-12': fullWidth }">
+        <div class="services-container s-container">
           <div
             :key="service.code + '_' + index"
-            v-for="(service, index) in servicesData"
+            v-for="(service, index) in servicesOthers"
             class="single-service"
           >
             <UiToggle
@@ -214,24 +178,62 @@
               "
             />
           </div>
+
+          <div v-if="upfService" class="single-service">
+            <UpfServiceToggle
+              :service="upfService"
+              :profile-data="profileData"
+              :bold-label="isChanged(upfService)"
+              vertical
+              :disabled="false"
+              :no-click="noClick"
+              :read-only="false"
+              @change="onUpfServiceChange"
+              @initprofiles="onProfilesChange"
+            />
+          </div>
         </div>
-        <div v-if="dataService" class="services-container mt-3">
-          <DataServiceToggle
-            :service="dataService"
-            :bold-label="isChanged(dataService)"
-            vertical
-            :data-params-needed="dataParamsNeeded"
-            @change="onDataServiceChange"
-            @apnChange="onApnChange"
-            :disabled="noClick"
-            :no-click="noClick"
-            :read-only="readOnly"
-            :can-change-fn="
-              (value) => {
-                return canChangeValue(dataService, value);
-              }
-            "
-          />
+        <div class="s-container">
+          <div class="services-container">
+            <div
+              :key="service.code + '_' + index"
+              v-for="(service, index) in servicesData"
+              class="single-service"
+            >
+              <UiToggle
+                :label="service.labelService"
+                :editable="isServiceEditable(service)"
+                :bold-label="isChanged(service)"
+                :no-click="noClick"
+                v-model="service.checked"
+                @change="checkServices(service)"
+                @click="onClick(service)"
+                :can-change-fn="
+                  (value) => {
+                    return canChangeValue(service, value);
+                  }
+                "
+              />
+            </div>
+          </div>
+          <div v-if="dataService" class="services-container mt-3">
+            <DataServiceToggle
+              :service="dataService"
+              :bold-label="isChanged(dataService)"
+              vertical
+              :data-params-needed="dataParamsNeeded"
+              @change="onDataServiceChange"
+              @apnChange="onApnChange"
+              :disabled="noClick"
+              :no-click="noClick"
+              :read-only="readOnly"
+              :can-change-fn="
+                (value) => {
+                  return canChangeValue(dataService, value);
+                }
+              "
+            />
+          </div>
         </div>
       </div>
     </div>

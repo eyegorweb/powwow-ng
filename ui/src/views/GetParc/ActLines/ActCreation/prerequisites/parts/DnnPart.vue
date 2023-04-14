@@ -23,7 +23,7 @@ export default {
   props: {
     offer: Object,
     partner: Object,
-    dnn : Object,
+    dnn: Object,
     profileData: Object,
   },
 
@@ -58,11 +58,9 @@ export default {
       if (!this.profileData) return;
       const partyId = this.$loGet(this.partner, 'id');
       const workflowId = this.$loGet(this.offer, 'data.id');
-      console.info("this.profileData"+this.profileData);
       const profileDataId = this.$loGet(this.profileData, 'meta.name');
       const techno = 'DNN';
-      const data = await fetchApn(partyId, workflowId,techno);
-      console.info("this.profileData"+this.profileData);
+      const data = await fetchApn(partyId, workflowId, techno);
       if (data) {
         this.dnns = data.profilesData.filter((s) => s.name === profileDataId);
         this.options = this.dnns[0].dnns.map((o) => ({
@@ -90,9 +88,8 @@ export default {
 
   mounted() {
     this.refreshList();
-   },
+  },
 };
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

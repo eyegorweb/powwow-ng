@@ -30,42 +30,42 @@
       </div>
       <div class="col">
         <div>
-        <template v-if="apnExists">
-          <h5>{{ $t('APN') }}</h5>
-          <ApnPart
-            :disabled="!selectedOffer || (selectedOffer && !selectedOffer.label)"
-            :offer="selectedOffer"
-            :partner="selectedPartner"
-            @update:value="selectApn"
-            :apn.sync="selectedApn"
-          />
-        </template>
-        <template v-if="!apnExists">
-          <h5>{{ $t('Profile Data') }}</h5>
-          <ProfileData
-            :disabled="!selectedOffer || (selectedOffer && !selectedOffer.label)"
-            :offer="selectedOffer"
-            :partner="selectedPartner"
-            @update:value="selectProfileData"
-            :profileData.sync="selectedProfileData"
-          />
-        </template>
+          <template v-if="apnExists">
+            <h5>{{ $t('APN') }}</h5>
+            <ApnPart
+              :disabled="!selectedOffer || (selectedOffer && !selectedOffer.label)"
+              :offer="selectedOffer"
+              :partner="selectedPartner"
+              @update:value="selectApn"
+              :apn.sync="selectedApn"
+            />
+          </template>
+          <template v-if="!apnExists">
+            <h5>{{ $t('Profile Data') }}</h5>
+            <ProfileData
+              :disabled="!selectedOffer || (selectedOffer && !selectedOffer.label)"
+              :offer="selectedOffer"
+              :partner="selectedPartner"
+              @update:value="selectProfileData"
+              :profile-data.sync="selectedProfileData"
+            />
+          </template>
         </div>
       </div>
 
       <div class="col">
         <div>
           <template v-if="!apnExists">
-          <h5>{{ $t('DNN') }}</h5>
-          <DnnPart
-            :disabled="!selectedOffer || (selectedOffer && !selectedOffer.label)"
-            :offer="selectedOffer"
-            :partner="selectedPartner"
-            :profileData="selectedProfileData"
-            @update:value="selectDnn"
-            :dnn.sync="selectedDnn"
-          />
-        </template>
+            <h5>{{ $t('DNN') }}</h5>
+            <DnnPart
+              :disabled="!selectedOffer || (selectedOffer && !selectedOffer.label)"
+              :offer="selectedOffer"
+              :partner="selectedPartner"
+              :profile-data="selectedProfileData"
+              @update:value="selectDnn"
+              :dnn.sync="selectedDnn"
+            />
+          </template>
         </div>
       </div>
     </div>
@@ -101,6 +101,7 @@ export default {
       selectedProfileData: undefined,
       selectedDnn: undefined,
       offerData: null,
+      apnExists: null,
       chosenBillingAccount: null,
       offers: [],
     };
@@ -111,7 +112,6 @@ export default {
       default: undefined,
     },
     allOffers: Boolean,
-    apnExists: Boolean,
     partnerFeature: String,
   },
   watch: {
@@ -123,10 +123,15 @@ export default {
     },
   },
   computed: {
-
     canValidate() {
-      return (this.apnExists && !this.isPartnerEmpty && !!this.offerData && !!this.selectedApn) ||
-      (!this.apnExists &&  !this.isPartnerEmpty && !!this.offerData && !!this.selectedProfileData && !!this.selectedDnn) ;
+      return (
+        (this.apnExists && !this.isPartnerEmpty && !!this.offerData && !!this.selectedApn) ||
+        (!this.apnExists &&
+          !this.isPartnerEmpty &&
+          !!this.offerData &&
+          !!this.selectedProfileData &&
+          !!this.selectedDnn)
+      );
     },
     isPartnerEmpty() {
       return !get(this.selectedPartner, 'id');
@@ -141,14 +146,14 @@ export default {
           this.offerData = undefined;
         } else {
           this.offerData = offer;
-          if (this.listTechno.includes('APN') && this.offerData.data.initialOffer.offerCategory === "UPF"){
+          if (
+            this.listTechno.includes('APN') &&
+            this.offerData.data.initialOffer.offerCategory === 'UPF'
+          ) {
             this.apnExists = false;
-          }
-          else if (!this.listTechno.includes('APN')){
+          } else if (!this.listTechno.includes('APN')) {
             this.apnExists = false;
-          }
-          else
-          this.apnExists = true;
+          } else this.apnExists = true;
         }
       },
     },
@@ -167,13 +172,12 @@ export default {
       this.selectedOffer = undefined;
     },
 
-
     async radiusAdministrationTypes() {
       const data = await fetchRadiusAdministrationTypes(this.selectedPartner.id);
       if (data) {
-         this.listTechno = data;
-        }
-      },
+        this.listTechno = data;
+      }
+    },
 
     setBillingAccount(billingAccount) {
       this.chosenBillingAccount = billingAccount;
@@ -208,5 +212,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

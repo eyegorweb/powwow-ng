@@ -12,10 +12,10 @@
         />
       </div>
       <div>
-        <div v-if="profiles && profiles.length" class="m-2">
+        <div v-if="profiles && profiles.length" class="mt-2">
           <UiSelect
             v-model="chosenProfile"
-            :placeholder="$t('orders.select-offer-placeholder')"
+            :placeholder="$t('orders.select-profil-placeholder')"
             :options="profiles"
             :arrow-blue="true"
             block
@@ -145,7 +145,8 @@ export default {
   }
 }
 .single-service {
-  max-width: 220px;
+  width: 100%;
+  min-width: 250px;
 }
 .scontainer {
   display: flex;
