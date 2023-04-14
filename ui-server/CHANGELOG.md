@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1379+20230414092955
+2023-04-14
+
+### Features
+
+- [3671] modifier les données radius depuis le détail de la ligne (79a1638a7feea60f07b42af799d3873a4afac2aa)
+
 ## 1.17.0-master.1378+20230412120939
 2023-04-12
 
