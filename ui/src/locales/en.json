@@ -23,7 +23,7 @@
   "voice": "Voice",
   "readMore": "Read more",
   "needDefaultValue": "Please choose a value",
-  "chooseAPartner": "Choose a partner",
+  "chooseAPartner": "Partner",
   "numberPerPage": "Nb per page",
   "partnerType": "Partner type",
   "partnerAlarm": "Alarm type",
@@ -1794,6 +1794,12 @@
           "title": "Modify Radius IP",
           "chooseIp": "Choisir votre adresse ip"
         }
+=======
+        "parameter1": "Parameter 1",
+        "parameter2": "Parameter 2",
+        "dnn": "DNN",
+        "modifyParam": "Modify"
+>>>>>>> evol_upf_recovery2
       },
       "testData": "Test data",
       "networkTest": "Network test",
@@ -2086,7 +2092,7 @@
       "selected": "{total} selected line (s)",
       "total": "{total} line (s) found",
       "export": "Export {total} line (s)",
-      "step1Partner": "Select a partner",
+      "step1Partner": "Partner",
       "partnerTarget": "Select a target partner",
       "billingAccount": "Select a billing account",
       "billingAccountTarget": "Select a target billing account",

@@ -72,6 +72,7 @@ export async function fetchOffers2(filters, pagination, sorting) {
         workflowDescription
         ${rCardGqlParam}
         initialOffer {
+          offerCategory
           id
           code
           description
@@ -199,6 +200,7 @@ export async function fetchOffers(
         ${rCardGqlParam}
         ${partyEnabledParam}
         initialOffer {
+          offerCategory
           id
           code
           description
@@ -611,6 +613,7 @@ export async function fetchODOffers(partyId, offer) {
           topUpDiscount
         }
         initialOffer {
+          offerCategory
           code
           id
         }

@@ -43,8 +43,10 @@
           :initial-services="initialServices"
           :offer="selectedOffer"
           :data-params-needed="isDataParamsError"
+          full-width
           vertical
           @servicechange="onServiceChange"
+          @updateProfileData="onUpdateProfileData"
         />
       </div>
 
@@ -90,7 +92,7 @@ export default {
       return this.actCreationPrerequisites.offer.data.id;
     },
     canSend() {
-      if (this.selectedOffer && this.selectedOffer.id) return true;
+      if (this.selectedOffer && this.selectedOffer.id && !this.upfProfileDataNeeded) return true;
       return false;
     },
     canChangeDate() {
@@ -176,6 +178,7 @@ export default {
       isDataParamsError: false,
       partnerType: undefined,
       exceptionError: undefined,
+      upfProfileDataNeeded: false,
     };
   },
 
@@ -191,6 +194,7 @@ export default {
       if (selectedOffer && selectedOffer.data) {
         this.offerServices = getMarketingOfferServices(selectedOffer.data.initialOffer);
         this.initialServices = cloneDeep(this.offerServices);
+        this.upfProfileDataNeeded = false; // default value
       }
     },
   },
@@ -198,7 +202,20 @@ export default {
   methods: {
     onServiceChange(servicesChoice) {
       this.servicesChoice = servicesChoice;
-      this.offerServices = [...servicesChoice.services, servicesChoice.dataService];
+      if (servicesChoice.dataService) {
+        this.offerServices = [...servicesChoice.services, servicesChoice.dataService];
+      } else if (servicesChoice.upfService) {
+        this.offerServices = [...servicesChoice.services, servicesChoice.upfService];
+      } else {
+        this.offerServices = [...servicesChoice.services];
+      }
+    },
+    onUpdateProfileData(payload) {
+      if (payload) {
+        this.upfProfileDataNeeded = false;
+      } else {
+        this.upfProfileDataNeeded = true;
+      }
     },
     onActDateChange(value) {
       this.actDate = value;

@@ -454,6 +454,7 @@ export async function createOrder(synthesis) {
     gqlServicesParamGql = formatServicesForGQL({
       data: get(synthesis, 'services.value.servicesChoice.dataService'),
       services: get(synthesis, 'services.value.servicesChoice.services'),
+      upf: get(synthesis, 'services.value.servicesChoice.upfService'),
     });
   }
 

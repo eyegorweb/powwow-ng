@@ -41,6 +41,7 @@
                       :roaming-extended-on-offer="isRoamingExtended"
                       @servicechange="onDataServiceChange"
                       @communityChange="onCommunityChange"
+                      @updateProfileData="onUpdateProfileData"
                     />
                   </LoaderContainer>
                 </div>
@@ -118,8 +119,42 @@
                         <th>{{ $t('getparc.lineDetail.tabServices.dnn') }}</th>
                         <th>{{ $t('getparc.lineDetail.tabServices.ipAddress') }}</th>
                         <th>{{ $t('getparc.lineDetail.tabServices.version') }}</th>
-                        <th>{{ $t('getparc.lineDetail.tabServices.param1') }}</th>
-                        <th>{{ $t('getparc.lineDetail.tabServices.param2') }}</th>
+                        <th>{{ $t('getparc.lineDetail.tabServices.parameter1') }}</th>
+                        <th>{{ $t('getparc.lineDetail.tabServices.parameter2') }}</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr v-for="param in apnParams" :key="param.code">
+                        <td>{{ $loGet(param, 'name', '-') }}</td>
+                        <td>{{ $loGet(param, 'ipAdress', '-') }}</td>
+                        <td>{{ $loGet(param, 'version', '-') }}</td>
+                        <td>{{ $loGet(param, 'parameter1', '-') }}</td>
+                        <td>{{ $loGet(param, 'parameter2', '-') }}</td>
+                        <td>
+                          <UiButton
+                            variant="link"
+                            @click="modifyParam(param)"
+                            :class="{ 'mx-auto': true }"
+                          >
+                            <span class="btn-label">
+                              {{ $t('getparc.lineDetail.tabServices.modifyParam') }}
+                            </span>
+                          </UiButton>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="col-md-12" v-if="canShowDNN">
+                  <table class="table table-blue mt-1 small-text">
+                    <thead>
+                      <tr>
+                        <th>{{ $t('getparc.lineDetail.tabServices.dnn') }}</th>
+                        <th>{{ $t('getparc.lineDetail.tabServices.ipAdress') }}</th>
+                        <th>{{ $t('getparc.lineDetail.tabServices.version') }}</th>
+                        <th>{{ $t('getparc.lineDetail.tabServices.parameter1') }}</th>
+                        <th>{{ $t('getparc.lineDetail.tabServices.parameter2') }}</th>
                         <th></th>
                       </tr>
                     </thead>
@@ -133,7 +168,7 @@
                         <td>
                           <UiButton
                             variant="link"
-                            @click="modifyParam(param)"
+                            @click="modifyParam()"
                             :class="{ 'mx-auto': true }"
                           >
                             <span class="btn-label">
@@ -218,6 +253,7 @@ export default {
       componentInitialized: false,
       dataService: undefined,
       isIpFixeEnable: false,
+      upfProfileDataChange: false,
     };
   },
   async mounted() {
@@ -302,7 +338,8 @@ export default {
         (servicesToEnable && servicesToEnable.length) ||
         (servicesToDisable && servicesToDisable.length) ||
         (dataParams && dataParams.length) ||
-        dataChanged
+        dataChanged ||
+        this.upfProfileDataChange
       );
     },
 
@@ -318,6 +355,11 @@ export default {
       } = this.changes;
 
       if (this.isDataParamsError) return;
+
+      let upfService = undefined;
+      if (this.upfProfileDataChange) {
+        upfService = this.services.find((s) => s.type === 'UPF');
+      }
 
       const actionFn = async () => {
         this.savingChanges = true;
@@ -340,6 +382,7 @@ export default {
           dataService,
           offerCode,
           newCommunityChange: this.newCommunityChange ? this.newCommunityChange : undefined,
+          upfService,
         });
 
         if (response && response.errors && response.errors.length) {
@@ -395,7 +438,23 @@ export default {
         this.dataCheck = false;
       }
 
-      this.services = [...selectedServices.services, selectedServices.dataService];
+      if (selectedServices.upfService) {
+        this.services = [...selectedServices.services, selectedServices.upfService];
+      } else {
+        this.services = [...selectedServices.services, selectedServices.dataService];
+      }
+    },
+    onUpdateProfileData(payload) {
+      let canModify;
+      if (payload) {
+        canModify = true;
+        if (payload.initialProfilCode && payload.initialProfilCode === payload.code) {
+          canModify = false;
+        }
+      } else {
+        canModify = false;
+      }
+      this.upfProfileDataChange = canModify;
     },
 
     isDataParamChanged() {
@@ -469,11 +528,12 @@ export default {
     },
 
     canShowParameters() {
-      console.log('this.paramServices[0]', this.paramServices[0]);
-      console.log('this.paramServices[0][0]', this.paramServices[0][0]);
-
       return (
-        this.paramServices && this.paramServices.length && (this.canShowAPN || this.canShowDNN)
+        this.paramServices &&
+        this.paramServices.length &&
+        this.paramServices &&
+        this.paramServices[0] &&
+        this.paramServices[0][0]
       );
     },
     canShowAPN() {

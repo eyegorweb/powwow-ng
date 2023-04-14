@@ -1977,7 +1977,9 @@
         "parameterServiceFormPanel": {
           "title": "Modifier l'adresse IP Radius",
           "chooseIp": "Choisir votre adresse ip"
-        }
+        },
+        "parameter1": "Paramètre 1",
+        "parameter2": "Paramètre 2"
       }
     },
     "actCreation": {
@@ -2272,7 +2274,7 @@
       "selected": "{total} ligne(s) sélectionnée(s)",
       "total": "{total} ligne(s) trouvée(s)",
       "export": "Exporter {total} ligne(s)",
-      "step1Partner": "Sélectionner un partenaire",
+      "step1Partner": "Partenaire",
       "partnerTarget": "Sélectionner un partenaire cible",
       "billingAccount": "Sélectionner un compte de facturation",
       "billingAccountTarget": "Sélectionner un compte de facturation cible",
@@ -2668,6 +2670,7 @@
     "choose-type-custom-field": "Choisir le type de champ {label}",
     "mandatory-custom-field": "Champ {label} obligatoire",
     "select-offer-placeholder": "Sélectionner l'offre",
+    "select-profil-placeholder": "Sélectionner le profil",
     "new": {
       "customer": "Client",
       "product": "Produit",
