@@ -145,8 +145,7 @@ export default {
   }
 }
 .single-service {
-  width: 100%;
-  min-width: 250px;
+  width: 160%;
 }
 .scontainer {
   display: flex;
