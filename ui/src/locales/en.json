@@ -1794,12 +1794,6 @@
           "title": "Modify Radius IP",
           "chooseIp": "Choisir votre adresse ip"
         }
-=======
-        "parameter1": "Parameter 1",
-        "parameter2": "Parameter 2",
-        "dnn": "DNN",
-        "modifyParam": "Modify"
->>>>>>> evol_upf_recovery2
       },
       "testData": "Test data",
       "networkTest": "Network test",
