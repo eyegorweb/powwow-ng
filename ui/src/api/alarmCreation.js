@@ -219,8 +219,8 @@ async function consoQuery(queryName, params) {
     if (params.formData.voiceIn) {
       alarmLevels.push(`level3Down: ${secToMin(params.formData.voiceIn)}`);
     }
-    if (params.formData.VoiceOut) {
-      alarmLevels.push(`level3Up: ${secToMin(params.formData.VoiceOut)}`);
+    if (params.formData.voiceOut) {
+      alarmLevels.push(`level3Up: ${secToMin(params.formData.voiceOut)}`);
     }
     alarmLevels.push(`observationCycle: ${params.formData.period}`);
 

@@ -202,8 +202,8 @@ function addLevels(params, gqlParams) {
     if (params.formData.voiceIn) {
       alarmLevels.push(`level3Down: ${secToMin(params.formData.voiceIn)}`);
     }
-    if (params.formData.VoiceOut) {
-      alarmLevels.push(`level3Up: ${secToMin(params.formData.VoiceOut)}`);
+    if (params.formData.voiceOut) {
+      alarmLevels.push(`level3Up: ${secToMin(params.formData.voiceOut)}`);
     }
     if (params.streamId) {
       gqlParams.push(`streamId:${params.streamId}`);
