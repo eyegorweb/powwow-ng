@@ -1,7 +1,7 @@
 <template>
   <div class="flex">
     <div class="serviceBox">
-      <div class="serviceBox-title">
+      <div v-if="offerServices.length > 0" class="serviceBox-title">
         <span class="font-weight-bold mt-4 mb-4">{{ activatedTitleName }}</span>
       </div>
       <MultiSelectServices
