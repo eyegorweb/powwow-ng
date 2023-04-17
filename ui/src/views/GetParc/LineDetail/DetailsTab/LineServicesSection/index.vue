@@ -300,7 +300,8 @@ export default {
       });
     },
     setup() {
-      const dataService = this.services.find((s) => s.code === 'DATA');
+      const services = cloneDeep(this.services);
+      const dataService = services.find((s) => s.code === 'DATA');
       if (dataService) {
         this.dataService = { ...dataService };
       }

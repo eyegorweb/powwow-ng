@@ -1,16 +1,20 @@
 <template>
   <div class="flex">
-    <MultiSelectServices
-      :items="offerServices"
-      :default-selected-items.sync="selectedServices"
-      :selected-color="selectedColor"
-      :disabled-items="itemsToDisable"
-    />
+    <div class="serviceBox">
+      <div class="serviceBox-title">
+        <span class="font-weight-bold mt-4 mb-4">{{ activatedTitleName }}</span>
+      </div>
+      <MultiSelectServices
+        :items="offerServices"
+        :default-selected-items.sync="selectedServices"
+        :selected-color="selectedColor"
+        :disabled-items="itemsToDisable"
+      />
+    </div>
   </div>
 </template>
 
 <script>
-// import get from 'lodash.get';
 import MultiSelectServices from './MultiSelectServices';
 import { getMarketingOfferServices } from '@/components/Services/utils.js';
 import { mapMutations } from 'vuex';
@@ -653,6 +657,11 @@ export default {
       //   this.$emit('update:itemsToDisable', newValues);
       // },
     },
+    activatedTitleName() {
+      return this.activated
+        ? this.$t('getparc.actCreation.changeService.servicesToEnable')
+        : this.$t('getparc.actCreation.changeService.servicesToDisable');
+    },
   },
 };
 </script>
@@ -660,5 +669,13 @@ export default {
 <style lang="scss" scoped>
 .flex {
   display: flex;
+
+  .serviceBox {
+    margin-right: 20px;
+
+    &-title {
+      margin-bottom: 10px;
+    }
+  }
 }
 </style>
