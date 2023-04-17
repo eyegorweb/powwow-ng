@@ -2449,7 +2449,7 @@
     "input-label-custom-field": "Name the title of the field {label}",
     "choose-type-custom-field": "Choose the type of control {label}",
     "mandatory-custom-field": "Field {label} mandatory",
-    "select-offer-placeholder": "Select the offer",
+    "select-profil-placeholder": "Select profil",
     "new": {
       "customer": "Customer",
       "product": "Product",
