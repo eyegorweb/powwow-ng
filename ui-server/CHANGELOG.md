@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1381+20230417080222
+2023-04-17
+
+### Fixes
+
+- [000] hotfix correction erreur javascript fichier en.json (5257b403fcadc3063f6ad71c0d7521a64c751881)
+
 ## 1.17.0-master.1380+20230414164837
 2023-04-14
 
