@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1384+20230417112722
+2023-04-17
+
+### Fixes
+
+- [3885] corriger detail alarme (736bd44c6b47d19ebf919c29efb03a7350044c16)
+- [3878] desactiver champsSpecific pour utilisateur Partenaire (1a4babcb28bd60a55c4cc1fca8de017a5af7dd8f)
+
 ## 1.17.0-master.1383+20230417094558
 2023-04-17
 
