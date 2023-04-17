@@ -1,4 +1,4 @@
-@<template>
+<template>
   <div class="mt-4">
     <div class="row mb-4">
       <div class="col-md-9">
@@ -92,9 +92,9 @@
             num="1"
             v-if="
               creationMode &&
-                actCreationPrerequisites &&
-                !actToCreate.containFile &&
-                !useFileImportAsInput
+              actCreationPrerequisites &&
+              !actToCreate.containFile &&
+              !useFileImportAsInput
             "
             title="getparc.actLines.step1Title"
             :color="actToCreate.color"
@@ -424,6 +424,14 @@ export default {
     });
   },
   async mounted() {
+    if (this.userIsPartner) {
+      this.toggleCustomFieldsValues
+        .filter((cf) => cf.id === 'SpecificFields')
+        .map((found) => {
+          found.disabled = true;
+        });
+    }
+
     this.setupIndicators();
     this.setActToCreate(null);
     this.fetchPartnerOptions();
@@ -821,6 +829,7 @@ export default {
   font-size: 16px;
   font-weight: bold;
 }
+
 .dropZone {
   margin-bottom: 3rem;
 }
