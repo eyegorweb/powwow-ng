@@ -661,6 +661,8 @@ export async function changeService(filters, lines, params) {
 
     if (codesToaddToGqlQuery && codesToaddToGqlQuery.length) {
       changeServicesParamsGql = `changeServices: [${codesToaddToGqlQuery.join(',')}]`;
+    } else {
+      changeServicesParamsGql = `changeServices: []`;
     }
 
     const queryStr = `
@@ -673,7 +675,8 @@ export async function changeService(filters, lines, params) {
           notification: ${boolStr(notifEmail)},
           dueDate: "${dueDate}",
           offerCode: "${offerCode}"
-          ${gqlTempDataUuid}${changeServicesParamsGql}
+          ${gqlTempDataUuid}
+          ${changeServicesParamsGql}
         })
         {
           tempDataUuid

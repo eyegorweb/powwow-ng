@@ -5,25 +5,25 @@
     :prevent-send="!canSend"
   >
     <div class="flex">
-      <div class="serviceBox">
+      <!-- <div class="serviceBox">
         <div class="serviceBox-title">
           <span class="font-weight-bold mt-4 mb-4">{{
             $t('getparc.actCreation.changeService.servicesToEnable')
           }}</span>
-        </div>
-        <ServicesChoice
-          :offer="selectedOffer"
-          :selected-items.sync="servicesToEnable"
-          :items-to-disable="servicesToDisable"
-          :activated="true"
-        />
-      </div>
+        </div> -->
+      <ServicesChoice
+        :offer="selectedOffer"
+        :selected-items.sync="servicesToEnable"
+        :items-to-disable="servicesToDisable"
+        :activated="true"
+      />
+      <!-- </div> -->
       <div class="serviceBox">
-        <div class="serviceBox-title">
+        <!-- <div class="serviceBox-title">
           <span class="font-weight-bold mt-4 mb-4">{{
             $t('getparc.actCreation.changeService.servicesToDisable')
           }}</span>
-        </div>
+        </div> -->
         <ServicesChoice
           :offer="selectedOffer"
           :selected-items.sync="servicesToDisable"
@@ -63,7 +63,7 @@
         </div>
       </div>
     </div>
-    <div class="row">
+    <div class="row" v-if="showDataService">
       <div class="col d-flex">
         <UiCheckbox v-model="shouldChangeData" :disabled="isDisabled" />
         <span>{{ $t('getparc.actCreation.changeService.shouldChangeData') }}</span>
@@ -117,6 +117,7 @@ export default {
       isDataParamsError: false,
       exceptionError: undefined,
       isDisabled: false,
+      showDataService: false,
     };
   },
   computed: {
@@ -156,6 +157,7 @@ export default {
       return s.code === 'DATA';
     });
     this.isDisabled = this.dataService && !this.dataService.editable;
+    this.showDataService = this.dataService && this.dataService.editable;
   },
   methods: {
     checkErrors() {
@@ -242,13 +244,13 @@ export default {
 .flex {
   display: flex;
 
-  .serviceBox {
-    margin-right: 20px;
+  // .serviceBox {
+  //   margin-right: 20px;
 
-    &-title {
-      margin-bottom: 10px;
-    }
-  }
+  //   &-title {
+  //     margin-bottom: 10px;
+  //   }
+  // }
 }
 .services {
   width: 60%;
