@@ -117,40 +117,6 @@
                     <thead>
                       <tr>
                         <th>{{ $t('getparc.lineDetail.tabServices.dnn') }}</th>
-                        <th>{{ $t('getparc.lineDetail.tabServices.ipAddress') }}</th>
-                        <th>{{ $t('getparc.lineDetail.tabServices.version') }}</th>
-                        <th>{{ $t('getparc.lineDetail.tabServices.parameter1') }}</th>
-                        <th>{{ $t('getparc.lineDetail.tabServices.parameter2') }}</th>
-                        <th></th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr v-for="param in apnParams" :key="param.code">
-                        <td>{{ $loGet(param, 'name', '-') }}</td>
-                        <td>{{ $loGet(param, 'ipAdress', '-') }}</td>
-                        <td>{{ $loGet(param, 'version', '-') }}</td>
-                        <td>{{ $loGet(param, 'parameter1', '-') }}</td>
-                        <td>{{ $loGet(param, 'parameter2', '-') }}</td>
-                        <td>
-                          <UiButton
-                            variant="link"
-                            @click="modifyParam(param)"
-                            :class="{ 'mx-auto': true }"
-                          >
-                            <span class="btn-label">
-                              {{ $t('getparc.lineDetail.tabServices.modifyParam') }}
-                            </span>
-                          </UiButton>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-                <div class="col-md-12" v-if="canShowDNN">
-                  <table class="table table-blue mt-1 small-text">
-                    <thead>
-                      <tr>
-                        <th>{{ $t('getparc.lineDetail.tabServices.dnn') }}</th>
                         <th>{{ $t('getparc.lineDetail.tabServices.ipAdress') }}</th>
                         <th>{{ $t('getparc.lineDetail.tabServices.version') }}</th>
                         <th>{{ $t('getparc.lineDetail.tabServices.parameter1') }}</th>
