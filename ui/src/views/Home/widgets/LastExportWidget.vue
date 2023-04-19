@@ -28,7 +28,7 @@
 <script>
 import WidgetBloc from './WidgetBloc';
 import { fetchAllDocuments } from '@/api/documents';
-import { mapMutations } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 import { getBaseURL } from '@/utils.js';
 import { truncateLabel } from '@/utils';
 
@@ -54,6 +54,10 @@ export default {
     this.reports = await fetchAllDocuments(this.orderBy, { page: 0, limit: 5 });
   },
 
+  computed: {
+    ...mapGetters(['userIsM2MLight']),
+  },
+
   methods: {
     ...mapMutations(['startDownload']),
 
@@ -62,7 +66,11 @@ export default {
     },
 
     onSeeMore() {
-      this.$pushAnalytics({ event: 'm2m.seeMore', widget: 'Derniers exports' });
+      if (this.userIsM2MLight) {
+        this.$pushAnalytics({ event: 'm2m.seeMore', widget: 'Derniers exports - OD' });
+      } else {
+        this.$pushAnalytics({ event: 'm2m.seeMore', widget: 'Derniers exports' });
+      }
       this.$router
         .push({
           name: 'documents',

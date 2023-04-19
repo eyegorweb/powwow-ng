@@ -61,7 +61,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['userIsPartner', 'appIsReady']),
+    ...mapGetters(['userIsPartner', 'appIsReady', 'userIsM2MLight']),
     noResults() {
       return this.indicators && !this.indicators.length ? true : false;
     },
@@ -98,7 +98,11 @@ export default {
       }
     },
     onSeeMore() {
-      this.$pushAnalytics({ event: 'm2m.seeMore', widget: 'Top 5 des alarmes déclenchées' });
+      if (this.userIsM2MLight) {
+        this.$pushAnalytics({ event: 'm2m.seeMore', widget: 'Top 5 des alarmes déclenchées - OD' });
+      } else {
+        this.$pushAnalytics({ event: 'm2m.seeMore', widget: 'Top 5 des alarmes déclenchées' });
+      }
       this.$router
         .push({
           name: 'alarms',

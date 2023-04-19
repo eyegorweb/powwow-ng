@@ -117,7 +117,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['havePermission']),
+    ...mapGetters(['havePermission', 'userIsM2MLight']),
   },
 
   methods: {
@@ -125,7 +125,12 @@ export default {
       this.coachData = undefined;
     },
     async startDiagnosis(line) {
-      this.$pushAnalytics({ event: 'm2m.search', widget: 'Coach M2M' });
+      if (this.userIsM2MLight) {
+        this.$pushAnalytics({ event: 'm2m.search', widget: 'Coach M2M - OD' });
+      } else {
+        this.$pushAnalytics({ event: 'm2m.search', widget: 'Coach M2M' });
+      }
+
       const apId = get(line, 'accessPoint.id');
       if (this.havePermission('getVision', 'read')) {
         this.advancedIndicators = [

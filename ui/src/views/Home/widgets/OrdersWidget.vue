@@ -29,7 +29,7 @@ export default {
     contextFilters: Array,
   },
   computed: {
-    ...mapGetters(['userIsPartner']),
+    ...mapGetters(['userIsPartner', 'userIsM2MLight']),
     ...mapGetters('getsim', ['appliedFilters']),
 
     columns() {
@@ -45,7 +45,11 @@ export default {
   },
   methods: {
     onSeeMore() {
-      this.$pushAnalytics({ event: 'm2m.seeMore', widget: 'Mes commandes' });
+      if (this.userIsM2MLight) {
+        this.$pushAnalytics({ event: 'm2m.seeMore', widget: 'Mes commandes - OD' });
+      } else {
+        this.$pushAnalytics({ event: 'm2m.seeMore', widget: 'Mes commandes' });
+      }
       this.$router
         .push({
           name: 'orders.search',

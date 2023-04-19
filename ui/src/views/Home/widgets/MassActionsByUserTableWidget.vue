@@ -41,7 +41,7 @@ export default {
     this.refreshTable();
   },
   computed: {
-    ...mapGetters(['userIsPartner', 'userInfos']),
+    ...mapGetters(['userIsPartner', 'userInfos', 'userIsM2MLight']),
 
     columns() {
       if (this.userIsPartner) {
@@ -206,10 +206,17 @@ export default {
       this.rows = this.formatResponse(response.items);
     },
     onSeeMore() {
-      this.$pushAnalytics({
-        event: 'm2m.seeMore',
-        widget: 'Derniers actes de gestion de l’utilisateur',
-      });
+      if (this.userIsM2MLight) {
+        this.$pushAnalytics({
+          event: 'm2m.seeMore',
+          widget: 'Derniers actes de gestion de l’utilisateur - OD',
+        });
+      } else {
+        this.$pushAnalytics({
+          event: 'm2m.seeMore',
+          widget: 'Derniers actes de gestion de l’utilisateur',
+        });
+      }
 
       this.$router
         .push({

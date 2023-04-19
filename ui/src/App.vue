@@ -63,6 +63,7 @@ export default {
       'singlePartner',
       'userIsPartner',
       'userIsMultiPartner',
+      'userIsM2MLight',
     ]),
 
     isAnonymousPage() {
@@ -120,16 +121,29 @@ export default {
 
         setTimeout(() => {
           if (this.$route.name != 'callback') {
-            this.$pushAnalyticsIfReady({
-              event: 'm2m.PageView',
-              to: {
-                name:
-                  this.$route.meta && this.$route.meta.label
-                    ? this.$route.meta.label
-                    : this.$route.name,
-                path: this.$route.path,
-              },
-            });
+            if (this.userIsM2MLight) {
+              this.$pushAnalyticsIfReady({
+                event: 'm2m.PageView',
+                to: {
+                  name:
+                    this.$route.meta && this.$route.meta.label
+                      ? this.$route.meta.label + '_OD'
+                      : this.$route.name,
+                  path: this.$route.path,
+                },
+              });
+            } else {
+              this.$pushAnalyticsIfReady({
+                event: 'm2m.PageView',
+                to: {
+                  name:
+                    this.$route.meta && this.$route.meta.label
+                      ? this.$route.meta.label
+                      : this.$route.name,
+                  path: this.$route.path,
+                },
+              });
+            }
           }
         }, 100);
       }

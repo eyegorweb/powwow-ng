@@ -17,6 +17,7 @@ import { searchMassActions } from '@/api/massActions';
 import ActionCell from '@/views/GetParc/MassActionsPage/HistoryTable/ActionCell';
 import Tooltip from './Tooltip';
 import { currentDateMinusMounts } from '@/utils/date';
+import { mapGetters } from 'vuex';
 
 export default {
   components: {
@@ -46,7 +47,11 @@ export default {
       this.rows = this.formatResponse(response.items);
     },
     onSeeMore() {
-      this.$pushAnalytics({ event: 'm2m.seeMore', widget: 'Acte de gestion' });
+      if (this.userIsM2MLight) {
+        this.$pushAnalytics({ event: 'm2m.seeMore', widget: 'Acte de gestion - OD' });
+      } else {
+        this.$pushAnalytics({ event: 'm2m.seeMore', widget: 'Acte de gestion' });
+      }
       this.$router
         .push({
           name: 'actHistory.classic',
@@ -63,6 +68,7 @@ export default {
     },
   },
   computed: {
+    ...mapGetters(['userIsM2MLight']),
     widgetFilters() {
       const startDate = currentDateMinusMounts(3);
 
