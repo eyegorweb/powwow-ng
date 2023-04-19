@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1392+20230419112941
+2023-04-19
+
+### Fixes
+
+- [3725] changer les coleurs dans le widjet (3ef599a698e41d3b06ed45e8f36323dbbac618e9)
+- [3764] charger la recurrence rapport (4b5afc70e3c7e438381f672c311df7ea05345b9e)
+
 ## 1.17.0-master.1391+20230419104455
 2023-04-19
 
