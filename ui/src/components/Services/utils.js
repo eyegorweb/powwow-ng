@@ -55,7 +55,7 @@ function formatServices(s) {
   return service;
 }
 
-export function getApnServices(services) {
+export function getParamsServices(services) {
   return services
     .filter((s) => {
       // caution: s.parameters can return null or [null]
