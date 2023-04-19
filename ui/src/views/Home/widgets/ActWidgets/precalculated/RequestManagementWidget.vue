@@ -58,7 +58,7 @@ export default {
     this.indicators = [
       {
         labelKey: 'indicators.getsim.actionsInProgress',
-        color: 'text-danger',
+        color: 'text-success',
         clickable: true,
         total: '-',
         filters: [
@@ -93,7 +93,7 @@ export default {
       },
       {
         labelKey: 'indicators.getparc.lines.inprogressTwoDays',
-        color: 'text-danger',
+        color: 'text-warning',
         clickable: true,
         total: '-',
         filters: [
@@ -130,7 +130,7 @@ export default {
       },
       {
         labelKey: 'indicators.getsim.failedActs',
-        color: 'text-danger',
+        color: 'text-warning',
         clickable: true,
         total: '-',
         filters: [
@@ -172,4 +172,5 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+</style>
