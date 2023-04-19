@@ -62,26 +62,19 @@ export function getParamsServices(services) {
       return !!s && !!s.parameters && !!s.parameters.length && !!s.parameters[0];
     })
     .map((serviceWithParameter) => {
-      const parameters = serviceWithParameter.parameters
-        .filter(
-          (serviceWithParameter) =>
-            !!serviceWithParameter.ipAdress ||
-            !!serviceWithParameter.parameter1 ||
-            !!serviceWithParameter.parameter2
-        )
-        .map((serviceWithParameter) => {
-          return {
-            code: serviceWithParameter.code,
-            name: serviceWithParameter.name,
-            version: serviceWithParameter.versionIp,
-            ipAdress: serviceWithParameter.ipAdress,
-            parameter1: serviceWithParameter.parameter1,
-            parameter2: serviceWithParameter.parameter2,
-            type: serviceWithParameter.type,
-            radiusOption: serviceWithParameter.radiusOption,
-            radiusType: serviceWithParameter.radiusType,
-          };
-        });
+      const parameters = serviceWithParameter.parameters.map((serviceWithParameter) => {
+        return {
+          code: serviceWithParameter.code,
+          name: serviceWithParameter.name,
+          version: serviceWithParameter.versionIp,
+          ipAdress: serviceWithParameter.ipAdress,
+          parameter1: serviceWithParameter.parameter1,
+          parameter2: serviceWithParameter.parameter2,
+          type: serviceWithParameter.type,
+          radiusOption: serviceWithParameter.radiusOption,
+          radiusType: serviceWithParameter.radiusType,
+        };
+      });
       return parameters;
     });
 }
