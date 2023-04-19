@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1387+20230419064521
+2023-04-19
+
+### Fixes
+
+- [3671] corriger le conflit du merge request (3993c65b5004a242341e02a0a3c419f77065199f)
+- [3869] corrections de la modification de services d'une ligne offre UPF (56e02aa3bd92cb4b10377530b0a34df8bc193cd1)
+
 ## 1.17.0-master.1386+20230417120817
 2023-04-17
 
