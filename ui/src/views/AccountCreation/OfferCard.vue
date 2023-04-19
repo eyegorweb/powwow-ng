@@ -151,7 +151,7 @@ export default {
           return '';
       }
     },
-    getApnServices(services) {
+    getParamsServices(services) {
       return services
         .filter((s) => {
           // caution: s.parameters can return null or [null]

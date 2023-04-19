@@ -170,7 +170,7 @@ import ServicesOptionalBlock from '@/components/Services/ServicesOptionalBlock.v
 import {
   getOfferServices,
   getOptionalServices,
-  getApnServices,
+  getParamsServices,
 } from '@/components/Services/utils.js';
 import { fetchLineServices } from '@/api/linesActions.js';
 import { changeService } from '@/api/actCreation.js';
@@ -233,7 +233,7 @@ export default {
       this.optionalServices = getOptionalServices(services);
       this.services = offerServices;
       // extract All parameters
-      this.paramServices = getApnServices(services);
+      this.paramServices = getParamsServices(services);
       // extract APN parameters
       this.paramServices.forEach((array) =>
         array.filter((p) => p.type === 'APN').forEach((elem) => this.apnParams.push(elem))

@@ -5,25 +5,13 @@
     :prevent-send="!canSend"
   >
     <div class="flex">
-      <!-- <div class="serviceBox">
-        <div class="serviceBox-title">
-          <span class="font-weight-bold mt-4 mb-4">{{
-            $t('getparc.actCreation.changeService.servicesToEnable')
-          }}</span>
-        </div> -->
       <ServicesChoice
         :offer="selectedOffer"
         :selected-items.sync="servicesToEnable"
         :items-to-disable="servicesToDisable"
         :activated="true"
       />
-      <!-- </div> -->
       <div class="serviceBox">
-        <!-- <div class="serviceBox-title">
-          <span class="font-weight-bold mt-4 mb-4">{{
-            $t('getparc.actCreation.changeService.servicesToDisable')
-          }}</span>
-        </div> -->
         <ServicesChoice
           :offer="selectedOffer"
           :selected-items.sync="servicesToDisable"
@@ -77,11 +65,22 @@
       @change="onDataServiceChange"
       @apnChange="onApnChange"
     />
-    <div slot="messages" class="text-info">
-      <div v-if="exceptionError">
-        <h6 class="text-danger">{{ $t('errors.all') }}</h6>
-        <div class="text-danger">
-          {{ exceptionError }}
+    <div class="d-flex mb-3">
+      <div v-if="upfService">
+        <UpfServiceToggle
+          :service="upfService"
+          :profile-data="profileData"
+          vertical
+          @change="onUpfServiceChange"
+          @initprofiles="onProfilesChange"
+        />
+      </div>
+      <div slot="messages" class="text-info">
+        <div v-if="exceptionError">
+          <h6 class="text-danger">{{ $t('errors.all') }}</h6>
+          <div class="text-danger">
+            {{ exceptionError }}
+          </div>
         </div>
       </div>
     </div>
@@ -96,6 +95,7 @@ import { mapState, mapGetters } from 'vuex';
 import UiCheckbox from '@/components/ui/Checkbox';
 
 import DataServiceToggle from '@/components/Services/DataServiceToggle';
+import UpfServiceToggle from '@/components/Services/UpfServiceToggle';
 import { getMarketingOfferServices } from '@/components/Services/utils.js';
 import { changeService } from '@/api/actCreation.js';
 
@@ -107,6 +107,7 @@ export default {
     ServicesChoice,
     UiCheckbox,
     DataServiceToggle,
+    UpfServiceToggle,
   },
   data() {
     return {
@@ -114,6 +115,8 @@ export default {
       servicesToEnable: [],
       servicesToDisable: [],
       dataService: undefined,
+      upfService: undefined,
+      profileData: undefined,
       isDataParamsError: false,
       exceptionError: undefined,
       isDisabled: false,
@@ -131,7 +134,8 @@ export default {
       return (
         (this.shouldChangeData && !this.checkErrors()) ||
         (this.servicesToEnable && this.servicesToEnable.length) ||
-        (this.servicesToDisable && this.servicesToDisable.length)
+        (this.servicesToDisable && this.servicesToDisable.length) ||
+        (this.upfService && this.profileData)
       );
     },
     checkDataMandatory() {
@@ -158,6 +162,9 @@ export default {
     });
     this.isDisabled = this.dataService && !this.dataService.editable;
     this.showDataService = this.dataService && this.dataService.editable;
+    this.upfService = getMarketingOfferServices(this.selectedOffer.initialOffer).find((s) => {
+      return s.type === 'UPF';
+    });
   },
   methods: {
     checkErrors() {
@@ -182,6 +189,7 @@ export default {
         servicesToDisable: this.servicesToDisable,
         dataService: this.shouldChangeData ? this.dataService : undefined,
         offerCode: this.actCreationPrerequisites.offer.id,
+        upfService: this.upfService,
       });
       if (response.errors && response.errors.length) {
         let errorMessage = '',
@@ -236,6 +244,21 @@ export default {
     onApnChange(apns) {
       this.dataService = { ...this.dataService, parameters: [...apns] };
     },
+    onUpfServiceChange(changes) {
+      if (typeof changes !== 'object') return;
+      this.profileData = null;
+      if (changes.profile) {
+        this.profileData = {
+          ...changes.profile,
+          active: true,
+          initialProfilCode: changes.defaultProfilCode,
+        };
+      }
+      this.upfService.parameters = [this.profileData];
+    },
+    onProfilesChange(profiles) {
+      this.upfService = { ...this.upfService, parameters: [...profiles] };
+    },
   },
 };
 </script>
@@ -243,14 +266,6 @@ export default {
 <style lang="scss" scoped>
 .flex {
   display: flex;
-
-  // .serviceBox {
-  //   margin-right: 20px;
-
-  //   &-title {
-  //     margin-bottom: 10px;
-  //   }
-  // }
 }
 .services {
   width: 60%;

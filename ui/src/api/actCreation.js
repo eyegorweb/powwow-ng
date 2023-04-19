@@ -106,6 +106,12 @@ export async function updateCustomAndSpecificFieldsByFile(
 
   const response = await query(queryStr, undefined, true);
 
+  if (response.errors) {
+    return {
+      errors: response.errors,
+    };
+  }
+
   return response.data;
 }
 
@@ -633,8 +639,11 @@ export async function changeService(filters, lines, params) {
     if (upfService) {
       if (upfService.checked) {
         const profileData = upfService.parameters[0];
-
-        dataCodeParams = `{serviceCode: "${upfService.code}", action: ADD, catalogServiceParameters: [{parameterCode: "${profileData.code}", action: ADD}, {parameterCode: "${upfService.initialProfilCode}", action: DELETE}]}`;
+        if (upfService.initialProfilCode) {
+          dataCodeParams = `{serviceCode: "${upfService.code}", action: ADD, catalogServiceParameters: [{parameterCode: "${profileData.code}", action: ADD}, {parameterCode: "${upfService.initialProfilCode}", action: DELETE}]}`;
+        } else {
+          dataCodeParams = `{serviceCode: "${upfService.code}", action: ADD, catalogServiceParameters: [{parameterCode: "${profileData.code}", action: ADD}]}`;
+        }
       } else {
         dataCodeParams = `{serviceCode: "${upfService.code}", action: DELETE}`;
       }

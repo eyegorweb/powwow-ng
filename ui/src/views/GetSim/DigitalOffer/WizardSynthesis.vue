@@ -176,7 +176,7 @@ export default {
       this.showSynthesis = !this.showSynthesis;
     },
 
-    getApnServices(services) {
+    getParamsServices(services) {
       return services
         .filter((s) => {
           // caution: s.parameters can return null or [null]
@@ -296,10 +296,10 @@ export default {
             )
               .map((s) => ` ${s.labelService}`)
               .toString();
-            const apn = this.getApnServices(
+            const apn = this.getParamsServices(
               this.$loGet(this.synthesis, 'offerStep.initialOffer.marketingService')
             )
-              ? this.getApnServices(
+              ? this.getParamsServices(
                   this.$loGet(this.synthesis, 'offerStep.initialOffer.marketingService')
                 )[0]
                   .map((s) => ` ${this.$t('digitalOffer.offerPackages.' + s.name)}`)
