@@ -425,11 +425,9 @@ export default {
   },
   async mounted() {
     if (this.userIsPartner) {
-      this.toggleCustomFieldsValues
-        .filter((cf) => cf.id === 'SpecificFields')
-        .map((found) => {
-          found.disabled = true;
-        });
+      this.toggleCustomFieldsValues = this.toggleCustomFieldsValues.filter(
+        (cf) => cf.id === 'CustomFields'
+      );
     }
 
     this.setupIndicators();
