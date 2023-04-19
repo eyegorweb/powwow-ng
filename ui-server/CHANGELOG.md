@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1388+20230419074651
+2023-04-19
+
+### Fixes
+
+- [3670] afficher ou ne pas afficher le button pour modifier paramètre (d402b423c2c5219c3c3945a30ae58f4101fc7b62)
+
 ## 1.17.0-master.1387+20230419064521
 2023-04-19
 
