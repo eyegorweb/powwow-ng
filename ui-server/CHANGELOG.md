@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1389+20230419084346
+2023-04-19
+
+### Fixes
+
+- [3864] gestion Matomo pour les partenaires M2M Light (c055dc1e8efb663a33beb6b2650be2c69834c625)
+
 ## 1.17.0-master.1388+20230419074651
 2023-04-19
 
