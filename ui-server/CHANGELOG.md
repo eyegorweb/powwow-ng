@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1391+20230419104455
+2023-04-19
+
+### Fixes
+
+- [3670] enlever le filtre de la méthode getApnServices (43d141f25bf2e755335a324951d32a18c34957f1)
+
 ## 1.17.0-master.1390+20230419095254
 2023-04-19
 
