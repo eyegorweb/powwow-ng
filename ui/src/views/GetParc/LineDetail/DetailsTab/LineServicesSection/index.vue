@@ -103,6 +103,7 @@
                             variant="link"
                             @click="modifyParam(param)"
                             :class="{ 'mx-auto': true }"
+                            style="padding: 0; font-size: 0.9rem;"
                           >
                             <span class="btn-label">
                               {{ $t('getparc.lineDetail.tabServices.modifyParam') }}
@@ -136,8 +137,11 @@
                           <UiButton
                             v-if="param.radiusOption"
                             variant="link"
-                            @click="modifyParam()"
-                            :class="{ 'mx-auto': true }"
+                            @click="modifyParam(param)"
+                            :class="{
+                              'mx-auto': true,
+                            }"
+                            style="padding: 0; font-size: 0.9rem;"
                           >
                             <span class="btn-label">
                               {{ $t('getparc.lineDetail.tabServices.modifyParam') }}
