@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1390+20230419095254
+2023-04-19
+
+### Fixes
+
+- [3878] masquer champs specifiques pour les partenaires (64829d92e31d8994f7d7cf56d9daf80242438119)
+
 ## 1.17.0-master.1389+20230419084346
 2023-04-19
 
