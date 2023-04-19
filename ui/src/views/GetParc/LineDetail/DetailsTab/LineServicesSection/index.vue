@@ -99,6 +99,7 @@
                         <td>{{ $loGet(param, 'parameter2', '-') }}</td>
                         <td>
                           <UiButton
+                            v-if="param.radiusOption"
                             variant="link"
                             @click="modifyParam(param)"
                             :class="{ 'mx-auto': true }"
@@ -117,7 +118,7 @@
                     <thead>
                       <tr>
                         <th>{{ $t('getparc.lineDetail.tabServices.dnn') }}</th>
-                        <th>{{ $t('getparc.lineDetail.tabServices.ipAdress') }}</th>
+                        <th>{{ $t('getparc.lineDetail.tabServices.ipAddress') }}</th>
                         <th>{{ $t('getparc.lineDetail.tabServices.version') }}</th>
                         <th>{{ $t('getparc.lineDetail.tabServices.parameter1') }}</th>
                         <th>{{ $t('getparc.lineDetail.tabServices.parameter2') }}</th>
@@ -133,6 +134,7 @@
                         <td>{{ $loGet(param, 'parameter2', '-') }}</td>
                         <td>
                           <UiButton
+                            v-if="param.radiusOption"
                             variant="link"
                             @click="modifyParam()"
                             :class="{ 'mx-auto': true }"
@@ -495,13 +497,7 @@ export default {
     },
 
     canShowParameters() {
-      return (
-        this.paramServices &&
-        this.paramServices.length &&
-        this.paramServices &&
-        this.paramServices[0] &&
-        this.paramServices[0][0]
-      );
+      return this.paramServices && this.paramServices.length;
     },
     canShowAPN() {
       return this.apnParams && this.apnParams.length;
