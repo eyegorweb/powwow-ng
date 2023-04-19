@@ -24,7 +24,7 @@ import DataGraph from './DataGraph';
 import SMSGraph from './SMSGraph';
 import VoiceGraph from './VoiceGraph';
 import Toggle from '@/components/ui/UiToggle2';
-import { mapState } from 'vuex';
+import { mapGetters, mapState } from 'vuex';
 
 export default {
   name: 'ConsoGraphWidget',
@@ -46,7 +46,11 @@ export default {
     },
 
     onSeeMore() {
-      this.$pushAnalytics({ event: 'm2m.seeMore', widget: 'Consommation mensuelle' });
+      if (this.userIsM2MLight) {
+        this.$pushAnalytics({ event: 'm2m.seeMore', widget: 'Consommation mensuelle - OD' });
+      } else {
+        this.$pushAnalytics({ event: 'm2m.seeMore', widget: 'Consommation mensuelle' });
+      }
 
       this.$router
         .push({
@@ -61,6 +65,7 @@ export default {
 
   computed: {
     ...mapState('getsim', ['defaultAppliedFilters']),
+    ...mapGetters(['userIsM2MLight']),
 
     widgetFilters() {
       const partnerFilter = [

@@ -155,7 +155,7 @@ export default {
     this.refreshTable(this.selectedParnerId);
   },
   computed: {
-    ...mapGetters(['userIsPartner']),
+    ...mapGetters(['userIsPartner', 'userIsM2MLight']),
     ...mapState('userContext', ['contextPartnersType', 'contextPartners']),
     canSelectPartner() {
       return this.names && this.names.length > 0 && !this.userIsPartner;
@@ -272,7 +272,11 @@ export default {
       }
     },
     onSeeMore() {
-      this.$pushAnalytics({ event: 'm2m.seeMore', widget: 'Etat du parc' });
+      if (this.userIsM2MLight) {
+        this.$pushAnalytics({ event: 'm2m.seeMore', widget: 'Etat du parc - OD' });
+      } else {
+        this.$pushAnalytics({ event: 'm2m.seeMore', widget: 'Etat du parc' });
+      }
 
       if (this.selectedPartner) {
         this.filters = [

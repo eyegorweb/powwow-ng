@@ -34,7 +34,7 @@ export default {
     contextFilters: Array,
   },
   computed: {
-    ...mapGetters(['userIsPartner']),
+    ...mapGetters(['userIsPartner', 'userIsM2MLight']),
   },
   methods: {
     onIndicatorClick(indicator) {
@@ -48,7 +48,11 @@ export default {
         .catch(() => {});
     },
     onSeeMore() {
-      this.$pushAnalytics({ event: 'm2m.seeMore', widget: 'Statut des commandes' });
+      if (this.userIsM2MLight) {
+        this.$pushAnalytics({ event: 'm2m.seeMore', widget: 'Statut des commandes - OD' });
+      } else {
+        this.$pushAnalytics({ event: 'm2m.seeMore', widget: 'Statut des commandes' });
+      }
       this.$router
         .push({
           name: 'orders.search',

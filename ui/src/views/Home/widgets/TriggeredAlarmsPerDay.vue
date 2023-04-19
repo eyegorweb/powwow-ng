@@ -44,7 +44,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['userIsPartner']),
+    ...mapGetters(['userIsPartner', 'userIsM2MLight']),
     ...mapState('userContext', ['contextPartnersType', 'contextPartners']),
     canSelectPartner() {
       return this.names && this.names.length > 0 && !this.userIsPartner;
@@ -91,10 +91,18 @@ export default {
       this.names = this.partners.map((p) => p.name);
     },
     onSeeMore() {
-      this.$pushAnalytics({
-        event: 'm2m.seeMore',
-        widget: "Nombre d'alarmes déclenchées par jour",
-      });
+      if (this.userIsM2MLight) {
+        this.$pushAnalytics({
+          event: 'm2m.seeMore',
+          widget: "Nombre d'alarmes déclenchées par jour - OD",
+        });
+      } else {
+        this.$pushAnalytics({
+          event: 'm2m.seeMore',
+          widget: "Nombre d'alarmes déclenchées par jour",
+        });
+      }
+
       this.$router
         .push({
           name: 'alarms',

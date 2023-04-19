@@ -18,6 +18,7 @@ import SearchByLinesId from '@/views/GetParc/ActLines/SearchByLinesId';
 import WidgetBloc from './WidgetBloc';
 import { searchLines } from '@/api/linesActions';
 import CircleLoader from '@/components/ui/CircleLoader';
+import { mapGetters } from 'vuex';
 
 export default {
   components: {
@@ -38,10 +39,17 @@ export default {
       searching: false,
     };
   },
+  computed: {
+    ...mapGetters(['userIsM2MLight']),
+  },
 
   methods: {
     async searchById(filterObj) {
-      this.$pushAnalytics({ event: 'm2m.search', widget: 'Recherche de ligne' });
+      if (this.userIsM2MLight) {
+        this.$pushAnalytics({ event: 'm2m.search', widget: 'Recherche de ligne - OD' });
+      } else {
+        this.$pushAnalytics({ event: 'm2m.search', widget: 'Recherche de ligne' });
+      }
 
       this.lastSEarchFiler = filterObj;
       this.searching = true;

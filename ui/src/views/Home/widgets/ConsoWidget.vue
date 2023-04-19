@@ -34,7 +34,7 @@ import WidgetBloc from './WidgetBloc';
 import UiSelect from '@/components/ui/UiSelect';
 import ConsoGauges from '@/components/widgets/ConsoGauges.vue';
 import { fetchOfferWithBilligAccount } from '@/api/offers.js';
-import { mapState } from 'vuex';
+import { mapGetters, mapState } from 'vuex';
 
 export default {
   components: {
@@ -78,7 +78,11 @@ export default {
     },
 
     onSeeMore() {
-      this.$pushAnalytics({ event: 'm2m.seeMore', widget: 'Suivi Conso' });
+      if (this.userIsM2MLight) {
+        this.$pushAnalytics({ event: 'm2m.seeMore', widget: 'Suivi Conso - OD' });
+      } else {
+        this.$pushAnalytics({ event: 'm2m.seeMore', widget: 'Suivi Conso' });
+      }
       this.$router
         .push({
           name: 'reportsDashboard',
@@ -99,6 +103,7 @@ export default {
   computed: {
     ...mapState('userContext', ['contextPartners']),
     ...mapState('getsim', ['defaultAppliedFilters']),
+    ...mapGetters(['userIsM2MLight']),
 
     partners() {
       if (!this.defaultAppliedFilters) return [];

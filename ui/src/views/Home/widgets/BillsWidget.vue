@@ -46,7 +46,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['userIsPartner', 'singlePartner']),
+    ...mapGetters(['userIsPartner', 'singlePartner', 'userIsM2MLight']),
   },
   async mounted() {
     if (this.singlePartner && this.singlePartner.id) {
@@ -58,7 +58,11 @@ export default {
     ...mapMutations(['startDownload']),
 
     onSeeMore() {
-      this.$pushAnalytics({ event: 'm2m.seeMore', widget: 'Dernières factures' });
+      if (this.userIsM2MLight) {
+        this.$pushAnalytics({ event: 'm2m.seeMore', widget: 'Dernières factures - OD' });
+      } else {
+        this.$pushAnalytics({ event: 'm2m.seeMore', widget: 'Dernières factures' });
+      }
       this.$router
         .push({
           name: 'reportsBill',
