@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1396+20230420130334
+2023-04-20
+
+### Fixes
+
+- [3000] corriger composant date (8e2d17281ea6396e1ae29d2f02ddf4b9322a255b)
+
 ## 1.17.0-master.1395+20230420113743
 2023-04-20
 
