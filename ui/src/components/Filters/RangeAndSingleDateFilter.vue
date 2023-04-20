@@ -50,8 +50,12 @@ export default {
     }
 
     if (this.start && !this.end) {
-      this.startFrom = this.start;
+      this.startFrom = moment().format('DD/MM/YYYY HH:mm:ss');
       this.isSingleDateValue = true;
+    }
+
+    if (!this.start && !this.end) {
+      this.startDate = moment().format('DD/MM/YYYY HH:mm:ss');
     }
 
     setTimeout(() => {
@@ -74,7 +78,7 @@ export default {
       if (this.oneYearLimit) {
         return moment()
           .subtract(1, 'year')
-          .format('DD/MM/YYYY');
+          .format('DD/MM/YYYY HH:mm:ss');
       } else {
         return undefined;
       }
@@ -97,7 +101,7 @@ export default {
     },
     start() {
       if (!this.settingUp) {
-        this.startDate = this.start ? this.start.split(' ')[0] : undefined;
+        this.startDate = this.start;
         this.startFrom = this.start;
       }
     },
@@ -125,4 +129,5 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+</style>
