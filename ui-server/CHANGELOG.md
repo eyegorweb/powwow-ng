@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1395+20230420113743
+2023-04-20
+
+### Fixes
+
+- [3671] corriger la création de l'acte radius administration (d4aad3d338dc89ba917366ddc03b601ac70d5ce9)
+
 ## 1.17.0-master.1394+20230420073144
 2023-04-20
 
