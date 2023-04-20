@@ -1199,7 +1199,7 @@ export async function createUpdateRadiusAdmin(params) {
   } = params;
 
   if (param1) {
-    const param1 = ` param1 : "${param1}",`;
+    param1 = ` param1 : "${param1}",`;
   } else {
     param1 = ``;
   }
