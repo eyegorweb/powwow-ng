@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1394+20230420073144
+2023-04-20
+
+### Fixes
+
+- [3670] mutualisation de la méthode getParamsServices (6e5f7cb364895faeb112f7e556241b3faebf180b)
+
 ## 1.17.0-master.1393+20230419154553
 2023-04-19
 
