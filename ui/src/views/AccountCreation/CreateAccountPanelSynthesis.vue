@@ -142,6 +142,7 @@ import CircleLoader from '@/components/ui/CircleLoader';
 import { formatCurrency } from '@/utils/numbers.js';
 import { getActiveServicesWithoutAPN } from '@/components/Services/utils.js';
 import { getOrderConditionUrl, displayedOffer } from '@/api/digital';
+import { getParamsServices } from '@/components/Services/utils.js';
 import UiCheckbox from '@/components/ui/Checkbox';
 
 export default {
@@ -439,22 +440,7 @@ export default {
     },
 
     getParamsServices(services) {
-      return services
-        .filter((s) => {
-          // caution: s.parameters can return null or [null]
-          return !!s && !!s.parameters && !!s.parameters.length && !!s.parameters[0];
-        })
-        .map((p) => {
-          const parameters = p.parameters.map((p) => {
-            return {
-              code: p.code,
-              name: p.name,
-              version: p.versionIp,
-              ipAdress: p.ipAdress,
-            };
-          });
-          return parameters;
-        });
+      return getParamsServices(services);
     },
     formattedDiscount(simPrice, topUpPrice) {
       let totalSimDiscount = 0;
