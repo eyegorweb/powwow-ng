@@ -66,13 +66,15 @@ export default {
         let endDate;
 
         if (this.start && this.end) {
-          startDate = moment(this.start, 'DD/MM/YYYY');
-          endDate = moment(this.end, 'DD/MM/YYYY');
+          startDate = moment(this.start, 'DD/MM/YYYY HH:mm:ss');
+          endDate = moment(this.end, 'DD/MM/YYYY HH:mm:ss');
         }
 
         // TODO: add i18n support
         const localeParam = this.getLocaleParam();
         $(this.$refs.daterange).daterangepicker({
+          timePicker: true,
+          timePicker24Hour: true,
           startDate,
           endDate,
           drops: this.direction,
@@ -86,21 +88,21 @@ export default {
               const diff = picker.endDate.diff(picker.startDate, 'year', true);
               if (diff <= 1.003) {
                 this.$emit('change', {
-                  startDate: picker.startDate.format('DD/MM/YYYY'),
-                  endDate: picker.endDate.format('DD/MM/YYYY'),
+                  startDate: picker.startDate.format('DD/MM/YYYY HH:mm:ss'),
+                  endDate: picker.endDate.format('DD/MM/YYYY HH:mm:ss'),
                 });
               } else {
                 this.rangeInError = `${picker.startDate.format(
-                  'DD/MM/YYYY'
-                )} - ${picker.endDate.format('DD/MM/YYYY')}`;
+                  'DD/MM/YYYY HH:mm:ss'
+                )} - ${picker.endDate.format('DD/MM/YYYY HH:mm:ss')}`;
 
                 limitDateError = true;
               }
             }
           } else {
             self.$emit('change', {
-              startDate: picker.startDate.format('DD/MM/YYYY'),
-              endDate: picker.endDate.format('DD/MM/YYYY'),
+              startDate: picker.startDate.format('DD/MM/YYYY HH:mm:ss'),
+              endDate: picker.endDate.format('DD/MM/YYYY HH:mm:ss'),
             });
           }
 
@@ -112,7 +114,7 @@ export default {
       if (this.$i18n.locale === 'en') {
         return {
           locale: {
-            format: 'DD/MM/YYYY',
+            format: 'DD/MM/YYYY HH:mm:ss',
             separator: ' - ',
             applyLabel: 'Apply',
             cancelLabel: 'Cancel',
@@ -147,7 +149,7 @@ export default {
 
       return {
         locale: {
-          format: 'DD/MM/YYYY',
+          format: 'DD/MM/YYYY HH:mm:ss',
           separator: ' - ',
           applyLabel: 'Appliquer',
           cancelLabel: 'Annuler',
@@ -200,4 +202,5 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+</style>

@@ -59,6 +59,65 @@ export default {
     },
   },
   methods: {
+    getLocaleParam() {
+      if (this.$i18n.locale === 'en') {
+        return {
+          locale: {
+            format: 'DD/MM/YYYY HH:mm:ss',
+            separator: ' - ',
+            applyLabel: 'Apply',
+            cancelLabel: 'Cancel',
+            fromLabel: 'From',
+            toLabel: 'To',
+            customRangeLabel: 'Others',
+            daysOfWeek: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+            monthNames: [
+              'January',
+              'February',
+              'March',
+              'April',
+              'May',
+              'June',
+              'July',
+              'August',
+              'September',
+              'October',
+              'November',
+              'December',
+            ],
+            firstDay: 1,
+          },
+        };
+      }
+
+      return {
+        locale: {
+          format: 'DD/MM/YYYY HH:mm:ss',
+          separator: ' - ',
+          applyLabel: 'Appliquer',
+          cancelLabel: 'Annuler',
+          fromLabel: 'Du',
+          toLabel: 'Au',
+          customRangeLabel: 'Autres',
+          daysOfWeek: ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'],
+          monthNames: [
+            'Janvier',
+            'Fevrier',
+            'Mars',
+            'Avril',
+            'Mai',
+            'Juin',
+            'Juillet',
+            'Août',
+            'Septembre',
+            'Octobre',
+            'Novembre',
+            'Decembre',
+          ],
+          firstDay: 1,
+        },
+      };
+    },
     clearValue() {
       this.$emit('change', '');
     },
@@ -81,6 +140,7 @@ export default {
       // TODO: add i18n support
       // Problème avec l'utilisation de la librairie, obligatoire pour refresh le state startDate
       setTimeout(() => {
+        const localeParam = this.getLocaleParam();
         this.dateInstance = $(this.$refs.singledate).daterangepicker(
           {
             singleDatePicker: true,
@@ -90,31 +150,7 @@ export default {
             timePicker24Hour: true,
             minDate: this.minDate,
             showDropdowns: true,
-            locale: {
-              format: this.dateFormat,
-              separator: ' - ',
-              applyLabel: 'Appliquer',
-              cancelLabel: 'Annuler',
-              fromLabel: 'Du',
-              toLabel: 'Au',
-              customRangeLabel: 'Autres',
-              daysOfWeek: ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'],
-              monthNames: [
-                'Janvier',
-                'Fevrier',
-                'Mars',
-                'Avril',
-                'Mai',
-                'Juin',
-                'Juillet',
-                'Août',
-                'Septembre',
-                'Octobre',
-                'Novembre',
-                'Decembre',
-              ],
-              firstDay: 1,
-            },
+            ...localeParam,
           },
           onDateSelected
         );
@@ -137,6 +173,12 @@ export default {
     },
   },
   watch: {
+    async '$i18n.locale'() {
+      this.canShowCalendar = false;
+      this.$nextTick(() => {
+        this.createCalendar();
+      });
+    },
     value(newValue) {
       // le date picker garde la dernière date séléctionnée, la seule façon de la vider est de recréer le date picker
       if (!newValue && this.dateInstance) {
@@ -157,6 +199,7 @@ export default {
   height: 2.5rem;
   z-index: 9;
 }
+
 .datepicker {
   background: #fff;
   cursor: pointer;
