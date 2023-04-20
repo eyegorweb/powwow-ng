@@ -76,7 +76,12 @@
               :placeholder="$t('filters.lines.fromFile.id-type-placeholder')"
               :arrow-blue="true"
             />
-            <Toggle :values="toggleCustomFieldsValues" @update="customFieldTypeToggle = $event" />
+
+            <Toggle
+              v-if="!userIsPartner"
+              :values="toggleCustomFieldsValues"
+              @update="customFieldTypeToggle = $event"
+            />
           </div>
 
           <Title
@@ -296,7 +301,7 @@ export default {
       return {
         selectedIdType: this.selectedIdType,
         selectedFile: this.selectedFile,
-        customFieldTypeToggle: this.$loGet(this.customFieldTypeToggle, 'id'),
+        customFieldTypeToggle: this.$loGet(this.customFieldTypeToggle, 'id', 'CustomFields'),
       };
     },
 
@@ -424,12 +429,6 @@ export default {
     });
   },
   async mounted() {
-    if (this.userIsPartner) {
-      this.toggleCustomFieldsValues = this.toggleCustomFieldsValues.filter(
-        (cf) => cf.id === 'CustomFields'
-      );
-    }
-
     this.setupIndicators();
     this.setActToCreate(null);
     this.fetchPartnerOptions();
