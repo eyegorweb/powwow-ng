@@ -144,12 +144,16 @@ export default {
     width: 100%;
   }
 }
+
 .single-service {
-  width: 160%;
+  width: 100%;
+  min-width: 250px;
 }
+
 .scontainer {
   display: flex;
   flex-direction: column;
+
   .line {
     margin-bottom: 1.5rem;
   }
