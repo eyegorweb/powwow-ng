@@ -96,6 +96,8 @@ export default {
       this.geolocEnabled = await isFeatureAvailable('GEOLOCATION_ENABLED', this.lineData.id);
       this.requestConsoActive = await isFeatureAvailable('REQUEST_CONSO_ENABLED', this.lineData.id);
       this.isLoading = false;
+    } else {
+      this.isLoading = false;
     }
 
     this.tabs = [
