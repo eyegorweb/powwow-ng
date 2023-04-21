@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1399+20230421120417
+2023-04-21
+
+### Fixes
+
+- [3891] correction de la modification des champs libres et spécifiques dans le détail de la ligne (e108e0eb3eb030408e0bd2e9a86cacbde5cea4dc)
+
 ## 1.17.0-master.1398+20230421082937
 2023-04-21
 
