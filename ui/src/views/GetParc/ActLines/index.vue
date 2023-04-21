@@ -97,9 +97,9 @@
             num="1"
             v-if="
               creationMode &&
-              actCreationPrerequisites &&
-              !actToCreate.containFile &&
-              !useFileImportAsInput
+                actCreationPrerequisites &&
+                !actToCreate.containFile &&
+                !useFileImportAsInput
             "
             title="getparc.actLines.step1Title"
             :color="actToCreate.color"

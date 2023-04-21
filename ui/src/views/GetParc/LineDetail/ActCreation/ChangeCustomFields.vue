@@ -82,7 +82,14 @@ export default {
         }
         return c;
       });
-      this.allSpecificFields = customFields.specificFields;
+      this.allSpecificFields = customFields.specificFields.map((c) => {
+        if (c.mandatory === 'NONE') {
+          c.isOptional = true;
+        } else {
+          c.isOptional = false;
+        }
+        return c;
+      });
     },
 
     getSelectedValue(code) {
@@ -216,7 +223,8 @@ export default {
       if (areEqualArrays) return false;
 
       // si tous les champs sont optionnels, alors nous pouvons envoyer le formulaire avant tout changement
-      if (this.allCustomFields.filter((c) => c.isOptional).length === this.allCustomFields.length) {
+      const allFieds = [...this.allCustomFields, ...this.allSpecificFields];
+      if (allFieds.filter((c) => c.isOptional).length === allFieds.length) {
         return true;
       }
 
@@ -224,13 +232,13 @@ export default {
       // pour chaque champ obligatoire, il faut que la valeur ne soit plus vide
       else {
         const itemListRequiredNotNull = this.customFieldsValues.length
-          ? this.allCustomFields.filter((c) => !c.isOptional && c.type === 'LIST').length ===
+          ? allFieds.filter((c) => !c.isOptional && c.type === 'LIST').length ===
             this.customFieldsValues.filter(
               (c) => !c.isOptional && c.type === 'LIST' && c.enteredValue !== 'none'
             ).length
           : false;
         return (
-          this.allCustomFields.filter((c) => !c.isOptional).length ===
+          allFieds.filter((c) => !c.isOptional).length ===
             this.customFieldsValues.filter((c) => !c.isOptional && c.enteredValue).length &&
           itemListRequiredNotNull
         );
