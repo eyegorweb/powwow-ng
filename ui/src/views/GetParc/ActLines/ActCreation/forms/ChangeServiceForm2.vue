@@ -161,7 +161,12 @@ export default {
       return s.code === 'DATA';
     });
     this.isDisabled = this.dataService && !this.dataService.editable;
-    this.showDataService = this.dataService && this.dataService.editable;
+    this.showDataService =
+      this.dataService &&
+      (this.dataService.editable ||
+        (!this.dataService.editable &&
+          this.dataService.parameters &&
+          this.dataService.parameters.filter((p) => p.editable).length > 0));
     this.upfService = getMarketingOfferServices(this.selectedOffer.initialOffer).find((s) => {
       return s.type === 'UPF';
     });
