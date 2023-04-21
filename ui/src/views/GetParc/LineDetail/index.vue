@@ -1,59 +1,62 @@
 <template>
-  <div class="mt-4" v-if="lineData">
-    <div class="row">
-      <div class="col-md-9">
-        <button @click.prevent="returnToSearch()" class="btn btn-link back-btn">
-          <i class="ic-Arrow-Previous-Icon" />
-          {{ $t('back') }}
-        </button>
+  <LoaderContainer :is-loading="isLoading">
+    <div class="mt-4" v-if="lineData">
+      <div class="row">
+        <div class="col-md-9">
+          <button @click.prevent="returnToSearch()" class="btn btn-link back-btn">
+            <i class="ic-Arrow-Previous-Icon" />
+            {{ $t('back') }}
+          </button>
+        </div>
       </div>
-    </div>
-    <div class="row mb-5">
-      <div class="col-md-9">
-        <h4>
-          <b>GetParc</b>
-          - {{ $t('getparc.lineDetail.title', { lineId: iccid }) }}
-          <i class="ic-Info-Icon" />
-        </h4>
+      <div class="row mb-5">
+        <div class="col-md-9">
+          <h4>
+            <b>GetParc</b>
+            - {{ $t('getparc.lineDetail.title', { lineId: iccid }) }}
+            <i class="ic-Info-Icon" />
+          </h4>
+        </div>
+        <div v-if="canRunCoach" class="col-md-3">
+          <UiButton variant="secondary" block class="float-right" @click="openCoachPanel()">
+            <i class="ic-Heart-Rythm-Icon"></i>
+            {{ $t('getparc.lineDetail.startCoach') }}
+          </UiButton>
+        </div>
       </div>
-      <div v-if="canRunCoach" class="col-md-3">
-        <UiButton variant="secondary" block class="float-right" @click="openCoachPanel()">
-          <i class="ic-Heart-Rythm-Icon"></i>
-          {{ $t('getparc.lineDetail.startCoach') }}
-        </UiButton>
-      </div>
-    </div>
-    <LineSummary :content="lineData" />
-    <ActionCarousel
-      v-if="canShowCarousel"
-      :actions="carouselItems"
-      :default-disabled="!isLigneActive"
-      @itemClick="onCarouselItemClick"
-    />
-    <div v-if="tabs" class="mt-4 mb-4">
-      <UiTabs :tabs="tabs">
-        <template slot-scope="{ tab, index }">
-          <UiTab v-if="tab" :is-selected="index === currentTabToShow" class="tab-grow">
-            <router-link v-if="index !== currentTabToShow" :to="tab.to">{{
-              $t(tab.title)
-            }}</router-link>
-            <a @click="(e) => e.preventDefault()" v-else>{{ $t(tab.title) }}</a>
-          </UiTab>
-        </template>
-      </UiTabs>
+      <LineSummary :content="lineData" />
+      <ActionCarousel
+        v-if="canShowCarousel"
+        :actions="carouselItems"
+        :default-disabled="!isLigneActive"
+        @itemClick="onCarouselItemClick"
+      />
+      <div v-if="tabs" class="mt-4 mb-4">
+        <UiTabs :tabs="tabs">
+          <template slot-scope="{ tab, index }">
+            <UiTab v-if="tab" :is-selected="index === currentTabToShow" class="tab-grow">
+              <router-link v-if="index !== currentTabToShow" :to="tab.to">{{
+                $t(tab.title)
+              }}</router-link>
+              <a @click="(e) => e.preventDefault()" v-else>{{ $t(tab.title) }}</a>
+            </UiTab>
+          </template>
+        </UiTabs>
 
-      <div class="pt-4 pl-4">
-        <router-view :content="lineData" />
+        <div class="pt-4 pl-4">
+          <router-view :content="lineData" />
+        </div>
       </div>
     </div>
-  </div>
-  <div v-else>
-    <div v-if="lineDataError" class="alert alert-danger" role="alert">{{ lineDataError }}</div>
-    <div v-else class="alert alert-light" role="alert">{{ $t('noResult') }}</div>
-  </div>
+    <div v-else>
+      <div v-if="lineDataError" class="alert alert-danger" role="alert">{{ lineDataError }}</div>
+      <div v-else class="alert alert-light" role="alert">{{ $t('noResult') }}</div>
+    </div>
+  </LoaderContainer>
 </template>
 
 <script>
+import LoaderContainer from '@/components/LoaderContainer';
 import LineSummary from './LineSummary';
 import ActionCarousel from '../ActLines/ActionCarousel';
 import UiTabs from '@/components/ui/Tabs';
@@ -72,6 +75,7 @@ import { formatBackErrors } from '@/utils/errors';
 
 export default {
   components: {
+    LoaderContainer,
     LineSummary,
     ActionCarousel,
     UiTabs,
@@ -79,6 +83,7 @@ export default {
     UiButton,
   },
   async mounted() {
+    this.isLoading = true;
     await this.loadLineData();
     this.typeForPartner = this.$loGet(this.lineData, 'party.partyType');
     this.specificCustomerID = this.$loGet(this.lineData, 'party.id');
@@ -90,6 +95,7 @@ export default {
       );
       this.geolocEnabled = await isFeatureAvailable('GEOLOCATION_ENABLED', this.lineData.id);
       this.requestConsoActive = await isFeatureAvailable('REQUEST_CONSO_ENABLED', this.lineData.id);
+      this.isLoading = false;
     }
 
     this.tabs = [
@@ -170,6 +176,7 @@ export default {
   },
   data() {
     return {
+      isLoading: false,
       lineData: undefined,
       lineDataError: undefined,
       partnerOptions: undefined,
