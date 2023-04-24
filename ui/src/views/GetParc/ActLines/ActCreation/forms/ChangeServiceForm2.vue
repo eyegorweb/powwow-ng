@@ -167,6 +167,9 @@ export default {
         (!this.dataService.editable &&
           this.dataService.parameters &&
           this.dataService.parameters.filter((p) => p.editable).length > 0));
+    if (this.isDisabled) {
+      this.shouldChangeData = this.showDataService;
+    }
     this.upfService = getMarketingOfferServices(this.selectedOffer.initialOffer).find((s) => {
       return s.type === 'UPF';
     });
