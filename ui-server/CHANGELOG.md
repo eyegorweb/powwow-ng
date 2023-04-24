@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1402+20230424120624
+2023-04-24
+
+### Fixes
+
+- [3869] corrections de la modification de services d'une ligne offre UPF (f72333cae0879620e341bfa895401b9ccbeff8ce)
+
 ## 1.17.0-master.1401+20230421142012
 2023-04-21
 
