@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1405+20230425123232
+2023-04-25
+
+### Fixes
+
+- [3753] gestion des erreurs sur l'acte de gestion Administration radius (6a594facaabbc47f084489e416eead0ff0adc7c3)
+
 ## 1.17.0-master.1404+20230425095016
 2023-04-25
 
