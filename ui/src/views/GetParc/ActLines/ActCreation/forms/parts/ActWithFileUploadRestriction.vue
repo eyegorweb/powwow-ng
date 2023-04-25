@@ -104,11 +104,10 @@
 import Modal from '@/components/Modal';
 import CircleLoader from '@/components/ui/CircleLoader';
 import FormReport from './FormReport';
-
 import { uploadSearchFile, exportLinesFromFileFilter } from '@/api/linesActions';
-
 import { mapState, mapMutations } from 'vuex';
 import * as fileUtils from '@/utils/file.js';
+import { formatBackErrors } from '@/utils/errors';
 
 export default {
   components: {
@@ -215,24 +214,14 @@ export default {
       const response = await this.actMutationFn(params);
 
       if (response.errors && response.errors.length && !response.tempDataUuid) {
+        const formatted = formatBackErrors(response.errors)
+          .map((e) => e.errors)
+          .flat();
+
         // failure with request errors
-        response.errors.forEach((r) => {
-          if (r.error === 'FILE_MAX_LINE_NUMBER_INVALID') {
-            const count =
-              r.data && r.data.maxNumbersPerFileUpload ? r.data.maxNumbersPerFileUpload : '';
-            const messageErrorMaxLine = this.$t(
-              'getparc.actCreation.report.FILE_MAX_LINE_NUMBER_INVALID',
-              {
-                count,
-              }
-            );
-            this.requestErrors = [
-              {
-                message: messageErrorMaxLine,
-              },
-            ];
-          } else if (r.error) {
-            const errorMessage = this.$t('getparc.actCreation.report.' + r.error);
+        formatted.forEach((r) => {
+          if (r.key === 'NotFound') {
+            const errorMessage = this.$t('errors.NotFound.' + r.value);
             this.requestErrors = [
               {
                 message: errorMessage,
@@ -241,7 +230,7 @@ export default {
           } else {
             this.requestErrors = [
               {
-                message: r.message,
+                message: this.$t('genericErrorMessage'),
               },
             ];
           }
