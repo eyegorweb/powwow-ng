@@ -137,7 +137,7 @@ export default {
     async doRequest() {
       const params = {
         iccid: this.$loGet(this.content, 'sim.iccid'),
-        addressIP: this.$loGet(this.form, 'ipAddress.meta'),
+        addressIP: this.$loGet(this.form, 'ipAddress'),
         param1: this.$loGet(this.form, 'param1'),
         param2: this.$loGet(this.form, 'param2'),
         techno: this.$loGet(this.content, 'param.type'),
@@ -183,10 +183,7 @@ export default {
       }
     },
   },
-  async mounted() {
-    console.log('on mounted get form', this.form);
-    console.log('on mounted get content', this.content);
-  },
+  async mounted() {},
 };
 </script>
 
