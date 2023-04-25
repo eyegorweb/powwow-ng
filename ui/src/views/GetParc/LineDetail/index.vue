@@ -1,5 +1,8 @@
 <template>
-  <LoaderContainer :is-loading="isLoading">
+  <LoaderContainer :is-loading="isLoading" loading-key="loading">
+    <div slot="on-loading">
+      <DefaultPageSkeleton :is-loading="isLoading" />
+    </div>
     <div class="mt-4" v-if="lineData">
       <div class="row">
         <div class="col-md-9">
@@ -62,6 +65,7 @@ import ActionCarousel from '../ActLines/ActionCarousel';
 import UiTabs from '@/components/ui/Tabs';
 import UiTab from '@/components/ui/Tab';
 import UiButton from '@/components/ui/Button';
+import DefaultPageSkeleton from '@/components/ui/skeletons/DefaultPageSkeleton';
 
 import { searchLines } from '@/api/linesActions';
 import { mapGetters, mapMutations } from 'vuex';
@@ -81,6 +85,7 @@ export default {
     UiTabs,
     UiTab,
     UiButton,
+    DefaultPageSkeleton,
   },
   async mounted() {
     this.isLoading = true;

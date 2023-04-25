@@ -1210,5 +1210,11 @@ export async function fetchLineServices(simCardInstanceId) {
 
   const response = await query(queryStr);
 
+  if (response.errors) {
+    return {
+      errors: response.errors,
+    };
+  }
+
   return response.data.marketingServicesV2;
 }
