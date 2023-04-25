@@ -1975,7 +1975,7 @@
         "dnn": "DNN",
         "modifyParam": "Modifier",
         "parameterServiceFormPanel": {
-          "title": "Modifier l'adresse IP Radius",
+          "title": "Modifier les paramètres",
           "chooseIp": "Choisir votre adresse ip"
         },
         "parameter1": "Paramètre 1",

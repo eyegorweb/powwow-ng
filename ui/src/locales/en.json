@@ -1791,7 +1791,7 @@
         "dnn": "DNN",
         "modifyParam": "Modify",
         "parameterServiceFormPanel": {
-          "title": "Modify Radius IP",
+          "title": "Modify parameters",
           "chooseIp": "Choisir votre adresse ip"
         }
       },

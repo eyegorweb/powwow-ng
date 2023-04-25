@@ -136,16 +136,19 @@ export default {
     },
     async doRequest() {
       const params = {
-        iccid: this.content.sim.iccid,
-        addressIP: this.form.ipAddress.meta,
-        param1: this.form.param1,
-        param2: this.form.param2,
-        techno: this.content.param.type,
-        partyId: this.content.sim.party.id,
-        workflowId: this.content.sim.workflow.id,
-        apnCode: this.content.param.code,
+        iccid: this.$loGet(this.content, 'sim.iccid'),
+        addressIP: this.$loGet(this.form, 'ipAddress.meta'),
+        param1: this.$loGet(this.form, 'param1'),
+        param2: this.$loGet(this.form, 'param2'),
+        techno: this.$loGet(this.content, 'param.type'),
+        partyId: this.$loGet(this.content, 'sim.party.id'),
+        workflowId: this.$loGet(this.content, 'sim.workflow.id'),
+        apnCode: this.$loGet(this.content, 'param.code'),
         action: 'UPDATE',
-        customerAccountId: this.content.sim.accessPoint.offerGroup.customerAccount.id,
+        customerAccountId: this.$loGet(
+          this.content,
+          'sim.accessPoint.offerGroup.customerAccount.id'
+        ),
         resetEmptyField: true,
       };
 
@@ -180,8 +183,10 @@ export default {
       }
     },
   },
-  async mounted() {},
-  watch: {},
+  async mounted() {
+    console.log('on mounted get form', this.form);
+    console.log('on mounted get content', this.content);
+  },
 };
 </script>
 
