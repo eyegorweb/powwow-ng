@@ -272,6 +272,12 @@ export default {
     };
   },
 
+  beforeMount() {
+    if (this.content) {
+      this.generationDate = this.content.generationDate;
+    }
+  },
+
   async mounted() {
     if (!this.content) this.inEditMode = true;
     this.resetCheckboxes();
@@ -324,7 +330,7 @@ export default {
           }
           return t;
         });
-        this.generationDate = this.content.generationDate;
+
         this.shouldNotify = this.content.notification;
         this.isActive = !this.content.disabled;
         this.notifList = this.content.mailingList ? this.content.mailingList.id : undefined;
