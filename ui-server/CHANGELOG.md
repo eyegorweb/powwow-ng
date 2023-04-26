@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1408+20230426084132
+2023-04-26
+
+### Fixes
+
+- [3670] gestion de l'affichage de l'adresse ip fixe dans le détail de la ligne (f87d0bfff63af21836176c7d81578cbfaa65183c)
+
 ## 1.17.0-master.1407+20230426075352
 2023-04-26
 
