@@ -2569,6 +2569,7 @@
   "savedFilters": "Saved filters",
   "noSavedFilter": "No filter saved",
   "noFilter": "No filter",
+  "noParameter": "No parameter",
   "dragOrAddFile": "Drop your file here, or click to add",
   "retry": "Please try again",
   "retryLater": "Please try again later.",
