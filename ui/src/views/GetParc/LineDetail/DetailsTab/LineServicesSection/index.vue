@@ -155,7 +155,7 @@
               </div>
             </template>
             <template slot="content" v-else>
-              <div class="alert-light" role="alert">{{ $t('noResult') }}</div>
+              <div class="alert-light" role="alert">{{ $t('noParameter') }}</div>
             </template>
           </ContentBlock>
         </transition-group>
