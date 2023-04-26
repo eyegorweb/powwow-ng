@@ -4,7 +4,14 @@
       <h4 class="text-primary text-uppercase">
         {{ $t('getparc.lineDetail.tabServices.services') }}
       </h4>
-      <div class="bg-white p-4 rounded">
+      <div class="bg-white p-4 rounded" v-if="requestErrors && requestErrors.length > 0">
+        <ul class="text-danger list-unstyled">
+          <li :key="error.message" v-for="error in requestErrors">
+            {{ error.message }}
+          </li>
+        </ul>
+      </div>
+      <div class="bg-white p-4 rounded" v-else>
         <div class="alert alert-light m-0" role="alert">
           {{ $t('noResult') }}
         </div>
@@ -187,6 +194,7 @@ import cloneDeep from 'lodash.clonedeep';
 import get from 'lodash.get';
 import UiButton from '@/components/ui/Button';
 import { isFeatureAvailable } from '@/api/partners';
+import { formatBackErrors } from '@/utils/errors';
 
 export default {
   components: {
@@ -226,20 +234,47 @@ export default {
       dataService: undefined,
       isIpFixeEnable: false,
       upfProfileDataChange: false,
+
+      requestErrors: undefined,
     };
   },
   async mounted() {
     this.isLoadingServices = true;
-    const services = await fetchLineServices(this.content.id);
+    const response = await fetchLineServices(this.content.id);
+
+    if (response && response.errors && response.errors.length) {
+      const formatted = formatBackErrors(response.errors)
+        .map((e) => e.errors)
+        .flat();
+
+      formatted.forEach((r) => {
+        if (r.key === 'NotFound') {
+          const errorMessage = this.$t('errors.NotFound.' + r.value);
+          this.requestErrors = [
+            {
+              message: errorMessage,
+            },
+          ];
+        } else {
+          this.requestErrors = [
+            {
+              message: this.$t('genericErrorMessage'),
+            },
+          ];
+        }
+      });
+      this.isLoadingServices = false;
+      return;
+    }
 
     this.isLoadingServices = false;
-    if (services && services.length) {
-      const offerServices = getOfferServices(services);
+    if (response && response.length) {
+      const offerServices = getOfferServices(response);
       this.initialServices = cloneDeep(offerServices);
-      this.optionalServices = getOptionalServices(services);
+      this.optionalServices = getOptionalServices(response);
       this.services = offerServices;
       // extract All parameters
-      this.paramServices = getParamsServices(services);
+      this.paramServices = getParamsServices(response);
       // extract APN parameters
       this.paramServices.forEach((array) =>
         array.filter((p) => p.type === 'APN').forEach((elem) => this.apnParams.push(elem))
@@ -248,16 +283,16 @@ export default {
       this.paramServices.forEach((array) =>
         array.filter((p) => p.type === 'DNN').forEach((elem) => this.dnnParams.push(elem))
       );
+      this.isIpFixeEnable = await isFeatureAvailable(
+        'IP_FIXE_ENABLED',
+        null,
+        get(this.content, 'party.id')
+      );
+      this.setup();
+      setTimeout(() => {
+        this.componentInitialized = true;
+      });
     }
-    this.isIpFixeEnable = await isFeatureAvailable(
-      'IP_FIXE_ENABLED',
-      null,
-      get(this.content, 'party.id')
-    );
-    this.setup();
-    setTimeout(() => {
-      this.componentInitialized = true;
-    });
   },
   methods: {
     ...mapMutations(['flashMessage', 'confirmAction', 'openPanel']),
@@ -456,6 +491,7 @@ export default {
     },
 
     canCancel() {
+      if (!this.services) return false;
       return (
         (this.isDataParamChanged() ||
           (this.changedServices && this.changedServices.length) ||
@@ -473,6 +509,7 @@ export default {
     },
 
     isTypeRoamingChanged() {
+      if (!this.services) return false;
       let initialTypeRoaming;
       const foundTypeRoaming = this.initialServices.find((s) => s.code === 'ROAMING');
       if (foundTypeRoaming) {
