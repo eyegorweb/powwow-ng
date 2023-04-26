@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1411+20230426143901
+2023-04-26
+
+### Fixes
+
+- [3898] ajouter des options dans details partenaire (39351d888bf73b78228d32f8d7ba045c5415f519)
+
 ## 1.17.0-master.1410+20230426130137
 2023-04-26
 
