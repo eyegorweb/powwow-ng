@@ -209,7 +209,10 @@ export default {
         tempDataUuid: this.tempDataUuid,
         customerAccountId: this.actCreationPrerequisites.billingAccount.id,
         workflowId: this.actCreationPrerequisites.offer.data.id,
-        apnCode: this.actCreationPrerequisites.apn.value,
+        apnCode:
+          this.actCreationPrerequisites.apn != undefined
+            ? this.actCreationPrerequisites.apn.value
+            : this.actCreationPrerequisites.dnn.value,
       };
       const response = await this.actMutationFn(params);
 
@@ -264,7 +267,10 @@ export default {
         tempDataUuid: this.tempDataUuid,
         customerAccountId: this.actCreationPrerequisites.billingAccount.id,
         workflowId: this.actCreationPrerequisites.offer.data.id,
-        apnCode: this.actCreationPrerequisites.apn.value,
+        apnCode:
+          this.actCreationPrerequisites.apn != undefined
+            ? this.actCreationPrerequisites.apn.value
+            : this.actCreationPrerequisites.dnn.value,
       };
       const response = await this.actMutationFn(params);
       if (response) {
@@ -304,6 +310,7 @@ export default {
   right: 0;
   top: 2rem;
 }
+
 .clear-form {
   appearance: none;
   outline: none;
@@ -316,6 +323,7 @@ export default {
   display: flex;
   justify-content: space-between;
 }
+
 .btns {
   border: none;
   width: 48%;
