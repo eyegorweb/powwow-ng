@@ -5,15 +5,6 @@
       <template slot="title">{{ $t('common.services') }}</template>
       <template slot="content">
         <ToggleGroup :services="services" :size="2" />
-        <div class="two-size to-center pb-3" v-if="partner.partyType === 'CUSTOMER'">
-          <UiToggle
-            :label="$t('getadmin.partners.optionsDetails.eSim')"
-            :editable="true"
-            :bold-label="isChanged(esimEnable, 'esimEnable')"
-            v-model="esimEnable"
-            small-label
-          />
-        </div>
         <div class="separator"></div>
         <!-- SECU RESIL BOX -->
         <div class="d-flex two">
@@ -167,17 +158,6 @@
       <template slot="content">
         <ToggleGroup :services="billingToggles" :size="2" />
 
-        <div class="d-flex mb-2 two">
-          <div class="two-size to-bottom pb-3" v-if="partyType === 'CUSTOMER'">
-            <UiToggle
-              :label="$t('getadmin.partners.optionsDetails.flagBillingPDPCellHistory')"
-              :editable="true"
-              :bold-label="isChanged(flagBillingPDPCellHistory, 'flagBillingPDPCellHistory')"
-              v-model="flagBillingPDPCellHistory"
-              small-label
-            />
-          </div>
-        </div>
         <!-- Bill sim stock -->
         <div class="separator"></div>
         <div>
@@ -532,7 +512,7 @@
         <UiButton
           v-if="
             havePermission('party', 'update_main_options') ||
-              havePermission('party', 'update_secondary_options')
+            havePermission('party', 'update_secondary_options')
           "
           variant="primary"
           class="p-3"
@@ -685,13 +665,35 @@ export default {
         labelService: this.$t('getadmin.partners.optionsDetails.services.labels.FACT_DUAL_SIM'),
       },
       {
-        code: 'FACT_REPORT_CONSO',
+        code: 'SUSPENSION_FREE',
         visible: true,
         checked: false,
         editable: true,
         optional: false,
         activationDate: null,
-        labelService: this.$t('getadmin.partners.optionsDetails.services.labels.FACT_REPORT_CONSO'),
+        labelService: this.$t('getadmin.partners.optionsDetails.services.labels.SUSPENSION_FREE'),
+      },
+
+      {
+        code: 'OFFER_TARIFF_ENABLED',
+        visible: true,
+        checked: false,
+        editable: true,
+        optional: false,
+        activationDate: null,
+        labelService: this.$t(
+          'getadmin.partners.optionsDetails.services.labels.OFFER_TARIFF_ENABLED'
+        ),
+      },
+
+      {
+        code: 'FLAG_BILLING_PDP',
+        visible: true,
+        checked: false,
+        editable: true,
+        optional: false,
+        activationDate: null,
+        labelService: this.$t('getadmin.partners.optionsDetails.flagBillingPDPCellHistory'),
       },
     ];
 
@@ -765,13 +767,13 @@ export default {
         labelService: this.$t('getadmin.partners.optionsDetails.ipFixe'),
       },
       {
-        code: 'NOTIF_EUICC',
+        code: 'FACT_REPORT_CONSO',
         visible: true,
         checked: false,
         editable: true,
         optional: false,
         activationDate: null,
-        labelService: this.$t('getadmin.partners.optionsDetails.services.labels.NOTIF_EUICC'),
+        labelService: this.$t('getadmin.partners.optionsDetails.services.labels.FACT_REPORT_CONSO'),
       },
       {
         code: 'TERMINATION_DFE',
@@ -782,6 +784,7 @@ export default {
         activationDate: null,
         labelService: this.$t('getadmin.partners.optionsDetails.services.labels.TERMINATION_DFE'),
       },
+
       {
         code: 'ESIM_TERMINATION',
         visible: !!this.userIsBO,
@@ -790,6 +793,25 @@ export default {
         optional: false,
         activationDate: null,
         labelService: this.$t('getadmin.partners.optionsDetails.services.labels.ESIM_TERMINATION'),
+      },
+
+      {
+        code: 'ESIM_ENABLE',
+        visible: true,
+        checked: false,
+        editable: true,
+        optional: false,
+        activationDate: null,
+        labelService: this.$t('getadmin.partners.optionsDetails.eSim'),
+      },
+      {
+        code: 'NOTIF_EUICC',
+        visible: true,
+        checked: false,
+        editable: true,
+        optional: false,
+        activationDate: null,
+        labelService: this.$t('getadmin.partners.optionsDetails.services.labels.NOTIF_EUICC'),
       },
     ];
 
@@ -808,7 +830,15 @@ export default {
       this.initialServices = cloneDeep(this.partnerOptions);
       this.checkToggle(this.services, 'AMSISDN', this.partnerOptions.flagMsisdnA);
       this.checkToggle(this.services, 'IP_FIXE', this.partnerOptions.ipFixeEnable);
+
+      this.checkToggle(
+        this.services,
+        'FACT_REPORT_CONSO',
+        this.partnerOptions.flagStatisticsEnabled
+      );
+
       this.checkToggle(this.services, 'TERMINATION_DFE', this.partnerOptions.terminationDfeEnabled);
+      this.checkToggle(this.services, 'ESIM_ENABLE', this.partnerOptions.esimEnable);
       this.checkToggle(
         this.services,
         'ESIM_TERMINATION',
@@ -816,7 +846,7 @@ export default {
       );
       this.diffusionListEnabled = this.partnerOptions.diffusionListEnabled;
       this.resilationSecurityNotificationMails = this.partnerOptions.resilationSecurityNotificationMails;
-      this.esimEnable = this.partnerOptions.esimEnable;
+
       this.mailOrder = this.partnerOptions.mailOrder;
       this.crEmail = this.partnerOptions.crEmail;
       this.portabilityAcquittalsEmails = this.partnerOptions.portabilityAcquittalsEmails;
@@ -835,14 +865,23 @@ export default {
         this.partnerOptions.resilationSecurityEnabled
       );
       this.checkToggle(this.services, 'NOTIF_EUICC', this.partnerOptions.euiccEnabled);
-      this.checkToggle(this.services, 'NOTIF_EUICC', this.partnerOptions.euiccEnabled);
 
       this.resilationSecurityDelay = this.partnerOptions.resilationSecurityDelay;
-      this.flagBillingPDPCellHistory = this.partnerOptions.flagBillingPDPCellHistory;
 
       this.checkToggle(this.orderToggles, 'REF_CLIENT', this.partnerOptions.orderNumberRequired);
       this.checkToggle(this.billingToggles, 'SWITCH_RCARD', this.partnerOptions.switchRcard);
       this.checkToggle(this.billingToggles, 'FACT_IMEI', this.partnerOptions.flagBillingIMEI);
+      this.checkToggle(this.billingToggles, 'SUSPENSION_FREE', this.partnerOptions.suspensionFree);
+      this.checkToggle(
+        this.billingToggles,
+        'OFFER_TARIFF_ENABLED',
+        this.partnerOptions.offerTariffEnabled
+      );
+      this.checkToggle(
+        this.billingToggles,
+        'FLAG_BILLING_PDP',
+        this.partnerOptions.flagBillingPDPCellHistory
+      );
       this.billingDualSIM = this.partnerOptions.dualSimBilling;
       this.checkToggle(this.billingToggles, 'FACT_DUAL_SIM', this.partnerOptions.dualSimBilling);
       this.checkToggle(
@@ -963,7 +1002,8 @@ export default {
       });
     },
     async saveOptions() {
-      const esimEnable = this.partyType === 'CUSTOMER' ? this.esimEnable : null;
+      const esimEnable =
+        this.partyType === 'CUSTOMER' ? this.getToggle(this.services, 'ESIM_ENABLE') : null;
       const resilationSecurityDelay = this.resilationSecurityEnabled
         ? parseInt(this.resilationSecurityDelay)
         : null;
@@ -993,6 +1033,9 @@ export default {
           terminationDfeEnabled: this.getToggle(this.services, 'TERMINATION_DFE'),
           esimTerminationDeleteMandatory: this.getToggle(this.services, 'ESIM_TERMINATION'),
           otaSensitive: this.getToggle(this.services, 'COMPAT_OTA'),
+
+          flagStatisticsEnabled: this.getToggle(this.services, 'FACT_REPORT_CONSO'),
+
           smsAuthorized: this.smsAuthorizedEnabled,
           shortCodes: this.shortCodes,
           mailOrder: parseInt(this.mailOrder),
@@ -1003,8 +1046,11 @@ export default {
           crEmail,
           diffusionListEnabled: this.diffusionListEnabled,
           diffusionList,
-          flagBillingPDPCellHistory: this.flagBillingPDPCellHistory,
+
           flagBillingIMEI: this.getToggle(this.billingToggles, 'FACT_IMEI'),
+          suspensionFree: this.getToggle(this.billingToggles, 'SUSPENSION_FREE'),
+          flagBillingPDPCellHistory: this.getToggle(this.billingToggles, 'FLAG_BILLING_PDP'),
+          offerTariffEnabled: this.getToggle(this.billingToggles, 'OFFER_TARIFF_ENABLED'),
           switchRcard: this.getToggle(this.billingToggles, 'SWITCH_RCARD'),
           controlDeactivateRCard: this.getToggle(this.billingToggles, 'DISABLE_RCARD'),
           dualSimBilling: this.getToggle(this.billingToggles, 'FACT_DUAL_SIM'),
@@ -1016,7 +1062,7 @@ export default {
           flagbillingNonActDelay: this.flagbillingNonActDelayEnabled,
           billingNonActDelay: parseInt(this.billingDelay),
           exportComptaBSCSModeEnabled: this.exportBSCS,
-          flagStatisticsEnabled: this.consoReport,
+
           flagServicesAudit: this.flagServicesAudit,
           portabilityAcquittalsEmails: parseInt(this.portabilityAcquittalsEmails),
           importCustomFieldsEnabled: this.getToggle(this.otherToggles, 'CUSTOM_FIELD_IMPORT'),
@@ -1268,9 +1314,11 @@ export default {
   background-color: #e1e1e1;
   margin: 20px;
 }
+
 .third-size {
   width: 33%;
 }
+
 .two {
   justify-content: space-between;
 
@@ -1278,6 +1326,7 @@ export default {
     width: 40%;
   }
 }
+
 .half-size {
   width: 45%;
 }
@@ -1289,6 +1338,7 @@ export default {
 .to-bottom {
   align-self: flex-end;
 }
+
 .to-center {
   align-self: center;
 }
@@ -1305,6 +1355,7 @@ export default {
 .bold {
   font-weight: bold;
 }
+
 .small-label {
   font-size: 0.9rem !important;
 }

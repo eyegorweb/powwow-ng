@@ -35,6 +35,7 @@ export async function getPartyOptions(partyId) {
     flagMsisdnA
     euiccEnabled
     flagStatisticsEnabled
+    offerTariffEnabled
     resilationSecurityEnabled
     resilationSecurityDelay
     resilationSecurityNotificationEnabled
