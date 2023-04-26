@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1410+20230426130137
+2023-04-26
+
+### Fixes
+
+- [3671] panel modification des apn (2c069739d06ae38bf69cdb85a019141d18266b8d)
+
 ## 1.17.0-master.1409+20230426124809
 2023-04-26
 
