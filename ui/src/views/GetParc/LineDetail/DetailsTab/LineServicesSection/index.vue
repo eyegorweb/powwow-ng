@@ -501,13 +501,13 @@ export default {
     },
 
     canShowParameters() {
-      return this.paramServices && this.paramServices.length;
+      return !!(this.paramServices && this.paramServices.length);
     },
     canShowAPN() {
-      return this.apnParams && this.apnParams.length;
+      return !!(this.apnParams && this.apnParams.length);
     },
     canShowDNN() {
-      return this.dnnParams && this.dnnParams.length;
+      return !!(this.dnnParams && this.dnnParams.length);
     },
     changes() {
       if (!this.services) {
