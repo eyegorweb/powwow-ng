@@ -49,10 +49,6 @@
         </Modal>
       </div>
       <div slot="messages" class="text-info">
-        <div>
-          <i class="ic-Alert-Icon" />
-          {{ $t('getparc.actCreation.changeStatus.warningMsg') }}
-        </div>
         <div v-if="exceptionError">
           <h6 class="text-danger">{{ $t('errors.all') }}</h6>
           <div class="text-danger">
@@ -207,6 +203,7 @@ export default {
     margin-left: 20px;
   }
 }
+
 ::v-deep .btn-primary {
   background-color: $orange;
   border: none;
