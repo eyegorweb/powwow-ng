@@ -572,6 +572,8 @@
     "detailed": "Détaillé",
     "unit": "Unité",
     "mass": "Masse",
+    "enable": "Activer",
+    "disable": "Désactiver",
     "THE": "Le"
   },
   "bills": {
@@ -1999,7 +2001,7 @@
         "CONSUMING": "En cours consommation",
         "EXPORT_CONS": "Export consommation",
         "SUSPEND": "Suspendre des lignes",
-        "SUSPEND_BILLS": "Suspendre la facturation",
+        "SUSPEND_BILLS": "Facturation des lignes suspendues",
         "MANAGE_ALARMS": "Gérer des alarmes",
         "RECHARGE_LINES": "Recharger offre digitale",
         "RECHARGE_LINES_BTN": "Recharger les lignes",
@@ -2068,7 +2070,7 @@
       },
       "suspend": {
         "notEditable": "Non modifiable par le client",
-        "suspendBilling": "Suspendre la facturation"
+        "suspendBilling": "Facturation"
       },
       "reactivate": {
         "notEditable": "Non modifiable par le client",
