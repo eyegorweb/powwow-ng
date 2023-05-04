@@ -1,17 +1,15 @@
 <template>
   <WidgetBloc :widget="widget" large>
-    <div slot="header">
-      <div class="d-flex">
-        <UiSelect
-          v-if="canSelectPartner"
-          class="text-gray"
-          v-model="selectedPartner"
-          :placeholder="$t('getparc.actCreation.ManageCancellation.choose')"
-          :options="names"
-          small
-        ></UiSelect>
-      </div>
-    </div>
+    <center>
+      <UiSelect
+        v-if="canSelectPartner"
+        class="text-gray"
+        v-model="selectedPartner"
+        :placeholder="$t('getparc.actCreation.ManageCancellation.choose')"
+        :options="names"
+        small
+      ></UiSelect>
+    </center>
     <div v-if="noResults" class="noResult alert-light" role="alert">{{ $t('noResult') }}</div>
     <ul v-else class="list-group bg-white">
       <li class="list-group-item" v-for="(indicator, i) in indicators" :key="'indicator.name_' + i">
@@ -227,13 +225,16 @@ li {
   border-top: 1px solid rgba(0, 0, 0, 0.125);
   font-size: 0.8rem;
   padding-bottom: 0.4rem;
+
   &:first-child {
     border-top: none;
   }
+
   i.increase,
   span.increase {
     color: $success;
   }
+
   i.decrease,
   span.decrease {
     color: $orange;
