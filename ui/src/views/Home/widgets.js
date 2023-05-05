@@ -312,7 +312,7 @@ export const defaultWidgets = [
     large: false,
     seeMore: false,
     component: ActiveCustomerPark,
-    permission: { domain: 'widget', action: 'bill_top_order' },
+    permission: { domain: 'widget', action: 'parc_activated' },
   },
 ];
 
