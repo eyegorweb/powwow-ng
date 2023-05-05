@@ -509,6 +509,8 @@
     "detailed": "Detailed",
     "unit": "Unit",
     "mass": "Mass",
+    "enable": "Enable",
+    "disable": "Disable",
     "THE": "The",
     "delivery": "Delivery"
   },
@@ -1833,7 +1835,7 @@
         "CONSUMING": "Outstanding consumption",
         "EXPORT_CONS": "Export consumption",
         "SUSPEND": "Suspend lines",
-        "SUSPEND_BILLS": "Suspend billing",
+        "SUSPEND_BILLS": "Billing for suspended lines",
         "MANAGE_ALARMS": "Manage alarms",
         "RECHARGE_LINES": "Top up digital Offer",
         "EXPORT_LAST_USAGE": "Export last use",
@@ -1897,7 +1899,7 @@
       },
       "suspend": {
         "notEditable": "Not modifiable by the customer",
-        "suspendBilling": "Suspend billing"
+        "suspendBilling": "Billing"
       },
       "reactivate": {
         "notEditable": "Not modifiable by the customer",

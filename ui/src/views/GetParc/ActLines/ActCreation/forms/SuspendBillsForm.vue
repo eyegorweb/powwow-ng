@@ -2,16 +2,28 @@
   <ActFormContainer :validate-fn="onValidate">
     <template v-if="partner">
       <div>
+        <p>
+          <span
+            ><b>{{ $t('getparc.actCreation.suspend.suspendBilling') }}</b></span
+          >
+        </p>
+        <div class="row">
+          <div class="col d-flex">
+            <p>
+              <Toggle
+                block
+                v-if="toggleValues.length > 0"
+                @update="suspendBilling = $event.id"
+                :values="toggleValues"
+                class="pl-2"
+              />
+            </p>
+          </div>
+        </div>
         <div class="row" v-if="!userIsPartner">
           <div class="col d-flex">
             <UiCheckbox v-model="notEditable" />
             <span>{{ $t('getparc.actCreation.suspend.notEditable') }}</span>
-          </div>
-        </div>
-        <div v-if="canSuspendBilling" class="row">
-          <div class="col d-flex">
-            <UiCheckbox v-model="suspendBilling" />
-            <span>{{ $t('getparc.actCreation.suspend.suspendBilling') }}</span>
           </div>
         </div>
       </div>
@@ -35,11 +47,13 @@ import { suspendLines } from '@/api/actCreation';
 import { searchLineById } from '@/api/linesActions';
 import { getPartyOptions } from '@/api/partners.js';
 import { formatBackErrors } from '@/utils/errors';
+import Toggle from '@/components/ui/UiToggle2';
 
 export default {
   components: {
     ActFormContainer,
     UiCheckbox,
+    Toggle,
   },
   data() {
     return {
@@ -48,6 +62,7 @@ export default {
       singleLineFound: undefined,
       exceptionError: undefined,
       partnerOptions: undefined,
+      toggleValues: [],
     };
   },
   computed: {
@@ -82,6 +97,19 @@ export default {
   async mounted() {
     await this.loadSingleLineInfo();
     this.refreshOptions();
+    this.partnerOptions = await getPartyOptions(this.partner.id);
+    this.toggleValues = [
+      {
+        id: 'false',
+        label: 'common.enable',
+        default: true,
+      },
+      {
+        id: 'true',
+        label: 'common.disable',
+        disabled: !this.partnerOptions.suspensionFree,
+      },
+    ];
   },
   methods: {
     async refreshOptions() {
@@ -152,4 +180,5 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+</style>
