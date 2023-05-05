@@ -2,6 +2,16 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1413+20230505113521
+2023-05-05
+
+### Fixes
+
+- [3901] supprimer le message d alerte (33eb1237289e2b9673ec6710dcd1a81cf61e9c9f)
+- [3904] modifier suspendre la facturation (9003eb01b985dc6dcec365e18e3cb4327fcd9404)
+- [3906] modifier la permission du widget activeCustomer (38d4d1f916d849ac4a71dd20ec670f4ad4ee7de6)
+- [3907] modifier le visuel du widget parc client actif (b2a6704693bc630c7b0c70ad2c34742cb1c38574)
+
 ## 1.17.0-master.1412+20230427070444
 2023-04-27
 
