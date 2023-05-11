@@ -8,7 +8,6 @@
     @save="onSave"
     @partnerChange="selectedPartner = $event"
     :partner="partner"
-    :no-suspension="true"
     :is-loading="isLoading"
     :no-wsnotification="true"
     :check-errors-fn="isFormValidFn"
