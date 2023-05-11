@@ -1899,7 +1899,8 @@
       },
       "suspend": {
         "notEditable": "Not modifiable by the customer",
-        "suspendBilling": "Billing"
+        "suspendBilling": "Billing",
+        "suspend-tooltip-text": "To deactivate billing, you must activate the partner option: 'Free suspension'.<br>Subject to a compatible offer (With free suspension)"
       },
       "reactivate": {
         "notEditable": "Not modifiable by the customer",

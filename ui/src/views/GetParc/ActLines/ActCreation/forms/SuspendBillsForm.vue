@@ -12,6 +12,7 @@
             <p>
               <Toggle
                 block
+                :get-message="getActivationMessage"
                 v-if="toggleValues.length > 0"
                 @update="suspendBilling = $event.id"
                 :values="toggleValues"
@@ -66,6 +67,13 @@ export default {
     };
   },
   computed: {
+    getActivationMessage() {
+      return (option) => {
+        if (option == 'common.disable' && !this.partnerOptions.suspensionFree)
+          return `${this.$t('getparc.actCreation.suspend.suspend-tooltip-text')}`;
+      };
+    },
+
     ...mapState('actLines', ['selectedLinesForActCreation', 'actCreationPrerequisites']),
     ...mapGetters('actLines', ['appliedFilters', 'linesActionsResponse']),
     ...mapGetters(['userIsBO', 'userIsPartner']),
