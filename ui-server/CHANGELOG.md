@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1415+20230511102156
+2023-05-11
+
+### Fixes
+
+- [3910] gestion de l'option suspensionAuto pour la création d'alarme (6aeb63ecfc4caf89ac7443466bf7845496cb24e3)
+
 ## 1.17.0-master.1414+20230511073224
 2023-05-11
 
