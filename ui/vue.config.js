@@ -25,7 +25,7 @@ module.exports = {
     },
     webpackBundleAnalyzer: {
       openAnalyzer: false,
-      analyzerMode: 'static',
+      analyzerMode: 'disabled',
     },
   },
 

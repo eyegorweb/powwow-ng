@@ -16,7 +16,6 @@
     <ff-toggle />
     <ExportButtonModals />
     <DownloadManager />
-    <AppVersion />
   </div>
 </template>
 
@@ -29,7 +28,6 @@ import ConfirmationModal from '@/components/ConfirmationModal';
 import FlashMessages from '@/components/ui/messages/FlashMessages';
 import PendingActions from '@/components/ui/messages/PendingActions';
 import DownloadManager from '@/components/DownloadManager.vue';
-import AppVersion from '@/components/AppVersion.vue';
 import { mapMutations, mapGetters } from 'vuex';
 import $ from 'jquery';
 import 'jquery-ui-dist/jquery-ui.js';
@@ -49,7 +47,6 @@ export default {
     ConfirmationModal,
     ExportButtonModals,
     DownloadManager,
-    AppVersion,
     PendingActions,
   },
   methods: {
