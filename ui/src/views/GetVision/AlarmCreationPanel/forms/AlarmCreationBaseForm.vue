@@ -54,13 +54,13 @@
       @save="$emit('save', $event)"
       :can-save="canSave"
       :partner="selectedPartner"
-      :no-suspension="noSuspension"
       :no-wsnotification="noWsnotification"
       :suspension="suspension"
       :duplicate-from="duplicateFrom"
       :is-loading="isLoading"
       :edit-mode="editMode"
       :num-notif="numNotif"
+      :alarm="alarm"
     />
   </div>
 </template>
@@ -86,7 +86,6 @@ export default {
     isLoading: Boolean,
     partner: Object,
     haveForm: Boolean,
-    noSuspension: Boolean,
     noWsnotification: Boolean,
     numNotif: Number,
     suspension: Boolean,
@@ -233,6 +232,13 @@ export default {
         this.duplicateFrom.autoPositionWorkflow.workflowDescription
         ? this.duplicateFrom.autoPositionWorkflow.workflowDescription
         : '';
+    },
+  },
+
+  watch: {
+    selectedPartner(newValue) {
+      console.log('select partner', newValue);
+      return newValue;
     },
   },
 };

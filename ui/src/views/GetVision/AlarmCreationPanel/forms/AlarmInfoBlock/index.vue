@@ -26,7 +26,7 @@
 
     <div class="row">
       <div class="col to-bottom">
-        <div v-if="suspensionAuto && !noSuspension">
+        <div v-if="suspensionAuto && noSuspensionForAlarmFlotte">
           <div class="d-flex mb-3 mt-1">
             <UiCheckbox v-model="enableSuspension" :checked="false" />
             <span>{{ $t('getvsion.alarm.sus_auto') }}</span>
@@ -127,7 +127,7 @@ import Modal from '@/components/Modal';
 import LoaderContainer from '@/components/LoaderContainer';
 import ModalSkeleton from '@/components/ui/skeletons/ModalSkeleton';
 import get from 'lodash.get';
-import { getPartyOptions } from '@/api/partners.js';
+import { getPartyOptions, isFeatureAvailable } from '@/api/partners.js';
 
 export default {
   components: {
@@ -142,7 +142,7 @@ export default {
   props: {
     partner: Object,
     duplicateFrom: Object,
-    noSuspension: Boolean,
+    alarm: Object,
     noWsnotification: Boolean,
     canSave: Boolean,
     isLoading: Boolean,
@@ -169,10 +169,13 @@ export default {
       this.enableSuspension = this.duplicateFrom.suspensionAuto;
       this.enableReactivation = this.duplicateFrom.reactivationAuto;
     }
+    if (this.partner) {
+      this.suspensionAuto = await isFeatureAvailable('SUSPENSION_AUTO', null, this.partner.id);
+    }
   },
   computed: {
-    suspensionAuto() {
-      return this.$loGet(this.partnerOptions, 'suspensionAuto');
+    noSuspensionForAlarmFlotte() {
+      return this.alarm && this.alarm.id !== 'OVER_CONSUMPTION_VOLUME_FLOTTE';
     },
     wsNotifyOption() {
       let notificationOption = this.$loGet(
@@ -203,6 +206,7 @@ export default {
       this.partnerOptions = undefined;
       if (newPartner) {
         this.partnerOptions = await getPartyOptions(newPartner.id);
+        this.suspensionAuto = await isFeatureAvailable('SUSPENSION_AUTO', null, this.partner.id);
       }
     },
   },
@@ -233,6 +237,7 @@ export default {
       partnerOptions: undefined,
       waitForConfirmation: false,
       haveError: false,
+      suspensionAuto: undefined,
     };
   },
 };
