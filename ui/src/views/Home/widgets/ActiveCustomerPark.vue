@@ -127,7 +127,7 @@ export default {
             let arraySimActivated = r.histories.flat().reverse();
             arraySimActivated.map((a) => {
               // on stocke la valeur pour gérer le null et restituer le '-' le cas échéant
-              tempValue = a.numberValue === null ? '-' : a.numberValue;
+              tempValue = a.numberValue === null ? '-' : a.numberValue.toLocaleString();
               // traduction du label
               if (a.applicationDate === prevCurrentMonth) {
                 translatedIndicator = this.$t(
@@ -168,7 +168,7 @@ export default {
           if (r.name === 'SIM_BILLED') {
             let arraySimBilled = r.histories.flat().reverse();
             arraySimBilled.map((a) => {
-              tempValue = a.numberValue === null ? '-' : a.numberValue;
+              tempValue = a.numberValue === null ? '-' : a.numberValue.toLocaleString();
               if (a.applicationDate === prevCurrentMonth) {
                 translatedIndicator = this.$t(
                   'home.widgets.activeCustomerPark.billedLinesPreviousMonth'
