@@ -2070,7 +2070,8 @@
       },
       "suspend": {
         "notEditable": "Non modifiable par le client",
-        "suspendBilling": "Facturation"
+        "suspendBilling": "Facturation",
+        "suspend-tooltip-text": "Pour désactiver la facturation, il faut activer l'option partenaire : 'Suspension offerte'.<br>Sous condition d’une offre compatible (Avec de la suspension offerte)"
       },
       "reactivate": {
         "notEditable": "Non modifiable par le client",
