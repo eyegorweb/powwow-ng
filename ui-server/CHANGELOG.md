@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1417+20230511143129
+2023-05-11
+
+### Fixes
+
+- [3909] suppression du fichier de rapport des modules pour l'environnement de production (4f33625ffa7bffb180fc58062a34db66a87f66f2)
+
 ## 1.17.0-master.1416+20230511132433
 2023-05-11
 
