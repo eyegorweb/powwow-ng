@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1418+20230512081313
+2023-05-12
+
+### Fixes
+
+- [3903] ajouter bloc alarme dans detailsPartner (9dfc2cf025f8dfb65fd0a1ef43c177f903109136)
+
 ## 1.17.0-master.1417+20230511143129
 2023-05-11
 
