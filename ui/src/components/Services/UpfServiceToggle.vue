@@ -1,27 +1,25 @@
 <template>
-  <div class="single-service">
-    <div>
-      <div>
-        <UiToggle
-          :label="service.labelService"
-          :editable="isEditable"
-          v-model="checked"
-          :no-click="noClick"
-          :bold-label="boldLabel"
-          :can-change-fn="canChangeFn"
-        />
-      </div>
-      <div>
-        <div v-if="profiles && profiles.length" class="mt-2">
-          <UiSelect
-            v-model="chosenProfile"
-            :placeholder="$t('orders.select-profil-placeholder')"
-            :options="profiles"
-            :arrow-blue="true"
-            block
-          />
-        </div>
-      </div>
+  <div class="scontainer w80">
+    <div class="line">
+      <UiToggle
+        :label="service.labelService"
+        :editable="isEditable"
+        v-model="checked"
+        :no-click="noClick"
+        :bold-label="boldLabel"
+        :can-change-fn="canChangeFn"
+        full-width
+        long-dots
+      />
+    </div>
+    <div v-if="profiles && profiles.length" class="line">
+      <UiSelect
+        v-model="chosenProfile"
+        :placeholder="$t('orders.select-profil-placeholder')"
+        :options="profiles"
+        :arrow-blue="true"
+        block
+      />
     </div>
   </div>
 </template>
@@ -39,7 +37,6 @@ export default {
   props: {
     service: Object,
     profileData: Object,
-    vertical: Boolean,
     noClick: Boolean,
     readOnly: Boolean,
     boldLabel: Boolean,

@@ -1,8 +1,12 @@
 <template>
   <div class="toggle" :class="[label ? 'with-label' : 'without-label', statusClassName]">
-    <div v-if="label" class="before-label" :class="{ 'font-weight-bold': boldLabel }">
+    <div
+      v-if="label"
+      class="before-label"
+      :class="{ 'font-weight-bold': boldLabel, 'full-width': fullWidth }"
+    >
       <p class="before-label__label" :class="{ 'small-label': smallLabel }">{{ label }}</p>
-      <p class="before-label__dots" />
+      <p class="before-label__dots" :class="{ 'long-dots': longDots }" />
     </div>
     <label>
       <input
@@ -57,6 +61,8 @@ export default {
       required: false,
     },
     smallLabel: Boolean,
+    fullWidth: Boolean,
+    longDots: Boolean,
     noClick: Boolean,
   },
   data() {
@@ -132,6 +138,10 @@ export default {
     width: 65%;
     overflow: hidden;
 
+    &.full-width {
+      width: 85%;
+    }
+
     &__label {
       color: $dark-gray;
       margin: 0;
@@ -148,6 +158,16 @@ export default {
 
       &::after {
         content: '..............................................';
+        display: block;
+        position: absolute;
+        left: 5px;
+        bottom: 0;
+        color: $dark-gray;
+        margin: 0;
+        font-size: 14px;
+      }
+      &.long-dots::after {
+        content: '..................................................................................';
         display: block;
         position: absolute;
         left: 5px;
