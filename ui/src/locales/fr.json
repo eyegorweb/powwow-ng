@@ -540,6 +540,7 @@
     "order": "Commande",
     "export": "Export",
     "others": "Autres",
+    "alarms": "ALARMES",
     "period": "Période",
 
     "identifier": "Identifiant",
@@ -1077,6 +1078,7 @@
       },
       "optionsDetails": {
         "eSim": "Esim pour le partenaire",
+        "atypicalAlarm": "Alarme atypique",
         "ipFixe": "IP Fixe active",
         "smsCodes": "Codes courts SMS",
         "notifyEmail": "Notification par mail",

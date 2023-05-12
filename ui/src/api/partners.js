@@ -32,6 +32,7 @@ export async function isFeatureAvailable(optionType, simcardInstanceId, partyId)
 export async function getPartyOptions(partyId) {
   const queryStr = `{
   getPartyOptions(partyId: ${partyId}) {
+    atypicalAlarm
     flagMsisdnA
     euiccEnabled
     flagStatisticsEnabled
