@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1419+20230512120132
+2023-05-12
+
+### Fixes
+
+- [3907] corriger format nombre (6f95278b0f63d5e165772319c32d1bd06aac28a4)
+
 ## 1.17.0-master.1418+20230512081313
 2023-05-12
 
