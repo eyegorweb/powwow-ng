@@ -480,6 +480,7 @@
     "order": "Order",
     "export": "Export",
     "others": "Others",
+    "alarms": "Alarms",
     "period": "Period",
     "identifier": "Identifier",
     "months_12": "12 Months",
@@ -985,6 +986,7 @@
       },
       "optionsDetails": {
         "smsCodes": "Short codes SMS",
+        "atypicalAlarm": "Atypical alarm",
         "ipFixe": "Fixed IP active",
         "notifyEmail": "Email notification",
         "userReference": "Entering the customer reference",

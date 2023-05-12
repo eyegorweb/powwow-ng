@@ -22,12 +22,11 @@
               v-if="partyType === 'CUSTOMER' && resilationSecurityEnabled"
               :label="$t('notification')"
               :editable="true"
-              :bold-label="
-                isChanged(
-                  resilationSecurityNotificationEnabled,
-                  'resilationSecurityNotificationEnabled'
-                )
-              "
+              :bold-label="isChanged(
+                resilationSecurityNotificationEnabled,
+                'resilationSecurityNotificationEnabled'
+              )
+                "
               v-model="resilationSecurityNotificationEnabled"
               small-label
             />
@@ -116,9 +115,8 @@
         <div class="d-flex mt-3 two">
           <div class="two-size">
             <UiToggle
-              :label="
-                $t('getadmin.partners.optionsDetails.services.labels.MANDATORY_PREACTIVATION')
-              "
+              :label="$t('getadmin.partners.optionsDetails.services.labels.MANDATORY_PREACTIVATION')
+                "
               :checked="orderActivationEnabled"
               :editable="!orderActivationEnabled"
               :bold-label="isChanged(orderPreactivation, 'orderPreactivationMandatory')"
@@ -216,9 +214,8 @@
             <UiToggle
               :label="$t('getadmin.partners.optionsDetails.services.labels.AUTO_ACT_SIM')"
               :editable="true"
-              :bold-label="
-                isChanged(flagDefautWorkflowActicationEnabled, 'flagDefautWorkflowActication')
-              "
+              :bold-label="isChanged(flagDefautWorkflowActicationEnabled, 'flagDefautWorkflowActication')
+                "
               v-model="flagDefautWorkflowActicationEnabled"
               small-label
             />
@@ -372,69 +369,22 @@
       </div>
     </ContentBlock>
 
-    <!-- OTHERS BLOC -->
+    <!-- ALARM BLOC -->
     <ContentBlock no-handle>
-      <template slot="title">{{ $t('common.others') }}</template>
+      <template slot="title">{{ $t('common.alarms') }}</template>
       <template slot="content">
-        <ToggleGroup :services="otherToggles" :size="2" />
-        <div class="d-flex">
-          <div class="third-size pr-4" v-if="partyType === 'MVNO'">
-            <div class="form-group">
-              <label class="small-label">{{
-                $t('getadmin.partners.optionsDetails.paymentEmails')
-              }}</label>
-              <UiSelect
-                class="report-field"
-                v-model="portabilityAcquittalsEmails"
-                :options="mailingLists"
-                block
-              />
-            </div>
-          </div>
-          <div class="third-size pr-4" v-if="partyType === 'MVNO'">
-            <div class="form-group">
-              <label class="small-label">{{
-                $t('getadmin.partners.optionsDetails.cdrEmails')
-              }}</label>
-              <UiSelect
-                class="report-field"
-                v-model="dailyCdrEmails"
-                :options="mailingLists"
-                block
-              />
-            </div>
-          </div>
+        <div class="two-size to-center pb-3">
+          <UiToggle
+            :label="$t('getadmin.partners.optionsDetails.atypicalAlarm')"
+            :editable="true"
+            :bold-label="isChanged(atypicalAlarm, 'atypicalAlarm')"
+            v-model="atypicalAlarm"
+            small-label
+          />
         </div>
-        <div class="d-flex two">
-          <div class="two-size" v-if="partyType === 'CUSTOMER'">
-            <div class="form-group">
-              <label
-                class="small-label"
-                :class="{ bold: preactivationFormat !== partnerOptions.msisdnFormatPreactivation }"
-                >{{ $t('getadmin.partners.optionsDetails.preactivateFormat') }}</label
-              >
-              <Toggle
-                block
-                @update="preactivationFormat = $event.id"
-                :values="preactivationFormats"
-              />
-            </div>
-          </div>
 
-          <!-- Dual Sim -->
-          <div class="two-size" v-if="(userIsBO || userIsAdmin) && partyType === 'CUSTOMER'">
-            <div class="form-group">
-              <label
-                class="small-label"
-                :class="{ bold: dualSimChoice !== initialServices.dualSimCardPartyType }"
-              >
-                {{ $t('getparc.lineDetail.tab1.dualSim') }}
-              </label>
-              <Toggle block @update="dualSimChoice = $event.id" :values="dualSimChoices" />
-            </div>
-          </div>
-        </div>
         <div class="separator"></div>
+
         <div class="d-flex">
           <div class="two-size">
             <div class="form-group">
@@ -501,6 +451,71 @@
       </template>
     </ContentBlock>
 
+    <!-- OTHERS BLOC -->
+    <ContentBlock no-handle>
+      <template slot="title">{{ $t('common.others') }}</template>
+      <template slot="content">
+        <ToggleGroup :services="otherToggles" :size="2" />
+        <div class="d-flex">
+          <div class="third-size pr-4" v-if="partyType === 'MVNO'">
+            <div class="form-group">
+              <label class="small-label">{{
+                $t('getadmin.partners.optionsDetails.paymentEmails')
+              }}</label>
+              <UiSelect
+                class="report-field"
+                v-model="portabilityAcquittalsEmails"
+                :options="mailingLists"
+                block
+              />
+            </div>
+          </div>
+          <div class="third-size pr-4" v-if="partyType === 'MVNO'">
+            <div class="form-group">
+              <label class="small-label">{{
+                $t('getadmin.partners.optionsDetails.cdrEmails')
+              }}</label>
+              <UiSelect
+                class="report-field"
+                v-model="dailyCdrEmails"
+                :options="mailingLists"
+                block
+              />
+            </div>
+          </div>
+        </div>
+        <div class="d-flex two">
+          <div class="two-size" v-if="partyType === 'CUSTOMER'">
+            <div class="form-group">
+              <label
+                class="small-label"
+                :class="{ bold: preactivationFormat !== partnerOptions.msisdnFormatPreactivation }"
+                >{{ $t('getadmin.partners.optionsDetails.preactivateFormat') }}</label
+              >
+              <Toggle
+                block
+                @update="preactivationFormat = $event.id"
+                :values="preactivationFormats"
+              />
+            </div>
+          </div>
+
+          <!-- Dual Sim -->
+          <div class="two-size" v-if="(userIsBO || userIsAdmin) && partyType === 'CUSTOMER'">
+            <div class="form-group">
+              <label
+                class="small-label"
+                :class="{ bold: dualSimChoice !== initialServices.dualSimCardPartyType }"
+              >
+                {{ $t('getparc.lineDetail.tab1.dualSim') }}
+              </label>
+              <Toggle block @update="dualSimChoice = $event.id" :values="dualSimChoices" />
+            </div>
+          </div>
+        </div>
+      </template>
+    </ContentBlock>
+
     <div class="d-flex">
       <div class="save-block">
         <div v-if="exceptionError" class="text-info">
@@ -510,10 +525,9 @@
           </div>
         </div>
         <UiButton
-          v-if="
-            havePermission('party', 'update_main_options') ||
+          v-if="havePermission('party', 'update_main_options') ||
             havePermission('party', 'update_secondary_options')
-          "
+            "
           variant="primary"
           class="p-3"
           block
@@ -846,7 +860,7 @@ export default {
       );
       this.diffusionListEnabled = this.partnerOptions.diffusionListEnabled;
       this.resilationSecurityNotificationMails = this.partnerOptions.resilationSecurityNotificationMails;
-
+      this.atypicalAlarm = this.partnerOptions.atypicalAlarm;
       this.mailOrder = this.partnerOptions.mailOrder;
       this.crEmail = this.partnerOptions.crEmail;
       this.portabilityAcquittalsEmails = this.partnerOptions.portabilityAcquittalsEmails;
@@ -1024,6 +1038,7 @@ export default {
           resilationSecurityEnabled: this.resilationSecurityEnabled,
           resilationSecurityDelay,
           esimEnable,
+          atypicalAlarm: this.atypicalAlarm,
           ipFixeEnable: this.getToggle(this.services, 'IP_FIXE'),
           dailyOutstandingReporting: this.reportConsoValue === 'no' ? false : true,
           consoReporting:
@@ -1220,6 +1235,7 @@ export default {
       resilationSecurityNotificationMails: undefined,
       errors: undefined,
       esimEnable: undefined,
+      atypicalAlarm: undefined,
       resilationSecurityNotificationEnabled: undefined,
       resilationSecurityEnabled: undefined,
       coachM2MEnabled: undefined,
