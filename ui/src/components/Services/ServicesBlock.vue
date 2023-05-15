@@ -53,7 +53,6 @@
               :service="upfService"
               :profile-data="profileData"
               :bold-label="isChanged(upfService)"
-              vertical
               :disabled="false"
               :no-click="noClick"
               :read-only="false"
@@ -144,7 +143,6 @@
           :service="upfService"
           :profile-data="profileData"
           :bold-label="isChanged(upfService)"
-          vertical
           :disabled="false"
           :no-click="noClick"
           :read-only="false"
@@ -155,7 +153,7 @@
     </div>
   </div>
   <div v-else>
-    <div class="row">
+    <div v-if="!upfService" class="row">
       <div :class="{ 'col-md-8 displayFlex': !fullWidth, 'col-md-12': fullWidth }">
         <div class="services-container s-container">
           <div
@@ -176,20 +174,6 @@
                   return canChangeValue(service, value);
                 }
               "
-            />
-          </div>
-
-          <div v-if="upfService" class="single-service">
-            <UpfServiceToggle
-              :service="upfService"
-              :profile-data="profileData"
-              :bold-label="isChanged(upfService)"
-              vertical
-              :disabled="false"
-              :no-click="noClick"
-              :read-only="false"
-              @change="onUpfServiceChange"
-              @initprofiles="onProfilesChange"
             />
           </div>
         </div>
@@ -236,6 +220,18 @@
           </div>
         </div>
       </div>
+    </div>
+    <div v-else class="single-service">
+      <UpfServiceToggle
+        :service="upfService"
+        :profile-data="profileData"
+        :bold-label="isChanged(upfService)"
+        :disabled="false"
+        :no-click="noClick"
+        :read-only="false"
+        @change="onUpfServiceChange"
+        @initprofiles="onProfilesChange"
+      />
     </div>
   </div>
 </template>
