@@ -48,18 +48,6 @@
               />
             </div>
           </div>
-          <div v-if="upfService" class="single-service">
-            <UpfServiceToggle
-              :service="upfService"
-              :profile-data="profileData"
-              :bold-label="isChanged(upfService)"
-              :disabled="false"
-              :no-click="noClick"
-              :read-only="false"
-              @change="onUpfServiceChange"
-              @initprofiles="onProfilesChange"
-            />
-          </div>
           <!-- RoamingExtended is check in services toggles for the simple toggle -->
           <template v-if="canShowRoamingTypes">
             <div class="row">
@@ -138,7 +126,7 @@
           />
         </div>
       </template>
-      <div v-if="upfService" class="single-service">
+      <div v-if="upfService" class="col-md-6">
         <UpfServiceToggle
           :service="upfService"
           :profile-data="profileData"
