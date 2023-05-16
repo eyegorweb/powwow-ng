@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1421+20230516081530
+2023-05-16
+
+### Fixes
+
+- [3867] style de l'affichage des services UPF (a48510046315a2b09892b6dbc057b274c084dde0)
+
 ## 1.17.0-master.1420+20230515122605
 2023-05-15
 
