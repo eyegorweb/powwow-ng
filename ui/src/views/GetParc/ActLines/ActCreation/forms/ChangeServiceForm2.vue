@@ -65,16 +65,16 @@
       @change="onDataServiceChange"
       @apnChange="onApnChange"
     />
+    <div v-if="upfService" class="mb-3">
+      <UpfServiceToggle
+        :service="upfService"
+        :profile-data="profileData"
+        vertical
+        @change="onUpfServiceChange"
+        @initprofiles="onProfilesChange"
+      />
+    </div>
     <div class="d-flex mb-3">
-      <div v-if="upfService">
-        <UpfServiceToggle
-          :service="upfService"
-          :profile-data="profileData"
-          vertical
-          @change="onUpfServiceChange"
-          @initprofiles="onProfilesChange"
-        />
-      </div>
       <div slot="messages" class="text-info">
         <div v-if="exceptionError">
           <h6 class="text-danger">{{ $t('errors.all') }}</h6>
