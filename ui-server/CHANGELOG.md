@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1422+20230522091839
+2023-05-22
+
+### Fixes
+
+- [3922] corriger selection radius (b870a2a63c63d4cb654402963faa8483b53349ad)
+
 ## 1.17.0-master.1421+20230516081530
 2023-05-16
 
