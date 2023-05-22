@@ -11,6 +11,7 @@
           :disabled="!selectedPartner"
           :partner="selectedPartner"
           @set:billingAccount="setBillingAccount"
+          @reset="resetFields"
         />
       </div>
       <div class="col">
@@ -125,8 +126,13 @@ export default {
   computed: {
     canValidate() {
       return (
-        (this.apnExists && !this.isPartnerEmpty && !!this.offerData && !!this.selectedApn) ||
+        (this.apnExists &&
+          !this.isPartnerEmpty &&
+          !!this.offerData &&
+          !!this.selectedApn &&
+          !!this.chosenBillingAccount) ||
         (!this.apnExists &&
+          !!this.chosenBillingAccount &&
           !this.isPartnerEmpty &&
           !!this.offerData &&
           !!this.selectedProfileData &&
@@ -170,6 +176,9 @@ export default {
       this.selectedPartner = chosenPartner;
       this.radiusAdministrationTypes(this.selectedPartner);
       this.selectedOffer = undefined;
+      this.selectedProfileData = undefined;
+      this.selectedDnn = undefined;
+      this.selectedApn = undefined;
     },
 
     async radiusAdministrationTypes() {
@@ -199,6 +208,13 @@ export default {
       this.selectedProfileData = undefined;
       this.selectedDnn = undefined;
     },
+    resetFields() {
+      this.setBillingAccount(undefined);
+      this.selectedOffer = undefined;
+      this.selectedApn = undefined;
+      this.selectedProfileData = undefined;
+      this.selectedDnn = undefined;
+    },
     selectApn(apn) {
       this.selectedApn = apn;
     },
@@ -212,4 +228,5 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+</style>

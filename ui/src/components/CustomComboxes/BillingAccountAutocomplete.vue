@@ -58,6 +58,8 @@ export default {
     selectedBillingAccount(newValue) {
       if ((newValue && newValue.id) || newValue === undefined) {
         this.$emit('input', newValue);
+      } else if (!newValue || (newValue && !newValue.label)) {
+        this.$emit('reset', undefined);
       }
     },
   },
@@ -104,4 +106,5 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+</style>

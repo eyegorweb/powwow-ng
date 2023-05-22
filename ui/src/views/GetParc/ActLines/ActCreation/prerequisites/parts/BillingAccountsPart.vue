@@ -4,6 +4,7 @@
       v-model="selectedBillingAccount"
       :selected-partner="partner"
       :disabled="disabled"
+      @reset="reset"
       preselect-first-only-when-one-item
     />
   </div>
@@ -35,7 +36,11 @@ export default {
       this.selectedBillingAccount = { ...this.preselectBillingAccount };
     }
   },
-  methods: {},
+  methods: {
+    reset() {
+      this.$emit('reset', undefined);
+    },
+  },
   watch: {
     selectedBillingAccount(newValue) {
       if (newValue && newValue.code) {
@@ -48,4 +53,5 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+</style>
