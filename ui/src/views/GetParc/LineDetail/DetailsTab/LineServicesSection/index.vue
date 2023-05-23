@@ -310,6 +310,7 @@ export default {
       const services = cloneDeep(this.services);
       const dataService = services.find((s) => s.code === 'DATA');
       if (dataService) {
+        this.initDataCheck = dataService.checked;
         this.dataService = { ...dataService };
       }
     },
@@ -435,7 +436,6 @@ export default {
     onDataServiceChange(selectedServices) {
       if (!this.initialDataParams && selectedServices.dataService) {
         this.initialDataParams = cloneDeep(selectedServices.dataService.parameters);
-        this.initDataCheck = selectedServices.dataService.checked;
       }
 
       if (selectedServices.dataService && selectedServices.dataService.checked) {
@@ -448,7 +448,8 @@ export default {
 
       if (selectedServices.upfService) {
         this.services = [...selectedServices.services, selectedServices.upfService];
-      } else {
+      }
+      if (selectedServices.dataService) {
         this.services = [...selectedServices.services, selectedServices.dataService];
       }
     },

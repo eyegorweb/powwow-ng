@@ -79,17 +79,21 @@ export default {
   },
   mounted() {
     this.defaultProfilCode = this.getDefaultProfilCode();
-    const data = {
-      checked: this.service.checked,
-      editable: this.service.editable,
-      profiles: this.service.parameters.map((s) => ({
+    let profiles = undefined;
+    if (this.service && this.service.parameters) {
+      profiles = this.service.parameters.map((s) => ({
         ...s,
         code: s.code,
         label: s.label,
         active: false,
         value: s.code,
         disabled: false,
-      })),
+      }));
+    }
+    const data = {
+      checked: this.service.checked,
+      editable: this.service.editable,
+      profiles,
     };
     this.profiles = data.profiles;
     this.checked = data.checked;
