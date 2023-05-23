@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1424+20230523130556
+2023-05-23
+
+### Fixes
+
+- [3923] correction de la synchronisation des services 4G et Data (c464c04d25ae5b3c9168f7ac84fad429004e5799)
+
 ## 1.17.0-master.1423+20230523085002
 2023-05-23
 
