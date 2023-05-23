@@ -79,7 +79,7 @@ export default {
   },
   mounted() {
     this.defaultProfilCode = this.getDefaultProfilCode();
-    let profiles = undefined;
+    let profiles = [];
     if (this.service && this.service.parameters) {
       profiles = this.service.parameters.map((s) => ({
         ...s,
@@ -96,9 +96,9 @@ export default {
       profiles,
     };
     this.profiles = data.profiles;
+    this.$emit('initprofiles', this.profiles);
     this.checked = data.checked;
     this.editable = data.editable;
-    this.$emit('initprofiles', this.profiles);
   },
   methods: {
     changeValue(profileData) {
