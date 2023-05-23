@@ -247,10 +247,10 @@ export default {
       return response;
     },
     onDataServiceChange(data) {
-      this.dataService = { ...data, parameters: [...data.apns] };
+      if (data && data.apns) this.dataService = { ...data, parameters: [...data.apns] };
     },
     onApnChange(apns) {
-      this.dataService = { ...this.dataService, parameters: [...apns] };
+      if (apns) this.dataService = { ...this.dataService, parameters: [...apns] };
     },
     onUpfServiceChange(changes) {
       if (typeof changes !== 'object') return;
@@ -265,7 +265,7 @@ export default {
       this.upfService.parameters = [this.profileData];
     },
     onProfilesChange(profiles) {
-      this.upfService = { ...this.upfService, parameters: [...profiles] };
+      if (profiles) this.upfService = { ...this.upfService, parameters: [...profiles] };
     },
   },
 };
