@@ -48,11 +48,17 @@ export default {
     ...mapState('actLines', ['selectedLinesForActCreation', 'actCreationPrerequisites']),
     ...mapGetters('actLines', ['appliedFilters', 'linesActionsResponse']),
     preventSend() {
+      const selectedFile = this.$loGet(this.fileImportAsInputContext, 'selectedFile');
       if (this.actCreationPrerequisites && this.actCreationPrerequisites.filePairing) {
-        const canSend = !!this.checkForExceptionErrors();
+        const preventSend =
+          (selectedFile && fileUtils.checkFormat(selectedFile)) ||
+          (selectedFile && fileUtils.checkFileSize(selectedFile)) ||
+          fileUtils.checkFileSize(selectedFile);
         return (
           (this.fileImportAsInputContext && !this.fileImportAsInputContext.selectedFile) ||
-          (this.fileImportAsInputContext && this.fileImportAsInputContext.selectedFile && canSend)
+          (this.fileImportAsInputContext &&
+            this.fileImportAsInputContext.selectedFile &&
+            preventSend)
         );
       }
       return false;
@@ -139,6 +145,8 @@ export default {
           this.exceptionError = this.$t('getparc.actCreation.report.FILE_SIZE_LIMIT_EXCEEDED');
         } else if (selectedFile && selectedFile.error) {
           this.exceptionError = this.$t('getparc.actCreation.report.' + selectedFile.error);
+        } else {
+          this.exceptionError = undefined;
         }
         return this.exceptionError;
       }
@@ -146,8 +154,8 @@ export default {
   },
   watch: {
     fileImportAsInputContext(newFile, oldFile) {
-      if (newFile && oldFile) {
-        if (newFile.name !== oldFile.name) {
+      if (newFile.selectedFile && oldFile.selectedFile) {
+        if (newFile.selectedFile.name !== oldFile.selectedFile.name) {
           this.checkForExceptionErrors();
         }
       }
