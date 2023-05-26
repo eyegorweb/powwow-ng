@@ -40,7 +40,7 @@ export default {
   },
   data() {
     return {
-      exceptionError: '',
+      exceptionError: undefined,
       file: undefined,
     };
   },
@@ -139,16 +139,18 @@ export default {
           this.exceptionError = this.$t('getparc.actCreation.report.FILE_SIZE_LIMIT_EXCEEDED');
         } else if (selectedFile && selectedFile.error) {
           this.exceptionError = this.$t('getparc.actCreation.report.' + selectedFile.error);
-        } else {
-          this.exceptionError = '';
         }
         return this.exceptionError;
       }
     },
   },
   watch: {
-    fileImportAsInputContext() {
-      this.checkForExceptionErrors();
+    fileImportAsInputContext(newFile, oldFile) {
+      if (newFile && oldFile) {
+        if (newFile.name !== oldFile.name) {
+          this.checkForExceptionErrors();
+        }
+      }
     },
   },
 };
