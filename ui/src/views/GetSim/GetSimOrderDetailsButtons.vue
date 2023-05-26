@@ -238,10 +238,8 @@ export default {
     },
 
     getExportErrorCallback() {
-      console.log('get export callback');
       return (errors) => {
         const formattedErrors = formatBackErrors(errors);
-        console.log('formatted errors', formattedErrors);
         if (formattedErrors) {
           const haveSimStatusError = formattedErrors[0].errorKeys.find(
             (e) => e === 'simStatus.Required'

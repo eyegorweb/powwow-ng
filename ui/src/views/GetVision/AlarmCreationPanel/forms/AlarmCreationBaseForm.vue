@@ -237,7 +237,6 @@ export default {
 
   watch: {
     selectedPartner(newValue) {
-      console.log('select partner', newValue);
       return newValue;
     },
   },

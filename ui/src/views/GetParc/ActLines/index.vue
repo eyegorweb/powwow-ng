@@ -46,7 +46,7 @@
         <br />
         <FilterBar v-if="!transferSim" :creation-mode="!!creationMode" />
       </div>
-      <template v-if="withCustomFormBehavior">
+      <template v-if="withFilePairingEidIccid">
         <PairingByFileFormContainer
           v-if="actToCreate.id === 'PAIRING'"
           :act-to-create="actToCreate"
@@ -94,7 +94,7 @@
           <DropZone v-if="canShowDropZoneFile" v-model="selectedFile" class="dropZone" />
 
           <Title
-            num="1"
+            :num="tableNumber"
             v-if="
               creationMode &&
                 actCreationPrerequisites &&
@@ -195,6 +195,7 @@ export default {
       tableIsEmpty: true,
       prevRoute: undefined,
       transferSim: false,
+      tableNumber: '1',
       DropZoneTitleNumber: '1',
       ActFormTitleNumber: '2',
       file: undefined,
@@ -277,14 +278,18 @@ export default {
       return partners;
     },
 
-    withCustomFormBehavior() {
+    withFilePairingEidIccid() {
       if (this.actCreationPrerequisites && this.actToCreate) {
         const isPairing = !!['PAIRING'].find((i) => i === this.actToCreate.id);
-        return (
-          isPairing &&
-          (this.$loGet(this.actCreationPrerequisites, 'filePairing') ||
-            this.$loGet(this.actCreationPrerequisites, 'filePairingEidIccid'))
-        );
+        return isPairing && this.$loGet(this.actCreationPrerequisites, 'filePairingEidIccid');
+      }
+      return false;
+    },
+
+    withFilePairingEid() {
+      if (this.actCreationPrerequisites && this.actToCreate) {
+        const isPairing = !!['PAIRING'].find((i) => i === this.actToCreate.id);
+        return isPairing && this.$loGet(this.actCreationPrerequisites, 'filePairing');
       }
       return false;
     },
@@ -293,7 +298,7 @@ export default {
       return (
         this.creationMode &&
         this.actCreationPrerequisites &&
-        (this.actToCreate.containFile || this.useFileImportAsInput)
+        (this.actToCreate.containFile || this.useFileImportAsInput || this.withFilePairingEid)
       );
     },
 
@@ -519,6 +524,16 @@ export default {
       if (this.useFileImportAsInput) {
         this.DropZoneTitleNumber = '2';
         this.ActFormTitleNumber = '3';
+      }
+
+      const filePairing = newToggleValue === 'filePairing';
+      if (filePairing) {
+        this.DropZoneTitleNumber = '1';
+        this.tableNumber = '2';
+        this.ActFormTitleNumber = '3';
+      } else {
+        this.tableNumber = '1';
+        this.ActFormTitleNumber = '2';
       }
     },
     resetPrereqs() {

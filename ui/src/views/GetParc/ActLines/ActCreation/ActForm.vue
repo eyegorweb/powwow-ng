@@ -51,6 +51,7 @@
       />
       <PairingEsim
         v-if="act.title === 'getparc.actCreation.carouselItem.esim.PAIRING' && !isLoading"
+        :file-import-as-input-context="fileImportAsInputContext"
       />
       <EsimFreeReservations
         v-if="act.title === 'getparc.actCreation.carouselItem.esim.FREE_RESERVATION' && !isLoading"
