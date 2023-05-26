@@ -320,7 +320,7 @@ export async function fetchEsimCategories() {
   return [];
 }
 
-export async function pairingByImportedFile({ partnerId, tempEidUuid }) {
+export async function pairingByImportedFile({ partnerId, tempEidUuid, simCardInstanceIds }) {
   const queryStr = `
   mutation PairingByImportedFile($partnerId: Long!, $tempEidUuid: String!) {
     pairingByImportedFile(pairingByImportedFileInput: {
@@ -338,7 +338,17 @@ export async function pairingByImportedFile({ partnerId, tempEidUuid }) {
   }
   `;
 
-  const response = await query(queryStr, { partnerId, tempEidUuid });
+  const response = await query(queryStr, { partnerId, tempEidUuid, simCardInstanceIds });
+  if (!response) {
+    return {
+      errors: ['unknown'],
+    };
+  }
+  if (response.errors) {
+    return {
+      errors: response.errors,
+    };
+  }
   return response.data.pairingByImportedFile;
 }
 

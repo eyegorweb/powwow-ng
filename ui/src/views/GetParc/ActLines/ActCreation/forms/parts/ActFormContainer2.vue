@@ -173,6 +173,7 @@ export default {
       default: true,
     },
     fixOnCurrentDate: Boolean,
+    file: File,
   },
 
   data() {
@@ -198,6 +199,16 @@ export default {
       return this.validationErrors.errors.find(
         (f) => f.key === 400 || f.key === 422 || f.key === 500
       );
+    },
+  },
+
+  watch: {
+    file(newFile, oldFile) {
+      if (newFile && oldFile) {
+        if (newFile.name !== oldFile.name) {
+          this.validationErrors = undefined;
+        }
+      }
     },
   },
 

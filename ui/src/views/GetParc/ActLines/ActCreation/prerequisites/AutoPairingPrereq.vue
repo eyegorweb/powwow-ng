@@ -150,8 +150,8 @@ export default {
           isHidden: true,
           partner: this.selectedPartner,
           billingAccount: this.chosenBillingAccount,
-          filePairing:
-            this.currentToggle === 'filePairingEidIccid' || this.currentToggle === 'filePairing',
+          filePairing: this.currentToggle === 'filePairing',
+          filePairingEidIccid: this.currentToggle === 'filePairingEidIccid',
           simcardType: this.selectedTypeSimCard,
         });
       }
@@ -177,8 +177,8 @@ export default {
       allPrereq = {
         partner: this.selectedPartner,
         billingAccount: this.chosenBillingAccount,
-        filePairing:
-          this.currentToggle === 'filePairingEidIccid' || this.currentToggle === 'filePairing',
+        filePairing: this.currentToggle === 'filePairing',
+        filePairingEidIccid: this.currentToggle === 'filePairingEidIccid',
         simcardType: this.selectedTypeSimCard,
       };
 
@@ -217,8 +217,8 @@ export default {
       const allPrereq = {
         partner: this.selectedPartner,
         billingAccount: this.chosenBillingAccount,
-        filePairing:
-          this.currentToggle === 'filePairingEidIccid' || this.currentToggle === 'filePairing',
+        filePairing: this.currentToggle === 'filePairing',
+        filePairingEidIccid: this.currentToggle === 'filePairingEidIccid',
         simcardType: this.selectedTypeSimCard,
       };
 

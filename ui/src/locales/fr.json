@@ -2168,6 +2168,7 @@
         "timeout": "Le traitement est toujours en cours. Veuillez vérifier d'ici quelques minutes que l'import est complet.",
         "unknown": "Erreur inconnue.",
         "errors": {
+          "eid": "eid non trouvé.",
           "eid_simcardInstanceIds": "eid non trouvé.",
           "workflow": {
             "LONG_LIFE_NOT_ALLOWED": "Changement d'offre impossible sur les offres LV."

@@ -4,6 +4,8 @@
       :validate-fn="onValidate"
       disabled-notification-check
       :can-change-date="false"
+      :prevent-send="preventSend"
+      :file="file"
       fix-on-current-date
     >
       <div slot="messages" class="text-info">
@@ -20,38 +22,67 @@
 
 <script>
 import ActFormContainer from './parts/ActFormContainer2';
-import { mapState, mapGetters } from 'vuex';
-import { pairingByStockedEid } from '@/api/esim.js';
+import { mapState, mapGetters, mapMutations } from 'vuex';
+import { uploadSearchFile } from '@/api/linesActions';
+import { pairingByImportedFile, pairingByStockedEid } from '@/api/esim.js';
 import { formatBackErrors } from '@/utils/errors';
+import * as fileUtils from '@/utils/file.js';
 
 export default {
   components: {
     ActFormContainer,
   },
+  props: {
+    fileImportAsInputContext: {
+      type: Object,
+      required: false,
+    },
+  },
   data() {
     return {
-      exceptionError: undefined,
+      exceptionError: '',
+      file: undefined,
     };
   },
   computed: {
     ...mapState('actLines', ['selectedLinesForActCreation', 'actCreationPrerequisites']),
     ...mapGetters('actLines', ['appliedFilters', 'linesActionsResponse']),
+    preventSend() {
+      if (this.actCreationPrerequisites && this.actCreationPrerequisites.filePairing) {
+        const canSend = !!this.checkForExceptionErrors();
+        return (
+          (this.fileImportAsInputContext && !this.fileImportAsInputContext.selectedFile) ||
+          (this.fileImportAsInputContext && this.fileImportAsInputContext.selectedFile && canSend)
+        );
+      }
+      return false;
+    },
   },
   methods: {
+    ...mapMutations('actLines', ['setSelectedFileForActCreation']),
     async onValidate() {
+      let response;
       const partnerId = this.$loGet(this.actCreationPrerequisites, 'partner.id');
-      const simCardTypeId = this.$loGet(this.actCreationPrerequisites, 'simcardType.id');
       let simCardInstanceIds = [];
       if (this.selectedLinesForActCreation) {
         simCardInstanceIds = this.selectedLinesForActCreation.map((a) => a.id);
       }
 
-      const response = await pairingByStockedEid(
-        partnerId,
-        this.appliedFilters,
-        simCardTypeId,
-        simCardInstanceIds
-      );
+      if (this.fileImportAsInputContext.selectedFile) {
+        response = await uploadSearchFile(this.fileImportAsInputContext.selectedFile, 'EID');
+        const tempEidUuid = response.tempDataUuid;
+        if (!response.errors || !response.errors.length) {
+          response = await pairingByImportedFile({ partnerId, tempEidUuid, simCardInstanceIds });
+        }
+      } else {
+        const simCardTypeId = this.$loGet(this.actCreationPrerequisites, 'simcardType.id');
+        response = await pairingByStockedEid(
+          partnerId,
+          this.appliedFilters,
+          simCardTypeId,
+          simCardInstanceIds
+        );
+      }
 
       if (response && response.errors && response.errors.length) {
         let errorMessage = '',
@@ -68,6 +99,8 @@ export default {
             massActionLimitError = `${e.key}.${e.value}`;
           } else if (e.key === 'eid') {
             errorMessage = this.$t('getparc.actCreation.report.errors.eid');
+          } else if (e.key === 'eid_simcardInstanceIds') {
+            errorMessage = this.$t('getparc.actCreation.report.errors.eid_simcardInstanceIds');
           } else {
             errorMessage = `${e.key}: ${e.value}`;
           }
@@ -92,6 +125,30 @@ export default {
         };
       }
       return response;
+    },
+    checkForExceptionErrors() {
+      if (this.fileImportAsInputContext) {
+        const selectedFile = this.$loGet(this.fileImportAsInputContext, 'selectedFile');
+        if (selectedFile) {
+          this.setSelectedFileForActCreation(selectedFile);
+          this.file = selectedFile;
+        }
+        if (selectedFile && fileUtils.checkFormat(selectedFile)) {
+          this.exceptionError = this.$t('getparc.actCreation.report.DATA_INVALID_FORMAT');
+        } else if (selectedFile && fileUtils.checkFileSize(selectedFile)) {
+          this.exceptionError = this.$t('getparc.actCreation.report.FILE_SIZE_LIMIT_EXCEEDED');
+        } else if (selectedFile && selectedFile.error) {
+          this.exceptionError = this.$t('getparc.actCreation.report.' + selectedFile.error);
+        } else {
+          this.exceptionError = '';
+        }
+        return this.exceptionError;
+      }
+    },
+  },
+  watch: {
+    fileImportAsInputContext() {
+      this.checkForExceptionErrors();
     },
   },
 };
