@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1427+20230526134838
+2023-05-26
+
+### Fixes
+
+- [3858] correction et mise à jour de l'acte de gestion de l'appairage eSim (e9ce4676159a9abe7be5a6598ed7e938f424402c)
+
 ## 1.17.0-master.1426+20230526065519
 2023-05-26
 
