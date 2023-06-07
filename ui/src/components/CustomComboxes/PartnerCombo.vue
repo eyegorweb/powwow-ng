@@ -40,6 +40,7 @@ export default {
       type: Array,
       required: false,
     },
+    partnerFeature: String,
   },
 
   watch: {
@@ -136,6 +137,7 @@ export default {
         partnerTypes: this.partnerTypesParam,
         includeMailingLists: this.includeMailingLists,
         esim: this.esim,
+        featureType: this.partnerFeature,
       });
       return data.map((p) => ({
         id: p.id,

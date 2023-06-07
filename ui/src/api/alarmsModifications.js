@@ -166,6 +166,24 @@ export async function updateSharedConsumptionAlarm(params) {
   return response.data.updateSharedConsumptionAlarm;
 }
 
+export async function updateInactivityAlarm(params) {
+  const gqlParams = getGqlParams(params);
+  const queryStr = `mutation {
+    updateInactivityAlarm(alarmUpdateInput:{${gqlParams.join(',')}}) {
+      id
+    }
+  }
+  `;
+
+  const response = await query(queryStr);
+
+  if (response.errors) {
+    return { errors: response.errors };
+  }
+
+  return response.data.updateInactivityAlarm;
+}
+
 function addLevels(params, gqlParams) {
   const alarmLevels = [];
 
@@ -213,6 +231,16 @@ function addLevels(params, gqlParams) {
     if (params.formData.period === 'CUSTOM') {
       alarmLevels.push(`observationDelay: ${params.formData.customPeriodValue}`);
     }
+
+    // Test error request by commenting this 2 fields
+    // example of request response error
+    // {"errors":[{"message":"Exception while fetching data (/updateInactivityAlarm) : At least one param have to be set","locations":[{"line":2,"column":5}],"path":["updateInactivityAlarm"],"extensions":{"alarmAtypicalDetails":"ALARM_A_AT_LEAST_ONE_PARAM_HAVE_TO_BE_SET","classification":"DataFetchingException"}}],"data":null}
+    if (params.formData.dataNoSession) {
+      alarmLevels.push(`dataNoSession: ${moToOctet(params.formData.dataNoSession)}`);
+    }
+    if (params.formData.dataInactiveSession) {
+      alarmLevels.push(`dataInactiveSession: ${moToOctet(params.formData.dataInactiveSession)}`);
+    }
   }
 
   gqlParams.push(`alarmLevels: {${alarmLevels.join(',')}}`);
@@ -230,6 +258,15 @@ function getGqlParams(params) {
 
   if (params.sholdNotify) {
     gqlParams.push(`mailingList:${params.notifList}`);
+  }
+
+  if (params.formData) {
+    if (params.formData.dataNoSession) {
+      gqlParams.push(`dataNoSession:${params.formData.dataNoSession}`);
+    }
+    if (params.formData.dataInactiveSession) {
+      gqlParams.push(`dataInactiveSession:${params.formData.dataInactiveSession}`);
+    }
   }
 
   return gqlParams;

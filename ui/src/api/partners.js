@@ -225,7 +225,7 @@ export async function fetchpartnersQuery(
     esim,
     haveLvOffers,
     partyTypeMC,
-    hasFeature,
+    featureType,
   }
 ) {
   let partnerTypeGqlFilter = '';
@@ -243,8 +243,8 @@ export async function fetchpartnersQuery(
 
   let hasFeatureFilter = '';
 
-  if (hasFeature) {
-    hasFeatureFilter = `, hasFeature: RADIUS`;
+  if (featureType) {
+    hasFeatureFilter = `, hasFeature: ${featureType}`;
   }
 
   let lvOffers = '';

@@ -670,6 +670,7 @@
     "STATUS_CHANGE_PROFILE": "Profile status change",
     "IMEI_CHANGE": "Device change",
     "COUNTRY_CHANGE": "Country change",
+    "NOSESSION": "Inactivity",
     "OVER_CONSUMPTION_VOLUME_FLOTTE": "Over consumption pool",
     "MORE_DETAIL": "Display alarm details",
     "observationCycles": {
@@ -824,6 +825,7 @@
       "voiceIsOver": "Nb of minutes exceeds",
       "chooseNotification": "Choose a means of notification",
       "defineThreshold": "DEFINE A TRIGGER THRESHOLD PER USAGE",
+      "defineThresholdSession": "Define a session data threshold",
       "standardMode": "Standard Mode",
       "advancedMode": "Advanced Mode",
       "chooseAlarmScope": "Choose the scope of the alarm",
@@ -840,7 +842,8 @@
         "STATUS_CHANGE": "If your M2M SIM switches to a target status (activation, suspension...), the alarm will be triggered and you will be informed of the switch to the target status. It is also possible to choose all statuses instead of just one target status.",
         "IMEI_CHANGE": "When the SIM M2M is removed from a communicating object and inserted in a new terminal, the alarm will be triggered and you will be informed of the change in SIM/module pairing.",
         "COUNTRY_CHANGE": "Each time your communicating object changes zones (one or more countries), the alarm will be triggered and you will be informed of the change. It is possible to select one or more countries to create the target zone. The alarm is triggered each time the country in the selected list changes.",
-        "STATUS_CHANGE_PROFILE": "L’alarme de changement de statut de profil vous permet de surveiller les changements de statut des profils des lignes eSIM (ENABLED, DISABLED, DELETED)."
+        "STATUS_CHANGE_PROFILE": "L’alarme de changement de statut de profil vous permet de surveiller les changements de statut des profils des lignes eSIM (ENABLED, DISABLED, DELETED).",
+        "NOSESSION": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
       },
       "alarmPopUp": "The alarm was created but could not be positioned on the old lines. Please perform this operation manually."
     },
@@ -1558,6 +1561,8 @@
         "trigger": "Trigger",
         "scope": "Scope",
         "observationCycle": "Observation cycle",
+        "data_disconnect": "Data disconnection",
+        "data_session": "Session without traffic",
         "disableLine": "Deactivate for the line",
         "enableLine": "Activate for the line",
         "data": "Data I/O",
@@ -1588,6 +1593,7 @@
           "SOLD_OVER_THRESHOLD": "Balance above threshold",
           "SOLD_UNDER_THRESHOLD": "Balance below threshold",
           "UNDER_CONSUMPTION_VOLUME": "Under-consumption",
+          "NOSESSION": "Inactivity",
           "ACTION": "Action"
         }
       },

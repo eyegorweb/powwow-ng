@@ -115,7 +115,7 @@ export default {
           esim: this.esim,
           haveLvOffers: this.haveLvOffers,
           partyTypeMC: this.partyTypeMC,
-          hasFeature: this.partnerFeature,
+          featureType: this.partnerFeature,
         });
         return data.map((p) => ({
           id: p.id,
