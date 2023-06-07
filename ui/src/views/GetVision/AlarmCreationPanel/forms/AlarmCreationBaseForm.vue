@@ -31,6 +31,7 @@
             :value.sync="selectedPartner"
             include-mailing-lists
             @update:value="$emit('partnerChange', $event)"
+            :partner-feature="partnerFeature"
           />
         </div>
       </div>
@@ -99,6 +100,7 @@ export default {
     },
     skipScopeCheck: Boolean,
     sharedAlarm: Boolean,
+    partnerFeature: String,
   },
 
   mounted() {

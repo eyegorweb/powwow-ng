@@ -18,7 +18,7 @@
       :alarm-with-stream="alarmWithStream"
     />
 
-    <fluxSelect
+    <FluxSelect
       v-if="streamFlux"
       :data="streamFlux"
       @selectedStream="selectedStream"
@@ -30,7 +30,7 @@
 <script>
 import AlarmCreationBaseForm from './AlarmCreationBaseForm';
 import ConsumptionForm from './ConsumptionForm';
-import fluxSelect from './fluxSelect';
+import FluxSelect from './FluxSelect';
 import { mapMutations } from 'vuex';
 import { alarmOnOverConso } from '@/api/alarmCreation';
 import { modifyOverConso } from '@/api/alarmsModifications';
@@ -40,7 +40,7 @@ export default {
   components: {
     AlarmCreationBaseForm,
     ConsumptionForm,
-    fluxSelect,
+    FluxSelect,
   },
   props: {
     alarm: Object,
@@ -75,16 +75,16 @@ export default {
     if (this.duplicateFrom) {
       this.getFlux(this.duplicateFrom.party.id);
       this.initValues = {
-        dataES: this.duplicateFrom.level1,
-        dataOut: this.duplicateFrom.level1Up,
-        dataIn: this.duplicateFrom.level1Down,
-        smsES: this.duplicateFrom.level2,
-        smsOut: this.duplicateFrom.level2Up,
-        smsIn: this.duplicateFrom.level2Down,
-        voiceES: this.duplicateFrom.level3,
-        voiceOut: this.duplicateFrom.level3Up,
-        voiceIn: this.duplicateFrom.level3Down,
-        streamId: this.duplicateFrom.pdpSplitConfig.id,
+        dataES: this.$loGet(this.duplicateFrom, 'level1'),
+        dataOut: this.$loGet(this.duplicateFrom, 'level1Up'),
+        dataIn: this.$loGet(this.duplicateFrom, 'level1Down'),
+        smsES: this.$loGet(this.duplicateFrom, 'level2'),
+        smsOut: this.$loGet(this.duplicateFrom, 'level2Up'),
+        smsIn: this.$loGet(this.duplicateFrom, 'level2Down'),
+        voiceES: this.$loGet(this.duplicateFrom, 'level3'),
+        voiceOut: this.$loGet(this.duplicateFrom, 'level3Up'),
+        voiceIn: this.$loGet(this.duplicateFrom, 'level3Down'),
+        streamId: this.$loGet(this.duplicateFrom, 'pdpSplitConfig.id'),
       };
     }
   },

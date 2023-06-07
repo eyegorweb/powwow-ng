@@ -162,6 +162,42 @@ export async function createSharedConsumptionAlarm(params) {
   return response.data.createSharedConsumptionAlarm;
 }
 
+export async function createInactivityAlarm(params) {
+  const gqlParams = getFormGQLParams(params);
+
+  if (get(params, 'formData.dataNoSession')) {
+    gqlParams.push(`dataNoSession:${get(params, 'formData.dataNoSession')}`);
+  }
+  if (get(params, 'formData.dataInactiveSession')) {
+    gqlParams.push(`dataInactiveSession:${get(params, 'formData.dataInactiveSession')}`);
+  }
+
+  const queryStr = `
+  mutation {
+    createInactivityAlarm(
+      filter: {${getScopeGQLParams(params)}},
+      alarmCreationInput: {${gqlParams.join(',')}}
+      )
+      {
+        tempDataUuid
+        validated
+        errors {
+          key
+          number
+        }
+    }
+  }
+  `;
+
+  const response = await query(queryStr);
+
+  if (response.errors) {
+    return { errors: response.errors };
+  }
+
+  return response.data.createInactivityAlarm;
+}
+
 export async function alarmOnOverConso(params) {
   const response = await consoQuery('createOverConsumptionAlarm', params);
 

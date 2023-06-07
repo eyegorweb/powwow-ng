@@ -26,6 +26,7 @@
 <script>
 import UiButton from '@/components/ui/Button';
 import { mapGetters } from 'vuex';
+import { isFeatureAvailable } from '@/api/partners';
 
 export default {
   components: {
@@ -40,7 +41,8 @@ export default {
     },
   },
 
-  mounted() {
+  async mounted() {
+    this.options.atypicalAlarm = await isFeatureAvailable('ATYPICAL_ALARM');
     this.alarms = [
       {
         id: 'OVER_CONSUMPTION_VOLUME_FLOTTE',
@@ -81,6 +83,29 @@ export default {
       }
       return true;
     });
+
+    if (this.userIsAdmin || this.userIsBO) {
+      this.alarms = [
+        ...this.alarms,
+        {
+          id: 'NOSESSION',
+          description: this.$t('getvsion.alarm-creation.description.NOSESSION'),
+        },
+      ];
+    } else if (
+      this.userIsPartner &&
+      typeof this.options.atypicalAlarm === 'boolean' &&
+      this.options.atypicalAlarm
+    ) {
+      this.alarms = [
+        ...this.alarms,
+        {
+          id: 'NOSESSION',
+          description: this.$t('getvsion.alarm-creation.description.NOSESSION'),
+        },
+      ];
+    }
+
     if (this.duplicateFrom) {
       if (this.duplicateFrom.type === 'STREAM_OVER_CONSUMPTION_VOLUME') {
         this.duplicateFrom.type = 'OVER_CONSUMPTION_VOLUME';
@@ -110,10 +135,19 @@ export default {
     return {
       currentAlarm: undefined,
       alarms: undefined,
+      options: {
+        atypicalAlarm: null,
+      },
     };
   },
   computed: {
-    ...mapGetters(['userIsM2MLight']),
+    ...mapGetters(['userIsAdmin', 'userIsBO', 'userIsM2MLight', 'userIsPartner']),
+    // hasOptionForInactivityAlarm() {
+    //   if (this.userIsPartner) {
+    //     return this.
+    //   }
+    //   return true;
+    // },
   },
 };
 </script>
