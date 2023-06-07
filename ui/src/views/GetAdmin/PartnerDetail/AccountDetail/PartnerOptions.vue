@@ -22,11 +22,12 @@
               v-if="partyType === 'CUSTOMER' && resilationSecurityEnabled"
               :label="$t('notification')"
               :editable="true"
-              :bold-label="isChanged(
-                resilationSecurityNotificationEnabled,
-                'resilationSecurityNotificationEnabled'
-              )
-                "
+              :bold-label="
+                isChanged(
+                  resilationSecurityNotificationEnabled,
+                  'resilationSecurityNotificationEnabled'
+                )
+              "
               v-model="resilationSecurityNotificationEnabled"
               small-label
             />
@@ -115,8 +116,9 @@
         <div class="d-flex mt-3 two">
           <div class="two-size">
             <UiToggle
-              :label="$t('getadmin.partners.optionsDetails.services.labels.MANDATORY_PREACTIVATION')
-                "
+              :label="
+                $t('getadmin.partners.optionsDetails.services.labels.MANDATORY_PREACTIVATION')
+              "
               :checked="orderActivationEnabled"
               :editable="!orderActivationEnabled"
               :bold-label="isChanged(orderPreactivation, 'orderPreactivationMandatory')"
@@ -214,8 +216,9 @@
             <UiToggle
               :label="$t('getadmin.partners.optionsDetails.services.labels.AUTO_ACT_SIM')"
               :editable="true"
-              :bold-label="isChanged(flagDefautWorkflowActicationEnabled, 'flagDefautWorkflowActication')
-                "
+              :bold-label="
+                isChanged(flagDefautWorkflowActicationEnabled, 'flagDefautWorkflowActication')
+              "
               v-model="flagDefautWorkflowActicationEnabled"
               small-label
             />
@@ -525,9 +528,10 @@
           </div>
         </div>
         <UiButton
-          v-if="havePermission('party', 'update_main_options') ||
-            havePermission('party', 'update_secondary_options')
-            "
+          v-if="
+            havePermission('party', 'update_main_options') ||
+              havePermission('party', 'update_secondary_options')
+          "
           variant="primary"
           class="p-3"
           block

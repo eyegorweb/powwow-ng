@@ -55,7 +55,7 @@ export default {
       const partyId = this.$loGet(this.partner, 'id');
       const workflowId = this.$loGet(this.offer, 'data.id');
       const techno = 'DNN';
-      const data = await fetchApn(partyId, workflowId,techno);
+      const data = await fetchApn(partyId, workflowId, techno);
       if (data) {
         this.options = data.profilesData.map((o) => ({
           value: o.name,
@@ -83,5 +83,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>
