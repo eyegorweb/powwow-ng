@@ -56,7 +56,7 @@ export default {
       const partyId = this.$loGet(this.partner, 'id');
       const workflowId = this.$loGet(this.offer, 'data.id');
       const techno = 'APN';
-      const data = await fetchApn(partyId, workflowId,techno);
+      const data = await fetchApn(partyId, workflowId, techno);
       if (data) {
         this.options = data.apns.map((o) => ({
           value: o.code,
@@ -80,9 +80,8 @@ export default {
 
   mounted() {
     this.refreshList();
-   },
+  },
 };
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

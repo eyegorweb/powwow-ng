@@ -9,7 +9,7 @@
     @partnerChange="selectedPartner = $event"
     :partner="partner"
     :is-loading="isLoading"
-    :no-wsnotification="true"
+    no-wsnotification
     :check-errors-fn="isFormValidFn"
     :shared-alarm="true"
   >

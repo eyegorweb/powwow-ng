@@ -9,6 +9,7 @@
     :check-errors-fn="isFormValid"
     have-form
     partner-feature="ATYPICAL_ALARM"
+    no-wsnotification
   >
     <SectionTitle :num="num">{{
       $t('getvsion.alarm-creation.defineThresholdSession')

@@ -1299,7 +1299,6 @@ export default {
 
 .checkbox-groups {
   .foldable-block.is-open {
-
     & ::v-deep .title,
     & ::v-deep a i {
       color: $secondary;
