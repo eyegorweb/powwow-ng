@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1432+20230608090820
+2023-06-08
+
+### Fixes
+
+- [3942] correction du style en affichage vertical des services (3856832a16922b33b9ac18a16fb56854cb8904ab)
+
 ## 1.17.0-master.1431+20230608070043
 2023-06-08
 
