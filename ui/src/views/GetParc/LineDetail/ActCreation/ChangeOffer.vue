@@ -19,7 +19,7 @@
         />
       </p>
 
-      <div v-if="selectedOffer">
+      <div v-if="selectedOffer && selectedOffer.label">
         <ServicesBlock
           v-if="selectedOffer"
           :key="selectedOffer.label"
@@ -132,8 +132,8 @@ export default {
           .map((o) => ({
             id: o.code,
             label: o.workflowDescription,
-            // data: o,
-            // productCode: o.code,
+            data: o,
+            productCode: o.code,
           }));
       }
     },
@@ -209,9 +209,6 @@ export default {
       if (selectedOffer && selectedOffer.data) {
         this.offerServices = getMarketingOfferServices(selectedOffer.data.initialOffer);
         this.initialServices = cloneDeep(this.offerServices);
-      } else {
-        this.offerServices = undefined;
-        this.initialServices = undefined;
       }
     },
   },
