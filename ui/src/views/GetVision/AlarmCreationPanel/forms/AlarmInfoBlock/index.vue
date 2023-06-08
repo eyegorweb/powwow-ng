@@ -25,8 +25,8 @@
     <hr />
 
     <div class="row">
-      <div class="col to-bottom">
-        <div v-if="suspensionAuto && filteredAlarmForSuspension">
+      <div v-if="filteredAlarmType" class="col to-bottom">
+        <div v-if="suspensionAuto">
           <div class="d-flex mb-3 mt-1">
             <UiCheckbox v-model="enableSuspension" :checked="false" />
             <span>{{ $t('getvsion.alarm.sus_auto') }}</span>
@@ -174,7 +174,7 @@ export default {
     }
   },
   computed: {
-    filteredAlarmForSuspension() {
+    filteredAlarmType() {
       return (
         this.alarm &&
         (this.alarm.id !== 'OVER_CONSUMPTION_VOLUME_FLOTTE' || this.alarm.id !== 'NOSESSION')
