@@ -141,8 +141,8 @@
     </div>
   </div>
   <div v-else>
-    <div v-if="!upfService" class="row">
-      <div :class="{ 'col-md-8 displayFlex': !fullWidth, 'col-md-12': fullWidth }">
+    <div v-if="!upfService">
+      <div :class="{ 'd-flex': !fullWidth, 'col-md-12': fullWidth }">
         <div class="services-container s-container">
           <div
             :key="service.code + '_' + index"
