@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1435+20230609094413
+2023-06-09
+
+### Features
+
+- [3919] création et modification du type d'alarme atypique (3e91e7e3b9de687c880ea50784dae8ece3b13adb)
+
 ## 1.17.0-master.1434+20230609083934
 2023-06-09
 
