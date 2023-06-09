@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1433+20230609070910
+2023-06-09
+
+### Fixes
+
+- [000] hotfix affichage des services en mode vertical sur 2 colonnes pour l'acte de changement d'offre (b15d2f7e3204890a71369cb3cca5e924212db3f2)
+
 ## 1.17.0-master.1432+20230608090820
 2023-06-08
 
