@@ -35,10 +35,9 @@ export default {
     thresholds() {
       if (!this.alarm) return [];
 
-      const values = [];
+      let values = [];
       const labelKey = 'getparc.lineDetail.alarms.';
 
-      // Uniquement pour alarme mutualisé :
       if (this.alarm.type === 'OVER_CONSUMPTION_VOLUME_FLOTTE') {
         if (this.alarm.levelDataMax) {
           values.push({
@@ -136,6 +135,21 @@ export default {
               className: this.alarm.dateSms2Triggered ? 'text-danger' : 'threshold-default',
             });
           }
+        }
+      } else if (this.alarm.type === 'NOSESSION') {
+        if (this.alarm.dataNoSession) {
+          values.push(
+            `${this.$t(labelKey + 'data_disconnect')}: ${formattedValueFromSeconds(
+              parseInt(this.alarm.dataNoSession)
+            )}`
+          );
+        }
+        if (this.alarm.data_session) {
+          values.push(
+            `${this.$t(labelKey + 'data_session')}: ${formattedValueFromSeconds(
+              parseInt(this.alarm.data_session)
+            )}`
+          );
         }
       } else {
         if (this.alarm.level1) {

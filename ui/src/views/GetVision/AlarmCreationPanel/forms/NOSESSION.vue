@@ -14,25 +14,28 @@
     <SectionTitle :num="num">{{
       $t('getvsion.alarm-creation.defineThresholdSession')
     }}</SectionTitle>
-    <div class="item">
-      <span>{{ $t('getparc.lineDetail.alarms.data_disconnect') }} (min)</span>
-      <UiInput
-        class="value-input"
-        :input-style="inputStyle"
-        input-type="number"
-        v-model="dataNoSession"
-        positive-number
-      />
-    </div>
-    <div class="item">
-      <span>{{ $t('getparc.lineDetail.alarms.data_session') }} (min)</span>
-      <UiInput
-        class="value-input"
-        :input-style="inputStyle"
-        input-type="number"
-        v-model="dataInactiveSession"
-        positive-number
-      />
+
+    <div class="values-container standard-mode">
+      <div class="item">
+        <span>{{ $t('getparc.lineDetail.alarms.data_disconnect') }} (min)</span>
+        <UiInput
+          class="value-input"
+          :input-style="inputStyle"
+          input-type="number"
+          v-model="dataNoSession"
+          positive-number
+        />
+      </div>
+      <div class="item">
+        <span>{{ $t('getparc.lineDetail.alarms.data_session') }} (min)</span>
+        <UiInput
+          class="value-input"
+          :input-style="inputStyle"
+          input-type="number"
+          v-model="dataInactiveSession"
+          positive-number
+        />
+      </div>
     </div>
   </AlarmCreationBaseForm>
 </template>
@@ -152,4 +155,37 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.values-container {
+  display: flex;
+  flex-wrap: wrap;
+  border: 1px solid $medium-gray;
+  padding: 0.5rem;
+  border-radius: 0.2rem;
+
+  width: 100%;
+
+  &.standard-mode {
+    width: 45%;
+    flex-direction: column;
+  }
+
+  .item {
+    flex-basis: 30%;
+    display: flex;
+    justify-content: flex-end;
+
+    span {
+      font-size: 0.9rem;
+      top: 0.4rem;
+      position: relative;
+    }
+
+    .value-input {
+      padding-left: 1rem;
+      padding-right: 1rem;
+      flex-basis: 40%;
+    }
+  }
+}
+</style>

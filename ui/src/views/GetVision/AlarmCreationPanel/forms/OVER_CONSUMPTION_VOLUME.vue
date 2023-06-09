@@ -9,7 +9,6 @@
     :suspension="true"
     :check-errors-fn="isFormValid"
     :is-loading="isLoading"
-    :num-notif="5"
   >
     <ConsumptionForm
       @change="values = $event"

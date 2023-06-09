@@ -7,7 +7,7 @@
 
     <div class="row">
       <div class="col">
-        <div class="d-flex mb-3 mt-3">
+        <div class="d-flex mb-1 mt-3">
           <UiCheckbox v-model="sholdNotify" />
           <span>{{ $t('mailNotification') }}</span>
         </div>
@@ -22,16 +22,14 @@
       </div>
     </div>
 
-    <hr />
-
     <div class="row">
       <div v-if="filteredAlarmType" class="col to-bottom">
-        <div v-if="suspensionAuto">
-          <div class="d-flex mb-3 mt-1">
+        <div class="d-flex" v-if="suspensionAuto">
+          <div class="d-flex flex-grow-1 mt-1">
             <UiCheckbox v-model="enableSuspension" :checked="false" />
             <span>{{ $t('getvsion.alarm.sus_auto') }}</span>
           </div>
-          <div class="d-flex mb-3 mt-1">
+          <div class="d-flex flex-grow-1 mt-1">
             <UiCheckbox
               v-model="enableReactivation"
               :checked="false"
@@ -40,7 +38,13 @@
             <span>{{ $t('getvsion.alarm.rea_auto') }}</span>
           </div>
         </div>
+      </div>
+    </div>
 
+    <hr />
+
+    <div class="row">
+      <div class="col to-bottom">
         <h5>{{ $t('getparc.lineDetail.alarms.name') }}</h5>
         <UiInput class="alarm-name d-block" v-model="alarmName" />
       </div>
@@ -177,7 +181,9 @@ export default {
     filteredAlarmType() {
       return (
         this.alarm &&
-        (this.alarm.id !== 'OVER_CONSUMPTION_VOLUME_FLOTTE' || this.alarm.id !== 'NOSESSION')
+        !['OVER_CONSUMPTION_VOLUME_FLOTTE', 'NOSESSION'].filter(
+          (alarmId) => alarmId === this.alarm.id
+        ).length
       );
     },
     wsNotifyOption() {
