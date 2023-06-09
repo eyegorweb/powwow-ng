@@ -43,7 +43,6 @@
           :initial-services="initialServices"
           :offer="selectedOffer"
           :data-params-needed="isDataParamsError"
-          full-width
           vertical
           @servicechange="onServiceChange"
           @updateProfileData="onUpdateProfileData"
