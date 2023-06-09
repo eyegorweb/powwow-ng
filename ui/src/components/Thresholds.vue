@@ -144,10 +144,10 @@ export default {
             )}`
           );
         }
-        if (this.alarm.data_session) {
+        if (this.alarm.dataInactiveSession) {
           values.push(
             `${this.$t(labelKey + 'data_session')}: ${formattedValueFromSeconds(
-              parseInt(this.alarm.data_session)
+              parseInt(this.alarm.dataInactiveSession)
             )}`
           );
         }
