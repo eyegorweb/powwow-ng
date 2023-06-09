@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1434+20230609083934
+2023-06-09
+
+### Features
+
+- [3919] création et modification du type d'alarme atypique Inactivité (108430717eaf58f268b83c4dd6e0e435860f2be7)
+
 ## 1.17.0-master.1433+20230609070910
 2023-06-09
 
