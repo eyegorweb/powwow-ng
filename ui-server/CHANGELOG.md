@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1438+20230619143825
+2023-06-19
+
+### Fixes
+
+- [3931] ajouter rechecrhe par eid (6d56c83f0faae7e37172130ca7aa7744d5fa8893)
+
 ## 1.17.0-master.1437+20230619124838
 2023-06-19
 
