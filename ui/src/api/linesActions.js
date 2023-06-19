@@ -659,9 +659,13 @@ function addIdsFilter(gqlFilters, selectedFilters) {
   const msisdn = selectedFilters.find((f) => f.id === 'filters.msisdn');
   const imei = selectedFilters.find((f) => f.id === 'filters.imei');
   const msisdnA = selectedFilters.find((f) => f.id === 'filters.msisdnA');
+  const eid = selectedFilters.find((f) => f.id === 'filters.EID');
 
   if (_id && _id.value) {
     gqlFilters.push(`id: {eq: "${trim(_id.value)}"}`);
+  }
+  if (eid && eid.value) {
+    gqlFilters.push(`eid: {eq: "${trim(eid.value)}"}`);
   }
   if (iccid && iccid.value) {
     gqlFilters.push(`iccid: {eq: "${trim(iccid.value)}"}`);
