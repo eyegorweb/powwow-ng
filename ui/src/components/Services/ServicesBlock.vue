@@ -352,9 +352,27 @@ export default {
       );
       this.defaultDataService = cloneDeep(this.initialServices.find((s) => s.code === 'DATA'));
     },
+    handleError(errors, offerMissingService, evt = undefined) {
+      let key;
+      if (offerMissingService) {
+        key = 'getadmin.partners.optionsDetails.services.offerMissingMandatoryService';
+      } else {
+        key = 'getadmin.partners.optionsDetails.services.yMustBeActiveToActivateX';
+      }
+      let message = '';
+      errors.forEach((error) => {
+        message += this.$t(key, {
+          serviceX: error.serviceLabel,
+          serviceY: error.serviceMandatoryLabel,
+        });
+        message += '<br />'; // new line
+      });
+      this.popupMessage(message);
+      if (evt) {
+        this.$emit(evt[0], evt[1]);
+      }
 
-    handleError(code) {
-      console.error('modification automatique du service ' + code + ' impossible');
+      return false;
     },
 
     displayServices(doInitNbiot = true) {
@@ -377,6 +395,19 @@ export default {
 
             if (!foundMandatoryService) {
               foundMandatoryService = this.findMandatoryService(serv, true);
+              if (!foundMandatoryService) {
+                this.handleError(
+                  [
+                    {
+                      serviceLabel: s.labelService,
+                      serviceMandatoryLabel: serv,
+                    },
+                  ],
+                  true,
+                  ['missingserviceerror', true]
+                );
+                return;
+              }
               this.setupDependencies(foundMandatoryService);
               this.popupMessage(
                 this.$t('getadmin.partners.optionsDetails.services.yMustBeActiveToActivateX', {
@@ -548,6 +579,19 @@ export default {
             // gestion erreur activation du service obligatoire impossible lancée par écoute sur le service de canChangeValue
             if (!foundMandatoryService) {
               foundMandatoryService = this.findMandatoryService(lsm, true);
+              if (!foundMandatoryService) {
+                this.handleError(
+                  [
+                    {
+                      serviceLabel: payload.labelService,
+                      serviceMandatoryLabel: lsm,
+                    },
+                  ],
+                  true,
+                  ['missingserviceerror', true]
+                );
+                return;
+              }
               this.popupMessage(
                 this.$t('getadmin.partners.optionsDetails.services.yMustBeActiveToActivateX', {
                   serviceX: payload.labelService,
@@ -668,6 +712,8 @@ export default {
         const foundDependantServices = this.services.filter(
           (s) => s.listServiceMandatory && s.listServiceMandatory.length
         );
+        // Comme on désactive le service, plus besoin d'alerter cette erreur de service obligatoire manquant à l'offre
+        this.$emit('missingserviceerror', false);
         let foundMandatoryService = false;
         foundDependantServices.forEach((service) => {
           foundMandatoryService = false;
@@ -803,6 +849,19 @@ export default {
             foundMandatoryService = this.findMandatoryService(lsm, false);
             if (!foundMandatoryService) {
               foundMandatoryService = this.findMandatoryService(lsm, true);
+              if (!foundMandatoryService) {
+                this.handleError(
+                  [
+                    {
+                      serviceLabel: service.labelService,
+                      serviceMandatoryLabel: lsm,
+                    },
+                  ],
+                  true,
+                  ['missingserviceerror', true]
+                );
+                return;
+              }
               this.popupMessage(
                 this.$t('getadmin.partners.optionsDetails.services.yMustBeActiveToActivateX', {
                   serviceX: service.labelService,

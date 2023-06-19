@@ -39,6 +39,7 @@
               :initial-services="initialServices"
               vertical
               @servicechange="onServiceChange"
+              @missingserviceerror="missingServiceError"
             />
           </div>
         </template>
@@ -228,6 +229,9 @@ export default {
 
       return offerServices;
     },
+    missingServiceError(payload) {
+      this.hasError = payload;
+    },
     canGoNext() {
       let isDataParamsError = false;
 
@@ -250,6 +254,9 @@ export default {
         if (!this.selectedOffer) {
           return false;
         } else {
+          if (this.hasError) {
+            return false;
+          }
           return !this.isDataParamsError;
         }
       }
@@ -332,6 +339,7 @@ export default {
       isLoadingOffers: false,
       servicesChoice: undefined,
       isDataParamsError: false,
+      hasError: undefined,
     };
   },
 };
