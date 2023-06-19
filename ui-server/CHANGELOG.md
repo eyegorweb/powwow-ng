@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1436+20230619122350
+2023-06-19
+
+### Fixes
+
+- [3958] correction de la permission du sous-menu gestion de partenaires (5d2e89b059a953d5a19765a28b8ec23fee668bb3)
+
 ## 1.17.0-master.1435+20230609094413
 2023-06-09
 
