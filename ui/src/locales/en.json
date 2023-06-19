@@ -1016,6 +1016,7 @@
           "mustBeInactive": "Service ' {service} ' must not be activated ",
           "yMustBeActiveToActivateX": "Service ' {serviceX} ' can not be edited because service ' {serviceY} ' is not editable ",
           "offerMissingServiceToActivateX": "Service ' {serviceX} ' can not be edited because service code' {serviceY} ' is unavailable. Please contact Wholesale support ",
+          "offerMissingMandatoryService": "The mandatory service (SNCODE {serviceY}) related to the service  {serviceX} is not present in the offer, please contact Wholesale support ",
           "labels": {
             "SECU_RESIL": "Securing of terminations",
             "COMPAT_OTA": "OTA compatibility",
