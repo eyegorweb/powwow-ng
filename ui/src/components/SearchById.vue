@@ -16,6 +16,7 @@
 <script>
 import SearchIdInput from '@/components/SearchIdInput';
 import startsWith from 'lodash.startswith';
+import { mapGetters } from 'vuex';
 
 export default {
   components: {
@@ -37,6 +38,19 @@ export default {
         return [];
       },
     },
+    eidIds: {
+      type: Array,
+      default: () => {
+        return [
+          {
+            code: 'c7',
+            label: 'EID',
+            value: 'EID',
+          },
+        ];
+      },
+    },
+
     placeholder: {
       type: String,
       default: '',
@@ -45,14 +59,19 @@ export default {
     noSearchButton: Boolean,
     disableWhenEmpty: Boolean,
   },
+
   computed: {
+    ...mapGetters(['userInfos']),
     idsOptions() {
-      return [...this.valuesForSelectOptions, ...this.additionalIds];
+      if (!this.inline && this.userInfos.esimEnabled) {
+        return [...this.valuesForSelectOptions, ...this.additionalIds, ...this.eidIds];
+      } else return [...this.valuesForSelectOptions, ...this.additionalIds];
     },
   },
   data() {
     return {
       selectedSearchType: undefined,
+
       valuesForSelectOptions: [
         {
           code: 'c1',
@@ -114,4 +133,5 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+</style>
