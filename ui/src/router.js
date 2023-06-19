@@ -181,7 +181,7 @@ export default new Router({
     {
       path: '/getadmin/partners',
       name: 'getAdminPartners',
-      meta: { label: 'Gestion des partenaires', permission: { domain: 'user', action: 'read' } },
+      meta: { label: 'Gestion des partenaires', permission: { domain: 'party', action: 'read' } },
       component: SearchPartners,
     },
     {
