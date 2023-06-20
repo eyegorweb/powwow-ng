@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1440+20230620123847
+2023-06-20
+
+### Fixes
+
+- [3956] ajout de l'erreur de service obligatoire non disponible pour une offre dans la matrice des services (0c338de04875021ecbc96fcba1e0895931b837fa)
+
 ## 1.17.0-master.1439+20230620074314
 2023-06-20
 
