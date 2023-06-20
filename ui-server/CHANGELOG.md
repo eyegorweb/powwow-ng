@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1439+20230620074314
+2023-06-20
+
+### Fixes
+
+- [3961] gestion de la permission pour affiche le détail du partenaire (f113f24b9d08dbded4acb7f58de268e5974efecd)
+
 ## 1.17.0-master.1438+20230619143825
 2023-06-19
 
