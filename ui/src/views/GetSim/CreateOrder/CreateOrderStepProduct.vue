@@ -8,7 +8,7 @@
             <GetSimTypeOption
               @update:defaultSelectedItem="checkForCurrentSimType"
               v-for="item in filteredSimTypes"
-              :key="item.id"
+              :key="item.simCard.id"
               :is-alone="filteredSimTypes.length === 1"
               :item="item"
               :default-selected-item.sync="selectedSimTypeValue"
@@ -63,7 +63,6 @@
 import GetSimTypeOption from './GetSimTypeOption';
 import UiInput from '@/components/ui/UiInput';
 import { fetchSim } from '@/api/products';
-import get from 'lodash.get';
 import CreateOrderStepContainer from './CreateOrderStepContainer';
 
 export default {
@@ -95,24 +94,24 @@ export default {
         : (this.selectedSimIsOfTapeType = false);
     }
 
-    if (!get(this.synthesis, 'quantity.selection.quantity') && this.order) {
+    if (!this.$loGet(this.synthesis, 'quantity.selection.quantity') && this.order) {
       this.preFill();
     }
     this.simTypes = await fetchSim(
-      get(this.synthesis, 'billingAccount.value.partnerId'),
-      this.$loGet(this.synthesis, 'billingAccount.value.id'),
+      this.$loGet(this.synthesis, 'billingAccount.value.partnerId'),
+      undefined,
       undefined,
       false
     );
-    this.selectedNumberOfSims = get(this.synthesis, 'quantity.selection.quantity', 0);
+    this.selectedNumberOfSims = this.$loGet(this.synthesis, 'quantity.selection.quantity', 0);
     /**
      * si on est dans une duplication alors on cherche la carte sim à séléctionner depuis this.simTypes
      * on ne peut pas construire cet objet directement depuis this.order
      */
-    const selectedProductInSynthesis = get(this.synthesis, 'product.selection.product', {});
-    if (!selectedProductInSynthesis.simCard && get(this.order, 'orderedSIMCard.code')) {
+    const selectedProductInSynthesis = this.$loGet(this.synthesis, 'product.selection.product', {});
+    if (!selectedProductInSynthesis.simCard && this.$loGet(this.order, 'orderedSIMCard.code')) {
       this.selectedSimTypeValue = this.simTypes.find(
-        (s) => s.simCard.code === get(this.order, 'orderedSIMCard.code')
+        (s) => s.simCard.code === this.$loGet(this.order, 'orderedSIMCard.code')
       );
     } else {
       this.selectedSimTypeValue = selectedProductInSynthesis;
@@ -179,8 +178,8 @@ export default {
           product: {
             label: 'common.product',
             value: {
-              id: get(this.selectedSimTypeValue, 'simCard.id'),
-              content: [get(this.selectedSimTypeValue, 'simCard.name')],
+              id: this.$loGet(this.selectedSimTypeValue, 'simCard.id'),
+              content: [this.$loGet(this.selectedSimTypeValue, 'simCard.name')],
             },
             selection: {
               product: this.selectedSimTypeValue,
@@ -204,8 +203,8 @@ export default {
           product: {
             label: 'common.product',
             value: {
-              id: get(this.selectedSimTypeValue, 'simCard.id'),
-              content: [get(this.selectedSimTypeValue, 'simCard.name')],
+              id: this.$loGet(this.selectedSimTypeValue, 'simCard.id'),
+              content: [this.$loGet(this.selectedSimTypeValue, 'simCard.name')],
             },
             selection: {
               product: this.selectedSimTypeValue,
