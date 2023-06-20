@@ -100,7 +100,7 @@ export default {
     }
     this.simTypes = await fetchSim(
       get(this.synthesis, 'billingAccount.value.partnerId'),
-      undefined,
+      this.$loGet(this.synthesis, 'billingAccount.value.id'),
       undefined,
       false
     );

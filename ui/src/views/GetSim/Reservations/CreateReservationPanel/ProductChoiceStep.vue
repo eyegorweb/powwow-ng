@@ -107,7 +107,7 @@ export default {
   async mounted() {
     this.simTypes = await fetchSim(
       this.$loGet(this.synthesis, 'stepClient.billingAccount.data.party.id'),
-      undefined,
+      this.$loGet(this.synthesis, 'stepClient.billingAccount.data.id'),
       { eq: 'ESIM' },
       false
     );
