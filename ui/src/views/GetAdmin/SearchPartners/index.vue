@@ -56,7 +56,7 @@ export default {
           },
         },
         visibleWhen: () => {
-          return this.userIsBO;
+          return this.havePermission('party', 'read');
         },
       },
       {
@@ -205,7 +205,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['userIsBO']),
+    ...mapGetters(['userIsBO', 'havePermission']),
   },
   methods: {
     async applyFilters(payload) {
