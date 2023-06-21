@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1443+20230621132618
+2023-06-21
+
+### Fixes
+
+- [3962] correction de l'acte de gestion Télécharger un profil eSim (b5924b4c8eb82b23a38e7fad570bd3a49ff05beb)
+
 ## 1.17.0-master.1442+20230621094700
 2023-06-21
 
