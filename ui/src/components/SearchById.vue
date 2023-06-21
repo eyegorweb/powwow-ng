@@ -44,8 +44,8 @@ export default {
         return [
           {
             code: 'c7',
-            label: 'EID',
-            value: 'EID',
+            label: 'eid',
+            value: 'eid',
           },
         ];
       },
