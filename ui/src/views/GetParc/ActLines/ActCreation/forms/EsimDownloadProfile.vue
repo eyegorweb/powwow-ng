@@ -118,7 +118,13 @@ export default {
     ...mapGetters(['userName']),
 
     canSeeActivationForm() {
-      return this.actCreationPrerequisites.selectedStatus.id !== 'ACTIVATED';
+      if (this.actCreationPrerequisites.searchById) {
+        if (this.singleLineFound) {
+          return this.singleLineFound.party;
+        }
+      }
+      const status = this.$loGet(this.actCreationPrerequisites, 'selectedStatus.id');
+      return status !== 'ACTIVATED';
     },
 
     partner() {
@@ -130,12 +136,11 @@ export default {
       return this.actCreationPrerequisites.partner;
     },
     preselectBillingAccount() {
-      if (this.partner.partyType === 'MVNO') {
+      if (this.partner && this.partner.partyType === 'MVNO') {
         return this.chosenBillingAccount;
       }
       return this.billingAccount;
     },
-
     billingAccount() {
       if (this.actCreationPrerequisites.searchById) {
         if (this.singleLineFound) {
@@ -143,6 +148,32 @@ export default {
         }
       }
       return this.actCreationPrerequisites.billingAccount;
+    },
+    simStatus() {
+      if (this.actCreationPrerequisites.searchById) {
+        if (this.singleLineFound) {
+          const enumSimStatus = [
+            {
+              id: 'NOT_PREACTIVATED',
+              label: this.$t('getparc.actLines.simStatuses.NOT_PREACTIVATED'),
+            },
+            {
+              id: 'PREACTIVATED',
+              label: this.$t('getparc.actLines.simStatuses.PREACTIVATED'),
+            },
+            {
+              id: 'ACTIVATED',
+              label: this.$t('getparc.actLines.simStatuses.ACTIVATED'),
+            },
+          ];
+          const selectedStatus = enumSimStatus.find(
+            (s) => this.$loGet(this.singleLineFound, 'statusTranslated') === s.label
+          );
+          console.log('here we have selected status', selectedStatus);
+          return selectedStatus.id;
+        }
+      }
+      return this.$loGet(this.actCreationPrerequisites, 'selectedStatus.id');
     },
   },
   data() {
@@ -208,7 +239,9 @@ export default {
         this.linesActionsResponse.total === 1
       ) {
         const lineInTable = this.linesActionsResponse.items[0];
-        this.singleLineFound = await searchLineById(lineInTable.id);
+        if (lineInTable) {
+          this.singleLineFound = await searchLineById(lineInTable.id);
+        }
       }
     },
     setBillingAccount(billingAccount) {
@@ -245,7 +278,7 @@ export default {
     },
 
     async doRequest(contextValues) {
-      let simIds;
+      let simIds = [];
       if (this.selectedLinesForActCreation && this.selectedLinesForActCreation.length) {
         simIds = this.selectedLinesForActCreation.map((s) => s.id);
       }
@@ -257,14 +290,14 @@ export default {
           : this.preselectBillingAccount.id,
         workflowCode: this.selectedOffer ? this.selectedOffer.id : undefined,
         tempDataUuid: contextValues.tempDataUuid,
-        partyId: this.partner.id,
+        partyId: this.$loGet(this.partner, 'id', undefined),
         dueDate: contextValues.actDate,
         targetDownload: this.selectedDownloadStatus,
         services: this.servicesChoice,
-        simStatus: this.actCreationPrerequisites.selectedStatus.id,
+        simStatus: this.simStatus,
         allCustomFields: this.customFieldsValues,
       });
-      if (response.errors && response.errors.length) {
+      if (response && response.errors && response.errors.length) {
         let errorMessage = '',
           massActionLimitError = '',
           count;
@@ -277,6 +310,15 @@ export default {
           }
           if (e.key === 'error') {
             massActionLimitError = `${e.key}.${e.value}`;
+          } else if (
+            e.value === 'MANDATORY_SERVICE_NOT_FOUND' ||
+            e.value === 'INCOMPATIBLE_SERVICE' ||
+            e.value === 'MANDATORY_SERVICE'
+          ) {
+            let service = e.key;
+            errorMessage = `${this.$t('getparc.actCreation.report.' + e.value, {
+              service,
+            })}`;
           } else {
             errorMessage = `${e.key}: ${e.value}`;
           }
@@ -316,7 +358,9 @@ export default {
     checkErrors() {},
 
     async loadCustomFields() {
-      this.allCustomFields = await fetchCustomFields(this.partner.id);
+      if (this.partner) {
+        this.allCustomFields = await fetchCustomFields(this.partner.id);
+      }
       this.decideOnMandatoryCustomFields();
     },
 

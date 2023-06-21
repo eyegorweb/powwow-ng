@@ -84,7 +84,7 @@ export default {
         req.action,
         req.qualification
       );
-      if (response.errors && response.errors.length) {
+      if (response && response.errors && response.errors.length) {
         let errorMessage = '',
           massActionLimitError = '',
           count;
@@ -97,6 +97,15 @@ export default {
           }
           if (e.key === 'error') {
             massActionLimitError = `${e.key}.${e.value}`;
+          } else if (
+            e.value === 'MANDATORY_SERVICE_NOT_FOUND' ||
+            e.value === 'INCOMPATIBLE_SERVICE' ||
+            e.value === 'MANDATORY_SERVICE'
+          ) {
+            let service = e.key;
+            errorMessage = `${this.$t('getparc.actCreation.report.' + e.value, {
+              service,
+            })}`;
           } else {
             errorMessage = `${e.key}: ${e.value}`;
           }
