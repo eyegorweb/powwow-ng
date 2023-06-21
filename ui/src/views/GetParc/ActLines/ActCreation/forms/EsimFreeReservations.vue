@@ -33,7 +33,7 @@ export default {
   methods: {
     async onValidate(contextValues) {
       const partnerId = this.$loGet(this.actCreationPrerequisites, 'partner.id');
-      let simIds;
+      let simIds = [];
       if (this.selectedLinesForActCreation && this.selectedLinesForActCreation.length) {
         simIds = this.selectedLinesForActCreation.map((s) => s.id);
       }
@@ -45,7 +45,7 @@ export default {
         contextValues.tempDataUuid,
         contextValues.actDate
       );
-      if (response.errors && response.errors.length) {
+      if (response && response.errors && response.errors.length) {
         let errorMessage = '',
           massActionLimitError = '',
           count;
@@ -58,6 +58,15 @@ export default {
           }
           if (e.key === 'error') {
             massActionLimitError = `${e.key}.${e.value}`;
+          } else if (
+            e.value === 'MANDATORY_SERVICE_NOT_FOUND' ||
+            e.value === 'INCOMPATIBLE_SERVICE' ||
+            e.value === 'MANDATORY_SERVICE'
+          ) {
+            let service = e.key;
+            errorMessage = `${this.$t('getparc.actCreation.report.' + e.value, {
+              service,
+            })}`;
           } else {
             errorMessage = `${e.key}: ${e.value}`;
           }

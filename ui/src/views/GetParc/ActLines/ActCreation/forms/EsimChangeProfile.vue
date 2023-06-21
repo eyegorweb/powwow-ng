@@ -45,7 +45,7 @@ export default {
   methods: {
     async onValidate(contextValues) {
       const partnerId = this.$loGet(this.actCreationPrerequisites, 'partner.id');
-      let simIds;
+      let simIds = [];
       if (this.selectedLinesForActCreation && this.selectedLinesForActCreation.length) {
         simIds = this.selectedLinesForActCreation.map((s) => s.id);
       }
