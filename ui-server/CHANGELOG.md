@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1442+20230621094700
+2023-06-21
+
+### Fixes
+
+- [3931] changer eid a minuscule (e1acc62c0a648c245d9f9fa63dd3544a53a1a252)
+
 ## 1.17.0-master.1441+20230620151644
 2023-06-20
 
