@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1444+20230622113014
+2023-06-22
+
+### Fixes
+
+- [3864] mise à jour des statistiques des usages du portail des clients OD (1bb27000027fc6b8fce4e0161aeeb6fe4a233343)
+
 ## 1.17.0-master.1443+20230621132618
 2023-06-21
 
