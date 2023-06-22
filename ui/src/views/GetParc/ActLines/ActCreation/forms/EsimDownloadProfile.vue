@@ -2,6 +2,7 @@
   <ActFormContainer
     :validate-fn="doRequest"
     :check-errors-fn="haveFieldErrors"
+    :prevent-send="!canSend"
     disabled-notification-check
   >
     <div v-if="downloadStatuses" class="form-group">
@@ -142,10 +143,30 @@ export default {
       return this.billingAccount;
     },
     billingAccount() {
+      let data;
       if (this.actCreationPrerequisites.searchById) {
-        if (this.singleLineFound) {
-          return this.singleLineFound.customerAccountForActivation;
+        if (this.singleLineFound && this.singleLineFound.customerAccountForActivation) {
+          data = this.singleLineFound.customerAccountForActivation;
+        } else if (
+          this.singleLineFound &&
+          this.singleLineFound.accessPoint &&
+          this.singleLineFound.accessPoint.offerGroup &&
+          this.singleLineFound.accessPoint.offerGroup.customerAccount
+        ) {
+          data = this.singleLineFound.accessPoint.offerGroup.customerAccount;
         }
+
+        if (!data) {
+          return null;
+        }
+
+        const formatted = {
+          id: data.id,
+          label: `${data.code} - ${data.name}`,
+          code: data.code,
+          data,
+        };
+        return formatted;
       }
       return this.actCreationPrerequisites.billingAccount;
     },
@@ -174,6 +195,11 @@ export default {
         }
       }
       return this.$loGet(this.actCreationPrerequisites, 'selectedStatus.id');
+    },
+    canSend() {
+      // TODO: ajouter le test sur l'offre (UPF)  cf: upfProfileDataNeeded de la préactivation
+      if (this.billingAccount && this.billingAccount.id) return true;
+      return false;
     },
   },
   data() {
@@ -286,11 +312,11 @@ export default {
         filters: this.appliedFilters,
         simCardInstanceIds: simIds,
         customerAccountID: this.billingAccount
-          ? this.billingAccount.id
-          : this.preselectBillingAccount.id,
-        workflowCode: this.selectedOffer ? this.selectedOffer.id : undefined,
+          ? this.$loGet(this.billingAccount, 'id', null)
+          : this.$loGet(this.preselectBillingAccount, 'id', null),
+        workflowCode: this.selectedOffer ? this.selectedOffer.id : null,
         tempDataUuid: contextValues.tempDataUuid,
-        partyId: this.$loGet(this.partner, 'id', undefined),
+        partyId: this.$loGet(this.partner, 'id', null),
         dueDate: contextValues.actDate,
         targetDownload: this.selectedDownloadStatus,
         services: this.servicesChoice,
