@@ -103,8 +103,10 @@ export default {
               ? this.userIsBO
                 ? 'BO'
                 : 'Admin'
-              : this.userIsPartner || this.userIsMultiPartner
-              ? 'Partner'
+              : (this.userIsPartner || this.userIsMultiPartner) && !this.isAnonymousPage
+              ? this.userIsM2MLight
+                ? 'OD'
+                : 'Partner'
               : 'Inconnu'
             : 'Inconnu',
       });
