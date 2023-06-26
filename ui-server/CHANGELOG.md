@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1446+20230626120746
+2023-06-26
+
+### Fixes
+
+- [3947] correction de l'export du CR pour l'acte de transfert vers un partenaire (f3be802ce2d0e7cd65596eacb7ce889499dfdfd1)
+
 ## 1.17.0-master.1445+20230622132011
 2023-06-22
 
