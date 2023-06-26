@@ -539,7 +539,7 @@ export default {
     resetPrereqs() {
       this.resetForm();
       this.setLinesActionsResponse(undefined);
-      this.setCurrentFilters([]);
+      this.setCurrentFilters([...this.currentFilters]);
     },
 
     async fetchPartnerOptions() {
