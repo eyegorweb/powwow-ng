@@ -89,7 +89,7 @@ export default {
   },
   async mounted() {
     await this.loadSingleLineInfo();
-    this.partnerType = this.partner.partyType;
+    this.partnerType = this.$loGet(this.partner, 'partyType');
   },
   data() {
     return {

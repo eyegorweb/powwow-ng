@@ -15,7 +15,11 @@
           </div>
           <slot name="messages"></slot>
           <div v-if="tempDataUuid && validationErrors && validationErrors.errors.length">
-            <FormReport v-if="validationErrors" :data="validationErrors" />
+            <FormReport
+              v-if="validationErrors"
+              :data="validationErrors"
+              :get-export-fn="getExportFn()"
+            />
             <button
               v-if="tempDataUuid"
               @click="doubleConfirm"
@@ -34,6 +38,7 @@
 <script>
 import { mapMutations } from 'vuex';
 import FormReport from './FormReport';
+import { exportLinesFromFileFilter } from '@/api/linesActions';
 
 export default {
   components: {
@@ -97,6 +102,17 @@ export default {
         },
         listStyle: !!this.confirmMsg,
       });
+    },
+
+    getExportFn() {
+      return async (columnsParam, orderBy, exportFormat) => {
+        return await exportLinesFromFileFilter(
+          ['DATA', 'STATUS'],
+          '',
+          exportFormat,
+          this.tempDataUuid
+        );
+      };
     },
 
     onSuccess() {
