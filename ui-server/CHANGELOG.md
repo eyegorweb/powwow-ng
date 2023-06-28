@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1449+20230628115608
+2023-06-28
+
+### Fixes
+
+- [3971] gestion des retours erreur de l'api esimStatusChangeProfil (49a6dff5e67d5a67a3e40cce1dc311505bd293bb)
+
 ## 1.17.0-master.1448+20230628111340
 2023-06-28
 
