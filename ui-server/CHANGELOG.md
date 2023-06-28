@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1450+20230628145300
+2023-06-28
+
+### Fixes
+
+- [3966] correction de la permission pour afficher la gestion des stocks (a13b3913f5da6b7347c53dc3ff680abdc73c0680)
+
 ## 1.17.0-master.1449+20230628115608
 2023-06-28
 
