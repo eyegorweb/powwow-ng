@@ -4,8 +4,9 @@
       <h3 class="font-weight-light text-center mt-4 mb-4">
         {{ $t('getsim.reservations.creation.upload') }}
       </h3>
-
-      <DropZone v-model="selectedFile" class="dropZone" />
+      <div class="position-relative">
+        <DropZone v-model="selectedFile" class="dropZone" />
+      </div>
 
       <div class="d-flex justify-content-between" v-if="requestErrors">
         <ul class="file-errors text-danger list-unstyled">
@@ -21,9 +22,9 @@
       <div class="d-flex mt-4 justify-content-center">
         <span>{{ $t('getsim.reservations.creation.profileSelect') }}</span>
         <Toggle
+          v-if="toggleValues"
           @update="toggleValue = $event"
           :values="toggleValues"
-          :disabled="!isUploadValid || !serviceActivationAsked"
           class="pl-2"
         />
       </div>
@@ -62,48 +63,72 @@ export default {
       toggleValues: [
         {
           id: 'NO',
+          value: 'NO',
           label: 'common.NO',
           default: true,
         },
         {
           id: 'ENABLED',
+          value: 'ENABLED',
           label: 'filters.active',
+          disabled: true,
         },
         {
           id: 'DISABLED',
+          value: 'DISABLED',
           label: 'getreport.report_statut.DISABLED',
+          disabled: true,
         },
       ],
+      isUploadValid: false,
     };
   },
   computed: {
     canGoToNextStep() {
       const quantity = parseInt(this.$loGet(this.synthesis, 'stepProduct.quantity'));
       if (this.lastResponse) {
-        return quantity === this.validatedInUploadedFile;
+        return (
+          quantity === this.lastResponse.validated &&
+          (!this.requestErrors || (this.requestErrors && !this.requestErrors.length))
+        );
       }
-      return true;
-    },
-    isUploadValid() {
-      const quantity = parseInt(this.$loGet(this.synthesis, 'stepProduct.quantity'));
-      if (this.lastResponse) {
-        return quantity === this.validatedInUploadedFile;
-      }
-      return false;
+      return !this.requestErrors || (this.requestErrors && !this.requestErrors.length);
     },
     serviceActivationAsked() {
       return !!this.$loGet(this.synthesis, 'serviceStep.activation');
     },
   },
-  mounted() {
-    this.cancelLastUpload();
-  },
   watch: {
-    selectedFile(newValue, oldValue) {
+    async selectedFile(newValue, oldValue) {
       this.requestErrors = undefined;
 
       if (newValue && newValue !== oldValue) {
-        this.sendFile(newValue);
+        await this.sendFile(newValue);
+
+        let newToggleValues = this.toggleValues.map((t) => {
+          if (t.value !== 'NO') {
+            t.disabled = !this.isUploadValid || !this.serviceActivationAsked;
+          } else {
+            t.default = true;
+          }
+          return t;
+        });
+        this.toggleValues = undefined;
+        this.$nextTick(() => {
+          this.toggleValues = newToggleValues;
+        });
+        if (this.isUploadValid) {
+          if (this.toggleValue.value === 'NO') {
+            this.requestErrors = ['Le téléchargement du profil doit être activé ou désactivé'];
+          }
+        }
+      }
+    },
+    toggleValue(value) {
+      if (this.isUploadValid && value.value === 'NO') {
+        this.requestErrors = ['Le téléchargement du profil doit être activé ou désactivé'];
+      } else {
+        this.requestErrors = [];
       }
     },
   },
@@ -112,6 +137,31 @@ export default {
       this.validatedInUploadedFile = undefined;
       this.lastResponse = undefined;
       this.selectedFile = undefined;
+      this.isUploadValid = false;
+      let newToggleValues = [
+        {
+          id: 'NO',
+          value: 'NO',
+          label: 'common.NO',
+          default: true,
+        },
+        {
+          id: 'ENABLED',
+          value: 'ENABLED',
+          label: 'filters.active',
+          disabled: true,
+        },
+        {
+          id: 'DISABLED',
+          value: 'DISABLED',
+          label: 'getreport.report_statut.DISABLED',
+          disabled: true,
+        },
+      ];
+      this.toggleValues = undefined;
+      this.$nextTick(() => {
+        this.toggleValues = newToggleValues;
+      });
     },
     validFile(file) {
       let requestErrors = undefined;
@@ -128,6 +178,7 @@ export default {
     async sendFile(file) {
       this.validatedInUploadedFile = undefined;
       this.lastResponse = undefined;
+      this.isUploadValid = false;
 
       const requestErrors = this.validFile(file);
       if (requestErrors) {
@@ -137,6 +188,11 @@ export default {
         this.lastResponse = response;
 
         this.validatedInUploadedFile = response.validated;
+
+        const quantity = parseInt(this.$loGet(this.synthesis, 'stepProduct.quantity'));
+        this.isUploadValid =
+          quantity === this.lastResponse.validated &&
+          (!this.requestErrors || (this.requestErrors && !this.requestErrors.length));
 
         if (response && response.errors) {
           this.requestErrors = response.errors.map((e) => e.message);
