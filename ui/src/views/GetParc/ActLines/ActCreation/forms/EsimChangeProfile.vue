@@ -15,6 +15,7 @@ import { esimStatusChangeProfil } from '@/api/esim.js';
 import { searchLineById } from '@/api/linesActions';
 import { mapState, mapGetters } from 'vuex';
 import UiSelect from '@/components/ui/UiSelect';
+import { formatBackErrors } from '@/utils/errors';
 
 export default {
   components: {
@@ -72,7 +73,7 @@ export default {
         simIds = this.selectedLinesForActCreation.map((s) => s.id);
       }
 
-      return await esimStatusChangeProfil({
+      const response = await esimStatusChangeProfil({
         partnerId: this.partnerId,
         filters: this.appliedFilters,
         simCardInstanceIds: simIds,
@@ -81,6 +82,44 @@ export default {
         notification: contextValues.notificationCheck,
         targetStateEnum: this.selectedStatus,
       });
+
+      if (response && response.errors && response.errors.length) {
+        let errorMessage = '',
+          massActionLimitError = '',
+          count;
+        const formatted = formatBackErrors(response.errors)
+          .map((e) => e.errors)
+          .flat();
+        formatted.forEach((e) => {
+          if (e.key === 'limit') {
+            count = e.value;
+          }
+          if (e.key === 'error') {
+            massActionLimitError = `${e.key}.${e.value}`;
+          } else {
+            errorMessage = `${e.key}: ${e.value}`;
+          }
+        });
+        if (massActionLimitError) {
+          this.exceptionError = `${this.$t(
+            'getparc.actCreation.report.errors.' + massActionLimitError,
+            {
+              count,
+            }
+          )}`;
+        } else {
+          this.exceptionError = errorMessage;
+        }
+
+        return {
+          errors: response.errors,
+          validationError: {
+            validated: response.validated,
+            tempDataUuid: response.tempDataUuid,
+          },
+        };
+      }
+      return response;
     },
   },
 };
