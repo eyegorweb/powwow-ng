@@ -300,7 +300,8 @@ export default {
             permission: () => {
               return (
                 this.havePermission('getSim', 'read') &&
-                this.havePermission('getSim', 'manage_stock_esim')
+                this.havePermission('getSim', 'manage_stock_esim') &&
+                this.userHaveEsimEnabled
               );
             },
           },
