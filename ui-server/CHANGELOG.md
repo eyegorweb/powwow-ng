@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1448+20230628111340
+2023-06-28
+
+### Fixes
+
+- [3965] correction du process de création de réservation esim (9a9e52ab7e5a782abd4e799184bdeaf629495b4e)
+
 ## 1.17.0-master.1447+20230626140148
 2023-06-26
 
