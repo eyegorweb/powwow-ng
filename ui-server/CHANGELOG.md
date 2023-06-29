@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1451+20230629080205
+2023-06-29
+
+### Fixes
+
+- [3967] correction de la permission de l'onglet Mes réservations (9684a904bb1d01bada3c7bd4696ce5c338eb0f59)
+
 ## 1.17.0-master.1450+20230628145300
 2023-06-28
 
