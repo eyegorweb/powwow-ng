@@ -117,18 +117,10 @@ export default {
         this.$nextTick(() => {
           this.toggleValues = newToggleValues;
         });
-        if (this.isUploadValid) {
-          if (this.toggleValue.value === 'NO') {
-            this.requestErrors = ['Le téléchargement du profil doit être activé ou désactivé'];
-          }
+        const quantity = parseInt(this.$loGet(this.synthesis, 'stepProduct.quantity'));
+        if (this.validatedInUploadedFile && quantity !== this.validatedInUploadedFile) {
+          this.requestErrors = [this.$t('getsim.reservations.creation.errors.numberOfLines')];
         }
-      }
-    },
-    toggleValue(value) {
-      if (this.isUploadValid && value.value === 'NO') {
-        this.requestErrors = ['Le téléchargement du profil doit être activé ou désactivé'];
-      } else {
-        this.requestErrors = [];
       }
     },
   },
