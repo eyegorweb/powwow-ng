@@ -575,7 +575,10 @@
       "creation": {
         "pairing": "Pairing",
         "upload": "Download file",
-        "profileSelect": "Profile download"
+        "profileSelect": "Profile download",
+        "errors": {
+          "numberOfLines": "The number of rows imported does not match the number of rows ordered"
+        }
       },
       "filters": {
         "creator": "Creator of the reservation",

@@ -638,7 +638,10 @@
       "creation": {
         "pairing": "Appairage",
         "upload": "Télécharger un fichier",
-        "profileSelect": "Téléchargement du profil"
+        "profileSelect": "Téléchargement du profil",
+        "errors": {
+          "numberOfLines": "Le nombre de lignes importées ne correspond pas au nombre de lignes commandées"
+        }
       },
       "filters": {
         "creator": "Créateur de la réservation",
