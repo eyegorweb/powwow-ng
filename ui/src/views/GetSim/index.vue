@@ -61,7 +61,7 @@ export default {
       return (
         this.userHaveEsimEnabled &&
         (this.havePermission('getSim', 'order_esim') ||
-          this.havePermission('getParc', 'manage_esim'))
+          this.havePermission('getSim', 'manage_esim'))
       );
     },
   },
