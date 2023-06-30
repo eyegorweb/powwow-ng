@@ -41,6 +41,7 @@ import TwoValuesToggle from '@/components/ui/TwoValuesToggle.vue';
 
 // Api
 import { updatePolicyRules } from '@/api/esim';
+import { searchLineById } from '@/api/linesActions';
 
 export default {
   components: {
@@ -50,7 +51,19 @@ export default {
   },
 
   computed: {
-    ...mapState('actLines', ['selectedLinesForActCreation', 'actCreationPrerequisites']),
+    ...mapState('actLines', [
+      'selectedLinesForActCreation',
+      'actCreationPrerequisites',
+      'linesActionsResponse',
+    ]),
+    partnerId() {
+      if (this.actCreationPrerequisites.searchById) {
+        if (this.singleLineFound) {
+          return this.$loGet(this.singleLineFound, 'party.id');
+        }
+      }
+      return this.actCreationPrerequisites.partner;
+    },
   },
 
   data() {
@@ -59,12 +72,27 @@ export default {
       action: false,
       qualification: false,
       exceptionError: undefined,
+      singleLineFound: undefined,
     };
   },
 
-  mounted() {},
+  async mounted() {
+    await this.loadSingleLineInfo();
+  },
 
   methods: {
+    async loadSingleLineInfo() {
+      if (
+        this.actCreationPrerequisites.searchById &&
+        this.linesActionsResponse &&
+        this.linesActionsResponse.total === 1
+      ) {
+        const lineInTable = this.linesActionsResponse.items[0];
+        if (lineInTable) {
+          this.singleLineFound = await searchLineById(lineInTable.id);
+        }
+      }
+    },
     async doRequest(contextValues) {
       let req = {
         action: this.action ? 'DELETE' : 'DISABLE',
@@ -76,7 +104,7 @@ export default {
       }
 
       const response = await updatePolicyRules(
-        this.actCreationPrerequisites.partner.id,
+        this.partnerId,
         selectedLinesId,
         contextValues.actDate,
         contextValues.notificationCheck,
