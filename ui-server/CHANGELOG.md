@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1454+20230630132433
+2023-06-30
+
+### Fixes
+
+- [3979] correction de la recherche par identifiant pour l'acte Policy rules (638f5363e560a9f2357af3f0560a11b3dbcb4d40)
+
 ## 1.17.0-master.1453+20230630083225
 2023-06-30
 
