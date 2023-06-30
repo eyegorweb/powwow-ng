@@ -604,6 +604,7 @@ export default {
       'havePermissionDomain',
       'userLanguage',
       'userIsByCustomerAccount',
+      'userHaveEsimEnabled',
     ]),
 
     logoutUrl() {
