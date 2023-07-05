@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1457+20230705121825
+2023-07-05
+
+### Fixes
+
+- [3974] correction du type de fichier importé pour l'acte de gestion appairage esim (8d97cf73eaa4a85ada0f41570ade1280b47d39da)
+
 ## 1.17.0-master.1456+20230705091152
 2023-07-05
 
