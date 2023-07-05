@@ -70,7 +70,7 @@ export default {
       let response;
       if (!contextValues.tempDataUuid) {
         if (this.file) {
-          response = await uploadSearchFile(this.file, 'EID');
+          response = await uploadSearchFile(this.file, 'ICCID');
           if (!response.errors || !response.errors.length) {
             response = await this.doSendPairingRequest({
               tempDataUuid: response.tempDataUuid,
