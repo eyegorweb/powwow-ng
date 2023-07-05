@@ -6,6 +6,14 @@
         <UiSelect class="text-gray" block v-model="selectedStatus" :options="profileStatuses" />
       </div>
     </div>
+    <div slot="messages" class="text-info">
+      <div v-if="exceptionError">
+        <h6 class="text-danger">{{ $t('errors.all') }}</h6>
+        <div class="text-danger">
+          {{ exceptionError }}
+        </div>
+      </div>
+    </div>
   </ActFormContainer>
 </template>
 
@@ -39,6 +47,7 @@ export default {
       selectedStatus: undefined,
       profileStatuses: undefined,
       singleLineFound: undefined,
+      exceptionError: undefined,
     };
   },
   async mounted() {
