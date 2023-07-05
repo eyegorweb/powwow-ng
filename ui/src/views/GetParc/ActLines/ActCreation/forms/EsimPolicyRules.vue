@@ -32,14 +32,10 @@
 
 <script>
 import ActFormContainer from './parts/ActFormContainer2';
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 import { formatBackErrors } from '@/utils/errors';
-
-// Composants
 import UiInput from '@/components/ui/UiInput';
 import TwoValuesToggle from '@/components/ui/TwoValuesToggle.vue';
-
-// Api
 import { updatePolicyRules } from '@/api/esim';
 import { searchLineById } from '@/api/linesActions';
 
@@ -51,11 +47,8 @@ export default {
   },
 
   computed: {
-    ...mapState('actLines', [
-      'selectedLinesForActCreation',
-      'actCreationPrerequisites',
-      'linesActionsResponse',
-    ]),
+    ...mapState('actLines', ['selectedLinesForActCreation', 'actCreationPrerequisites']),
+    ...mapGetters('actLines', ['appliedFilters', 'linesActionsResponse']),
     partnerId() {
       if (this.actCreationPrerequisites.searchById) {
         if (this.singleLineFound) {
@@ -105,7 +98,9 @@ export default {
 
       const response = await updatePolicyRules(
         this.partnerId,
+        this.appliedFilters,
         selectedLinesId,
+        contextValues.tempDataUuid,
         contextValues.actDate,
         contextValues.notificationCheck,
         this.subject,

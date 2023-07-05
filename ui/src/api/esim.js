@@ -3,24 +3,48 @@ import { query, getFilterValues, getValuesIdsWithoutQuotes, formatServicesForGQL
 
 export async function updatePolicyRules(
   partyId,
-  simIds,
-  date,
+  filters,
+  simCardInstanceIds,
+  tempDataUuid,
+  dueDate,
   notification,
   subject,
   action,
   qualification
 ) {
   const queryStr = `
-   mutation {
-    policyRulesUpdate(input:{filter:{simcardCategory:{eq:ESIM}}, simCardInstanceIds:[${simIds}], partyId:${partyId}, dueDate:"${date}", notification:${notification},  subject:${subject}, action:${action}, qualification: ${qualification}}) {
+  mutation PolicyRulesUpdate($partyId: Long!, $simCardInstanceIds: [ID!], $tempDataUuid: String, $dueDate: DateTime!, $notification: Boolean!, $subject: SubjectEnum!, $action: ActionEnum!, $qualification: QualificationEnum!) {
+    policyRulesUpdate(
+      input: {
+        filter: {${formatFilters(filters)}}
+        partyId: $partyId
+        simCardInstanceIds: $simCardInstanceIds
+        tempDataUuid: $tempDataUuid
+        dueDate: $dueDate
+        notification: $notification
+        subject: $subject
+        action: $action
+        qualification: $qualification
+      }) {
       tempDataUuid
       validated
       errors {
         key
+        number
+        message
       }
     }
   }`;
-  const response = await query(queryStr);
+  const response = await query(queryStr, {
+    partyId,
+    simCardInstanceIds,
+    tempDataUuid,
+    dueDate,
+    notification,
+    subject,
+    action,
+    qualification,
+  });
   if (!response) {
     return {
       errors: ['unknown'],
