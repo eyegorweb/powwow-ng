@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1455+20230705073012
+2023-07-05
+
+### Fixes
+
+- [3979] correction de quelques esim pour afficher les erreurs (6854f958504c4b2f6d5048982ef4f9dce979c846)
+
 ## 1.17.0-master.1454+20230630132433
 2023-06-30
 
