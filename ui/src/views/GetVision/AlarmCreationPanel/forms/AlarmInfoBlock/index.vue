@@ -181,7 +181,7 @@ export default {
     filteredAlarmType() {
       return (
         this.alarm &&
-        !['OVER_CONSUMPTION_VOLUME_FLOTTE', 'NOSESSION'].filter(
+        !['OVER_CONSUMPTION_VOLUME_FLOTTE', 'NOSESSION', 'ATYPICAL_ACTIVITY'].filter(
           (alarmId) => alarmId === this.alarm.id
         ).length
       );
