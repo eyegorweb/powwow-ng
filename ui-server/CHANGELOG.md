@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1458+20230707070701
+2023-07-07
+
+### Features
+
+- [3930] ajout de l'alarme Activité atypique (594edb571fc82617b606131b9cc5e158b92a1bde)
+
 ## 1.17.0-master.1457+20230705121825
 2023-07-05
 
