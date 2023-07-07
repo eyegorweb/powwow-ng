@@ -146,10 +146,23 @@ export default {
         }
         if (this.alarm.dataInactiveSession) {
           values.push(
-            `${this.$t(labelKey + 'data_session')}: ${formattedValueFromSeconds(
+            `${this.$t(labelKey + 'data_without_session')}: ${formattedValueFromSeconds(
               parseInt(this.alarm.dataInactiveSession)
             )}`
           );
+        }
+      } else if (this.alarm.type === 'ATYPICAL_ACTIVITY') {
+        if (this.alarm.voiceCallsThreshold) {
+          values.push(`${this.$t(labelKey + 'callInOut')}: ${this.alarm.voiceCallsThreshold}`);
+        }
+        if (this.alarm.voiceCallsInThreshold) {
+          values.push(`${this.$t(labelKey + 'call_in')}: ${this.alarm.voiceCallsInThreshold}`);
+        }
+        if (this.alarm.voiceCallsOutThreshold) {
+          values.push(`${this.$t(labelKey + 'call_out')}: ${this.alarm.voiceCallsOutThreshold}`);
+        }
+        if (this.alarm.pdpSessionsThreshold) {
+          values.push(`${this.$t(labelKey + 'data_session')}: ${this.alarm.pdpSessionsThreshold}`);
         }
       } else {
         if (this.alarm.level1) {

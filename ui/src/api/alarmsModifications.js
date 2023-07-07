@@ -1,4 +1,5 @@
 import { query } from './utils';
+import get from 'lodash.get';
 import { getSharedAlarmParamsFormatted } from './alarms';
 
 export async function updateCountryChangeAlarm(params) {
@@ -182,6 +183,71 @@ export async function updateInactivityAlarm(params) {
   }
 
   return response.data.updateInactivityAlarm;
+}
+
+export async function updateAtypicalAlarm(params) {
+  const gqlParams = getGqlParams(params);
+  const alarmLevelValues = [];
+  const alarmLevels = [];
+
+  if (get(params, 'formData.alarmAtypicalDetails')) {
+    if (get(params, 'formData.alarmAtypicalDetails.voiceCallsThreshold')) {
+      alarmLevelValues.push(
+        `voiceCallsThreshold:${get(params, 'formData.alarmAtypicalDetails.voiceCallsThreshold')}`
+      );
+    }
+    if (get(params, 'formData.alarmAtypicalDetails.voiceCallsInThreshold')) {
+      alarmLevelValues.push(
+        `voiceCallsInThreshold:${get(
+          params,
+          'formData.alarmAtypicalDetails.voiceCallsInThreshold'
+        )}`
+      );
+    }
+    if (get(params, 'formData.alarmAtypicalDetails.voiceCallsOutThreshold')) {
+      alarmLevelValues.push(
+        `voiceCallsOutThreshold:${get(
+          params,
+          'formData.alarmAtypicalDetails.voiceCallsOutThreshold'
+        )}`
+      );
+    }
+    if (get(params, 'formData.alarmAtypicalDetails.pdpSessionsThreshold')) {
+      alarmLevelValues.push(
+        `pdpSessionsThreshold:${get(params, 'formData.alarmAtypicalDetails.pdpSessionsThreshold')}`
+      );
+    }
+
+    alarmLevels.push(`observationCycle: ${params.formData.alarmAtypicalDetails.currentPeriod}`);
+
+    if (params.formData.alarmAtypicalDetails.currentPeriod === 'CUSTOM') {
+      alarmLevels.push(
+        `observationCycle: ${params.formData.alarmAtypicalDetails.customPeriodValue}`
+      );
+    }
+  }
+
+  const queryStr = `mutation {
+    updateAtypicalAlarm(alarmUpdateInput:{
+      ${gqlParams.join(',')}
+      alarmAtypicalDetails: {
+        ${alarmLevelValues.join(',')}
+      }
+      alarmLevels: {${alarmLevels.join(',')}}
+    })
+    {
+      id
+    }
+  }
+  `;
+
+  const response = await query(queryStr);
+
+  if (response.errors) {
+    return { errors: response.errors };
+  }
+
+  return response.data.updateAtypicalAlarm;
 }
 
 function addLevels(params, gqlParams) {

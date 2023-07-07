@@ -11,74 +11,36 @@
     partner-feature="ATYPICAL_ALARM"
     no-wsnotification
   >
-    <SectionTitle :num="num">{{
-      $t('getvsion.alarm-creation.defineThresholdSession')
-    }}</SectionTitle>
-
-    <div class="values-container standard-mode">
-      <div class="item">
-        <span>{{ $t('getparc.lineDetail.alarms.data_disconnect') }} (min)</span>
-        <UiInput
-          class="value-input"
-          :input-style="inputStyle"
-          input-type="number"
-          v-model="dataNoSession"
-          positive-number
-        />
-      </div>
-      <div class="item">
-        <span>{{ $t('getparc.lineDetail.alarms.data_without_session') }} (min)</span>
-        <UiInput
-          class="value-input"
-          :input-style="inputStyle"
-          input-type="number"
-          v-model="dataInactiveSession"
-          positive-number
-        />
-      </div>
-    </div>
+    <AtypicalAlarmConsumptionForm
+      @change="values = $event"
+      :duplicate-from="duplicateFrom"
+      :partner="partner"
+    />
   </AlarmCreationBaseForm>
 </template>
 
 <script>
 import AlarmCreationBaseForm from './AlarmCreationBaseForm';
-import UiInput from '@/components/ui/UiInput';
-import SectionTitle from '@/components/SectionTitle';
+import AtypicalAlarmConsumptionForm from './AtypicalAlarmConsumptionForm.vue';
 import { mapMutations } from 'vuex';
-import { createInactivityAlarm } from '@/api/alarmCreation';
-import { updateInactivityAlarm } from '@/api/alarmsModifications';
+import { createAtypicalAlarm } from '@/api/alarmCreation';
+import { updateAtypicalAlarm } from '@/api/alarmsModifications';
 
 export default {
   components: {
     AlarmCreationBaseForm,
-    UiInput,
-    SectionTitle,
+    AtypicalAlarmConsumptionForm,
   },
   props: {
     alarm: Object,
     duplicateFrom: Object,
     partner: Object,
   },
-  mounted() {
-    if (this.editMode) {
-      this.num = 1;
-      this.dataNoSession = this.duplicateFrom.dataNoSession;
-      this.dataInactiveSession = this.duplicateFrom.dataInactiveSession;
-    }
-  },
   data() {
     return {
       values: undefined,
       scopeChoice: undefined,
       isLoading: false,
-      dataNoSession: null,
-      dataInactiveSession: null,
-      inputStyle: {
-        padding: '0.3rem',
-        fontSize: '0.8rem',
-        height: '2.2rem',
-      },
-      num: 3,
     };
   },
   computed: {
@@ -90,7 +52,17 @@ export default {
     ...mapMutations(['flashMessage', 'closePanel', 'confirmAction']),
 
     isFormValid() {
-      let isFormValid = !!parseInt(this.dataNoSession) || !!parseInt(this.dataInactiveSession);
+      if (!this.values) return false;
+
+      let isFormValid =
+        !!parseInt(this.values.voiceCallsThreshold) ||
+        !!parseInt(this.values.voiceCallsInThreshold) ||
+        !!parseInt(this.values.voiceCallsOutThreshold) ||
+        !!parseInt(this.values.pdpSessionsThreshold);
+
+      if (this.values.currentPeriod === 'CUSTOM') {
+        isFormValid &= !!this.values.customPeriodValue;
+      }
 
       return isFormValid;
     },
@@ -100,18 +72,17 @@ export default {
         ...payload,
         scope: this.scopeChoice,
         formData: {
-          dataNoSession: this.dataNoSession,
-          dataInactiveSession: this.dataInactiveSession,
+          alarmAtypicalDetails: this.values,
         },
       };
       let response;
       if (this.editMode) {
         this.isLoading = true;
-        response = await updateInactivityAlarm({ ...params, id: this.duplicateFrom.id });
+        response = await updateAtypicalAlarm({ ...params, id: this.duplicateFrom.id });
         this.isLoading = false;
       } else {
         this.isLoading = true;
-        response = await createInactivityAlarm(params);
+        response = await createAtypicalAlarm(params);
         this.isLoading = false;
       }
       this.onClose(response);
@@ -152,6 +123,7 @@ export default {
       this.closePanel({ resetSearch: true });
     },
   },
+  mounted() {},
 };
 </script>
 
