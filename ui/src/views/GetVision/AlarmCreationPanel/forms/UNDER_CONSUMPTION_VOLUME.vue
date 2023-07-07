@@ -9,7 +9,7 @@
     :is-loading="isLoading"
     :duplicate-from="duplicateFrom"
   >
-    <ConsumptionForm @change="values = $event" :duplicate-from="duplicateFrom" />
+    <ConsumptionForm @change="values = $event" :duplicate-from="duplicateFrom" :partner="partner" />
   </AlarmCreationBaseForm>
 </template>
 

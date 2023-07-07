@@ -1,5 +1,5 @@
 <template>
-  <div class="mb-4">
+  <div>
     <SectionTitle :num="numStep">{{ $t('getvsion.alarm-creation.defineThreshold') }}</SectionTitle>
 
     <div class="d-flex mb-2">
@@ -10,98 +10,59 @@
 
     <div class="values-container" :class="{ 'standard-mode': !isAdvanced }">
       <div class="item">
-        <span>{{ $t('getparc.lineDetail.alarms.data') }} (Mo)</span>
+        <span
+          >{{ $t('getparc.lineDetail.alarms.callInOut') }} ({{
+            $t('getparc.lineDetail.alarms.times')
+          }})</span
+        >
         <UiInput
           class="value-input"
           :input-style="inputStyle"
           input-type="number"
-          v-model="dataES"
+          v-model="voiceCallsThreshold"
           positive-number
         />
       </div>
       <div v-if="isAdvanced" class="item fade-in-reveal">
-        <span>{{ $t('getparc.lineDetail.alarms.data_out') }} (Mo)</span>
+        <span
+          >{{ $t('getparc.lineDetail.alarms.call_in') }} ({{
+            $t('getparc.lineDetail.alarms.times')
+          }})</span
+        >
         <UiInput
           class="value-input"
           :input-style="inputStyle"
           input-type="number"
-          v-model="dataOut"
+          v-model="voiceCallsInThreshold"
           positive-number
         />
       </div>
       <div v-if="isAdvanced" class="item fade-in-reveal">
-        <span>{{ $t('getparc.lineDetail.alarms.data_in') }} (Mo)</span>
+        <span
+          >{{ $t('getparc.lineDetail.alarms.call_out') }} ({{
+            $t('getparc.lineDetail.alarms.times')
+          }})</span
+        >
         <UiInput
           class="value-input"
           :input-style="inputStyle"
           input-type="number"
-          v-model="dataIn"
+          v-model="voiceCallsOutThreshold"
           positive-number
-        />
-      </div>
-      <div v-if="isAdvanced" class="item fade-in-reveal">
-        <span>{{ $t('getparc.lineDetail.alarms.sms') }}</span>
-        <UiInput
-          class="value-input"
-          :input-style="inputStyle"
-          input-type="number"
-          v-model="smsES"
-          :disabled="alarmWithStream"
         />
       </div>
       <div class="item">
-        <span>{{ $t('getparc.lineDetail.alarms.sms_out') }}</span>
+        <span
+          >{{ $t('getparc.lineDetail.alarms.data_session') }} ({{
+            $t('getparc.lineDetail.alarms.times')
+          }})</span
+        >
         <UiInput
           class="value-input"
           :input-style="inputStyle"
           input-type="number"
-          v-model="smsOut"
+          v-model="pdpSessionsThreshold"
           positive-number
-          :disabled="alarmWithStream"
-        />
-      </div>
-      <div v-if="isAdvanced" class="item fade-in-reveal">
-        <span>{{ $t('getparc.lineDetail.alarms.sms_in') }}</span>
-
-        <UiInput
-          class="value-input"
-          :input-style="inputStyle"
-          input-type="number"
-          v-model="smsIn"
-          :disabled="alarmWithStream"
-        />
-      </div>
-      <div v-if="isAdvanced" class="item fade-in-reveal">
-        <span>{{ $t('getparc.lineDetail.alarms.voice') }}</span>
-        <UiInput
-          class="value-input"
-          :input-style="inputStyle"
-          input-type="number"
-          v-model="voiceES"
-          positive-number
-          :disabled="alarmWithStream"
-        />
-      </div>
-      <div class="item">
-        <span>{{ $t('getparc.lineDetail.alarms.voice_out') }} (Min)</span>
-        <UiInput
-          class="value-input"
-          :input-style="inputStyle"
-          input-type="number"
-          v-model="voiceOut"
-          positive-number
-          :disabled="alarmWithStream"
-        />
-      </div>
-      <div v-if="isAdvanced" class="item fade-in-reveal">
-        <span>{{ $t('getparc.lineDetail.alarms.voice_in') }} (Min)</span>
-        <UiInput
-          class="value-input"
-          :input-style="inputStyle"
-          input-type="number"
-          v-model="voiceIn"
-          positive-number
-          :disabled="alarmWithStream"
         />
       </div>
     </div>
@@ -129,22 +90,21 @@
 </template>
 
 <script>
-import SectionTitle from '@/components/SectionTitle';
 import UiInput from '@/components/ui/UiInput';
+import SectionTitle from '@/components/SectionTitle';
 import UiToggle from '@/components/ui/UiToggle';
 import Toggle from '@/components/ui/UiToggle2';
 
 export default {
   components: {
     UiInput,
+    SectionTitle,
     UiToggle,
     Toggle,
-    SectionTitle,
   },
+
   props: {
-    alarm: Object,
     partner: Object,
-    alarmWithStream: Boolean,
     duplicateFrom: {
       type: Object,
       required: false,
@@ -153,15 +113,10 @@ export default {
 
   mounted() {
     if (this.duplicateFrom) {
-      this.dataES = this.duplicateFrom.level1 / 1024 / 1024;
-      this.dataOut = this.duplicateFrom.level1Up / 1024 / 1024;
-      this.dataIn = this.duplicateFrom.level1Down / 1024 / 1024;
-      this.smsES = this.duplicateFrom.level2;
-      this.smsOut = this.duplicateFrom.level2Up;
-      this.smsIn = this.duplicateFrom.level2Down;
-      this.voiceES = this.duplicateFrom.level3 / 60;
-      this.voiceOut = this.duplicateFrom.level3Up / 60;
-      this.voiceIn = this.duplicateFrom.level3Down / 60;
+      this.voiceCallsThreshold = this.duplicateFrom.voiceCallsThreshold;
+      this.voiceCallsInThreshold = this.duplicateFrom.voiceCallsInThreshold;
+      this.voiceCallsOutThreshold = this.duplicateFrom.voiceCallsOutThreshold;
+      this.pdpSessionsThreshold = this.duplicateFrom.pdpSessionsThreshold;
       this.currentPeriod = this.duplicateFrom.observationCycle;
       this.toggleValues = this.toggleValues.map((t) => {
         t.default = t.id === this.duplicateFrom.observationCycle;
@@ -176,38 +131,15 @@ export default {
     }
   },
 
-  computed: {
-    editMode() {
-      return this.duplicateFrom && this.duplicateFrom.toModify;
-    },
-    numStep() {
-      if (!this.editMode && this.partner) {
-        return 2;
-      }
-      return this.editMode ? 1 : 3;
-    },
-  },
-
   data() {
     return {
-      valtest: undefined,
       isAdvanced: false,
-
-      dataES: undefined,
-      dataIn: undefined,
-      dataOut: undefined,
-
-      voiceES: undefined,
-      voiceIn: undefined,
-      voiceOut: undefined,
-
-      smsES: undefined,
-      smsIn: undefined,
-      smsOut: undefined,
-
+      voiceCallsThreshold: undefined,
+      voiceCallsInThreshold: undefined,
+      voiceCallsOutThreshold: undefined,
+      pdpSessionsThreshold: undefined,
       currentPeriod: 'MONTHLY',
       customPeriodValue: undefined,
-
       toggleValues: [
         {
           id: 'DAILY',
@@ -235,19 +167,26 @@ export default {
     };
   },
 
+  computed: {
+    editMode() {
+      return this.duplicateFrom && this.duplicateFrom.toModify;
+    },
+    numStep() {
+      if (!this.editMode && this.partner) {
+        return 2;
+      }
+      return this.editMode ? 1 : 3;
+    },
+  },
+
   methods: {
     emitChange() {
       this.$emit('change', {
-        dataES: this.dataES,
-        dataOut: this.dataOut,
-        dataIn: this.dataIn,
-        smsES: this.smsES,
-        smsIn: this.smsIn,
-        smsOut: this.smsOut,
-        voiceES: this.voiceES,
-        voiceIn: this.voiceIn,
-        voiceOut: this.voiceOut,
-        period: this.currentPeriod,
+        voiceCallsThreshold: this.voiceCallsThreshold,
+        voiceCallsInThreshold: this.voiceCallsInThreshold,
+        voiceCallsOutThreshold: this.voiceCallsOutThreshold,
+        pdpSessionsThreshold: this.pdpSessionsThreshold,
+        currentPeriod: this.currentPeriod,
         customPeriodValue: this.customPeriodValue,
       });
     },
@@ -256,40 +195,25 @@ export default {
   watch: {
     isAdvanced(newValue) {
       if (!newValue) {
-        this.dataOut = undefined;
-        this.dataIn = undefined;
-        this.smsES = undefined;
-        this.smsIn = undefined;
-        this.voiceOut = undefined;
-        this.voiceIn = undefined;
+        this.voiceCallsThreshold = undefined;
+        this.voiceCallsInThreshold = undefined;
+        this.voiceCallsOutThreshold = undefined;
+        this.pdpSessionsThreshold = undefined;
+        this.currentPeriod = undefined;
+        this.customPeriodValue = undefined;
       }
     },
 
-    dataOut() {
+    voiceCallsThreshold() {
       this.emitChange();
     },
-    dataIn() {
+    voiceCallsInThreshold() {
       this.emitChange();
     },
-    dataES() {
+    voiceCallsOutThreshold() {
       this.emitChange();
     },
-    voiceES() {
-      this.emitChange();
-    },
-    voiceIn() {
-      this.emitChange();
-    },
-    voiceOut() {
-      this.emitChange();
-    },
-    smsES() {
-      this.emitChange();
-    },
-    smsIn() {
-      this.emitChange();
-    },
-    smsOut() {
+    pdpSessionsThreshold() {
       this.emitChange();
     },
     currentPeriod() {
@@ -297,16 +221,6 @@ export default {
     },
     customPeriodValue() {
       this.emitChange();
-    },
-    alarmWithStream(newValue) {
-      if (newValue) {
-        this.smsES = undefined;
-        this.smsIn = undefined;
-        this.smsOut = undefined;
-        this.voiceES = undefined;
-        this.voiceIn = undefined;
-        this.voiceOut = undefined;
-      }
     },
   },
 };

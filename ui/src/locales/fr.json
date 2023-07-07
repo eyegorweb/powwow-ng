@@ -740,6 +740,7 @@
     "IMEI_CHANGE": "Changement de module",
     "COUNTRY_CHANGE": "Changement de pays",
     "NOSESSION": "Inactivité",
+    "ATYPICAL_ACTIVITY": "Activité atypique",
     "OVER_CONSUMPTION_VOLUME_FLOTTE": "Sur-conso de la flotte",
     "MORE_DETAIL": "Voir le détail de l'alarme",
     "observationCycles": {
@@ -953,7 +954,8 @@
         "IMEI_CHANGE": "Lorsque la SIM M2M est retirée d’un objet communiquant et insérée dans une nouveau terminal, l’alarme se déclenchera et vous permettra d’être informé du changement de l’appairage SIM/module.",
         "COUNTRY_CHANGE": "A chaque changement de zone (un ou plusieurs pays) effectué par votre objet communiquant, l’alarme se déclenchera et vous permettra d’être informé du changement. Il possible de sélectionner un ou plusieurs pays pour créer la zone cible. L’alarme est déclenchée à chaque changement de pays dans la liste sélectionnée.",
         "STATUS_CHANGE_PROFILE": "L’alarme de changement de statut de profil vous permet de surveiller les changements de statut des profils des lignes eSIM (ENABLED, DISABLED, DELETED).",
-        "NOSESSION": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+        "NOSESSION": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+        "ATYPICAL_ACTIVITY": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
       },
       "alarmPopUp": "L'alarme a été créée mais n'a pu être positionnée sur les anciennes lignes. Veuillez réaliser cette opération manuellement."
     },
@@ -1729,7 +1731,7 @@
         "enableLine": "Activer pour la ligne",
         "data": "Data E/S",
         "data_disconnect": "Déconnexion data",
-        "data_session": "Session sans trafic",
+        "data_without_session": "Session sans trafic",
         "data_out": "Data sortante",
         "data_in": "Data entrante",
         "sms": "SMS E/S",
@@ -1738,6 +1740,11 @@
         "voice": "Voix E/S",
         "voice_out": "Voix sortante",
         "voice_in": "Voix entrante",
+        "callInOut": "Appel E/S",
+        "call_in": "Appel entrant",
+        "call_out": "Appel sortant",
+        "data_session": "Session data",
+        "times": "fois",
         "status_change": "Changement de statut",
         "imei_change": "Changement de module",
         "plmn_change": "Changement d'opérateur",
@@ -1758,6 +1765,7 @@
           "SOLD_UNDER_THRESHOLD": "Solde sous seuil",
           "UNDER_CONSUMPTION_VOLUME": "Sous-consommation",
           "NOSESSION": "Inactivité",
+          "ATYPICAL_ACTIVITY": "Activité atypique",
           "ACTION": "Action"
         }
       },

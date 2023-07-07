@@ -198,6 +198,80 @@ export async function createInactivityAlarm(params) {
   return response.data.createInactivityAlarm;
 }
 
+export async function createAtypicalAlarm(params) {
+  const gqlParams = getFormGQLParams(params);
+  const alarmLevelValues = [];
+  const alarmLevels = [];
+
+  if (get(params, 'formData.alarmAtypicalDetails')) {
+    if (get(params, 'formData.alarmAtypicalDetails.voiceCallsThreshold')) {
+      alarmLevelValues.push(
+        `voiceCallsThreshold:${get(params, 'formData.alarmAtypicalDetails.voiceCallsThreshold')}`
+      );
+    }
+    if (get(params, 'formData.alarmAtypicalDetails.voiceCallsInThreshold')) {
+      alarmLevelValues.push(
+        `voiceCallsInThreshold:${get(
+          params,
+          'formData.alarmAtypicalDetails.voiceCallsInThreshold'
+        )}`
+      );
+    }
+    if (get(params, 'formData.alarmAtypicalDetails.voiceCallsOutThreshold')) {
+      alarmLevelValues.push(
+        `voiceCallsOutThreshold:${get(
+          params,
+          'formData.alarmAtypicalDetails.voiceCallsOutThreshold'
+        )}`
+      );
+    }
+    if (get(params, 'formData.alarmAtypicalDetails.pdpSessionsThreshold')) {
+      alarmLevelValues.push(
+        `pdpSessionsThreshold:${get(params, 'formData.alarmAtypicalDetails.pdpSessionsThreshold')}`
+      );
+    }
+
+    alarmLevels.push(`observationCycle: ${params.formData.alarmAtypicalDetails.currentPeriod}`);
+
+    if (params.formData.alarmAtypicalDetails.currentPeriod === 'CUSTOM') {
+      alarmLevels.push(
+        `observationCycle: ${params.formData.alarmAtypicalDetails.customPeriodValue}`
+      );
+    }
+  }
+
+  const queryStr = `
+  mutation {
+    createAtypicalAlarm(
+      filter: {${getScopeGQLParams(params)}},
+      alarmCreationInput: {
+        ${gqlParams.join(',')}
+        alarmAtypicalDetails: {
+          ${alarmLevelValues.join(',')}
+        }
+        alarmLevels: {${alarmLevels.join(',')}}
+      }
+      )
+      {
+        tempDataUuid
+        validated
+        errors {
+          key
+          number
+        }
+    }
+  }
+  `;
+
+  const response = await query(queryStr);
+
+  if (response.errors) {
+    return { errors: response.errors };
+  }
+
+  return response.data.createAtypicalAlarm;
+}
+
 export async function alarmOnOverConso(params) {
   const response = await consoQuery('createOverConsumptionAlarm', params);
 

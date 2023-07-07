@@ -91,6 +91,10 @@ export default {
           id: 'NOSESSION',
           description: this.$t('getvsion.alarm-creation.description.NOSESSION'),
         },
+        {
+          id: 'ATYPICAL_ACTIVITY',
+          description: this.$t('getvsion.alarm-creation.description.ATYPICAL_ACTIVITY'),
+        },
       ];
     } else if (
       this.userIsPartner &&
@@ -102,6 +106,10 @@ export default {
         {
           id: 'NOSESSION',
           description: this.$t('getvsion.alarm-creation.description.NOSESSION'),
+        },
+        {
+          id: 'ATYPICAL_ACTIVITY',
+          description: this.$t('getvsion.alarm-creation.description.ATYPICAL_ACTIVITY'),
         },
       ];
     }
