@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1460+20230710133203
+2023-07-10
+
+### Fixes
+
+- [3993] corriger le changement de champs de libre par import de fichier (864559c4f333bd36af442b72686bd0d012171323)
+
 ## 1.17.0-master.1459+20230707092239
 2023-07-07
 
