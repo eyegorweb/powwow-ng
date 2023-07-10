@@ -236,7 +236,8 @@ export default {
       if (!contextValues.tempDataUuid) {
         response = await uploadSearchFile(
           this.fileImportAsInputContext.selectedFile,
-          this.fileImportAsInputContext.selectedIdType
+          this.fileImportAsInputContext.selectedIdType,
+          this.partner.id
         );
         if (!response.errors || !response.errors.length) {
           response = await updateCustomAndSpecificFieldsByFile(
