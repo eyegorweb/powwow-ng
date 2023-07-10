@@ -979,7 +979,7 @@
       "search": "Rechercher par n° du compte de facturation",
       "total": "{total} compte(s) de facturation trouvé(s)",
       "created": "Date de création",
-      "status": "Status",
+      "status": "Statut",
       "filters": {
         "siren": "Siren",
         "siret": "Siret"
