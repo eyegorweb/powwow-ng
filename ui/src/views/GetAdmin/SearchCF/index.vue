@@ -41,6 +41,7 @@ import TextFilter from '@/components/Filters/TextFilter.vue';
 import { fetchAllCustomerAccounts } from '@/api/customerAccounts';
 import get from 'lodash.get';
 import CodeCell from './CodeCell.vue';
+import BillAccountStatusCell from '@/views/GetAdmin/PartnerDetail/BillAccounts/BillAccountStatusCell.vue';
 
 export default {
   components: {
@@ -95,22 +96,25 @@ export default {
         {
           id: 5,
           name: 'status',
-          label: this.$t('common.lastName'),
+          label: this.$t('getadmin.cf.status'),
           orderable: true,
           visible: true,
           noHandle: true,
+          format: {
+            component: BillAccountStatusCell,
+          },
         },
         {
           id: 6,
           name: 'auditable',
-          label: this.$t('common.lastName'),
+          label: this.$t('getadmin.cf.created'),
           orderable: true,
           visible: true,
           noHandle: true,
           format: {
             type: 'Getter',
             getter: (row) => {
-              return get(row, 'created');
+              return get(row, 'auditable.created');
             },
           },
         },
