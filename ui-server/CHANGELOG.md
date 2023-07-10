@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1461+20230710163606
+2023-07-10
+
+### Fixes
+
+- [3996] corriger les problèmes dans la table des CF (4e6e31aa9d87e819307cac19149cd4e7960c73d3)
+
 ## 1.17.0-master.1460+20230710133203
 2023-07-10
 
