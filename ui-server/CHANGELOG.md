@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1462+20230712104949
+2023-07-12
+
+### Fixes
+
+- [3999] Masquer la suspension automatique dans toute les alarmes autres que surconso (ecae8a95143f1b63aef35393aba5c9f355577945)
+
 ## 1.17.0-master.1461+20230710163606
 2023-07-10
 
