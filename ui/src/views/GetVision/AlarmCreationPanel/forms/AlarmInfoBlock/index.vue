@@ -24,7 +24,7 @@
 
     <div class="row">
       <div v-if="filteredAlarmType" class="col to-bottom">
-        <div class="d-flex" v-if="suspensionAuto">
+        <div class="d-flex" v-if="isSuspensionAutoEnabled">
           <div class="d-flex flex-grow-1 mt-1">
             <UiCheckbox v-model="enableSuspension" :checked="false" />
             <span>{{ $t('getvsion.alarm.sus_auto') }}</span>
@@ -208,6 +208,9 @@ export default {
       }
 
       return notifCondition && this.alarmName && this.canSave;
+    },
+    isSuspensionAutoEnabled() {
+      return this.suspensionAuto && this.alarm.id === 'OVER_CONSUMPTION_VOLUME';
     },
   },
   watch: {
