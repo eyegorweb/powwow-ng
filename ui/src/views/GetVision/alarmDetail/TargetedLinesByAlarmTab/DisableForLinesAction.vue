@@ -1,5 +1,9 @@
 <template>
-  <ChangeAlarmStatusContainer :api-config="getApiCallConfig()" @success="$emit('success')">
+  <ChangeAlarmStatusContainer
+    :api-config="getApiCallConfig()"
+    @success="$emit('success')"
+    v-if="canActivate"
+  >
     <template #form="{ firstAttemptAction }">
       <div>
         <button
@@ -34,7 +38,7 @@
 import ChangeAlarmStatusContainer from '@/views/GetVision/alarmDetail/ChangeAlarmStatusContainer.vue';
 import { formattedCurrentDate } from '@/utils/date';
 import { deleteAlarmInstance2 } from '@/api/alarms.js';
-import { mapMutations } from 'vuex';
+import { mapMutations, mapGetters } from 'vuex';
 
 export default {
   components: {
@@ -52,6 +56,12 @@ export default {
     return {
       isLoading: false,
     };
+  },
+  computed: {
+    ...mapGetters(['havePermission']),
+    canActivate() {
+      return this.havePermission('alarm', 'activate');
+    },
   },
 
   methods: {
@@ -110,4 +120,5 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+</style>
