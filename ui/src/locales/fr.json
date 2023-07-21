@@ -488,7 +488,7 @@
     "monitoring": "Supervision",
     "rolesManagement": "Configuration des rôles",
     "getSupport": {
-      "homepage": "Accueil / Déclaration d''un incident",
+      "homepage": "Accueil / Déclaration d'un incident",
       "all_incidents": "Incidents en cours",
       "search_incidents": "Recherche incidents"
     },
