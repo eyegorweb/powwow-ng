@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1463+20230721151226
+2023-07-21
+
+### Fixes
+
+- [4009] corriger libele home page (d144ee4732f538f6b55f927c77e34d207db0c32d)
+- [4012] controler affichage du button en fonction de la permission (1bb1ff85880c0fcbc2375fff5d8405a0f59610e9)
+
 ## 1.17.0-master.1462+20230712104949
 2023-07-12
 
