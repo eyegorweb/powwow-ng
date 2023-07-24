@@ -90,7 +90,7 @@ export default {
       const filters = [
         {
           id: 'filters.lines.associatedOffer',
-          values: [{ id: this.selectedOffer.meta.initialOffer.id }],
+          values: [{ id: this.selectedOffer.meta.initialOffer.code }],
         },
       ];
 
@@ -109,4 +109,5 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+</style>
