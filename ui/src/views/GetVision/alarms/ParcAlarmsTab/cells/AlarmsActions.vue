@@ -27,9 +27,9 @@ export default {
       if (this.alarm.type !== 'OVER_CONSUMPTION_VOLUME_FLOTTE') {
         additionalActions.push('getsim.actions.DETAIL');
       }
-      if (this.alarm.disabled) {
+      if (this.alarm.disabled && this.alarm.party.atypicalAlarm) {
         additionalActions.push('actions.ENABLE');
-      } else {
+      } else if (!this.alarm.disabled) {
         additionalActions.push('actions.DISABLE');
       }
       // if (!this.alarm.numberOfTargetedLines) {
@@ -112,4 +112,5 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+</style>
