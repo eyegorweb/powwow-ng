@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1464+20230801151528
+2023-08-01
+
+### Fixes
+
+- [4030] desactiver le boutton activer (99b9a33e5507f441a3114ea4d3a913353416d52e)
+
 ## 1.17.0-master.1463+20230721151226
 2023-07-21
 
