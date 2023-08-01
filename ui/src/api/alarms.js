@@ -244,6 +244,7 @@ export async function searchAlarms(orderBy, pagination, filters = []) {
         party {
           id
           name
+          atypicalAlarm
           mailingLists {
             id
             name
