@@ -97,7 +97,7 @@ export default {
         },
       ];
     } else if (
-      this.userIsPartner &&
+      (this.userIsPartner || this.userIsGroupAccount) &&
       typeof this.options.atypicalAlarm === 'boolean' &&
       this.options.atypicalAlarm
     ) {
@@ -149,7 +149,13 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['userIsAdmin', 'userIsBO', 'userIsM2MLight', 'userIsPartner']),
+    ...mapGetters([
+      'userIsAdmin',
+      'userIsBO',
+      'userIsM2MLight',
+      'userIsPartner',
+      'userIsGroupAccount',
+    ]),
     // hasOptionForInactivityAlarm() {
     //   if (this.userIsPartner) {
     //     return this.
