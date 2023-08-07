@@ -23,7 +23,7 @@
           :input-style="inputStyle"
           input-type="number"
           v-model="dataNoSession"
-          positive-number
+          min-value="30"
         />
       </div>
       <div class="item">
@@ -33,7 +33,7 @@
           :input-style="inputStyle"
           input-type="number"
           v-model="dataInactiveSession"
-          positive-number
+          min-value="30"
         />
       </div>
     </div>
