@@ -149,7 +149,13 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['userIsAdmin', 'userIsBO', 'userIsM2MLight', 'userIsPartner']),
+    ...mapGetters([
+      'userIsAdmin',
+      'userIsBO',
+      'userIsM2MLight',
+      'userIsPartner',
+      'userIsGroupAccount',
+    ]),
     // hasOptionForInactivityAlarm() {
     //   if (this.userIsPartner) {
     //     return this.
