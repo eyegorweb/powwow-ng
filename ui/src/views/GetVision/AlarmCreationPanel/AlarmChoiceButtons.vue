@@ -84,7 +84,7 @@ export default {
       return true;
     });
 
-    if (this.userIsAdmin || this.userIsBO) {
+    if (this.userInfos.type === 'OPERATOR') {
       this.alarms = [
         ...this.alarms,
         {
@@ -97,7 +97,7 @@ export default {
         },
       ];
     } else if (
-      (this.userIsPartner || this.userIsGroupAccount) &&
+      (this.userInfos.type === 'PARTNER' || this.userInfos.type === 'PARTNER_GROUP') &&
       typeof this.options.atypicalAlarm === 'boolean' &&
       this.options.atypicalAlarm
     ) {
@@ -149,19 +149,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters([
-      'userIsAdmin',
-      'userIsBO',
-      'userIsM2MLight',
-      'userIsPartner',
-      'userIsGroupAccount',
-    ]),
-    // hasOptionForInactivityAlarm() {
-    //   if (this.userIsPartner) {
-    //     return this.
-    //   }
-    //   return true;
-    // },
+    ...mapGetters(['userInfos', 'userIsM2MLight']),
   },
 };
 </script>
