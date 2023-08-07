@@ -2,6 +2,20 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1465+20230807143831
+2023-08-07
+
+### Features
+
+- [3943] ajout d'une durée minimale exigée pour la session data de l'alarme atypique (c48dfe6af2db4a9d18764c54074256aabfd9d821)
+
+### Fixes
+
+- [3930] mise à jour de la visibilité du bouton d'larme Activité atypique (674f2a1693a7a500e12ab2e37cb747edcde3f076)
+- [3930] mise à jour de la visibilité du bouton d'larme Activité atypique (914745a9b15923f5deed027d6c13f3ec2afc31b8)
+- [3930] mise à jour de la visibilité du bouton d'larme Activité atypique (48857b8c6cbfbfbba7f2cf1bd363dc9d17f92a9a)
+- [3930] mise à jour de la visibilité du bouton d'larme Activité atypique (6c5ff44fa3cab3857cb5163211baa1a173fd2cfc)
+
 ## 1.17.0-master.1464+20230801151528
 2023-08-01
 
