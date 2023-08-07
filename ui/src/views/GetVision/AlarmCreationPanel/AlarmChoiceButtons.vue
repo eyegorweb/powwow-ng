@@ -97,7 +97,7 @@ export default {
         },
       ];
     } else if (
-      this.userIsPartner &&
+      (this.userIsPartner || this.userIsGroupAccount) &&
       typeof this.options.atypicalAlarm === 'boolean' &&
       this.options.atypicalAlarm
     ) {
