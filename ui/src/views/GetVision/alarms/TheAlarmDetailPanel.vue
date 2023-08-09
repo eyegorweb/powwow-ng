@@ -125,7 +125,6 @@ import UiButton from '@/components/ui/Button';
 import { fetchTriggerHistory } from '@/api/alarms';
 import { mapGetters, mapState, mapMutations } from 'vuex';
 import { getCurrentMonthName, getMonthString } from '@/utils/date';
-import get from 'lodash.get';
 
 export default {
   components: {
@@ -149,9 +148,9 @@ export default {
           index: 0,
         },
         {
-          code: 'VALIDATED',
-          label: this.$t('getparc.actLines.simStatuses.ACTIVATED'),
-          date: this.content.StartDate,
+          code: this.statusCode,
+          label: this.$t('getvsion.alarm.statuses.' + this.status),
+          date: this.statusDate,
           index: 1,
         },
       ],
@@ -254,24 +253,55 @@ export default {
     },
 
     partner() {
-      return get(this.content, 'party.name', '-');
+      return this.$loGet(this.content, 'party.name', '-');
     },
 
     alarmType() {
-      return get(this.content, 'type', '-');
+      return this.$loGet(this.content, 'type', '-');
     },
 
     observationCycle() {
-      const observationCycle = get(this.content, 'observationCycle', null);
-      return observationCycle !== null ? observationCycle : null;
+      return this.$loGet(this.content, 'observationCycle', null);
     },
     observationDelay() {
-      const observationDelay = get(this.content, 'observationDelay', null);
-      return observationDelay !== null ? observationDelay : null;
+      return this.$loGet(this.content, 'observationDelay', null);
     },
 
     isPoolAlarm() {
       return ['OVER_CONSUMPTION_VOLUME_FLOTTE'].includes(this.alarmType);
+    },
+
+    status() {
+      if (this.$loGet(this.content, 'disabled')) {
+        return 'disabled';
+      } else {
+        if (!this.$loGet(this.content, 'startDate')) {
+          return 'created';
+        } else {
+          return 'activated';
+        }
+      }
+    },
+    statusDate() {
+      if (this.$loGet(this.content, 'disabled')) {
+        if (this.$loGet(this.content, 'auditable.updated'))
+          return this.$loGet(this.content, 'auditable.updated');
+
+        return this.$loGet(this.content, 'auditable.created');
+      } else {
+        if (!this.$loGet(this.content, 'startDate')) {
+          return this.$loGet(this.content, 'auditable.created');
+        } else {
+          return this.$loGet(this.content, 'startDate');
+        }
+      }
+    },
+    statusCode() {
+      if (this.$loGet(this.content, 'disabled')) {
+        return 'NOT_VALIDATED';
+      } else {
+        return 'VALIDATED';
+      }
     },
   },
 

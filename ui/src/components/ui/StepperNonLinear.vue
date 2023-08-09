@@ -2,7 +2,7 @@
   <div class="stepper">
     <StepperNonLinearStep
       v-for="(step, i) in stepperData.data"
-      :key="step.label"
+      :key="'step.label_' + i"
       :label="step.label"
       :date="step.date"
       :current-index="currentIndex"

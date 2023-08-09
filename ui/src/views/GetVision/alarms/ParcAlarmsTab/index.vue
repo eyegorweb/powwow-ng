@@ -2,7 +2,7 @@
   <div class="mt-4">
     <TableWithFilter
       :key="version"
-      :storage-version="'014' + (m2m ? 'm2m' : '')"
+      :storage-version="'015' + (m2m ? 'm2m' : '')"
       :storage-id="'getVision.alarms' + (m2m ? 'm2m' : '')"
       v-if="columns && filters"
       show-reset
@@ -183,7 +183,7 @@ export default {
         {
           id: 9,
           label: this.$t('getvsion.table.alarmStatus'),
-          name: 'name',
+          name: 'triggerCommercialStatus',
           orderable: true,
           visible: true,
           format: {
