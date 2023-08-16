@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1466+20230816134214
+2023-08-16
+
+### Fixes
+
+- [4034] correction des statuts des alarmes dans l'historique d'affichage (a9e81f45ecfc8f9415f2d8160806f948b791d3b4)
+- [4034] correction des statuts des alarmes dans l'historique d'affichage (da052b9b6390a647de8ea857f65022fd211b0716)
+
 ## 1.17.0-master.1465+20230807143831
 2023-08-07
 
