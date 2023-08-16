@@ -71,7 +71,6 @@ export default {
       if (!contextValues.tempDataUuid) {
         if (this.file) {
           response = await uploadSearchFile(this.file, 'ICCID');
-          // commentaire test
           if (!response.errors || !response.errors.length) {
             response = await this.doSendPairingRequest({
               tempDataUuid: response.tempDataUuid,
