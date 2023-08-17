@@ -509,6 +509,7 @@
     "mandatory": "* Champ obligatoire",
     "boundsError": "La valeur doit être comprise entre {min} et {max}",
     "minValueError": "La valeur doit être supérieure à {min}",
+    "minDurationValueError": "La durée ne peut pas être inférieure à {min} min",
     "password": {
       "length-error": "Le mot de passe doit faire plus de 8 caractères",
       "confirm-error": "Les mots de passe ne correspondent pas",

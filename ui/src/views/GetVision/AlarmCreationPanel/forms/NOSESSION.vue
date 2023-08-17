@@ -23,7 +23,7 @@
           :input-style="inputStyle"
           input-type="number"
           v-model="dataNoSession"
-          min-value="30"
+          :error="dataNoSessionMsgError"
         />
       </div>
       <div class="item">
@@ -33,7 +33,7 @@
           :input-style="inputStyle"
           input-type="number"
           v-model="dataInactiveSession"
-          min-value="30"
+          :error="dataInactiveSessionMsgError"
         />
       </div>
     </div>
@@ -79,11 +79,26 @@ export default {
         height: '2.2rem',
       },
       num: 3,
+      minValue: 30,
     };
   },
   computed: {
     editMode() {
       return this.duplicateFrom && this.duplicateFrom.toModify;
+    },
+    dataInactiveSessionMsgError() {
+      if (this.dataInactiveSession && this.dataInactiveSession < this.minValue) {
+        return `${this.$t('errors.minDurationValueError', { min: this.minValue })}`;
+      } else {
+        return undefined;
+      }
+    },
+    dataNoSessionMsgError() {
+      if (this.dataNoSession && this.dataNoSession < this.minValue) {
+        return `${this.$t('errors.minDurationValueError', { min: this.minValue })}`;
+      } else {
+        return undefined;
+      }
     },
   },
   methods: {
@@ -92,7 +107,7 @@ export default {
     isFormValid() {
       let isFormValid = !!parseInt(this.dataNoSession) || !!parseInt(this.dataInactiveSession);
 
-      return isFormValid;
+      return isFormValid && !this.dataNoSessionMsgError && !this.dataInactiveSessionMsgError;
     },
 
     async onSave(payload) {

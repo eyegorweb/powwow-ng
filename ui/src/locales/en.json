@@ -450,6 +450,7 @@
     "mandatory": "* Mandatory field",
     "boundsError": "The value must be between  {min} and {max}",
     "minValueError": "Value must be greater than {min}",
+    "minDurationValueError": "The duration cannot be less than {min} min",
     "password": {
       "length-error": "Password must be more than 8 characters",
       "confirm-error": "Passwords do not match",

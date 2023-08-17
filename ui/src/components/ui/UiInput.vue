@@ -247,7 +247,6 @@ label {
     -webkit-appearance: none;
     margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
   }
-
   -moz-appearance: textfield; /* Firefox */
 }
 
