@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1468+20230817090258
+2023-08-17
+
+### Fixes
+
+- [3943] gestion des erreurs de formulaire pour la création d'alarme atypique (0e8f11bd7e9ee8215ec897fad79714cc3deb8fb8)
+
 ## 1.17.0-master.1467+20230817075528
 2023-08-17
 
