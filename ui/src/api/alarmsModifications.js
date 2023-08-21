@@ -11,6 +11,7 @@ export async function updateCountryChangeAlarm(params) {
   mutation {
     updateCountryChangeAlarm(alarmUpdateInput:{${gqlParams.join(',')}}) {
       id
+      disabled
     }
   }
   `;
@@ -31,6 +32,7 @@ export async function updateDeviceChangeAlarm(params) {
   mutation {
     updateDeviceChangeAlarm(alarmUpdateInput:{${gqlParams.join(',')}}) {
       id
+      disabled
     }
   }
   `;
@@ -53,6 +55,7 @@ export async function updateStatusChangeAlarm(params) {
   mutation {
     updateStatusChangeAlarm(alarmUpdateInput:{${gqlParams.join(',')}}) {
       id
+      disabled
     }
   }
   `;
@@ -75,6 +78,7 @@ export async function updateStatusChangeProfileAlarm(params) {
   mutation {
     updateStatusChangeProfileAlarm(alarmUpdateInput:{${gqlParams.join(',')}}) {
       id
+      disabled
     }
   }
   `;
@@ -97,6 +101,7 @@ export async function updateISPList(params) {
   mutation {
     updatePLMNChangeAlarm(alarmUpdateInput:{${gqlParams.join(',')}}) {
       id
+      disabled
     }
   }
   `;
@@ -139,6 +144,7 @@ async function consoQuery(queryName, params) {
   mutation {
     ${queryName}(alarmUpdateInput:{${gqlParams.join(',')}}) {
       id
+      disabled
     }
   }
   `;
@@ -154,6 +160,7 @@ export async function updateSharedConsumptionAlarm(params) {
   mutation {
     updateSharedConsumptionAlarm(updateSharedAlarmFilterInput:{${gqlParams.join(',')}}) {
       id
+      disabled
     }
   }
   `;
@@ -172,6 +179,7 @@ export async function updateInactivityAlarm(params) {
   const queryStr = `mutation {
     updateInactivityAlarm(alarmUpdateInput:{${gqlParams.join(',')}}) {
       id
+      disabled
     }
   }
   `;
@@ -316,7 +324,7 @@ function getGqlParams(params) {
 
   gqlParams.push(`alarmId:${params.id}`);
   gqlParams.push(`alarmName:"${params.alarmName}"`);
-  // gqlParams.push(`activateAlarm:${params.enableAlarm}`);
+  gqlParams.push(`activateAlarm:${params.enableAlarm}`);
   gqlParams.push(`emailNotification:${params.sholdNotify}`);
   gqlParams.push(`webServiceNotification:${params.webserviceNotification}`);
   gqlParams.push(`suspensionAuto: ${params.enableSuspension}`);

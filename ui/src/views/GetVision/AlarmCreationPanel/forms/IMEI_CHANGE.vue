@@ -38,7 +38,6 @@ export default {
       const params = {
         ...payload,
         scope: this.scopeChoice,
-        formData: this.selectedOptions,
       };
 
       let response;

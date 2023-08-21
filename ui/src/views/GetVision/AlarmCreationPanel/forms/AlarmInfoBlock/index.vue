@@ -50,7 +50,7 @@
       </div>
       <div class="col">
         <div class="d-flex mb-3 mt-1">
-          <UiCheckbox v-model="enableAlarm" :checked="true" />
+          <UiCheckbox v-model="enableAlarm" />
           <span>{{ $t('getvsion.alarm.enableAlarm') }}</span>
         </div>
         <template v-if="editMode">
