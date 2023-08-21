@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1469+20230821124037
+2023-08-21
+
+### Fixes
+
+- [3929] corriger recherche simCard dans creationAlarme (08c1c867e9d349e28584db41bf4ee416da4212ff)
+
 ## 1.17.0-master.1468+20230817090258
 2023-08-17
 
