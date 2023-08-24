@@ -607,11 +607,6 @@ export default excludeMocked([
         meta: { label: 'eSim', value: 'ESIM' },
       },
       {
-        id: 'indicators.getparc.lines.esim.type',
-        value: 'STEP2',
-        meta: { label: 'STEP2', value: 'STEP2' },
-      },
-      {
         id: 'indicators.getparc.lines.esim.pairedLine',
         value: 'Oui',
         meta: { label: 'Oui', value: 'YES' },
