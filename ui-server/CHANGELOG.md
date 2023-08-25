@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1470+20230822141429
+2023-08-25
+
+### Fixes
+
+- [4035] gestion de l'état d'activation de l'alarme dans le formulaire de modification (a069e542f06b536fbe755340b611bd04a11196ae)
+- [4041] gestion des alarmes système dans le volet du détail de la ligne (c1a8c7c58475e45492f4f64a6ea54c5b6cc4ef81)
+
 ## 1.17.0-master.1469+20230821124037
 2023-08-21
 
