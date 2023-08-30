@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1471+20230830124903
+2023-08-30
+
+### Fixes
+
+- [4041] gestion des alarmes système dans le volet du détail de la ligne (56600e03d6413a40734dd5bbebe584de8a71ff9b)
+
 ## 1.17.0-master.1470+20230822141429
 2023-08-25
 
