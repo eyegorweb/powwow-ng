@@ -15,10 +15,12 @@
       <div class="overview-item mr-5">
         <h6>{{ $t('getparc.actLines.col.triggeredAlarms') }} :</h6>
         <p v-for="(elem, idx) in triggeredAlarms" :key="'triggered_alarm_' + idx">
-          <span>
-            {{ `${$t('getparc.lineDetail.alarms.ALARM_TYPE.' + elem.alarm.type)}` }}
-          </span>
-          <span v-if="elem.triggeringDate"> - {{ elem.triggeringDate }}</span>
+          <template v-if="elem.isTriggered">
+            <span>
+              {{ `${$t('getparc.lineDetail.alarms.ALARM_TYPE.' + elem.alarm.type)}` }}
+            </span>
+            <span v-if="elem.triggeringDate"> - {{ elem.triggeringDate }}</span>
+          </template>
         </p>
         <p v-if="errorMessage" class="text-danger" role="alert">
           {{ errorMessage }}
